@@ -1,0 +1,5 @@
+Bool.or (a: Bool) (b: Bool) : Bool
+Bool.or Bool.true  Bool.true  = Bool.true
+Bool.or Bool.true  Bool.false = Bool.true
+Bool.or Bool.false Bool.true  = Bool.true
+Bool.or Bool.false Bool.false = Bool.false
