@@ -1,0 +1,3 @@
+List.map <a> <b> (x: (List a)) (f: (x: a) b) : (List b)
+List.map a b (List.nil t)       f = List.nil
+List.map a b (List.cons t x xs) f = (List.cons (f x) (List.map xs f))

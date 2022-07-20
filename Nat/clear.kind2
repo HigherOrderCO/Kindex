@@ -1,0 +1,3 @@
+Nat.clear (n: Nat) : Nat
+Nat.clear Nat.zero     = Nat.zero
+Nat.clear (Nat.succ n) = (Nat.clear n)

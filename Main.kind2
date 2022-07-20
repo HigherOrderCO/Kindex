@@ -1,0 +1,19 @@
+Main : Nat {
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
+      Nat.zero
+    ))))
+    ))))
+    ))))
+    ))))
+    ))))
+    ))))
+    ))))
+    ))))
+}

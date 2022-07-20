@@ -1,0 +1,2 @@
+List.tail <a> (xs: (List a)) : (List a)
+List.tail a (List.cons t x xs) = xs

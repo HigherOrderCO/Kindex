@@ -1,0 +1,3 @@
+List.flatten <a> (xs: (List (List a))) : (List a)
+List.flatten a (List.cons u x xs) = (List.concat x (List.flatten xs))
+List.flatten a (List.nil u)       = List.nil

@@ -1,0 +1,1 @@
+Equal <t> (a: t) (b: t) : Type

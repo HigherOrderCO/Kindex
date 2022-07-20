@@ -1,0 +1,3 @@
+Variadic (r: Type) (n: Nat) : Type
+Variadic r Nat.zero     = r
+Variadic r (Nat.succ n) = r -> (Variadic r n)

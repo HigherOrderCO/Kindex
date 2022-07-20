@@ -1,0 +1,2 @@
+List.pure <t: Type> (x: t) : (List t)
+List.pure t x = (List.cons t x (List.nil t))

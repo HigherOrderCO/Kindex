@@ -1,0 +1,1 @@
+List.cons <a> (x: a) (xs: (List a)) : (List a)

@@ -1,0 +1,2 @@
+Equal.apply <t> <u> <a: t> <b: t> (f: t -> t) (e: (Equal t a b)) : (Equal t (f a) (f b))
+Equal.apply t u a b f (Equal.refl v k) = (Equal.refl v (f k))

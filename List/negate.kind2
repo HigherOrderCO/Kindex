@@ -1,0 +1,3 @@
+List.negate (xs: (List Bool)) : (List Bool)
+List.negate (List.cons Bool x xs) = (List.cons Bool (Bool.not x) (List.negate xs))
+List.negate (List.nil Bool)       = (List.nil Bool)

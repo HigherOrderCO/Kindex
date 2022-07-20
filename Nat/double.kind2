@@ -1,0 +1,3 @@
+Nat.double (x: Nat) : Nat
+Nat.double (Nat.succ x) = (Nat.succ (Nat.succ (Nat.double x)))
+Nat.double (Nat.zero)   = (Nat.zero)
