@@ -1,0 +1,12 @@
+// Proof that x*0 = 0 (which is = 0x by definition)
+// It is a special case of the commutative property
+Nat.mul.comm.zero (x: Nat): (Equal (Nat.mul x Nat.zero) Nat.zero)
+Nat.mul.comm.zero Nat.zero = Equal.refl
+Nat.mul.comm.zero (Nat.succ x) =
+	// Our goal: (x + 1) * 0 = 0
+	// Kind2 reduces this down to x*0 + 0 = 0
+	// Induction tells us that x * 0 = 0
+	let inductive = (Nat.mul.comm.zero x)
+	// We add Nat.zero and both sides and we get the goal
+	let inductive = (Equal.apply @y(Nat.add y Nat.zero) inductive)
+	inductive
