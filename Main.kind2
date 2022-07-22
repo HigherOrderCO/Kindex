@@ -1,19 +1,9 @@
-Main : Nat {
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-    (Nat.succ (Nat.succ (Nat.succ (Nat.succ
-      Nat.zero
-    ))))
-    ))))
-    ))))
-    ))))
-    ))))
-    ))))
-    ))))
-    ))))
+Main : Bool {
+  (Bool.not Bool.true Foo.Bar)
 }
+
+// kind2 check Main.kind2
+
+
+//Foo.Bar
+//Foo/Bar.kind
