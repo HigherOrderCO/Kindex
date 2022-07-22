@@ -1,0 +1,35 @@
+// Proof that a(b + 1) = a + ab
+// A special case of the distributive property
+// Also a subcase of commutative property because (a + 1)b = ab + b is already proven by the definition of multiplication
+Nat.mul.distr.succ (a: Nat) (b: Nat): (Equal (Nat.mul a (Nat.succ b)) (Nat.add a (Nat.mul a b)))
+Nat.mul.distr.succ Nat.zero b = Equal.refl
+Nat.mul.distr.succ (Nat.succ a) b = 
+	// Goal: a(b + 1) + (b + 1) == (a + (ab + b)) + 1
+	// Induction gives: a(b + 1) = a + (ab)
+	let induction = (Nat.mul.distr.succ a b)
+	// We can add b + 1 on both sides
+	// a(b + 1) + (b + 1) = (a + (ab)) + (b + 1)
+	let induction = (Equal.apply @x(Nat.add x (Nat.succ b)) induction)
+	
+	// We will prove that (b + (a + ab)) + 1 = (a + (ab + b)) + 1
+	
+	// (b + (a + ab)) = ((a + ab) +b)
+	let comm_1 = (Nat.add.comm b (Nat.add a (Nat.mul a b)))
+	// ((a + ab) + b) = (a + (ab + b))
+	let assoc_2 = (Equal.mirror (Nat.add.assoc a (Nat.mul a b) b))
+	// Therefore, (b + (a + ab)) = (a + (ab + b))
+	let chained_1 = (Equal.chain comm_1 assoc_2)
+	// (b + (a + ab)) + 1 = (a + (ab + b)) + 1
+	let chained_1 = (Equal.apply @x(Nat.succ x) chained_1)
+	
+	
+	// Now we will prove (a + (ab + b)) + 1 = (a + ab) + (b + 1)
+	// (a + ab) + (b + 1) = (b + 1) + (a + ab) = (b + (a + ab)) + 1 
+	// (because of the definition of Nat.add, Nat.succ reassociates automatically)
+	let comm_2 = (Nat.add.comm (Nat.add a (Nat.mul a b)) (Nat.succ b))
+	
+	// induction is  a(b + 1) + (b + 1) = (a + ab) + (b + 1)
+	// comm_2 is     (a + ab) + (b + 1) = (b + (a + ab)) + 1 
+	// chained_1 is  (b + (a + ab)) + 1 = (a + (ab + b)) + 1
+	// From this we can get a(b + 1) + (b + 1) = (a + (ab + b)) + 1, which is our goal
+	(Equal.chain induction (Equal.chain comm_2 chained_1))
