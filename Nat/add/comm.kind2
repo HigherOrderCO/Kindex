@@ -4,3 +4,11 @@ Nat.add.comm (Nat.succ a) b =
   let e0 = (Equal.apply @x(Nat.succ x) (Nat.add.comm a b))
   let e1 = (Equal.mirror (Nat.add.comm.b b a))
   (Equal.chain e0 e1)
+
+Nat.add.comm.a (a: Nat) : (Equal Nat a (Nat.add a Nat.zero))
+Nat.add.comm.a Nat.zero     = Equal.refl
+Nat.add.comm.a (Nat.succ a) = (Equal.apply @x(Nat.succ x) (Nat.add.comm.a a))
+
+Nat.add.comm.b (a: Nat) (b: Nat): (Equal Nat (Nat.add a (Nat.succ b)) (Nat.succ (Nat.add a b)))
+Nat.add.comm.b Nat.zero     b = Equal.refl
+Nat.add.comm.b (Nat.succ a) b = (Equal.apply @x(Nat.succ x) (Nat.add.comm.b a b))
