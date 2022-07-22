@@ -1,9 +1,3 @@
 Main : Bool {
-  (Bool.not Bool.true Foo.Bar)
+  (Bool.not Bool.true)
 }
-
-// kind2 check Main.kind2
-
-
-//Foo.Bar
-//Foo/Bar.kind
