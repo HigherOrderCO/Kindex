@@ -1,0 +1,7 @@
+//Given a condition, if any, returns the first value for that given condition
+//example: (List.find Nat [1,2,3] (Nat.eql 4)) -> Maybe.none
+//example: (List.find Nat [1,2,3] (Nat.eql 1)) -> (Maybe.some 1)
+List.find <a> (xs: (List a)) (cond: (x: a) Bool) : (Maybe a)
+List.find a (List.cons t head tail) cond = 
+  (Bool.if (cond head) (Maybe.some head) (List.find tail cond))
+List.find a (List.nil t)            cond = Maybe.none

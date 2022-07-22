@@ -1,0 +1,12 @@
+//Given a condition, if any, returns the index for the first value found within
+//that condition
+//example: (List.find_index Nat [1,2,3] (Nat.eql 3)) -> (Maybe.some 2)
+List.find_index <a> (xs: (List a)) (cond: (x: a) Bool) : (Maybe Nat)
+List.find_index a xs cond = (List.find_index.go xs cond Nat.zero)
+
+
+//Auxiliary function for find_index
+List.find_index.go <a> (xs: (List a)) (cond: (x: a) Bool) (idx: Nat) : (Maybe Nat)
+List.find_index.go a (List.cons t head tail) cond idx = 
+  (Bool.if (cond head) (Maybe.some idx) (List.find_index.go  tail cond (Nat.succ idx)))
+List.find_index.go a (List.nil t)            cond idx = Maybe.none

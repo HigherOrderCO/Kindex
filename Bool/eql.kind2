@@ -1,0 +1,6 @@
+//Given two different Boolean values, verifies if they are equal
+//example: (Bool.eql Bool.false Bool.true) -> Bool.false
+Bool.eql (a: Bool) (b: Bool) : Bool
+Bool.eql Bool.true  Bool.true  = Bool.true
+Bool.eql Bool.false Bool.false = Bool.true
+Bool.eql a          b          = Bool.false

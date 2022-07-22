@@ -1,0 +1,2 @@
+//Constructor Tie for Kind2
+BitsMap.tie <a> (val: (Maybe a)) (lft: (BitsMap a)) (rgt: (BitsMap a)) : (BitsMap a)

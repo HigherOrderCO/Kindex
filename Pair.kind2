@@ -1,0 +1,2 @@
+//Pair Type
+Pair (a: Type) (b: Type) : Type
