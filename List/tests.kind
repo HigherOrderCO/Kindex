@@ -1,9 +1,0 @@
-
-Main : (List Nat) { 
-  let zero = Nat.zero
-  let one = (Nat.succ Nat.zero)
-  let five = (Nat.succ (Nat.succ (Nat.succ ( Nat.succ one))))
-  let list = (List.range five)
-  let listn = []
-  (List.drop Nat list (Nat.succ one))
-}
