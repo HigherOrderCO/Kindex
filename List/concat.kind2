@@ -1,3 +1,5 @@
+//Concatenates two lists
+//example: (concat [1,2] [3,4]) = [1, 2, 3, 4]
 List.concat <a> (xs: (List a)) (ys: (List a)) : (List a)
-List.concat a (List.cons u x xs) ys = (List.cons u x (List.concat a xs ys))
-List.concat a (List.nil u)       ys = ys
+List.concat a (List.cons t head tail) ys = (List.cons t head (List.concat a tail ys))
+List.concat a (List.nil t)            ys = ys

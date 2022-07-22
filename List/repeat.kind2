@@ -1,0 +1,5 @@
+//Repeats n times a value creating a list
+//example: (List.repeat 3 Bool.true) -> [True, True, True]
+List.repeat <a> (times: Nat) (val: a) : (List a)
+List.repeat a (Nat.succ pred) val = (List.cons val (List.repeat a pred val))
+List.repeat a Nat.zero        val = List.nil

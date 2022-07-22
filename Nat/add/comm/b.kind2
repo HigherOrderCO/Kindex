@@ -1,0 +1,3 @@
+Nat.add.comm.b (a: Nat) (b: Nat): (Equal Nat (Nat.add a (Nat.succ b)) (Nat.succ (Nat.add a b)))
+Nat.add.comm.b Nat.zero     b = Equal.refl
+Nat.add.comm.b (Nat.succ a) b = (Equal.apply @x(Nat.succ x) (Nat.add.comm.b a b))

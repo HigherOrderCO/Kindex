@@ -1,0 +1,11 @@
+//Given an index, removes that value from the list, returning the value and the
+//list without it, if any
+//example: (List.pop.at [1,2,3] 1) -> (Pair (Maybe.some 2) ([1,3]))
+List.pop_at <a> (xs: (List a)) (idx: Nat) : (Pair (Maybe a) (List a))
+List.pop_at a xs idx = (List.pop_at.go a xs List.nil idx)
+
+//Auxiliar Function 
+List.pop_at.go <a> (xs: (List a)) (ys: (List a)) (idx: Nat) : (Pair (Maybe a) (List a))
+List.pop_at.go a (List.cons t head tail) ys (Nat.succ pred) = (List.pop_at.go a tail (List.cons t head ys) pred)
+List.pop_at.go a (List.cons t head tail) ys Nat.zero        = (Pair.new (Maybe.some head) (List.concat a ys tail))
+List.pop_at.go a (List.nil t)            ys idx             = (Pair.new Maybe.none ys)

@@ -1,1 +1,0 @@
-Nat.comm (a: Nat) (b: Nat) : (Equal Nat (Nat.add a b) (Nat.add b a))

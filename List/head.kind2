@@ -1,0 +1,5 @@
+//Gets the head of the list if there is some
+//example: (List.head Nat [1,2,3]) -> (Maybe.some 1)
+List.head <a> (xs: (List a)) : (Maybe a)
+List.head a (List.cons t head tail) = (Maybe.some head)
+List.head a (List.nil t)            = Maybe.none

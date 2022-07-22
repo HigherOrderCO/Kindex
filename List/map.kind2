@@ -1,3 +1,5 @@
+//Applies a function f to all elements of a list
+//example: (List.map [1,2,3,4] (Nat.add 1)) -> [2,3,4,5]
 List.map <a> <b> (x: (List a)) (f: (x: a) b) : (List b)
-List.map a b (List.nil t)       f = List.nil
-List.map a b (List.cons t x xs) f = (List.cons (f x) (List.map xs f))
+List.map a b (List.cons t head tail) f = (List.cons (f head) (List.map tail f))
+List.map a b (List.nil t)            f = List.nil

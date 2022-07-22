@@ -1,2 +1,4 @@
+//Makes a new list with a single element
+//example: (List.pure Nat 0) -> [0]
 List.pure <t: Type> (x: t) : (List t)
 List.pure t x = (List.cons t x (List.nil t))
