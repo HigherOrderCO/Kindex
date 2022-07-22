@@ -1,0 +1,2 @@
+//BitsMap Type
+BitsMap (a : Type) : Type

@@ -1,0 +1,10 @@
+//Reverts a List
+//example: (List.reverse [1,2,3]) -> [3,2,1]
+List.reverse <a> (xs: (List a)) : (List a)
+List.reverse a xs = (List.reverse.go a xs List.nil)
+
+//Auxiliar Function
+List.reverse.go <a> (xs: (List a)) (ys: (List a)) : (List a)
+List.reverse.go a (List.cons t head tail) ys = 
+  (List.reverse.go a tail (List.cons head ys))
+List.reverse.go a (List.nil t)            ys = ys

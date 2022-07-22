@@ -1,0 +1,2 @@
+//Constructor New for BitsMap
+BitsMap.new <a> : (BitsMap a)

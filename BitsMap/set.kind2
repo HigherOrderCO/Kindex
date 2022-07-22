@@ -1,0 +1,23 @@
+//Sets in a map 
+BitsMap.set <a> (bits: Bits) (value: a) (map: (BitsMap a)) : (BitsMap a)
+// Bits.e
+BitsMap.set a Bits.e value (BitsMap.new t) = 
+  (BitsMap.tie t (Maybe.some value) (BitsMap.new t) (BitsMap.new t))
+BitsMap.set a Bits.e value (BitsMap.tie t val lft rgt) = 
+  (BitsMap.tie t (Maybe.some value) lft rgt)
+
+// Bits.o
+BitsMap.set a (Bits.o pred) value (BitsMap.new t) = 
+  (BitsMap.tie t (Maybe.none t) (BitsMap.set a pred value (BitsMap.new t)) (BitsMap.new t))
+BitsMap.set a (Bits.o pred) value (BitsMap.tie t val lft rgt) = 
+  (BitsMap.tie t val (BitsMap.set a pred value lft) rgt)
+
+// Bits.i
+BitsMap.set a (Bits.i pred) value (BitsMap.new t) = 
+  (BitsMap.tie t (Maybe.none t) (BitsMap.new t) (BitsMap.set a pred value (BitsMap.new t)))
+BitsMap.set a (Bits.i pred) value (BitsMap.tie t val lft rgt) = 
+  (BitsMap.tie t val lft (BitsMap.set a pred value rgt))
+
+
+//Warning: This function wasnt tested, if you test it, remove this comment and
+//make the necessary changes and make us a PR, thanks!

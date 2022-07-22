@@ -1,3 +1,5 @@
+//Concatenates all elements from List of Lists into a List
+//example: (List.flatten [[Nat.zero], [Nat.zero]]) -> [Nat.zero, Nat.zero]
 List.flatten <a> (xs: (List (List a))) : (List a)
-List.flatten a (List.cons u x xs) = (List.concat x (List.flatten xs))
-List.flatten a (List.nil u)       = List.nil
+List.flatten a (List.cons t head tail) = (List.concat head (List.flatten tail))
+List.flatten a (List.nil t)            = List.nil
