@@ -29,3 +29,12 @@ Quantifier.unique_all_not.helper set proposition
 	let empty = (f proposition_a) :: Empty
 	(Empty.absurd empty)
 	
+Quantifier.unique_all_not
+	<set: Type> 
+	<proposition: set -> Type>
+	(forall: (Quantifier.Forall set @x((proposition x) -> Empty))): (Quantifier.Unique set proposition)
+	
+Quantifier.unique_all_not set proposition forall =
+	(Quantifier.Unique.proof set proposition
+		@a@b@pair(Quantifier.unique_all_not.helper set proposition forall a b pair)
+	)

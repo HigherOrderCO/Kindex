@@ -1,2 +1,2 @@
-//New constructor for Pair
-Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b)
+// Automatically derived from Pair/Pair.type
+Pair.new <a: Type> <b: Type> (fst: a) (snd: b) : (Pair a b)

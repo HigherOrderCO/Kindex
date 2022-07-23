@@ -1,2 +1,2 @@
-//Maybe Type
-Maybe (a: Type) : Type
+// Automatically derived from Maybe.type
+Maybe (t: Type) : Type

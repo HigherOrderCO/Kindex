@@ -1,0 +1,4 @@
+// Automatically derived from Maybe.type
+Maybe.match <t: Type> (x: (Maybe t)) <p: (x: (Maybe t)) Type> (none: (p (Maybe.none t))) (some: (x: t) (p (Maybe.some t x))) : (p x)
+Maybe.match t (Maybe.none t) p none some = (none)
+Maybe.match t (Maybe.some t x) p none some = (some x)

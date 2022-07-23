@@ -1,1 +1,2 @@
-Maybe.some <a> (value: a) : (Maybe a)
+// Automatically derived from Maybe.type
+Maybe.some <t: Type> (x: t) : (Maybe t)
