@@ -1,1 +1,2 @@
-Maybe.none <a> : (Maybe a)
+// Automatically derived from Maybe.type
+Maybe.none <t: Type> : (Maybe t)

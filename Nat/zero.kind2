@@ -1,1 +1,2 @@
-Nat.zero : Nat
+// Automatically derived from Nat/Nat.type
+Nat.zero : (Nat)

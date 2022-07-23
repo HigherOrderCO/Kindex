@@ -1,3 +1,0 @@
-Main : Bool {
-  (Bool.not Bool.true)
-}

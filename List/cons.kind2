@@ -1,2 +1,2 @@
-//Cons constructor 
-List.cons <a> (x: a) (xs: (List a)) : (List a)
+// Automatically derived from List/List.type
+List.cons <t: Type> (head: t) (tail: (List t)) : (List t)

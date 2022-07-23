@@ -1,2 +1,2 @@
-//Nil constructor
-List.nil <a> : (List a)
+// Automatically derived from List/List.type
+List.nil <t: Type> : (List t)

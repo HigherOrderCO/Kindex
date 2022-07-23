@@ -1,2 +1,2 @@
-//True constructor
-Bool.true : Bool
+// Automatically derived from Bool/Bool.type
+Bool.true : (Bool)

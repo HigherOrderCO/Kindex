@@ -1,1 +1,2 @@
-List (a: Type) : Type
+// Automatically derived from List/List.type
+List (t: Type) : Type
