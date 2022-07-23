@@ -1,6 +1,0 @@
-//Gets a value based on a given index, if any.
-//example: (List.get Nat [1,2,3] 3) -> Maybe.none
-List.get <a> (xs: (List a)) (idx: Nat) : (Maybe a)
-List.get a (List.cons t head tail) (Nat.succ pred) = (List.get a tail pred)
-List.get a (List.cons t head tail) Nat.zero        = (Maybe.some head)
-List.get a (List.nil t)            idx             = Maybe.none
