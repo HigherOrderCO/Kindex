@@ -1,0 +1,10 @@
+// There exists at most one value in `set` such that `(proposition set)` exists
+// a(x)a(y)((p(x) & p(y)) -> x == y))
+// Please notice that this doesn't prove that there exists at least one value that fulfills (proposition set); it's completely possible to prove Quantifier.unique if no values fulfill proposition
+
+Quantifier.Unique <set: Type> <proposition: set -> Type>: Type
+// This constructor means "I know that the invariants for Quantifier.Unique are fulfilled for set and proposition. Here's why:"
+// The proof required has to prove that any two A and B are equal if they both fulfill proposition.
+Quantifier.Unique.proof <set: Type> <proposition: set -> Type> 
+	(proof: (a: set)((b: set)(Pair (proposition a) (proposition b)) -> (Equal set a b)))
+	: (Quantifier.Unique set proposition)

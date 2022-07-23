@@ -1,0 +1,40 @@
+// Proof that if all x in set do not fulfill proposition, then there exists at most one x in set that does.
+Quantifier.unique_all_not.helper 
+	<set: Type> 
+	<proposition: set -> Type>
+	(forall: (Quantifier.Forall set @x((proposition x) -> Empty))) 
+	(a: set) (b: set) (pair: (Pair (proposition a) (proposition b)))
+	: (Equal set a b)
+
+Quantifier.unique_all_not.helper set proposition 
+	(Quantifier.Forall.proof t_set t_prop forall_fn)
+	a b pair =
+	// The mere existence of such values is 
+	// contradictory, because forall says that "(proposition a)" can't exist
+	// but it does
+	// (t_prop a) won't reduce because of a limitation of Kind2.
+	// We will use the fact that we know t_prop's value to reduce it using Equal.rewrite
+	let equation = (Equal.refl (t_set -> Type) t_prop) :: (Equal (t_set -> Type) t_prop @x((proposition x) -> Empty))
+	// Type hints are here to help you out
+	let f = (Equal.rewrite 
+		(t_set -> Type)                :: Type
+		t_prop                         :: (t_set -> Type)
+		(@x((proposition x) -> Empty)) :: (t_set -> Type)
+		equation                       :: (Equal (t_set -> Type) t_prop @x((proposition x) -> Empty))
+		(@x(x a))                      :: (t_set -> Type) -> Type
+		(_) // i have no idea about what should go in the hole
+	) :: (proposition a) -> Empty
+	
+	let proposition_a = (Pair.fst pair) :: (proposition a)
+	let empty = (f proposition_a) :: Empty
+	(Empty.absurd empty)
+	
+Quantifier.unique_all_not
+	<set: Type> 
+	<proposition: set -> Type>
+	(forall: (Quantifier.Forall set @x((proposition x) -> Empty))): (Quantifier.Unique set proposition)
+	
+Quantifier.unique_all_not set proposition forall =
+	(Quantifier.Unique.proof set proposition
+		@a@b@pair(Quantifier.unique_all_not.helper set proposition forall a b pair)
+	)
