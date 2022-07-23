@@ -24,4 +24,4 @@
 // one object in `set` such that (proposition set) exists (which means that it is constructible)
 Quantifier.Exists <set: Type> <proposition: set -> Type>: Type
 Quantifier.Exists.proof <set: Type> <proposition: set -> Type> 
-	(value: ((value: set) ((proposition value) -> Empty)) -> Empty): (Quantifier.Exists set proposition)
+	(value: (Not (value: set) (Not (proposition value)))): (Quantifier.Exists set proposition)
