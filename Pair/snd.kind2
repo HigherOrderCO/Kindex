@@ -1,4 +1,4 @@
 //Gets the second element of a pair
 //example: (Pair.snd Nat (List Nat) (Pair 2 [1,2,3])) -> [1,2,3]
 Pair.snd <a> <b> (pair: (Pair a b)) : b
-Pair.snd a b (Pair.new a b fst snd) = snd
+Pair.snd a_type b_type (Pair.new a b fst snd) = snd

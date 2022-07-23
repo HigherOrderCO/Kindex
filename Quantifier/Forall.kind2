@@ -1,0 +1,7 @@
+// The simplest qualifier to represent in Kind2. If you have a function (a: A)  (B a), then you know
+// that (B a) is fulfilled (is constructible) for all a in A.
+
+Quantifier.Forall <set: Type> <proposition: set -> Type>: Type
+// To prove this, you need to provide an instance of such a function
+Quantifier.Forall.proof  <set: Type> <proposition: set -> Type> 
+	(proof: (value: set)(proposition value)): (Quantifier.Forall set proposition)
