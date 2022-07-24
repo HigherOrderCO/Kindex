@@ -1,0 +1,2 @@
+// Automatically derived from IO/IO.type
+IO (a: Type) : Type
