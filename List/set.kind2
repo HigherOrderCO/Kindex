@@ -1,8 +1,7 @@
-//Given an index and a value, sets the value in that index in a list and returns
-//a modified list
-//example: (List.set [1,2,3] 4 2) -> [1,2,4]
+// Given an index and a value, sets the value in that index in a list and returns
+// a modified list
+// Example: (List.set [1,2,3] 4 2) -> [1,2,4]
 List.set <a> (xs: (List a)) (val: a) (idx: Nat) : (List a)
-List.set a (List.cons t head tail) val (Nat.succ pred) = 
-  (List.cons t head (List.set a tail val pred))
-List.set a (List.cons t head tail) val Nat.zero        = (List.cons t val tail)
 List.set a (List.nil t)            val idx             = List.nil
+List.set a (List.cons t head tail) val Nat.zero        = (List.cons t val tail)
+List.set a (List.cons t head tail) val (Nat.succ pred) = (List.cons t head (List.set a tail val pred))

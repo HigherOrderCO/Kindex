@@ -1,6 +1,6 @@
-//Given a condition, verifies if all elements of that list matches that
+// Given a condition, verifies if all elements of that list matches that
 //condition
-//example: (List.all Nat [1,2,3,4] (Nat.eql 3)) -> Bool.false
+// Example: (List.all Nat [1,2,3,4] (Nat.eql 3)) -> Bool.false
 List.all <a> (xs: (List a)) (cond: (x: a) Bool) : Bool
-List.all a (List.cons t head tail) cond = (Bool.if (cond head) (List.all a tail cond) Bool.false)
 List.all a (List.nil t)            cond = Bool.true
+List.all a (List.cons t head tail) cond = (Bool.if (cond head) (List.all a tail cond) Bool.false)

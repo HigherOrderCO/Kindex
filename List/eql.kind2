@@ -1,9 +1,7 @@
-//Verifies orderly if two lists are eql
-//example: (List.eql Nat [1,2,3] [1,2,3] Nat.eql) -> Bool.true
-//example: (List.eql Nat [1,2,3] [3,2,1] Nat.eql) -> Bool.false
+// Verifies orderly if two lists are eql
+// Example: (List.eql Nat [1,2,3] [1,2,3] Nat.eql) -> Bool.true
+// Example: (List.eql Nat [1,2,3] [3,2,1] Nat.eql) -> Bool.false
 List.eql <a> (xs: (List a)) (ys: (List a)) (cond: (x: a) (y: a) Bool) : Bool
-List.eql a (List.cons t xhead xtail) (List.cons t yhead ytail) cond = 
-  (Bool.and (cond xhead yhead) (List.eql xtail ytail cond))
-List.eql a (List.nil t)              (List.nil t)              cond = Bool.true
-List.eql a (List.nil t)              (List.cons t yhead ytail) cond = Bool.false
-List.eql a (List.cons t xhead xtail) (List.nil t)              cond = Bool.false
+List.eql a (List.nil t)              (List.nil u)              cond = Bool.true
+List.eql a (List.cons t xhead xtail) (List.cons u yhead ytail) cond = (Bool.and (cond xhead yhead) (List.eql xtail ytail cond))
+List.eql a xs                        ys                        cond = Bool.false

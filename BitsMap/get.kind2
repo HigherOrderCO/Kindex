@@ -1,9 +1,0 @@
-//Gets in a map a value that corresponds to the Bits
-BitsMap.get <a> (bits: Bits) (map: (BitsMap a)) : (Maybe a)
-BitsMap.get a bits          (BitsMap.new t)             = Maybe.none
-BitsMap.get a Bits.e        (BitsMap.tie t val lft rgt) = val
-BitsMap.get a (Bits.o pred) (BitsMap.tie t val lft rgt) = (BitsMap.get a pred lft)
-BitsMap.get a (Bits.i pred) (BitsMap.tie t val lft rgt) = (BitsMap.get a pred rgt)
-
-//Warning: This function wasnt tested, if you test it, remove this comment and
-//make the necessary changes and make us a PR, thanks!
