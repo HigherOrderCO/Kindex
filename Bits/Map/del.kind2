@@ -1,0 +1,10 @@
+// Given a Bit, deletes the correspondent value in the map
+Bits.Map.del <a> (bits: Bits) (map: (Bits.Map a)) : (Bits.Map a)
+Bits.Map.del a bits          (Bits.Map.new t)             = (Bits.Map.new t)
+Bits.Map.del a Bits.e        (Bits.Map.tie t val lft rgt) = (Bits.Map.tie t (Maybe.none t) lft rgt)
+Bits.Map.del a (Bits.o pred) (Bits.Map.tie t val lft rgt) = (Bits.Map.tie t val (Bits.Map.del a pred lft) rgt)
+Bits.Map.del a (Bits.i pred) (Bits.Map.tie t val lft rgt) = (Bits.Map.tie t val lft (Bits.Map.del a pred rgt))
+
+
+// Warning: This function wasnt tested, if you test it, remove this comment and
+//make the necessary changes and make us a PR, thanks!

@@ -1,4 +1,4 @@
 // Automatically derived from Nat/Nat.type
 Nat.match (x: (Nat)) <p: (x: (Nat)) Type> (zero: (p (Nat.zero))) (succ: (pred: (Nat)) (p (Nat.succ pred))) : (p x)
-Nat.match (Nat.zero) p zero succ = (zero)
+Nat.match (Nat.zero)      p zero succ = (zero)
 Nat.match (Nat.succ pred) p zero succ = (succ pred)

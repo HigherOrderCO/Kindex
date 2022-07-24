@@ -1,0 +1,16 @@
+// Given a Bit, applies a function to the correspodent value in the map.
+Bits.Map.mut <a> (bits: Bits) (map: (Bits.Map a)) (init: a) (f: (x: a) a) : (Bits.Map a)
+// Bits.e
+Bits.Map.mut a Bits.e (Bits.Map.new t)                              init f = (Bits.Map.tie t (Maybe.some init) (Bits.Map.new t) (Bits.Map.new t))
+Bits.Map.mut a Bits.e (Bits.Map.tie t (Maybe.none x) lft rgt)       init f = (Bits.Map.tie t (Maybe.none t) lft rgt)
+Bits.Map.mut a Bits.e (Bits.Map.tie t (Maybe.some x value) lft rgt) init f = (Bits.Map.tie t (Maybe.some t (f value)) lft rgt)
+// Bits.o
+Bits.Map.mut a (Bits.o pred) (Bits.Map.new t)             init f = (Bits.Map.tie t (Maybe.none t) (Bits.Map.mut a pred (Bits.Map.new t) init f) (Bits.Map.new t))
+Bits.Map.mut a (Bits.o pred) (Bits.Map.tie t val lft rgt) init f = (Bits.Map.tie t val (Bits.Map.mut pred lft init f) rgt)
+// Bits.i
+Bits.Map.mut a (Bits.i pred) (Bits.Map.new t)             init f = (Bits.Map.tie t (Maybe.none t) (Bits.Map.mut a pred (Bits.Map.new t) init f) (Bits.Map.new t))
+Bits.Map.mut a (Bits.i pred) (Bits.Map.tie t val lft rgt) init f = (Bits.Map.tie t val lft (Bits.Map.mut pred rgt init f))
+
+
+//Warning: This function wasnt tested, if you test it, remove this comment and
+//make the necessary changes and make us a PR, thanks!

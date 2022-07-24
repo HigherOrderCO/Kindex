@@ -1,0 +1,2 @@
+// Automatically derived from Bits.type
+Bits.i (pred: (Bits)) : (Bits)
