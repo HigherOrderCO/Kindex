@@ -1,0 +1,31 @@
+type ConcLang.Word {
+	// Pops the value at the beginning of the queue
+	// and puts it at the top of the stack.
+	// If it's a word, it's like quoting the word
+	// and saving it for future execution
+	enstack
+	// Pops at the top of the stack and puts it at the
+	// beginning of the queue
+	// If the value is a word, this is like executing it.
+	enqueue
+	// Swaps the value at the beginning of the queue
+	// with the value at the top of the stack
+	swap
+	// Pops the value at the top of the stack and pushes it to the end
+	// of the queue
+	cache
+	// Pops the value at the end of the queue
+	// and pushes it to the top of the stack
+	decache
+	// This acts as a single value in the stack or queue, so enqueue and
+	// dequeue operate on it as a value
+	// When it's run, it pushes all the values in the list to the queue in order
+	group (list: (List ConcLang.Value))
+	// Discards the value at the top of the stack
+	discard
+	// Pops the value at the top of the stack
+	// and pushes it twice
+	dup
+	// Any other function implemented in Kind2
+	extern (fn: ConcLang.ProgramState -> ConcLang.ProgramState)
+}

@@ -1,0 +1,74 @@
+List.push <type: Type> (list: (List type)) (value: type): (List type)
+List.push type (List.nil u) value = (List.pure type value)
+List.push type (List.cons u head tail) value = (List.cons u head (List.push tail value))
+
+List.pop <type: Type> (list: (List type)): (Pair (List type) (Maybe type))
+List.pop type (List.nil u) = (Pair.new List.nil (Maybe.none type))
+List.pop type (List.cons u fst (List.nil u2)) = (Pair.new List.nil (Maybe.some fst))
+List.pop type (List.cons u fst (List.cons u2 head tail)) =
+	let res = (List.pop (List.cons head tail))
+	(Pair.new (List.cons fst (Pair.fst res)) (Pair.snd res))
+
+ConcLang.Word.run (word: ConcLang.Word) (state: ConcLang.ProgramState): ConcLang.ProgramState
+
+ConcLang.Word.run ConcLang.Word.enstack (ConcLang.ProgramState.new
+	stack
+	(List.cons ConcLang.Value q_head q_tail)
+) = 
+	(ConcLang.ProgramState.new (List.cons q_head stack) q_tail)
+
+ConcLang.Word.run ConcLang.Word.enqueue (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value s_head s_tail)
+	queue
+) = 
+	(ConcLang.ProgramState.new s_tail (List.cons s_head queue))
+	
+ConcLang.Word.run ConcLang.Word.swap (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value fst (List.cons ConcLang.Value snd q_tail))
+	queue
+) = 
+	(ConcLang.ProgramState.new
+		(List.cons ConcLang.Value snd (List.cons ConcLang.Value fst q_tail))
+		queue
+	)
+	
+	
+ConcLang.Word.run ConcLang.Word.discard (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value s_head s_tail)
+	queue
+) = 
+	(ConcLang.ProgramState.new s_tail queue)
+	
+ConcLang.Word.run ConcLang.Word.dup (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value s_head s_tail)
+	queue
+) = 
+	(ConcLang.ProgramState.new (List.cons ConcLang.Value s_head (List.cons ConcLang.Value s_head s_tail)) queue)
+	
+ConcLang.Word.run (ConcLang.Word.group words) (ConcLang.ProgramState.new
+	stack
+	queue
+) = 
+	(ConcLang.ProgramState.new stack (List.concat words queue))
+
+ConcLang.Word.run (ConcLang.Word.extern fn) program_state = 
+	(fn program_state)
+	
+ConcLang.Word.run ConcLang.Word.cache (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value s_head s_tail)
+	queue
+) = 
+	(ConcLang.ProgramState.new s_tail (List.push queue s_head))
+
+ConcLang.Word.run ConcLang.Word.decache (ConcLang.ProgramState.new
+	stack
+	queue
+) = 
+	let result = (List.pop queue)
+	(Maybe.match 
+		ConcLang.Value
+		(Pair.snd result)
+		@p(ConcLang.ProgramState)
+		(ConcLang.ProgramState.new stack (Pair.fst result))
+		@x(ConcLang.ProgramState.new (List.cons x stack) (Pair.fst result))
+	)

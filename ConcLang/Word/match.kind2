@@ -1,0 +1,11 @@
+// Automatically derived from ConcLang/Word/Word.type
+ConcLang.Word.match (x: (ConcLang.Word)) <p: (x: (ConcLang.Word)) Type> (enstack: (p (ConcLang.Word.enstack))) (enqueue: (p (ConcLang.Word.enqueue))) (swap: (p (ConcLang.Word.swap))) (cache: (p (ConcLang.Word.cache))) (decache: (p (ConcLang.Word.decache))) (group: (list: (List (ConcLang.Value))) (p (ConcLang.Word.group list))) (discard: (p (ConcLang.Word.discard))) (dup: (p (ConcLang.Word.dup))) (extern: (fn: (_: (ConcLang.ProgramState)) (ConcLang.ProgramState)) (p (ConcLang.Word.extern fn))) : (p x)
+ConcLang.Word.match (ConcLang.Word.enstack) p enstack enqueue swap cache decache group discard dup extern = (enstack)
+ConcLang.Word.match (ConcLang.Word.enqueue) p enstack enqueue swap cache decache group discard dup extern = (enqueue)
+ConcLang.Word.match (ConcLang.Word.swap) p enstack enqueue swap cache decache group discard dup extern = (swap)
+ConcLang.Word.match (ConcLang.Word.cache) p enstack enqueue swap cache decache group discard dup extern = (cache)
+ConcLang.Word.match (ConcLang.Word.decache) p enstack enqueue swap cache decache group discard dup extern = (decache)
+ConcLang.Word.match (ConcLang.Word.group list) p enstack enqueue swap cache decache group discard dup extern = (group list)
+ConcLang.Word.match (ConcLang.Word.discard) p enstack enqueue swap cache decache group discard dup extern = (discard)
+ConcLang.Word.match (ConcLang.Word.dup) p enstack enqueue swap cache decache group discard dup extern = (dup)
+ConcLang.Word.match (ConcLang.Word.extern fn) p enstack enqueue swap cache decache group discard dup extern = (extern fn)

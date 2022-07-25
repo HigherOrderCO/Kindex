@@ -1,0 +1,6 @@
+ConcLang.ProgramState.advance (state: ConcLang.ProgramState): ConcLang.ProgramState
+ConcLang.ProgramState.advance (ConcLang.ProgramState.new stack (List.cons u (ConcLang.Value.word word) q_tail)) =
+	(ConcLang.Word.run word (ConcLang.ProgramState.new stack q_tail))
+ConcLang.ProgramState.advance (ConcLang.ProgramState.new stack (List.cons u (ConcLang.Value.data v data) q_tail)) =
+	(ConcLang.ProgramState.new (List.cons (ConcLang.Value.data v data) stack) q_tail)
+	

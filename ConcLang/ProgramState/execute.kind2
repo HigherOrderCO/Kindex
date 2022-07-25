@@ -1,0 +1,9 @@
+ConcLang.ProgramState.execute (state: ConcLang.ProgramState): ConcLang.ProgramState
+// ConcLang.ProgramState.Execute (ConcLang.ProgramState.new stack (List.cons ConcLang.Value (ConcLang.Value.new ConcLang.Word ConcLang.Word.dup) (List.cons ConcLang.Value (ConcLang.Value.new ConcLang.Word ConcLang.Word.dup) tail))) =
+	// stack, [dup dup *tail] would execute
+	// indefinitely so terminate the program now
+//	(ConcLang.ProgramState.new stack (List.cons ConcLang.Value (ConcLang.Value.new ConcLang.Word ConcLang.Word.dup) (List.cons (ConcLang.Value.new ConcLang.Word ConcLang.Word.dup) tail)))
+ConcLang.ProgramState.execute (ConcLang.ProgramState.new stack (List.nil ConcLang.Value)) =
+	(ConcLang.ProgramState.new stack (List.nil ConcLang.Value))
+ConcLang.ProgramState.execute (ConcLang.ProgramState.new stack (List.cons ConcLang.Value head tail)) =
+	(ConcLang.ProgramState.execute (ConcLang.ProgramState.advance (ConcLang.ProgramState.new stack (List.cons ConcLang.Value head tail))))

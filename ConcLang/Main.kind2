@@ -1,0 +1,83 @@
+// Shorthand for program writing
+V.group (g: (List ConcLang.Value)): ConcLang.Value
+V.group g = (ConcLang.Value.word (ConcLang.Word.group g))
+
+V.extern (g: ConcLang.ProgramState -> ConcLang.ProgramState): ConcLang.Value
+V.extern g = (ConcLang.Value.word (ConcLang.Word.extern g))
+
+V.push_kind2_val <type: Type> (value: type): ConcLang.Value
+V.push_kind2_val type value = (ConcLang.Value.word (ConcLang.Word.extern
+	@state(ConcLang.ProgramState.match
+		state
+		@state(ConcLang.ProgramState)
+		@queue@stack(ConcLang.ProgramState.new queue (List.cons (ConcLang.Value.data value) stack))
+	)
+))
+
+
+Main: _
+Main = 
+	let do_dup = (ConcLang.Value.word ConcLang.Word.dup)
+	let enstack = (ConcLang.Value.word ConcLang.Word.enstack)
+	let enqueue = (ConcLang.Value.word ConcLang.Word.enqueue)
+	let cache = (ConcLang.Value.word ConcLang.Word.cache)
+	let decache = (ConcLang.Value.word ConcLang.Word.decache)
+	let swap = (ConcLang.Value.word ConcLang.Word.swap)
+	
+	let discard = (ConcLang.Value.word ConcLang.Word.discard)
+	
+	
+	let church_true = (V.group [
+		discard
+		enqueue
+	])	
+	let church_false = (V.group [
+		swap
+		discard
+		enqueue
+	])
+	let church_and = (V.group [
+		cache
+		// (bool: (a b) -> (v)) (bool: (a b) -> (v))
+		cache
+		// (bool: (a b) -> (v))
+		enstack
+		(V.group [
+			enstack
+			(V.group [ enstack church_true ])
+			enstack
+			(V.group [
+				enstack church_false
+			])
+			decache
+			enqueue
+		])
+		enstack
+		(V.group [
+			decache
+			discard
+			enstack church_false
+		])
+		decache
+		enqueue
+	])
+	
+	let program = (ConcLang.ProgramState.new [
+	] 
+	[
+		enstack
+		church_false // Try changing this
+		enstack
+		church_false // And this
+		church_and
+		
+		cache
+		// These two values are used for displaying
+		(V.push_kind2_val Bool.true)
+		(V.push_kind2_val Bool.false)
+		decache
+		enqueue
+	])
+	
+	let program = (ConcLang.ProgramState.execute program)
+	program

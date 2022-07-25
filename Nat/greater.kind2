@@ -1,0 +1,4 @@
+Nat.greater (n: Nat) (m: Nat) : Bool
+Nat.greater (Nat.succ n) (Nat.succ m) = (Nat.greater n m) 
+Nat.greater Nat.zero     m            = Bool.false
+Nat.greater n            Nat.zero     = Bool.true

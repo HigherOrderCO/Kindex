@@ -1,0 +1,46 @@
+// Proof that sat_sub(a, b) + b = a + sat_sub(b, a)
+
+// int_sub(sat_sub(a, b), sat_sub(b, a)) = int_sub(a, b)
+// int_sub(a, b) + b = a <- this is a property we want to prove but using sat_sub
+// Therefore
+// int_sub(sat_sub(a, b), sat_sub(b, a)) + b = a
+// And sat_sub(a, b) + b = a + sat_sub(b, a)
+
+Nat.sat_sub.add_reverse (a: Nat) (b: Nat): (Equal 
+	(Nat.add (Nat.sat_sub a b) b)
+	(Nat.add (Nat.sat_sub b a) a)
+)
+Nat.sat_sub.add_reverse a Nat.zero =
+	// Goal: a + 0 = a
+	// Since 0 + a = a by definition, we can use add.comm
+	(Nat.add.comm a Nat.zero)
+Nat.sat_sub.add_reverse Nat.zero b =
+	(Nat.add.comm Nat.zero b)
+
+Nat.sat_sub.add_reverse (Nat.succ a) (Nat.succ b) =
+	// we'll use "-" to represent sat_sub here
+	// it's just easier
+	
+	// Goal: (a - b) + (b + 1) = (b - a) + (a + 1)
+	
+	// (a - b) + b = (b - a) + a
+	let induction = (Nat.sat_sub.add_reverse a b)
+	// ((a - b) + b) + 1 = ((b - a) + a) + 1
+	let induction = (Equal.apply @x(Nat.succ x) induction)
+	
+	// (a - b) + (b + 1) = (b + (a - b)) + 1
+	let comm_1 = (Nat.add.comm (Nat.sat_sub a b) (Nat.succ b))
+	// (b - a) + (a + 1) = (a + (b - a)) + 1
+	let comm_2 = (Nat.add.comm (Nat.sat_sub b a) (Nat.succ a))
+		
+	// (b + (a - b)) + 1 = ((a - b) + b) + 1
+	let comm_1b = (Equal.apply @x(Nat.succ x) (Nat.add.comm b (Nat.sat_sub a b) ))
+	// (a - b) + (b + 1) = ((a - b) + b) + 1
+	let comm_1 = (Equal.chain comm_1 comm_1b)
+	// (a + (b - a)) + 1 = ((b - a) + a) + 1
+	let comm_2b = (Equal.apply @x(Nat.succ x) (Nat.add.comm a (Nat.sat_sub b a) ))
+	// (b - a) + (a + 1) = ((b - a) + a) + 1
+	let comm_2 = (Equal.chain comm_2 comm_2b)
+	
+	
+	(Equal.chain comm_1 (Equal.chain induction (Equal.mirror comm_2)))

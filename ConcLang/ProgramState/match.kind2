@@ -1,0 +1,3 @@
+// Automatically derived from ConcLang/ProgramState/ProgramState.type
+ConcLang.ProgramState.match (x: (ConcLang.ProgramState)) <p: (x: (ConcLang.ProgramState)) Type> (new: (stack: (List (ConcLang.Value))) (queue: (List (ConcLang.Value))) (p (ConcLang.ProgramState.new stack queue))) : (p x)
+ConcLang.ProgramState.match (ConcLang.ProgramState.new stack queue) p new = (new stack queue)

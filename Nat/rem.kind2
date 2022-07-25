@@ -1,0 +1,13 @@
+// Remainder
+Nat.rem (a: Nat) (b: Nat): Nat
+// 0 % b = 0
+Nat.rem Nat.zero     b = Nat.zero
+// if a >= b:
+// (a % b) = (a - b) % b
+// if a < b
+Nat.rem (Nat.succ a) b =
+	(Bool.if (Nat.greater (Nat.succ (Nat.succ a)) b)
+		(Nat.rem (Nat.sat_sub (Nat.succ a) b) b)
+		// if a < b then it's a
+		(Nat.succ a)
+	)
