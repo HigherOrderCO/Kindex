@@ -1,4 +1,4 @@
-// Automatically derived from List/List.type
+// Automatically derived from List/_.type
 List.match <t: Type> (x: (List t)) <p: (x: (List t)) Type> (nil: (p (List.nil t))) (cons: (head: t) (tail: (List t)) (p (List.cons t head tail))) : (p x)
-List.match t (List.nil u) p nil cons = (nil)
-List.match t (List.cons u head tail) p nil cons = (cons head tail)
+List.match t (List.nil t) p nil cons = (nil)
+List.match t (List.cons t head tail) p nil cons = (cons head tail)
