@@ -1,3 +1,3 @@
-// Automatically derived from Pair/Pair.type
-Pair.match <a: Type> <b: Type> (x: (Pair a b)) <p: (x: (Pair a b)) Type> (new: (fst: a) (snd: b) (p (Pair.new a b fst snd))) : (p x)
-Pair.match a b (Pair.new p.a p.b fst snd) p new = (new fst snd)
+// Automatically derived from Pair/_.type
+Pair.match <a: Type> <b: Type> (x: (Pair a b)) -(p: (x: (Pair a b)) Type) (new: (fst: a) (snd: b) (p (Pair.new a b fst snd))) : (p x)
+Pair.match a b (Pair.new x.a x.b x.fst x.snd) p new = (new x.fst x.snd)

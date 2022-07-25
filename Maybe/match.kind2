@@ -1,4 +1,4 @@
-// Automatically derived from Maybe.type
-Maybe.match <t: Type> (x: (Maybe t)) <p: (x: (Maybe t)) Type> (none: (p (Maybe.none t))) (some: (x: t) (p (Maybe.some t x))) : (p x)
-Maybe.match t (Maybe.none u)   p none some = (none)
-Maybe.match t (Maybe.some u x) p none some = (some x)
+// Automatically derived from Maybe/_.type
+Maybe.match <t: Type> (x: (Maybe t)) -(p: (x: (Maybe t)) Type) (none: (p (Maybe.none t))) (some: (x: t) (p (Maybe.some t x))) : (p x)
+Maybe.match t (Maybe.none x.t) p none some = (none)
+Maybe.match t (Maybe.some x.t x.x) p none some = (some x.x)

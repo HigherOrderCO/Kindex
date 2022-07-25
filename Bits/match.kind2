@@ -1,5 +1,5 @@
-// Automatically derived from Bits.type
-Bits.match (x: (Bits)) <p: (x: (Bits)) Type> (e: (p (Bits.e))) (o: (pred: (Bits)) (p (Bits.o pred))) (i: (pred: (Bits)) (p (Bits.i pred))) : (p x)
+// Automatically derived from Bits/_.type
+Bits.match (x: (Bits)) -(p: (x: (Bits)) Type) (e: (p (Bits.e))) (o: (pred: (Bits)) (p (Bits.o pred))) (i: (pred: (Bits)) (p (Bits.i pred))) : (p x)
 Bits.match (Bits.e) p e o i = (e)
-Bits.match (Bits.o pred) p e o i = (o pred)
-Bits.match (Bits.i pred) p e o i = (i pred)
+Bits.match (Bits.o x.pred) p e o i = (o x.pred)
+Bits.match (Bits.i x.pred) p e o i = (i x.pred)
