@@ -1,0 +1,3 @@
+Either.map <l> <ra> <rb> (f: ra -> rb) (e: (Either l ra)) : (Either l rb)
+Either.map l ra rb f (Either.left  l_ ra_ v) = (Either.left     v )
+Either.map l ra rb f (Either.right l_ ra_ v) = (Either.right (f v))

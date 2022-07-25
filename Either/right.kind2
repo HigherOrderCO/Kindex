@@ -1,1 +1,2 @@
-Either.right <l> <r> (value: r): (Either l r)
+// Automatically derived from Either/_.type
+Either.right <l: Type> <r: Type> (val: r) : (Either l r)
