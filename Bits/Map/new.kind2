@@ -1,0 +1,2 @@
+// Constructor New for Bits.Map
+Bits.Map.new <a> : (Bits.Map a)

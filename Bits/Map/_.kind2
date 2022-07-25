@@ -1,0 +1,2 @@
+// Bits.Map Type
+Bits.Map (a : Type) : Type

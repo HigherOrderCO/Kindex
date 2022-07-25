@@ -1,0 +1,2 @@
+// Automatically derived from String/String.type
+String.cons (head: U60) (tail: (String)) : (String)

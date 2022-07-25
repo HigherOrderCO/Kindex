@@ -1,5 +1,5 @@
-//Given a condition, verifies if any element of that list matches that condition
-//example: (List.any Nat [1,2,3,4,5] (Nat.eql 4)) -> Bool.true
+// Given a condition, verifies if any element of that list matches that condition
+// Example: (List.any Nat [1,2,3,4,5] (Nat.eql 4)) -> Bool.true
 List.any <a> (xs: (List a)) (cond: (x: a) Bool): Bool
-List.any a (List.cons t head tail) cond = (Bool.if (cond head) (Bool.true) (List.all a tail cond))
 List.any a (List.nil t)            cond = Bool.false
+List.any a (List.cons t head tail) cond = (Bool.if (cond head) (Bool.true) (List.all a tail cond))

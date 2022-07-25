@@ -1,0 +1,5 @@
+// Automatically derived from IO/IO.type
+IO.match <a: Type> (x: (IO a)) <p: (x: (IO a)) Type> (done: (val: a) (p (IO.done a val))) (do_input: (cont: (_: (String)) (IO a)) (p (IO.do_input a cont))) (do_output: (text: (String)) (cont: (_: U60) (IO a)) (p (IO.do_output a text cont))) : (p x)
+IO.match a (IO.done t val) p done do_input do_output = (done val)
+IO.match a (IO.do_input t cont) p done do_input do_output = (do_input cont)
+IO.match a (IO.do_output t text cont) p done do_input do_output = (do_output text cont)

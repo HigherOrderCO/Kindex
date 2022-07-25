@@ -1,0 +1,5 @@
+type IO <a: Type> {
+  done (val: a)
+  do_input (cont: String -> (IO a))
+  do_output (text: String) (cont: U60 -> (IO a))
+}

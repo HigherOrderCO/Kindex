@@ -1,0 +1,9 @@
+// Gets in a map a value that corresponds to the Bits
+Bits.Map.get <a> (bits: Bits) (map: (Bits.Map a)) : (Maybe a)
+Bits.Map.get a bits          (Bits.Map.new t)             = Maybe.none
+Bits.Map.get a Bits.e        (Bits.Map.tie t val lft rgt) = val
+Bits.Map.get a (Bits.o pred) (Bits.Map.tie t val lft rgt) = (Bits.Map.get a pred lft)
+Bits.Map.get a (Bits.i pred) (Bits.Map.tie t val lft rgt) = (Bits.Map.get a pred rgt)
+
+// Warning: This function wasnt tested, if you test it, remove this comment and
+//make the necessary changes and make us a PR, thanks!
