@@ -137,7 +137,7 @@ Heap.findMin (pq: Heap) : (Maybe U60)
 Heap.findMin (List.nil Node) = Maybe.none
 Heap.findMin xs =
     let min_node_root = (Pair.snd (Heap.findMinNode xs))
-    (Maybe.some min_node_root)
+    (Maybe.some U60 min_node_root)
 
 // Removes the minimal element of the heap
 // Returns an empty heap if the heap is already empty
@@ -165,11 +165,8 @@ Heap.removeRank.aux #0 (List.cons Node x xs) rank =
 
 // Creates a heap using a list of natural numbers
 Heap.fromList (xs: (List U60)) : Heap
-Heap.fromList xs = (Heap.fromList.aux xs Heap.nil)
-
-  Heap.fromList.aux (xs: (List U60)) (pq: Heap) : Heap
-  Heap.fromList.aux (List.nil  U60     ) pq = pq
-  Heap.fromList.aux (List.cons U60 x xs) pq = (Heap.fromList.aux xs (Heap.insert x pq))
+Heap.fromList (List.nil  U60     ) = Heap.nil
+Heap.fromList (List.cons U60 x xs) = (Heap.insert x (Heap.fromList xs))
 
 Main : _
 Main = (
@@ -180,15 +177,15 @@ Main = (
   let heapmaster = (Heap.merge heap3 (Heap.merge heap1 heap2))
 
   // Testing Constructors/Functions
-  heapmaster
-  // (Heap.findMin heapmaster)
+  // heapmaster
+  (Heap.findMin heapmaster)
   // (Heap.deleteMin heapmaster)
 
   // "Benchmarking"
-  // (Heap.fromList (DecRange      #10)) //      399 RW
-  // (Heap.fromList (DecRange     #100)) //     4834 RW
-  // (Heap.fromList (DecRange    #1000)) //    49711 RW
-  // (Heap.fromList (DecRange   #10000)) //   499692 RW
-  // (Heap.fromList (DecRange  #100000)) //  4999627 RW
-  // (Heap.fromList (DecRange #1000000)) // 49999562 RW
+  // (Heap.fromList (DecRange      #10)) //      398 RW
+  // (Heap.fromList (DecRange     #100)) //     4833 RW
+  // (Heap.fromList (DecRange    #1000)) //    49710 RW
+  // (Heap.fromList (DecRange   #10000)) //   499691 RW
+  // (Heap.fromList (DecRange  #100000)) //  4999626 RW
+  // (Heap.fromList (DecRange #1000000)) // 49999561 RW
 )
