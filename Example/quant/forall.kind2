@@ -4,8 +4,4 @@ Example.quant.forall (a: Nat): (Equal Nat (Nat.succ a) (Nat.succ a))
 Example.quant.forall a = Equal.refl
 
 Example.quant.forall_constr: (Quantifier.Forall Nat @x(Equal Nat (Nat.succ x) (Nat.succ x)))
-Example.quant.forall_constr = (Quantifier.Forall.proof 
-	Nat 
-	@x(Equal Nat (Nat.succ x) (Nat.succ x))
-	@x(Example.quant.forall x)
-)
+Example.quant.forall_constr = @x(Example.quant.forall x)
