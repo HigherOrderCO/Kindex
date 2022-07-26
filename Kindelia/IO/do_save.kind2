@@ -1,0 +1,3 @@
+// Automatically derived from Kindelia/IO/_.type
+// Modified to erase <s: Type> (TODO: allow erased constructor args on newtype)
+Kindelia.IO.do_save <r: Type> <s: Type> (val: s) (cont: (_: (Unit)) (Kindelia.IO r)) : (Kindelia.IO r)

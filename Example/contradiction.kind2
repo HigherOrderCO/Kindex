@@ -1,5 +1,3 @@
-// FIXME: I think this should be a simpler proof
-
 // Proof by contradiction that 2 + 2 != 5
 Nat.two_two_not_five <n: Nat> (e: (Equal Nat 
 	(Nat.add (U60.to_nat #2) (U60.to_nat #2))

@@ -1,0 +1,1 @@
+Dynamic.new <a: Type> (value: a) : Dynamic
