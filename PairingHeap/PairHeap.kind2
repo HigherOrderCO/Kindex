@@ -4,59 +4,59 @@
 // Each tree node contains an element and a list of heaps
 
 // type PHeap = Empty | (Tree element [heap list])
-PHeap : Type
-PHeap.empty                                     : PHeap
-PHeap.tree (elem: U60) (children: (List PHeap)) : PHeap
+PairingHeap : Type
+PairingHeap.empty                                           : PairingHeap
+PairingHeap.tree (elem: U60) (children: (List PairingHeap)) : PairingHeap
 
 // Merge
-PHeap.merge (pq1: PHeap) (pq2: PHeap) : PHeap
-PHeap.merge PHeap.empty pq = pq
-PHeap.merge pq PHeap.empty = pq
-PHeap.merge (PHeap.tree x pqs1) (PHeap.tree y pqs2) =
-  (PHeap.merge.aux (> y x) (PHeap.tree x pqs1) (PHeap.tree y pqs2))
+PairingHeap.merge (pq1: PairingHeap) (pq2: PairingHeap) : PairingHeap
+PairingHeap.merge PairingHeap.empty pq = pq
+PairingHeap.merge pq PairingHeap.empty = pq
+PairingHeap.merge (PairingHeap.tree x pqs1) (PairingHeap.tree y pqs2) =
+  (PairingHeap.merge.aux (> y x) (PairingHeap.tree x pqs1) (PairingHeap.tree y pqs2))
 
-  PHeap.merge.aux (b: U60) (pq1: PHeap) (pq2: PHeap) : PHeap
-  PHeap.merge.aux #1 (PHeap.tree x pqs) pq = (PHeap.tree x (List.cons PHeap pq pqs))
-  PHeap.merge.aux #0 pq (PHeap.tree y pqs) = (PHeap.tree y (List.cons PHeap pq pqs))
+  PairingHeap.merge.aux (b: U60) (pq1: PairingHeap) (pq2: PairingHeap) : PairingHeap
+  PairingHeap.merge.aux #1 (PairingHeap.tree x pqs) pq = (PairingHeap.tree x (List.cons PairingHeap pq pqs))
+  PairingHeap.merge.aux #0 pq (PairingHeap.tree y pqs) = (PairingHeap.tree y (List.cons PairingHeap pq pqs))
 
 // Singleton heap
-PHeap.singleton (n: U60) : PHeap
-PHeap.singleton n = (PHeap.tree n (List.nil PHeap))
+PairingHeap.singleton (n: U60) : PairingHeap
+PairingHeap.singleton n = (PairingHeap.tree n (List.nil PairingHeap))
 
 // Insert
-PHeap.insert (n: U60) (pq: PHeap) : PHeap
-PHeap.insert n pq = (PHeap.merge (PHeap.singleton n) pq)
+PairingHeap.insert (n: U60) (pq: PairingHeap) : PairingHeap
+PairingHeap.insert n pq = (PairingHeap.merge (PairingHeap.singleton n) pq)
 
 // Helper function for deleteMin. It merges children heaps in pairs from left to right,
 // then merges the resulting heaps from right to left.
-PHeap.mergePairs (xs: (List PHeap)) : PHeap
-PHeap.mergePairs (List.nil  PHeap                           ) = PHeap.empty
-PHeap.mergePairs (List.cons PHeap h  (List.nil  PHeap      )) = h
-PHeap.mergePairs (List.cons PHeap h1 (List.cons PHeap h2 hs)) =
-  (PHeap.merge (PHeap.merge h1 h2) (PHeap.mergePairs hs))
+PairingHeap.mergePairs (xs: (List PairingHeap)) : PairingHeap
+PairingHeap.mergePairs (List.nil  PairingHeap                                 ) = PairingHeap.empty
+PairingHeap.mergePairs (List.cons PairingHeap h  (List.nil  PairingHeap      )) = h
+PairingHeap.mergePairs (List.cons PairingHeap h1 (List.cons PairingHeap h2 hs)) =
+  (PairingHeap.merge (PairingHeap.merge h1 h2) (PairingHeap.mergePairs hs))
 
 // Delete minimum element
-PHeap.deleteMin (pq: PHeap) : PHeap
-PHeap.deleteMin  PHeap.empty      =  PHeap.empty
-PHeap.deleteMin (PHeap.tree x hs) = (PHeap.mergePairs hs)
+PairingHeap.deleteMin (pq: PairingHeap) : PairingHeap
+PairingHeap.deleteMin  PairingHeap.empty      =  PairingHeap.empty
+PairingHeap.deleteMin (PairingHeap.tree x hs) = (PairingHeap.mergePairs hs)
 
 // Find minimum element
-PHeap.findMin (pq: PHeap) : (Maybe U60)
-PHeap.findMin  PHeap.empty      = (Maybe.none U60)
-PHeap.findMin (PHeap.tree x hs) = (Maybe.some U60 x)
+PairingHeap.findMin (pq: PairingHeap) : (Maybe U60)
+PairingHeap.findMin  PairingHeap.empty      = (Maybe.none U60)
+PairingHeap.findMin (PairingHeap.tree x hs) = (Maybe.some U60 x)
 
 // Constructs a pairing heap from a list
-PHeap.fromList (xs: (List U60)) : PHeap
-PHeap.fromList (List.nil  U60     ) =  PHeap.empty
-PHeap.fromList (List.cons U60 x xs) = (PHeap.insert x (PHeap.fromList xs))
+PairingHeap.fromList (xs: (List U60)) : PairingHeap
+PairingHeap.fromList (List.nil  U60     ) =  PairingHeap.empty
+PairingHeap.fromList (List.cons U60 x xs) = (PairingHeap.insert x (PairingHeap.fromList xs))
 
 Main : _
 Main = (
-    let heap1 = (PHeap.fromList (List.cons U60 #1 (List.cons U60 #2 (List.cons U60 #3 (List.nil U60)))))
-    let heap2 = (PHeap.fromList (List.cons U60 #6 (List.cons U60 #5 (List.cons U60 #4 (List.nil U60)))))
-    let heap3 = (PHeap.merge heap1 heap2)
+    let heap1 = (PairingHeap.fromList (List.cons U60 #1 (List.cons U60 #2 (List.cons U60 #3 (List.nil U60)))))
+    let heap2 = (PairingHeap.fromList (List.cons U60 #6 (List.cons U60 #5 (List.cons U60 #4 (List.nil U60)))))
+    let heap3 = (PairingHeap.merge heap1 heap2)
 
-    heap3
-    // (PHeap.findMin heap3)
-    // (PHeap.deleteMin heap3)
+    // heap3
+    // (PairingHeap.findMin heap3)
+    // (PairingHeap.deleteMin heap3)
 )
