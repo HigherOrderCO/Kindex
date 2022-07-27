@@ -1,13 +1,4 @@
-List.push <type: Type> (list: (List type)) (value: type): (List type)
-List.push type (List.nil u) value = (List.pure type value)
-List.push type (List.cons u head tail) value = (List.cons u head (List.push tail value))
 
-List.pop <type: Type> (list: (List type)): (Pair (List type) (Maybe type))
-List.pop type (List.nil u) = (Pair.new List.nil (Maybe.none type))
-List.pop type (List.cons u fst (List.nil u2)) = (Pair.new List.nil (Maybe.some fst))
-List.pop type (List.cons u fst (List.cons u2 head tail)) =
-	let res = (List.pop (List.cons head tail))
-	(Pair.new (List.cons fst (Pair.fst res)) (Pair.snd res))
 
 User.Franchu.ConcLang.Word.run (word: User.Franchu.ConcLang.Word) (state: User.Franchu.ConcLang.ProgramState): User.Franchu.ConcLang.ProgramState
 
@@ -67,13 +58,13 @@ User.Franchu.ConcLang.Word.run User.Franchu.ConcLang.Word.cache (User.Franchu.Co
 	(List.cons User.Franchu.ConcLang.Value s_head s_tail)
 	queue
 ) = 
-	(User.Franchu.ConcLang.ProgramState.new s_tail (List.push queue s_head))
+	(User.Franchu.ConcLang.ProgramState.new s_tail (List.push_back queue s_head))
 
 User.Franchu.ConcLang.Word.run User.Franchu.ConcLang.Word.decache (User.Franchu.ConcLang.ProgramState.new
 	stack
 	queue
 ) = 
-	let result = (List.pop queue)
+	let result = (List.pop_back queue)
 	(Maybe.match 
 		User.Franchu.ConcLang.Value
 		(Pair.snd result)
