@@ -1,10 +1,10 @@
-ConcLang.Value.display (value: ConcLang.Value): String
-ConcLang.Value.display (ConcLang.Value.word word) = (ConcLang.Word.display word)
-ConcLang.Value.display (ConcLang.Value.data Bool Bool.true) = "Bool.true"
-ConcLang.Value.display (ConcLang.Value.data Bool Bool.false) = "Bool.false"
-ConcLang.Value.display (ConcLang.Value.data Nat Nat.zero) = "Nat.zero"
-ConcLang.Value.display (ConcLang.Value.data Nat (Nat.succ n)) = 
+User.Franchu.ConcLang.Value.display (value: User.Franchu.ConcLang.Value): String
+User.Franchu.ConcLang.Value.display (User.Franchu.ConcLang.Value.word word) = (User.Franchu.ConcLang.Word.display word)
+User.Franchu.ConcLang.Value.display (User.Franchu.ConcLang.Value.data Bool Bool.true) = "Bool.true"
+User.Franchu.ConcLang.Value.display (User.Franchu.ConcLang.Value.data Bool Bool.false) = "Bool.false"
+User.Franchu.ConcLang.Value.display (User.Franchu.ConcLang.Value.data Nat Nat.zero) = "Nat.zero"
+User.Franchu.ConcLang.Value.display (User.Franchu.ConcLang.Value.data Nat (Nat.succ n)) = 
 	(String.from_list (List.concat 
 		(List.concat (String.to_list "(Nat.succ ")
-			(String.to_list (ConcLang.Value.display (ConcLang.Value.data Nat n))))
+			(String.to_list (User.Franchu.ConcLang.Value.display (User.Franchu.ConcLang.Value.data Nat n))))
 	(String.to_list ")")))

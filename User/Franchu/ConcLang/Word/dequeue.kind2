@@ -1,2 +1,2 @@
-// Automatically derived from ConcLang/Word/Word.type
-ConcLang.Word.dequeue : (ConcLang.Word)
+// Automatically derived from User.Franchu.ConcLang/Word/Word.type
+User.Franchu.ConcLang.Word.dequeue : (User.Franchu.ConcLang.Word)

@@ -1,47 +1,47 @@
 // Shorthand for program writing
-V.group (g: (List ConcLang.Value)): ConcLang.Value
-V.group g = (ConcLang.Value.word (ConcLang.Word.group g))
+V.group (g: (List User.Franchu.ConcLang.Value)): User.Franchu.ConcLang.Value
+V.group g = (User.Franchu.ConcLang.Value.word (User.Franchu.ConcLang.Word.group g))
 
-V.extern (g: ConcLang.ProgramState -> ConcLang.ProgramState): ConcLang.Value
-V.extern g = (ConcLang.Value.word (ConcLang.Word.extern g))
+V.extern (g: User.Franchu.ConcLang.ProgramState -> User.Franchu.ConcLang.ProgramState): User.Franchu.ConcLang.Value
+V.extern g = (User.Franchu.ConcLang.Value.word (User.Franchu.ConcLang.Word.extern g))
 
-V.push_kind2_val <type: Type> (value: type): ConcLang.Value
-V.push_kind2_val type value = (ConcLang.Value.word (ConcLang.Word.extern
-	@state(ConcLang.ProgramState.match
+V.push_kind2_val <type: Type> (value: type): User.Franchu.ConcLang.Value
+V.push_kind2_val type value = (User.Franchu.ConcLang.Value.word (User.Franchu.ConcLang.Word.extern
+	@state(User.Franchu.ConcLang.ProgramState.match
 		state
-		@state(ConcLang.ProgramState)
-		@queue@stack(ConcLang.ProgramState.new queue (List.cons (ConcLang.Value.data value) stack))
+		@state(User.Franchu.ConcLang.ProgramState)
+		@queue@stack(User.Franchu.ConcLang.ProgramState.new queue (List.cons (User.Franchu.ConcLang.Value.data value) stack))
 	)
 ))
 
 
-X.nat_succ (state: ConcLang.ProgramState): ConcLang.ProgramState
-X.nat_succ (ConcLang.ProgramState.new
-	(List.cons ConcLang.Value (ConcLang.Value.data Nat n) s_tail)
+X.nat_succ (state: User.Franchu.ConcLang.ProgramState): User.Franchu.ConcLang.ProgramState
+X.nat_succ (User.Franchu.ConcLang.ProgramState.new
+	(List.cons User.Franchu.ConcLang.Value (User.Franchu.ConcLang.Value.data Nat n) s_tail)
 	queue
 ) = 
-	(ConcLang.ProgramState.new (List.cons ConcLang.Value (ConcLang.Value.data Nat (Nat.succ n)) s_tail) queue)
+	(User.Franchu.ConcLang.ProgramState.new (List.cons User.Franchu.ConcLang.Value (User.Franchu.ConcLang.Value.data Nat (Nat.succ n)) s_tail) queue)
 	
 
 
-V.nat_succ: ConcLang.Value
-V.nat_succ = (ConcLang.Value.word (ConcLang.Word.extern
+V.nat_succ: User.Franchu.ConcLang.Value
+V.nat_succ = (User.Franchu.ConcLang.Value.word (User.Franchu.ConcLang.Word.extern
 	@x(X.nat_succ x)
 ))
 
-GetStack (p: ConcLang.ProgramState): (List ConcLang.Value)
-GetStack (ConcLang.ProgramState.new stack queue) = stack
+GetStack (p: User.Franchu.ConcLang.ProgramState): (List User.Franchu.ConcLang.Value)
+GetStack (User.Franchu.ConcLang.ProgramState.new stack queue) = stack
 
 Main: _
 Main = 
-	let do_dup = (ConcLang.Value.word ConcLang.Word.dup)
-	let enstack = (ConcLang.Value.word ConcLang.Word.enstack)
-	let enqueue = (ConcLang.Value.word ConcLang.Word.enqueue)
-	let cache = (ConcLang.Value.word ConcLang.Word.cache)
-	let decache = (ConcLang.Value.word ConcLang.Word.decache)
-	let swap = (ConcLang.Value.word ConcLang.Word.swap)
-	let close = (ConcLang.Value.word ConcLang.Word.close)
-	let discard = (ConcLang.Value.word ConcLang.Word.discard)
+	let do_dup = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.dup)
+	let enstack = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.enstack)
+	let enqueue = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.enqueue)
+	let cache = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.cache)
+	let decache = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.decache)
+	let swap = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.swap)
+	let close = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.close)
+	let discard = (User.Franchu.ConcLang.Value.word User.Franchu.ConcLang.Word.discard)
 	
 	
 	let church_true = (V.group [
@@ -142,7 +142,7 @@ Main =
 		enstack
 		close
 	])
-	let program = (ConcLang.ProgramState.new [
+	let program = (User.Franchu.ConcLang.ProgramState.new [
 	] 
 	[
 		enstack church_zero
@@ -161,5 +161,5 @@ Main =
 		enqueue
 	])
 	
-	let program = (ConcLang.ProgramState.execute program)
-	(ConcLang.Value.display (V.group (GetStack program)))
+	let program = (User.Franchu.ConcLang.ProgramState.execute program)
+	(User.Franchu.ConcLang.Value.display (V.group (GetStack program)))

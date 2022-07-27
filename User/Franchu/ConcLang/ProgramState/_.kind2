@@ -1,2 +1,2 @@
-// Automatically derived from ConcLang/ProgramState/ProgramState.type
-ConcLang.ProgramState : Type
+// Automatically derived from User.Franchu.ConcLang/ProgramState/ProgramState.type
+User.Franchu.ConcLang.ProgramState : Type

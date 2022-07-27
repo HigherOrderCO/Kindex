@@ -1,2 +1,2 @@
-// Automatically derived from ConcLang/ProgramState/ProgramState.type
-ConcLang.ProgramState.new (stack: (List (ConcLang.Value))) (queue: (List (ConcLang.Value))) : (ConcLang.ProgramState)
+// Automatically derived from User.Franchu.ConcLang/ProgramState/ProgramState.type
+User.Franchu.ConcLang.ProgramState.new (stack: (List (User.Franchu.ConcLang.Value))) (queue: (List (User.Franchu.ConcLang.Value))) : (User.Franchu.ConcLang.ProgramState)

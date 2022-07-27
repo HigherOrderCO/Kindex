@@ -1,2 +1,2 @@
-// Automatically derived from ConcLang/Word/_.type
-ConcLang.Word.extern (fn: (_: (ConcLang.ProgramState)) (ConcLang.ProgramState)) : (ConcLang.Word)
+// Automatically derived from User.Franchu.ConcLang/Word/_.type
+User.Franchu.ConcLang.Word.extern (fn: (_: (User.Franchu.ConcLang.ProgramState)) (User.Franchu.ConcLang.ProgramState)) : (User.Franchu.ConcLang.Word)

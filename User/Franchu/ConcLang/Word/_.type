@@ -1,4 +1,4 @@
-type ConcLang.Word {
+type User.Franchu.ConcLang.Word {
 	// Pops the value at the beginning of the queue
 	// and puts it at the top of the stack.
 	// If it's a word, it's like quoting the word
@@ -20,7 +20,7 @@ type ConcLang.Word {
 	// This acts as a single value in the stack or queue, so enqueue and
 	// dequeue operate on it as a value
 	// When it's run, it pushes all the values in the list to the queue in order
-	group (list: (List ConcLang.Value))
+	group (list: (List User.Franchu.ConcLang.Value))
 	// The primitive to create closures. It adds a word at the beginning of a group.
 	// The word should be at the beginning of the stack. The group should be below it.
 	close 
@@ -30,5 +30,5 @@ type ConcLang.Word {
 	// and pushes it twice
 	dup
 	// Any other function implemented in Kind2
-	extern (fn: ConcLang.ProgramState -> ConcLang.ProgramState)
+	extern (fn: User.Franchu.ConcLang.ProgramState -> User.Franchu.ConcLang.ProgramState)
 }
