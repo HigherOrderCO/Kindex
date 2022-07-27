@@ -15,6 +15,23 @@ V.push_kind2_val type value = (ConcLang.Value.word (ConcLang.Word.extern
 ))
 
 
+X.nat_succ (state: ConcLang.ProgramState): ConcLang.ProgramState
+X.nat_succ (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value (ConcLang.Value.data Nat n) s_tail)
+	queue
+) = 
+	(ConcLang.ProgramState.new (List.cons ConcLang.Value (ConcLang.Value.data Nat (Nat.succ n)) s_tail) queue)
+	
+
+
+V.nat_succ: ConcLang.Value
+V.nat_succ = (ConcLang.Value.word (ConcLang.Word.extern
+	@x(X.nat_succ x)
+))
+
+GetStack (p: ConcLang.ProgramState): (List ConcLang.Value)
+GetStack (ConcLang.ProgramState.new stack queue) = stack
+
 Main: _
 Main = 
 	let do_dup = (ConcLang.Value.word ConcLang.Word.dup)
@@ -23,7 +40,7 @@ Main =
 	let cache = (ConcLang.Value.word ConcLang.Word.cache)
 	let decache = (ConcLang.Value.word ConcLang.Word.decache)
 	let swap = (ConcLang.Value.word ConcLang.Word.swap)
-	
+	let close = (ConcLang.Value.word ConcLang.Word.close)
 	let discard = (ConcLang.Value.word ConcLang.Word.discard)
 	
 	
@@ -37,38 +54,46 @@ Main =
 		enqueue
 	])
 	let church_and = (V.group [
+		// Cache the first bool
 		cache
-		// (bool: (a b) -> (v)) (bool: (a b) -> (v))
+		// Cache the second bool
 		cache
-		// (bool: (a b) -> (v))
-		enstack
-		(V.group [
-			enstack
-			(V.group [ enstack church_true ])
-			enstack
-			(V.group [
-				enstack church_false
-			])
+		// First case: if a == true, then a & b = b
+		enstack (V.group [
 			decache
-			enqueue
 		])
-		enstack
-		(V.group [
+		// Second case: if a == false, then a & b = false
+		enstack (V.group [
+			// Discard B because we don't care.
 			decache
 			discard
+			// Put false at the top of the stack
 			enstack church_false
+		])
+		// Decache the second bool and run it on the two cases.
+		decache
+		enqueue
+	])
+	let church_or = (V.group [
+		// Try reading church_and and figure out how tis one works.
+		cache
+		cache
+		enstack (V.group [
+			decache
+			discard
+			enstack church_true
+		])
+		enstack (V.group [
+			decache
 		])
 		decache
 		enqueue
 	])
-	
-	let program = (ConcLang.ProgramState.new [
-	] 
-	[
+	let example_church_and = (V.group [
 		enstack
-		church_false // Try changing this
+		church_true // Try changing this
 		enstack
-		church_false // And this
+		church_true // And this
 		church_and
 		
 		cache
@@ -78,6 +103,63 @@ Main =
 		decache
 		enqueue
 	])
+	let identity = (V.group List.nil)
+	let church_zero = discard
+	let church_one = enqueue
+	let church_two = (V.group [
+		// Duplicate the function because we'll call it twice
+		do_dup
+		// Cache a copy
+		cache
+		// Run the other one
+		enqueue
+		// Decache the copy of the function
+		decache
+		// Run it
+		enqueue
+	])
+	let church_succ = (V.group [
+		cache
+		enstack (V.group [
+			// stack: (value function predecessor)
+			// cache predecessor
+			cache
+			do_dup
+			cache
+			// run function on value
+			enqueue
+			// stack: (succ value)
+			// decache function and and run it
+			decache decache
+			enqueue
+			// stack = (predecessor (succ value))
+		])
+		// Make sure the group has the predecessor at the
+		// top of its stack when it runs.
+		decache
+		close
+		enstack
+		enstack
+		close
+	])
+	let program = (ConcLang.ProgramState.new [
+	] 
+	[
+		enstack church_zero
+		church_succ
+		church_succ
+		church_succ
+		church_succ
+		church_succ
+		church_succ
+
+		// To display:
+		cache
+		(V.push_kind2_val Nat.zero)
+		enstack V.nat_succ
+		decache
+		enqueue
+	])
 	
 	let program = (ConcLang.ProgramState.execute program)
-	program
+	(ConcLang.Value.display (V.group (GetStack program)))

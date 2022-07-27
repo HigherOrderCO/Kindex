@@ -1,1 +1,1 @@
-Either.right <l> <r> (value: r): Either <l> <r>
+Either.right <l> <r> (value: r): (Either l r)

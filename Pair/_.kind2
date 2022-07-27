@@ -1,2 +1,2 @@
-// Automatically derived from Pair/Pair.type
+// Automatically derived from Pair/_.type
 Pair (a: Type) (b: Type) : Type

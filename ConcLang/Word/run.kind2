@@ -24,11 +24,11 @@ ConcLang.Word.run ConcLang.Word.enqueue (ConcLang.ProgramState.new
 	(ConcLang.ProgramState.new s_tail (List.cons s_head queue))
 	
 ConcLang.Word.run ConcLang.Word.swap (ConcLang.ProgramState.new
-	(List.cons ConcLang.Value fst (List.cons ConcLang.Value snd q_tail))
+	(List.cons ConcLang.Value fst (List.cons ConcLang.Value snd s_tail))
 	queue
 ) = 
 	(ConcLang.ProgramState.new
-		(List.cons ConcLang.Value snd (List.cons ConcLang.Value fst q_tail))
+		(List.cons ConcLang.Value snd (List.cons ConcLang.Value fst s_tail))
 		queue
 	)
 	
@@ -50,6 +50,15 @@ ConcLang.Word.run (ConcLang.Word.group words) (ConcLang.ProgramState.new
 	queue
 ) = 
 	(ConcLang.ProgramState.new stack (List.concat words queue))
+
+ConcLang.Word.run ConcLang.Word.close (ConcLang.ProgramState.new
+	(List.cons ConcLang.Value fst (List.cons ConcLang.Value (ConcLang.Value.word (ConcLang.Word.group g)) s_tail))
+	queue
+) = 
+	(ConcLang.ProgramState.new
+		(List.cons ConcLang.Value (ConcLang.Value.word (ConcLang.Word.group (List.cons fst g))) s_tail)
+		queue
+	)
 
 ConcLang.Word.run (ConcLang.Word.extern fn) program_state = 
 	(fn program_state)

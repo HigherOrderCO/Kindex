@@ -1,0 +1,5 @@
+// Automatically derived from Kindelia/IO/_.type
+Kindelia.IO.match <r: Type> (x: (Kindelia.IO r)) -(p: (x: (Kindelia.IO r)) Type) (done: (val: r) (p (Kindelia.IO.done r val))) (do_take: (s: Type) (cont: (_: s) (Kindelia.IO r)) (p (Kindelia.IO.do_take r s cont))) (do_save: (s: Type) (val: s) (cont: (_: (Unit)) (Kindelia.IO r)) (p (Kindelia.IO.do_save r s val cont))) : (p x)
+Kindelia.IO.match r (Kindelia.IO.done _r _val) p done do_take do_save = (done _val)
+Kindelia.IO.match r (Kindelia.IO.do_take _r _s _cont) p done do_take do_save = (do_take _s _cont)
+Kindelia.IO.match r (Kindelia.IO.do_save _r _s _val _cont) p done do_take do_save = (do_save _s _val _cont)

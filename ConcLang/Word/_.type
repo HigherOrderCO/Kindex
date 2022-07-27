@@ -8,11 +8,11 @@ type ConcLang.Word {
 	// beginning of the queue
 	// If the value is a word, this is like executing it.
 	enqueue
-	// Swaps the value at the beginning of the queue
+	// Swaps the two values at the beginning of a queue.
 	// with the value at the top of the stack
 	swap
 	// Pops the value at the top of the stack and pushes it to the end
-	// of the queue
+	// of the queue. The end of the queue is somewhat like a long-term store of values.
 	cache
 	// Pops the value at the end of the queue
 	// and pushes it to the top of the stack
@@ -21,6 +21,9 @@ type ConcLang.Word {
 	// dequeue operate on it as a value
 	// When it's run, it pushes all the values in the list to the queue in order
 	group (list: (List ConcLang.Value))
+	// The primitive to create closures. It adds a word at the beginning of a group.
+	// The word should be at the beginning of the stack. The group should be below it.
+	close 
 	// Discards the value at the top of the stack
 	discard
 	// Pops the value at the top of the stack
