@@ -23,5 +23,4 @@
 // If you have a value of this type, it means that you know that there exists at least 
 // one object in `set` such that (proposition set) exists (which means that it is constructible)
 Quantifier.Exists <set: Type> <proposition: set -> Type>: Type
-Quantifier.Exists.proof <set: Type> <proposition: set -> Type> 
-	(value: (Not (value: set) (Not (proposition value)))): (Quantifier.Exists set proposition)
+Quantifier.Exists set proposition = (Not (Quantifier.Forall set @value(Not (proposition value))))
