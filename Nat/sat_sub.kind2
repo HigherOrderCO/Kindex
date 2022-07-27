@@ -1,6 +1,0 @@
-// saturating subtraction, like normal subtraction but clips to zero for negative numbers
-
-Nat.sat_sub (a: Nat)     (b: Nat)     : Nat
-Nat.sat_sub Nat.zero     b            = Nat.zero
-Nat.sat_sub a            Nat.zero     = a
-Nat.sat_sub (Nat.succ a) (Nat.succ b) = (Nat.sat_sub a b)

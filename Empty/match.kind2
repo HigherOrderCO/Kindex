@@ -1,2 +1,0 @@
-// Automatically derived from Empty/Empty.type
-Empty.match (x: (Empty)) <p: (x: (Empty)) Type> : (p x)
