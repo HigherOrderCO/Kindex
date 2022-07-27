@@ -1,0 +1,4 @@
+type PairingHeap {
+    empty
+    tree (elem: U60) (children: (List PairingHeap))
+}

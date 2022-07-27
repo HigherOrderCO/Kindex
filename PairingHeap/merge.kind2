@@ -1,0 +1,11 @@
+// Merge
+PairingHeap.merge (pq1: PairingHeap) (pq2: PairingHeap) : PairingHeap
+PairingHeap.merge PairingHeap.empty pq = pq
+PairingHeap.merge pq PairingHeap.empty = pq
+PairingHeap.merge (PairingHeap.tree x pqs1) (PairingHeap.tree y pqs2) =
+  (PairingHeap.merge.aux (> y x) (PairingHeap.tree x pqs1) (PairingHeap.tree y pqs2))
+
+  PairingHeap.merge.aux (b: U60) (pq1: PairingHeap) (pq2: PairingHeap) : PairingHeap
+  PairingHeap.merge.aux #1 (PairingHeap.tree x pqs) pq = (PairingHeap.tree x (List.cons PairingHeap pq pqs))
+  PairingHeap.merge.aux #0 pq (PairingHeap.tree y pqs) = (PairingHeap.tree y (List.cons PairingHeap pq pqs))
+

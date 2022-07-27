@@ -1,0 +1,4 @@
+// Find minimum element
+PairingHeap.findMin (pq: PairingHeap) : (Maybe U60)
+PairingHeap.findMin  PairingHeap.empty      = (Maybe.none U60)
+PairingHeap.findMin (PairingHeap.tree x hs) = (Maybe.some U60 x)

@@ -1,0 +1,4 @@
+// Automatically derived from PairingHeap/PairingHeap.type
+PairingHeap.match (x: (PairingHeap)) -(p: (x: (PairingHeap)) Type) (empty: (p (PairingHeap.empty))) (tree: (elem: U60) (children: (List (PairingHeap))) (p (PairingHeap.tree elem children))) : (p x)
+PairingHeap.match (PairingHeap.empty) p empty tree = (empty)
+PairingHeap.match (PairingHeap.tree elem_ children_) p empty tree = (tree elem children)

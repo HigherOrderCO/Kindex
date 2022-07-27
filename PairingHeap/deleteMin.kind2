@@ -1,0 +1,12 @@
+// Delete minimum element
+PairingHeap.deleteMin (pq: PairingHeap) : PairingHeap
+PairingHeap.deleteMin  PairingHeap.empty      =  PairingHeap.empty
+PairingHeap.deleteMin (PairingHeap.tree x hs) = (PairingHeap.mergePairs hs)
+
+// Helper function for deleteMin. It merges children heaps in pairs from left to right,
+// then merges the resulting heaps from right to left.
+PairingHeap.mergePairs (xs: (List PairingHeap)) : PairingHeap
+PairingHeap.mergePairs (List.nil  PairingHeap                                 ) = PairingHeap.empty
+PairingHeap.mergePairs (List.cons PairingHeap h  (List.nil  PairingHeap      )) = h
+PairingHeap.mergePairs (List.cons PairingHeap h1 (List.cons PairingHeap h2 hs)) =
+  (PairingHeap.merge (PairingHeap.merge h1 h2) (PairingHeap.mergePairs hs))
