@@ -1,0 +1,2 @@
+Show.concat (as: Show) (bs: Show) : Show
+Show.concat as bs = @h (as (bs h))

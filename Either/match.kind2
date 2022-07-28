@@ -1,0 +1,4 @@
+// Automatically derived from Either/_.type
+Either.match <l: Type> <r: Type> (x: (Either l r)) -(p: (x: (Either l r)) Type) (left: (val: l) (p (Either.left l r val))) (right: (val: r) (p (Either.right l r val))) : (p x)
+Either.match l r (Either.left l_ r_ val_) p left right = (left val_)
+Either.match l r (Either.right l_ r_ val_) p left right = (right val_)
