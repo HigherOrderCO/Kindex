@@ -1,0 +1,78 @@
+//* Sortable Collection using Bottom-Up MergeSort
+
+// This collection is represented as a list of ordered lists and its total size
+// Every ordered list will have distinct sizes. More precisely, a power-of-2 size
+// P.S.: We use the term Set instead of Collection on the code, for brevity
+
+// Based on Chris Okasaki's "Purely Functional Data Structures", Chapter 3.5.2 - 1996
+
+//* Type definitions
+
+// type SortSet<A: Type> {
+//     (segments: List<List<A>>, size: Nat)
+// }
+SortableSet : Type
+SortableSet.new (count: U60) (elem: (List (List U60))) : SortableSet
+
+SortableSet.elements (set: SortableSet) : (List U60)
+SortableSet.elements (SortableSet.new count elem) = (List.flatten U60 elem)
+
+//* Helper Functions
+
+// Left cummulative fold
+List.foldl <a: Type> (f: a -> a) (c: a) (xs: (List a)) : a
+List.foldl a f c (List.nil  b     ) = c
+List.foldl a f c (List.cons b x xs) = (List.foldl a f (f c x) xs)
+
+// Decreasing Range:
+// Creates a range from n-1 to 0
+DecRange (n: U60) : (List U60)
+DecRange #0 = (List.nil U60)
+DecRange n  =
+  let dec = (- n #1)
+  (List.cons U60 dec (DecRange dec))
+
+
+//* Sorted Collection Functions
+
+// Merges two ordered lists
+// Merge(xs: List, ys: List) -> List
+Merge (xs: (List U60)) (ys: (List U60)) : (List U60)
+Merge (List.nil U60) ys = ys
+Merge xs (List.nil U60) = xs
+Merge (List.cons U60 x xs) (List.cons U60 y ys) = (Merge.aux (< x y) (List.cons U60 x xs) (List.cons U60 y ys))
+
+  Merge.aux (b: U60) (xs: (List U60)) (ys: (List U60)) : (List U60)
+  Merge.aux #1 (List.cons U60 x xs) ys = (List.cons U60 x (Merge xs ys))
+  Merge.aux #0 xs (List.cons U60 y ys) = (List.cons U60 y (Merge xs ys))
+
+// Constructs an empty Sorted Set
+SortableSet.empty : SortableSet
+SortableSet.empty = (SortableSet.new #0 (List.nil (List U60)))
+
+// Adds an element to the Set
+SortableSet.add (x: U60) (set: SortableSet) : SortableSet
+SortableSet.add x (SortableSet.new size segs) = (SortableSet.new (+ size #1) (InsertSeg (List.cons U60 x List.nil) segs size))
+
+InsertSeg (seg: (List U60)) (segs: (List (List U60))) (size: U60) : (List (List U60))
+InsertSeg seg segs size = (InsertSeg.aux (% size #2) seg segs size)
+  InsertSeg.aux (b: U60) (seg: (List U60)) (segs: (List (List U60))) (size: U60) : (List (List U60))
+  InsertSeg.aux #0 seg  segs                       size = (List.cons (List U60) seg segs)
+  InsertSeg.aux #1 seg (List.cons (List U60) x xs) size = (InsertSeg (Merge seg x) xs (>> size #1))
+
+// Sorts the elements of the Set
+// Sort(x: SortSet<A>) -> List<A>
+SortableSet.sort (set: SortableSet) : (List U60)
+SortableSet.sort (SortableSet.new count segs) = (List.foldl @x @y(Merge x y) List.nil segs)
+
+Main : _
+Main = (
+  let n = #10
+  let set = (List.foldl
+    @x @y(SortableSet.add y x)
+    SortableSet.empty
+    (DecRange n)
+  )
+
+  (SortableSet.sort set)
+)
