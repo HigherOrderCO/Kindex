@@ -1,0 +1,10 @@
+Kindelia.IO.bind <a: Type> <b: Type> (io: (Kindelia.IO a)) (next: a -> (Kindelia.IO b)) : (Kindelia.IO b)
+
+Kindelia.IO.bind a b (Kindelia.IO.done io.a io.val) next =
+  (next io.val)
+
+Kindelia.IO.bind a b (Kindelia.IO.do_take io.a io.s io.cont) next =
+  (Kindelia.IO.do_take b io.s @x (Kindelia.IO.bind a b (io.cont x) next))
+
+Kindelia.IO.bind a b (Kindelia.IO.do_save io.a io.s io.val cont) next =
+  (Kindelia.IO.do_save b io.s io.val @x (Kindelia.IO.bind a b (cont x) next))

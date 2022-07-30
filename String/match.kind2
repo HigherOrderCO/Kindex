@@ -1,0 +1,4 @@
+// Automatically derived from String/_.type
+String.match (x: (String)) -(p: (x: (String)) Type) (nil: (p (String.nil))) (cons: (head: U60) (tail: (String)) (p (String.cons head tail))) : (p x)
+String.match (String.nil) p nil cons = (nil)
+String.match (String.cons x.head x.tail) p nil cons = (cons x.head x.tail)

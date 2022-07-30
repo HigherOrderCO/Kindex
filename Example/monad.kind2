@@ -6,3 +6,7 @@ Example.list_monad : (List (List U60)) {
     return [x, y, z]
   }
 }
+
+Main {
+  Example.list_monad
+}

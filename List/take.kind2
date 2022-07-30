@@ -1,5 +1,5 @@
-//Takes n values from a list and returns a list
-//example: (List.get [1,2,3,4] 2) -> [1,2]
+// Takes n values from a list and returns a list
+// Example: (List.get [1,2,3,4] 2) -> [1,2]
 List.take <a> (xs: (List a)) (n: Nat) : (List a)
 List.take a (List.cons t head tail) (Nat.succ pred) = 
   (List.cons t head (List.take a tail pred))
