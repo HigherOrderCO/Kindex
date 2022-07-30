@@ -7,10 +7,6 @@
 // Based on Chris Okasaki's "Purely Functional Data Structures", Chapter 3.5.2 - 1996
 
 //* Type definitions
-
-// type SortSet<A: Type> {
-//     (segments: List<List<A>>, size: Nat)
-// }
 SortableSet : Type
 SortableSet.new (count: U60) (elem: (List (List U60))) : SortableSet
 
