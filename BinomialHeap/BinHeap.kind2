@@ -14,9 +14,10 @@
 Node : Type
 Node.new (rank: U60) (root: U60) (children: (List Node)) : Node
 
-BinomialHeap : (List Node)
+BinomialHeap : Type
+BinomialHeap = (List Node)
 BinomialHeap.nil : BinomialHeap
-BinomialHeap.nil  = (List.nil  Node)
+BinomialHeap.nil = (List.nil  Node)
 BinomialHeap.cons (x: Node) (xs: BinomialHeap) : BinomialHeap
 BinomialHeap.cons x xs = (List.cons Node x xs)
 
@@ -48,13 +49,13 @@ DecRange n  =
     (List.cons U60 dec (DecRange dec))
 
 
-// //* "Getters"
+//* "Getters"
 
 Node.rank (n: Node) : (Pair Node U60)
 Node.rank (Node.new rank root children) = (Pair.new rank (Node.new rank root children))
 
-Node.root (n: Node) : (Pair Node U60)
-Node.root (Node.new rank root children) = (Pair.new root (Node.new rank root children))
+// Node.root (n: Node) : (Pair Node U60)
+// Node.root (Node.new rank root children) = (Pair.new root (Node.new rank root children))
 
 Node.children (n: Node) : BinomialHeap
 Node.children (Node.new rank root children) = children
@@ -69,10 +70,8 @@ Node.rank_root (Node.new rank root children) = (Pair.new rank root)
 //   - the other tree as one of its children
 //   - its rank increased by 1
 BinomialHeap.link (n1: Node) (n2: Node) : Node
-BinomialHeap.link n1 n2 =
-  (Pair.get Node U60 Node (Node.root n1) @n1_root @n1_clone
-  (Pair.get Node U60 Node (Node.root n2) @n2_root @n2_clone
-  (BinomialHeap.link.aux (> (n2_root) (n1_root)) n1_clone n2_clone)))
+BinomialHeap.link (Node.new r1 x1 c1) (Node.new r2 x2 c2) =
+  (BinomialHeap.link.aux (> x2 x1) (Node.new r1 x1 c1) (Node.new r2 x2 c2))
 
   BinomialHeap.link.aux (bool: U60) (n1: Node) (n2: Node) : Node
   BinomialHeap.link.aux #1 (Node.new r1 x1 c1) n2 = (Node.new (+ r1 #1) x1 (BinomialHeap.cons n2 c1))
@@ -81,11 +80,14 @@ BinomialHeap.link n1 n2 =
 // Inserts a Tree into the heap
 // P.S.: Do not call it manually, you could break the heap structure
 InsertTree (new: Node) (pq: BinomialHeap) : BinomialHeap
-InsertTree new (List.nil  Node)      = (BinomialHeap.cons new BinomialHeap.nil)
-InsertTree new (List.cons Node x xs) =
-  (Pair.get Node U60 Node (Node.rank new) @new_rank @new_clone
-  (Pair.get Node U60 Node (Node.rank x  ) @x_rank   @x_clone
-  (InsertTree.aux (< new_rank x_rank) new_clone (BinomialHeap.cons x_clone xs))))
+InsertTree (Node.new new_rank new_root new_child) (List.nil  Node) =
+  (BinomialHeap.cons (Node.new new_rank new_root new_child) BinomialHeap.nil)
+InsertTree (Node.new new_rank new_root new_child) (List.cons Node (Node.new x_rank x_root x_child) xs) =
+  (InsertTree.aux
+    (< new_rank x_rank)
+    (Node.new new_rank new_root new_child)
+    (BinomialHeap.cons (Node.new x_rank x_root x_child) xs)
+  )
 
   InsertTree.aux (bool: U60) (new: Node) (xs: BinomialHeap) : BinomialHeap
   InsertTree.aux #1 new  xs                   = (BinomialHeap.cons new xs)
@@ -137,7 +139,7 @@ BinomialHeap.findMinNode.aux2 #0 xs min_pair x_pair = (BinomialHeap.findMinNode.
 // Finds the minimal element of the heap
 // Returns Maybe.none if the heap is empty
 BinomialHeap.findMin (pq: BinomialHeap) : (Maybe U60)
-BinomialHeap.findMin (List.nil Node) = Maybe.none
+BinomialHeap.findMin (List.nil Node) = (Maybe.none U60)
 BinomialHeap.findMin xs =
     let min_node_root = (Pair.snd (BinomialHeap.findMinNode xs))
     (Maybe.some U60 min_node_root)
@@ -155,21 +157,24 @@ BinomialHeap.deleteMin pq =
 // Finds the node with a specific rank
 // Returns that node and the heap without it
 BinomialHeap.removeRank (pq: BinomialHeap) (rank: U60) : (Pair Node BinomialHeap)
-BinomialHeap.removeRank (List.cons Node x xs) rank =
-    (Pair.get (Node.rank x) @x_rank @x_copy
-    (BinomialHeap.removeRank.aux (== x_rank rank) (BinomialHeap.cons x_copy xs) rank))
+BinomialHeap.removeRank (List.cons Node (Node.new x_rank x_root x_child) xs) rank =
+  (BinomialHeap.removeRank.aux
+    (== x_rank rank)
+    (BinomialHeap.cons (Node.new x_rank x_root x_child) xs)
+    rank
+  )
 
 BinomialHeap.removeRank.aux (b: U60) (pq: BinomialHeap) (rank: U60) : (Pair Node BinomialHeap)
 BinomialHeap.removeRank.aux #1 (List.cons Node x xs) rank = (Pair.new x xs)
 BinomialHeap.removeRank.aux #0 (List.cons Node x xs) rank =
-    let rec = (BinomialHeap.removeRank xs rank)
-    (Pair.get rec @node @pq
-    (Pair.new node (BinomialHeap.cons x pq)))
+  let rec = (BinomialHeap.removeRank xs rank)
+  (Pair.get rec @node @pq
+  (Pair.new node (BinomialHeap.cons x pq)))
 
 // Creates a heap using a list of natural numbers
 BinomialHeap.fromList (xs: (List U60)) : BinomialHeap
-BinomialHeap.fromList (List.nil  U60     ) = BinomialHeap.nil
-BinomialHeap.fromList (List.cons U60 x xs) = (BinomialHeap.insert x (BinomialHeap.fromList xs))
+BinomialHeap.fromList (List.nil  t     ) = BinomialHeap.nil
+BinomialHeap.fromList (List.cons t x xs) = (BinomialHeap.insert x (BinomialHeap.fromList xs))
 
 Main : _
 Main = (
@@ -182,7 +187,7 @@ Main = (
   // Testing Constructors/Functions
   // heapmaster
   // (BinomialHeap.findMin heapmaster)
-  // (BinomialHeap.deleteMin heapmaster)
+  (BinomialHeap.deleteMin heapmaster)
 
   // "Benchmarking"
   // (BinomialHeap.fromList (DecRange      #10)) //      398 RW
