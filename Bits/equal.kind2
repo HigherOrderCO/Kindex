@@ -1,0 +1,8 @@
+// Verifies if two bit structures are equal, return Bool.true if they are, Bool.false if not
+// Example: (Bits.equal (Bits.i Bits.e) (Bits.i Bits.e)) -> Bool.true
+// Example: (Bits.equal (Bits.o Bits.e) (Bits.i Bits.e)) -> Bool.false
+Bits.equal (a: Bits) (b: Bits) : Bool
+Bits.equal (Bits.e)        (Bits.e)        = (Bool.true)
+Bits.equal (Bits.o a.pred) (Bits.o b.pred) = (Bits.equal a.pred b.pred)
+Bits.equal (Bits.i a.pred) (Bits.i b.pred) = (Bits.equal a.pred b.pred)
+Bits.equal (a)             (b)             = (Bool.false)

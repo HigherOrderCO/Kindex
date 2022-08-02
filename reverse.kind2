@@ -1,0 +1,6 @@
+// Reverts the entire bit structure
+// Example: (Bits.reverse (Bits.i Bits.e)) -> (Bits.o Bits.e)
+Bits.reverse (b: Bits) : Bits
+Bits.reverse Bits.e        = Bits.e
+Bits.reverse (Bits.o pred) = (Bits.i (Bits.reverse pred))
+Bits.reverse (Bits.i pred) = (Bits.o (Bits.reverse pred))
