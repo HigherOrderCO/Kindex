@@ -1,4 +1,3 @@
 // Get an Empty out of (Not p) and p
 Not.contradict <p: Type> (not: (Not p)) (expression: p): Empty
-Not.contradict p (Not.not not) expression = (not expression)
-	
+Not.contradict p not expression = (not expression)

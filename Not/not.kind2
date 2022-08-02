@@ -1,2 +1,0 @@
-// A type that can only exist if the type it contains can't exist
-Not.not <p: Type> (proof: p -> Empty): (Not p)

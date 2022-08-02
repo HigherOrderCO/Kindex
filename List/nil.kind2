@@ -1,2 +1,2 @@
-// Automatically derived from List/List.type
+// Automatically derived from List/_.type
 List.nil <t: Type> : (List t)

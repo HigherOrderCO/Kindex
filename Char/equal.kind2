@@ -1,0 +1,2 @@
+Char.equal (a: Char) (b: Char) : Bool
+Char.equal a b = (U60.to_bool (== a b))

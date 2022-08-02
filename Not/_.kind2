@@ -1,1 +1,2 @@
 Not <p: Type>: Type
+Not p = p -> Empty

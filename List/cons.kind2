@@ -1,2 +1,2 @@
-// Automatically derived from List/List.type
+// Automatically derived from List/_.type
 List.cons <t: Type> (head: t) (tail: (List t)) : (List t)

@@ -1,1 +1,2 @@
-Either: Type
+// Automatically derived from Either/_.type
+Either (l: Type) (r: Type) : Type

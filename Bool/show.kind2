@@ -1,0 +1,3 @@
+Bool.show (x: Bool) : Show
+Bool.show Bool.true  = (String.show "true")
+Bool.show Bool.false = (String.show "false")
