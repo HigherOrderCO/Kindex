@@ -1,0 +1,2 @@
+// Automatically derived from SortableSet/_.type
+SortableSet.new (count: U60) (elem: (List (List U60))) : (SortableSet)
