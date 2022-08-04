@@ -1,0 +1,3 @@
+// Automatically derived from ListZipper/_.type
+ListZipper.match <a: Type> (x: (ListZipper a)) -(p: (x: (ListZipper a)) Type) (new: (lft: (List a)) (rgt: (List a)) (p (ListZipper.new a lft rgt))) : (p x)
+ListZipper.match a (ListZipper.new a_ lft_ rgt_) p new = (new lft rgt)
