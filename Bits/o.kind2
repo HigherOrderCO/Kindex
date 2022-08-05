@@ -1,2 +1,2 @@
 // Automatically derived from Bits/_.type
-Bits.o (pred: (Bits)) : (Bits)
+Bits.o (pred: Bits) : (Bits)
