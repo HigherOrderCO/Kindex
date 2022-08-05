@@ -1,0 +1,4 @@
+SortableSet.fromList (xs: (List U60)) : SortableSet
+SortableSet.fromList (List.nil  t     ) = SortableSet.empty
+SortableSet.fromList (List.cons t x xs) =
+  (SortableSet.add x (SortableSet.fromList xs))

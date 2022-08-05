@@ -1,0 +1,3 @@
+// Constructs an empty Sorted Set
+SortableSet.empty : SortableSet
+SortableSet.empty = (SortableSet.new #0 (List.nil (List U60)))

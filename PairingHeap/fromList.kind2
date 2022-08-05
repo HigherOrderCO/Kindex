@@ -1,4 +1,4 @@
 // Constructs a pairing heap from a list
 PairingHeap.fromList (xs: (List U60)) : PairingHeap
-PairingHeap.fromList (List.nil  U60     ) =  PairingHeap.empty
-PairingHeap.fromList (List.cons U60 x xs) = (PairingHeap.insert x (PairingHeap.fromList xs))
+PairingHeap.fromList (List.nil  t     ) =  PairingHeap.empty
+PairingHeap.fromList (List.cons t x xs) = (PairingHeap.insert x (PairingHeap.fromList xs))
