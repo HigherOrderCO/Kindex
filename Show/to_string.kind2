@@ -1,2 +1,2 @@
 Show.to_string (show: Show) : String
-Show.to_string show = (show String.nil)
+Show.to_string show = show String.nil

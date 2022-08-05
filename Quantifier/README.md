@@ -1,4 +1,4 @@
-# Quantifiers
+ Quantifiers
 
 These are somewhat useful constructors to ensure that your proofs prove what you think they do.
 

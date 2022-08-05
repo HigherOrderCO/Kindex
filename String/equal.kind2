@@ -1,8 +1,8 @@
 String.equal (xs: String) (ys: String) : Bool
 String.equal (String.cons x xs) (String.cons y ys) =
-  let head = (U60.to_bool (== x y))
-  let tail = (String.equal xs ys)
-  (Bool.and head tail)
+  let head = U60.to_bool (== x y)
+  let tail = String.equal xs ys
+  Bool.and head tail
 String.equal String.nil String.nil =
   Bool.true
 String.equal xs ys =

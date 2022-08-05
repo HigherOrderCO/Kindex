@@ -1,3 +1,3 @@
 String.concat (xs: String) (ys: String) : String
-String.concat (String.cons x xs) ys = (String.cons x (String.concat xs ys))
+String.concat (String.cons x xs) ys = String.cons x (String.concat xs ys)
 String.concat String.nil         ys = ys

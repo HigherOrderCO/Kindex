@@ -22,9 +22,9 @@ Example.quant.unique a b pair =
 	// therefore, a + 1 == b + 1
 	let trans = (Equal.chain fst (Equal.mirror snd))
 	// subtract one from each side
-	let trans = (Equal.apply @x(Equal.quant.unique.helper x) trans)
+	let trans = (Equal.apply (x => Equal.quant.unique.helper x) trans)
 	// we get a == b
 	trans
 	
-Example.quant.unique.build: (Quantifier.Unique Nat @x(Equal Nat (Nat.succ x) (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))
-Example.quant.unique.build = @a@b@c(Example.quant.unique a b c)
+Example.quant.unique.build: (Quantifier.Unique Nat (x => Equal Nat (Nat.succ x) (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))
+Example.quant.unique.build = (a => b => c => Example.quant.unique a b c)

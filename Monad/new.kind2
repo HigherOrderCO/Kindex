@@ -1,5 +1,5 @@
 Monad.new
-  (f: Type -> Type)
-  (pure: (a: Type) (x: a) (Monad (f a)))
-  (bind: (a: Type) (b: Type) (x: (Monad a)) (y: a -> (Monad b)) (Monad b))
+  (f    : Type -> Type)
+  (pure : (a: Type) (x: a) (f a))
+  (bind : (a: Type) (b: Type) (x: (f a)) (y: a -> (f b)) (f b))
 : (Monad f)

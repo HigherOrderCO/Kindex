@@ -2,7 +2,7 @@
 Quantifier.unique_all_not.helper 
 	<set: Type> 
 	<proposition: set -> Type>
-	(forall: (Quantifier.Forall set @x(Not (proposition x)))) 
+	(forall: (Quantifier.Forall set (x => Not (proposition x))))
 	(a: set) (b: set) (pair: (Pair (proposition a) (proposition b)))
 	: (Equal set a b)
 
@@ -16,7 +16,7 @@ Quantifier.unique_all_not.helper set proposition forall
 Quantifier.unique_all_not
 	<set: Type> 
 	<proposition: set -> Type>
-	(forall: (Quantifier.Forall set @x((proposition x) -> Empty))): (Quantifier.Unique set proposition)
+	(forall: (Quantifier.Forall set (x => (proposition x) -> Empty))): (Quantifier.Unique set proposition)
 	
 Quantifier.unique_all_not set proposition forall =
-	@a@b@pair(Quantifier.unique_all_not.helper set proposition forall a b pair)
+	(a => b => pair => Quantifier.unique_all_not.helper set proposition forall a b pair)

@@ -16,5 +16,5 @@ Example.quant.exists exists =
 	// We can create Empty with it
 	(Not.contradict proposition refl)
 	
-Example.quant.exists.build: (Quantifier.Exists Nat @x(Equal Nat (Nat.succ x) (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))
-Example.quant.exists.build = @x(Example.quant.exists x)
+Example.quant.exists.build: (Quantifier.Exists Nat (x => Equal Nat (Nat.succ x) (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))
+Example.quant.exists.build = (x => Example.quant.exists x)
