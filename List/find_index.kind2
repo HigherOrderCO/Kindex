@@ -1,6 +1,6 @@
 // Given a condition, if any, returns the index for the first value found within
 // that condition
-// Example: (List.find_index Nat [1,2,3] (Nat.eql 3)) -> (Maybe.some 2)
+// Example: (List.find_index Nat [1,2,3] (Nat.equal 3)) -> (Maybe.some 2)
 List.find_index <a> (xs: (List a)) (cond: (x: a) Bool) : (Maybe Nat)
 List.find_index a xs cond = (List.find_index.go xs cond Nat.zero)
 

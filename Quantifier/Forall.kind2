@@ -2,4 +2,4 @@
 // that (B a) is fulfilled (is constructible) for all a in A.
 
 Quantifier.Forall <set: Type> <proposition: set -> Type>: Type
-Quantifier.Forall set proposition = (value: set)(proposition value)
+Quantifier.Forall set proposition = (value: set) -> (proposition value)

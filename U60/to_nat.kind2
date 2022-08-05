@@ -1,4 +1,4 @@
 U60.to_nat (x: U60) : Nat
-U60.to_nat #0 = Nat.zero
-U60.to_nat n  = (Nat.succ (U60.to_nat (- n #1)))
+U60.to_nat 0 = Nat.zero
+U60.to_nat n = Nat.succ (U60.to_nat (- n 1))
 

@@ -2,6 +2,6 @@
 // Example: (Nat.mul 3 5) -> 15
 Nat.mul (a: Nat) (b: Nat) : Nat
 // (a + 1) * b = a*b + b
-Nat.mul (Nat.succ a) b = (Nat.add (Nat.mul a b) b)
+Nat.mul (Nat.succ a) b = Nat.add (Nat.mul a b) b
 // 0b = 0
 Nat.mul Nat.zero     b = Nat.zero

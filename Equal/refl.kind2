@@ -1,1 +1,1 @@
-Equal.refl <t> <a: t> : (Equal t a a)
+Equal.refl <t> <a: t> : Equal t a a
