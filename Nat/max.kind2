@@ -1,3 +1,7 @@
 // Given two numbers, return the biggest
 Nat.max (a: Nat) (b: Nat) : Nat 
 Nat.max a b = (Bool.if Nat (Nat.gtn a b) a b)
+
+Bool.if <a: Type> (b: Bool) (t: a) (f: a) : a
+Bool.if a Bool.true  t f = t
+Bool.if a Bool.false t f = f
