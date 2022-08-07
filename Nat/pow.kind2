@@ -1,0 +1,4 @@
+// a^b 
+Nat.pow (a: Nat) (b: Nat) : Nat 
+Nat.pow a Nat.zero = (Nat.succ (Nat.zero))
+Nat.pow a (Nat.succ b) = (Nat.mul a (Nat.pow a b) )
