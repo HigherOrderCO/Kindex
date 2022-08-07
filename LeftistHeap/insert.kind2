@@ -1,0 +1,7 @@
+// Inserts an element to a heap
+LeftistHeap.insert (x: U60) (h: LeftistHeap) : LeftistHeap
+LeftistHeap.insert x h = (LeftistHeap.merge (LeftistHeap.singleton x) h)
+
+// Singleton heap
+LeftistHeap.singleton (x: U60) : LeftistHeap
+LeftistHeap.singleton x = (LeftistHeap.tree #1 x LeftistHeap.empty LeftistHeap.empty)

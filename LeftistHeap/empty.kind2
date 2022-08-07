@@ -1,0 +1,2 @@
+// Automatically derived from LeftistHeap/_.type
+LeftistHeap.empty : (LeftistHeap)

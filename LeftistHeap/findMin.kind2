@@ -1,0 +1,4 @@
+// Finds the minimum element. Returns Maybe.None if called on an empty heap.
+LeftistHeap.findMin (h: LeftistHeap) : (Maybe U60)
+LeftistHeap.findMin LeftistHeap.empty = Maybe.none
+LeftistHeap.findMin (LeftistHeap.tree r x a b) = (Maybe.some x)

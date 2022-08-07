@@ -1,0 +1,4 @@
+// Generates a leftist heap from a list
+LeftistHeap.fromList (xs: (List U60)) : LeftistHeap
+LeftistHeap.fromList (List.nil  t     ) = LeftistHeap.empty
+LeftistHeap.fromList (List.cons t x xs) = (LeftistHeap.insert x (LeftistHeap.fromList xs))

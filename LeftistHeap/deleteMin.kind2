@@ -1,0 +1,4 @@
+// Deletes the node with the minimum element. Returns LeftistHeap.empty if called on an empty heap.
+LeftistHeap.deleteMin (h: LeftistHeap) : LeftistHeap
+LeftistHeap.deleteMin LeftistHeap.empty = LeftistHeap.empty
+LeftistHeap.deleteMin (LeftistHeap.tree r x a b) = (LeftistHeap.merge a b)
