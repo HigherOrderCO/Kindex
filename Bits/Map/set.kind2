@@ -1,7 +1,7 @@
 // Sets a value to a Map in a given position
 Bits.Map.set <a> 
   (map   : Bits.Map a)
-  (key  : Bits)
+  (key   : Bits)
   (value : a)
 : Bits.Map a
 

@@ -1,14 +1,14 @@
 // Given a Bit, applies a function to the correspodent value in the map.
 Bits.Map.mut <a> 
   (map  : Bits.Map a)
-  (key : Bits)
+  (key  : Bits)
   (init : a)
   (func : a -> a)
 : Bits.Map a
 
 // Bits.e
 Bits.Map.mut a (Bits.Map.new t) Bits.e init func =
-  let value = Maybe.some init
+  let value = Maybe.some (func init)
   let left  = Bits.Map.new
   let right = Bits.Map.new
   Bits.Map.tie value left right

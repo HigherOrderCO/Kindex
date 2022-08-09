@@ -1,6 +1,6 @@
 // Gets in a map a value that corresponds to the Bits
 Bits.Map.get <a> 
-  (map  : Bits.Map a)
+  (map : Bits.Map a)
   (key : Bits)
 : Maybe a
 

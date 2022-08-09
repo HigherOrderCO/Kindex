@@ -1,6 +1,6 @@
 // Given a Bit, deletes the correspondent value in the map
 Bits.Map.del <a> 
-  (map  : Bits.Map a)
+  (map : Bits.Map a)
   (key : Bits)
 : Bits.Map a
 
