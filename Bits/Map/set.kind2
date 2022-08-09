@@ -1,41 +1,41 @@
 // Sets a value to a Map in a given position
 Bits.Map.set <a> 
-  (bits  : Bits)
-  (value : a)
   (map   : Bits.Map a)
+  (key  : Bits)
+  (value : a)
 : Bits.Map a
 
 // Bits.e
-Bits.Map.set a Bits.e value (Bits.Map.new t) = 
+Bits.Map.set a (Bits.Map.new t) Bits.e value  = 
   let value = Maybe.some value
   let left  = Bits.Map.new
   let right = Bits.Map.new
   Bits.Map.tie value left right
 
-Bits.Map.set a Bits.e value (Bits.Map.tie t old_value left right) = 
+Bits.Map.set a (Bits.Map.tie t old_value left right) Bits.e value = 
   let value = Maybe.some value
   Bits.Map.tie  value left right
 
 // Bits.o
-Bits.Map.set a (Bits.o pred) new_value (Bits.Map.new t) = 
+Bits.Map.set a (Bits.Map.new t) (Bits.o pred) new_value = 
   let value = Maybe.none t
-  let left  = Bits.Map.set a pred new_value (Bits.Map.new)
+  let left  = Bits.Map.set a (Bits.Map.new) pred new_value
   let right = Bits.Map.new
   Bits.Map.tie  value left right
 
-Bits.Map.set a (Bits.o pred) new_value (Bits.Map.tie t value left right) =
-  let left = Bits.Map.set a pred new_value left
+Bits.Map.set a (Bits.Map.tie t value left right) (Bits.o pred) new_value =
+  let left = Bits.Map.set a left pred new_value 
   Bits.Map.tie value left right
 
 // Bits.i
-Bits.Map.set a (Bits.i pred) new_value (Bits.Map.new t) =
+Bits.Map.set a (Bits.Map.new t) (Bits.i pred) new_value =
   let value = Maybe.none
   let left  = Bits.Map.new
-  let right = Bits.Map.set a pred new_value (Bits.Map.new t)
+  let right = Bits.Map.set a (Bits.Map.new t) pred new_value
   Bits.Map.tie value left right
 
-Bits.Map.set a (Bits.i pred) new_value (Bits.Map.tie t value left right) =
-  let right = Bits.Map.set pred new_value right
+Bits.Map.set a (Bits.Map.tie t value left right) (Bits.i pred) new_value =
+  let right = Bits.Map.set right pred new_value
   Bits.Map.tie value left right
 
 

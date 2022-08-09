@@ -1,22 +1,22 @@
 // Given a Bit, deletes the correspondent value in the map
 Bits.Map.del <a> 
-  (bits : Bits)
   (map  : Bits.Map a)
+  (key : Bits)
 : Bits.Map a
 
-Bits.Map.del a bits (Bits.Map.new t) =
+Bits.Map.del a (Bits.Map.new t) key =
   Bits.Map.new
 
-Bits.Map.del a Bits.e (Bits.Map.tie t value left right) =
+Bits.Map.del a (Bits.Map.tie t value left right) Bits.e =
   let value = Maybe.none t
   Bits.Map.tie value left right
 
-Bits.Map.del a (Bits.o pred) (Bits.Map.tie t value left right) =
-  let left = Bits.Map.del a pred left
+Bits.Map.del a (Bits.Map.tie t value left right) (Bits.o pred) =
+  let left = Bits.Map.del a left pred
   Bits.Map.tie value left right
 
-Bits.Map.del a (Bits.i pred) (Bits.Map.tie t value left right) =
-  let right = Bits.Map.del a pred right
+Bits.Map.del a (Bits.Map.tie t value left right) (Bits.i pred)=
+  let right = Bits.Map.del a right pred
   Bits.Map.tie value left right
 
 
