@@ -1,0 +1,7 @@
+// Given two numbers, return the smaller
+Nat.min (a: Nat) (b: Nat) : Nat 
+Nat.min a b = (Bool.if Nat (Nat.ltn a b) a b)
+
+Bool.if <a: Type> (b: Bool) (t: a) (f: a) : a
+Bool.if a Bool.true  t f = t
+Bool.if a Bool.false t f = f

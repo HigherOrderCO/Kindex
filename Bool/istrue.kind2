@@ -1,0 +1,5 @@
+// Given a boolean checks if it is true
+// Bool.istrue ( Bool.true ) -> Bool.true
+// Bool.istrue ( Bool.false ) -> Bool.false 
+Bool.istrue (a: Bool) : Bool 
+Bool.istrue a = a

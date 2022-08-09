@@ -1,0 +1,5 @@
+// Greater Than 
+Nat.gtn (a: Nat) (b: Nat) : Bool
+Nat.gtn Nat.zero b = Bool.false 
+Nat.gtn a Nat.zero = Bool.true 
+Nat.gtn (Nat.succ a) (Nat.succ b) =  (Nat.gtn a b)
