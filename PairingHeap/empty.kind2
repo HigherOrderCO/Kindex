@@ -1,2 +1,2 @@
-// Automatically derived from PairingHeap/PairingHeap.type
+// Automatically derived from PairingHeap/_.type
 PairingHeap.empty : (PairingHeap)

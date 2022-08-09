@@ -1,3 +1,3 @@
 // Automatically derived from SortableSet/_.type
 SortableSet.match (x: (SortableSet)) -(p: (x: (SortableSet)) Type) (new: (count: U60) (elem: (List (List U60))) (p (SortableSet.new count elem))) : (p x)
-SortableSet.match (SortableSet.new count_ elem_) p new = (new count elem)
+SortableSet.match (SortableSet.new count_ elem_) p new = (new count_ elem_)

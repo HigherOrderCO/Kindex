@@ -1,4 +1,4 @@
 // Automatically derived from LeftistHeap/_.type
-LeftistHeap.match (x: (LeftistHeap)) -(p: (x: (LeftistHeap)) Type) (empty: (p (LeftistHeap.empty))) (tree: (rank: U60) (value: U60) (lft: (LeftistHeap)) (rgt: (LeftistHeap)) (p (LeftistHeap.tree rank value lft rgt))) : (p x)
+LeftistHeap.match (x: (LeftistHeap)) -(p: (x: (LeftistHeap)) Type) (empty: (p (LeftistHeap.empty))) (tree: (rank: U60) (value: U60) (lft: LeftistHeap) (rgt: LeftistHeap) (p (LeftistHeap.tree rank value lft rgt))) : (p x)
 LeftistHeap.match (LeftistHeap.empty) p empty tree = (empty)
-LeftistHeap.match (LeftistHeap.tree rank_ value_ lft_ rgt_) p empty tree = (tree rank value lft rgt)
+LeftistHeap.match (LeftistHeap.tree rank_ value_ lft_ rgt_) p empty tree = (tree rank_ value_ lft_ rgt_)
