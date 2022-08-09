@@ -1,0 +1,2 @@
+// Automatically derived from KDL/KGT/State/_.type
+KDL.KGT.State.new (balance: (Bits.Map U60)) : (KDL.KGT.State)

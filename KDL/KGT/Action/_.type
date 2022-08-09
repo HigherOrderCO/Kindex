@@ -1,0 +1,12 @@
+type KDL.KGT.Action {
+
+  // mine some tokens
+  mint (user: Bits) (value: U60)
+
+  // send some tokens
+  send (from: Bits) (to: Bits) (value: U60)
+
+  // query the balance of an user
+  get (user: Bits)
+
+}

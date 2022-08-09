@@ -1,0 +1,2 @@
+// Automatically derived from KDL/KGT/Response/_.type
+KDL.KGT.Response.get (balance: (Maybe U60)) : (KDL.KGT.Response)
