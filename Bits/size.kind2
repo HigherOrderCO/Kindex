@@ -1,0 +1,6 @@
+// Given a bit structure, return its size
+// Example: (Bits.size (Bits.i (Bits.i Bits.e))) -> 2
+Bits.size (b: Bits) : Nat
+Bits.size (Bits.e)        = (Nat.zero)
+Bits.size (Bits.o b.pred) = (Nat.succ (Bits.size b.pred))
+Bits.size (Bits.i b.pred) = (Nat.succ (Bits.size b.pred))
