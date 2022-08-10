@@ -1,0 +1,2 @@
+// Automatically derived from RedBlackMap/_.type
+RedBlackMap (a: Type) : Type

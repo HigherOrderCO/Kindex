@@ -1,0 +1,248 @@
+// type Color {
+//   red
+//   black
+// }
+
+// type RedBlack<A: type> {
+//   tip
+//   tie(color: Color, left: RedBlack<A>, key: U32, val: A, right: RedBlack<A>)
+// }
+
+Comp: Type
+Comp.equal: Comp
+Comp.lesser: Comp
+Comp.greater: Comp
+
+Battleship (a: U60) (b: U60) : Comp
+Battleship a b = Battleship.aux (< a b) (> a b)
+
+Battleship.aux (a: U60) (b: U60) : Comp
+Battleship.aux 0 0 = Comp.equal
+Battleship.aux x 0 = Comp.lesser
+Battleship.aux 0 x = Comp.greater
+
+RedBlackMap.get <a: Type> (map: (RedBlackMap a)) (key: U60) : (Maybe a)
+RedBlackMap.get a (RedBlackMap.tip b) get_key = (Maybe.none a)
+RedBlackMap.get a (RedBlackMap.tie b color left key value right) get_key =
+  RedBlackMap.get.aux (Battleship get_key key) (RedBlackMap.tie color left key value right) get_key
+
+  RedBlackMap.get.aux <a: Type> (c: Comp) (map: (RedBlackMap a)) (key: U60) : (Maybe a)
+  RedBlackMap.get.aux a Comp.equal   (RedBlackMap.tie b color left key value right) get_key =
+    Maybe.some value
+
+  RedBlackMap.get.aux a Comp.lesser  (RedBlackMap.tie b color left key value right) get_key =
+    RedBlackMap.get left  get_key
+
+  RedBlackMap.get.aux a Comp.greater (RedBlackMap.tie b color left key value right) get_key =
+    RedBlackMap.get right get_key
+
+RedBlackMap.set <a: Type> (map: (RedBlackMap a)) (key: U60) (value: a) : (RedBlackMap a)
+RedBlackMap.set t1 (RedBlackMap.tip t2) insert_key value =
+  RedBlackMap.tie RedBlackMap.Color.red RedBlackMap.tip insert_key value RedBlackMap.tip
+
+RedBlackMap.set t1 (RedBlackMap.tie t2 color left key value right) set_key set_value =
+  RedBlackMap.set.aux (Battleship set_key key) (RedBlackMap.tie color left key value right) set_key set_value
+
+  RedBlackMap.set.aux <a: Type> (c: Comp) (map: (RedBlackMap a)) (key: U60) (value: a) : (RedBlackMap a)
+  RedBlackMap.set.aux t1 Comp.equal   (RedBlackMap.tie t2 color left key value right) set_key set_value =
+    RedBlackMap.tie color left set_key set_value right
+
+  RedBlackMap.set.aux t1 Comp.lesser  (RedBlackMap.tie t2 color left key value right) set_key set_value =
+    let left = (RedBlackMap.set left set_key set_value)
+    RedBlackMap.balance color left key value right
+
+  RedBlackMap.set.aux t1 Comp.greater (RedBlackMap.tie t2 color left key value right) set_key set_value =
+    let right = (RedBlackMap.set right set_key set_value)
+    RedBlackMap.balance color left key value right
+
+// before flattening
+RedBlackMap.balance <a: Type>
+  (color: RedBlackMap.Color)
+  (left:  (RedBlackMap a))
+  (key:   U60)
+  (value: a)
+  (right: (RedBlackMap a)): (RedBlackMap a)
+
+RedBlackMap.balance t1
+  RedBlackMap.Color.black
+  (RedBlackMap.tie t2
+    RedBlackMap.Color.red
+    (RedBlackMap.tie t3 RedBlackMap.Color.red child0 key0 value0 child1)
+    key1
+    value1
+    child2
+  )
+  key2
+  value2
+  child3
+=
+  (RedBlackMap.tie
+    RedBlackMap.Color.red
+    (RedBlackMap.tie RedBlackMap.Color.black child0 key0 value0 child1)
+    key1
+    value1
+    (RedBlackMap.tie RedBlackMap.Color.black child2 key2 value2 child3)
+  )
+
+RedBlackMap.balance t1
+  RedBlackMap.Color.black
+  (RedBlackMap.tie t2
+    RedBlackMap.Color.red
+    child0
+    key0
+    value0
+    (RedBlackMap.tie t3 RedBlackMap.Color.red child1 key1 value1 child2)
+  )
+  key2
+  value2
+  child3
+=
+  (RedBlackMap.tie
+    RedBlackMap.Color.red
+    (RedBlackMap.tie RedBlackMap.Color.black child0 key0 value0 child1)
+    key1
+    value1
+    (RedBlackMap.tie RedBlackMap.Color.black child2 key2 value2 child3)
+  )
+
+RedBlackMap.balance t1
+  RedBlackMap.Color.black
+  child0
+  key0
+  value0
+  (RedBlackMap.tie t2
+    RedBlackMap.Color.red
+    (RedBlackMap.tie t3 RedBlackMap.Color.red child1 key1 value1 child2)
+    key2
+    value2
+    child3
+  )
+=
+  (RedBlackMap.tie
+    RedBlackMap.Color.red
+    (RedBlackMap.tie RedBlackMap.Color.black child0 key0 value0 child1)
+    key1
+    value1
+    (RedBlackMap.tie RedBlackMap.Color.black child2 key2 value2 child3)
+  )
+
+RedBlackMap.balance t1
+  RedBlackMap.Color.black
+  child0
+  key0
+  value0
+  (RedBlackMap.tie t2
+    RedBlackMap.Color.red
+    child1
+    key1
+    value1
+    (RedBlackMap.tie t3 RedBlackMap.Color.red child2 key2 value2 child3)
+  )
+=
+  (RedBlackMap.tie
+    RedBlackMap.Color.red
+    (RedBlackMap.tie RedBlackMap.Color.black child0 key0 value0 child1)
+    key1
+    value1
+    (RedBlackMap.tie RedBlackMap.Color.black child2 key2 value2 child3)
+  )
+
+RedBlackMap.balance t color left key value right = RedBlackMap.tie t color left key value right
+
+// setting even numbers until 32 in random order
+// maps n => "N"+to_string(n)
+//(TestMap) = (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set (Set RedBlackMap.tip 4 N2) 6 N3) 14 N7) 8 N4) 26 N13) 20 N10) 28 N14) 16 N8) 32 N16) 10 N5) 12 N6) 18 N9) 30 N15) 2 N1) 24 N12) 22 N11)
+
+// precomputed map
+
+TestMap : (RedBlackMap U60)
+TestMap =
+  (RedBlackMap.tie RedBlackMap.Color.red
+    (RedBlackMap.tie RedBlackMap.Color.red
+      (RedBlackMap.tip)
+      2
+      2
+      (RedBlackMap.tip)
+    )
+    4
+    4
+    (RedBlackMap.tie RedBlackMap.Color.red
+      (RedBlackMap.tip)
+      6
+      6
+      (RedBlackMap.tie RedBlackMap.Color.red
+        (RedBlackMap.tie RedBlackMap.Color.red
+          (RedBlackMap.tip)
+          8
+          8
+          (RedBlackMap.tie RedBlackMap.Color.red
+            (RedBlackMap.tip)
+            10
+            10
+            (RedBlackMap.tie RedBlackMap.Color.red
+              (RedBlackMap.tip)
+              12
+              12
+              (RedBlackMap.tip)
+            )
+          )
+        )
+        14
+        14
+        (RedBlackMap.tie RedBlackMap.Color.red
+          (RedBlackMap.tie RedBlackMap.Color.red
+            (RedBlackMap.tie RedBlackMap.Color.red
+              (RedBlackMap.tip)
+              16
+              16
+              (RedBlackMap.tie RedBlackMap.Color.red
+                (RedBlackMap.tip)
+                18
+                18
+                (RedBlackMap.tip)
+              )
+            )
+            20
+            20
+            (RedBlackMap.tie RedBlackMap.Color.red
+              (RedBlackMap.tie RedBlackMap.Color.red
+                (RedBlackMap.tip)
+                22
+                22
+                (RedBlackMap.tip)
+              )
+              24
+              24
+              (RedBlackMap.tip)
+            )
+          )
+          26
+          26
+          (RedBlackMap.tie RedBlackMap.Color.red
+            (RedBlackMap.tip)
+            28
+            28
+            (RedBlackMap.tie RedBlackMap.Color.red
+              (RedBlackMap.tie RedBlackMap.Color.red
+                (RedBlackMap.tip)
+                30
+                30
+                (RedBlackMap.tip)
+              )
+              32
+              32
+              (RedBlackMap.tip)
+            )
+          )
+        )
+      )
+    )
+  )
+
+Main : _
+Main = (RedBlackMap.get TestMap 8)
+
+// (Main a) = 
+//   let map = RedBlackMap.tip
+//   let map = (Set map a A)
+//   (Get map a)
