@@ -1,2 +1,2 @@
 // Constructor Tie for Bits.Map
-Bits.Map.tie <a> (val: (Maybe a)) (lft: (Bits.Map a)) (rgt: (Bits.Map a)) : (Bits.Map a)
+Bits.Map.tie <a> (value: (Maybe a)) (left: (Bits.Map a)) (right: (Bits.Map a)) : (Bits.Map a)

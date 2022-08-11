@@ -1,7 +1,0 @@
-Format.type (str: String) : Type
-Format.type (String.cons head tail) = (Format.type.inject (U60.equal head '%') tail)
-Format.type String.nil              = String
-
-Format.type.inject (inj: Bool) (tail: String) : Type
-Format.type.inject Bool.true  tail = U60 -> (Format.type tail)
-Format.type.inject Bool.false tail = (Format.type tail)

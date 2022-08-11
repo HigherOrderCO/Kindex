@@ -1,4 +1,4 @@
 type Maybe <t: Type> {
   none
-  some (x: t)
+  some (value: t)
 }

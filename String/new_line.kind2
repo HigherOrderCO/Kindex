@@ -1,2 +1,2 @@
 String.new_line : String
-String.new_line = (String.cons #10 String.nil)
+String.new_line = String.cons 10 String.nil

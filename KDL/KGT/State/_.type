@@ -1,0 +1,5 @@
+type KDL.KGT.State {
+  new(
+    balance: (Bits.Map U60) // user -> balance
+  )
+}

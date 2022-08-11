@@ -1,2 +1,2 @@
 U60.equal (a: U60) (b: U60) : Bool
-U60.equal a b = (U60.to_bool (== a b))
+U60.equal a b = U60.to_bool (== a b)

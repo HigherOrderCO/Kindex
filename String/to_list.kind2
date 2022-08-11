@@ -1,0 +1,3 @@
+String.to_list (s: String): (List U60)
+String.to_list String.nil = List.nil
+String.to_list (String.cons a b) = (List.cons a (String.to_list b))

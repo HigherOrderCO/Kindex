@@ -1,5 +1,5 @@
 Example.format : String {
-  ((Format "First is %, second is %.") #123 (+ #10 #20))
+  (Format "First is %, second is %.") 123 (+ 10 20)
 }
 
 Main {

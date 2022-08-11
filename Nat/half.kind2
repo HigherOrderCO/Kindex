@@ -1,0 +1,5 @@
+// Divides a number by two
+Nat.half (x: Nat) : Nat 
+Nat.half Nat.zero = Nat.zero
+Nat.half (Nat.succ Nat.zero) = (Nat.zero)
+Nat.half (Nat.succ (Nat.succ x)) = (Nat.succ (Nat.half x)) 

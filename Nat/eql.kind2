@@ -1,7 +1,0 @@
-// Verifies if Two numbers are equal
-// Example: (Nat.eql Nat.zero            Nat.zero) -> Bool.true
-// Example: (Nat.eql (Nat.succ Nat.zero) Nat.zero) -> Bool.false
-Nat.eql (n: Nat) (m: Nat) : Bool
-Nat.eql Nat.zero     Nat.zero     = Bool.true
-Nat.eql (Nat.succ n) (Nat.succ m) = (Nat.eql n m) 
-Nat.eql n            m            = Bool.false

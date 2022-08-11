@@ -4,8 +4,6 @@
 
 Quantifier.Unique <set: Type> <proposition: set -> Type>: Type
 Quantifier.Unique set proposition = 
-	(Quantifier.Forall set @x
-		(Quantifier.Forall set @y
-			((Pair (proposition x) (proposition y)) -> (Equal set x y))
-		)
-	)
+	Quantifier.Forall set x =>
+  Quantifier.Forall set y =>
+  (Pair (proposition x) (proposition y)) -> Equal set x y

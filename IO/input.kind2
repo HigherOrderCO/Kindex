@@ -1,2 +1,2 @@
-IO.input : (IO String)
-IO.input = (IO.do_input String @x (IO.done x))
+IO.input : IO String
+IO.input = IO.do_input String (x => IO.done x)

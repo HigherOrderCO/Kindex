@@ -1,5 +1,5 @@
 // Adds A to B
 // Example: (Nat.add 5 3) -> 8
 Nat.add (a: Nat) (b: Nat) : Nat
-Nat.add (Nat.succ a) b = (Nat.succ (Nat.add a b))
+Nat.add (Nat.succ a) b = Nat.succ (Nat.add a b)
 Nat.add Nat.zero     b = b

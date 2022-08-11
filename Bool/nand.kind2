@@ -1,0 +1,5 @@
+// Given a boolean, returns false only if both inputs are true
+// Bool.nand ( Bool.false ) ( Bool.false ) -> Bool.true
+Bool.nand (a: Bool) (b: Bool) : Bool 
+Bool.nand Bool.true Bool.true = Bool.false 
+Bool.nand a b = Bool.true 

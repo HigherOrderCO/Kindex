@@ -1,0 +1,5 @@
+type KDL.KGT.Response {
+  mint (success: Bool)
+  send (success: Bool)
+  get (balance: (Maybe U60))
+}
