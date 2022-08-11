@@ -13,4 +13,4 @@ Nat.add.assoc (Nat.succ a) b c =
 	// (a + (b + c)) + 1 = ((a + b) + c) + 1
 	// So now, we can simply apply "+ 1" (which is Nat.succ) on both sides
 	// to reach our goal
-	(Equal.apply @x(Nat.succ x) (Nat.add.assoc a b c))
+	(Equal.apply (x => Nat.succ x) (Nat.add.assoc a b c))
