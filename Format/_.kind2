@@ -1,18 +1,18 @@
-Format (str: String) : (Format.type str)
-Format str = (Format.go str (h => h))
+Format (str: String) : Format.type str
+Format str = Format.go str (h => h)
 
-Format.go (str: String) (res: Show) : (Format.type str)
-Format.go (String.cons head tail) res = (Format.go.inject (U60.equal head '%') head tail res)
-Format.go String.nil              res = (Show.to_string res)
+Format.go (str: String) (res: Show) : Format.type str
+Format.go (String.cons head tail) res = Format.go.inject (U60.equal head '%') head tail res
+Format.go String.nil              res = Show.to_string res
 
-Format.go.inject (inj: Bool) (head: Char) (tail: String) (res: Show) : (Format.type.inject inj tail)
+Format.go.inject (inj: Bool) (head: Char) (tail: String) (res: Show) : Format.type.inject inj tail
 Format.go.inject Bool.true  head tail res = x => Format.go tail (Show.concat res (U60.show x))
 Format.go.inject Bool.false head tail res = Format.go tail (Show.concat res (Char.show head))
 
 Format.type (str: String) : Type
-Format.type (String.cons head tail) = (Format.type.inject (U60.equal head '%') tail)
+Format.type (String.cons head tail) = Format.type.inject (U60.equal head '%') tail
 Format.type String.nil              = String
 
 Format.type.inject (inj: Bool) (tail: String) : Type
 Format.type.inject Bool.true  tail = U60 -> (Format.type tail)
-Format.type.inject Bool.false tail = (Format.type tail)
+Format.type.inject Bool.false tail = Format.type tail

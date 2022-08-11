@@ -1,6 +1,6 @@
 // Deletes a value in a list in a given index
 // Example: (List.delete_at Nat [1,2,3,4,5] 4) -> [1,2,3,4]
-List.delete_at <a> (xs: (List a)) (idx: Nat) : (List a)
+List.delete_at <a> (xs: List a) (idx: Nat) : List a
 List.delete_at a (List.nil t)            idx             = List.nil
 List.delete_at a (List.cons t head tail) Nat.zero        = tail
-List.delete_at a (List.cons t head tail) (Nat.succ pred) = (List.cons t head (List.delete_at tail pred))
+List.delete_at a (List.cons t head tail) (Nat.succ pred) = List.cons head (List.delete_at tail pred)

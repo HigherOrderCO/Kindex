@@ -1,0 +1,4 @@
+type Bits.Map <a: Type> {
+  new
+  tie (val: Maybe a) (left: Bits.Map a) (right: Bits.Map a)
+}

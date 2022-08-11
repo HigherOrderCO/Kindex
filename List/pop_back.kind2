@@ -1,0 +1,12 @@
+// Given a list, returns a pair of the list without the last element, and the last element (if it exists)
+
+List.pop_back <type: Type> (list: (List type)): (Pair (List type) (Maybe type))
+
+// An empty list has no last element. Pop_back is a no-op on the list.
+List.pop_back type (List.nil u) = (Pair.new List.nil (Maybe.none type))
+// If the next element is Nil, then the current element is the last one. Return it.
+List.pop_back type (List.cons u fst (List.nil snd.u)) = (Pair.new List.nil (Maybe.some fst))
+// Recursive operation: pop the last item from the rest of the list, and then return what it returns but with the first item added at the beginning of the new list.
+List.pop_back type (List.cons u fst (List.cons snd.u head tail)) =
+	let res = (List.pop_back (List.cons head tail))
+	(Pair.new (List.cons fst (Pair.fst res)) (Pair.snd res))

@@ -1,0 +1,20 @@
+User.Franchu.ConcLang.Word.display (word: User.Franchu.ConcLang.Word): String
+
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.enstack) = "enstack"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.enqueue) = "enqueue"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.swap) = "swap"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.cache) = "cache"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.decache) = "decache"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.group list) = 
+	// Display each word, then fold the resulting list by joining words with a space
+	// Add a "[" at the beginning and a "]" at the end.
+	(String.from_list (List.concat (List.concat (String.to_list "[ ") 
+		((List.fold 
+			(List.map list @value(User.Franchu.ConcLang.Value.display value)))
+			(List.nil U60) 
+			@fst@snd(List.concat (String.to_list fst) (List.cons ' ' snd))))
+	(String.to_list "]")))
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.close) = "close"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.discard) = "discard"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.dup) = "dup"
+User.Franchu.ConcLang.Word.display (User.Franchu.ConcLang.Word.extern fn) = "<external word>"

@@ -1,0 +1,5 @@
+// Given a boolean, returns true if both inputs are different
+// Bool.xor ( Bool.true ) ( Bool.false ) -> Bool.true 
+Bool.xor (a: Bool) (b: Bool) : Bool 
+Bool.xor Bool.true b = (Bool.not b)
+Bool.xor Bool.false b = b
