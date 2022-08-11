@@ -6,3 +6,4 @@ Div_go  Nat.zero Nat.zero c        z           = Nat.zero
 Div_go  Nat.zero b        c        z           = (Nat.sub c b) 
 Div_go  a        Nat.zero c        z           = (Div_go a c c (Nat.succ z)     )
 Div_go (Nat.succ a.pred) (Nat.succ b.pred) c z = (Div_go a.pred b.pred c z      )
+Div_go a Nat.zero c z = Nat.zero
