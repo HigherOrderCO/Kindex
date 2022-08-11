@@ -1,0 +1,3 @@
+Char.is_upper (c: Char) : Bool {
+  Char.between 65 c 91
+}

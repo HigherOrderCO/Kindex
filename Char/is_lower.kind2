@@ -1,0 +1,3 @@
+Char.is_lower (c: Char) : Bool {
+  Char.between 97 c 123
+}

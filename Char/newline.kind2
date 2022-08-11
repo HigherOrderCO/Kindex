@@ -1,0 +1,3 @@
+Char.newline : Char {
+  10
+}
