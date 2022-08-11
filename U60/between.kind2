@@ -1,0 +1,4 @@
+// a >= b > c
+U60.between (a: U60) (b: U60) (c: U60) : Bool {
+  U60.to_bool (& (>= a b) (> b c))
+}

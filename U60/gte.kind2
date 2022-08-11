@@ -1,0 +1,3 @@
+U60.gte (a: U60) (b: U60) : Bool {
+  U60.to_bool (>= a b)
+}
