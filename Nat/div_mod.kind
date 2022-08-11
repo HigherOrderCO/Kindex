@@ -1,3 +1,6 @@
+Div (a: Nat) (b: Nat) : Nat
+Div  a        b       =  Pair.fst (Div_go a b b Nat.zero)
+
 Mod (a: Nat) (b: Nat) : Nat
 Mod  a        b       = Pair.snd (Div_go a b b Nat.zero)
 
