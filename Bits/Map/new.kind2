@@ -1,2 +1,2 @@
-// Constructor New for Bits.Map
-Bits.Map.new <a> : (Bits.Map a)
+// Automatically derived from Bits/Map/_.type
+Bits.Map.new <a: Type> : (Bits.Map a)

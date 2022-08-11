@@ -1,2 +1,2 @@
-// Automatically derived from IO/IO.type
-IO.do_input <a: Type> (cont: (_: (String)) (IO a)) : (IO a)
+// Automatically derived from IO/_.type
+IO.do_input <a: Type> (cont: (_: String) (IO a)) : (IO a)

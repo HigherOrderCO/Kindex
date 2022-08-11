@@ -1,2 +1,2 @@
 Char.show (chr: Char) : Show
-Char.show chr = (String.show (Char.to_string chr))
+Char.show chr = String.show (Char.to_string chr)
