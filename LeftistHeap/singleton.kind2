@@ -1,0 +1,3 @@
+// Singleton heap
+LeftistHeap.singleton (x: U60) : LeftistHeap
+LeftistHeap.singleton x = (LeftistHeap.tree 1 x LeftistHeap.empty LeftistHeap.empty)

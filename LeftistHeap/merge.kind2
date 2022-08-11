@@ -7,8 +7,8 @@ LeftistHeap.merge LeftistHeap.empty h = h
 LeftistHeap.merge (LeftistHeap.tree r1 x a1 b1) (LeftistHeap.tree r2 y a2 b2) = (LeftistHeap.merge.aux (< x y) (LeftistHeap.tree r1 x a1 b1) (LeftistHeap.tree r2 y a2 b2))
 
 LeftistHeap.merge.aux (b: U60) (h1: LeftistHeap) (h2:LeftistHeap) : LeftistHeap
-LeftistHeap.merge.aux #1 (LeftistHeap.tree r1 x a1 b1) (LeftistHeap.tree r2 y a2 b2) = (LeftistHeap.makeT x a1 (LeftistHeap.merge b1 (LeftistHeap.tree r2 y a2 b2)))
-LeftistHeap.merge.aux #0 (LeftistHeap.tree r1 x a1 b1) (LeftistHeap.tree r2 y a2 b2) = (LeftistHeap.makeT y a2 (LeftistHeap.merge (LeftistHeap.tree r1 x a1 b1) b2))
+LeftistHeap.merge.aux 1 (LeftistHeap.tree r1 x a1 b1) (LeftistHeap.tree r2 y a2 b2) = (LeftistHeap.makeT x a1 (LeftistHeap.merge b1 (LeftistHeap.tree r2 y a2 b2)))
+LeftistHeap.merge.aux 0 (LeftistHeap.tree r1 x a1 b1) (LeftistHeap.tree r2 y a2 b2) = (LeftistHeap.makeT y a2 (LeftistHeap.merge (LeftistHeap.tree r1 x a1 b1) b2))
 
 // Helper function to Merge. Creates a tree and swaps the subtrees if needed to 
 // maintain the leftist property. 
@@ -16,5 +16,5 @@ LeftistHeap.makeT (x: U60) (a: LeftistHeap) (b: LeftistHeap) : LeftistHeap
 LeftistHeap.makeT x a b = (LeftistHeap.makeT.aux (>= (LeftistHeap.rank a) (LeftistHeap.rank b)) x a b)
 
 LeftistHeap.makeT.aux (b: U60) (x: U60) (a: LeftistHeap) (b:LeftistHeap) : LeftistHeap
-LeftistHeap.makeT.aux #1 x a b = (LeftistHeap.tree (+ (LeftistHeap.rank b) #1) x a b)
-LeftistHeap.makeT.aux #0 x a b = (LeftistHeap.tree (+ (LeftistHeap.rank a) #1) x b a)
+LeftistHeap.makeT.aux 1 x a b = (LeftistHeap.tree (+ (LeftistHeap.rank b) 1) x a b)
+LeftistHeap.makeT.aux 0 x a b = (LeftistHeap.tree (+ (LeftistHeap.rank a) 1) x b a)
