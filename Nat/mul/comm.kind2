@@ -1,19 +1,19 @@
-Nat.mul.comm (a: Nat) (b: Nat): (Equal (Nat.mul a b) (Nat.mul b a))
-Nat.mul.comm Nat.zero b            = (Equal.mirror (Nat.mul.comm.zero b))
-Nat.mul.comm a        Nat.zero     = (Nat.mul.comm.zero a)
+Nat.mul.comm (a: Nat) (b: Nat) : Equal (Nat.mul a b) (Nat.mul b a)
+Nat.mul.comm Nat.zero b            = Equal.mirror (Nat.mul.comm.zero b)
+Nat.mul.comm a        Nat.zero     = Nat.mul.comm.zero a
 Nat.mul.comm a        (Nat.succ b) = 
-	// Our goal is: a * (b + 1) = (b + 1) * a
-	// This gets reduced to a * (b + 1) = b * a + a
-	// a * (b + 1) = a + ab
-	let distr_succ = (Nat.mul.distr.succ a b)
-	// ab = ba
-	let comm_1 = (Nat.mul.comm a b)
-	// ab + a = ba + a
-	let comm_1 = (Equal.apply @x(Nat.add x a) comm_1)
-	// ab + a = a + ab
-	let comm_2 = (Nat.add.comm (Nat.mul a b) a)
-	// a * (b + 1) = a + ab = ab + a = ba + a
-	// a * (b + 1) = ba + a
-	let chained = (Equal.chain distr_succ (Equal.chain (Equal.mirror comm_2) comm_1))
-	// This is our goal!
-	chained
+  // Our goal is: a * (b + 1) = (b + 1) * a
+  // This gets reduced to a * (b + 1) = b * a + a
+  // a * (b + 1) = a + ab
+  let distr_succ = Nat.mul.distr.succ a b
+  // ab = ba
+  let comm_1 = Nat.mul.comm a b
+  // ab + a = ba + a
+  let comm_1 = Equal.apply (x => Nat.add x a) comm_1
+  // ab + a = a + ab
+  let comm_2 = Nat.add.comm (Nat.mul a b) a
+  // a * (b + 1) = a + ab = ab + a = ba + a
+  // a * (b + 1) = ba + a
+  let chained = Equal.chain distr_succ (Equal.chain (Equal.mirror comm_2) comm_1)
+  // This is our goal!
+  chained

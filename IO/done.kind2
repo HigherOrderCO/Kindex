@@ -1,2 +1,2 @@
-// Automatically derived from IO/IO.type
+// Automatically derived from IO/_.type
 IO.done <a: Type> (val: a) : (IO a)

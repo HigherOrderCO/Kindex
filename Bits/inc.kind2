@@ -1,6 +1,6 @@
 // Increments a Bit
 // Example: (Bits.inc (Bits.i Bits.e)) -> (Bits.i(Bits.o Bits.e))
 Bits.inc (b: Bits) : Bits
-Bits.inc (Bits.e)      = (Bits.i Bits.e)
-Bits.inc (Bits.o pred) = (Bits.i pred)
-Bits.inc (Bits.i pred) = (Bits.o (Bits.inc pred))
+Bits.inc  Bits.e       = Bits.i Bits.e
+Bits.inc (Bits.o pred) = Bits.i pred
+Bits.inc (Bits.i pred) = Bits.o (Bits.inc pred)

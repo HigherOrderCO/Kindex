@@ -1,2 +1,2 @@
-// Automatically derived from IO/IO.type
+// Automatically derived from IO/_.type
 IO (a: Type) : Type

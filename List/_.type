@@ -1,4 +1,4 @@
 type List <t: Type> {
   nil
-  cons (head: t) (tail: (List t))
+  cons (head: t) (tail: List t)
 }

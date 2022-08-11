@@ -1,2 +1,2 @@
 // Automatically derived from Nat/_.type
-Nat.succ (pred: (Nat)) : (Nat)
+Nat.succ (pred: Nat) : (Nat)

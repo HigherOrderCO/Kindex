@@ -1,2 +1,2 @@
-// Bits.Map Type
-Bits.Map (a : Type) : Type
+// Automatically derived from Bits/Map/_.type
+Bits.Map (a: Type) : Type
