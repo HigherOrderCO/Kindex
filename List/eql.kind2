@@ -1,7 +1,7 @@
 // Verifies orderly if two lists are equal
 // Example: (List.equal Nat [1,2,3] [1,2,3] Nat.equal) -> Bool.true
 // Example: (List.equal Nat [1,2,3] [3,2,1] Nat.equal) -> Bool.false
-List.equal <a> (xs: (List a)) (ys: (List a)) (cond: (x: a) (y: a) Bool) : Bool
+List.equal <a> (xs: List a) (ys: List a) (cond: (x: a) (y: a) Bool) : Bool
 List.equal a (List.nil t)              (List.nil u)              cond = Bool.true
-List.equal a (List.cons t xhead xtail) (List.cons u yhead ytail) cond = (Bool.and (cond xhead yhead) (List.equal xtail ytail cond))
+List.equal a (List.cons t xhead xtail) (List.cons u yhead ytail) cond = Bool.and (cond xhead yhead) (List.equal xtail ytail cond)
 List.equal a xs                        ys                        cond = Bool.false

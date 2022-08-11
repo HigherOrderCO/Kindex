@@ -1,1 +1,2 @@
-Dynamic.new <a: Type> (value: a) : Dynamic
+// Automatically derived from Dynamic/_.type
+Dynamic.new : (Dynamic)

@@ -1,6 +1,6 @@
 // Given an index, returns the element in that index if any
 // Example: (List.at Nat [1,2,3,4] 2) -> 1
-List.at <a> (xs: (List a)) (idx: Nat) : (Maybe a)
+List.at <a> (xs: List a) (idx: Nat) : Maybe a
 List.at a (List.nil t)            idx             = Maybe.none 
-List.at a (List.cons t head tail) Nat.zero        = (Maybe.some head)
-List.at a (List.cons t head tail) (Nat.succ pred) = (List.at a tail pred)
+List.at a (List.cons t head tail) Nat.zero        = Maybe.some head
+List.at a (List.cons t head tail) (Nat.succ pred) = List.at tail pred

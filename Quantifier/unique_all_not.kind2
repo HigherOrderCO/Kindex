@@ -1,22 +1,22 @@
 // Proof that if all x in set do not fulfill proposition, then there exists at most one x in set that does.
 Quantifier.unique_all_not.helper 
-	<set: Type> 
-	<proposition: set -> Type>
-	(forall: (Quantifier.Forall set (x => Not (proposition x))))
-	(a: set) (b: set) (pair: (Pair (proposition a) (proposition b)))
-	: (Equal set a b)
+  <set: Type> 
+  <proposition: set -> Type>
+  (forall: (Quantifier.Forall set (x => Not (proposition x))))
+  (a: set) (b: set) (pair: (Pair (proposition a) (proposition b)))
+  : Equal set a b
 
 Quantifier.unique_all_not.helper set proposition forall
-	a b pair =
-	let not_proposition_a = (forall a) :: (proposition a) -> Empty
-	let proposition_a = (Pair.fst pair) :: (proposition a)
-	let empty = (Not.contradict not_proposition_a proposition_a)
-	(Empty.absurd empty)
-	
+  a b pair =
+  let not_proposition_a = (forall a) :: (proposition a) -> Empty
+  let proposition_a = (Pair.fst pair) :: (proposition a)
+  let empty = Not.contradict not_proposition_a proposition_a
+  Empty.absurd empty
+
 Quantifier.unique_all_not
-	<set: Type> 
-	<proposition: set -> Type>
-	(forall: (Quantifier.Forall set (x => (proposition x) -> Empty))): (Quantifier.Unique set proposition)
-	
+  <set: Type> 
+  <proposition: set -> Type>
+  (forall: Quantifier.Forall set (x => (proposition x) -> Empty)): Quantifier.Unique set proposition
+
 Quantifier.unique_all_not set proposition forall =
-	(a => b => pair => Quantifier.unique_all_not.helper set proposition forall a b pair)
+  a => b => pair => Quantifier.unique_all_not.helper set proposition forall a b pair

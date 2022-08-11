@@ -1,43 +1,43 @@
 // Proof that a(b+c) = ab + ac
-Nat.mul.distr (a: Nat) (b: Nat) (c: Nat): 
-	(Equal (Nat.mul a (Nat.add b c)) (Nat.add (Nat.mul a b) (Nat.mul a c)))
+Nat.mul.distr (a: Nat) (b: Nat) (c: Nat) :
+  Equal (Nat.mul a (Nat.add b c)) (Nat.add (Nat.mul a b) (Nat.mul a c))
 
 Nat.mul.distr Nat.zero     b c = Equal.refl
 Nat.mul.distr (Nat.succ a) b c = 
-	// Our goal:
-	// (a + 1)(b + c) = ((a + 1)b)((a + 1)c)
-	// The definition of Nat.mul turns this into
-	// a*(b + c) + (b + c) = (a*b + b) + (ac + c)
-	// Induction tells us that a(b + c) = ab + ac
-	let induction = (Nat.mul.distr a b c)
-	// If we add b + c on both sides we get 
-	let induction = (Equal.apply @x(Nat.add x (Nat.add b c)) induction)
-	// a(b + c) + (b + c) = (ab + ac) + (b + c)
-	// If we use the associative and conmutative property on the RHS we can get our goal
-	// (ab + ac) + (b + c) = (ab + (ac + (b + c))
-	let assoc_1 = (Nat.add.assoc (Nat.mul a b) (Nat.mul a c) (Nat.add b c))
-	// ac + (b + c) = (ac + b) + c
-	let assoc_2 = (Nat.add.assoc (Nat.mul a c) b c)
-	// (ac + b) = (b + ac)
-	let comm_1 = (Nat.add.comm (Nat.mul a c) b)
-	// Therefore, (ac + b) + c = (b + ac) + c
-	let comm_1 = (Equal.apply @x(Nat.add x c) comm_1)
-	// (b + ac) + c = b + (ac + c)
-	let assoc_3 = (Equal.mirror (Nat.add.assoc b (Nat.mul a c) c))
-	// We chain assoc_2, comm_1, and assoc_3 and we get 
-	// (ac + (b + c)) = (b + (ac + c))
-	let chained = (Equal.chain assoc_2 (Equal.chain comm_1 assoc_3))
-	// We add ab on both sides
-	// ab + (ac + (b + c)) = ab + (b + (ac + c)) 
-	let chained = (Equal.apply @x(Nat.add (Nat.mul a b) x) chained)
-	// ab + (b + (ac + c)) = (ab + b) + (ac + c)
-	let assoc_4 = (Nat.add.assoc (Nat.mul a b) b (Nat.add (Nat.mul a c) c))
-	// ab + (ac + (b + c)) = (ab + b) + (ac + c)
-	let chained = (Equal.chain chained assoc_4)
-	// (ab + ac) + (b + c) = (ab + b) + (ac + c)
-	let chained = (Equal.chain (Equal.mirror assoc_1) chained)
-	// (ab + ac) + (b + c) = a(b + c) + (ac + c)
-	let chained = (Equal.chain induction chained)
-	// This is our goal!
-	chained
-	
+  // Our goal:
+  // (a + 1)(b + c) = ((a + 1)b)((a + 1)c)
+  // The definition of Nat.mul turns this into
+  // a*(b + c) + (b + c) = (a*b + b) + (ac + c)
+  // Induction tells us that a(b + c) = ab + ac
+  let induction = Nat.mul.distr a b c
+  // If we add b + c on both sides we get 
+  let induction = Equal.apply (x => Nat.add x (Nat.add b c)) induction
+  // a(b + c) + (b + c) = (ab + ac) + (b + c)
+  // If we use the associative and conmutative property on the RHS we can get our goal
+  // (ab + ac) + (b + c) = (ab + (ac + (b + c))
+  let assoc_1 = Nat.add.assoc (Nat.mul a b) (Nat.mul a c) (Nat.add b c)
+  // ac + (b + c) = (ac + b) + c
+  let assoc_2 = Nat.add.assoc (Nat.mul a c) b c
+  // (ac + b) = (b + ac)
+  let comm_1 = Nat.add.comm (Nat.mul a c) b
+  // Therefore, (ac + b) + c = (b + ac) + c
+  let comm_1 = Equal.apply (x => Nat.add x c) comm_1
+  // (b + ac) + c = b + (ac + c)
+  let assoc_3 = Equal.mirror (Nat.add.assoc b (Nat.mul a c) c)
+  // We chain assoc_2, comm_1, and assoc_3 and we get 
+  // (ac + (b + c)) = (b + (ac + c))
+  let chained = Equal.chain assoc_2 (Equal.chain comm_1 assoc_3)
+  // We add ab on both sides
+  // ab + (ac + (b + c)) = ab + (b + (ac + c)) 
+  let chained = Equal.apply (x => Nat.add (Nat.mul a b) x) chained
+  // ab + (b + (ac + c)) = (ab + b) + (ac + c)
+  let assoc_4 = Nat.add.assoc (Nat.mul a b) b (Nat.add (Nat.mul a c) c)
+  // ab + (ac + (b + c)) = (ab + b) + (ac + c)
+  let chained = Equal.chain chained assoc_4
+  // (ab + ac) + (b + c) = (ab + b) + (ac + c)
+  let chained = Equal.chain (Equal.mirror assoc_1) chained
+  // (ab + ac) + (b + c) = a(b + c) + (ac + c)
+  let chained = Equal.chain induction chained
+  // This is our goal!
+  chained
+  

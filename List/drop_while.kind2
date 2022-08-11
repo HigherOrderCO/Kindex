@@ -1,5 +1,5 @@
 // Drops n elements while a given condition is true
 // Example: (List.drop_while Nat [2,2,3,2,1,3,2,1] (Nat.equal 2)) - [3,2,1,3,2,1]
-List.drop_while <a> (xs: (List a)) (cond: (x: a) Bool) : (List a)
+List.drop_while <a> (xs: List a) (cond: a -> Bool) : List a
 List.drop_while a (List.nil t)            cond = List.nil
-List.drop_while a (List.cons t head tail) cond = (Bool.if (cond head) (List.drop_while tail cond) (List.cons t head tail))
+List.drop_while a (List.cons t head tail) cond = Bool.if (cond head) (List.drop_while tail cond) (List.cons head tail)
