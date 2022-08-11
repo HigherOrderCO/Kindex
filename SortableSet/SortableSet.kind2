@@ -1,23 +1,14 @@
-//* Helper Functions
 
-// Decreasing Range:
-// Creates a range from n-1 to 0
-DecRange (n: U60) : (List U60)
-DecRange #0 = (List.nil U60)
-DecRange n  =
-  let dec = (- n #1)
-  (List.cons U60 dec (DecRange dec))
-
-
-//* Sorted Collection Functions
+Nat.to_U60 (n: Nat) : U60
+Nat.to_U60  Nat.zero    = 0
+Nat.to_U60 (Nat.succ x) = (+ 1 (Nat.to_U60 x))
 
 Main : _
-Main = (
-  let n = #10
-  let set = (SortableSet.fromList (DecRange n))
+Main =
+  let n = 10
+  let set = SortableSet.fromList (List.map (List.range (U60.to_nat n)) (x => (Nat.to_U60 x)))
 
   (Pair.new
     (SortableSet.elements set)
     (SortableSet.sort set)
   )
-)

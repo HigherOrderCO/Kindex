@@ -2,7 +2,7 @@
 // How: transforms the element into a singleton list (a segment)
 // and insert that segment into the list of segments
 SortableSet.add (x: U60) (set: SortableSet) : SortableSet
-SortableSet.add x (SortableSet.new size segs) = (SortableSet.new (+ size #1) (InsertSeg (List.cons U60 x List.nil) segs size))
+SortableSet.add x (SortableSet.new size segs) = (SortableSet.new (+ size 1) (InsertSeg (List.cons U60 x List.nil) segs size))
 
 // Auxiliary function for add:
 // It inserts a list (segment) into the list of segments, merging when necessary
@@ -10,8 +10,8 @@ InsertSeg (seg: (List U60)) (segs: (List (List U60))) (size: U60) : (List (List 
 InsertSeg seg (List.nil  t     ) size = (List.cons t seg (List.nil t))
 InsertSeg seg (List.cons t x xs) size =
   (U60.if (List (List U60))
-    (% size #2)
-    (InsertSeg (SortableSet.merge seg x) xs (>> size #1))
+    (% size 2)
+    (InsertSeg (SortableSet.merge seg x) xs (>> size 1))
     (List.cons t seg (List.cons t x xs))
   )
 //   (InsertSeg.aux (% size #2) seg segs size)
