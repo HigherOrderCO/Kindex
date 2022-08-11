@@ -6,9 +6,8 @@
 List.to_singleton <a: Type> (xs: (List a)) : (List (List a))
 List.to_singleton a (List.nil  b     ) = List.nil
 List.to_singleton a (List.cons b x xs) = List.cons (List.cons x List.nil) (List.to_singleton xs)
-
-// Alternative
-// List.to_singleton a xs = List.map xs (@x (List.cons x List.nil))
+// Cleaner code, almost twice the RWs compared to above
+// List.to_singleton a xs = List.map xs (x => (List.cons x List.nil))
 
 // Merges two ordered lists, given a comparison function
 // Maybe this could be it's own file/function
@@ -22,26 +21,26 @@ List.merge a (List.cons b x xs) (List.cons c y ys) fn =
   List.merge.aux a Bool.true  (List.cons b x xs) ys fn = List.cons x (List.merge xs ys fn)
   List.merge.aux a Bool.false xs (List.cons b y ys) fn = List.cons y (List.merge xs ys fn)
 
-// Merges a list of lists 2-by-2
-// Example1: (@x @y(> x y)) [[2],[3],[4],[1],[9],[5]] -> [[2,3],[1,4],[5,9]]
-// Example2: (@x @y(> x y)) [[2,3],[1,4],[5,9]] -> [[1,2,3,4],[5,9]]
-List.merge_by_two <a: Type> (xs: (List (List a))) (fn: (x: a) (y: a) Bool) : (List (List a))
-List.merge_by_two a (List.nil  b) fn = List.nil
-List.merge_by_two a (List.cons b x (List.nil  c)) fn = List.cons x List.nil
-List.merge_by_two a (List.cons b x (List.cons c y ys)) fn =
+// Merges a list of lists by pairs
+// Example1: (x => y => (< x y)) [[2],[3],[4],[1],[9],[5]] -> [[2,3],[1,4],[5,9]]
+// Example2: (x => y => (< x y)) [[2,3],[1,4],[5,9]] -> [[1,2,3,4],[5,9]]
+List.merge_pairs <a: Type> (xs: (List (List a))) (fn: (x: a) (y: a) Bool) : (List (List a))
+List.merge_pairs a (List.nil  b) fn = List.nil
+List.merge_pairs a (List.cons b x (List.nil  c     )) fn = List.cons x List.nil
+List.merge_pairs a (List.cons b x (List.cons c y ys)) fn =
   let head = (List.merge x y fn)
-  let tail = (List.merge_by_two ys fn)
+  let tail = (List.merge_pairs ys fn)
   (List.cons head tail)
 
 // Sorts a list using the bottom-up mergesort algorithm, given a comparison function
 List.mergesort <a: Type> (xs: (List a)) (fn: (x: a) (y: a) Bool) : (List a)
 List.mergesort a xs fn = (List.mergesort.aux (List.to_singleton xs) fn)
-  
+
   List.mergesort.aux <a: Type> (xs: (List (List a))) (fn: (x: a) (y: a) Bool) : (List a)
-  List.mergesort.aux a (List.nil  b) fn = List.nil
+  List.mergesort.aux a (List.nil  b               ) fn = List.nil
   List.mergesort.aux a (List.cons b x (List.nil c)) fn = x
-  List.mergesort.aux a (List.cons b x xs) fn =
-    let merged = (List.merge_by_two (List.cons x xs) fn)
+  List.mergesort.aux a (List.cons b x  xs         ) fn =
+    let merged = (List.merge_pairs (List.cons x xs) fn)
     (List.mergesort.aux merged fn)
 
 Randoms (s: U60) (l: U60) : (List U60)
@@ -49,8 +48,8 @@ Randoms s 0 = List.nil
 Randoms s l = List.cons s (Randoms (+ (* s 1664525) 1013904223) (- l 1))
 
 U60.leq (x: U60) (y: U60) : Bool
-U60.leq x y = U60.to_bool (<= x y)
+U60.leq x y = U60.to_bool (> y x)
 
 Main : _
 Main =
-  List.mergesort (Randoms 1 16) (x => y => (U60.leq x y))
+  List.mergesort (Randoms 1 300) (x => y => (U60.leq x y))
