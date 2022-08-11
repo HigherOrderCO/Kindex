@@ -1,0 +1,3 @@
+// Singleton heap
+PairingHeap.singleton (n: U60) : PairingHeap
+PairingHeap.singleton n = (PairingHeap.tree n (List.nil PairingHeap))
