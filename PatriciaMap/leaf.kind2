@@ -1,0 +1,2 @@
+// Automatically derived from PatriciaMap/_.type
+PatriciaMap.leaf <a: Type> (key: U60) (value: a) : (PatriciaMap a)

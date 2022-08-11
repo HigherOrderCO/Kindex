@@ -1,0 +1,2 @@
+// Automatically derived from PatriciaMap/_.type
+PatriciaMap.branch <a: Type> (prefix: U60) (branchingbit: U60) (left: (PatriciaMap a)) (right: (PatriciaMap a)) : (PatriciaMap a)
