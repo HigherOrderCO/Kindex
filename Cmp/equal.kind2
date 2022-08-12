@@ -1,0 +1,4 @@
+Cmp.equal (x: Cmp) (y: Cmp) : Bool 
+Cmp.equal gtn y = Cmp.as_gtn y 
+Cmp.equal ltn y = Cmp.as_ltn y
+Cmp.equal eql y = Cmp.as_eql y
