@@ -1,0 +1,4 @@
+Cmp.as_lte (cmp: Cmp) : Bool 
+Cmp.as_lte ltn = Bool.true
+Cmp.as_lte eql = Bool.true
+Cmp.as_lte gtn = Bool.false
