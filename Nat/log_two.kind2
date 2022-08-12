@@ -1,0 +1,8 @@
+// 2^x = a
+
+Nat.log_two (a: Nat) : Nat 
+Nat.log_two a Nat.succ(Nat.succ(Nat.zero)) = Nat.log_aux a Nat.succ(Nat.succ(Nat.zero)) Nat.zero
+
+Nat.log_aux (a: Nat) (c: Nat) (z: Nat) : Nat 
+Nat.log_aux a c z = Nat.log_aux (Nat.div a c) c (Nat.succ z)
+Nat.log_aux (Nat.succ(Nat.zero)) c z = z 
