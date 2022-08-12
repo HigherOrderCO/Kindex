@@ -1,0 +1,3 @@
+Nat.is_zero (a: Nat) : Bool 
+Nat.is_zero Nat.zero = Bool.true 
+Nat.is_zero a = Bool.false
