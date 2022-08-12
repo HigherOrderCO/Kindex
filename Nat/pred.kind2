@@ -1,0 +1,3 @@
+Nat.pred (a: Nat) : Nat 
+Nat.pred Nat.zero = Nat.zero 
+Nat.pred (Nat.succ a) = a 
