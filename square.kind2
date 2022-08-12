@@ -1,0 +1,4 @@
+//a^2
+
+Nat.square (a: Nat) : Nat 
+Nat.square a = (Nat.mul a a)
