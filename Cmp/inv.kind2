@@ -1,0 +1,4 @@
+Cmp.inv (cmp: Cmp): Cmp 
+Cmp.inv ltn = Cmp.gtn 
+Cmp.inv eql = Cmp.eql 
+Cmp.inv gtn = Cmp.ltn 
