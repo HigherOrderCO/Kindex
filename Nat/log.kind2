@@ -1,0 +1,9 @@
+// a^b=c
+// b = logc(a)
+
+Nat.log (a: Nat) (c: Nat) : Nat 
+Nat.log a c = Nat.log_aux a c Nat.zero
+
+Nat.log_aux (a: Nat) (c: Nat) (z: Nat) : Nat 
+Nat.log_aux a c z = Nat.log_aux (Nat.div a c) c (Nat.succ z)
+Nat.log_aux (Nat.succ(Nat.zero)) c z = z 
