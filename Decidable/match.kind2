@@ -1,4 +1,7 @@
 // Automatically derived from Decidable/_.type
-Decidable.match <p: Type> (x: (Decidable p)) -(p: (x: (Decidable p)) Type) (yep: (proof: p) (p (Decidable.yep p proof))) (nop: (proof: (Not p)) (p (Decidable.nop p proof))) : (p x)
-Decidable.match p (Decidable.yep p_ proof_) p yep nop = (yep proof_)
-Decidable.match p (Decidable.nop p_ proof_) p yep nop = (nop proof_)
+Decidable.match <p: Type> (x: (Decidable p)) -(p_: (x: (Decidable p)) Type)
+  (yep: (proof: p)       (p_ (Decidable.yep p proof)))
+  (nop: (proof: (Not p)) (p_ (Decidable.nop p proof)))
+: (p_ x)
+Decidable.match p (Decidable.yep p_ proof_) t yep nop = (yep proof_)
+Decidable.match p (Decidable.nop p_ proof_) t yep nop = (nop proof_)
