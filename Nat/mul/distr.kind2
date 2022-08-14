@@ -1,6 +1,6 @@
 // Proof that a(b+c) = ab + ac
 Nat.mul.distr (a: Nat) (b: Nat) (c: Nat) :
-  Equal (Nat.mul a (Nat.add b c)) (Nat.add (Nat.mul a b) (Nat.mul a c))
+  Equal Nat (Nat.mul a (Nat.add b c)) (Nat.add (Nat.mul a b) (Nat.mul a c))
 
 Nat.mul.distr Nat.zero     b c = Equal.refl
 Nat.mul.distr (Nat.succ a) b c = 
@@ -40,4 +40,3 @@ Nat.mul.distr (Nat.succ a) b c =
   let chained = Equal.chain induction chained
   // This is our goal!
   chained
-  
