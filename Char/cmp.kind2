@@ -1,0 +1,3 @@
+Char.cmp (a: Char) (b: Char) : Cmp {
+  U60.cmp a b
+}
