@@ -1,0 +1,93 @@
+Parser (r: Type) : Type {
+  (code: String) -> Parser.Result r
+}
+
+Parser.skip_string.space (str: String) : String
+Parser.skip_string.space (String.cons c cs) =
+  if (U60.equal c ' ') {
+    (Parser.skip_string.space cs)
+  } else {
+    (String.cons c cs)
+  }
+
+Parser.pure <r: Type> (value: r) : Parser r {
+  code => Parser.Result.done code value 
+}
+
+Parser.bind <a: Type> <b: Type> (ma: Parser a) (mb: a -> Parser b) : Parser b
+Parser.bind a b ma mb = code =>
+  let pa = ma code
+  match Parser.Result pa {
+    done => mb pa.result pa.code
+    fail => Parser.Result.fail pa.message 
+  }
+
+// Returns the current code to be parsed
+Parser.take_code : Parser String 
+Parser.take_code = code => Parser.Result.done String.nil code
+
+// Sets the current code to be parsed
+Parser.set_code (new_code: String) : Parser Unit
+Parser.set_code new_code = code => Parser.Result.done new_code Unit.new
+
+// Runs a parser and returns the result, or none
+// FIXME: for some reason, renaming prs to parser makes the type checker loop; investigate
+Parser.run <r: Type> (prs: Parser r) (code: String) : Maybe r
+Parser.run r prs code =
+  let pa = prs code
+  match Parser.Result pa {
+    done => Maybe.some pa.result
+    fail => Maybe.none
+  }
+
+// Skips all whitespaces
+Parser.skip : Parser Unit
+Parser.skip = do Parser {
+  ask code = Parser.take_code
+  let code = Parser.skip_string.space code
+  ask Parser.set_code code
+  return Unit.new
+}
+
+// Peeks the first character of the code
+Parser.char (consume: Bool) (chr: Char) : Parser Bool {
+  do Parser {
+    ask code = Parser.take_code
+    match String code {
+      nil => do Parser {
+        ask Parser.set_code String.nil
+        return Bool.false
+      }
+      cons => do Parser {
+        let add_head = match Bool consume {
+          true  => xs => xs
+          false => xs => String.cons code.head xs
+        }: String -> String
+        ask Parser.set_code (add_head code.tail)
+        return U60.equal code.head chr
+      }
+    }
+  }
+}
+
+Parser.count_char_consume (chr: Char) : Parser U60 {
+  do Parser {
+    ask found_char = Parser.char Bool.true chr
+    if found_char {
+      do Parser {
+        ask count = Parser.count_char_consume chr
+        return (+ 1 count)
+      }
+    } else {
+      do Parser {
+        return 0
+      }
+    }
+  }
+}
+
+Main {
+  let code = "aaaab x"
+  let done = (Parser.count_char_consume 'a') code
+  done
+}

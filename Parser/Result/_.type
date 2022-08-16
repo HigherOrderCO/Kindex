@@ -1,0 +1,4 @@
+type Parser.Result <r: Type> {
+  done (code: String) (result: r)
+  fail (message: String)
+}
