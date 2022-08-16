@@ -1,0 +1,4 @@
+Checker.get_equations : Checker (List Equation)
+Checker.get_equations = context => depth => rhs => subst => eqts => errs =>
+  (Result.checked context depth rhs subst eqts errs eqts)
+

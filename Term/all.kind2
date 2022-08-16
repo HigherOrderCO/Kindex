@@ -1,0 +1,2 @@
+// Automatically derived from Term/_.type
+Term.all (orig: U60) (name: U60) (typ: Term) (body: (_: Term) Term) : (Term)

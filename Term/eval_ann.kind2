@@ -1,0 +1,2 @@
+Term.eval_ann (orig: U60) (expr: Term) (type: Term): Term
+Term.eval_ann orig expr type = expr

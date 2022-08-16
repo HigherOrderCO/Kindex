@@ -1,0 +1,6 @@
+String.length.aux (xs: String) (acc: U60) : U60
+String.length.aux (String.cons x xs)    len = String.length.aux xs (+ len 1)
+String.length.aux String.nil            len = len
+
+String.length (str: String) : U60
+String.length str = String.length.aux str 0

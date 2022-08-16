@@ -1,0 +1,2 @@
+// Automatically derived from Equation.type
+Equation.new (ctx: Context) (orig: U60) (left: Term) (right: Term) : (Equation)

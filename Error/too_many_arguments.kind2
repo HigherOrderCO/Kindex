@@ -1,0 +1,2 @@
+// Automatically derived from Error.type
+Error.too_many_arguments (ctx: Context) (orig: U60) : (Error)

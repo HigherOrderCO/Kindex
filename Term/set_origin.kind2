@@ -1,0 +1,33 @@
+Term.set_origin (term: Term) (new_orig: U60): Term
+Term.set_origin (Term.typ old_orig)                orig = Term.typ orig
+Term.set_origin (Term.var old_orig name index)     orig = Term.var orig name index
+Term.set_origin (Term.hol old_orig numb)           orig = Term.hol orig numb
+Term.set_origin (Term.all old_orig name typ body)  orig = Term.all orig name typ body
+Term.set_origin (Term.lam old_orig name body)      orig = Term.lam orig name body
+Term.set_origin (Term.let old_orig name expr body) orig = Term.let orig name expr body
+Term.set_origin (Term.ann old_orig expr typ)       orig = Term.ann orig expr typ
+Term.set_origin (Term.app old_orig func arg)       orig = Term.app orig func arg
+Term.set_origin (Term.hlp old_orig)                orig = Term.hlp orig
+Term.set_origin (Term.u60 old_orig)                orig = Term.u60 orig
+Term.set_origin (Term.num old_orig num)            orig = Term.num orig num
+Term.set_origin (Term.op2 old_orig op left right)  orig = Term.op2 orig op left right
+
+Term.set_origin (Term.ct0 ctid old_orig)                         orig = Term.ct0 ctid orig
+Term.set_origin (Term.ct1 ctid old_orig x0)                      orig = Term.ct1 ctid orig x0
+Term.set_origin (Term.ct2 ctid old_orig x0 x1)                   orig = Term.ct2 ctid orig x0 x1
+Term.set_origin (Term.ct3 ctid old_orig x0 x1 x2)                orig = Term.ct3 ctid orig x0 x1 x2
+Term.set_origin (Term.ct4 ctid old_orig x0 x1 x2 x3)             orig = Term.ct4 ctid orig x0 x1 x2 x3
+Term.set_origin (Term.ct5 ctid old_orig x0 x1 x2 x3 x4)          orig = Term.ct5 ctid orig x0 x1 x2 x3 x4
+Term.set_origin (Term.ct6 ctid old_orig x0 x1 x2 x3 x4 x5)       orig = Term.ct6 ctid orig x0 x1 x2 x3 x4 x5
+// Term.set_origin (Term.ct7 ctid old_orig x0 x1 x2 x3 x4 x5 x6)    orig = Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6
+// Term.set_origin (Term.ct8 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7) orig = Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7
+
+Term.set_origin (Term.fn0 fnid old_orig)                         orig = Term.fn0 fnid orig
+Term.set_origin (Term.fn1 fnid old_orig x0)                      orig = Term.fn1 fnid orig x0
+Term.set_origin (Term.fn2 fnid old_orig x0 x1)                   orig = Term.fn2 fnid orig x0 x1
+Term.set_origin (Term.fn3 fnid old_orig x0 x1 x2)                orig = Term.fn3 fnid orig x0 x1 x2
+Term.set_origin (Term.fn4 fnid old_orig x0 x1 x2 x3)             orig = Term.fn4 fnid orig x0 x1 x2 x3
+Term.set_origin (Term.fn5 fnid old_orig x0 x1 x2 x3 x4)          orig = Term.fn5 fnid orig x0 x1 x2 x3 x4
+Term.set_origin (Term.fn6 fnid old_orig x0 x1 x2 x3 x4 x5)       orig = Term.fn6 fnid orig x0 x1 x2 x3 x4 x5
+// Term.set_origin (Term.fn7 fnid old_orig x0 x1 x2 x3 x4 x5 x6)    orig = Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6
+// Term.set_origin (Term.fn8 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7) orig = Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7

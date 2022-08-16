@@ -1,0 +1,33 @@
+Term.get_origin (term: Term): U60
+Term.get_origin (Term.typ orig)                = orig
+Term.get_origin (Term.var orig name index)     = orig
+Term.get_origin (Term.hol orig numb)           = orig
+Term.get_origin (Term.all orig name typ body)  = orig
+Term.get_origin (Term.lam orig name body)      = orig
+Term.get_origin (Term.let orig name expr body) = orig
+Term.get_origin (Term.ann orig expr typ)       = orig
+Term.get_origin (Term.app orig func arg)       = orig
+Term.get_origin (Term.hlp orig)                = orig
+Term.get_origin (Term.u60 orig)                = orig
+Term.get_origin (Term.num orig num)            = orig
+Term.get_origin (Term.op2 orig op left right)  = orig
+
+Term.get_origin (Term.ct0 ctid orig)                         = orig
+Term.get_origin (Term.ct1 ctid orig x0)                      = orig
+Term.get_origin (Term.ct2 ctid orig x0 x1)                   = orig
+Term.get_origin (Term.ct3 ctid orig x0 x1 x2)                = orig
+Term.get_origin (Term.ct4 ctid orig x0 x1 x2 x3)             = orig
+Term.get_origin (Term.ct5 ctid orig x0 x1 x2 x3 x4)          = orig
+Term.get_origin (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       = orig
+// Term.get_origin (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)    = orig
+// Term.get_origin (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) = orig
+
+Term.get_origin (Term.fn0 fnid orig)                         = orig
+Term.get_origin (Term.fn1 fnid orig x0)                      = orig
+Term.get_origin (Term.fn2 fnid orig x0 x1)                   = orig
+Term.get_origin (Term.fn3 fnid orig x0 x1 x2)                = orig
+Term.get_origin (Term.fn4 fnid orig x0 x1 x2 x3)             = orig
+Term.get_origin (Term.fn5 fnid orig x0 x1 x2 x3 x4)          = orig
+Term.get_origin (Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       = orig
+// Term.get_origin (Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)    = orig
+// Term.get_origin (Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7) = orig

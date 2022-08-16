@@ -1,0 +1,7 @@
+Context.max_name_length.aux (ctx: Context) (v: U60): U60
+Context.max_name_length.aux Context.empty                       v = v
+Context.max_name_length.aux (Context.entry name type vals rest) v =
+  Context.max_name_length.aux rest (U60.max (String.length (Name.show name)) v)
+
+Context.max_name_length (ctx: Context) : U60
+Context.max_name_length ctx = Context.max_name_length.aux ctx 0

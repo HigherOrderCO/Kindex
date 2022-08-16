@@ -1,0 +1,2 @@
+Term.eval_let (expr: Term) (body: Term -> Term): Term
+Term.eval_let expr body = body expr

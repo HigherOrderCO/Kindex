@@ -1,0 +1,3 @@
+Term.eval_app (orig: U60) (left: Term) (right: Term): Term
+Term.eval_app orig (Term.lam orig1 name body) arg = body arg
+Term.eval_app orig func                       arg = (Term.app orig func arg)

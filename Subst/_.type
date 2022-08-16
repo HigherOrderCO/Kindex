@@ -1,0 +1,5 @@
+type Subst {
+  end
+  unfilled (rest: Subst)
+  sub (term: Term) (rest: Subst)
+}

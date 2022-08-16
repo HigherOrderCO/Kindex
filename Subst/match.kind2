@@ -1,0 +1,5 @@
+// Automatically derived from Subst.type
+Subst.match (x: (Subst)) -(p: (x: (Subst)) Type) (end: (p (Subst.end))) (unfilled: (rest: Subst) (p (Subst.unfilled rest))) (sub: (term: Term) (rest: Subst) (p (Subst.sub term rest))) : (p x)
+Subst.match (Subst.end) p end unfilled sub = (end)
+Subst.match (Subst.unfilled rest_) p end unfilled sub = (unfilled rest_)
+Subst.match (Subst.sub term_ rest_) p end unfilled sub = (sub term_ rest_)

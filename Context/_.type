@@ -1,0 +1,4 @@
+type Context {
+  empty
+  entry (name: U60) (type: Term) (vals: List Term) (rest: Context)
+}

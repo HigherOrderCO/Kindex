@@ -1,0 +1,2 @@
+// Automatically derived from Subst.type
+Subst.sub (term: Term) (rest: Subst) : (Subst)

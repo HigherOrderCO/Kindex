@@ -1,0 +1,4 @@
+String.pad_right (str: String) (chr: U60) (len: U60): String
+String.pad_right str                chr 0   = String.nil
+String.pad_right (String.cons x xs) chr len = String.cons x   (String.pad_right xs         chr (- len 1))
+String.pad_right String.nil         chr len = String.cons chr (String.pad_right String.nil chr (- len 1))

@@ -1,0 +1,2 @@
+// Automatically derived from Term/_.type
+Term.op2 (orig: U60) (operator: Operator) (left: Term) (right: Term) : (Term)

@@ -1,0 +1,2 @@
+// Automatically derived from Result/_.type
+Result.errored <a: Type> (ctx: Context) (sub: Subst) (errors: (List Error)) : (Result a)

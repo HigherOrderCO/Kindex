@@ -1,0 +1,33 @@
+Term.eval (term: Term): Term
+Term.eval (Term.typ orig)                = Term.typ orig
+Term.eval (Term.var orig name index)     = Term.var orig name index
+Term.eval (Term.hol orig numb)           = Term.hol orig numb
+Term.eval (Term.all orig name typ body)  = Term.all orig name (Term.eval typ) (x => Term.eval (body x))
+Term.eval (Term.lam orig name body)      = Term.lam orig name (x => Term.eval (body x))
+Term.eval (Term.let orig name expr body) = Term.eval_let (Term.eval expr) (x => Term.eval (body x))
+Term.eval (Term.ann orig expr typ)       = Term.eval_ann orig (Term.eval expr) (Term.eval typ)
+Term.eval (Term.app orig expr typ)       = Term.eval_app orig (Term.eval expr) (Term.eval typ)
+Term.eval (Term.hlp orig)                = Term.hlp orig
+Term.eval (Term.u60 orig)                = Term.u60 orig
+Term.eval (Term.num orig num)            = Term.num orig num
+Term.eval (Term.op2 orig op left right)  = Term.eval_op orig op (Term.eval left) (Term.eval right)
+
+Term.eval (Term.ct0 ctid orig)                         = Term.ct0 ctid orig
+Term.eval (Term.ct1 ctid orig x0)                      = Term.ct1 ctid orig (Term.eval x0)
+Term.eval (Term.ct2 ctid orig x0 x1)                   = Term.ct2 ctid orig (Term.eval x0) (Term.eval x1)
+Term.eval (Term.ct3 ctid orig x0 x1 x2)                = Term.ct3 ctid orig (Term.eval x0) (Term.eval x1) (Term.eval x2)
+Term.eval (Term.ct4 ctid orig x0 x1 x2 x3)             = Term.ct4 ctid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3)
+Term.eval (Term.ct5 ctid orig x0 x1 x2 x3 x4)          = Term.ct5 ctid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4)
+Term.eval (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       = Term.ct6 ctid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4) (Term.eval x5)
+// Term.eval (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)    = Term.ct7 ctid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4) (Term.eval x5) (Term.eval x6)
+// Term.eval (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) = Term.ct8 ctid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4) (Term.eval x5) (Term.eval x6) (Term.eval x7)
+
+Term.eval (Term.fn0 fnid orig)                         = Term.fn0 fnid orig
+Term.eval (Term.fn1 fnid orig x0)                      = Term.fn1 fnid orig (Term.eval x0)
+Term.eval (Term.fn2 fnid orig x0 x1)                   = Term.fn2 fnid orig (Term.eval x0) (Term.eval x1)
+Term.eval (Term.fn3 fnid orig x0 x1 x2)                = Term.fn3 fnid orig (Term.eval x0) (Term.eval x1) (Term.eval x2)
+Term.eval (Term.fn4 fnid orig x0 x1 x2 x3)             = Term.fn4 fnid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3)
+Term.eval (Term.fn5 fnid orig x0 x1 x2 x3 x4)          = Term.fn5 fnid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4)
+Term.eval (Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       = Term.fn6 fnid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4) (Term.eval x5)
+// Term.eval (Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)    = Term.fn7 fnid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4) (Term.eval x5) (Term.eval x6)
+// Term.eval (Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7) = Term.fn8 fnid orig (Term.eval x0) (Term.eval x1) (Term.eval x2) (Term.eval x3) (Term.eval x4) (Term.eval x5) (Term.eval x6) (Term.eval x7)

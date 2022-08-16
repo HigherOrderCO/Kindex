@@ -1,0 +1,2 @@
+Checker (a: Type) : Type
+Checker a = Context -> U60 -> Bool -> Subst -> (List Equation) -> (List Error) -> Result a

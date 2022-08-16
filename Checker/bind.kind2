@@ -1,0 +1,6 @@
+Checker.bind.result <a> <b> (result: Result a) (f: a -> Checker b) : Result b
+Checker.bind.result a b (Result.checked a1 context depth rhs sub equations errs ret) fun = fun ret context depth rhs sub equations errs
+Checker.bind.result a b (Result.errored a1 context sub errs)                         fun = Result.errored context sub errs
+
+Checker.bind <a> <b> (checker: Checker a) (f: a -> Checker b) : Checker b
+Checker.bind a b checker fun = context => depth => rhs => subst => eqts => errs => (Checker.bind.result (checker context depth rhs subst eqts errs) fun)

@@ -1,0 +1,2 @@
+String.line_break : String
+String.line_break = String.cons 10 String.nil

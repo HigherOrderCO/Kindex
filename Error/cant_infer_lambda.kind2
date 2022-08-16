@@ -1,0 +1,2 @@
+// Automatically derived from Error.type
+Error.cant_infer_lambda (ctx: Context) (orig: U60) : (Error)

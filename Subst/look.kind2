@@ -1,0 +1,7 @@
+Subst.look (subst: Subst) (depth: U60): Maybe Term
+Subst.look Subst.end             0 = Maybe.none
+Subst.look (Subst.unfilled rest) 0 = Maybe.none
+Subst.look (Subst.sub term rest) 0 = Maybe.some term
+Subst.look Subst.end             n = Maybe.none
+Subst.look (Subst.unfilled rest) n = Subst.look rest (- n 1)
+Subst.look (Subst.sub term rest) n = Subst.look rest (- n 1)

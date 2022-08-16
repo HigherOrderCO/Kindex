@@ -1,0 +1,4 @@
+// Automatically derived from Maybe/_.type
+Maybe.is_some <t: Type> (maybe: Maybe t) : Bool
+Maybe.is_some t (Maybe.none t1)     = Bool.false
+Maybe.is_some t (Maybe.some t1 val) = Bool.true

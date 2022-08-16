@@ -1,0 +1,2 @@
+// Automatically derived from Term/_.type
+Term.let (orig: U60) (name: U60) (expr: Term) (body: (_: Term) Term) : (Term)

@@ -1,0 +1,4 @@
+// Automatically derived from Result/_.type
+Result.match <a: Type> (x: (Result a)) -(p: (x: (Result a)) Type) (checked: (ctx: Context) (depth: U60) (rhs: Bool) (sub: Subst) (equations: (List Equation)) (errors: (List Error)) (ret: a) (p (Result.checked a ctx depth rhs sub equations errors ret))) (errored: (ctx: Context) (sub: Subst) (errors: (List Error)) (p (Result.errored a ctx sub errors))) : (p x)
+Result.match a (Result.checked a_ ctx_ depth_ rhs_ sub_ equations_ errors_ ret_) p checked errored = (checked ctx_ depth_ rhs_ sub_ equations_ errors_ ret_)
+Result.match a (Result.errored a_ ctx_ sub_ errors_) p checked errored = (errored ctx_ sub_ errors_)

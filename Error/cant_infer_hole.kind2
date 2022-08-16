@@ -1,0 +1,2 @@
+// Automatically derived from Error.type
+Error.cant_infer_hole (ctx: Context) (orig: U60) : (Error)

@@ -1,0 +1,13 @@
+Checker.infer (term: Term): Checker Term
+Checker.infer (Term.var orig name index) =
+  do Checker {
+    ask got_type = Checker.find index Maybe.none (n => t => v => Maybe.some t)
+    match Maybe got_type {
+      none =>
+        do Checker {
+          ask ctx = Checker.get_context
+          Checker.fail (Error.unbound_variable context orig)
+        }
+      some => ?
+    }
+  }

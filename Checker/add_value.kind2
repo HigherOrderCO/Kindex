@@ -1,0 +1,3 @@
+Checker.add_value (idx: U60) (val: Term) : Checker Unit
+Checker.add_value idx val = context => depth => rhs => subst => eqts => errs =>
+  (Result.checked (Context.add_value context idx val) depth rhs subst eqts errs Unit.new)

@@ -1,0 +1,2 @@
+// Automatically derived from Result/_.type
+Result.checked <a: Type> (ctx: Context) (depth: U60) (rhs: Bool) (sub: Subst) (equations: (List Equation)) (errors: (List Error)) (ret: a) : (Result a)

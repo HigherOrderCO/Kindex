@@ -1,0 +1,2 @@
+// Automatically derived from Term/_.type
+Term.num (orig: U60) (num: U60) : (Term)

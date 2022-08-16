@@ -1,0 +1,4 @@
+Context.find <res> (ctx: Context) (name: U60) (alt: res) (trans: U60 -> Term -> (List Term) -> res): res
+Context.find res (Context.entry name type vals rest) 0 alt fun = fun name type vals
+Context.find res (Context.entry name type vals rest) n alt fun = Context.find rest (- n 1) alt fun
+Context.find res Context.empty                       n alt fun = alt

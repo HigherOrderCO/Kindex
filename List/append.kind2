@@ -1,0 +1,3 @@
+List.append <a> (xs: List a) (ys: a) : List a
+List.append a (List.nil t)            ys = List.cons ys List.nil
+List.append a (List.cons t head tail) ys = List.cons t head (List.append tail ys)

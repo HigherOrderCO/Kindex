@@ -1,0 +1,2 @@
+// Automatically derived from Context/_.type
+Context.entry (name: U60) (type: Term) (vals: (List Term)) (rest: Context) : (Context)

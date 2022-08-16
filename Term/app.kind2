@@ -1,0 +1,2 @@
+// Automatically derived from Term/_.type
+Term.app (orig: U60) (func: Term) (arg: Term) : (Term)

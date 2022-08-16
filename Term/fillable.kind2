@@ -1,0 +1,35 @@
+Term.fillable (term: Term) (sub: Subst): Bool
+Term.fillable term                     Subst.end = Bool.false
+Term.fillable (Term.typ orig)                sub = Bool.false
+Term.fillable (Term.var orig name index)     sub = Bool.false
+Term.fillable (Term.hlp orig)                sub = Bool.false
+Term.fillable (Term.u60 orig)                sub = Bool.false
+Term.fillable (Term.num orig num)            sub = Bool.false
+Term.fillable (Term.all orig name typ body)  sub = Bool.or (Term.fillable typ sub) (Term.fillable (body (Term.hlp 0)) sub)
+Term.fillable (Term.lam orig name body)      sub = Term.fillable (body (Term.hlp 0)) sub
+Term.fillable (Term.app orig expr typ)       sub = Bool.or (Term.fillable expr sub) (Term.fillable typ sub)
+Term.fillable (Term.let orig name expr body) sub = Bool.or (Term.fillable expr sub) (Term.fillable (body (Term.hlp 0)) sub)
+Term.fillable (Term.ann orig expr typ)       sub = Bool.or (Term.fillable expr sub) (Term.fillable typ sub)
+Term.fillable (Term.op2 orig op left right)  sub = Bool.or (Term.fillable left sub) (Term.fillable right sub)
+Term.fillable (Term.hol orig numb)           sub = Maybe.is_some (Subst.look sub numb)
+
+// TODO: change to fold later?
+Term.fillable (Term.ct0 ctid orig)                            sub = Bool.false
+Term.fillable (Term.ct1 ctid orig x0)                         sub = Term.fillable x0 sub
+Term.fillable (Term.ct2 ctid orig x0 x1)                      sub = Bool.or (Term.fillable x0 sub) (Term.fillable x1 sub)
+Term.fillable (Term.ct3 ctid orig x0 x1 x2)                   sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Term.fillable x2 sub))
+Term.fillable (Term.ct4 ctid orig x0 x1 x2 x3)                sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Term.fillable x3 sub)))
+Term.fillable (Term.ct5 ctid orig x0 x1 x2 x3 x4)             sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Term.fillable x4 sub))))
+Term.fillable (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)          sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Bool.or (Term.fillable x4 sub) (Term.fillable x5 sub)))))
+// Term.fillable (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)       sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Bool.or (Term.fillable x4 sub) (Bool.or (Term.fillable x5 sub) (Term.fillable x6 sub))))))
+// Term.fillable (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)    sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Bool.or (Term.fillable x4 sub) (Bool.or (Term.fillable x5 sub) (Bool.or (Term.fillable x6 sub) (Term.fillable x7 sub)))))))
+
+Term.fillable (Term.fn0 fnid orig)                            sub = Bool.false
+Term.fillable (Term.fn1 fnid orig x0)                         sub = Term.fillable x0 sub
+Term.fillable (Term.fn2 fnid orig x0 x1)                      sub = Bool.or (Term.fillable x0 sub) (Term.fillable x1 sub)
+Term.fillable (Term.fn3 fnid orig x0 x1 x2)                   sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Term.fillable x2 sub))
+Term.fillable (Term.fn4 fnid orig x0 x1 x2 x3)                sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Term.fillable x3 sub)))
+Term.fillable (Term.fn5 fnid orig x0 x1 x2 x3 x4)             sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Term.fillable x4 sub))))
+Term.fillable (Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)          sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Bool.or (Term.fillable x4 sub) (Term.fillable x5 sub)))))
+// Term.fillable (Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)       sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Bool.or (Term.fillable x4 sub) (Bool.or (Term.fillable x5 sub) (Term.fillable x6 sub))))))
+// Term.fillable (Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7)    sub = Bool.or (Term.fillable x0 sub) (Bool.or (Term.fillable x1 sub) (Bool.or (Term.fillable x2 sub) (Bool.or (Term.fillable x3 sub) (Bool.or (Term.fillable x4 sub) (Bool.or (Term.fillable x5 sub) (Bool.or (Term.fillable x6 sub) (Term.fillable x7 sub)))))))

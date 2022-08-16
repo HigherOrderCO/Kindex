@@ -1,0 +1,9 @@
+type Error {
+  unbound_variable (ctx: Context) (orig: U60)
+  cant_infer_hole (ctx: Context) (orig: U60)
+  cant_infer_lambda (ctx: Context) (orig: U60)
+  invalid_call (ctx: Context) (orig: U60)
+  impossible_case (ctx: Context) (orig: U60) (typ: Term) (term: Term)
+  inspection (ctx: Context) (orig: U60) (term: Term)
+  too_many_arguments (ctx: Context) (orig: U60)
+}

@@ -1,0 +1,3 @@
+Term.if_all <res> (term: Term) (if: res) (else: res) : res
+Term.if_all res (Term.all orig name typ body) oif else = oif
+Term.if_all res other                         oif else = else

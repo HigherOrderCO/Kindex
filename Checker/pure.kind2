@@ -1,0 +1,2 @@
+Checker.pure <t> (a: t): Checker t
+Checker.pure t res = context => depth => rhs => subst => eqts => errs => (Result.checked context depth rhs subst eqts errs res)

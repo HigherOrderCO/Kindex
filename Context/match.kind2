@@ -1,0 +1,4 @@
+// Automatically derived from Context/_.type
+Context.match (x: (Context)) -(p: (x: (Context)) Type) (empty: (p (Context.empty))) (entry: (name: U60) (type: Term) (vals: (List Term)) (rest: Context) (p (Context.entry name type vals rest))) : (p x)
+Context.match (Context.empty) p empty entry = (empty)
+Context.match (Context.entry name_ type_ vals_ rest_) p empty entry = (entry name_ type_ vals_ rest_)

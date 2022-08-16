@@ -1,0 +1,4 @@
+Subst.show (subst: Subst): String
+Subst.show Subst.end = "|"
+Subst.show (Subst.unfilled rest) = Printer.text ["~ ?" String.line_break (Subst.show rest)]
+Subst.show (Subst.sub expr rest) = Printer.text ["~ " (Term.show expr) String.line_break (Subst.show rest)]

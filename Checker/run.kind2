@@ -1,0 +1,2 @@
+Checker.run <t> (checker: Checker t) (rhs: Bool): Result t
+Checker.run t checker rhs = checker Context.empty 0 rhs Subst.end List.nil List.nil

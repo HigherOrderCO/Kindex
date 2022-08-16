@@ -1,0 +1,8 @@
+Checker.extended <a> (checker: Checker a) (name: U60) (type: Term) (vals: List Term) : Checker a
+Checker.extended a checker name type vals =
+  do Checker {
+    ask Checker.extend name type vals
+    ask got = checker
+    ask Checker.shrink
+    return got
+  }

@@ -1,0 +1,1 @@
+Checker.check (term: Term) (type: Term): Checker Term
