@@ -1,0 +1,12 @@
+// List concatenation is associative
+// (xs ++ (ys ++ zs)) == ((xs ++ ys) ++ zs)
+List.concat.assoc <a>
+  (xs: List a)
+  (ys: List a)
+  (zs: List a)
+: Equal (List.concat xs (List.concat ys zs)) (List.concat (List.concat xs ys) zs)
+
+List.concat.assoc a (List.nil  a_) ys zs      = Equal.refl
+List.concat.assoc a (List.cons a_ x xs) ys zs =
+  let ind = List.concat.assoc xs ys zs
+  Equal.apply (xs => List.cons x xs) ind

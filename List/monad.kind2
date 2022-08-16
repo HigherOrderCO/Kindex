@@ -1,0 +1,7 @@
+List.monad : Monad (a => List a) {
+  (Monad.new
+    (a => List a)
+    (a => x => List.pure a x)
+    (a => b => xs => f => List.bind a b xs f)
+  )
+}

@@ -1,11 +1,16 @@
-// Given a condition, if any, returns the index for the first value found within
-// that condition
+// Given a condition, return the value and index of the first element that fulfills the condition
+// If no element passes the condition, return none
 // Example: (List.find_index Nat [1,2,3] (Nat.equal 3)) -> (Maybe.some 2)
-List.find_index <a> (xs: List a) (cond: a -> Bool) : Maybe Nat
+List.find_index <a> (xs: List a) (cond: a -> Bool) : Maybe (Pair a Nat)
 List.find_index a xs cond = List.find_index.go xs cond Nat.zero
 
 
 // Auxiliary function for find_index
-List.find_index.go <a> (xs: List a) (cond: a -> Bool) (idx: Nat) : Maybe Nat
-List.find_index.go a (List.nil t)            cond idx = Maybe.none
-List.find_index.go a (List.cons t head tail) cond idx = Bool.if (cond head) (Maybe.some idx) (List.find_index.go tail cond (Nat.succ idx))
+List.find_index.go <a> (xs: List a) (cond: a -> Bool) (idx: Nat) : Maybe (Pair a Nat)
+List.find_index.go a (List.nil  t)           cond idx = Maybe.none
+List.find_index.go a (List.cons t head tail) cond idx =
+  if cond head {
+    Maybe.some (Pair.new head idx)
+  } else {
+    List.find_index.go tail cond (Nat.succ idx)
+  }

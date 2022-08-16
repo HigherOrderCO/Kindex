@@ -1,0 +1,13 @@
+List.unfoldr <a> <b> (f: a -> Maybe (Pair a b)) (x: a) : List b {
+  List.unfoldr.go f x List.nil
+}
+
+List.unfoldr.go <a> <b> (f: a -> Maybe (Pair a b)) (x: a) (bs: List b) : List b {
+  let res = (f x)
+  match Maybe res {
+    none => List.nil
+    some => match Pair res.value {
+      new => List.unfoldr.go f res.value.fst (List.cons res.value.snd bs)
+    }
+  }
+}

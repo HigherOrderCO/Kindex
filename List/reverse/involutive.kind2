@@ -1,0 +1,15 @@
+// rev (rev xs) == xs
+List.reverse.involutive <a> (xs: List a) : Equal (List.reverse (List.reverse xs)) xs
+List.reverse.involutive a xs = List.reverse.involutive.aux xs []
+
+
+// (rev.go (rev.go xs ys) []) == (rev.go ys xs)
+List.reverse.involutive.aux <a> (xs: List a) (ys: List a) : Equal (List.reverse.go (List.reverse.go xs ys) []) (List.reverse.go ys xs)
+
+// (rev.go (rev.go [] ys) []) == (rev.go ys [])
+// Infering that (rev.go [] ys) == ys
+List.reverse.involutive.aux a (List.nil t) ys = Equal.refl
+
+// (rev.go (rev.go xs.t (xs.h & ys)) []) == (rev.go xs.t (xs.h & ys))
+// Infering that (rev.go (xs.h & xs.t) ys) == (rev.go xs.t (xs.h & ys))
+List.reverse.involutive.aux a (List.cons t xs.h xs.t) ys = List.reverse.involutive.aux a xs.t (List.cons t xs.h ys)

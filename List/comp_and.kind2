@@ -1,0 +1,4 @@
+List.comp_and <a: Type> (xs: List (a -> Bool)) (item: a) : Bool {
+  let f = (x => y => Bool.and (x item) y) :: (a -> Bool) -> Bool -> Bool
+  (List.fold xs) Bool.true f
+}

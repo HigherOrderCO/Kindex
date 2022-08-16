@@ -1,0 +1,22 @@
+List.chunks_of <a> (len: Nat) (xs: List a): List (List a) {
+  List.chunks_of.go len xs len List.nil
+}
+
+List.chunks_of.go <a>
+  (len   : Nat)    // length of each chunk
+  (list  : List a) // list to be split
+  (need  : Nat)    // number of vals to complete chunk
+  (chunk : List a) // current chunk
+: List (List a)
+
+List.chunks_of.go a len (List.nil  l.a) need chunk =
+  List.cons (List.reverse chunk) List.nil
+
+List.chunks_of.go a len (List.cons l.a l.h l.t) Nat.zero chunk =
+  let head = List.reverse chunk
+  let tail = List.chunks_of.go len (List.cons l.h l.t) len List.nil
+  List.cons head tail
+
+List.chunks_of.go a len (List.cons l.a l.h l.t) (Nat.succ n.p) chunk =
+  let chunk = List.cons l.h chunk
+  List.chunks_of.go len l.t n.p chunk

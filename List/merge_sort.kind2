@@ -1,0 +1,3 @@
+List.merge_sort <a> (cmp : a -> a -> Bool) (xs : List a) : List a {
+  List.merge_sort.unpack cmp (List.map xs (x => List.pure x))
+}
