@@ -1,0 +1,15 @@
+type DOM {
+  node
+    (tag: String)
+    (props: Unit) // Map(String)
+    (style: Unit) // Map(String)
+    (children: (List DOM)) 
+  vbox
+    (props: Unit) // Map(String)
+    (style: Unit) // Map(String)
+    (value: Unit) // VoxBox
+  text
+    (value: String)
+  fragment
+    (children: (List DOM))
+}
