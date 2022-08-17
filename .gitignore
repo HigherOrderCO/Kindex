@@ -1,3 +1,4 @@
 Main.kind2
 *.check.hvm
 tmp/
+.DS_Store
