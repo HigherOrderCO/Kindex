@@ -1,3 +1,4 @@
+// Lesser Than
 // True if a < b
 Nat.ltn (a: Nat) (b: Nat) : Bool {
   Nat.lte (Nat.succ a) b

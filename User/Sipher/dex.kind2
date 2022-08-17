@@ -1,0 +1,282 @@
+User.Sipher.Wallet : Type
+User.Sipher.Wallet = Pair String Nat
+
+User.Sipher.Zero_address : String
+User.Sipher.Zero_address = "0x0000"
+
+User.Sipher.Zero_wallet : User.Sipher.Wallet
+User.Sipher.Zero_wallet = Pair.new (User.Sipher.Zero_address) Nat.zero
+
+
+Pair.map_fst <a> <b> <c> (pair: Pair a b) (func: a -> c) : Pair c b
+Pair.map_fst a b c (Pair.new t.a t.b p.fst p.snd) func =
+  Pair.new c t.b (func p.fst) p.snd
+
+Pair.map_snd <a> <b> <c> (pair: Pair a b) (func: b -> c) : Pair a c
+Pair.map_snd a b c (Pair.new t.a t.b p.fst p.snd) func =
+  Pair.new t.a c p.fst (func p.snd)
+
+User.Sipher.Transaction : Type
+User.Sipher.Transaction.recipt 
+  (mana_limit : String)
+  (mana_price : String)
+  (to         : String)
+  (value      : String)
+  (data       : String)
+: User.Sipher.Transaction
+
+User.Sipher.Transaction_to_text (transaction: User.Sipher.Transaction) : String
+User.Sipher.Transaction_to_text (User.Sipher.Transaction.recipt mana_limit mana_price to value data)  = 
+  let pre_nonce      = "Nonce: " 
+  let pre_mana_limit = "Mana limit: "
+  let pre_mana_price = "Mana price: "
+  let pre_to         = "Receiver: "
+  let pre_value      = "Value: "
+  let pre_data       = "Data: "
+  let concat         = (x => y => (String.concat x y)) :: String -> String -> String
+
+  let mana_limit  = concat (concat pre_mana_limit mana_limit) ", "
+  let mana_price  = concat (concat pre_mana_price mana_price) ", "
+  let to          = concat (concat pre_to to) ", "
+  let value       = concat (concat pre_value value) ", "
+  let data        = concat (concat pre_data data) ", "
+  concat (concat value (concat to (concat mana_price mana_limit ))) data
+
+
+
+
+
+//Pior funcao do mundo apenas
+//Preciso ajustar o for la no final
+//fiz de uma forma esquisita pq sao 5am
+User.Sipher.List_to_BitsMap
+  (list: List (Pair String (Pair String Nat)))
+: Bits.Map (Pair String Nat)
+User.Sipher.List_to_BitsMap (List.nil t) = Bits.Map.new
+User.Sipher.List_to_BitsMap (List.cons t head tail)  =
+  let fst = Pair.fst head
+  let equal = List.any tail (x => (String.equal (Pair.fst x) fst)) ::  (Pair String (Pair String Nat)) -> Bool
+  if equal { 
+    User.Sipher.List_to_BitsMap tail
+  } else { 
+    let converted_list = (pair => (Pair.map_fst String (Pair String Nat) Bits pair (x => (Bits.read x )))) :: (Pair String (Pair String Nat)) -> (Pair Bits (Pair String Nat))
+    let convert = List.map (List.cons head tail) converted_list
+    User.Sipher.List_to_BitsMap_aux convert Bits.Map.new
+  }
+
+User.Sipher.List_to_BitsMap_aux (xs: List (Pair Bits (Pair String Nat))) (map: Bits.Map (Pair String Nat)) : Bits.Map (Pair String Nat)
+User.Sipher.List_to_BitsMap_aux (List.nil t) map = map
+User.Sipher.List_to_BitsMap_aux (List.cons t head tail ) map =
+    let key = Pair.fst head
+    let value = Pair.snd head
+    let map = Bits.Map.set map key value
+    User.Sipher.List_to_BitsMap_aux tail map
+
+
+//           e
+//         /   \
+//        0     1
+//      /  \   / \
+//     0    1 0   1
+
+
+
+//Bits.o Bits.e         = Corgan
+//Bits.o(Bits.o Bits.e) = Kingu
+//Bits.o(Bits.i Bits.e) = Jotario
+//Bits.e                = Zero_wallet
+//Bits.i Bits.e         = Taelin
+//Bits.i(Bits.o Bits.e) = Sipher
+//Bits.i(Bits.i Bits.e) = Derenash
+
+
+User.Sipher.Wallets : Bits.Map User.Sipher.Wallet
+User.Sipher.Wallets = 
+  let left  = 
+    //O E = Corgan
+    (Bits.Map.tie (Maybe.some (Pair.new "0x0001" (U60.to_nat 100)))
+      //O O E = Kingu
+      (Bits.Map.tie (Maybe.some (Pair.new "0x0002" (U60.to_nat 80))) Bits.Map.new Bits.Map.new)
+        //O I E = Jotario
+        (Bits.Map.tie (Maybe.some (Pair.new "0x0003" (U60.to_nat 50))) Bits.Map.new Bits.Map.new))
+  let right = 
+    //I E = Taelin
+    (Bits.Map.tie (Maybe.some (Pair.new "0x0004" (U60.to_nat 75)))
+      //I O E = Sipher
+      (Bits.Map.tie (Maybe.some (Pair.new "0x0005" (U60.to_nat 60))) Bits.Map.new Bits.Map.new)
+        // I I E = Derenash
+        (Bits.Map.tie (Maybe.some (Pair.new "0x0006" (U60.to_nat 50))) Bits.Map.new Bits.Map.new))
+
+  Bits.Map.tie (Maybe.some User.Sipher.Zero_wallet) left right
+  
+
+//-----------------------------
+//Transfer_zero
+
+//Returns false if transaction is with Zero value
+User.Sipher.Can_transfer_zero (value: Nat) : Bool
+User.Sipher.Can_transfer_zero Nat.zero              = Bool.false
+User.Sipher.Can_transfer_zero (Nat.succ value.pred) = Bool.true
+//-----------------------------
+
+//-----------------------------
+// No_Zero Address 
+
+//Returns false if any of address are invalid
+User.Sipher.Can_transfer_address
+  (from: User.Sipher.Wallet)
+  (to: User.Sipher.Wallet)
+: Bool
+User.Sipher.Can_transfer_address (Pair.new a b f.address f.value) (Pair.new c d t.address t.value) = 
+  let f_empty   = String.equal f.address User.Sipher.Zero_address
+  let t_empty   = String.equal t.address User.Sipher.Zero_address
+  Bool.not ( Bool.or f_empty t_empty )
+
+
+//Proof
+//User.Sipher.Can_transfer_address_proof 
+  //(from: User.Sipher.Wallet) 
+  //(to: User.Sipher.Wallet)
+//: Decidable (Equal Bool (User.Sipher.Can_transfer_address from to) Bool.true)
+  //User.Sipher.Can_transfer_address_proof (Pair.new f.a f.b f.address f.value)
+                                         //(Pair.new t.a t.b t.address t.value) = 
+    //?
+//-----------------------------
+
+//Returns false if the value is higher than the sender money
+User.Sipher.Can_transfer_no_money 
+  (from: User.Sipher.Wallet)
+  (value: Nat)
+: Bool
+User.Sipher.Can_transfer_no_money (Pair.new a b address money) value = Nat.gte money value
+
+User.Sipher.Can_transfer 
+  (from  : User.Sipher.Wallet)
+  (to    : User.Sipher.Wallet)
+  (value : Nat)
+: Bool
+
+User.Sipher.Can_transfer from to value =
+  let zero_transf     = User.Sipher.Can_transfer_zero value
+  let invalid_address = User.Sipher.Can_transfer_address from to
+  let has_money       = User.Sipher.Can_transfer_no_money from value
+  Bool.and zero_transf (Bool.and invalid_address has_money)
+    
+
+//Cant_transfer_zero
+  //(from: Bits) 
+  //(to: Bits) 
+  //(wallet: Bits.Map User.Sipher.Wallet) 
+  //(money: Nat)
+//: Equal (User.Sipher.Transfer from to wallet Nat.zero) Maybe.none
+//Cant_transfer_zero from to wallet = Equal.refl
+
+Cant_transfer_zero_address 
+  (to   : Bits)
+  (wallet : Bits.Map User.Sipher.Wallet)
+  (money  : Nat)
+: Equal (Maybe (Pair (Bits.Map User.Sipher.Wallet) User.Sipher.Transaction )) (User.Sipher.Transfer Bits.e to wallet money) Maybe.none
+
+
+
+
+User.Sipher.Transfer
+  (from   : Bits) //It is going to be a string next
+  (to     : Bits) //It is going to be a string next
+  (wallet : Bits.Map User.Sipher.Wallet)
+  (value  : Nat)
+: Maybe (Pair (Bits.Map User.Sipher.Wallet) User.Sipher.Transaction )
+
+//Can use Mut for that? instead of get/set
+User.Sipher.Transfer from to wallet value = 
+  let get_to   = Maybe.case_with_default (Bits.Map.get wallet to) User.Sipher.Zero_wallet
+  let get_from = Maybe.case_with_default (Bits.Map.get wallet from) User.Sipher.Zero_wallet
+  let can_traf = User.Sipher.Can_transfer get_from get_to value
+  if can_traf {
+    let to_value        = Pair.snd get_to
+    let from_value      = Pair.snd get_from
+
+    let new_to_value    = (x => (Nat.add x value)) :: Nat -> Nat
+    let new_from_value  = (x => (Nat.sub x value)) :: Nat -> Nat
+
+    let new_to          = Pair.map_snd get_to   new_to_value
+    let new_from        = Pair.map_snd get_from new_from_value
+    
+    let wallet          = Bits.Map.set wallet to new_to
+    let wallet          = Bits.Map.set wallet from new_from
+
+    let new_transaction = 
+      (User.Sipher.Transaction.recipt 
+        "topo pagar até 12 pila"
+        "custou 10 conto"
+        (Pair.fst new_to)
+        (Show.to_string (U60.show (Nat.to_u60 value)))
+        "Transferencia braba"
+        )
+      Maybe.some (Pair.new wallet new_transaction)
+  } else {
+    Maybe.none
+  }
+  
+
+
+Main {
+  let list = (
+    [
+    //(Pair.new String (Pair String Nat) ("0")  (Pair.new String Nat "0x000001" (U60.to_nat 3)))
+    //(Pair.new String (Pair String Nat) ("00") (Pair.new String Nat "0x000002" (U60.to_nat 3)))
+    //(Pair.new String (Pair String Nat) ("01") (Pair.new String Nat "0x000003" (U60.to_nat 3)))
+    //(Pair.new String (Pair String Nat) ("1")  (Pair.new String Nat "0x000004" (U60.to_nat 3)))
+    //(Pair.new String (Pair String Nat) ("10") (Pair.new String Nat "0x000005" (U60.to_nat 3)))
+    //(Pair.new String (Pair String Nat) ("11") (Pair.new String Nat "0x000006" (U60.to_nat 3)))
+      
+    (Pair.new String (Pair String Nat) ("0000001") (Pair.new String Nat "0x000001" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0000010") (Pair.new String Nat "0x000002" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0000011") (Pair.new String Nat "0x000003" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0000100") (Pair.new String Nat "0x000004" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0000101") (Pair.new String Nat "0x000005" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0000110") (Pair.new String Nat "0x000006" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0000111") (Pair.new String Nat "0x000007" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0001000") (Pair.new String Nat "0x000008" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0001001") (Pair.new String Nat "0x000009" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0001010") (Pair.new String Nat "0x000010" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0001011") (Pair.new String Nat "0x000011" (U60.to_nat 1)))
+    (Pair.new String (Pair String Nat) ("0001111") (Pair.new String Nat "0x000012" (U60.to_nat 1)))
+    ])
+
+  let kingu = Bits.o(Bits.o Bits.e)
+  let sipher = Bits.i(Bits.o Bits.e) 
+
+  let w1  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.e))))))))
+  let w2  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.e))))))))
+  let w3  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.e))))))))
+  let w4  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.o (Bits.e))))))))
+  let w5  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.i (Bits.e))))))))
+  let w6  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.o (Bits.e))))))))
+  let w7  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.i (Bits.e))))))))
+  let w8  = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.o (Bits.o (Bits.e))))))))
+  let w9  = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.o (Bits.i (Bits.e))))))))
+  let w10 = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.i (Bits.o (Bits.e))))))))
+  let w11 = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.i (Bits.i (Bits.e))))))))
+  let w12 = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.i (Bits.i (Bits.e))))))))
+  let value  = U60.to_nat 1
+  let wallet = User.Sipher.Wallets
+  //let wallet = User.Sipher.List_to_BitsMap list
+  User.Sipher.Transfer kingu sipher wallet value
+}
+//Bits.o Bits.e         = Corgan
+//Bits.o(Bits.o Bits.e) = Kingu
+//Bits.o(Bits.i Bits.e) = Jotario
+//Bits.e
+//Bits.i Bits.e         = Taelin
+//Bits.i(Bits.o Bits.e) = Sipher
+//Bits.i(Bits.i Bits.e) = Derenash
+
+  ////let kingu = Bits.o(Bits.o Bits.e)
+  ////let sipher = Bits.i(Bits.o Bits.e) 
+  ////let wallet = User.Sipher.Wallets
+  ////let transfer = User.Sipher.Transfer sipher kingu wallet 200
+  ////let list = ["0101", "1010", "1001"]
+  ////User.Sipher.List_to_BitsMap (list)
+  //////transfer
+////}
