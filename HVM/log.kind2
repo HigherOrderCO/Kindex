@@ -1,0 +1,3 @@
+HVM.log <a: Type> <r: Type> (logged: a) (result: r) {
+  result
+}
