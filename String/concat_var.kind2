@@ -1,0 +1,4 @@
+// Concatenate any number of strings
+String.concat_var (n: Nat) : (Variadic String String n) {
+  Variadic.foldr (a => b => String.concat a b) String.nil n
+}

@@ -1,0 +1,3 @@
+String.append (as: String) (a: Char) : String
+String.append  String.nil       a = String.pure a
+String.append (String.cons h t) a = String.cons h (String.append t a)
