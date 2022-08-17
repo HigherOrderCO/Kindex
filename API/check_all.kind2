@@ -1,0 +1,10 @@
+Functions : List U60
+
+API.check_all : String
+API.check_all =
+  let output = API.output (List.reverse (API.check_functions Functions))
+  if String.is_empty output {
+    Printer.text ["All terms check." String.line_break String.line_break ]
+  } else {
+    output
+  }

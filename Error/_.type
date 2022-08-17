@@ -6,4 +6,5 @@ type Error {
   impossible_case (ctx: Context) (orig: U60) (typ: Term) (term: Term)
   inspection (ctx: Context) (orig: U60) (term: Term)
   too_many_arguments (ctx: Context) (orig: U60)
+  type_mismatch (ctx: Context) (orig: U60) (expected: Term) (detected: Term)
 }

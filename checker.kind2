@@ -1,5 +1,0 @@
-Add.add (a: U60) -(b: U60): U60
-Add.add a b = (+ a b)
-
-Main : U60
-Main = Add.add 2 3

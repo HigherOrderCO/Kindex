@@ -1,2 +1,2 @@
-// Automatically derived from Error.type
+// Automatically derived from Error/_.type
 Error.invalid_call (ctx: Context) (orig: U60) : (Error)

@@ -1,0 +1,35 @@
+// Runs a checker, then attempts to unify all equations produced
+Checker.unify (checker: Checker Unit): Checker Unit
+Checker.unify checker =
+  do Checker {
+    ask checker
+    ask equations = Checker.get_equations
+    (Checker.unify.go equations List.nil Bool.false)
+  }
+
+Checker.unify.go (equations: List Equation) (unsolved: List Equation) (changed: Bool): Checker Unit
+Checker.unify.go (List.nil t) (List.nil t1) changed    = Checker.pure Unit.new
+Checker.unify.go (List.nil t) unsolved Bool.true       = Checker.unify.go unsolved List.nil Bool.false
+Checker.unify.go (List.nil t) unsolved Bool.false      = Checker.unify.go.fail unsolved
+Checker.unify.go (List.cons t (Equation.new ctx orig left right) equations) unsolved changed =
+  do Checker {
+    ask is_equal = Checker.equal (Term.eval left) (Term.eval right)
+    let unify =
+      (if is_equal {
+        (equations: List Equation) => (unsolved: List Equation) =>
+          Checker.unify.go equations unsolved Bool.true
+      } else {
+        (equations: List Equation) => (unsolved: List Equation) =>
+          let eqt = Equation.new ctx orig left right
+          Checker.unify.go equations (List.cons eqt unsolved) changed
+      }) :: (List Equation) -> (List Equation) -> Checker Unit
+    (unify equations unsolved)
+  }
+
+Checker.unify.go.fail (equations: List Equation): Checker Unit
+Checker.unify.go.fail (List.nil t)                                          = Checker.pure Unit.new
+Checker.unify.go.fail (List.cons t (Equation.new ctx orig left right) eqts) =
+  do Checker {
+    ask Checker.error (Error.type_mismatch ctx orig left right) Unit.new
+    (Checker.unify.go.fail eqts)
+  }

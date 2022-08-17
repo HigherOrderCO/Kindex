@@ -1,1 +1,72 @@
-Checker.check (term: Term) (type: Term): Checker Term
+Checker.check (term: Term) (type: Term): Checker Unit
+
+Checker.check (Term.lam orig name body) type =
+  Checker.bind Checker.get_subst (subst =>
+    let fun = (Term.if_all type
+      (t_orig => t_name => t_type => t_body => (orig: U60) => (name: U60) => (body: Term -> Term) =>
+        do Checker {
+          ask dep = Checker.get_depth
+          ask chk = Checker.extended (Checker.check (body (Term.var orig name dep)) (t_body (Term.var t_orig t_name dep))) name t_type []
+          return Unit.new
+        }
+      )
+      ((orig: U60) => (name: U60) => (body: Term -> Term) =>
+        Checker.bind Checker.get_context (ctx => Checker.fail (Error.cant_infer_lambda ctx orig)))
+    ) :: U60 -> U60 -> ((_:Term) -> Term) -> Checker Unit
+    // TODO: Check why it have to be anotatted /\
+    fun orig name body
+  )
+
+Checker.check (Term.let orig name expr body) type =
+  do Checker {
+    ask dep      = Checker.get_depth
+    ask expr_typ = Checker.infer expr
+    ask body_chk = Checker.extended (Checker.check (body (Term.var orig name dep)) type) name expr_typ [(Term.eval expr)]
+    return Unit.new
+  }
+
+Checker.check (Term.hlp orig) type =
+  do Checker {
+    ask ctx = Checker.get_context
+    ask Checker.error (Error.inspection ctx orig type) Unit.new
+    // TODO: Check why it returns a type in the original version
+    return Unit.new
+  }
+
+Checker.check (Term.var orig name index) type =
+  do Checker {
+    ask rhs = Checker.get_right_hand_side
+    if rhs {
+      Checker.compare rhs (Term.var orig name index) type
+    } else {
+      Checker.extend name type List.nil
+    }
+  }
+
+Checker.check (Term.hol orig numb) type =
+  Checker.pure Unit.new
+
+Checker.check term type =
+  do Checker {
+    ask rhs = Checker.get_right_hand_side
+    (Checker.compare rhs term type)
+  }
+
+Checker.compare (rhs: Bool) (term: Term) (type: Term): Checker Unit
+Checker.compare rhs term type =
+  Term.get_origin term origin => term =>
+    Checker.bind (Checker.infer term) term_typ =>
+      let fun =
+        if rhs {
+          (term_typ: Term) => (type: Term) =>
+            Checker.new_equation origin term_typ type
+        } else {
+          (term_typ: Term) => (type: Term) =>
+            do Checker {
+              ask is_equal = Checker.equal (Term.eval term_typ) (Term.eval type)
+              ask ctx      = Checker.get_context
+              (Checker.fail (Error.impossible_case ctx origin type term_typ))
+            }
+        } :: Term -> Term -> Checker Unit
+      fun term_typ type
+

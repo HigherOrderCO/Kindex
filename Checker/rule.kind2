@@ -1,0 +1,21 @@
+Checker.rule (rule: Rule) (term: Term): Checker Unit
+
+Checker.rule (Rule.lhs arg args) (Term.all orig name type body) =
+  do Checker {
+    ask arg_checker  = Checker.check arg type
+    ask args_checker = Checker.rule args (body arg)
+    return Unit.new
+  }
+
+Checker.rule (Rule.lhs arg args) other =
+  do Checker {
+    ask ctx = Checker.get_context
+    (Checker.fail (Error.too_many_arguments ctx (Term.get_origin arg (orig => term => orig))))
+  }
+
+Checker.rule (Rule.rhs expr) type =
+  do Checker {
+    ask Checker.set_right_hand_side Bool.true
+    ask Checker.check expr type
+    return Unit.new
+  }

@@ -1,0 +1,2 @@
+// Automatically derived from Error/_.type
+Error.type_mismatch (ctx: Context) (orig: U60) (expected: Term) (detected: Term) : (Error)

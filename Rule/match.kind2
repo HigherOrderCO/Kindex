@@ -1,0 +1,4 @@
+// Automatically derived from Rule/_.type
+Rule.match (x: (Rule)) -(p: (x: (Rule)) Type) (lhs: (arg: Term) (args: Rule) (p (Rule.lhs arg args))) (rhs: (arg: Term) (p (Rule.rhs arg))) : (p x)
+Rule.match (Rule.lhs arg_ args_) p lhs rhs = (lhs arg_ args_)
+Rule.match (Rule.rhs arg_) p lhs rhs = (rhs arg_)

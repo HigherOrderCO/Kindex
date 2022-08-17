@@ -1,13 +1,135 @@
+User.typeOf (u: U60): Term
+
 Checker.infer (term: Term): Checker Term
 Checker.infer (Term.var orig name index) =
   do Checker {
     ask got_type = Checker.find index Maybe.none (n => t => v => Maybe.some t)
     match Maybe got_type {
-      none =>
-        do Checker {
-          ask ctx = Checker.get_context
-          Checker.fail (Error.unbound_variable context orig)
-        }
-      some => ?
+      none => Checker.bind Checker.get_context (ctx => Checker.fail (Error.unbound_variable ctx orig))
+      some => Checker.pure got_type.value
     }
+  }
+
+Checker.infer (Term.hol orig numb) =
+  do Checker {
+    ask ctx = Checker.get_context
+    (Checker.fail (Error.cant_infer_hole ctx orig))
+  }
+
+Checker.infer (Term.typ orig) =
+  Checker.pure (Term.typ orig)
+
+Checker.infer (Term.all orig name type body) =
+  do Checker {
+    ask dep      = Checker.get_depth
+    ask type_chk = Checker.check type (Term.typ orig)
+    ask body_chk = Checker.extended (Checker.check (body (Term.var orig name dep)) (Term.typ orig)) name type []
+    return (Term.typ orig)
+  }
+
+Checker.infer (Term.lam orig name body) =
+  do Checker {
+    ask ctx = Checker.get_context
+    (Checker.fail (Error.cant_infer_lambda ctx orig))
+  }
+
+Checker.infer (Term.app orig func argm) =
+  do Checker {
+    ask subst    = Checker.get_subst
+    ask func_typ = Checker.infer func
+    (Term.if_all func_typ
+      (func_orig => func_name => func_type => func_body =>
+        do Checker {
+          ask argm_ok = Checker.check argm func_type
+          return (func_body (Term.eval argm))
+        }
+      )
+      (do Checker {
+        ask ctx = Checker.get_context
+        (Checker.fail (Error.invalid_call ctx orig))
+      }))
+  }
+
+Checker.infer (Term.let orig name expr body) =
+  do Checker {
+    ask dep      = Checker.get_depth
+    ask expr_typ = Checker.infer expr
+    ask body_typ = Checker.extended (Checker.infer (body (Term.var orig name dep))) name expr_typ [(Term.eval expr)]
+    return body_typ
+  }
+
+Checker.infer (Term.ann orig expr type) =
+  do Checker {
+    ask Checker.check expr (Term.eval type)
+    return type
+  }
+
+Checker.infer (Term.ct0 ctid orig) =
+  (Checker.pure (User.typeOf ctid))
+
+Checker.infer (Term.ct1 ctid orig x0) =
+  (Checker.infer (Term.app orig (Term.ct0 ctid orig) x0))
+
+Checker.infer (Term.ct2 ctid orig x0 x1) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1))
+
+Checker.infer (Term.ct3 ctid orig x0 x1 x2) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2))
+
+Checker.infer (Term.ct4 ctid orig x0 x1 x2 x3) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3))
+
+Checker.infer (Term.ct5 ctid orig x0 x1 x2 x3 x4) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4))
+
+Checker.infer (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5))
+
+// Checker.infer (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
+//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6))
+//
+// Checker.infer (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
+//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7))
+
+Checker.infer (Term.fn1 ctid orig x0) =
+  (Checker.infer (Term.app orig (Term.fn0 ctid orig) x0))
+
+Checker.infer (Term.fn2 ctid orig x0 x1) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1))
+
+Checker.infer (Term.fn3 ctid orig x0 x1 x2) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2))
+
+Checker.infer (Term.fn4 ctid orig x0 x1 x2 x3) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3))
+
+Checker.infer (Term.fn5 ctid orig x0 x1 x2 x3 x4) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4))
+
+Checker.infer (Term.fn6 ctid orig x0 x1 x2 x3 x4 x5) =
+  (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5))
+
+// Checker.infer (Term.fn7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
+//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6))
+//
+// Checker.infer (Term.fn8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
+//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7))
+
+Checker.infer (Term.hlp orig) =
+  do Checker {
+    ask ctx = Checker.get_context
+    (Checker.fail (Error.inspection ctx orig (Term.hlp 0)))
+  }
+
+Checker.infer (Term.u60 orig) =
+  Checker.pure (Term.typ 0)
+
+Checker.infer (Term.num orig numb) =
+  Checker.pure (Term.u60 0)
+
+Checker.infer (Term.op2 orig oper val0 val1) =
+  do Checker {
+    ask Checker.check val0 (Term.u60 0)
+    ask Checker.check val1 (Term.u60 0)
+    return Term.u60 0
   }

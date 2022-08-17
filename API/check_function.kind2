@@ -1,0 +1,18 @@
+RuleOf (fnid: U60): List Rule
+TypeOf (fnid: U60): Term
+
+API.check_function (fnid: U60): List (Result Unit)
+API.check_function fnid =
+  let rules = RuleOf fnid
+  let type  = TypeOf fnid
+  let type_check = Checker.run (Checker.unify (Checker.check type (Term.typ 0))) Bool.true
+  let rule_check = API.check_function.rules rules type
+  List.cons type_check rule_check
+
+API.check_function.rules (rules: List Rule) (type: Term): List (Result Unit)
+API.check_function.rules (List.nil t)             type = List.nil
+API.check_function.rules (List.cons t rule rules) type =
+  let head = Checker.run (Checker.unify (Checker.rule rule type)) Bool.false
+  let tail = API.check_function.rules rules type
+  (List.cons head tail)
+

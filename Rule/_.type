@@ -1,0 +1,4 @@
+type Rule {
+  lhs (arg: Term) (args: Rule)
+  rhs (arg: Term)
+}

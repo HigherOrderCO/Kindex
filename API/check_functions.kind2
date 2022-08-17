@@ -1,0 +1,6 @@
+API.check_functions (fnid: List U60): List (Pair U60 (List (Result Unit)))
+API.check_functions (List.nil t)       = List.nil
+API.check_functions (List.cons t f fs) =
+  let head = Pair.new f (API.check_function f)
+  let tail = API.check_functions fs
+  List.cons head tail

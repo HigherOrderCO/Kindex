@@ -1,0 +1,74 @@
+API.output (res: List (Pair U60 (List (Result Unit)))): String
+API.output (List.nil t)            = String.nil
+API.output (List.cons t pair rest) =
+  // TODO: Check why i cant simply type check on the pair
+  match Pair pair {
+    new => Printer.text [ (API.output.function pair.fst pair.snd) (API.output rest) ]
+  }
+
+API.output.function (fnid: U60) (ls: List (Result Unit)): String
+API.output.function fnid (List.nil t) = String.nil
+API.output.function fnid (List.cons t (Result.checked a ctx dep rhs sub eqt err val) checks) = API.output.function.show_errors err sub fnid checks
+API.output.function fnid (List.cons t (Result.errored a ctx sub err) checks) = API.output.function.show_errors err sub fnid checks
+
+API.output.function.show_errors (ls: List Error) (sub: Subst) (fnid: U60) (res: List (Result Unit)): String
+API.output.function.show_errors (List.nil t)            sub fnid checks = API.output.function fnid checks
+API.output.function.show_errors (List.cons t err errs) sub fnid checks =
+  Printer.text [ (API.output.error fnid err sub) String.line_break
+                 (API.output.function.show_errors errs sub fnid checks)
+               ]
+
+API.output.error (fnid: U60) (err: Error) (sub: Subst): String
+API.output.error fnid (Error.unbound_variable ctx orig) sub =
+  Printer.text [ (Printer.color "4") "Unbound Variable." (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.cant_infer_lambda ctx orig) sub =
+  Printer.text [ (Printer.color "4") "Can't infer lambda." (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.cant_infer_hole ctx orig) sub =
+  Printer.text [ (Printer.color "4") "Can't infer hole." (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.too_many_arguments ctx orig) sub =
+  Printer.text [ (Printer.color "4") "Too many arguments." (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.invalid_call ctx orig) sub =
+  Printer.text [ (Printer.color "4") "Invalid call." (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.type_mismatch ctx orig expected detected) sub =
+  Printer.text [ (Printer.color "4") "Type mismatch" (Printer.color "0") String.line_break
+                 "- Expected: " (String.cut (Term.show (Term.fill expected sub))) String.line_break
+                 "- Detected: " (String.cut (Term.show (Term.fill detected sub))) String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.impossible_case ctx orig expected detected) sub =
+  Printer.text [ (Printer.color "4") "Impossible case. You can remove it" (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error fnid (Error.impossible_case ctx orig expected detected) sub =
+  Printer.text [ (Printer.color "4") "Impossible case. You can remove it" (Printer.color "0") String.line_break
+                 (API.output.error.details fnid ctx sub orig)
+               ]
+
+API.output.error.details (fnid: U60) (ctx: Context) (sub: Subst) (origin: U60): String
+API.output.error.details fnid ctx sub orig =
+  Printer.text [ (Bool.if (Context.is_empty ctx)
+                          ""
+                          (Printer.text [(Printer.color "4")
+                                         "Context:" (Printer.color "0")
+                                         String.line_break
+                                         (Context.show ctx sub)]))
+                 (Printer.color "4") "On '{{#F" (Show.to_string (U60.show (>> orig 48))) "F#}} ':" (Printer.color "0") String.line_break
+                 "{{#R" (Show.to_string (U60.show (>> orig 48))) ":" (Show.to_string (U60.show (& orig 16777215))) ":" (Show.to_string (U60.show (& (>> orig 24) 16777215))) "R#}}" String.line_break
+               ]
