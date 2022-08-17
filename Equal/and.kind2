@@ -1,0 +1,11 @@
+Equal.and
+  <t1: Type> <a1: t1> <b1: t1>
+  <t2: Type> <a2: t2> <b2: t2>
+  (e1: Equal t1 a1 b1)
+  (e2: Equal t2 a2 b2)
+: Equal (Pair.new t1 t2 a1 a2) (Pair.new t1 t2 b1 b2) {
+  let p = Equal.refl
+  let p = Equal.rewrite e1 (x => Equal _ (Pair.new x a2)) p
+  let p = Equal.rewrite e2 (x => Equal _ (Pair.new b1 x)) p
+  p
+}
