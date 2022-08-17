@@ -1,3 +1,2 @@
-Nat.square (a: Nat) : Nat {
-  Nat.mul a a
-}
+Nat.square (a: Nat) : Nat 
+Nat.square a = (Nat.mul a a)
