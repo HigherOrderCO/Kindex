@@ -1,0 +1,4 @@
+// Finds the remainder of the division of n by m
+Nat.mod (num: Nat) (mod: Nat) : Nat {
+  Pair.snd (Nat.div_mod num mod)
+}

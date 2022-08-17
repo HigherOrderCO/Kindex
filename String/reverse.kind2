@@ -1,0 +1,7 @@
+String.reverse (xs: String) : String {
+  String.reverse.go xs String.nil
+}
+
+String.reverse.go (xs: String) (res: String) : String
+String.reverse.go  String.nil        res = res
+String.reverse.go (String.cons x xs) res = String.reverse.go xs (String.cons x res)

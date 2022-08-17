@@ -1,0 +1,3 @@
+String.is_nil (xs: String) : Bool
+String.is_nil  String.nil        = Bool.true
+String.is_nil (String.cons x xs) = Bool.false

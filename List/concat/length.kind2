@@ -1,0 +1,11 @@
+// List.concat preserves length
+// (len xs) + (len ys) == len (xs ++ ys)
+List.concat.length <a>
+  (xs: List a)
+  (ys: List a)
+: Equal Nat (Nat.add (List.length xs) (List.length ys)) (List.length (List.concat xs ys))
+
+List.concat.length a (List.nil  a_)      ys = Equal.refl
+List.concat.length a (List.cons a_ x xs) ys =
+  let ind = List.concat.length xs ys
+  Equal.apply (x => Nat.succ x) ind

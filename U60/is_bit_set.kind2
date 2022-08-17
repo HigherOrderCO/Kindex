@@ -1,0 +1,5 @@
+// True if the bit is set
+// Undefined if bit >= 60
+U60.is_bit_set (n: U60) (bit: U60) : Bool {
+  U60.to_bool (U60.get_bit n bit)
+}

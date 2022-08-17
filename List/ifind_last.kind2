@@ -1,0 +1,21 @@
+// Return the last element with index, where both match a condition
+List.ifind_last <a> (xs: List a) (cond: a -> Nat -> Bool) : Maybe (Pair a Nat) {
+  List.ifind_last.go xs cond Nat.zero Maybe.none
+}
+
+
+List.ifind_last.go <a>
+  (xs   : List a)
+  (cond : a -> Nat -> Bool)
+  (idx  : Nat)
+  (res  : Maybe (Pair a Nat))
+: Maybe (Pair a Nat)
+
+List.ifind_last.go a (List.nil  x.a)         cond idx res = res
+List.ifind_last.go a (List.cons x.a x.h x.t) cond idx res =
+  let res = if (cond x.h idx) {
+    Maybe.some (Pair.new x.h idx)
+  } else {
+    res
+  }
+  List.ifind_last.go x.t cond (Nat.succ idx) res

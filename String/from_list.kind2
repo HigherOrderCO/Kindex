@@ -1,3 +1,3 @@
-String.from_list (l: (List U60)): String
-String.from_list (List.nil t) = String.nil
-String.from_list (List.cons t a b) = (String.cons a (String.from_list b))
+String.from_list (l: List Char): String
+String.from_list (List.nil  t)      = String.nil
+String.from_list (List.cons t x xs) = String.cons x (String.from_list xs)

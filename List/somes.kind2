@@ -1,0 +1,4 @@
+List.somes <a> (xs: List (Maybe a)) : List a 
+List.somes a (List.nil  ma)                        = List.nil
+List.somes a (List.cons ma (Maybe.none a_)     xs) = List.somes xs
+List.somes a (List.cons (Maybe a1) (Maybe.some a2 val) xs) = List.cons val (List.somes xs)

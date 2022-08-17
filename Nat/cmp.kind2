@@ -1,0 +1,5 @@
+Nat.cmp (a: Nat) (b: Nat) : Cmp
+Nat.cmp  Nat.zero          Nat.zero         = Cmp.eql
+Nat.cmp  Nat.zero         (Nat.succ pred)   = Cmp.ltn
+Nat.cmp (Nat.succ pred)    Nat.zero         = Cmp.gtn
+Nat.cmp (Nat.succ a.pred) (Nat.succ b.pred) = Nat.cmp a.pred b.pred

@@ -1,0 +1,3 @@
+String.to_lower (str: String) : String {
+  String.map (c => Char.to_lower c) str
+}

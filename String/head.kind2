@@ -1,0 +1,3 @@
+String.head (xs: String) : Maybe Char
+String.head  String.nil        = Maybe.none
+String.head (String.cons x xs) = Maybe.some x

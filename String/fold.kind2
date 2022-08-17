@@ -1,0 +1,3 @@
+String.fold <p: Type> (xs: String) : p -> ((c: Char) -> p -> p) -> p
+String.fold p  String.nil       = nil => cons => nil
+String.fold p (String.cons x xs) = nil => cons => cons x ((String.fold xs) nil cons)

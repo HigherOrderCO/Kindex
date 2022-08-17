@@ -1,0 +1,3 @@
+Char.is_ascii (c: Char) : Bool {
+  Char.lte c 255
+}

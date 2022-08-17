@@ -1,0 +1,4 @@
+// Sum from 0 to n
+Nat.sum(n: Nat) : Nat
+Nat.sum (Nat.succ np) = Nat.add (Nat.succ np) (Nat.sum np)
+Nat.sum  Nat.zero     = Nat.zero

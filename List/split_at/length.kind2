@@ -1,0 +1,13 @@
+List.split_at.length <a>
+  (xs: List a)
+  (ys: List a)
+: Equal (List.split_at (List.concat xs ys) (List.length xs)) (Pair.new xs ys)
+
+List.split_at.length a (List.nil  a1) (List.nil  a2)      = Equal.refl
+List.split_at.length a (List.nil  a1) (List.cons a2 y ys) = Equal.refl
+
+List.split_at.length a (List.cons a1 x xs) ys =
+  let ind = List.split_at.length xs ys
+  let fst = Equal.apply (xs => List.cons x (Pair.fst xs)) ind
+  let snd = Equal.apply (xs => Pair.snd xs) ind
+  Equal.and fst snd

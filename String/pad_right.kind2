@@ -1,0 +1,4 @@
+String.pad_right (size: Nat) (chr: Char) (str: String) : String
+String.pad_right  Nat.zero     chr  str               = str
+String.pad_right (Nat.succ sp) chr  String.nil        = String.cons chr (String.pad_right sp chr String.nil)
+String.pad_right (Nat.succ sp) chr (String.cons x xs) = String.cons x   (String.pad_right sp chr xs)

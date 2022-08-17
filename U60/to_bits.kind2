@@ -1,0 +1,11 @@
+// Returns the number as a bit list (length 60)
+U60.to_bits (n: U60) : Bits {
+  U60.to_bits.go n 60 Bits.e
+}
+
+U60.to_bits.go (n: U60) (c: U60) (r: Bits) : Bits
+U60.to_bits.go n 0 r = r
+U60.to_bits.go n c r =
+  let bit = U60.is_bit_set n 59
+  let r   = if bit { Bits.i r } else { Bits.o r }
+  U60.to_bits.go (<< n 1) (- c 1) r

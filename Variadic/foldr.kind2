@@ -1,0 +1,7 @@
+Variadic.foldr <r> <p> (acc: r -> p -> p) (b: p) (n: Nat) : Variadic r p n {
+  Variadic.foldr.go acc b (p => p) n
+}
+
+Variadic.foldr.go <r> <p> (acc: r -> p -> p) (b: p) (k: p -> p) (n: Nat) : Variadic r p n
+Variadic.foldr.go r p acc b k  Nat.zero    = (k b)
+Variadic.foldr.go r p acc b k (Nat.succ n) = a => Variadic.foldr.go acc b (r => acc a r) n

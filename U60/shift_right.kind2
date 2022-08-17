@@ -1,0 +1,3 @@
+U60.shift_right (a: U60) (b: U60) : U60 {
+  (>> a b)
+}

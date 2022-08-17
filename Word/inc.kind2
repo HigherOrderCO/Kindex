@@ -1,0 +1,4 @@
+Word.inc <size: Nat> (word: Word size) : Word size
+Word.inc s  Word.e          = Word.e
+Word.inc s (Word.o s_ pred) = Word.i           pred
+Word.inc s (Word.i s_ pred) = Word.o (Word.inc pred)

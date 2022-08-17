@@ -1,0 +1,5 @@
+Nat.divides (a: Nat) (b: Nat) : Bool
+Nat.divides Nat.zero Nat.zero = Bool.false
+Nat.divides a        Nat.zero = Bool.true
+Nat.divides Nat.zero b        = Bool.false
+Nat.divides a        b        = Nat.equal Nat.zero (Nat.mod b a)

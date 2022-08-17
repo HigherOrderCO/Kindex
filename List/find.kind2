@@ -2,5 +2,10 @@
 // Example: (List.find Nat [1,2,3] (Nat.equal 4)) -> Maybe.none
 // Example: (List.find Nat [1,2,3] (Nat.equal 1)) -> (Maybe.some 1)
 List.find <a> (xs: List a) (cond: a -> Bool) : Maybe a
-List.find a (List.nil t)            cond = Maybe.none
-List.find a (List.cons t head tail) cond = Bool.if (cond head) (Maybe.some head) (List.find tail cond)
+List.find a (List.nil  t)           cond = Maybe.none
+List.find a (List.cons t head tail) cond =
+  if cond head {
+    Maybe.some head
+  } else {
+    List.find tail cond
+  }

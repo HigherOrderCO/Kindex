@@ -1,0 +1,4 @@
+Nat.one_neq_zero (e: Equal Nat.one Nat.zero) : Empty {
+  let p = Equal.apply (x => Nat.is_zero x) e
+  Bool.false_not_true p
+}

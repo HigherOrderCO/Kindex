@@ -1,0 +1,3 @@
+List.foldr <a> <b> (nil: b) (cons: a -> b -> b) (xs: List a) : b
+List.foldr a b nil cons (List.nil  x.a)         = nil
+List.foldr a b nil cons (List.cons x.a x.h x.t) = cons x.h (List.foldr nil cons x.t)

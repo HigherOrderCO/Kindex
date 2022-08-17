@@ -1,0 +1,4 @@
+// 1 if the bit is set, 0 otherwise
+U60.get_bit (n: U60) (bit: U60) : U60 {
+  (& (>> n bit) 1)
+}

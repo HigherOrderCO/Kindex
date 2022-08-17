@@ -1,0 +1,17 @@
+String.split (str: String) (find: String) : List String {
+  String.split.go str find String.nil
+}
+
+String.split.go (str: String) (find: String) (last: String) : List String
+String.split.go  String.nil        find last = List.pure last
+String.split.go (String.cons x xs) find last =
+  let str = String.cons x xs
+  if String.starts_with str find {
+    let len  = String.length find
+    let drop = String.drop len str
+    let tail = String.split.go drop find String.nil
+    List.cons last tail
+  } else {
+    let next = String.pure x
+    String.split.go xs find (String.concat last next)
+  }

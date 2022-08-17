@@ -1,0 +1,8 @@
+List.take_while <a> (cond: a -> Bool) (xs: List a) : List a
+List.take_while a cond (List.nil  a_) = List.nil
+List.take_while a cond (List.cons a_ x xs) =
+  if (cond x) {
+    List.cons x (List.take_while cond xs)
+  } else {
+    List.nil
+  }

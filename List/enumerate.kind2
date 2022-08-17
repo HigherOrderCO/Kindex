@@ -3,9 +3,7 @@
 List.enumerate <a> (xs: List a) : List (Pair Nat a)
 List.enumerate a xs = List.enumerate.go xs Nat.zero
 
-
-
 // Auxiliary Function
 List.enumerate.go <a> (xs: List a) (idx: Nat) : List (Pair Nat a)
-List.enumerate.go a (List.nil t)            idx = List.nil
+List.enumerate.go a (List.nil  t)           idx = List.nil
 List.enumerate.go a (List.cons t head tail) idx = List.cons (Pair.new idx head) (List.enumerate.go tail (Nat.succ idx))

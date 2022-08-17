@@ -1,0 +1,24 @@
+// Separate elements of t list into two groups, based on t condition, preserving order
+List.partition <t> (cond: t -> Bool) (xs: List t) : Pair (List t) (List t) {
+  let id = (x => x) :: (List t) -> (List t)
+  List.partition.go cond xs id id
+}
+
+List.partition.go <t>
+  (cond: t -> Bool)
+  (xs: List t)
+  (as: (List t) -> (List t))
+  (bs: (List t) -> (List t))
+: Pair (List t) (List t)
+
+List.partition.go t cond (List.nil t_) as bs =
+  Pair.new (as List.nil) (bs List.nil)
+
+List.partition.go t cond (List.cons t_ x xs) as bs =
+  if (cond x) {
+    let as = (a => List.cons x a) :: (List t) -> (List t)
+    List.partition.go cond xs as bs
+  } else {
+    let bs = (b => List.cons x b) :: (List t) -> (List t)
+    List.partition.go cond xs as bs
+  }
