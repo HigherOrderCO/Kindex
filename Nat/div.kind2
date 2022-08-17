@@ -1,8 +1,15 @@
-// Given two numbers, return the division, rounding down
-Nat.div (num: Nat) (den: Nat) : Nat {
-  if (Nat.ltn num den) {
-    Nat.zero
-  } else {
-    Nat.succ (Nat.div (Nat.sub num den) den)
-  }
-}
+// Given two numbers, return the division
+
+Div (a: Nat) (b: Nat) : Nat
+Div  a        b       = (Div_go a b b Nat.zero)
+
+Div_go (a: Nat) (b: Nat) (c: Nat) (z: Nat)     : Nat
+Div_go  Nat.zero Nat.zero c        z           = (Nat.succ z)
+Div_go  Nat.zero b        c        z           = z 
+Div_go  a        Nat.zero c        z           = (Div_go a c c (Nat.succ z) )
+Div_go (Nat.succ a.pred) (Nat.succ b.pred) c z = (Div_go a.pred b.pred c z)
+Div_go a Nat.zero c z = Nat.zero
+
+// Nat.div (a: Nat) (b: Nat) : Nat 
+// Nat.div Nat.zero y = Nat.zero 
+// Nat.div x y = (Nat.succ (Nat.div (Nat.sub x y) y))
