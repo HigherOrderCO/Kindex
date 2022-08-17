@@ -1,0 +1,6 @@
+// Proof that (a + 1) + b = a + (b + 1)
+// In a way, this is a special case of the commutative/associative property
+
+Nat.add.comm.succ (a: Nat) (b: Nat): Equal Nat (Nat.add a (Nat.succ b)) (Nat.succ (Nat.add a b))
+Nat.add.comm.succ Nat.zero     b = Equal.refl
+Nat.add.comm.succ (Nat.succ a) b = Equal.apply (x => Nat.succ x) (Nat.add.comm.succ a b)
