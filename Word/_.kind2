@@ -1,0 +1,2 @@
+// A bit list of known size, lsb first
+Word (size: Nat) : Type
