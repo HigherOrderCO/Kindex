@@ -1,0 +1,2 @@
+List.singleton <a: Type> (xs: a) : List a 
+List.singleton a x = (List.cons x (List.nil))
