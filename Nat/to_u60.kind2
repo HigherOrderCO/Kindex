@@ -1,0 +1,7 @@
+Nat.to_u60 (n: Nat) : U60 {
+  Nat.to_u60.go n 0
+}
+
+Nat.to_u60.go (n: Nat) (r: U60) : U60
+Nat.to_u60.go  Nat.zero    r = r
+Nat.to_u60.go (Nat.succ n) r = Nat.to_u60.go n (+ 1 r)

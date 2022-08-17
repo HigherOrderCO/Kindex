@@ -1,0 +1,4 @@
+// True if the number is a successor to some other number (aka it's not zero)
+Nat.is_succ (n: Nat) : Bool {
+  Bool.not (Nat.is_zero n)
+}

@@ -1,0 +1,4 @@
+Nat.succ_neq_zero (a: Nat) (e: Equal Nat (Nat.succ a) Nat.zero) : Empty {
+  let p = Equal.apply (x => Nat.is_zero x) e
+  Bool.false_not_true p
+}

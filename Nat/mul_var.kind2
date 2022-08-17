@@ -1,0 +1,3 @@
+Nat.mul_var (n: Nat) : (Variadic Nat Nat n) {
+  Variadic.foldr (a => b => Nat.mul a b) Nat.one n
+}

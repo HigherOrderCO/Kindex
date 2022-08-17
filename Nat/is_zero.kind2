@@ -1,0 +1,4 @@
+// True if the number is zero
+Nat.is_zero (n: Nat) : Bool
+Nat.is_zero  Nat.zero    = Bool.true
+Nat.is_zero (Nat.succ n) = Bool.false

@@ -1,5 +1,4 @@
-// Least Than
-Nat.ltn (a: Nat) (b: Nat) : Bool 
-Nat.ltn Nat.zero b = Bool.true 
-Nat.ltn b Nat.zero = Bool.false 
-Nat.ltn (Nat.succ a) (Nat.succ b) = (Nat.ltn a b)
+// True if a < b
+Nat.ltn (a: Nat) (b: Nat) : Bool {
+  Nat.lte (Nat.succ a) b
+}
