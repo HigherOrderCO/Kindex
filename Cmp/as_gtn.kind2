@@ -1,4 +1,4 @@
-Cmp.as_gtn (cmp: Cmp) : Bool
-Cmp.as_gtn Cmp.ltn = Bool.false
-Cmp.as_gtn Cmp.eql = Bool.false
-Cmp.as_gtn Cmp.gtn = Bool.true
+Cmp.as_gtn (cmp: Cmp) : Bool 
+Cmp.as_gtn ltn = Bool.false
+Cmp.as_gtn eql = Bool.false
+Cmp.as_gtn gtn = Bool.true 
