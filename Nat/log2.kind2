@@ -1,7 +1,6 @@
-Nat.log2(n: Nat): Nat {
-  Nat.log2.aux n Nat.zero
-}
+Nat.log_two (a: Nat) : Nat 
+Nat.log_two a Nat.succ(Nat.succ(Nat.zero)) = Nat.log_aux a Nat.succ(Nat.succ(Nat.zero)) Nat.zero
 
-Nat.log2.aux (n: Nat) (r: Nat) : Nat
-Nat.log2.aux  Nat.zero     r = Nat.pred r
-Nat.log2.aux (Nat.succ np) r = Nat.log2.aux (Nat.half (Nat.succ np)) (Nat.succ r)
+Nat.log_aux (a: Nat) (c: Nat) (z: Nat) : Nat 
+Nat.log_aux a c z = Nat.log_aux (Nat.div a c) c (Nat.succ z)
+Nat.log_aux (Nat.succ(Nat.zero)) c z = z 
