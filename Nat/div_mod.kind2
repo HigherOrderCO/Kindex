@@ -1,12 +1,5 @@
-Div (a: Nat) (b: Nat) : Nat
-Div  a        b       =  Pair.fst (Div_go a b b Nat.zero)
-
-Mod (a: Nat) (b: Nat) : Nat
-Mod  a        b       = Pair.snd (Div_go a b b Nat.zero)
-
-Div_go (a: Nat) (b: Nat) (c: Nat) (z: Nat)     : (Pair Nat Nat)
-Div_go  Nat.zero Nat.zero c        z           = (Pair.new (Nat.succ z) Nat.zero)
-Div_go  Nat.zero b        c        z           = (Pair.new z   (Nat.sub c b)    )
-Div_go  a        Nat.zero c        z           = (Div_go a c c (Nat.succ z)     )
-Div_go (Nat.succ a.pred) (Nat.succ b.pred) c z = (Div_go a.pred b.pred c z      )
-Div_go a Nat.zero c z = (Pair.new Nat.zero z)
+Nat.div_mod (a: Nat) (b: Nat) (c: Nat) (z: Nat) : (Pair Nat Nat)
+Nat.div_mod  Nat.zero Nat.zero c z = ( Pair.new (Nat.succ z) Nat.zero )
+Nat.div_mod  Nat.zero b c z = ( Pair.new z (Nat.sub c b) )
+Nat.div_mod  a Nat.zero c z = ( Nat.div_mod a c c (Nat.succ z) )
+Nat.div_mod (Nat.succ a.pred) (Nat.succ b.pred) c z = ( Nat.div_mod a.pred b.pred c z )
