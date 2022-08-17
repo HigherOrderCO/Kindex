@@ -1,0 +1,3 @@
+List.null <a: Type> (xs: List a) : Nat 
+List.null (List.nil) = Nat.succ(Nat.zero)
+List.null (List.cons x xs) = Nat.zero 
