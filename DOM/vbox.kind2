@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/DOM.type
+DOM.vbox (props: Unit) (style: Unit) (value: Unit) : (DOM)

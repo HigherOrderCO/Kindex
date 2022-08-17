@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/DOM.type
+DOM.node (tag: String) (props: Unit) (style: Unit) (children: (List DOM)) : (DOM)

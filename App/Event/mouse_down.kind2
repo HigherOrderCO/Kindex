@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/App/Event.type
+App.Event.mouse_down (time: U60) (button: U60) : (App.Event)

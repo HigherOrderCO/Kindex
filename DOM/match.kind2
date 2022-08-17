@@ -1,0 +1,6 @@
+// Automatically derived from /home/derenash/Wikind/DOM.type
+DOM.match (x: (DOM)) -(p: (x: (DOM)) Type) (node: (tag: String) (props: Unit) (style: Unit) (children: (List DOM)) (p (DOM.node tag props style children))) (vbox: (props: Unit) (style: Unit) (value: Unit) (p (DOM.vbox props style value))) (text: (value: String) (p (DOM.text value))) (fragment: (children: (List DOM)) (p (DOM.fragment children))) : (p x)
+DOM.match (DOM.node tag_ props_ style_ children_) p node vbox text fragment = (node tag_ props_ style_ children_)
+DOM.match (DOM.vbox props_ style_ value_) p node vbox text fragment = (vbox props_ style_ value_)
+DOM.match (DOM.text value_) p node vbox text fragment = (text value_)
+DOM.match (DOM.fragment children_) p node vbox text fragment = (fragment children_)

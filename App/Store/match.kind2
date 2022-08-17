@@ -1,0 +1,3 @@
+// Automatically derived from /home/derenash/Wikind/App/Store.type
+App.Store.match <s: App.State> (x: (App.Store s)) -(p: (x: (App.Store s)) Type) (new: (local: (App.State.local s)) (p (App.Store.new s local))) : (p x)
+App.Store.match s (App.Store.new s_ local_) p new = (new local_)

@@ -1,0 +1,3 @@
+// Automatically derived from /home/derenash/Wikind/App/EnvInfo.type
+App.EnvInfo.match (x: (App.EnvInfo)) -(p: (x: (App.EnvInfo)) Type) (new: (screen_size: (Pair U60 U60)) (mouse_pos: (Pair U60 U60)) (p (App.EnvInfo.new screen_size mouse_pos))) : (p x)
+App.EnvInfo.match (App.EnvInfo.new screen_size_ mouse_pos_) p new = (new screen_size_ mouse_pos_)

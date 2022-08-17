@@ -1,0 +1,2 @@
+App.Init <s: App.State>: Type
+App.Init s = App.Store s

@@ -1,0 +1,3 @@
+// Automatically derived from App.type
+App.match <s: Type> (x: (App s)) -(p: (x: (App s)) Type) (new: (init: Nat) (draw: Nat) (when: Nat) (tick: Nat) (post: Nat) (p (App.new s init draw when tick post))) : (p x)
+App.match s (App.new s_ init_ draw_ when_ tick_ post_) p new = (new init_ draw_ when_ tick_ post_)

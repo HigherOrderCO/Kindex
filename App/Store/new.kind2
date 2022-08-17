@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/App/Store.type
+App.Store.new <s: App.State> (local: (App.State.local s)) : (App.Store s)

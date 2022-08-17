@@ -1,0 +1,2 @@
+App.State.local(x: App.State): Type
+App.State.local x = x
