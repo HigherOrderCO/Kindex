@@ -1,0 +1,7 @@
+// If some, returns the value, else return the default
+// Examples:
+//   Maybe.default (Maybe.some 3) 5) = 3
+//   Maybe.default Maybe.none 5 = 5
+Maybe.default <a: Type> (m: Maybe a) (dflt: a) : a
+Maybe.default a (Maybe.none a_)     dflt = dflt
+Maybe.default a (Maybe.some a_ val) dflt = val
