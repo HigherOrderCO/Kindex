@@ -1,4 +1,4 @@
-// Finds the remainder of the division of n by m
-Nat.mod (num: Nat) (mod: Nat) : Nat {
-  Pair.snd (Nat.div_mod num mod)
-}
+Div_go  Nat.zero b        c        z           = (Nat.sub c b) 
+Div_go  a        Nat.zero c        z           = (Div_go a c c (Nat.succ z)     )
+Div_go (Nat.succ a.pred) (Nat.succ b.pred) c z = (Div_go a.pred b.pred c z      )
+Div_go a Nat.zero c z = Nat.zero
