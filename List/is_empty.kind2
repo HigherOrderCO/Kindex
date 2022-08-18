@@ -1,3 +1,0 @@
-List.is_empty <a: Type> (xs: List a) : Bool 
-List.is_empty (List.nil) = Bool.true
-List.is_empty (List.cons x xs) = Bool.false
