@@ -1,5 +1,3 @@
-// Verifies if a list is empty
-// Example: (List.is_empty Nat [1,2,3]) -> Bool.false
-List.is_empty <a> (xs: List a) : Bool {
-  List.is_nil xs
-}
+List.is_empty <a: Type> (xs: List a) : Bool 
+List.is_empty (List.nil) = Bool.true
+List.is_empty (List.cons x xs) = Bool.false
