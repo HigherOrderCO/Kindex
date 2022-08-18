@@ -1,4 +1,5 @@
-// Return the quotient and the remainder of the integer division of two numbers
-Nat.div_mod (num: Nat) (den: Nat) : Pair Nat Nat {
-  Nat.div_mod.go den Nat.zero num
-}
+Nat.div_mod (a: Nat) (b: Nat) (c: Nat) (z: Nat) : (Pair Nat Nat)
+Nat.div_mod  Nat.zero Nat.zero c z = ( Pair.new (Nat.succ z) Nat.zero )
+Nat.div_mod  Nat.zero b c z = ( Pair.new z (Nat.sub c b) )
+Nat.div_mod  a Nat.zero c z = ( Nat.div_mod a c c (Nat.succ z) )
+Nat.div_mod (Nat.succ a.pred) (Nat.succ b.pred) c z = ( Nat.div_mod a.pred b.pred c z )
