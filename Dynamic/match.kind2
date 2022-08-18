@@ -1,3 +1,0 @@
-// Automatically derived from Dynamic/_.type
-Dynamic.match (x: (Dynamic)) -(p: (x: (Dynamic)) Type) (new: (p (Dynamic.new))) : (p x)
-Dynamic.match (Dynamic.new) p new = (new)

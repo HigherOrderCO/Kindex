@@ -15,8 +15,8 @@ type Term {
   ct4 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term)
   ct5 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term)
   ct6 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term)
-  ct7 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term) (x6: Term)
-  ct8 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term) (x6: Term) (x7: Term)
+  ct7 (ctid: U60) (orig: U60) (args: Term)
+  ct8 (ctid: U60) (orig: U60) (args: Term)
 
   fn0 (ctid: U60) (orig: U60)
   fn1 (ctid: U60) (orig: U60) (x0: Term)
@@ -25,12 +25,15 @@ type Term {
   fn4 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term)
   fn5 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term)
   fn6 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term)
-  fn7 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term) (x6: Term)
-  fn8 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term) (x6: Term) (x7: Term)
+  fn7 (ctid: U60) (orig: U60) (args: Term)
+  fn8 (ctid: U60) (orig: U60) (args: Term)
 
   hlp (orig: U60)
   u60 (orig: U60)
   num (orig: U60) (num: U60)
 
   op2 (orig: U60) (operator: Operator) (left: Term) (right: Term)
+
+  args7 (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term) (x6: Term)
+  args8 (x0: Term) (x1: Term) (x2: Term) (x3: Term) (x4: Term) (x5: Term) (x6: Term) (x7: Term)
 }

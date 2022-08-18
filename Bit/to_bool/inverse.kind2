@@ -1,3 +1,0 @@
-Bit.to_bool.inverse (x: Bool) : Equal Bool (Bit.to_bool (Bool.to_bit x)) x
-Bit.to_bool.inverse Bool.false = Equal.refl
-Bit.to_bool.inverse Bool.true  = Equal.refl

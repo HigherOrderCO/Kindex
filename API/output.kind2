@@ -56,8 +56,9 @@ API.output.error fnid (Error.impossible_case ctx orig expected detected) sub =
                  (API.output.error.details fnid ctx sub orig)
                ]
 
-API.output.error fnid (Error.impossible_case ctx orig expected detected) sub =
-  Printer.text [ (Printer.color "4") "Impossible case. You can remove it" (Printer.color "0") String.line_break
+API.output.error fnid (Error.inspection ctx orig expected) sub =
+  Printer.text [ (Printer.color "4") "Inspection." (Printer.color "0") String.line_break
+                 "- Goal: " (String.cut (Term.show (Term.fill expected sub))) String.line_break
                  (API.output.error.details fnid ctx sub orig)
                ]
 

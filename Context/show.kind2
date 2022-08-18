@@ -1,6 +1,6 @@
 Context.show.type (name: U60) (type: Term) (sub: Subst) (pad: U60): String
 Context.show.type name type sub pad =
-  Printer.text [ "- "
+  Printer.text [ "~ "
                  (String.pad_right (Name.show name) ' ' pad)
                  " : "
                  (String.cut (Term.show (Term.fill type sub)))

@@ -1,8 +1,0 @@
-// Converts all 0 and 1 from a string in a Bit structure
-// Example : (Bits.read ("101")) -> (Bits.i (Bits.o (Bits.i Bits.e)))
-Bits.read (text: String) : Bits
-Bits.read String.nil              = Bits.e
-Bits.read (String.cons head tail) = 
-  (Bool.if (Char.equal head '1') (Bits.i (Bits.read tail)) 
-  (Bool.if (Char.equal head '0') (Bits.o (Bits.read tail)) 
-  (Bits.read tail)))

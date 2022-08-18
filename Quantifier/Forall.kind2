@@ -1,5 +1,0 @@
-// The simplest qualifier to represent in Kind2. If you have a function (a: A)  (B a), then you know
-// that (B a) is fulfilled (is constructible) for all a in A.
-
-Quantifier.Forall <set: Type> <proposition: set -> Type>: Type
-Quantifier.Forall set proposition = (value: set) -> (proposition value)

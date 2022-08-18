@@ -1,2 +1,0 @@
-// Automatically derived from Decidable/_.type
-Decidable.yep <p: Type> (proof: p) : (Decidable p)

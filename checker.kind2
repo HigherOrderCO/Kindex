@@ -1,0 +1,2 @@
+Main : String
+Main = API.check_all

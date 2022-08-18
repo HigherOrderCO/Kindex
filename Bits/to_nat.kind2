@@ -1,6 +1,0 @@
-// Transforms a bit structure into a natural number
-// Example: (Bits.to_nat (Bits.i (Bits.i Bits.e))) -> 3
-Bits.to_nat (b: Bits) : Nat
-Bits.to_nat (Bits.e)        = (Nat.zero)
-Bits.to_nat (Bits.o b.pred) = (Nat.double (Bits.to_nat b.pred))
-Bits.to_nat (Bits.i b.pred) = (Nat.succ(Nat.double (Bits.to_nat b.pred)))

@@ -64,8 +64,14 @@ Checker.compare rhs term type =
           (term_typ: Term) => (type: Term) =>
             do Checker {
               ask is_equal = Checker.equal (Term.eval term_typ) (Term.eval type)
-              ask ctx      = Checker.get_context
-              (Checker.fail (Error.impossible_case ctx origin type term_typ))
+              if is_equal {
+                Checker.pure Unit.new
+              } else {
+                do Checker {
+                  ask ctx =  Checker.get_context
+                  (Checker.fail (Error.impossible_case ctx origin type term_typ))
+                }
+              }
             }
         } :: Term -> Term -> Checker Unit
       fun term_typ type

@@ -1,4 +1,0 @@
-// Doubles a number
-Nat.dbl (x: Nat): Nat 
-Nat.dbl Nat.zero = Nat.zero 
-Nat.dbl (Nat.succ x) = (Nat.succ (Nat.succ(Nat.dbl x)))

@@ -1,6 +1,0 @@
-// Concatenate two bit structures into one
-// Example: (Bits.concat (Bits.i Bits.e) (Bits.o Bits.e)) -> (Bits.i (Bits.o Bits.e))
-Bits.concat (a: Bits) (b: Bits) : Bits
-Bits.concat (Bits.e)        (b) = (b)
-Bits.concat (Bits.o a.pred) (b) = (Bits.o (Bits.concat a.pred b))
-Bits.concat (Bits.i a.pred) (b) = (Bits.i (Bits.concat a.pred b))

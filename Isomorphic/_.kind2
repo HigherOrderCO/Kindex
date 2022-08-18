@@ -1,8 +1,0 @@
-// Isomorphic types
-Isomorphic (a: Type) (b: Type) : Type
-Isomorphic a b =
-  [f  : a -> b]
-  [g  : b -> a]
-  [gf : (x: a) -> (Equal a (g (f x)) x)]
-  [fg : (x: b) -> (Equal b (f (g x)) x)]
-  Unit

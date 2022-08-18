@@ -1,4 +1,0 @@
-// Principle of explosion: we can derive anything from the existence of an Empty value
-
-Empty.absurd <proposition: Type> (empty: Empty): proposition
-// This is correct because we've covered all cases for Empty

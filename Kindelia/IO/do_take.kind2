@@ -1,2 +1,0 @@
-// Automatically derived from Kindelia/IO/_.type
-Kindelia.IO.do_take <r: Type> (s: Type) (cont: (_: s) (Kindelia.IO r)) : (Kindelia.IO r)

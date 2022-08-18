@@ -1,4 +1,0 @@
-// Checks if a number is even
-Nat.is_even (a: Nat) : Bool
-Nat.is_even Nat.zero = Bool.true 
-Nat.is_even (Nat.succ a) = (Bool.not(Nat.is_even a))

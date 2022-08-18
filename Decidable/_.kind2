@@ -1,2 +1,0 @@
-// Automatically derived from Decidable/_.type
-Decidable (p: Type) : Type

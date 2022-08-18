@@ -1,4 +1,8 @@
-User.typeOf (u: U60): Term
+TypeOf (u: U60): Term
+
+Checker.infer_args (args: Term): U60 -> U60 -> Term
+Checker.infer_args (Term.args7 x0 x1 x2 x3 x4 x5 x6)    = ctid => orig => (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6)
+Checker.infer_args (Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = ctid => orig => (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7)
 
 Checker.infer (term: Term): Checker Term
 Checker.infer (Term.var orig name index) =
@@ -40,7 +44,7 @@ Checker.infer (Term.app orig func argm) =
     (Term.if_all func_typ
       (func_orig => func_name => func_type => func_body =>
         do Checker {
-          ask argm_ok = Checker.check argm func_type
+          ask Checker.check argm func_type
           return (func_body (Term.eval argm))
         }
       )
@@ -65,7 +69,7 @@ Checker.infer (Term.ann orig expr type) =
   }
 
 Checker.infer (Term.ct0 ctid orig) =
-  (Checker.pure (User.typeOf ctid))
+  (Checker.pure (TypeOf ctid))
 
 Checker.infer (Term.ct1 ctid orig x0) =
   (Checker.infer (Term.app orig (Term.ct0 ctid orig) x0))
@@ -85,11 +89,16 @@ Checker.infer (Term.ct5 ctid orig x0 x1 x2 x3 x4) =
 Checker.infer (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) =
   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5))
 
-// Checker.infer (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
-//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6))
-//
-// Checker.infer (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
-//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7))
+Checker.infer (Term.ct7 ctid orig args) =
+  let expr = Checker.infer_args args
+  Checker.infer (expr ctid orig)
+
+Checker.infer (Term.ct8 ctid orig args) =
+  let expr = Checker.infer_args args
+  Checker.infer (expr ctid orig)
+
+Checker.infer (Term.fn0 ctid orig) =
+  (Checker.pure (TypeOf ctid))
 
 Checker.infer (Term.fn1 ctid orig x0) =
   (Checker.infer (Term.app orig (Term.fn0 ctid orig) x0))
@@ -109,11 +118,13 @@ Checker.infer (Term.fn5 ctid orig x0 x1 x2 x3 x4) =
 Checker.infer (Term.fn6 ctid orig x0 x1 x2 x3 x4 x5) =
   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5))
 
-// Checker.infer (Term.fn7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
-//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6))
-//
-// Checker.infer (Term.fn8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
-//   (Checker.infer (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.app orig (Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7))
+Checker.infer (Term.fn7 ctid orig args) =
+  let expr = Checker.infer_args args
+  Checker.infer (expr ctid orig)
+
+Checker.infer (Term.fn8 ctid orig args) =
+  let expr = Checker.infer_args args
+  Checker.infer (expr ctid orig)
 
 Checker.infer (Term.hlp orig) =
   do Checker {

@@ -1,5 +1,0 @@
-// Returns the predecessor of a number if the number is not zero
-// Example: (Nat.pred 3) -> 2
-Nat.pred (n: Nat) : Nat
-Nat.pred Nat.zero        = Nat.zero
-Nat.pred (Nat.succ pred) = pred

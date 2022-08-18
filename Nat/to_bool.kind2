@@ -1,4 +1,0 @@
-Nat.to_bool (n: Nat) : Bool
-Nat.to_bool Nat.zero  = Bool.false
-Nat.to_bool n         = Bool.true
-

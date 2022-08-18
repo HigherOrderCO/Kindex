@@ -1,6 +1,0 @@
-// Greater Than or Equal
-Nat.gte (a: Nat) (b: Nat) : Bool 
-Nat.gte a Nat.zero = Bool.true 
-Nat.gte Nat.zero b = Bool.false 
-Nat.gte Nat.zero Nat.zero = Bool.true
-Nat.gte (Nat.succ a) (Nat.succ b) = (Nat.gte a b)

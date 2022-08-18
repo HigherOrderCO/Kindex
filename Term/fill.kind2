@@ -4,19 +4,13 @@ Term.fill (Term.typ orig)                   sub = Term.typ orig
 Term.fill (Term.var orig name index)        sub = Term.var orig name index
 Term.fill (Term.all orig name typ body)     sub = Term.all orig name (Term.fill typ sub) (x => Term.fill (body x) sub)
 Term.fill (Term.lam orig name body)         sub = Term.lam orig name (x => Term.fill (body x) sub)
-Term.fill (Term.let orig name expr body)    sub = Term.eval_let (Term.fill expr sub) (x => Term.fill (body x) sub)
+Term.fill (Term.let orig name expr body)    sub = Term.eval_let orig name (Term.fill expr sub) (x => Term.fill (body x) sub)
 Term.fill (Term.ann orig expr typ)          sub = Term.eval_ann orig (Term.fill expr sub) (Term.fill typ sub)
 Term.fill (Term.app orig expr typ)          sub = Term.eval_app orig (Term.fill expr sub) (Term.fill typ sub)
 Term.fill (Term.hlp orig)                   sub = Term.hlp orig
 Term.fill (Term.u60 orig)                   sub = Term.u60 orig
 Term.fill (Term.num orig num)               sub = Term.num orig num
 Term.fill (Term.op2 orig op left right)     sub = Term.op2 orig op (Term.fill left sub) (Term.fill right sub)
-Term.fill (Term.hol orig numb)              sub =
-  let substRes = Subst.look sub numb
-  match Maybe substRes {
-    none => Term.hol orig numb
-    some => Term.fill substRes.value sub
-  }
 
 Term.fill (Term.ct0 ctid orig)                         sub = Term.ct0 ctid orig
 Term.fill (Term.ct1 ctid orig x0)                      sub = Term.ct1 ctid orig (Term.fill x0 sub)
@@ -25,15 +19,23 @@ Term.fill (Term.ct3 ctid orig x0 x1 x2)                sub = Term.ct3 ctid orig 
 Term.fill (Term.ct4 ctid orig x0 x1 x2 x3)             sub = Term.ct4 ctid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub)
 Term.fill (Term.ct5 ctid orig x0 x1 x2 x3 x4)          sub = Term.ct5 ctid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub)
 Term.fill (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       sub = Term.ct6 ctid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub)
-// Term.fill (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)    sub = Term.ct7 ctid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub) (Term.fill x6 sub)
-// Term.fill (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) sub = Term.ct8 ctid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub) (Term.fill x6 sub) (Term.fill x7 sub)
+Term.fill (Term.ct7 ctid orig args)                    sub = Term.ct7 ctid orig (Term.fill args sub)
+Term.fill (Term.ct8 ctid orig args)                    sub = Term.ct8 ctid orig (Term.fill args sub)
+Term.fill (Term.fn0 fnid orig)                         sub = Term.FN0 fnid orig
+Term.fill (Term.fn1 fnid orig x0)                      sub = Term.FN1 fnid orig (Term.fill x0 sub)
+Term.fill (Term.fn2 fnid orig x0 x1)                   sub = Term.FN2 fnid orig (Term.fill x0 sub) (Term.fill x1 sub)
+Term.fill (Term.fn3 fnid orig x0 x1 x2)                sub = Term.FN3 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub)
+Term.fill (Term.fn4 fnid orig x0 x1 x2 x3)             sub = Term.FN4 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub)
+Term.fill (Term.fn5 fnid orig x0 x1 x2 x3 x4)          sub = Term.FN5 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub)
+Term.fill (Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       sub = Term.FN6 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub)
+Term.fill (Term.fn7 fnid orig args)                    sub = Term.FN7 fnid orig (Term.fill args sub)
+Term.fill (Term.fn8 fnid orig args)                    sub = Term.FN8 fnid orig (Term.fill args sub)
+Term.fill (Term.args7 x0 x1 x2 x3 x4 x5 x6)            sub = Term.args7 (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub) (Term.fill x6 sub)
+Term.fill (Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)         sub = Term.args8 (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub) (Term.fill x6 sub) (Term.fill x7 sub)
 
-Term.fill (Term.fn0 fnid orig)                         sub = Term.fn0 fnid orig
-Term.fill (Term.fn1 fnid orig x0)                      sub = Term.fn1 fnid orig (Term.fill x0 sub)
-Term.fill (Term.fn2 fnid orig x0 x1)                   sub = Term.fn2 fnid orig (Term.fill x0 sub) (Term.fill x1 sub)
-Term.fill (Term.fn3 fnid orig x0 x1 x2)                sub = Term.fn3 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub)
-Term.fill (Term.fn4 fnid orig x0 x1 x2 x3)             sub = Term.fn4 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub)
-Term.fill (Term.fn5 fnid orig x0 x1 x2 x3 x4)          sub = Term.fn5 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub)
-Term.fill (Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       sub = Term.fn6 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub)
-// Term.fill (Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)    sub = Term.fn7 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub) (Term.fill x6 sub)
-// Term.fill (Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7) sub = Term.fn8 fnid orig (Term.fill x0 sub) (Term.fill x1 sub) (Term.fill x2 sub) (Term.fill x3 sub) (Term.fill x4 sub) (Term.fill x5 sub) (Term.fill x6 sub) (Term.fill x7 sub)
+Term.fill (Term.hol orig numb) sub =
+  let substRes = Subst.look sub numb
+  match Maybe substRes {
+    none => Term.hol orig numb
+    some => Term.fill substRes.value sub
+  }

@@ -1,0 +1,2 @@
+// Automatically derived from Term/_.type
+Term.FN2 (ctid: U60) (orig: U60) (x0: Term) (x1: Term) : (Term)

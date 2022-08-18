@@ -1,2 +1,0 @@
-Equal.apply <t> <u> <a: t> <b: t> (f: t -> u) (e: Equal t a b) : Equal u (f a) (f b)
-Equal.apply t_t u a b f (Equal.refl t x) = Equal.refl u (f x)

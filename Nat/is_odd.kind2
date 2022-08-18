@@ -1,4 +1,0 @@
-// Checks if a number is odd
-Nat.is_odd (a: Nat) : Bool 
-Nat.is_odd Nat.zero = Bool.false 
-Nat.is_odd (Nat.succ a) = (Bool.not(Nat.is_odd a))

@@ -1,4 +1,4 @@
 Context.add_value (prev: Context) (name: U60) (term: Term): Context
 Context.add_value (Context.entry name type vals rest) 0 val = Context.entry name type (List.cons val vals) rest
-Context.add_value (Context.entry name type vals rest) n val = Context.entry name type vals (Context.add_value rest n val)
+Context.add_value (Context.entry name type vals rest) n val = Context.entry name type vals (Context.add_value rest (- n 1) val)
 Context.add_value Context.empty n val                       = Context.empty

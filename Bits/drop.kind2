@@ -1,7 +1,0 @@
-// Drops n bits from the bit structure
-// Example: (Bits.drop 1 (Bits.o (Bits.i Bits.e))) -> (Bits.i Bits.e)
-Bits.drop (n: Nat) (b: Bits): Bits
-Bits.drop (Nat.zero)        (b)             = (b)
-Bits.drop (Nat.succ n.pred) (Bits.e)        = (Bits.e)
-Bits.drop (Nat.succ n.pred) (Bits.i b.pred) = (Bits.drop n.pred b.pred)
-Bits.drop (Nat.succ n.pred) (Bits.o b.pred) = (Bits.drop n.pred b.pred)

@@ -1,4 +1,4 @@
-User.nameOf (name: U60): String
+NameOf (name: U60): String
 
 Term.show.forall (orig: U60) (name: U60) (type: Term) (body: Term -> Term): String
 Term.show.forall orig name type body =
@@ -16,23 +16,28 @@ Term.show (Term.let orig name exp body)                 = Printer.text ["let " (
 Term.show (Term.ann orig expr type)                     = Printer.text ["{" (Term.show expr) " :: " (Term.show type) "}"]
 Term.show (Term.app orig func argm)                     = Printer.text ["(" (Term.show func) " " (Term.show argm) ")"]
 
-Term.show (Term.ct0 ctid orig)                          = User.nameOf ctid
-Term.show (Term.ct2 ctid orig x0 x1)                    = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) ")"]
-Term.show (Term.ct3 ctid orig x0 x1 x2)                 = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) ")"]
-Term.show (Term.ct4 ctid orig x0 x1 x2 x3)              = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) ")"]
-Term.show (Term.ct5 ctid orig x0 x1 x2 x3 x4)           = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) ")"]
-Term.show (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)        = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) ")"]
-//Term.show (Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)     = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) " " (Term.show x6) ")"]
-// Term.show (Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)  = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) " " (Term.show x6) " " (Term.show x7) ")"]
+Term.show (Term.ct0 ctid orig)                          = NameOf ctid
+Term.show (Term.ct1 ctid orig x0)                       = Printer.text ["(" (NameOf ctid) " " (Term.show x0) ")"]
+Term.show (Term.ct2 ctid orig x0 x1)                    = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) ")"]
+Term.show (Term.ct3 ctid orig x0 x1 x2)                 = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) ")"]
+Term.show (Term.ct4 ctid orig x0 x1 x2 x3)              = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) ")"]
+Term.show (Term.ct5 ctid orig x0 x1 x2 x3 x4)           = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) ")"]
+Term.show (Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)        = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) ")"]
+Term.show (Term.ct7 ctid orig args)                     = Printer.text ["(" (NameOf ctid) " " (Term.show args) ")"]
+Term.show (Term.ct8 ctid orig args)                     = Printer.text ["(" (NameOf ctid) " " (Term.show args) ")"]
 
-Term.show (Term.fn0 ctid orig)                          = User.nameOf ctid
-Term.show (Term.fn2 ctid orig x0 x1)                    = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) ")"]
-Term.show (Term.fn3 ctid orig x0 x1 x2)                 = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) ")"]
-Term.show (Term.fn4 ctid orig x0 x1 x2 x3)              = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) ")"]
-Term.show (Term.fn5 ctid orig x0 x1 x2 x3 x4)           = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) ")"]
-Term.show (Term.fn6 ctid orig x0 x1 x2 x3 x4 x5)        = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) ")"]
-// Term.show (Term.fn7 ctid orig x0 x1 x2 x3 x4 x5 x6)     = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) " " (Term.show x6) ")"]
-// Term.show (Term.fn8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)  = Printer.text ["(" (User.nameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) " " (Term.show x6) " " (Term.show x7) ")"]
+Term.show (Term.fn0 ctid orig)                          = NameOf ctid
+Term.show (Term.fn1 ctid orig x0)                       = Printer.text ["(" (NameOf ctid) " " (Term.show x0) ")"]
+Term.show (Term.fn2 ctid orig x0 x1)                    = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) ")"]
+Term.show (Term.fn3 ctid orig x0 x1 x2)                 = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) ")"]
+Term.show (Term.fn4 ctid orig x0 x1 x2 x3)              = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) ")"]
+Term.show (Term.fn5 ctid orig x0 x1 x2 x3 x4)           = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) ")"]
+Term.show (Term.fn6 ctid orig x0 x1 x2 x3 x4 x5)        = Printer.text ["(" (NameOf ctid) " " (Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) ")"]
+Term.show (Term.fn7 ctid orig args)                     = Printer.text ["(" (NameOf ctid) " " (Term.show args) ")"]
+Term.show (Term.fn8 ctid orig args)                     = Printer.text ["(" (NameOf ctid) " " (Term.show args) ")"]
+Term.show (Term.args7 x0 x1 x2 x3 x4 x5 x6)             = Printer.text [(Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) " " (Term.show x6)]
+Term.show (Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)          = Printer.text [(Term.show x0) " " (Term.show x1) " " (Term.show x2) " " (Term.show x3) " " (Term.show x4) " " (Term.show x5) " " (Term.show x6) " " (Term.show x7)]
+
 
 Term.show (Term.hlp orig)                     = "?"
 Term.show (Term.u60 orig)                     = "U60"

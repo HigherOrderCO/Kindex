@@ -2,8 +2,8 @@ Checker.rule (rule: Rule) (term: Term): Checker Unit
 
 Checker.rule (Rule.lhs arg args) (Term.all orig name type body) =
   do Checker {
-    ask arg_checker  = Checker.check arg type
-    ask args_checker = Checker.rule args (body arg)
+    ask Checker.check arg type
+    ask Checker.rule args (body arg)
     return Unit.new
   }
 
