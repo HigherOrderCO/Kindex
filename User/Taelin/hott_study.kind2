@@ -137,8 +137,64 @@ Pair.equal a b
 
 // Which means it is actually hidden behind a lambda:
 
-// Equal.apply (x => (Pair.new r s)) e = Pair.new (Equal.apply r e) (Equal.apply s e)
+// Equal.apply (x => (Pair.new r s)) e = Pair.new (Equal.apply (x => r) e) (Equal.apply (x => s) e)
 // Equal.apply (x => (Pair.fst s))   e = Pair.fst (Equal.apply s e)
 // Equal.apply (x => (Pair.nsd s))   e = Pair.snd (Equal.apply s e)
 //              /\ what that really means? 
 
+// his idea is that we will pattern-match *inside* the λ binder, and, if
+// there is a pair there, we will split both elements, creating a brand
+// new lambda for each. the only complication, though, is that we must
+// now be able to *separate* the `x` variables on `r` from the `x` variables
+// on `s`, allowing us to create lambdas that bind to each one. 
+
+// Equal.apply (x => (Pair.new r s)) e =
+//   Pair.new
+//     (Equal.apply (x0 => r[x <- x0]) e)
+//     (Equal.apply (x1 => s[x <- x1]) e)
+
+// We could do this (very) inefficiently, of course, by dup'ing the f:
+// Equal.apply f e =
+//   match (f _) {
+//     new => Pair.new (y0 => fst (f y0)) (y1 => snd (f y1))
+//   }
+// That actually doesn't make sense; what is _?
+
+// We could do it linearly if (x => ... r ... s ...) was pre-partitioned:
+// (x => dup x0 x1 = x; ... r ... s ...)
+// such that x0 was bound on r, and x1 was bound on s:
+// Equal.apply f e =
+//   match (f {$y0 $y1}) {
+//     new => Pair.new ($y0 => r) ($y1 => s)
+//   }
+
+// Both look terrible computationally...
+
+// What if, instead, we have...
+// 
+// Equal.apply (x => (Pair.new r s)) e = x =>
+//   Pair.new
+//     (Equal.apply r e)
+//     (Equal.apply s e)
+// ?
+
+//It says that:
+
+//```
+//ap (x. (a,b)) p => (ap (x. a) p, ap (y. b) p)
+//```
+
+//That is, on the left-hand side, `x` is bound on both `a` and `b`, and, on the
+//right-hand side, `x` is bound on `a` and `y` is bound on `b`. Is that correct?
+//If so, how could such rewrite rule be implemented in a NbE evaluator? There
+//seems to be no way to separate the occurrences of `x` on `a` and `b`. We'd
+//need to do something like this:
+
+//```
+//ap f p =>
+  //match f _ {
+    //(a, b) => ((ap (x. (fst (f x))) p), (ap (y. (snd (f y))) p))
+  //}
+//```
+
+// ??
