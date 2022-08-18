@@ -1,3 +1,4 @@
+// FIXME: isn't compiling to HVM
 U60.show (n: U60) : Show
 U60.show 0 = str =>
   String.cons '0' str

@@ -1,17 +1,2 @@
-// Automatically derived from App.type
-App.new <s: App.State> (Init: App.Init) (draw: Nat) (when: Nat) (tick: Nat) (post: Nat) : (App s)
-
-App.Init <s: App.State>: Type
-App.Init s = App.Store s
-
-App.Draw(s: App.State): Type
-App.Draw s = App.Store s -> DOM
-
-App.When(s: App.State): Type
-App.When s = (event: App.Event) (state: App.Store s) -> IO (Maybe (App.State.local s))
-
-App.Tick(s: App.State): Type
-// App.Tick s = (tick: U60) (glob: App.State.global s) -> (App.State.global s) 
-
-App.Post(s: App.State): Type
-// App.Post s = (tick: U60) (room: String) (addr: String) (data: String) (glob: (App.State.global s)) -> (App.State.global s)
+// Automatically derived from App/_.type
+App.new <s: Type> (init: s) (draw: (_: s) App.DOM) (when: (event: App.Event) (state: s) (IO Unit)) : (App s)

@@ -1,2 +1,2 @@
-// Automatically derived from App.type
-App (s: App.State) : Type
+// Automatically derived from App/_.type
+App (s: Type) : Type

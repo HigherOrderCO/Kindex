@@ -1,2 +1,2 @@
-// Automatically derived from /home/derenash/Wikind/App/Event.type
-App.Event.mouse_over (time: U60) (id: String) : (App.Event)
+// Automatically derived from App/Event/_.type
+App.Event.mouse_over (element: String) : (App.Event)
