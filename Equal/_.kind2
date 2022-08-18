@@ -5,4 +5,3 @@ Equal <t> (a: t) (b: t) : Type
   //(Pair
     //(Equal (Pair.fst a b p0) (Pair.fst a b p1))
     //(Equal (Pair.snd a b p0) (Pair.snd a b p1)))
-
