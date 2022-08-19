@@ -1,2 +1,2 @@
 Monoid.empty <a> (monoid: Monoid a) : a
-Monoid.empty a (Monoid.new b append nil p p1) = nil
+Monoid.empty a (Monoid.new b append nil p p1 p2) = nil

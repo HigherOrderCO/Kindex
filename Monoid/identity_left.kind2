@@ -1,2 +1,2 @@
 Monoid.assoc <t> (monoid: Monoid t) : (a: t) -> Equal ((Monoid.concat monoid) (Monoid.empty monoid) a) a
-Monoid.assoc a (Monoid.new b append nil p p1) = p1
+Monoid.assoc a (Monoid.new b append nil p p1 p2) = p1
