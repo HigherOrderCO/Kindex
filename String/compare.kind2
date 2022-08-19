@@ -1,0 +1,11 @@
+String.compare (a: String) (b: String) : Cmp
+String.compare  String.nil          String.nil         = Cmp.eql
+String.compare  String.nil         (String.cons bh bt) = Cmp.ltn
+String.compare (String.cons ah at)  String.nil         = Cmp.gtn
+String.compare (String.cons ah at) (String.cons bh bt) =
+  let compare = (Char.compare ah bh)
+  match Cmp compare {
+    ltn => Cmp.ltn
+    eql => String.compare at bt
+    gtn => Cmp.gtn
+  }

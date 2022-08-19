@@ -1,5 +1,5 @@
 type U120 {
   new
-    (fst: U60)
-    (snd: U60)
+    (hi: U60)
+    (lo: U60)
 }
