@@ -1,2 +1,2 @@
 // Automatically derived from U120/_.type
-U120.new (fst: U60) (snd: U60) : (U120)
+U120.new (hi: U60) (lo: U60) : (U120)
