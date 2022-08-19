@@ -1,0 +1,3 @@
+Nat.add.identity_right (a: Nat) : Equal Nat a (Nat.add a Nat.zero)
+Nat.add.identity_right Nat.zero     = Equal.refl
+Nat.add.identity_right (Nat.succ a) = Equal.apply (x => Nat.succ x) (Nat.add.identity_right a)

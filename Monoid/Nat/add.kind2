@@ -1,0 +1,8 @@
+Monoid.Nat.add : Monoid Nat
+Monoid.Nat.add =
+  (Monoid.new
+    (xs => ys => Nat.add xs ys)
+    Nat.zero
+    (xs => ys => zs => Nat.add.assoc xs ys zs)
+    (b => Equal.refl)
+    (b => Equal.mirror (Nat.add.identity_right b)))

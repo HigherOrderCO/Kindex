@@ -1,0 +1,2 @@
+Monoid.concat <a> (monoid: Monoid a) : a -> a -> a
+Monoid.concat a (Monoid.new b concat nil p p1) = concat

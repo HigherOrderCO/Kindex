@@ -1,0 +1,8 @@
+Monoid.List <a> : Monoid (List a)
+Monoid.List a =
+  (Monoid.new
+    (xs => ys => List.concat a xs ys)
+    List.nil
+    (xs => ys => zs => List.concat.assoc a xs ys zs)
+    (a => Equal.refl)
+    (b => Equal.mirror (List.concat.nil_right b)))
