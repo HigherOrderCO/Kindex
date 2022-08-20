@@ -1,0 +1,2 @@
+U120.to_bool (n: U120) : Bool
+U120.to_bool (U120.new hi lo) = U60.to_bool (| hi lo)

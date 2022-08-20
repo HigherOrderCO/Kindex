@@ -1,0 +1,7 @@
+U120.less_than (a: U120) (b: U120) : Bool
+U120.less_than (U120.new ahi alo) (U120.new bhi blo) =
+  U60.if (== ahi bhi) (
+    U60.less_than alo blo
+  ) (
+    U60.less_than ahi bhi
+  )
