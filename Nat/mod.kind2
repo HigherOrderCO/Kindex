@@ -1,3 +1,3 @@
 Nat.mod (a: Nat) (b: Nat) : Nat
 Nat.mod a Nat.zero = Nat.zero
-Nat.mod a b = Pair.snd (Nat.div_mod a b b Nat.zero)
+Nat.mod a b = Pair.snd (Nat.div_mod a b)
