@@ -1,3 +1,0 @@
-Char.ltn (a: Char) (b: Char) : Bool {
-  U60.ltn a b
-}

@@ -1,0 +1,3 @@
+// Automatically derived from U240/_.type
+U240.match (x: (U240)) -(p: (x: (U240)) Type) (new: (hi: U120) (lo: U120) (p (U240.new hi lo))) : (p x)
+U240.match (U240.new hi_ lo_) p new = (new hi_ lo_)

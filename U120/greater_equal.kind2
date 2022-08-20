@@ -1,0 +1,7 @@
+U120.greater_equal (a: U120) (b: U120) : Bool
+U120.greater_equal (U120.new ahi alo) (U120.new bhi blo) =
+  U60.if (== ahi bhi) (
+    U60.greater_equal alo blo
+  ) (
+    U60.greater_equal ahi bhi
+  )
