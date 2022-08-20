@@ -1,0 +1,2 @@
+U240.high (n: U240) : U240
+U240.high (U240.new hi lo) = hi

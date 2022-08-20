@@ -1,0 +1,16 @@
+U120.shift_left (num: U120) (shf: U120) : U120
+U120.shift_left (U120.new num.hi num.lo) (U120.new shf.hi shf.lo) =
+  U60.if shf.hi (
+    U120.zero
+  ) (
+    U60.if (<= shf.lo 60) (
+      let res.lo = (<< num.lo shf.lo)
+      let res.hi = (<< num.hi shf.lo)
+      let over   = (>> num.lo (- 60 shf.lo))
+      let res.hi = (+ res.hi over)
+      U120.new res.hi res.lo
+    ) (
+      let res.hi = (<< num.lo (- shf.lo 60))
+      U120.new res.hi 0
+    )
+  )

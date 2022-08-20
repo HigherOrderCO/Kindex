@@ -1,0 +1,2 @@
+U120.bitwise_complement (n: U120) : U120
+U120.bitwise_complement (U120.new hi lo) = U120.new (U60.bitwise_complement hi) (U60.bitwise_complement lo)

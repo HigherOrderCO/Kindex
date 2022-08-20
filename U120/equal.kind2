@@ -1,0 +1,3 @@
+U120.equal (a: U120) (b: U120) : Bool
+U120.equal (U120.new ahi alo) (U120.new bhi blo) =
+  U60.to_bool (& (== ahi bhi) (== alo blo))
