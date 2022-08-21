@@ -1,12 +1,11 @@
-
-Nat.to_U60 (n: Nat) : U60
-Nat.to_U60  Nat.zero    = 0
-Nat.to_U60 (Nat.succ x) = (+ 1 (Nat.to_U60 x))
+List.range (n: U60) : (List U60)
+List.range 0 = List.nil
+List.range n = List.cons n (List.range (- n 1))
 
 Main : _
 Main =
   let n = 10
-  let set = SortableSet.fromList (List.map (List.range (U60.to_nat n)) (x => (Nat.to_U60 x)))
+  let set = SortableSet.fromList (List.range n)
 
   (Pair.new
     (SortableSet.elements set)

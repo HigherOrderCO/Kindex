@@ -1,0 +1,3 @@
+// Automatically derived from BinomialHeap/Node/_.type
+BinomialHeap.Node.match (x: (BinomialHeap.Node)) -(p: (x: (BinomialHeap.Node)) Type) (new: (rank: U60) (root: U60) (children: (List Node)) (p (BinomialHeap.Node.new rank root children))) : (p x)
+BinomialHeap.Node.match (BinomialHeap.Node.new rank_ root_ children_) p new = (new rank_ root_ children_)

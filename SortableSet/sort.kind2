@@ -1,9 +1,3 @@
 // Sorts the elements of the Set
 SortableSet.sort (set: SortableSet) : (List U60)
-SortableSet.sort (SortableSet.new count segs) = (SortableSet.sort.foldl (x => y => (SortableSet.merge x y)) List.nil segs)
-
-// Left cummulative fold
-SortableSet.sort.foldl <a: Type> <b: Type> (fn: (x: a) (y: b) a) (acc: a) (xs: (List b)) : a
-SortableSet.sort.foldl a b fn acc (List.nil  t     ) = acc
-SortableSet.sort.foldl a b fn acc (List.cons t x xs) = (SortableSet.sort.foldl a b fn (fn acc x) xs)
-
+SortableSet.sort (SortableSet.new count segs) = List.foldl List.nil (x => y => (SortableSet.merge x y)) segs
