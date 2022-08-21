@@ -1,0 +1,3 @@
+String.foldr <a> (nil: a) (cons: Char -> a -> a) (xs: String) : a
+String.foldr a nil cons  String.nil        = nil
+String.foldr a nil cons (String.cons x xs) = cons x (String.foldr nil cons xs)

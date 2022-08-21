@@ -1,0 +1,4 @@
+Nat.sub_rem (n: Nat) (m: Nat) : Either Nat Nat
+Nat.sub_rem  n            Nat.zero    = Either.left  n
+Nat.sub_rem  Nat.zero     m           = Either.right m
+Nat.sub_rem (Nat.succ n) (Nat.succ m) = Nat.sub_rem  n m

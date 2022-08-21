@@ -1,0 +1,2 @@
+// Automatically derived from App/Event/_.type
+App.Event.key_up (code: U60) : (App.Event)

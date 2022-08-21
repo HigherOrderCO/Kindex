@@ -1,0 +1,3 @@
+U60.div_mod (a: U60) (b: U60) : Pair U60 U60 {
+  Pair.new (/ a b) (% a b)
+}

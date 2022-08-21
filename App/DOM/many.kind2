@@ -1,0 +1,2 @@
+// Automatically derived from App/DOM/_.type
+App.DOM.many (children: (List App.DOM)) : (App.DOM)

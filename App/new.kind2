@@ -1,0 +1,2 @@
+// Automatically derived from App/_.type
+App.new <s: Type> (init: s) (draw: (_: s) App.DOM) (when: (event: App.Event) (state: s) (IO Unit)) : (App s)

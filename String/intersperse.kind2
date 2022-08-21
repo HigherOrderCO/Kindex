@@ -1,0 +1,4 @@
+String.intersperse (sep: Char) (xs: String) : String
+String.intersperse sep  String.nil                = String.nil
+String.intersperse sep (String.cons x String.nil) = String.pure x
+String.intersperse sep (String.cons x xs)         = String.cons x (String.cons sep (String.intersperse sep xs))

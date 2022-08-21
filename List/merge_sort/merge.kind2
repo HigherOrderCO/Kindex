@@ -1,0 +1,11 @@
+List.merge_sort.merge <a> (cmp: a -> a -> Bool) (xs: List a) (ys: List a) : List a
+List.merge_sort.merge a cmp (List.nil  xa)       ys                   = ys
+List.merge_sort.merge a cmp xs                   (List.nil  ya)       = xs
+List.merge_sort.merge a cmp (List.cons xa xh xt) (List.cons ya yh yt) =
+  if (cmp xh yh) {
+    let ys = (List.cons ya yh yt)
+    List.cons xh (List.merge_sort.merge cmp xt ys)
+  } else {
+    let xs = (List.cons xa xh xt)
+    List.cons yh (List.merge_sort.merge cmp xs yt)
+  }

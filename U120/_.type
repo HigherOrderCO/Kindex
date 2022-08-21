@@ -1,0 +1,8 @@
+// U120 operations based on U60 numbers.
+// - hi is the most significant 60 bits
+// - lo is the least significant 60 bits
+type U120 {
+  new
+    (hi: U60)
+    (lo: U60)
+}

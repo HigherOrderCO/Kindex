@@ -1,0 +1,8 @@
+List.quicksort <a> (cmp: a -> a -> Bool) (xs: List a) : List a
+List.quicksort a cmp (List.nil  a_) = List.nil
+List.quicksort a cmp (List.cons a_ x xs) =
+  let cmpx  = (y => cmp y x) :: a -> Bool
+  let part  = List.partition cmpx xs
+  let after = List.quicksort cmp (Pair.fst part)
+  let befor = List.quicksort cmp (Pair.snd part)
+  List.concat befor (List.cons x after)

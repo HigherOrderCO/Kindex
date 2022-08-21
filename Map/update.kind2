@@ -1,0 +1,2 @@
+Map.update <a> (map : Bits.Map a) (key : U60) (func : a -> a) : Bits.Map a
+Map.update a map key func = Bits.Map.update a map (U60.to_bits key) func

@@ -1,0 +1,2 @@
+// Automatically derived from App/DOM/_.type
+App.DOM.text (value: String) : (App.DOM)

@@ -1,4 +1,7 @@
+// FIXME: isn't compiling to HVM
 U60.show (n: U60) : Show
+U60.show 0 = str =>
+  String.cons '0' str
 U60.show n = str =>
   let next = String.cons (+ 48 (% n 10)) str
   let func = U60.if Show (< n 10) (h => h) (h => (U60.show (/ n 10)) h)

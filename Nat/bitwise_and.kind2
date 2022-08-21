@@ -1,0 +1,7 @@
+Nat.bitwise_and (a: Nat) (b: Nat) : Nat
+Nat.bitwise_and Nat.zero b        = Nat.zero
+Nat.bitwise_and a        Nat.zero = Nat.zero
+Nat.bitwise_and a        b        =
+  let bit = Bool.and (Nat.is_odd a) (Nat.is_odd b)
+  let rst = Nat.double (Nat.bitwise_and (Nat.half a) (Nat.half b))
+  if bit { Nat.succ rst } else { rst }

@@ -1,0 +1,7 @@
+Char.to_lower (char: Char) : Char {
+  if Char.is_upper char {
+    (+ char 32)
+  } else {
+    char
+  }
+}

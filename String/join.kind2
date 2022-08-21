@@ -1,0 +1,3 @@
+String.join (sep: String) (list: List String) : String {
+  String.intercalate sep list
+}

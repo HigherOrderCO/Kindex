@@ -1,0 +1,7 @@
+Nat.for <s: Type> (state: s) (from: Nat) (til: Nat) (func: Nat -> s -> s) : s {
+  if Nat.equal from til {
+    state
+  } else {
+    Nat.for (func from state) (Nat.succ from) til func
+  }
+}

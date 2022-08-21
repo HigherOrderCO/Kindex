@@ -1,0 +1,200 @@
+//Lambda.eta
+  //<a: Type>
+  //<b: a -> Type>
+  //(f: (x: a) -> b x)
+//: (Equal ((x: a) -> b x) (x => f x) f)
+//Lambda.eta a b f = ?
+
+//Lambda.eta
+  //<a: Type>
+  //<b: a -> Type>
+  //(f: f(x: a) -> b f x)
+//: (Equal ((x: a) -> b x) (x => f x) f)
+//Lambda.eta a b f = ?
+
+//Pair.eta
+  //<a: Type>
+  //<b: Type>
+  //(p: Pair a b)
+//: (Equal (Pair a b) p (Pair.new a b (Pair.fst a b p) (Pair.snd a b p)))
+//Pair.eta a b p =
+  //match Pair p {
+    //new => Equal.refl
+  //}: Equal (Pair a b) p (Pair.new a b (Pair.fst a b p) (Pair.snd a b p))
+
+//match f((x: Bool) -> P x) f {
+  //1. enumerar todos os inputs (x: Bool)
+  //2. enumerar todos os outputs (y: P x)
+//}: ... f x ...
+
+//Lambda.eta (f: Bool -> Bool) : Equal ((Bool) -> Bool) (x => f x) f
+//Lambda.eta f = ?
+
+//FunExt
+  //(a: Type)
+  //(b: a -> Type)
+  //(f: (x: a) -> b x)
+  //(g: (x: a) -> b x)
+  //(h: (x: a) -> Equal (b x) (f x) (g x))
+//: Equal ((x: a) -> (b x)) (x => f x) (x => g x)
+//FunExt a b f g h =
+  //?
+
+//MS.FunExt
+  //(a: Type)
+  //(b: a -> Type)
+  //(f: (x: a) -> b x)
+  //(g: (x: a) -> b x)
+  //(h: (x: a) -> (y: a) -> (e: x == y) -> Equal (b x) (f x) (g y))
+//: Equal ((x: a) -> (b x)) (x => f x) (x => g x)
+//MS.FunExt a b f g h =
+  //?
+
+//primitivo (x == y) ?
+//extende o contexto com:
+//- x = y
+//- y = x
+
+//contrability
+//- (x: b) (e: x == y) // só tem 1 elemento, portanto = Unit
+         
+//exemplo
+//- (x: Nat) (e: x == 7)
+
+//P : fst a == fst b   q : snd a == snd b
+//--------------------------------------- pair-eq ?
+//pair-refl p q : p == q
+
+Pair.equal
+  (a: Type)
+  (b: Type)
+  (p0: Pair a b)
+  (p1: Pair a b)
+  (e0: Equal a (Pair.fst a b p0) (Pair.fst a b p1))
+  (e1: Equal b (Pair.snd a b p0) (Pair.snd a b p1))
+: Equal (Pair a b) p0 p1
+Pair.equal a b
+  (Pair.new p0.a p0.b p0.fst p0.snd)
+  (Pair.new p1.a p1.b p1.fst p1.snd)
+  (Equal.refl e0.t e0.val)
+  (Equal.refl e1.t e1.val)
+= Equal.refl (Pair e0.t e1.t) (Pair.new e0.t e1.t e0.val e1.val)
+
+// Equal.refl (Pair a b) (Pair.new x y)
+// ------------------------------------ ????
+// Pair.new (Equal.refl x) (Equal.refl y) 
+
+// On https://www.youtube.com/watch?v=FrxkVzItMzA&t=2627s
+// Mike Shulman proposes a reduction rule:
+
+// Equal (Pair a b) p0 p1
+// ------------------------------------
+// Pair
+//   (Equal (Pair.fst p0) (Pair.fst p1))
+//   (Equal (Pair.snd p0) (Pair.snd p1))
+  
+// Thus, the `Equal` type operates like a function that
+// pattern-matches on the `Pair` (and other) types, ...
+// It would be akin to adding this reduction rule to Equal:
+
+//Equal (Pair a b) p0 p1 =
+  //(Pair
+    //(Equal (Pair.fst a b p0) (Pair.fst a b p1))
+    //(Equal (Pair.snd a b p0) (Pair.snd a b p1)))
+
+// A proof that two pairs, p0 and p1, are equal *reduces* to
+// a pair of proofs that p0.fst==p1.fst and p0.snd==p1.snd
+// then what?
+
+// general congruence?
+// Note: x is bound in f
+//       p : Equal A a0 a1
+// (Ap (x: A) f p) : Equal (B x) f[x <- a0] f[x <- a1]
+// 
+// That is, if I have a proof that a0 == a1, then
+// I can form a proof that b[x<-a0] == b[x<-a1],
+// for any `b` with a free variable `x : A`, where
+// A is the type of a0 and a1
+// 
+// Now, the clever bit is, ap computes:
+// (Ap (Pair.new r s) p) ~> (Pair.new (Ap r p) (Ap s p))
+// (Ap (Pair.fst s) p) ~> Pair.fst (Ap s p) // <- needed?
+// (Ap (Pair.snd s) p) ~> Pair.snd (Ap s p) // <- needed?
+
+// se eu tenho uma prova que     (3 + a)    ==     (a + 3)
+// -> eu tenho uma prova que Vec (3 + a) xs == Vec (a + 3) xs
+// isso é só o Equal.apply...
+
+// In short, he is just proposing that Equal.apply should compute too:
+// Equal.apply (Pair.new r s) e = Pair.new (Equal.apply r e) (Equal.apply s e)
+// Equal.apply (Pair.fst s)   e = Pair.fst (Equal.apply s e)
+// Equal.apply (Pair.nsd s)   e = Pair.snd (Equal.apply s e)
+
+// That pattern-match, though, happens on the `(f: t -> u)` argument:
+
+// Equal.apply <t> <u> <a: t> <b: t> (f: t -> u) (e: Equal t a b) : Equal u (f a) (f b)
+// Equal.apply t_t u a b f (Equal.refl t x) = Equal.refl u (f x)
+
+// Which means it is actually hidden behind a lambda:
+
+// Equal.apply (x => (Pair.new r s)) e = Pair.new (Equal.apply (x => r) e) (Equal.apply (x => s) e)
+// Equal.apply (x => (Pair.fst s))   e = Pair.fst (Equal.apply s e)
+// Equal.apply (x => (Pair.nsd s))   e = Pair.snd (Equal.apply s e)
+//              /\ what that really means? 
+
+// his idea is that we will pattern-match *inside* the λ binder, and, if
+// there is a pair there, we will split both elements, creating a brand
+// new lambda for each. the only complication, though, is that we must
+// now be able to *separate* the `x` variables on `r` from the `x` variables
+// on `s`, allowing us to create lambdas that bind to each one. 
+
+// Equal.apply (x => (Pair.new r s)) e =
+//   Pair.new
+//     (Equal.apply (x0 => r[x <- x0]) e)
+//     (Equal.apply (x1 => s[x <- x1]) e)
+
+// We could do this (very) inefficiently, of course, by dup'ing the f:
+// Equal.apply f e =
+//   match (f _) {
+//     new => Pair.new (y0 => fst (f y0)) (y1 => snd (f y1))
+//   }
+// That actually doesn't make sense; what is _?
+
+// We could do it linearly if (x => ... r ... s ...) was pre-partitioned:
+// (x => dup x0 x1 = x; ... r ... s ...)
+// such that x0 was bound on r, and x1 was bound on s:
+// Equal.apply f e =
+//   match (f {$y0 $y1}) {
+//     new => Pair.new ($y0 => r) ($y1 => s)
+//   }
+
+// Both look terrible computationally...
+
+// What if, instead, we have...
+// 
+// Equal.apply (x => (Pair.new r s)) e = x =>
+//   Pair.new
+//     (Equal.apply r e)
+//     (Equal.apply s e)
+// ?
+
+//It says that:
+
+//```
+//ap (x. (a,b)) p => (ap (x. a) p, ap (y. b) p)
+//```
+
+//That is, on the left-hand side, `x` is bound on both `a` and `b`, and, on the
+//right-hand side, `x` is bound on `a` and `y` is bound on `b`. Is that correct?
+//If so, how could such rewrite rule be implemented in a NbE evaluator? There
+//seems to be no way to separate the occurrences of `x` on `a` and `b`. We'd
+//need to do something like this:
+
+//```
+//ap f p =>
+  //match f _ {
+    //(a, b) => ((ap (x. (fst (f x))) p), (ap (y. (snd (f y))) p))
+  //}
+//```
+
+// ??

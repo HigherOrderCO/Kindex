@@ -1,0 +1,4 @@
+List.last <a> (xs: List a) : Maybe a
+List.last a (List.nil  xa)                   = Maybe.none
+List.last a (List.cons xa xh (List.nil xa_)) = Maybe.some xh
+List.last a (List.cons xa xh xt)             = List.last xt

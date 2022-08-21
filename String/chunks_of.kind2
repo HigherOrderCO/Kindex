@@ -1,0 +1,25 @@
+String.chunks_of (len: Nat) (str: String) : List String {
+  String.chunks_of.go len str len ""
+}
+
+String.chunks_of.go
+  (len : Nat)       // length of each chunk
+  (str : String)    // string to be split
+  (need : Nat)      // number of vals to complete chunk
+  (chunk: String)   // current chunk
+: List String
+
+// String end
+String.chunks_of.go len String.nil need chunk =
+  List.pure (String.reverse chunk)
+
+// Chunk complete
+String.chunks_of.go len (String.cons x xs) Nat.zero chunk =
+  let head = String.reverse chunk
+  let tail = String.chunks_of.go len (String.cons x xs) len ""
+  List.cons head tail
+
+// Add 1 to chunk
+String.chunks_of.go len (String.cons x xs) (Nat.succ need.pred) chunk =
+  let chunk = String.cons x chunk
+  String.chunks_of.go len xs need.pred chunk

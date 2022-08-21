@@ -1,0 +1,8 @@
+// Returns the predecessor of a number
+// On 0, return 0
+// Examples:
+//  (Nat.pred 3) -> 2
+//  (Nat.pred 0) -> 0
+Nat.pred (n: Nat) : Nat
+Nat.pred  Nat.zero       = Nat.zero
+Nat.pred (Nat.succ pred) = pred

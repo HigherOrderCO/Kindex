@@ -1,6 +1,0 @@
-// Given a list and a value, adds the value at the end of the list and returns the new list.
-
-List.push_back <type: Type> (list: (List type)) (value: type): (List type)
-List.push_back type (List.nil u) value = (List.pure type value)
-List.push_back type (List.cons u head tail) value = (List.cons u head (List.push_back tail value))
-

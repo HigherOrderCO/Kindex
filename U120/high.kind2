@@ -1,0 +1,2 @@
+U120.high (n: U120) : U60
+U120.high (U120.new hi lo) = hi

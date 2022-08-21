@@ -1,0 +1,1 @@
+Word.i <size: Nat> (pred: Word size) : Word (Nat.succ size)

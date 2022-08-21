@@ -1,4 +1,4 @@
 type String {
   nil
-  cons (head: U60) (tail: String)
+  cons (head: Char) (tail: String)
 }

@@ -1,0 +1,5 @@
+// Automatically derived from App/DOM/_.type
+App.DOM.match (x: (App.DOM)) -(p: (x: (App.DOM)) Type) (node: (tag: String) (props: (List (Pair String String))) (style: (List (Pair String String))) (children: (List App.DOM)) (p (App.DOM.node tag props style children))) (text: (value: String) (p (App.DOM.text value))) (many: (children: (List App.DOM)) (p (App.DOM.many children))) : (p x)
+App.DOM.match (App.DOM.node tag_ props_ style_ children_) p node text many = (node tag_ props_ style_ children_)
+App.DOM.match (App.DOM.text value_) p node text many = (text value_)
+App.DOM.match (App.DOM.many children_) p node text many = (many children_)

@@ -1,0 +1,2 @@
+// Automatically derived from App/DOM/_.type
+App.DOM.node (tag: String) (props: (List (Pair String String))) (style: (List (Pair String String))) (children: (List App.DOM)) : (App.DOM)

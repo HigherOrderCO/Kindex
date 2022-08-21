@@ -1,0 +1,8 @@
+// num/den = den*quo + rem
+Nat.div_mod.go (den: Nat) (quo: Nat) (rem: Nat) : Pair Nat Nat {
+  if Nat.lte den rem {
+    Nat.div_mod.go den (Nat.succ quo) (Nat.sub rem den)
+  } else {
+    Pair.new quo rem
+  }
+}

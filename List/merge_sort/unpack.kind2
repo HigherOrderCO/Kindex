@@ -1,0 +1,4 @@
+List.merge_sort.unpack <a> (cmp: a -> a -> Bool) (xs: List (List a)) : List a
+List.merge_sort.unpack a cmp (List.nil  xa)                   = List.nil
+List.merge_sort.unpack a cmp (List.cons xa xh (List.nil xa_)) = xh
+List.merge_sort.unpack a cmp xs                               = List.merge_sort.unpack cmp (List.merge_sort.merge_pair cmp xs)

@@ -1,0 +1,5 @@
+Maybe.show <a: Type> (f: a -> String) (m: Maybe a) : Show
+Maybe.show a f (Maybe.none t) =
+  h => String.concat "Maybe.none" h
+Maybe.show a f (Maybe.some t val) =
+  h => String.concat (String.concat (String.concat "(Maybe.some" (f val)) ")") h

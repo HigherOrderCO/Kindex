@@ -1,0 +1,11 @@
+type App <s: Type> {
+  new
+    // Initial state
+    (init: s)
+
+    // Renders the screen
+    (draw: s -> App.DOM)
+
+    // Handles events
+    (when: (event: App.Event) (state: s) -> IO Unit)
+}

@@ -1,0 +1,2 @@
+// Automatically derived from App/Event/_.type
+App.Event.mouse_move (element: String) (mouse_pos: (Pair U60 U60)) : (App.Event)
