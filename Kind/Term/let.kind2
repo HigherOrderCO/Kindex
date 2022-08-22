@@ -1,2 +1,0 @@
-// Automatically derived from Kind/Term/_.type
-Kind.Term.let (orig: U60) (name: U60) (expr: Kind.Term) (body: (_: Kind.Term) Kind.Term) : (Kind.Term)
