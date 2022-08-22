@@ -1,0 +1,2 @@
+Kind.Printer.color (color_code: String) : String
+Kind.Printer.color color_code = Kind.Printer.text [(String.cons 27 String.nil) "[" color_code "m" ]

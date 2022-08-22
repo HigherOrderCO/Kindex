@@ -1,0 +1,35 @@
+// Evaluate a quoted term.
+Kind.Term.eval (term: Kind.Term): Kind.Term
+Kind.Term.eval (Kind.Term.typ orig)                = Kind.Term.typ orig
+Kind.Term.eval (Kind.Term.var orig name index)     = Kind.Term.var orig name index
+Kind.Term.eval (Kind.Term.hol orig numb)           = Kind.Term.hol orig numb
+Kind.Term.eval (Kind.Term.all orig name typ body)  = Kind.Term.all orig name (Kind.Term.eval typ) (x => Kind.Term.eval (body x))
+Kind.Term.eval (Kind.Term.lam orig name body)      = Kind.Term.lam orig name (x => Kind.Term.eval (body x))
+Kind.Term.eval (Kind.Term.let orig name expr body) = Kind.Term.eval_let orig name (Kind.Term.eval expr) (x => Kind.Term.eval (body x))
+Kind.Term.eval (Kind.Term.ann orig expr typ)       = Kind.Term.eval_ann orig (Kind.Term.eval expr) (Kind.Term.eval typ)
+Kind.Term.eval (Kind.Term.app orig expr typ)       = Kind.Term.eval_app orig (Kind.Term.eval expr) (Kind.Term.eval typ)
+Kind.Term.eval (Kind.Term.hlp orig)                = Kind.Term.hlp orig
+Kind.Term.eval (Kind.Term.u60 orig)                = Kind.Term.u60 orig
+Kind.Term.eval (Kind.Term.num orig num)            = Kind.Term.num orig num
+Kind.Term.eval (Kind.Term.op2 orig op left right)  = Kind.Term.eval_op orig op (Kind.Term.eval left) (Kind.Term.eval right)
+
+Kind.Term.eval (Kind.Term.ct0 ctid orig)                         = Kind.Term.ct0 ctid orig
+Kind.Term.eval (Kind.Term.ct1 ctid orig x0)                      = Kind.Term.ct1 ctid orig (Kind.Term.eval x0)
+Kind.Term.eval (Kind.Term.ct2 ctid orig x0 x1)                   = Kind.Term.ct2 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1)
+Kind.Term.eval (Kind.Term.ct3 ctid orig x0 x1 x2)                = Kind.Term.ct3 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2)
+Kind.Term.eval (Kind.Term.ct4 ctid orig x0 x1 x2 x3)             = Kind.Term.ct4 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3)
+Kind.Term.eval (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)          = Kind.Term.ct5 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4)
+Kind.Term.eval (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       = Kind.Term.ct6 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5)
+Kind.Term.eval (Kind.Term.ct7 ctid orig args)                    = Kind.Term.ct7 ctid orig (Kind.Term.eval args)
+Kind.Term.eval (Kind.Term.ct8 ctid orig args)                    = Kind.Term.ct8 ctid orig (Kind.Term.eval args)
+Kind.Term.eval (Kind.Term.fn0 fnid orig)                         = Kind.Term.FN0 fnid orig
+Kind.Term.eval (Kind.Term.fn1 fnid orig x0)                      = Kind.Term.FN1 fnid orig (Kind.Term.eval x0)
+Kind.Term.eval (Kind.Term.fn2 fnid orig x0 x1)                   = Kind.Term.FN2 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1)
+Kind.Term.eval (Kind.Term.fn3 fnid orig x0 x1 x2)                = Kind.Term.FN3 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2)
+Kind.Term.eval (Kind.Term.fn4 fnid orig x0 x1 x2 x3)             = Kind.Term.FN4 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3)
+Kind.Term.eval (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)          = Kind.Term.FN5 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4)
+Kind.Term.eval (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       = Kind.Term.FN6 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5)
+Kind.Term.eval (Kind.Term.fn7 ctid orig args)                    = Kind.Term.FN7 ctid orig (Kind.Term.eval args)
+Kind.Term.eval (Kind.Term.fn8 ctid orig args)                    = Kind.Term.FN8 ctid orig (Kind.Term.eval args)
+Kind.Term.eval (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)            = Kind.Term.args7 (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6)
+Kind.Term.eval (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)         = Kind.Term.args8 (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7)

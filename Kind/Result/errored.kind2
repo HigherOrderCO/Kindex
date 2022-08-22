@@ -1,0 +1,2 @@
+// Automatically derived from Kind.Result/_.type
+Kind.Result.errored <a: Type> (ctx: Kind.Context) (sub: Kind.Subst) (errors: (List Kind.Error)) : (Kind.Result a)

@@ -1,0 +1,5 @@
+// Tries to find an index inside the context and then applies the function 'fun'
+// to it or 'alt' if there is not an element with this index.
+Kind.Checker.find <r> (index: U60) (alt: r) (fun: U60 -> Kind.Term -> (List Kind.Term) -> r) : Kind.Checker r
+Kind.Checker.find r index alt fun = context => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context depth rhs subst eqts errs (Kind.Context.find context index alt fun)

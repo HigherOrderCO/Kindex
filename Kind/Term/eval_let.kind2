@@ -1,0 +1,3 @@
+// Evaluates a let term.
+Kind.Term.eval_let (orig: U60) (name: U60) (expr: Kind.Term) (body: Kind.Term -> Kind.Term): Kind.Term
+Kind.Term.eval_let orig name expr body = body expr

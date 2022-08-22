@@ -1,0 +1,2 @@
+// Automatically derived from Kind.Result/_.type
+Kind.Result.checked <a: Type> (ctx: Kind.Context) (depth: U60) (rhs: Bool) (sub: Kind.Subst) (equations: (List Kind.Equation)) (errors: (List Kind.Error)) (ret: a) : (Kind.Result a)

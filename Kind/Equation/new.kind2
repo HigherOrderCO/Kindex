@@ -1,0 +1,2 @@
+// Automatically derived from Kind.Equation.type
+Kind.Equation.new (ctx: Kind.Context) (orig: U60) (left: Kind.Term) (right: Kind.Term) : (Kind.Equation)

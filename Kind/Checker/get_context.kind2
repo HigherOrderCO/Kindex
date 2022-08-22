@@ -1,0 +1,4 @@
+// Returns the @Kind.Context@ inside the @Kind.Checker@.
+Kind.Checker.get_context : Kind.Checker Kind.Context
+Kind.Checker.get_context = context => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context depth rhs subst eqts errs context

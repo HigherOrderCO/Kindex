@@ -1,0 +1,2 @@
+// Automatically derived from Kind.Term/_.type
+Kind.Term.app (orig: U60) (func: Kind.Term) (arg: Kind.Term) : (Kind.Term)

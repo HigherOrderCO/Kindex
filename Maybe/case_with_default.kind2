@@ -1,0 +1,6 @@
+//Gets the value nested in the some case, if any, if not, returns a default
+//value given
+//example: (Maybe.case_with_default Nat (Maybe 3) 0) = 3
+Maybe.case_with_default <a> (m: Maybe a) (d: a) : a
+Maybe.case_with_default a (Maybe.none t)       d = d
+Maybe.case_with_default a (Maybe.some t value) d = value

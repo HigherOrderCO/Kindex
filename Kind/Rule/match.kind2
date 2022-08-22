@@ -1,0 +1,4 @@
+// Automatically derived from Kind.Rule/_.type
+Kind.Rule.match (x: (Kind.Rule)) -(p: (x: (Kind.Rule)) Type) (lhs: (arg: Kind.Term) (args: Kind.Rule) (p (Kind.Rule.lhs arg args))) (rhs: (arg: Kind.Term) (p (Kind.Rule.rhs arg))) : (p x)
+Kind.Rule.match (Kind.Rule.lhs arg_ args_) p lhs rhs = (lhs arg_ args_)
+Kind.Rule.match (Kind.Rule.rhs arg_) p lhs rhs = (rhs arg_)

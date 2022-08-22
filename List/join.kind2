@@ -1,0 +1,9 @@
+List.join (list: List String) (sep: String) : String
+List.join list sep = List.join.go list sep Bool.true
+
+List.join.go (list: List String) (sep: String) (fst: Bool) : String
+List.join.go (List.nil t) sep fst = String.nil
+List.join.go (List.cons t head tail) sep fst =
+  (String.concat (if fst { "" } else { sep })
+  (String.concat head
+  (List.join.go tail sep Bool.false)))

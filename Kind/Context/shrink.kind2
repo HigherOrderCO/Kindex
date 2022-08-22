@@ -1,0 +1,4 @@
+Kind.Context.shrink (ctx: Kind.Context): Kind.Context
+Kind.Context.shrink Kind.Context.empty                                     = Kind.Context.empty
+Kind.Context.shrink (Kind.Context.entry name type vals Kind.Context.empty) = Kind.Context.empty
+Kind.Context.shrink (Kind.Context.entry name type vals rest)               = Kind.Context.entry name type vals (Kind.Context.shrink rest)

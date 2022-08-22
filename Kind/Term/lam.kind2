@@ -1,0 +1,2 @@
+// Automatically derived from Kind.Term/_.type
+Kind.Term.lam (orig: U60) (name: U60) (body: (_: Kind.Term) Kind.Term) : (Kind.Term)

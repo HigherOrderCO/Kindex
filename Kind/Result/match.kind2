@@ -1,0 +1,4 @@
+// Automatically derived from Kind.Result/_.type
+Kind.Result.match <a: Type> (x: (Kind.Result a)) -(p: (x: (Kind.Result a)) Type) (checked: (ctx: Kind.Context) (depth: U60) (rhs: Bool) (sub: Kind.Subst) (equations: (List Kind.Equation)) (errors: (List Kind.Error)) (ret: a) (p (Kind.Result.checked a ctx depth rhs sub equations errors ret))) (errored: (ctx: Kind.Context) (sub: Kind.Subst) (errors: (List Kind.Error)) (p (Kind.Result.errored a ctx sub errors))) : (p x)
+Kind.Result.match a (Kind.Result.checked a_ ctx_ depth_ rhs_ sub_ equations_ errors_ ret_) p checked errored = (checked ctx_ depth_ rhs_ sub_ equations_ errors_ ret_)
+Kind.Result.match a (Kind.Result.errored a_ ctx_ sub_ errors_) p checked errored = (errored ctx_ sub_ errors_)

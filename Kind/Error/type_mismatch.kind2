@@ -1,0 +1,2 @@
+// Automatically derived from Kind.Error/_.type
+Kind.Error.type_mismatch (ctx: Kind.Context) (orig: U60) (expected: Kind.Term) (detected: Kind.Term) : (Kind.Error)

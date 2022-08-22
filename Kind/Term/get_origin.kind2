@@ -1,0 +1,36 @@
+// Gets the origin of a term and applies the function 'got'
+// to it. It recreates the term because of the linearity of
+// HVM.
+Kind.Term.get_origin <r> (term: Kind.Term) (got: U60 -> Kind.Term -> r): r
+Kind.Term.get_origin r (Kind.Term.typ orig)                got = got orig (Kind.Term.typ orig)
+Kind.Term.get_origin r (Kind.Term.var orig name index)     got = got orig (Kind.Term.var orig name index)
+Kind.Term.get_origin r (Kind.Term.hol orig numb)           got = got orig (Kind.Term.hol orig numb)
+Kind.Term.get_origin r (Kind.Term.all orig name typ body)  got = got orig (Kind.Term.all orig name typ body)
+Kind.Term.get_origin r (Kind.Term.lam orig name body)      got = got orig (Kind.Term.lam orig name body)
+Kind.Term.get_origin r (Kind.Term.let orig name expr body) got = got orig (Kind.Term.let orig name expr body)
+Kind.Term.get_origin r (Kind.Term.ann orig expr typ)       got = got orig (Kind.Term.ann orig expr typ)
+Kind.Term.get_origin r (Kind.Term.app orig func arg)       got = got orig (Kind.Term.app orig func arg)
+Kind.Term.get_origin r (Kind.Term.hlp orig)                got = got orig (Kind.Term.hlp orig)
+Kind.Term.get_origin r (Kind.Term.u60 orig)                got = got orig (Kind.Term.u60 orig)
+Kind.Term.get_origin r (Kind.Term.num orig num)            got = got orig (Kind.Term.num orig num)
+Kind.Term.get_origin r (Kind.Term.op2 orig op left right)  got = got orig (Kind.Term.op2 orig op left right)
+
+Kind.Term.get_origin r (Kind.Term.ct0 ctid orig)                         got = got orig (Kind.Term.ct0 ctid orig)
+Kind.Term.get_origin r (Kind.Term.ct1 ctid orig x0)                      got = got orig (Kind.Term.ct1 ctid orig x0)
+Kind.Term.get_origin r (Kind.Term.ct2 ctid orig x0 x1)                   got = got orig (Kind.Term.ct2 ctid orig x0 x1)
+Kind.Term.get_origin r (Kind.Term.ct3 ctid orig x0 x1 x2)                got = got orig (Kind.Term.ct3 ctid orig x0 x1 x2)
+Kind.Term.get_origin r (Kind.Term.ct4 ctid orig x0 x1 x2 x3)             got = got orig (Kind.Term.ct4 ctid orig x0 x1 x2 x3)
+Kind.Term.get_origin r (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)          got = got orig (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)
+Kind.Term.get_origin r (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       got = got orig (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)
+Kind.Term.get_origin r (Kind.Term.ct7 ctid orig args)                    got = got orig (Kind.Term.ct7 ctid orig args)
+Kind.Term.get_origin r (Kind.Term.ct8 ctid orig args)                    got = got orig (Kind.Term.ct8 ctid orig args)
+
+Kind.Term.get_origin r (Kind.Term.fn0 fnid orig)                         got = got orig (Kind.Term.fn0 fnid orig)
+Kind.Term.get_origin r (Kind.Term.fn1 fnid orig x0)                      got = got orig (Kind.Term.fn1 fnid orig x0)
+Kind.Term.get_origin r (Kind.Term.fn2 fnid orig x0 x1)                   got = got orig (Kind.Term.fn2 fnid orig x0 x1)
+Kind.Term.get_origin r (Kind.Term.fn3 fnid orig x0 x1 x2)                got = got orig (Kind.Term.fn3 fnid orig x0 x1 x2)
+Kind.Term.get_origin r (Kind.Term.fn4 fnid orig x0 x1 x2 x3)             got = got orig (Kind.Term.fn4 fnid orig x0 x1 x2 x3)
+Kind.Term.get_origin r (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)          got = got orig (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)
+Kind.Term.get_origin r (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       got = got orig (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)
+Kind.Term.get_origin r (Kind.Term.fn7 fnid orig args)                    got = got orig (Kind.Term.fn7 fnid orig args)
+Kind.Term.get_origin r (Kind.Term.fn8 fnid orig args)                    got = got orig (Kind.Term.fn8 fnid orig args)
