@@ -1,0 +1,9 @@
+TestMap (x: U60) (map: Data.PatriciaTree U60): Data.PatriciaTree U60
+TestMap 0 map = map
+TestMap x map = TestMap (- x 1) (Data.PatriciaTree.set U60 map x (* x 2))
+
+Test : _
+Test = TestMap 1048576 Data.PatriciaTree.empty
+
+Main : _ 
+Main = Data.PatriciaTree.get Test 723401

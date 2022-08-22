@@ -1,0 +1,5 @@
+// Automatically derived from /home/derenash/Wikind/Data.PatriciaTree/_.type
+Data.PatriciaTree.match <a: Type> (x: (Data.PatriciaTree a)) -(p: (x: (Data.PatriciaTree a)) Type) (empty: (p (Data.PatriciaTree.empty a))) (leaf: (key: U60) (value: a) (p (Data.PatriciaTree.leaf a key value))) (branch: (prefix: U60) (branchingbit: U60) (left: (Data.PatriciaTree a)) (right: (Data.PatriciaTree a)) (p (Data.PatriciaTree.branch a prefix branchingbit left right))) : (p x)
+Data.PatriciaTree.match a (Data.PatriciaTree.empty a_) p empty leaf branch = (empty)
+Data.PatriciaTree.match a (Data.PatriciaTree.leaf a_ key_ value_) p empty leaf branch = (leaf key_ value_)
+Data.PatriciaTree.match a (Data.PatriciaTree.branch a_ prefix_ branchingbit_ left_ right_) p empty leaf branch = (branch prefix_ branchingbit_ left_ right_)

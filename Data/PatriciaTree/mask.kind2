@@ -1,0 +1,3 @@
+Data.PatriciaTree.mask (k: U60) (m: U60): U60 {
+  (& k (- m 1))
+}

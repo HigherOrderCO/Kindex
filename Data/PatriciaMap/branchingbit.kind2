@@ -1,3 +1,0 @@
-Data.PatriciaMap.branchingbit (p0: U60) (p1: U60): U60 {
-Data.PatriciaMap.lowestbit (^ p0 p1)
-}
