@@ -1,4 +1,4 @@
-// Automatically derived from Kind.Operator/_.type
+// Automatically derived from Kind/Operator/_.type
 Kind.Operator.match (x: (Kind.Operator)) -(p: (x: (Kind.Operator)) Type) (add: (p (Kind.Operator.add))) (sub: (p (Kind.Operator.sub))) (mul: (p (Kind.Operator.mul))) (div: (p (Kind.Operator.div))) (mod: (p (Kind.Operator.mod))) (and: (p (Kind.Operator.and))) (or: (p (Kind.Operator.or))) (xor: (p (Kind.Operator.xor))) (shl: (p (Kind.Operator.shl))) (shr: (p (Kind.Operator.shr))) (ltn: (p (Kind.Operator.ltn))) (lte: (p (Kind.Operator.lte))) (eql: (p (Kind.Operator.eql))) (gte: (p (Kind.Operator.gte))) (gtn: (p (Kind.Operator.gtn))) (neq: (p (Kind.Operator.neq))) : (p x)
 Kind.Operator.match (Kind.Operator.add) p add sub mul div mod and or xor shl shr ltn lte eql gte gtn neq = (add)
 Kind.Operator.match (Kind.Operator.sub) p add sub mul div mod and or xor shl shr ltn lte eql gte gtn neq = (sub)

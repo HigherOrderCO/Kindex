@@ -1,2 +1,2 @@
-// Automatically derived from Kind.Rule/_.type
+// Automatically derived from Kind/Rule/_.type
 Kind.Rule.lhs (arg: Kind.Term) (args: Kind.Rule) : (Kind.Rule)

@@ -1,2 +1,2 @@
-// Automatically derived from Kind.Error/_.type
+// Automatically derived from Kind/Error/_.type
 Kind.Error.inspection (ctx: Kind.Context) (orig: U60) (term: Kind.Term) : (Kind.Error)

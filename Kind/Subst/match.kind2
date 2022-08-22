@@ -1,5 +1,5 @@
-// Automatically derived from Kind.Subst.type
-Kind.Subst.match (x: (Kind.Subst)) -(p: (x: (Kind.Subst)) Type) (end: (p (Kind.Subst.end))) (unfilled: (rest: Kind.Subst) (p (Kind.Subst.unfilled rest))) (sub: (term: Term) (rest: Kind.Subst) (p (Kind.Subst.sub term rest))) : (p x)
+// Automatically derived from Kind/Subst/_.type
+Kind.Subst.match (x: (Kind.Subst)) -(p: (x: (Kind.Subst)) Type) (end: (p (Kind.Subst.end))) (unfilled: (rest: Kind.Subst) (p (Kind.Subst.unfilled rest))) (sub: (term: Kind.Term) (rest: Kind.Subst) (p (Kind.Subst.sub term rest))) : (p x)
 Kind.Subst.match (Kind.Subst.end) p end unfilled sub = (end)
 Kind.Subst.match (Kind.Subst.unfilled rest_) p end unfilled sub = (unfilled rest_)
 Kind.Subst.match (Kind.Subst.sub term_ rest_) p end unfilled sub = (sub term_ rest_)

@@ -1,2 +1,2 @@
-// Automatically derived from Kind.Subst.type
+// Automatically derived from Kind/Subst/_.type
 Kind.Subst : Type

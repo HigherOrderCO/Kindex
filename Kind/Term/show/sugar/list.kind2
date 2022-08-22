@@ -14,5 +14,5 @@ Kind.Term.show.sugar.list (term: Kind.Term): Maybe String
 Kind.Term.show.sugar.list term =
   do Maybe {
     ask res  = Kind.Term.show.sugar.list.go term
-    return (Kind.Printer.text ["[" (List.join res " ") "]"])
+    return (Kind.Printer.text ["[" (String.join " " res) "]"])
   }

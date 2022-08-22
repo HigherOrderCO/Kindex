@@ -1,2 +1,2 @@
-// Automatically derived from Kind.Term/_.type
+// Automatically derived from Kind/Term/_.type
 Kind.Term.FN1 (ctid: U60) (orig: U60) (x0: Kind.Term) : (Kind.Term)

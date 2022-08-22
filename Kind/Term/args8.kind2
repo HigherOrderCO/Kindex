@@ -1,2 +1,2 @@
-// Automatically derived from Kind.Term/_.type
+// Automatically derived from Kind/Term/_.type
 Kind.Term.args8 (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) : (Kind.Term)

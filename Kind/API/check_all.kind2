@@ -3,7 +3,7 @@ Functions : List U60
 Kind.API.check_all : String
 Kind.API.check_all =
   let output = Kind.API.output (List.reverse (Kind.API.check_functions Functions))
-  if String.is_empty output {
+  if String.is_nil output {
     Kind.Printer.text ["All terms check." String.new_line String.new_line ]
   } else {
     output
