@@ -1,0 +1,10 @@
+Data.PatriciaMap.join <a: Type> (p0: U60) (t0: (Data.PatriciaMap a)) (p1: U60) (t1: (Data.PatriciaMap a)): Data.PatriciaMap a
+Data.PatriciaMap.join a p0 t0 p1 t1 =
+  Data.PatriciaMap.joinAux0 a (Data.PatriciaMap.branchingbit p0 p1) p0 t0 t1
+
+Data.PatriciaMap.joinAux0 <a: Type> (m: U60) (p0: U60) (t0: Data.PatriciaMap a) (t1: Data.PatriciaMap a): Data.PatriciaMap a
+Data.PatriciaMap.joinAux0 a m p0 t0 t1 = Data.PatriciaMap.joinAux1 (Data.PatriciaMap.zerobit m p0) m p0 t0 t1
+
+Data.PatriciaMap.joinAux1 <a: Type> (b: Bool) (m: U60) (p0: U60) (t0: Data.PatriciaMap a) (t1: Data.PatriciaMap a): Data.PatriciaMap a
+Data.PatriciaMap.joinAux1 a Bool.true  m p0 t0 t1 = Data.PatriciaMap.branch (Data.PatriciaMap.mask p0 m) m t0 t1
+Data.PatriciaMap.joinAux1 a Bool.false m p0 t0 t1 = Data.PatriciaMap.branch (Data.PatriciaMap.mask p0 m) m t1 t0

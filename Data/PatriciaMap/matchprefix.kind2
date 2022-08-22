@@ -1,0 +1,3 @@
+Data.PatriciaMap.matchprefix (k: U60) (p: U60) (m: U60): Bool {
+U60.equal (Data.PatriciaMap.mask k m) p
+}

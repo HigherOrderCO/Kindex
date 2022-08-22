@@ -1,0 +1,23 @@
+Data.PatriciaMap.get <a: Type> (map: Data.PatriciaMap a) (key: U60): Maybe a
+Data.PatriciaMap.get a (Data.PatriciaMap.leaf t j x) key =
+  Data.PatriciaMap.getAux0 a (U60.equal j key) x
+Data.PatriciaMap.get a (Data.PatriciaMap.branch t p m t0 t1) key = 
+  Data.PatriciaMap.getAux1 a (Data.PatriciaMap.matchprefix key p m) key m t0 t1
+
+Data.PatriciaMap.getAux0 <a: Type> (b: Bool) (val: a):  Maybe a
+Data.PatriciaMap.getAux0 a Bool.true  val = Maybe.some val
+Data.PatriciaMap.getAux0 a Bool.false val = Maybe.none
+
+Data.PatriciaMap.getAux1 <a: Type> (b: Bool) (key: U60) (m: U60) (t0: Data.PatriciaMap a) (t1: Data.PatriciaMap a): Maybe a
+Data.PatriciaMap.getAux1 a Bool.false k m t0 t1 =
+  Maybe.none
+Data.PatriciaMap.getAux1 a Bool.true  k m t0 t1 =
+  Data.PatriciaMap.getAux2 (Data.PatriciaMap.zerobit k m) k t0 t1
+
+Data.PatriciaMap.getAux2 <a: Type> (b: Bool) (key: U60) (t0: Data.PatriciaMap a) (t1: Data.PatriciaMap a): Maybe a
+Data.PatriciaMap.getAux2 a Bool.true  k t0 t1 =
+  Data.PatriciaMap.get t0 k
+Data.PatriciaMap.getAux2 a Bool.false k t0 t1 =
+  Data.PatriciaMap.get t1 k
+
+

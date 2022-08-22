@@ -1,0 +1,7 @@
+Data.PatriciaMap.lowestbit (x: U60): U60 {
+Data.PatriciaMap.lowestbitAux0 (% x 2) x
+}
+
+Data.PatriciaMap.lowestbitAux0 (b: U60) (x: U60): U60
+Data.PatriciaMap.lowestbitAux0 0 x = (* 2 (Data.PatriciaMap.lowestbit (/ x 2)))
+Data.PatriciaMap.lowestbitAux0 1 x = 1

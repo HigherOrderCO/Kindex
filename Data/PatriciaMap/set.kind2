@@ -1,0 +1,27 @@
+Data.PatriciaMap.set <a: Type> (tree: (Data.PatriciaMap a)) (key: U60) (value: a): Data.PatriciaMap a
+Data.PatriciaMap.set a (Data.PatriciaMap.empty t) key value =
+  Data.PatriciaMap.leaf key value
+Data.PatriciaMap.set a (Data.PatriciaMap.leaf t j y) key value =
+  Data.PatriciaMap.set.leaf (U60.equal j key) value y j key
+  // (SetAux0 (== j key) value y j key (Leaf j y))
+Data.PatriciaMap.set a (Data.PatriciaMap.branch t p m t0 t1) key value =
+  Data.PatriciaMap.set.branch0 (Data.PatriciaMap.matchprefix key p m) p m t0 t1 key value
+
+Data.PatriciaMap.set.branch0 <a: Type> (b: Bool) (p: U60) (m: U60) (t0: (Data.PatriciaMap a)) (t1: (Data.PatriciaMap a)) (key: U60) (value: a): Data.PatriciaMap a
+Data.PatriciaMap.set.branch0 a Bool.false p m t0 t1 key value =
+  Data.PatriciaMap.join key (Data.PatriciaMap.leaf key value) p (Data.PatriciaMap.branch p m t0 t1)
+Data.PatriciaMap.set.branch0 a Bool.true p m t0 t1 key value =
+  Data.PatriciaMap.set.branch1 (Data.PatriciaMap.zerobit key m) p m t0 t1 key value
+
+Data.PatriciaMap.set.branch1 <a: Type> (b: Bool) (p: U60) (m: U60) (t0: (Data.PatriciaMap a)) (t1: (Data.PatriciaMap a)) (key: U60) (value: a): Data.PatriciaMap a
+Data.PatriciaMap.set.branch1 a Bool.true  p m t0 t1 key value =
+  Data.PatriciaMap.branch a p m (Data.PatriciaMap.set t0 key value) t1
+Data.PatriciaMap.set.branch1 a Bool.false p m t0 t1 key value =
+  Data.PatriciaMap.branch a p m t0 (Data.PatriciaMap.set t1 key value)
+
+Data.PatriciaMap.set.leaf <a: Type> (b: Bool) (value: a) (y: a) (j: U60) (key: U60): Data.PatriciaMap a
+Data.PatriciaMap.set.leaf a Bool.true value y j key =
+  Data.PatriciaMap.leaf key value
+Data.PatriciaMap.set.leaf a Bool.false value y j key =
+  Data.PatriciaMap.join key (Data.PatriciaMap.leaf key value) j (Data.PatriciaMap.leaf j y)
+
