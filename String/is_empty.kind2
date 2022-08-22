@@ -1,3 +1,0 @@
-String.is_empty (s: String): Bool
-String.is_empty String.nil = Bool.true
-String.is_empty other      = Bool.false
