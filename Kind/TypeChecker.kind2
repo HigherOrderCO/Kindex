@@ -1,36 +1,11 @@
 // This function is not compiled if it's not on the main file.
 
-Kind.Term.set_origin (term: Kind.Term) (new_orig: U60): Kind.Term
-Kind.Term.set_origin orig (Kind.Term.typ old_orig)                = Kind.Term.typ orig
-Kind.Term.set_origin orig (Kind.Term.var old_orig name idx)       = Kind.Term.var orig name idx
-Kind.Term.set_origin orig (Kind.Term.hol old_orig numb)           = Kind.Term.hol orig numb
-Kind.Term.set_origin orig (Kind.Term.all old_orig name typ body)  = Kind.Term.all orig name typ body
-Kind.Term.set_origin orig (Kind.Term.lam old_orig name body)      = Kind.Term.lam orig name body
-Kind.Term.set_origin orig (Kind.Term.let old_orig name expr body) = Kind.Term.let orig name expr body
-Kind.Term.set_origin orig (Kind.Term.ann old_orig expr typ)       = Kind.Term.ann orig expr typ
-Kind.Term.set_origin orig (Kind.Term.app old_orig func arg)       = Kind.Term.app orig func arg
-Kind.Term.set_origin orig (Kind.Term.hlp old_orig)                = Kind.Term.hlp orig
-Kind.Term.set_origin orig (Kind.Term.u60 old_orig)                = Kind.Term.u60 orig
-Kind.Term.set_origin orig (Kind.Term.num old_orig num)            = Kind.Term.num orig num
-Kind.Term.set_origin orig (Kind.Term.op2 old_orig op left right)  = Kind.Term.op2 orig op left right
-Kind.Term.set_origin orig (Kind.Term.ct0 ctid old_orig)                         = Kind.Term.ct0 ctid orig
-Kind.Term.set_origin orig (Kind.Term.ct1 ctid old_orig x0)                      = Kind.Term.ct1 ctid orig x0
-Kind.Term.set_origin orig (Kind.Term.ct2 ctid old_orig x0 x1)                   = Kind.Term.ct2 ctid orig x0 x1
-Kind.Term.set_origin orig (Kind.Term.ct3 ctid old_orig x0 x1 x2)                = Kind.Term.ct3 ctid orig x0 x1 x2
-Kind.Term.set_origin orig (Kind.Term.ct4 ctid old_orig x0 x1 x2 x3)             = Kind.Term.ct4 ctid orig x0 x1 x2 x3
-Kind.Term.set_origin orig (Kind.Term.ct5 ctid old_orig x0 x1 x2 x3 x4)          = Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4
-Kind.Term.set_origin orig (Kind.Term.ct6 ctid old_orig x0 x1 x2 x3 x4 x5)       = Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5
-Kind.Term.set_origin orig (Kind.Term.ct7 ctid old_orig args)                    = Kind.Term.ct7 ctid orig args
-Kind.Term.set_origin orig (Kind.Term.ct8 ctid old_orig args)                    = Kind.Term.ct8 ctid orig args
-Kind.Term.set_origin orig (Kind.Term.fn0 fnid old_orig)                         = Kind.Term.fn0 fnid orig
-Kind.Term.set_origin orig (Kind.Term.fn1 fnid old_orig x0)                      = Kind.Term.fn1 fnid orig x0
-Kind.Term.set_origin orig (Kind.Term.fn2 fnid old_orig x0 x1)                   = Kind.Term.fn2 fnid orig x0 x1
-Kind.Term.set_origin orig (Kind.Term.fn3 fnid old_orig x0 x1 x2)                = Kind.Term.fn3 fnid orig x0 x1 x2
-Kind.Term.set_origin orig (Kind.Term.fn4 fnid old_orig x0 x1 x2 x3)             = Kind.Term.fn4 fnid orig x0 x1 x2 x3
-Kind.Term.set_origin orig (Kind.Term.fn5 fnid old_orig x0 x1 x2 x3 x4)          = Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4
-Kind.Term.set_origin orig (Kind.Term.fn6 fnid old_orig x0 x1 x2 x3 x4 x5)       = Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5
-Kind.Term.set_origin orig (Kind.Term.fn7 ctid old_orig args)                    = Kind.Term.ct7 ctid orig args
-Kind.Term.set_origin orig (Kind.Term.fn8 ctid old_orig args)                    = Kind.Term.ct8 ctid orig args
-
 Main : String
-Main = Kind.API.check_all
+Main =
+  // FIXME: we need a way to include of non-refered defs on the compiled ouput
+  let imports = [
+    (Dynamic.new ((a:_) => (b:_) => Kind.Term.set_origin a b))
+    (Dynamic.new Kind.API.check_all)
+    (Dynamic.new Kind.API.eval_main)
+  ]
+  Kind.API.check_all
