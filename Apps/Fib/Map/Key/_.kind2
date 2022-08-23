@@ -1,0 +1,4 @@
+Apps.Fib.Map.Key (r: List Apps.Fib.Map.Base) : Type
+Apps.Fib.Map.Key (List.nil t)                         = Unit
+Apps.Fib.Map.Key (List.cons t Apps.Fib.Map.Base.2 bs) = Apps.Fib.Map.Base.Bin (Apps.Fib.Map.Key bs)
+Apps.Fib.Map.Key (List.cons t Apps.Fib.Map.Base.5 bs) = Apps.Fib.Map.Base.Qui (Apps.Fib.Map.Key bs)

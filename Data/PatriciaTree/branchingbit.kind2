@@ -1,0 +1,3 @@
+Data.PatriciaTree.branchingbit (p0: U60) (p1: U60): U60 {
+Data.PatriciaTree.lowestbit (^ p0 p1)
+}

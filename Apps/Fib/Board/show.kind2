@@ -1,0 +1,49 @@
+Apps.Fib.Board.show (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Board) : String {
+  Apps.Fib.Board.show.go0 x (+ y w) w h map
+}
+
+Apps.Fib.Board.show.go0 (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Board): String {
+  if (U60.equal h 0) {
+    String.nil
+  }
+  else {
+    let string = String.concat "
+" (Apps.Fib.Board.show.go1 (+ x w) (+ y h) w map)
+
+    String.concat string (Apps.Fib.Board.show.go0 x y w (U60.sub.saturated h 1) map)
+  }
+}
+
+Apps.Fib.Board.show.go1 (x: U60) (y:U60) (w: U60) (map: Apps.Fib.Board): String {
+  if (U60.equal w 0) {
+    ""
+  }
+  else {
+    let real_x = (- x w)
+    let target = Apps.Fib.Board.get (Apps.Fib.Board.Key.from_u60 (+ real_x (* y 32))) map
+    let string = Apps.Fib.Board.chunk.show_part (% real_x 10) (U60.min 10 (+ (% real_x 10) w)) target
+    String.concat string (Apps.Fib.Board.show.go1 x y (U60.sub.saturated w (- 10 (% real_x 10))) map)
+  }
+}
+
+Apps.Fib.Board.chunk.show_part (start: U60) (end: U60) (chunk: U120) : String 
+Apps.Fib.Board.chunk.show_part start end (U120.new hi lo) =
+  let fst = 
+    if (U60.lte start 5) {
+      Apps.Fib.Board.chunk.show_part.aux (U60.sub.saturated (U60.min end 5) start) (>> hi (* start 12))
+    }
+    else { List.nil U60 }
+  let snd =
+    if (U60.gte end 5) {
+      Apps.Fib.Board.chunk.show_part.aux (U60.sub.saturated (U60.sub.saturated end 5) (U60.sub.saturated start 5)) (>> lo (* (U60.sub.saturated start 5) 12))
+    }
+    else { List.nil U60 }
+  String.from_list (List.concat Char fst snd)
+  
+
+// Divides a U60 into 12 bits by count times
+Apps.Fib.Board.chunk.show_part.aux (count: U60) (n: U60) : List U60
+Apps.Fib.Board.chunk.show_part.aux 0 n = 
+  List.nil U60
+Apps.Fib.Board.chunk.show_part.aux c n =
+  List.cons ' ' (List.cons U60 (& n 4095) (Apps.Fib.Board.chunk.show_part.aux (- c 1) (>> n 12)))

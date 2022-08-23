@@ -1,0 +1,14 @@
+Main : U120 {
+  let map = Apps.Fib.Board.range
+  Test 64 map
+}
+
+Test (n: U60) (map: Apps.Fib.Board) : U120
+Test 0 map = U120.new 0 0
+Test n map = U120.add (Apps.Fib.Map.get U120 Apps.Fib.Board.Bases (Apps.Fib.Board.Key.from_u60 n) map) (Test (- n 1) map)  
+
+//   Board.get               Map.get 
+// 2048 = 10259046      2048 = 10261094
+// 1024 =  3209201      1024 = 3210225
+// 64   =   124214        64 = 
+

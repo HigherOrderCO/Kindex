@@ -1,0 +1,3 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Bin/_.type
+Apps.Fib.Map.Bin.match <r: Type> (x: (Apps.Fib.Map.Bin r)) -(p: (x: (Apps.Fib.Map.Bin r)) Type) (tie: (b0: r) (b1: r) (p (Apps.Fib.Map.Bin.tie r b0 b1))) : (p x)
+Apps.Fib.Map.Bin.match r (Apps.Fib.Map.Bin.tie r_ b0_ b1_) p tie = (tie b0_ b1_)
