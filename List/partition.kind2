@@ -1,6 +1,7 @@
 // Separate elements of t list into two groups, based on t condition, preserving order
+// The first is values that pass the condition, the second is values that don't pass
 List.partition <t> (cond: t -> Bool) (xs: List t) : Pair (List t) (List t) {
-  let id = (x => x) :: (List t) -> (List t)
+  let id = Function.id (List t)
   List.partition.go cond xs id id
 }
 
@@ -16,9 +17,9 @@ List.partition.go t cond (List.nil t_) as bs =
 
 List.partition.go t cond (List.cons t_ x xs) as bs =
   if (cond x) {
-    let as = (a => List.cons x a) :: (List t) -> (List t)
+    let as = (a => List.cons x (as a)) :: (List t) -> (List t)
     List.partition.go cond xs as bs
   } else {
-    let bs = (b => List.cons x b) :: (List t) -> (List t)
+    let bs = (b => List.cons x (bs b)) :: (List t) -> (List t)
     List.partition.go cond xs as bs
   }
