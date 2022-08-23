@@ -1,8 +1,8 @@
 ///The @Kind.Checker@ function is just a type synonym to
 // a function that acts like the *State Monad*. It takes
-// a context, de bruijin level, a right hand side flag,
-// substitution, a list of equations to unify and a list
-// of errors and returns if the checking process failed
+// a context, the de bruijin level/depth, a right hand side
+// flag, a list of substitutions, a list of equations to unify,
+// a list of errors and returns if the checking process failed
 // or succeeded.
 Kind.Checker (a: Type) : Type
 Kind.Checker a = Kind.Context -> U60 -> Bool -> Kind.Subst -> (List Kind.Equation) -> (List Kind.Error) -> Kind.Result a

@@ -1,0 +1,18 @@
+Kind.Operator.equal (left: Kind.Operator) (right: Kind.Operator): Bool
+Kind.Operator.equal Kind.Operator.and Kind.Operator.and = Bool.true
+Kind.Operator.equal Kind.Operator.sub Kind.Operator.sub = Bool.true
+Kind.Operator.equal Kind.Operator.mul Kind.Operator.mul = Bool.true
+Kind.Operator.equal Kind.Operator.div Kind.Operator.div = Bool.true
+Kind.Operator.equal Kind.Operator.mod Kind.Operator.mod = Bool.true
+Kind.Operator.equal Kind.Operator.and Kind.Operator.and = Bool.true
+Kind.Operator.equal Kind.Operator.or  Kind.Operator.or  = Bool.true
+Kind.Operator.equal Kind.Operator.xor Kind.Operator.xor = Bool.true
+Kind.Operator.equal Kind.Operator.shl Kind.Operator.shl = Bool.true
+Kind.Operator.equal Kind.Operator.shr Kind.Operator.shr = Bool.true
+Kind.Operator.equal Kind.Operator.ltn Kind.Operator.ltn = Bool.true
+Kind.Operator.equal Kind.Operator.lte Kind.Operator.lte = Bool.true
+Kind.Operator.equal Kind.Operator.eql Kind.Operator.eql = Bool.true
+Kind.Operator.equal Kind.Operator.gte Kind.Operator.gte = Bool.true
+Kind.Operator.equal Kind.Operator.gtn Kind.Operator.gtn = Bool.true
+Kind.Operator.equal Kind.Operator.neq Kind.Operator.neq = Bool.true
+Kind.Operator.equal a                 b                 = Bool.false

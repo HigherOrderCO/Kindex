@@ -1,0 +1,5 @@
+Main. : U60
+
+Kind.API.eval_main : String
+Kind.API.eval_main =
+  Kind.Printer.text [(Kind.Term.show (Kind.Term.FN0 Main. 0)) String.new_line String.new_line]
