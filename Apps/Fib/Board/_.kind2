@@ -1,0 +1,3 @@
+Apps.Fib.Board : Type {
+  Apps.Fib.Map Apps.Fib.Board.Bases U120
+}

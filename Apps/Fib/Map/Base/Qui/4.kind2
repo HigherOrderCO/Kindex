@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Base/Qui/_.type
+Apps.Fib.Map.Base.Qui.4 (r: Type) (pred: r) : (Apps.Fib.Map.Base.Qui r)
