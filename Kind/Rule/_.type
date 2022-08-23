@@ -1,0 +1,4 @@
+type Kind.Rule {
+  lhs (arg: Kind.Term) (args: Kind.Rule)
+  rhs (arg: Kind.Term)
+}

@@ -1,0 +1,29 @@
+Apps.Fib.Board.Key.from_u60.go.base5 (t: List Apps.Fib.Map.Base) (q: U60) (m: U60) (n: U60) : Apps.Fib.Map.Base.Qui (Apps.Fib.Map.Key t)
+Apps.Fib.Board.Key.from_u60.go.base5 t 0 m n = Apps.Fib.Map.Base.Qui.0 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+Apps.Fib.Board.Key.from_u60.go.base5 t 1 m n = Apps.Fib.Map.Base.Qui.1 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+Apps.Fib.Board.Key.from_u60.go.base5 t 2 m n = Apps.Fib.Map.Base.Qui.2 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+Apps.Fib.Board.Key.from_u60.go.base5 t 3 m n = Apps.Fib.Map.Base.Qui.3 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+Apps.Fib.Board.Key.from_u60.go.base5 t 4 m n = Apps.Fib.Map.Base.Qui.4 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+
+Apps.Fib.Board.Key.from_u60.go.base2 (t: List Apps.Fib.Map.Base) (q: U60) (m: U60) (n: U60) : Apps.Fib.Map.Base.Bin (Apps.Fib.Map.Key t)
+Apps.Fib.Board.Key.from_u60.go.base2 t 0 m n = Apps.Fib.Map.Base.Bin.0 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+Apps.Fib.Board.Key.from_u60.go.base2 t 1 m n = Apps.Fib.Map.Base.Bin.1 (Apps.Fib.Map.Key t) (Apps.Fib.Board.Key.from_u60.go t m n)
+
+Apps.Fib.Board.Key.from_u60.go (bases: List Apps.Fib.Map.Base) (m: U60) (n: U60): Apps.Fib.Map.Key bases
+Apps.Fib.Board.Key.from_u60.go (List.nil u)                        m n = Unit.new
+Apps.Fib.Board.Key.from_u60.go (List.cons u Apps.Fib.Map.Base.2 t) m n =
+  let m = (/ m 2)
+  let d = (/ n m)
+  let n = (- n (* d m))
+  Apps.Fib.Board.Key.from_u60.go.base2 t d m n
+Apps.Fib.Board.Key.from_u60.go (List.cons u Apps.Fib.Map.Base.5 t) m n =
+  let m = (/ m 5)
+  let d = (/ n m)
+  let n = (- n (* d m))
+  Apps.Fib.Board.Key.from_u60.go.base5 t d m n
+
+Apps.Fib.Board.Key.from_u60 (n: U60): Apps.Fib.Board.Key {
+  Apps.Fib.Board.Key.from_u60.go Apps.Fib.Board.Bases 10240 (% n 10240)
+}
+
+

@@ -1,0 +1,7 @@
+// Attachs a value to an index in the @Kind.Context@, if it already exists
+// then it adds it to the index list otherwise it adds at the end of
+// the context.
+Kind.Context.add_value (prev: Kind.Context) (name: U60) (term: Kind.Term): Kind.Context
+Kind.Context.add_value (Kind.Context.entry name type vals rest) 0 val = Kind.Context.entry name type (List.cons val vals) rest
+Kind.Context.add_value (Kind.Context.entry name type vals rest) n val = Kind.Context.entry name type vals (Kind.Context.add_value rest (- n 1) val)
+Kind.Context.add_value Kind.Context.empty n val                       = Kind.Context.empty

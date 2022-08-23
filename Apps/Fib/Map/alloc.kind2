@@ -1,0 +1,9 @@
+Apps.Fib.Map.alloc <val: Type> (bases: List Apps.Fib.Map.Base) (default: val): Apps.Fib.Map bases val 
+Apps.Fib.Map.alloc val (List.nil b) default =
+  default
+Apps.Fib.Map.alloc val (List.cons b Apps.Fib.Map.Base.2 t) default =
+  let m = Apps.Fib.Map.alloc val t default
+  Apps.Fib.Map.Bin.tie (Apps.Fib.Map t val) m m
+Apps.Fib.Map.alloc val (List.cons b Apps.Fib.Map.Base.5 t) default = 
+  let m = Apps.Fib.Map.alloc val t default
+  Apps.Fib.Map.Qui.tie (Apps.Fib.Map t val) m m m m m

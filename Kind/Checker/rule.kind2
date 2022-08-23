@@ -1,0 +1,34 @@
+// Checks a @Kind.Rule@ against a term.
+// Example:
+//
+// @
+// pred (n: Nat): Nat
+// pred (S n) = n
+// @
+//
+// In the example above, we have a rule that starts with a
+// left hand side part ((S n)) that will have to check
+// against the pi type that `pred` declarated in order to
+// succeded.
+
+Kind.Checker.rule (rule: Kind.Rule) (term: Kind.Term): Kind.Checker Unit
+
+Kind.Checker.rule (Kind.Rule.lhs arg args) (Kind.Term.all orig name type body) =
+  do Kind.Checker {
+    ask Kind.Checker.check arg type
+    ask Kind.Checker.rule args (body arg)
+    return Unit.new
+  }
+
+Kind.Checker.rule (Kind.Rule.lhs arg args) other =
+  do Kind.Checker {
+    ask ctx = Kind.Checker.get_context
+    (Kind.Checker.fail (Kind.Error.too_many_arguments ctx (Kind.Term.get_origin arg (orig => term => orig))))
+  }
+
+Kind.Checker.rule (Kind.Rule.rhs expr) type =
+  do Kind.Checker {
+    ask Kind.Checker.set_right_hand_side Bool.true
+    ask Kind.Checker.check expr type
+    return Unit.new
+  }

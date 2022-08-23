@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Error/_.type
+Kind.Error.cant_infer_lambda (ctx: Kind.Context) (orig: U60) : (Kind.Error)

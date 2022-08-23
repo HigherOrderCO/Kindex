@@ -1,0 +1,3 @@
+Kind.Printer.text (ls: List String) : String
+Kind.Printer.text (List.nil t)       = String.nil
+Kind.Printer.text (List.cons t x xs) = String.concat x (Kind.Printer.text xs)

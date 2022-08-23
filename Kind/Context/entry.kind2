@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Context/_.type
+Kind.Context.entry (name: U60) (type: Kind.Term) (vals: (List Kind.Term)) (rest: Kind.Context) : (Kind.Context)

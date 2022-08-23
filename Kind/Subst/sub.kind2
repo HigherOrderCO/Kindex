@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Subst/_.type
+Kind.Subst.sub (term: Kind.Term) (rest: Kind.Subst) : (Kind.Subst)

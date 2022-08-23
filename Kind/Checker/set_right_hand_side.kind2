@@ -1,0 +1,4 @@
+// Set the @Kind.Checker@ to the right hand side mode.
+Kind.Checker.set_right_hand_side (rhs: Bool) : Kind.Checker Unit
+Kind.Checker.set_right_hand_side to_rhs = context => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context depth to_rhs subst eqts errs Unit.new

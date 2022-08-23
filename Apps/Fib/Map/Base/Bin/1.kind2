@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Base/Bin/_.type
+Apps.Fib.Map.Base.Bin.1 (r: Type) (pred: r) : (Apps.Fib.Map.Base.Bin r)

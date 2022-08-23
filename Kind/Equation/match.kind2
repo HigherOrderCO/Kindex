@@ -1,0 +1,3 @@
+// Automatically derived from Kind/Equation/_.type
+Kind.Equation.match (x: (Kind.Equation)) -(p: (x: (Kind.Equation)) Type) (new: (ctx: Kind.Context) (orig: U60) (left: Kind.Term) (right: Kind.Term) (p (Kind.Equation.new ctx orig left right))) : (p x)
+Kind.Equation.match (Kind.Equation.new ctx_ orig_ left_ right_) p new = (new ctx_ orig_ left_ right_)

@@ -1,0 +1,32 @@
+Kind.Context.show.type (name: U60) (type: Kind.Term) (sub: Kind.Subst) (pad: U60): String
+Kind.Context.show.type name type sub pad =
+  Kind.Printer.text [ "- "
+                      (String.pad_right (U60.to_nat pad) ' ' (Kind.Name.show name))
+                      " : "
+                      (String.cut (Kind.Term.show (Kind.Term.fill type sub)))
+                      String.new_line
+                    ]
+
+Kind.Context.show.vals (name: U60) (vals: List Kind.Term) (sub: Kind.Subst) (pad: U60): String
+Kind.Context.show.vals name (List.nil t)           sub pad = String.nil
+Kind.Context.show.vals name (List.cons t val vals) sub pad =
+  Kind.Printer.text [ (Kind.Printer.color "2")
+                      "- "
+                      (String.pad_right (U60.to_nat pad) ' ' (Kind.Name.show name))
+                      " = "
+                      (String.cut (Kind.Term.show (Kind.Term.fill val sub)))
+                      (Kind.Printer.color "0")
+                      String.new_line
+                      (Kind.Context.show.vals name vals sub pad)
+                    ]
+
+Kind.Context.show.go (ctx: Kind.Context) (subst: Kind.Subst) (pad: U60): String
+Kind.Context.show.go Kind.Context.empty                       sub pad = String.nil
+Kind.Context.show.go (Kind.Context.entry name type vals rest) sub pad =
+  Kind.Printer.text [ (Kind.Context.show.type name type sub pad)
+                      (Kind.Context.show.vals name vals sub pad)
+                      (Kind.Context.show.go rest sub pad)
+                    ]
+
+Kind.Context.show (ctx: Kind.Context) (subst: Kind.Subst): String
+Kind.Context.show ctx subst = Kind.Context.show.go ctx subst (Kind.Context.max_name_length ctx)
