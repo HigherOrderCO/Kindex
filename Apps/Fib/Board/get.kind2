@@ -1,0 +1,78 @@
+Apps.Fib.Board.get (key: Apps.Fib.Board.Key) (map: Apps.Fib.Board) : U120 {
+  Apps.Fib.Board.get11 key map
+} 
+
+Apps.Fib.Board.get00
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get00 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = b0
+Apps.Fib.Board.get00 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = b1
+
+Apps.Fib.Board.get01
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get01 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get00 x b0
+Apps.Fib.Board.get01 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get00 x b1
+
+Apps.Fib.Board.get02
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get02 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get01 x b0
+Apps.Fib.Board.get02 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get01 x b1
+
+Apps.Fib.Board.get03
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get03 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get02 x b0
+Apps.Fib.Board.get03 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get02 x b1
+
+Apps.Fib.Board.get04
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get04 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get03 x b0
+Apps.Fib.Board.get04 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get03 x b1
+
+Apps.Fib.Board.get05
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get05 (Apps.Fib.Map.Base.Qui.0 t x) (Apps.Fib.Map.Qui.tie r q0 q1 q2 q3 q4 ) = Apps.Fib.Board.get04 x q0
+Apps.Fib.Board.get05 (Apps.Fib.Map.Base.Qui.1 t x) (Apps.Fib.Map.Qui.tie r q0 q1 q2 q3 q4 ) = Apps.Fib.Board.get04 x q1
+Apps.Fib.Board.get05 (Apps.Fib.Map.Base.Qui.2 t x) (Apps.Fib.Map.Qui.tie r q0 q1 q2 q3 q4 ) = Apps.Fib.Board.get04 x q2
+Apps.Fib.Board.get05 (Apps.Fib.Map.Base.Qui.3 t x) (Apps.Fib.Map.Qui.tie r q0 q1 q2 q3 q4 ) = Apps.Fib.Board.get04 x q3
+Apps.Fib.Board.get05 (Apps.Fib.Map.Base.Qui.4 t x) (Apps.Fib.Map.Qui.tie r q0 q1 q2 q3 q4 ) = Apps.Fib.Board.get04 x q4
+
+Apps.Fib.Board.get06
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get06 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get05 x b0
+Apps.Fib.Board.get06 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get05 x b1
+
+Apps.Fib.Board.get07
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get07 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get06 x b0
+Apps.Fib.Board.get07 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get06 x b1
+
+Apps.Fib.Board.get08
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get08 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get07 x b0
+Apps.Fib.Board.get08 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get07 x b1
+
+Apps.Fib.Board.get09
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get09 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get08 x b0
+Apps.Fib.Board.get09 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get08 x b1
+
+Apps.Fib.Board.get10
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get10 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get09 x b0
+Apps.Fib.Board.get10 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get09 x b1
+
+Apps.Fib.Board.get11
+(key: Apps.Fib.Map.Key [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2])
+(map: Apps.Fib.Map [Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2] U120) : U120
+Apps.Fib.Board.get11 (Apps.Fib.Map.Base.Bin.0 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get10 x b0
+Apps.Fib.Board.get11 (Apps.Fib.Map.Base.Bin.1 t x) (Apps.Fib.Map.Bin.tie r b0 b1) = Apps.Fib.Board.get10 x b1

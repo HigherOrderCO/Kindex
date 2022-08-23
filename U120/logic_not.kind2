@@ -1,0 +1,2 @@
+U120.logic_not (n: U120) : U120
+U120.logic_not (U120.new hi lo) = U120.new 0 (== (| hi lo) 0)

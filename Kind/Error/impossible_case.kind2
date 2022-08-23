@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Error/_.type
+Kind.Error.impossible_case (ctx: Kind.Context) (orig: U60) (typ: Kind.Term) (term: Kind.Term) : (Kind.Error)

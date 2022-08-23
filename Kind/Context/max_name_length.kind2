@@ -1,0 +1,8 @@
+Kind.Context.max_name_length.aux (ctx: Kind.Context) (acc: U60): U60
+Kind.Context.max_name_length.aux Kind.Context.empty                       acc = acc
+Kind.Context.max_name_length.aux (Kind.Context.entry name type vals rest) acc =
+  Kind.Context.max_name_length.aux rest (U60.max (Nat.to_u60 (String.length (Kind.Name.show name))) acc)
+
+// Finds the longest name in the @Kind.Context@. It's used for pretty printing
+Kind.Context.max_name_length (ctx: Kind.Context) : U60
+Kind.Context.max_name_length ctx = Kind.Context.max_name_length.aux ctx 0

@@ -1,0 +1,4 @@
+// Adds a new entry to the end of the @Kind.Context@
+Kind.Context.extend (prev: Kind.Context) (name: U60) (term: Kind.Term) (ls: List Kind.Term): Kind.Context
+Kind.Context.extend Kind.Context.empty              name type values = Kind.Context.entry name type values Kind.Context.empty
+Kind.Context.extend (Kind.Context.entry n t v rest) name type values = Kind.Context.entry n t v (Kind.Context.extend rest name type values)

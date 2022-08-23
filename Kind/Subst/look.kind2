@@ -1,0 +1,7 @@
+Kind.Subst.look (subst: Kind.Subst) (depth: U60): Maybe Kind.Term
+Kind.Subst.look Kind.Subst.end             0 = Maybe.none
+Kind.Subst.look (Kind.Subst.unfilled rest) 0 = Maybe.none
+Kind.Subst.look (Kind.Subst.sub term rest) 0 = Maybe.some term
+Kind.Subst.look Kind.Subst.end             n = Maybe.none
+Kind.Subst.look (Kind.Subst.unfilled rest) n = Kind.Subst.look rest (- n 1)
+Kind.Subst.look (Kind.Subst.sub term rest) n = Kind.Subst.look rest (- n 1)

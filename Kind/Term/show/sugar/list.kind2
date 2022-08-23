@@ -1,0 +1,18 @@
+List.nil.  : U60
+List.cons. : U60
+
+Kind.Term.show.sugar.list.go (term: Kind.Term): Maybe (List String)
+Kind.Term.show.sugar.list.go (Kind.Term.ct0 List.nil.  orig)                        = Maybe.some List.nil
+Kind.Term.show.sugar.list.go (Kind.Term.ct2 List.cons. orig x0 x1) =
+  do Maybe {
+    ask tail = Kind.Term.show.sugar.list.go x1
+    return List.cons (Kind.Term.show x0) tail
+  }
+Kind.Term.show.sugar.list.go other = Maybe.none
+
+Kind.Term.show.sugar.list (term: Kind.Term): Maybe String
+Kind.Term.show.sugar.list term =
+  do Maybe {
+    ask res  = Kind.Term.show.sugar.list.go term
+    return (Kind.Printer.text ["[" (String.join " " res) "]"])
+  }

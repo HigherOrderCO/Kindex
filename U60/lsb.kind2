@@ -1,0 +1,13 @@
+// Return the index of the least significant set bit
+U60.lsb (n: U60) : Maybe U60
+U60.lsb 0 = Maybe.none
+U60.lsb n = Maybe.some (U60.lsb.go n)
+
+U60.lsb.go (n: U60) : U60
+U60.lsb.go 0 = 0
+U60.lsb.go n =
+  U60.if (& n 1) (
+    0
+  ) (
+    (+ 1 (U60.lsb.go (>> n 1)))
+  )

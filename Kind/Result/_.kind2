@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Result/_.type
+Kind.Result (a: Type) : Type

@@ -1,0 +1,11 @@
+type App.DOM {
+  node
+    (tag: String)
+    (props: List (Pair String String)) // Map(String)
+    (style: List (Pair String String)) // Map(String)
+    (children: List App.DOM) 
+  text
+    (value: String)
+  many
+    (children: List App.DOM)
+}

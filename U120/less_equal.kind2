@@ -1,0 +1,7 @@
+U120.less_equal (a: U120) (b: U120) : Bool
+U120.less_equal (U120.new ahi alo) (U120.new bhi blo) =
+  U60.if (== ahi bhi) (
+    U60.less_equal alo blo
+  ) (
+    U60.less_equal ahi bhi
+  )

@@ -1,0 +1,5 @@
+// Gets all of the equations that are stored inside the @Kind.Checker@.
+Kind.Checker.get_equations : Kind.Checker (List Kind.Equation)
+Kind.Checker.get_equations = context => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context depth rhs subst eqts errs eqts
+

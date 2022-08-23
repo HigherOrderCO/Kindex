@@ -1,0 +1,4 @@
+// Looks inside the @Kind.Subst@ of a @Kind.Checker@
+Kind.Checker.look (index: U60) : Kind.Checker (Maybe Kind.Term)
+Kind.Checker.look index = context => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context depth rhs subst eqts errs (Kind.Subst.look subst index)

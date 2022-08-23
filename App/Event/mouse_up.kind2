@@ -1,2 +1,2 @@
-// Automatically derived from /home/derenash/Wikind/App/Event.type
-App.Event.mouse_up (time: U60) (button: U60) : (App.Event)
+// Automatically derived from App/Event/_.type
+App.Event.mouse_up (button: U60) (mouse_pos: (Pair U60 U60)) : (App.Event)

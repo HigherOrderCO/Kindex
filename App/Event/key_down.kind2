@@ -1,2 +1,2 @@
-// Automatically derived from /home/derenash/Wikind/App/Event.type
-App.Event.key_down (time: U60) (code: U60) : (App.Event)
+// Automatically derived from App/Event/_.type
+App.Event.key_down (code: U60) : (App.Event)

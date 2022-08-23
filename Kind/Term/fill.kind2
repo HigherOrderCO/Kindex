@@ -1,0 +1,42 @@
+// Tries to substitute all of the holes to terms using a @Kind.Subst@.
+Kind.Term.fill (term: Kind.Term) (subst: Kind.Subst): Kind.Term
+Kind.Term.fill term                        Kind.Subst.end = term
+Kind.Term.fill (Kind.Term.typ orig)                   sub = Kind.Term.typ orig
+Kind.Term.fill (Kind.Term.var orig name index)        sub = Kind.Term.var orig name index
+Kind.Term.fill (Kind.Term.all orig name typ body)     sub = Kind.Term.all orig name (Kind.Term.fill typ sub) (x => Kind.Term.fill (body x) sub)
+Kind.Term.fill (Kind.Term.lam orig name body)         sub = Kind.Term.lam orig name (x => Kind.Term.fill (body x) sub)
+Kind.Term.fill (Kind.Term.let orig name expr body)    sub = Kind.Term.eval_let orig name (Kind.Term.fill expr sub) (x => Kind.Term.fill (body x) sub)
+Kind.Term.fill (Kind.Term.ann orig expr typ)          sub = Kind.Term.eval_ann orig (Kind.Term.fill expr sub) (Kind.Term.fill typ sub)
+Kind.Term.fill (Kind.Term.app orig expr typ)          sub = Kind.Term.eval_app orig (Kind.Term.fill expr sub) (Kind.Term.fill typ sub)
+Kind.Term.fill (Kind.Term.hlp orig)                   sub = Kind.Term.hlp orig
+Kind.Term.fill (Kind.Term.u60 orig)                   sub = Kind.Term.u60 orig
+Kind.Term.fill (Kind.Term.num orig num)               sub = Kind.Term.num orig num
+Kind.Term.fill (Kind.Term.op2 orig op left right)     sub = Kind.Term.op2 orig op (Kind.Term.fill left sub) (Kind.Term.fill right sub)
+
+Kind.Term.fill (Kind.Term.ct0 ctid orig)                         sub = Kind.Term.ct0 ctid orig
+Kind.Term.fill (Kind.Term.ct1 ctid orig x0)                      sub = Kind.Term.ct1 ctid orig (Kind.Term.fill x0 sub)
+Kind.Term.fill (Kind.Term.ct2 ctid orig x0 x1)                   sub = Kind.Term.ct2 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub)
+Kind.Term.fill (Kind.Term.ct3 ctid orig x0 x1 x2)                sub = Kind.Term.ct3 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub)
+Kind.Term.fill (Kind.Term.ct4 ctid orig x0 x1 x2 x3)             sub = Kind.Term.ct4 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub)
+Kind.Term.fill (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)          sub = Kind.Term.ct5 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub)
+Kind.Term.fill (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       sub = Kind.Term.ct6 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub)
+Kind.Term.fill (Kind.Term.ct7 ctid orig args)                    sub = Kind.Term.ct7 ctid orig (Kind.Term.fill args sub)
+Kind.Term.fill (Kind.Term.ct8 ctid orig args)                    sub = Kind.Term.ct8 ctid orig (Kind.Term.fill args sub)
+Kind.Term.fill (Kind.Term.fn0 fnid orig)                         sub = Kind.Term.FN0 fnid orig
+Kind.Term.fill (Kind.Term.fn1 fnid orig x0)                      sub = Kind.Term.FN1 fnid orig (Kind.Term.fill x0 sub)
+Kind.Term.fill (Kind.Term.fn2 fnid orig x0 x1)                   sub = Kind.Term.FN2 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub)
+Kind.Term.fill (Kind.Term.fn3 fnid orig x0 x1 x2)                sub = Kind.Term.FN3 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub)
+Kind.Term.fill (Kind.Term.fn4 fnid orig x0 x1 x2 x3)             sub = Kind.Term.FN4 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub)
+Kind.Term.fill (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)          sub = Kind.Term.FN5 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub)
+Kind.Term.fill (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       sub = Kind.Term.FN6 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub)
+Kind.Term.fill (Kind.Term.fn7 fnid orig args)                    sub = Kind.Term.FN7 fnid orig (Kind.Term.fill args sub)
+Kind.Term.fill (Kind.Term.fn8 fnid orig args)                    sub = Kind.Term.FN8 fnid orig (Kind.Term.fill args sub)
+Kind.Term.fill (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)            sub = Kind.Term.args7 (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub)
+Kind.Term.fill (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)         sub = Kind.Term.args8 (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub)
+
+Kind.Term.fill (Kind.Term.hol orig numb) sub =
+  let substRes = Kind.Subst.look sub numb
+  match Maybe substRes {
+    none => Kind.Term.hol orig numb
+    some => Kind.Term.fill substRes.value sub
+  }

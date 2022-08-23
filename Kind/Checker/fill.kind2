@@ -1,0 +1,4 @@
+// Fill the checker context @Kind.Subst@ with an index and value.
+Kind.Checker.fill (index: U60) (val: Kind.Term): Kind.Checker Unit
+Kind.Checker.fill index val = context => depth => rhs => subst => eqts => errs =>
+  (Kind.Result.checked context depth rhs (Kind.Subst.fill subst index val) eqts errs Unit.new)

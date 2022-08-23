@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Error/_.type
+Kind.Error.too_many_arguments (ctx: Kind.Context) (orig: U60) : (Kind.Error)

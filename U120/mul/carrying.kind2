@@ -1,0 +1,34 @@
+U120.mul.carrying (a: U120) (b: U120) : U240
+U120.mul.carrying (U120.new ahi alo) (U120.new bhi blo) =
+  let mul0 = U60.mul.carrying alo blo  // [1 0]
+  let mul1 = U60.mul.carrying alo bhi  // [2 1]
+  let mul2 = U60.mul.carrying ahi blo  // [2 1]
+  let mul3 = U60.mul.carrying ahi bhi  // [3 2]
+
+  // Add up each matching u60 chunk smallest to largest
+
+  // chunk 0
+  let res.lo.lo = U120.low mul0
+
+  // chunk 1
+  let add1.1 = U60.add.overflowing (U120.high mul0)  (U120.low mul1)
+  let add1.2 = U60.add.overflowing (Pair.snd add1.1) (U120.low mul2)
+  let car1.1 = Bool.to_u60 (Pair.fst add1.1)
+  let car1.2 = Bool.to_u60 (Pair.fst add1.2)
+  let carry1 = (+ car1.1 car1.2)
+  let res.lo.hi = Pair.snd add1.2
+
+  // chunk 2
+  let add2.1 = U60.add.overflowing (U120.high mul1)   (U120.high mul2)
+  let add2.2 = U60.add.overflowing (Pair.snd  add2.1) (U120.low  mul3)
+  let add2.3 = U60.add.overflowing (Pair.snd  add2.2) carry1
+  let car2.1 = Bool.to_u60 (Pair.fst add2.1)
+  let car2.2 = Bool.to_u60 (Pair.fst add2.2)
+  let car2.3 = Bool.to_u60 (Pair.fst add2.3)
+  let carry2 = (+ (+ car2.1 car2.2) car2.3)
+  let res.hi.lo = Pair.snd add2.3
+
+  // chunk 3
+  let res.hi.hi = (+ (U120.high mul3) carry2)
+
+  U240.new (U120.new res.hi.hi res.hi.lo) (U120.new res.lo.hi res.lo.lo)

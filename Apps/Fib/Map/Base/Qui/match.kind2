@@ -1,0 +1,7 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Base/Qui/_.type
+Apps.Fib.Map.Base.Qui.match <r: Type> (x: (Apps.Fib.Map.Base.Qui r)) -(p: (x: (Apps.Fib.Map.Base.Qui r)) Type) (0: (pred: r) (p (Apps.Fib.Map.Base.Qui.0 r pred))) (1: (pred: r) (p (Apps.Fib.Map.Base.Qui.1 r pred))) (2: (pred: r) (p (Apps.Fib.Map.Base.Qui.2 r pred))) (3: (pred: r) (p (Apps.Fib.Map.Base.Qui.3 r pred))) (4: (pred: r) (p (Apps.Fib.Map.Base.Qui.4 r pred))) : (p x)
+Apps.Fib.Map.Base.Qui.match r (Apps.Fib.Map.Base.Qui.0 r_ pred_) p 0 1 2 3 4 = (0 pred_)
+Apps.Fib.Map.Base.Qui.match r (Apps.Fib.Map.Base.Qui.1 r_ pred_) p 0 1 2 3 4 = (1 pred_)
+Apps.Fib.Map.Base.Qui.match r (Apps.Fib.Map.Base.Qui.2 r_ pred_) p 0 1 2 3 4 = (2 pred_)
+Apps.Fib.Map.Base.Qui.match r (Apps.Fib.Map.Base.Qui.3 r_ pred_) p 0 1 2 3 4 = (3 pred_)
+Apps.Fib.Map.Base.Qui.match r (Apps.Fib.Map.Base.Qui.4 r_ pred_) p 0 1 2 3 4 = (4 pred_)

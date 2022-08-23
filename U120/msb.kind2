@@ -1,0 +1,3 @@
+U120.msb (n: U120) : Maybe U120
+U120.msb (U120.new 0  lo) = Maybe.map (n => U60.to_u120 n) (U60.msb lo)
+U120.msb (U120.new hi lo) = Maybe.map (n => U60.to_u120 (+ 60 n)) (U60.msb hi)

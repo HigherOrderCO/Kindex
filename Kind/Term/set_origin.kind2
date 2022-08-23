@@ -1,0 +1,32 @@
+Kind.Term.set_origin (new_orig: U60) (term: Kind.Term): Kind.Term
+Kind.Term.set_origin new_origin (Kind.Term.typ old_orig)                        = Kind.Term.typ new_origin
+Kind.Term.set_origin new_origin (Kind.Term.var old_orig name idx)               = Kind.Term.var new_origin name idx
+Kind.Term.set_origin new_origin (Kind.Term.hol old_orig numb)                   = Kind.Term.hol new_origin numb
+Kind.Term.set_origin new_origin (Kind.Term.all old_orig name typ body)          = Kind.Term.all new_origin name typ body
+Kind.Term.set_origin new_origin (Kind.Term.lam old_orig name body)              = Kind.Term.lam new_origin name body
+Kind.Term.set_origin new_origin (Kind.Term.let old_orig name expr body)         = Kind.Term.let new_origin name expr body
+Kind.Term.set_origin new_origin (Kind.Term.ann old_orig expr typ)               = Kind.Term.ann new_origin expr typ
+Kind.Term.set_origin new_origin (Kind.Term.app old_orig func arg)               = Kind.Term.app new_origin func arg
+Kind.Term.set_origin new_origin (Kind.Term.hlp old_orig)                        = Kind.Term.hlp new_origin
+Kind.Term.set_origin new_origin (Kind.Term.u60 old_orig)                        = Kind.Term.u60 new_origin
+Kind.Term.set_origin new_origin (Kind.Term.num old_orig num)                    = Kind.Term.num new_origin num
+Kind.Term.set_origin new_origin (Kind.Term.op2 old_orig op left right)          = Kind.Term.op2 new_origin op left right
+Kind.Term.set_origin new_origin (Kind.Term.ct0 ctid old_orig)                   = Kind.Term.ct0 ctid new_origin
+Kind.Term.set_origin new_origin (Kind.Term.ct1 ctid old_orig x0)                = Kind.Term.ct1 ctid new_origin x0
+Kind.Term.set_origin new_origin (Kind.Term.ct2 ctid old_orig x0 x1)             = Kind.Term.ct2 ctid new_origin x0 x1
+Kind.Term.set_origin new_origin (Kind.Term.ct3 ctid old_orig x0 x1 x2)          = Kind.Term.ct3 ctid new_origin x0 x1 x2
+Kind.Term.set_origin new_origin (Kind.Term.ct4 ctid old_orig x0 x1 x2 x3)       = Kind.Term.ct4 ctid new_origin x0 x1 x2 x3
+Kind.Term.set_origin new_origin (Kind.Term.ct5 ctid old_orig x0 x1 x2 x3 x4)    = Kind.Term.ct5 ctid new_origin x0 x1 x2 x3 x4
+Kind.Term.set_origin new_origin (Kind.Term.ct6 ctid old_orig x0 x1 x2 x3 x4 x5) = Kind.Term.ct6 ctid new_origin x0 x1 x2 x3 x4 x5
+Kind.Term.set_origin new_origin (Kind.Term.ct7 ctid old_orig args)              = Kind.Term.ct7 ctid new_origin args
+Kind.Term.set_origin new_origin (Kind.Term.ct8 ctid old_orig args)              = Kind.Term.ct8 ctid new_origin args
+Kind.Term.set_origin new_origin (Kind.Term.fn0 fnid old_orig)                   = Kind.Term.fn0 fnid new_origin
+Kind.Term.set_origin new_origin (Kind.Term.fn1 fnid old_orig x0)                = Kind.Term.fn1 fnid new_origin x0
+Kind.Term.set_origin new_origin (Kind.Term.fn2 fnid old_orig x0 x1)             = Kind.Term.fn2 fnid new_origin x0 x1
+Kind.Term.set_origin new_origin (Kind.Term.fn3 fnid old_orig x0 x1 x2)          = Kind.Term.fn3 fnid new_origin x0 x1 x2
+Kind.Term.set_origin new_origin (Kind.Term.fn4 fnid old_orig x0 x1 x2 x3)       = Kind.Term.fn4 fnid new_origin x0 x1 x2 x3
+Kind.Term.set_origin new_origin (Kind.Term.fn5 fnid old_orig x0 x1 x2 x3 x4)    = Kind.Term.fn5 fnid new_origin x0 x1 x2 x3 x4
+Kind.Term.set_origin new_origin (Kind.Term.fn6 fnid old_orig x0 x1 x2 x3 x4 x5) = Kind.Term.fn6 fnid new_origin x0 x1 x2 x3 x4 x5
+Kind.Term.set_origin new_origin (Kind.Term.fn7 ctid old_orig args)              = Kind.Term.ct7 ctid new_origin args
+Kind.Term.set_origin new_origin (Kind.Term.fn8 ctid old_orig args)              = Kind.Term.ct8 ctid new_origin args
+

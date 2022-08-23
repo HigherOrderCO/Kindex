@@ -1,0 +1,5 @@
+U120.inc (n: U120) : U120
+U120.inc (U120.new hi lo) =
+  let new_lo = (+ 1 lo)
+  let new_hi = U60.if new_lo (hi) ((+ 1 hi)) // handle overflow on low
+  U120.new new_hi new_lo

@@ -1,2 +1,2 @@
-// Automatically derived from /home/derenash/Wikind/App/Event.type
-App.Event.input (time: U60) (id: String) (text: String) : (App.Event)
+// Automatically derived from App/Event/_.type
+App.Event.input (element: String) (text: String) : (App.Event)

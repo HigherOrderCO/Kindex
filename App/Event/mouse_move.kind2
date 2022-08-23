@@ -1,2 +1,2 @@
-// Automatically derived from /home/derenash/Wikind/App/Event.type
-App.Event.mouse_move (time: U60) (id: String) (mouse_pos: (Pair U60 U60)) : (App.Event)
+// Automatically derived from App/Event/_.type
+App.Event.mouse_move (element: String) (mouse_pos: (Pair U60 U60)) : (App.Event)

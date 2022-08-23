@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Error/_.type
+Kind.Error.invalid_call (ctx: Kind.Context) (orig: U60) : (Kind.Error)

@@ -1,2 +1,2 @@
-// Automatically derived from /home/derenash/Wikind/App/Event.type
-App.Event.init (time: U60) (user: Nat) (info: Nat) : (App.Event)
+// Automatically derived from App/Event/_.type
+App.Event.init : (App.Event)
