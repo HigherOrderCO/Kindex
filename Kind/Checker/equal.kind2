@@ -51,11 +51,11 @@ Kind.Checker.equal (Kind.Term.num a.orig a.num) (Kind.Term.num b.orig b.num) =
   Kind.Checker.pure (U60.equal a.num b.num)
 
 Kind.Checker.equal (Kind.Term.op2 a.orig a.op a.val0 a.val1) (Kind.Term.op2 b.orig b.op b.val0 b.val1) =
-  // TODO: Probably we have to compare operators
   do Kind.Checker {
+    let op   = Kind.Operator.equal a.op b.op
     ask val0 = Kind.Checker.equal a.val0 b.val0
     ask val1 = Kind.Checker.equal a.val1 b.val1
-    return Bool.and val0 val1
+    return Bool.and op (Bool.and val0 val1)
   }
 
 Kind.Checker.equal (Kind.Term.hol a.orig a.numb) b =
