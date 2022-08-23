@@ -58,6 +58,13 @@ Kind.Checker.equal (Kind.Term.op2 a.orig a.op a.val0 a.val1) (Kind.Term.op2 b.or
     return Bool.and op (Bool.and val0 val1)
   }
 
+Kind.Checker.equal (Kind.Term.hol a.orig a.numb) (Kind.Term.hol b.orig b.numb) =
+  if (U60.equal a.numb b.numb) {
+    Kind.Checker.pure Bool.true
+  } else {
+    Kind.Checker.equal.hol a.orig a.numb (Kind.Term.hol b.orig b.numb)
+  }
+
 Kind.Checker.equal (Kind.Term.hol a.orig a.numb) b =
   Kind.Checker.equal.hol a.orig a.numb b
 
