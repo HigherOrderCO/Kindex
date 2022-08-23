@@ -1,5 +1,0 @@
-// Automatically derived from PatriciaMap/_.type
-PatriciaMap.match <a: Type> (x: (PatriciaMap a)) -(p: (x: (PatriciaMap a)) Type) (empty: (p (PatriciaMap.empty a))) (leaf: (key: U60) (value: a) (p (PatriciaMap.leaf a key value))) (branch: (prefix: U60) (branchingbit: U60) (left: (PatriciaMap a)) (right: (PatriciaMap a)) (p (PatriciaMap.branch a prefix branchingbit left right))) : (p x)
-PatriciaMap.match a (PatriciaMap.empty a_) p empty leaf branch = (empty)
-PatriciaMap.match a (PatriciaMap.leaf a_ key_ value_) p empty leaf branch = (leaf key_ value_)
-PatriciaMap.match a (PatriciaMap.branch a_ prefix_ branchingbit_ left_ right_) p empty leaf branch = (branch prefix_ branchingbit_ left_ right_)

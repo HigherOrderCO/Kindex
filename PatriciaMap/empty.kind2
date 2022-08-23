@@ -1,2 +1,0 @@
-// Automatically derived from PatriciaMap/_.type
-PatriciaMap.empty <a: Type> : (PatriciaMap a)

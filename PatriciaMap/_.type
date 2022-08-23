@@ -1,5 +1,0 @@
-type PatriciaMap <a: Type> {
-  empty
-  leaf (key: U60) (value: a)
-  branch (prefix: U60) (branchingbit: U60) (left: (PatriciaMap a)) (right: (PatriciaMap a))
-}
