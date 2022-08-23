@@ -1,3 +1,3 @@
 Nat.div (a: Nat) (b: Nat) : Nat
 Nat.div a Nat.zero = Nat.zero 
-Nat.div a b = (Nat.div_mod a b b Nat.zero)
+Nat.div a b = Pair.fst (Nat.div_mod a b b Nat.zero)
