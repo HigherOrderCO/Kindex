@@ -1,4 +1,4 @@
-Nat.mul.identity_right (a: Nat) : Equal Nat a (Nat.mul a (Nat.succ Nat.zero))
+Nat.mul.identity_right (a: Nat) : Algebra.Laws.right_identity (x => y => Nat.mul x y) (Nat.succ Nat.zero) a
 Nat.mul.identity_right Nat.zero            = Equal.refl
 Nat.mul.identity_right (Nat.succ Nat.zero) = Equal.refl
 Nat.mul.identity_right (Nat.succ a)        =
