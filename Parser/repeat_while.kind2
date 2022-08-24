@@ -1,0 +1,15 @@
+/// Evaluates a parser while a condition parser succeeds. Returns an array of results.
+Parser.repeat_while <a> <b> (cond: Parser a) (prs: Parser b) : Parser (List b) {
+  do Parser {
+    ask cont = Parser.to_bool cond
+    if cont {
+      do Parser {
+        ask head = prs
+        ask tail = Parser.repeat_while cond prs
+        return List.cons head tail
+      }
+    } else {
+      Parser.pure []
+    }
+  }
+}

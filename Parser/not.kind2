@@ -1,0 +1,9 @@
+// Fails when the given parser succeeds and succeeds when it fails
+// Erases any result
+Parser.not <a> (prs: Parser a) : Parser Unit {
+  state =>
+    match Parser.Result res = (prs state) {
+      done => Parser.Result.fail res.state ""
+      fail => Parser.Result.done res.state Unit.new
+    }
+}

@@ -1,4 +1,4 @@
 type Parser.Result <r: Type> {
-  done (code: String) (result: r)
-  fail (message: String)
+  done (state: Parser.State) (result: r)
+  fail (state: Parser.State) (msg: String)
 }

@@ -1,0 +1,7 @@
+// Succeeds if the text starts with the given string
+Parser.string (str: String) : Parser Unit
+Parser.string  String.nil       = Parser.pure Unit.new
+Parser.string (String.cons h t) = do Parser {
+  ask Parser.char h
+  (Parser.string t)
+}

@@ -1,0 +1,13 @@
+// Undoes the last n characters parsed
+Parser.State.backtrack (n: U60) (state: Parser.State) : Parser.State {
+  match Parser.State state {
+    new =>
+      match Pair p = String.reverse_n_over state.back n state.left {
+        new =>
+          let left  = p.snd
+          let back  = p.fst
+          let index = U60.sub.saturating state.index n
+          Parser.State.new left back index
+      }
+  }
+}

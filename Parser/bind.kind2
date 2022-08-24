@@ -1,0 +1,8 @@
+Parser.bind <a: Type> <b: Type> (pa: Parser a) (pb: a -> Parser b) : Parser b {
+  state =>
+    let ra = (pa state)
+    match Parser.Result ra {
+      done => pb ra.result ra.state
+      fail => Parser.Result.fail ra.state ra.msg 
+    }
+}

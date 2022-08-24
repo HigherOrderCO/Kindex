@@ -1,0 +1,7 @@
+Parser.get_index : Parser U60 {
+  state => match Parser.State state {
+    new =>
+      let state = Parser.State.new state.left state.back state.index
+      Parser.Result.done state state.index
+  }
+}

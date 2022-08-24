@@ -1,0 +1,9 @@
+/// Evaluates a list-like parser, with an opener, elements, separator, and closer.
+Parser.list_like <o> <s> <c> <e>
+  (p_open  : Parser o)
+  (p_close : Parser c)
+  (p_sep   : Parser s)
+  (p_elem  : Parser e)
+: Parser (List e) {
+  Parser.between p_open p_close (Parser.sep_by p_sep p_elem)
+}

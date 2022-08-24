@@ -1,4 +1,4 @@
 // Automatically derived from Parser/Result/_.type
-Parser.Result.match <r: Type> (x: (Parser.Result r)) -(p: (x: (Parser.Result r)) Type) (done: (code: String) (result: r) (p (Parser.Result.done r code result))) (fail: (message: String) (p (Parser.Result.fail r message))) : (p x)
-Parser.Result.match r (Parser.Result.done r_ code_ result_) p done fail = (done code_ result_)
-Parser.Result.match r (Parser.Result.fail r_ message_) p done fail = (fail message_)
+Parser.Result.match <r: Type> (x: (Parser.Result r)) -(p: (x: (Parser.Result r)) Type) (done: (state: Parser.State) (result: r) (p (Parser.Result.done r state result))) (fail: (state: Parser.State) (msg: String) (p (Parser.Result.fail r state msg))) : (p x)
+Parser.Result.match r (Parser.Result.done r_ state_ result_) p done fail = (done state_ result_)
+Parser.Result.match r (Parser.Result.fail r_ state_ msg_) p done fail = (fail state_ msg_)

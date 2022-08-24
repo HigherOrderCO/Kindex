@@ -1,0 +1,11 @@
+// Succeeds if the head character satisfies a condition
+Parser.satisfy (cond: Char -> Bool) : Parser Char {
+  do Parser {
+    ask head = Parser.take_char
+    if (cond head) {
+      Parser.pure head
+    } else {
+      Parser.empty ""
+    }
+  }
+}

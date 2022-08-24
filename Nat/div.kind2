@@ -1,3 +1,5 @@
-Nat.div (a: Nat) (b: Nat) : Nat
-Nat.div a Nat.zero = Nat.zero 
-Nat.div a b = (Nat.div_mod a b b Nat.zero)
+// Return the division num/den, rounding down
+// Division by zero returns zero
+Nat.div (num: Nat) (den: Nat) : Nat
+Nat.div num Nat.zero = Nat.zero 
+Nat.div num den      = Pair.fst (Nat.div_mod num den)
