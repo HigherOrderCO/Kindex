@@ -1,2 +1,2 @@
-// Automatically derived from SortableSet/_.type
-SortableSet.new (count: U60) (elem: (List (List U60))) : (SortableSet)
+// Automatically derived from Data/SortableSet/_.type
+Data.SortableSet.new (count: U60) (elem: (List (List U60))) : (Data.SortableSet)

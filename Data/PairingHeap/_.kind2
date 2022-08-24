@@ -1,2 +1,2 @@
-// Automatically derived from PairingHeap/_.type
-PairingHeap : Type
+// Automatically derived from Data/PairingHeap/_.type
+Data.PairingHeap : Type

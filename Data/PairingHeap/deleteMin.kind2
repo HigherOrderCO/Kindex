@@ -1,12 +1,12 @@
 // Delete minimum element
-PairingHeap.deleteMin (pq: PairingHeap) : PairingHeap
-PairingHeap.deleteMin  PairingHeap.empty      =  PairingHeap.empty
-PairingHeap.deleteMin (PairingHeap.tree x hs) = (PairingHeap.mergePairs hs)
+Data.PairingHeap.deleteMin (pq: Data.PairingHeap) : Data.PairingHeap
+Data.PairingHeap.deleteMin  Data.PairingHeap.empty      =  Data.PairingHeap.empty
+Data.PairingHeap.deleteMin (Data.PairingHeap.tree x hs) = (Data.PairingHeap.mergePairs hs)
 
 // Helper function for deleteMin. It merges children heaps in pairs from left to right,
 // then merges the resulting heaps from right to left.
-PairingHeap.mergePairs (xs: (List PairingHeap)) : PairingHeap
-PairingHeap.mergePairs (List.nil  PairingHeap                                 ) = PairingHeap.empty
-PairingHeap.mergePairs (List.cons PairingHeap h  (List.nil  PairingHeap      )) = h
-PairingHeap.mergePairs (List.cons PairingHeap h1 (List.cons PairingHeap h2 hs)) =
-  (PairingHeap.merge (PairingHeap.merge h1 h2) (PairingHeap.mergePairs hs))
+Data.PairingHeap.mergePairs (xs: (List Data.PairingHeap)) : Data.PairingHeap
+Data.PairingHeap.mergePairs (List.nil  t1                        ) = Data.PairingHeap.empty
+Data.PairingHeap.mergePairs (List.cons t1 h  (List.nil  t2      )) = h
+Data.PairingHeap.mergePairs (List.cons t1 h1 (List.cons t2 h2 hs)) =
+  Data.PairingHeap.merge (Data.PairingHeap.merge h1 h2) (Data.PairingHeap.mergePairs hs)

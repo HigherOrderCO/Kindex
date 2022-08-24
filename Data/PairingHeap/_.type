@@ -1,4 +1,4 @@
-type PairingHeap {
+type Data.PairingHeap {
   empty
-  tree (elem: U60) (children: (List PairingHeap))
+  tree (elem: U60) (children: (List Data.PairingHeap))
 }

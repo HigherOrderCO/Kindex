@@ -1,2 +1,2 @@
-SortableSet.elements (set: SortableSet) : (List U60)
-SortableSet.elements (SortableSet.new count elem) = (List.flatten U60 elem)
+Data.SortableSet.elements (set: Data.SortableSet) : (List U60)
+Data.SortableSet.elements (Data.SortableSet.new count elem) = (List.flatten U60 elem)

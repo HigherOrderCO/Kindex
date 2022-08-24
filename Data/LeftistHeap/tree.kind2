@@ -1,2 +1,2 @@
-// Automatically derived from LeftistHeap/_.type
-LeftistHeap.tree (rank: U60) (value: U60) (lft: LeftistHeap) (rgt: LeftistHeap) : (LeftistHeap)
+// Automatically derived from Data/LeftistHeap/_.type
+Data.LeftistHeap.tree (rank: U60) (value: U60) (lft: Data.LeftistHeap) (rgt: Data.LeftistHeap) : (Data.LeftistHeap)
