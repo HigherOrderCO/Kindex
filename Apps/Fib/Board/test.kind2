@@ -1,14 +1,12 @@
-Main : U120 {
-  let map = Apps.Fib.Board.range
-  Test 64 map
+Main : _ {
+  let map  = Apps.Fib.Board.alloc (U120.new 18018797629997120 18018797629997120)
+  // let map  = Apps.Fib.Board.range
+  let map  = Apps.Fib.Board.add_tile 08 05 080 map
+  let map  = Apps.Fib.Board.add_tile 09 05 105 map
+  let map  = Apps.Fib.Board.add_tile 10 05 110 map
+  let map  = Apps.Fib.Board.add_tile 11 05 116 map
+  let map  = Apps.Fib.Board.add_tile 12 05 111 map
+  let show = Apps.Fib.Board.show 0 0 50 50 map
+  show
 }
-
-Test (n: U60) (map: Apps.Fib.Board) : U120
-Test 0 map = U120.new 0 0
-Test n map = U120.add (Apps.Fib.Map.get U120 Apps.Fib.Board.Bases (Apps.Fib.Board.Key.from_u60 n) map) (Test (- n 1) map)  
-
-//   Board.get               Map.get 
-// 2048 = 10259046      2048 = 10261094
-// 1024 =  3209201      1024 = 3210225
-// 64   =   124214        64 = 
 
