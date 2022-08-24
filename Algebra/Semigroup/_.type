@@ -3,6 +3,6 @@
 //
 // - forall a b c, (a * b) * c = a * (b * c) (Associativity)
 //
-type Algebra.Semigroup (t: Type) {
+type Algebra.Semigroup <t: Type> {
   new (magma: Algebra.Magma t) (associativity: Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))
 }

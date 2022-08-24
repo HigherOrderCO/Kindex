@@ -4,6 +4,6 @@
 // - forall a    , a = a * e                 (Right identity)
 // - forall a    , a = e * a                 (Left identity)
 //
-type Algebra.Monoid (t: Type) {
+type Algebra.Monoid <t: Type> {
   new (sg: Algebra.Semigroup t) (empty: t) (identity: Algebra.Laws.Identity t (Algebra.Semigroup.concat sg) empty)
 }

@@ -1,2 +1,2 @@
 // Automatically derived from Algebra/Laws/Identity/_.type
-Algebra.Laws.Identity.new <t: Type> (concat: (_: t) (_: t) t) (empty: t) (left_identity: (x: t) (Equal x (concat empty x))) (right_identity: (x: t) (Equal x (concat x empty))) : (Algebra.Laws.Identity t concat empty)
+Algebra.Laws.Identity.new <t: Type> <concat: (_: t) (_: t) t> <empty: t> (left_identity: (x: t) (Equal x (concat empty x))) (right_identity: (x: t) (Equal x (concat x empty))) : (Algebra.Laws.Identity t concat empty)

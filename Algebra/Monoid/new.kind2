@@ -1,2 +1,2 @@
 // Automatically derived from Algebra/Monoid/_.type
-Algebra.Monoid.new (t: Type) (sg: (Algebra.Semigroup t)) (empty: t) (identity: (Algebra.Laws.Identity t (Algebra.Semigroup.concat sg) empty)) : (Algebra.Monoid t)
+Algebra.Monoid.new <t: Type> (sg: (Algebra.Semigroup t)) (empty: t) (identity: (Algebra.Laws.Identity t (Algebra.Semigroup.concat sg) empty)) : (Algebra.Monoid t)
