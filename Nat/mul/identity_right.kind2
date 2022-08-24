@@ -1,0 +1,7 @@
+Nat.mul.identity_right (a: Nat) : Equal Nat a (Nat.mul a (Nat.succ Nat.zero))
+Nat.mul.identity_right Nat.zero            = Equal.refl
+Nat.mul.identity_right (Nat.succ Nat.zero) = Equal.refl
+Nat.mul.identity_right (Nat.succ a)        =
+  let f = Equal.apply (x => Nat.succ x) (Nat.mul.identity_right a)
+  let g = Equal.mirror (Nat.add.comm (Nat.mul a (Nat.succ Nat.zero)) (Nat.succ Nat.zero))
+  Equal.chain f g
