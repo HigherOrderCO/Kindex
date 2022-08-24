@@ -1,0 +1,5 @@
+String.concat.assoc (xs: String) (ys: String) (zs: String) : Equal (String.concat xs (String.concat ys zs)) (String.concat (String.concat xs ys) zs)
+String.concat.assoc (String.nil) ys zs       = Equal.refl
+String.concat.assoc (String.cons x xs) ys zs =
+  let ind = String.concat.assoc xs ys zs
+  Equal.apply (xs => String.cons x xs) ind
