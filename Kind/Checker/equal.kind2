@@ -11,14 +11,14 @@ Kind.Checker.equal (Kind.Term.all a.orig a.name a.type a.body) (Kind.Term.all b.
   do Kind.Checker {
     ask dep  = Kind.Checker.get_depth
     ask type = Kind.Checker.equal a.type b.type
-    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null Null
+    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null []
     return (Bool.and type body)
   }
 
 Kind.Checker.equal (Kind.Term.lam a.orig a.name a.body) (Kind.Term.lam b.orig b.name b.body) =
   do Kind.Checker {
     ask dep  = Kind.Checker.get_depth
-    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null Null
+    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null []
     return body
   }
 
@@ -33,7 +33,7 @@ Kind.Checker.equal (Kind.Term.let a.orig a.name a.expr a.body) (Kind.Term.let b.
   do Kind.Checker {
     ask dep  = Kind.Checker.get_depth
     ask expr = Kind.Checker.equal a.expr b.expr
-    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null Null
+    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null []
     return (Bool.and expr body)
   }
 
