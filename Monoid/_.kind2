@@ -1,2 +1,0 @@
-// Automatically derived from Monoid/_.type
-Monoid (t: Type) : Type

@@ -1,3 +1,0 @@
-// Automatically derived from Monoid/_.type
-Monoid.match <t: Type> (x: (Monoid t)) -(p: (x: (Monoid t)) Type) (new: (concat: (_: t) (_: t) t) (empty: t) (assoc: (a: t) (b: t) (c: t) (Equal (concat a (concat b c)) (concat (concat a b) c))) (identity_left: (a: t) (Equal (concat empty a) a)) (identity_right: (a: t) (Equal (concat a empty) a)) (p (Monoid.new t concat empty assoc identity_left identity_right))) : (p x)
-Monoid.match t (Monoid.new t_ concat_ empty_ assoc_ identity_left_ identity_right_) p new = (new concat_ empty_ assoc_ identity_left_ identity_right_)

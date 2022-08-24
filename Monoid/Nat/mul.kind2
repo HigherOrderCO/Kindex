@@ -1,8 +1,0 @@
-Monoid.Nat.mul : Monoid Nat
-Monoid.Nat.mul =
-  (Monoid.new
-    (xs => ys => Nat.mul xs ys)
-    (Nat.succ Nat.zero)
-    (xs => ys => zs => Nat.mul.assoc xs ys zs)
-    (b => Equal.refl)
-    (b => Equal.mirror (Nat.mul.identity_right b)))
