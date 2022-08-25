@@ -8,12 +8,9 @@ Kind.Checker.unify checker =
   }
 
 Kind.Checker.unify.go (equations: List Kind.Equation) (unsolved: List Kind.Equation) (changed: Bool): Kind.Checker Unit
-Kind.Checker.unify.go (List.nil t) (List.nil t1) changed =
-  Kind.Checker.pure Unit.new
-Kind.Checker.unify.go (List.nil t) unsolved Bool.true =
-  Kind.Checker.unify.go unsolved List.nil Bool.false
-Kind.Checker.unify.go (List.nil t) unsolved Bool.false =
-  Kind.Checker.unify.go.fail unsolved
+Kind.Checker.unify.go (List.nil t) (List.nil t1) changed = Kind.Checker.pure Unit.new
+Kind.Checker.unify.go (List.nil t) unsolved Bool.true    = Kind.Checker.unify.go unsolved List.nil Bool.false
+Kind.Checker.unify.go (List.nil t) unsolved Bool.false   = Kind.Checker.unify.go.fail unsolved
 Kind.Checker.unify.go (List.cons t (Kind.Equation.new ctx orig left right) equations) unsolved changed =
   do Kind.Checker {
     ask is_equal = Kind.Checker.equal (Kind.Term.eval left) (Kind.Term.eval right)
