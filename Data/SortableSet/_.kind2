@@ -1,2 +1,2 @@
 // Automatically derived from Data/SortableSet/_.type
-Data.SortableSet : Type
+Data.SortableSet (a: Type) : Type

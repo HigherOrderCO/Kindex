@@ -1,2 +1,2 @@
 // Automatically derived from Data/SortableSet/_.type
-Data.SortableSet.new (count: U60) (elem: (List (List U60))) : (Data.SortableSet)
+Data.SortableSet.new <a: Type> (count: U60) (elem: (List (List a))) (comp: (_: a) (_: a) Bool) : (Data.SortableSet a)

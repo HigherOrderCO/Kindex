@@ -1,3 +1,3 @@
 // Sorts the elements of the Set
-Data.SortableSet.sort (set: Data.SortableSet) : (List U60)
-Data.SortableSet.sort (Data.SortableSet.new count segs) = List.foldl List.nil (x => y => (List.merge_sort.merge (a => b => (U60.to_bool (< a b))) x y)) segs
+Data.SortableSet.sort <a: Type> (set: Data.SortableSet a) : (List a)
+Data.SortableSet.sort t1 (Data.SortableSet.new t2 count segs comp) = List.foldl List.nil (x => y => (List.merge_sort.merge comp x y)) segs
