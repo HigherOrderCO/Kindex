@@ -1,5 +1,5 @@
 // Run parser and modify the result on success
-Parser.fmap <a> <b> (f : a -> b) (prs: Parser a) : Parser b {
+Parser.map <a> <b> (f : a -> b) (prs: Parser a) : Parser b {
   do Parser {
     ask r = prs
     return (f r)

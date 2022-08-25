@@ -1,11 +1,22 @@
 // Succeeds if the head character satisfies a condition
 Parser.satisfy (cond: Char -> Bool) : Parser Char {
-  do Parser {
-    ask head = Parser.take_char
-    if (cond head) {
-      Parser.pure head
-    } else {
-      Parser.empty ""
+  state =>
+    match Parser.State state {
+      new =>
+        match String state.left {
+          nil  => Parser.empty "Unexpected EOF"
+          cons =>
+            // Advance state by 1 char
+            let left  = state.left.tail
+            let back  = String.cons state.left.head state.back
+            let index = (+ 1 state.index)
+            let state  = Parser.State.new left back index
+            // Check condition
+            if (cond state.left.head) {
+              Parser.Result.done state state.left.head
+            } else {
+              Parser.Result.fail state ""
+            }
+        }
     }
-  }
 }
