@@ -1,2 +1,2 @@
-// Automatically derived from RedBlackMap/Color/_.type
-RedBlackMap.Color : Type
+// Automatically derived from Data/RedBlackMap/Color/_.type
+Data.RedBlackMap.Color : Type

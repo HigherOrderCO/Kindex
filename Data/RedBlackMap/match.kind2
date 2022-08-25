@@ -1,4 +1,4 @@
-// Automatically derived from RedBlackMap/_.type
-RedBlackMap.match <a: Type> (x: (RedBlackMap a)) -(p: (x: (RedBlackMap a)) Type) (tip: (p (RedBlackMap.tip a))) (tie: (color: RedBlackMap.Color) (left: (RedBlackMap a)) (key: U60) (val: a) (right: (RedBlackMap a)) (p (RedBlackMap.tie a color left key val right))) : (p x)
-RedBlackMap.match a (RedBlackMap.tip a_) p tip tie = (tip)
-RedBlackMap.match a (RedBlackMap.tie a_ color_ left_ key_ val_ right_) p tip tie = (tie color_ left_ key_ val_ right_)
+// Automatically derived from Data/RedBlackMap/_.type
+Data.RedBlackMap.match <a: Type> (x: (Data.RedBlackMap a)) -(p: (x: (Data.RedBlackMap a)) Type) (tip: (p (Data.RedBlackMap.tip a))) (tie: (color: Data.RedBlackMap.Color) (left: (Data.RedBlackMap a)) (key: U60) (val: a) (right: (Data.RedBlackMap a)) (p (Data.RedBlackMap.tie a color left key val right))) : (p x)
+Data.RedBlackMap.match a (Data.RedBlackMap.tip a_) p tip tie = (tip)
+Data.RedBlackMap.match a (Data.RedBlackMap.tie a_ color_ left_ key_ val_ right_) p tip tie = (tie color_ left_ key_ val_ right_)

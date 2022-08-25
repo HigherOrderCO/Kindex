@@ -1,0 +1,27 @@
+Data.RedBlackMap.get <a: Type> (map: (Data.RedBlackMap a)) (key: U60) : (Maybe a)
+
+Data.RedBlackMap.get a (Data.RedBlackMap.tip b) get_key = (Maybe.none a)
+
+Data.RedBlackMap.get a (Data.RedBlackMap.tie b color left key value right) get_key =
+  Data.RedBlackMap.get.aux (U60.spaceship get_key key) (Data.RedBlackMap.tie color left key value right) get_key
+
+Data.RedBlackMap.get.aux <a: Type> (c: Cmp) (map: (Data.RedBlackMap a)) (key: U60) : (Maybe a)
+
+Data.RedBlackMap.get.aux a Cmp.eql (Data.RedBlackMap.tie b color left key value right) get_key =
+  Maybe.some value
+Data.RedBlackMap.get.aux a Cmp.ltn (Data.RedBlackMap.tie b color left key value right) get_key =
+  Data.RedBlackMap.get left  get_key
+Data.RedBlackMap.get.aux a Cmp.gtn (Data.RedBlackMap.tie b color left key value right) get_key =
+  Data.RedBlackMap.get right get_key
+
+// Data.RedBlackMap.get a (Data.RedBlackMap.tie b color left key value right) get_key =
+//   Cmp.match (U60.spaceship get_key key) Maybe
+//   (Data.RedBlackMap.get left  get_key)
+//   (Maybe.some value)
+//   (Data.RedBlackMap.get right get_key)
+//   let cmp = (U60.spaceship get_key key)
+//   match Maybe cmp {
+//     Cmp.eql => (Maybe.some value)
+//     Cmp.ltn => (Data.RedBlackMap.get left  get_key)
+//     Cmp.gtn => (Data.RedBlackMap.get right get_key)
+//   }

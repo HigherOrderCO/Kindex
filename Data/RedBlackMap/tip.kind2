@@ -1,2 +1,2 @@
-// Automatically derived from RedBlackMap/_.type
-RedBlackMap.tip <a: Type> : (RedBlackMap a)
+// Automatically derived from Data/RedBlackMap/_.type
+Data.RedBlackMap.tip <a: Type> : (Data.RedBlackMap a)

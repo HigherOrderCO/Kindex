@@ -1,0 +1,18 @@
+Data.RedBlackMap.set <a: Type> (map: (Data.RedBlackMap a)) (key: U60) (value: a) : (Data.RedBlackMap a)
+Data.RedBlackMap.set t1 (Data.RedBlackMap.tip t2) insert_key value =
+  Data.RedBlackMap.tie Data.RedBlackMap.Color.red Data.RedBlackMap.tip insert_key value Data.RedBlackMap.tip
+
+Data.RedBlackMap.set t1 (Data.RedBlackMap.tie t2 color left key value right) set_key set_value =
+  Data.RedBlackMap.set.aux (U60.spaceship set_key key) (Data.RedBlackMap.tie color left key value right) set_key set_value
+
+  Data.RedBlackMap.set.aux <a: Type> (c: Cmp) (map: (Data.RedBlackMap a)) (key: U60) (value: a) : (Data.RedBlackMap a)
+  Data.RedBlackMap.set.aux t1 Cmp.eql   (Data.RedBlackMap.tie t2 color left key value right) set_key set_value =
+    Data.RedBlackMap.tie color left set_key set_value right
+
+  Data.RedBlackMap.set.aux t1 Cmp.ltn  (Data.RedBlackMap.tie t2 color left key value right) set_key set_value =
+    let left = (Data.RedBlackMap.set left set_key set_value)
+    Data.RedBlackMap.balance color left key value right
+
+  Data.RedBlackMap.set.aux t1 Cmp.gtn (Data.RedBlackMap.tie t2 color left key value right) set_key set_value =
+    let right = (Data.RedBlackMap.set right set_key set_value)
+    Data.RedBlackMap.balance color left key value right

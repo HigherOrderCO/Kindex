@@ -1,4 +1,4 @@
-type RedBlackMap <a: Type> {
+type Data.RedBlackMap <a: Type> {
   tip
-  tie (color: RedBlackMap.Color) (left: (RedBlackMap a)) (key: U60) (val: a) (right: (RedBlackMap a))
+  tie (color: Data.RedBlackMap.Color) (left: (Data.RedBlackMap a)) (key: U60) (val: a) (right: (Data.RedBlackMap a))
 }

@@ -1,4 +1,4 @@
-// Automatically derived from RedBlackMap/Color/_.type
-RedBlackMap.Color.match (x: (RedBlackMap.Color)) -(p: (x: (RedBlackMap.Color)) Type) (red: (p (RedBlackMap.Color.red))) (black: (p (RedBlackMap.Color.black))) : (p x)
-RedBlackMap.Color.match (RedBlackMap.Color.red) p red black = (red)
-RedBlackMap.Color.match (RedBlackMap.Color.black) p red black = (black)
+// Automatically derived from Data/RedBlackMap/Color/_.type
+Data.RedBlackMap.Color.match (x: (Data.RedBlackMap.Color)) -(p: (x: (Data.RedBlackMap.Color)) Type) (red: (p (Data.RedBlackMap.Color.red))) (black: (p (Data.RedBlackMap.Color.black))) : (p x)
+Data.RedBlackMap.Color.match (Data.RedBlackMap.Color.red) p red black = (red)
+Data.RedBlackMap.Color.match (Data.RedBlackMap.Color.black) p red black = (black)
