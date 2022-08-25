@@ -1,6 +1,8 @@
 Kind.Checker.bind.result <a> <b> (result: Kind.Result a) (then: a -> Kind.Checker b) : Kind.Result b
-Kind.Checker.bind.result a b (Kind.Result.checked a1 context depth rhs sub equations errs ret) then = then ret context depth rhs sub equations errs
-Kind.Checker.bind.result a b (Kind.Result.errored a1 context sub errs)                         then = Kind.Result.errored context sub errs
+Kind.Checker.bind.result a b (Kind.Result.checked a1 context depth rhs sub equations errs ret) then =
+  then ret context depth rhs sub equations errs
+Kind.Checker.bind.result a b (Kind.Result.errored a1 context sub errs) then =
+  Kind.Result.errored context sub errs
 
 // The monadic bind operation for @Kind.Checker@
 Kind.Checker.bind <a> <b> (checker: Kind.Checker a) (then: a -> Kind.Checker b) : Kind.Checker b

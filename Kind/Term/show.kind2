@@ -9,10 +9,11 @@ Kind.Term.show.forall orig name type body =
 // Pretty prints a @Kind.Term@ into a string.
 Kind.Term.show (term: Kind.Term): String
 Kind.Term.show term =
-  let sugars = [ (Kind.Term.show.sugar.string term)
-                 (Kind.Term.show.sugar.list   term)
-                 (Kind.Term.show.sugar.sigma  term)
-               ]
+  let sugars =
+    [ (Kind.Term.show.sugar.string term)
+      (Kind.Term.show.sugar.list   term)
+      (Kind.Term.show.sugar.sigma  term)
+    ]
   Maybe.try sugars (Kind.Term.show.go term)
 
 Kind.Term.show.go (term: Kind.Term): String
