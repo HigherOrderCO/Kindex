@@ -1,5 +1,0 @@
-Apps.Fib.Board.Key.from_u60 (n: U60): Apps.Fib.Board.Key {
-  Apps.Fib.Map.Key.from_u60 Apps.Fib.Board.Bases 10240 (% n 10240)
-}
-
-

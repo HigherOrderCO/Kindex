@@ -1,7 +1,0 @@
-type Apps.Fib.Map.Base.Qui (r: Type) {
-  0 (pred: r)
-  1 (pred: r)
-  2 (pred: r)
-  3 (pred: r)
-  4 (pred: r)
-} 

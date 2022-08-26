@@ -1,0 +1,30 @@
+Data.BaseTree.got <v: Type> (bases: List Data.BaseTree.Base) (key: Data.BaseTree.Key bases) (map: Data.BaseTree bases v): Pair (Data.BaseTree bases v) v
+Data.BaseTree.got v (List.nil t) Unit.new val = Pair.new val val
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.2 bs) (Data.BaseTree.Base.Bin.0 k.t ks) (Data.BaseTree.Bin.tie m.t b0 b1) =
+  match Pair res = Data.BaseTree.got v bs ks b0 {
+    new => Pair.new (Data.BaseTree.Bin.tie m.t res.fst b1) res.snd
+  }
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.2 bs) (Data.BaseTree.Base.Bin.1 k.t ks) (Data.BaseTree.Bin.tie m.t b0 b1) =
+  match Pair res = Data.BaseTree.got v bs ks b1 {
+    new => Pair.new (Data.BaseTree.Bin.tie m.t b0 res.fst) res.snd
+  }
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.5 bs) (Data.BaseTree.Base.Qui.0 k.t ks) (Data.BaseTree.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.BaseTree.got v bs ks b0 {
+    new => Pair.new (Data.BaseTree.Qui.tie m.t res.fst b1 b2 b3 b4) res.snd
+  }
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.5 bs) (Data.BaseTree.Base.Qui.1 k.t ks) (Data.BaseTree.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.BaseTree.got v bs ks b1 {
+    new => Pair.new (Data.BaseTree.Qui.tie m.t b0 res.fst b2 b3 b4) res.snd
+  }
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.5 bs) (Data.BaseTree.Base.Qui.2 k.t ks) (Data.BaseTree.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.BaseTree.got v bs ks b2 {
+    new => Pair.new (Data.BaseTree.Qui.tie m.t b0 b1 res.fst b3 b4) res.snd
+  }
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.5 bs) (Data.BaseTree.Base.Qui.3 k.t ks) (Data.BaseTree.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.BaseTree.got v bs ks b3 {
+    new => Pair.new (Data.BaseTree.Qui.tie m.t b0 b1 b2 res.fst b4) res.snd
+  }
+Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.5 bs) (Data.BaseTree.Base.Qui.4 k.t ks) (Data.BaseTree.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.BaseTree.got v bs ks b4 {
+    new => Pair.new (Data.BaseTree.Qui.tie m.t b0 b1 b2 b3 res.fst) res.snd
+  }

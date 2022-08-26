@@ -1,8 +1,0 @@
-Apps.Fib.Board.Bases : List Apps.Fib.Map.Base {
-  [
-    // y, from most signficant to the least significant digit
-    Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.5
-    // x, from most signficant to the least significant digit
-    Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2 Apps.Fib.Map.Base.2               
-  ]
-}

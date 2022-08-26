@@ -1,4 +1,0 @@
-type Apps.Fib.Map.Base.Bin (r: Type) {
-  0 (pred: r)
-  1 (pred: r)
-} 

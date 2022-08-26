@@ -1,0 +1,9 @@
+Data.BaseTree.alloc <val: Type> (bases: List Data.BaseTree.Base) (default: val): Data.BaseTree bases val 
+Data.BaseTree.alloc val (List.nil b) default =
+  default
+Data.BaseTree.alloc val (List.cons b Data.BaseTree.Base.2 t) default =
+  let m = Data.BaseTree.alloc val t default
+  Data.BaseTree.Bin.tie (Data.BaseTree t val) m m
+Data.BaseTree.alloc val (List.cons b Data.BaseTree.Base.5 t) default = 
+  let m = Data.BaseTree.alloc val t default
+  Data.BaseTree.Qui.tie (Data.BaseTree t val) m m m m m
