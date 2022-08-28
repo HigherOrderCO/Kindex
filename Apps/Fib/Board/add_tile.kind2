@@ -1,0 +1,15 @@
+Apps.Fib.Board.add_tile (x: U60) (y: U60) (tile: U60) (map: Apps.Fib.Board) : Apps.Fib.Board {
+  let key  = (+ (/ x 10) (* y 32))
+  let key  = Apps.Fib.Board.Key.from_u60 key
+  let pos  = (% x 10)
+  let func = (chunk: U120) => Apps.Fib.Board.add_tile.aux pos tile chunk
+  Apps.Fib.Map.mut U120 Apps.Fib.Board.Bases map key func
+}
+
+Apps.Fib.Board.add_tile.aux (x: U60) (tile: U60) (chunk: U120) : U120 {
+  let shl = (n: U60) => U120.shift_left (U120.new 0 n) (U120.new 0 (* x 12))
+  let res = U120.bitwise_or (U120.bitwise_and (U120.bitwise_complement (shl 4095)) chunk) (shl tile)
+  res
+}
+
+
