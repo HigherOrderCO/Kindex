@@ -1,0 +1,18 @@
+Data.RedBlackTree.set <k: Type> <v: Type> (map: Data.RedBlackTree k v) (key: k) (value: v) : Data.RedBlackTree k v
+Data.RedBlackTree.set k1 v1 (Data.RedBlackTree.tip k2 v2 comp) insert_key value =
+  Data.RedBlackTree.tie Data.RedBlackTree.Color.red (Data.RedBlackTree.tip comp) insert_key value (Data.RedBlackTree.tip comp) comp
+
+Data.RedBlackTree.set k1 v1 (Data.RedBlackTree.tie k2 v2 color left key value right comp) set_key set_value =
+  Data.RedBlackTree.set.aux (comp set_key key) (Data.RedBlackTree.tie color left key value right comp) set_key set_value
+
+Data.RedBlackTree.set.aux <k: Type> <v: Type> (c: Cmp) (map: Data.RedBlackTree k v) (key: k) (value: v) : Data.RedBlackTree k v
+Data.RedBlackTree.set.aux k1 v1 Cmp.eql (Data.RedBlackTree.tie k2 v2 color left key value right comp) set_key set_value =
+  Data.RedBlackTree.tie color left set_key set_value right comp
+
+Data.RedBlackTree.set.aux k1 v1 Cmp.ltn (Data.RedBlackTree.tie k2 v2 color left key value right comp) set_key set_value =
+  let left = (Data.RedBlackTree.set left set_key set_value)
+  Data.RedBlackTree.balance color left key value right comp
+
+Data.RedBlackTree.set.aux k1 v1 Cmp.gtn (Data.RedBlackTree.tie k2 v2 color left key value right comp) set_key set_value =
+  let right = (Data.RedBlackTree.set right set_key set_value)
+  Data.RedBlackTree.balance color left key value right comp

@@ -1,0 +1,17 @@
+// Adds an element to the Set
+// How: transforms the element into a singleton list (a segment)
+// and insert that segment into the list of segments
+Data.SortableSet.add <a: Type> (x: a) (set: Data.SortableSet a) : Data.SortableSet a
+Data.SortableSet.add a x (Data.SortableSet.new b size segs comp) =
+  (Data.SortableSet.new (+ size 1) (InsertSeg (List.cons x List.nil) segs size comp) comp)
+
+// Auxiliary function for add:
+// It inserts a list (segment) into the list of segments, merging when necessary
+InsertSeg <a: Type> (seg: (List a)) (segs: (List (List a))) (size: U60) (comp: a -> a -> Bool): (List (List a))
+InsertSeg a seg (List.nil  t     ) size comp = (List.cons t seg (List.nil t))
+InsertSeg a seg (List.cons t x xs) size comp =
+  (U60.if
+    (% size 2)
+    (InsertSeg (List.merge_sort.merge comp seg x) xs (>> size 1) comp)
+    (List.cons t seg (List.cons t x xs))
+  )

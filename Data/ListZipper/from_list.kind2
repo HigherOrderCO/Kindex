@@ -1,0 +1,2 @@
+ListZipper.from_list <a: Type> (xs: (List a)) : (ListZipper a)
+ListZipper.from_list a xs = (ListZipper.new a (List.nil a) xs)

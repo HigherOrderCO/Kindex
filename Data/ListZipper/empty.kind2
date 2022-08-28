@@ -1,0 +1,2 @@
+ListZipper.empty <a: Type> : (ListZipper a)
+ListZipper.empty a = (ListZipper.new a (List.nil a) (List.nil a))

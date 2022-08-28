@@ -1,0 +1,20 @@
+// Inserts a key into the heap
+// It does so by creating a Node with the key and calling InsertTree
+Data.BinomialHeap.insert (x: U60) (pq: Data.BinomialHeap) : Data.BinomialHeap
+Data.BinomialHeap.insert x pq = (InsertTree (Data.BinomialHeap.Node.new 0 x Data.BinomialHeap.nil) pq)
+
+// Inserts a Tree into the heap
+// P.S.: Do not call it manually, you could break the heap structure
+InsertTree (new: Data.BinomialHeap.Node) (pq: Data.BinomialHeap) : Data.BinomialHeap
+
+InsertTree node (List.nil t) =
+  Data.BinomialHeap.cons node Data.BinomialHeap.nil
+
+InsertTree (Data.BinomialHeap.Node.new new_rank new_root new_child) (List.cons t (Data.BinomialHeap.Node.new x_rank x_root x_child) xs) =
+  let node = (Data.BinomialHeap.Node.new new_rank new_root new_child)
+  let heap = (List.cons t (Data.BinomialHeap.Node.new x_rank x_root x_child) xs)
+  InsertTree.aux (U60.less_than new_rank x_rank) node heap
+
+InsertTree.aux (b: Bool) (new: Data.BinomialHeap.Node) (xs: Data.BinomialHeap) : Data.BinomialHeap
+InsertTree.aux Bool.true  new  xs                = Data.BinomialHeap.cons new xs
+InsertTree.aux Bool.false new (List.cons t x xs) = InsertTree (Data.BinomialHeap.Node.link new x) xs
