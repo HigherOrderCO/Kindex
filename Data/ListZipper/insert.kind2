@@ -1,0 +1,2 @@
+ListZipper.insert <a: Type> (x: a) (z: (ListZipper a)) : (ListZipper a)
+ListZipper.insert a x (ListZipper.new t lft rgt) = (ListZipper.new t lft (List.cons a x rgt))

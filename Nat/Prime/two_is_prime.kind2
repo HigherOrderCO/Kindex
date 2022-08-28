@@ -1,0 +1,31 @@
+Two: Nat
+Two = (Nat.succ (Nat.succ Nat.zero))
+
+// Gives you a prime with value == 2
+Nat.two_is_prime: Nat.Prime
+Nat.two_is_prime = (Nat.Prime.new Two (divisor => (Nat.two_is_prime.proof divisor)))
+
+Nat.two_is_prime.proof (divisor: Nat): (Either  (Either (Either
+				(Equal divisor Nat.zero)
+				(Equal divisor (Nat.succ Nat.zero))) 
+				(Equal divisor Two))
+				(Not (Equal Nat.zero (Nat.mod Two divisor)))
+			)
+
+Nat.two_is_prime.proof Nat.zero = Either.left (Either.left (Either.left Equal.refl))
+Nat.two_is_prime.proof (Nat.succ Nat.zero) = Either.left (Either.left (Either.right Equal.refl))
+Nat.two_is_prime.proof (Nat.succ (Nat.succ Nat.zero)) = Either.left (Either.right Equal.refl)
+Nat.two_is_prime.proof (Nat.succ (Nat.succ (Nat.succ a))) = 
+	Either.right ((x => ((Nat.two_is_prime.contradict a x))) :: (Equal Nat Nat.zero (Nat.sub (Nat.succ (Nat.succ a)) a)) -> Empty)
+	
+Nat.two_is_prime.contradict (a: Nat) (e: Equal Nat Nat.zero (Nat.sub (Nat.succ (Nat.succ a)) a)): Empty
+Nat.two_is_prime.contradict a e =
+	// e :: 0 == ((2 + a) - a)
+	// ((2 + a) - a) == 2
+	let f = Nat.sub.add_reverse a Two
+	// Therefore,
+	// 0 == 2
+	let f = (Equal.chain e (Equal.mirror f))
+	// This is false
+	Nat.zero_not_succ f
+	

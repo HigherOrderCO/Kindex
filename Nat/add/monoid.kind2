@@ -1,0 +1,6 @@
+Nat.add.monoid : Algebra.Monoid Nat
+Nat.add.monoid =
+  (Algebra.Monoid.new
+    Nat.add.semigroup
+    Nat.zero
+    Nat.add.identity)

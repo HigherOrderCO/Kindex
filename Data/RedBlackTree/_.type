@@ -1,0 +1,4 @@
+type Data.RedBlackTree <k: Type> <v: Type> {
+  tip (comp: k -> k -> Cmp)
+  tie (color: Data.RedBlackTree.Color) (left: (Data.RedBlackTree k v)) (key: k) (val: v) (right: (Data.RedBlackTree k v)) (comp: k -> k -> Cmp)
+}

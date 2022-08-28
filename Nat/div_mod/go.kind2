@@ -1,8 +1,5 @@
-// num/den = den*quo + rem
-Nat.div_mod.go (den: Nat) (quo: Nat) (rem: Nat) : Pair Nat Nat {
-  if Nat.lte den rem {
-    Nat.div_mod.go den (Nat.succ quo) (Nat.sub rem den)
-  } else {
-    Pair.new quo rem
-  }
-}
+Nat.div_mod.go (a: Nat) (b: Nat) (c: Nat) (z: Nat) : (Pair Nat Nat)
+Nat.div_mod.go  Nat.zero Nat.zero c z = ( Pair.new (Nat.succ z) Nat.zero )
+Nat.div_mod.go  Nat.zero (Nat.succ b.pred) c z = ( Pair.new z (Nat.sub c (Nat.succ b.pred)) )
+Nat.div_mod.go  (Nat.succ a.pred) Nat.zero c z = ( Nat.div_mod.go (Nat.succ a.pred) c c (Nat.succ z) )
+Nat.div_mod.go (Nat.succ a.pred) (Nat.succ b.pred) c z = ( Nat.div_mod.go a.pred b.pred c z )
