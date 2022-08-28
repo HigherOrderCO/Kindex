@@ -1,3 +1,0 @@
-List.range_U60 (n: U60) : (List U60)
-List.range_U60 0 = List.nil
-List.range_U60 n = List.cons n (List.range_U60 (- n 1))

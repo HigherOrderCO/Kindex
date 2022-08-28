@@ -1,0 +1,3 @@
+Data.BinomialHeap.Node.rank_root (n: Data.BinomialHeap.Node) : (Pair U60 U60)
+Data.BinomialHeap.Node.rank_root (Data.BinomialHeap.Node.new rank root children) =
+  (Pair.new rank root)

@@ -1,2 +1,2 @@
-// Automatically derived from BinomialHeap/Node/_.type
-BinomialHeap.Node : Type
+// Automatically derived from Data/BinomialHeap/Node/_.type
+Data.BinomialHeap.Node : Type
