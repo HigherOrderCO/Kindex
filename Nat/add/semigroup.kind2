@@ -1,0 +1,5 @@
+Nat.add.semigroup : Algebra.Semigroup Nat
+Nat.add.semigroup =
+  (Algebra.Semigroup.new
+    Nat.add.magma
+    (a => b => c => Equal.mirror (Nat.add.assoc a b c)))

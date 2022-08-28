@@ -1,6 +1,6 @@
 // Concatenation with empty list preserves the argument
 // xs == xs ++ []
-List.concat.nil_right <a> (xs: List a) : Equal xs (List.concat xs List.nil)
+List.concat.nil_right <a> (xs: List a) : Algebra.Laws.right_identity (x => y => List.concat x y) List.nil xs
 List.concat.nil_right a (List.nil a_) = Equal.refl
 List.concat.nil_right a (List.cons a_ x xs) =
   let ind = List.concat.nil_right xs
