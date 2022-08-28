@@ -1,0 +1,11 @@
+// Proof that Nat.mod is idempotent. a % c == (a % c) % c
+
+Nat.mod.idemp (a: Nat) (b: Nat) : Equal (Nat.mod a b) (Nat.mod (Nat.mod a b) b)
+Nat.mod.idemp a Nat.zero = Equal.refl
+Nat.mod.idemp Nat.zero (Nat.succ b) = 
+	// b - b == 0
+	let e = Nat.sub.equal_zero b
+	// (b - b) % b == 0
+	let e = Equal.apply (x => (Nat.mod x (Nat.succ b))) e
+	// that's our goal
+	e
