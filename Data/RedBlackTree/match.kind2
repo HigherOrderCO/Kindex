@@ -1,0 +1,4 @@
+// Automatically derived from Data/RedBlackTree/_.type
+Data.RedBlackTree.match <k: Type> <v: Type> (x: (Data.RedBlackTree k v)) -(p: (x: (Data.RedBlackTree k v)) Type) (tip: (comp: (_: k) (_: k) Cmp) (p (Data.RedBlackTree.tip k v comp))) (tie: (color: Data.RedBlackTree.Color) (left: (Data.RedBlackTree k v)) (key: k) (val: v) (right: (Data.RedBlackTree k v)) (comp: (_: k) (_: k) Cmp) (p (Data.RedBlackTree.tie k v color left key val right comp))) : (p x)
+Data.RedBlackTree.match k v (Data.RedBlackTree.tip k_ v_ comp_) p tip tie = (tip comp_)
+Data.RedBlackTree.match k v (Data.RedBlackTree.tie k_ v_ color_ left_ key_ val_ right_ comp_) p tip tie = (tie color_ left_ key_ val_ right_ comp_)

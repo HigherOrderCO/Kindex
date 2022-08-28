@@ -1,0 +1,4 @@
+type Data.RedBlackTree.Color {
+  red
+  black
+}

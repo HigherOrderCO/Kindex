@@ -1,4 +1,0 @@
-type Data.RedBlackMap.Color {
-  red
-  black
-}

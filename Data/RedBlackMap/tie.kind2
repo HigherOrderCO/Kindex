@@ -1,2 +1,0 @@
-// Automatically derived from Data/RedBlackMap/_.type
-Data.RedBlackMap.tie <a: Type> (color: Data.RedBlackMap.Color) (left: (Data.RedBlackMap a)) (key: U60) (val: a) (right: (Data.RedBlackMap a)) : (Data.RedBlackMap a)
