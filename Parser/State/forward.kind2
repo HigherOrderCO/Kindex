@@ -1,0 +1,14 @@
+// Moves the state n characters forward
+Parser.State.forward (n: U60) (state: Parser.State) : Parser.State
+Parser.State.forward n (Parser.State.new left back index) =
+  match Pair p = String.reverse_n_over left n back {
+    new =>
+      let new_left  = p.fst
+      let new_back  = p.snd
+      let new_index = if String.is_nil new_left {
+        (+ index (Nat.to_u60 (String.length left)))
+      } else {
+        (+ index n)
+      }
+      Parser.State.new new_left new_back new_index
+  }
