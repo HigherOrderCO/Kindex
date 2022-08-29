@@ -2,15 +2,10 @@ Apps.Fib.Map.set (pos: Apps.Fib.Pos) (id: Apps.Fib.Id) (map: Apps.Fib.Map) : App
   let keys = Apps.Fib.Map.Key.from_pos pos
   let key  = Pair.fst keys 
   let idx  = Pair.snd keys
-  let func = (chunk: U120) => Apps.Fib.Map.set.aux idx id chunk
+  let func = (chunk: U120) => Apps.Fib.set_in_u120 (U120.mul idx (U120.new 0 12)) id chunk
   Data.BaseTree.mut U120 Apps.Fib.Map.Bases map key func
 }
 
-Apps.Fib.Map.set.aux (x: U120) (id: Apps.Fib.Id) (chunk: U120) : U120 {
-  let shl = (n: U120) => U120.shift_left n (U120.mul x (U120.new 0 12))
-  let res = U120.bitwise_or (U120.bitwise_and (U120.bitwise_complement (shl (U120.new 0 4095))) chunk) (shl id)
-  res
-}
 
 // Apps.Fib.Map.set (key: Apps.Fib.Map.Key) (chunk: U120) (map: Apps.Fib.Map)  : Apps.Fib.Map {
 //   Apps.Fib.Map.set.11 key chunk map
