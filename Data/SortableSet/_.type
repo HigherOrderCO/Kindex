@@ -1,0 +1,3 @@
+type Data.SortableSet <a: Type> {
+  new (count: U60) (elem: (List (List a))) (comp: a -> a -> Bool)
+}

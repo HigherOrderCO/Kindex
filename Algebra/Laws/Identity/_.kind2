@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Laws/Identity/_.type
+Algebra.Laws.Identity (t: Type) (concat: (_: t) (_: t) t) (empty: t) : Type

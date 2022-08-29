@@ -1,0 +1,13 @@
+Data.RedBlackTree.get <k: Type> <v: Type> (map: (Data.RedBlackTree k v)) (key: k) : Maybe v
+Data.RedBlackTree.get k1 v1 (Data.RedBlackTree.tip k2 v2 comp) get_key = Maybe.none
+Data.RedBlackTree.get k1 v1 (Data.RedBlackTree.tie k2 v2 color left key value right comp) get_key =
+  Data.RedBlackTree.get.aux (comp get_key key) (Data.RedBlackTree.tie color left key value right comp) get_key
+
+
+Data.RedBlackTree.get.aux <k: Type> <v: Type> (c: Cmp) (map: (Data.RedBlackTree k v)) (key: k) : Maybe v
+Data.RedBlackTree.get.aux k1 v1 Cmp.eql (Data.RedBlackTree.tie k2 v2 color left key value right comp) get_key =
+  Maybe.some value
+Data.RedBlackTree.get.aux k1 v1 Cmp.ltn (Data.RedBlackTree.tie k2 v2 color left key value right comp) get_key =
+  Data.RedBlackTree.get left  get_key
+Data.RedBlackTree.get.aux k1 v1 Cmp.gtn (Data.RedBlackTree.tie k2 v2 color left key value right comp) get_key =
+  Data.RedBlackTree.get right get_key

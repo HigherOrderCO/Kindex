@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Laws/Inverse/_.type
+Algebra.Laws.Inverse (t: Type) (concat: (_: t) (_: t) t) (inverse: (_: t) t) (empty: t) : Type

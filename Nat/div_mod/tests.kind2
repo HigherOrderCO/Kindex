@@ -1,0 +1,4 @@
+Nat.div_mod.tests.1: (Equal (Nat.div_mod (U60.to_nat 8) (U60.to_nat 2)) (Pair.new (U60.to_nat 4) (U60.to_nat 0)))
+Nat.div_mod.tests.1 = Equal.refl
+Nat.div_mod.tests.2: (Equal (Nat.div_mod (U60.to_nat 9) (U60.to_nat 4)) (Pair.new (U60.to_nat 2) (U60.to_nat 1)))
+Nat.div_mod.tests.2 = Equal.refl

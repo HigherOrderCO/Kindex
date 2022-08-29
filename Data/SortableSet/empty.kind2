@@ -1,0 +1,3 @@
+// Constructs an empty Sorted Set
+Data.SortableSet.empty <a: Type> (comp: a -> a -> Bool) : Data.SortableSet a
+Data.SortableSet.empty a comp = (Data.SortableSet.new 0 (List.nil) comp)

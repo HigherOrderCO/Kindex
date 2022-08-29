@@ -1,0 +1,13 @@
+// Links together two trees with the same rank
+// The tree returned will be the tree with smaller root with:
+//   - the other tree as one of its children
+//   - its rank increased by 1
+Data.BinomialHeap.Node.link (n1: Data.BinomialHeap.Node) (n2: Data.BinomialHeap.Node) : Data.BinomialHeap.Node
+Data.BinomialHeap.Node.link (Data.BinomialHeap.Node.new r1 x1 c1) (Data.BinomialHeap.Node.new r2 x2 c2) =
+  Data.BinomialHeap.Node.link.aux (U60.less_than x1 x2) (Data.BinomialHeap.Node.new r1 x1 c1) (Data.BinomialHeap.Node.new r2 x2 c2)
+
+Data.BinomialHeap.Node.link.aux (c: Bool) (n1: Data.BinomialHeap.Node) (n2: Data.BinomialHeap.Node) : Data.BinomialHeap.Node
+Data.BinomialHeap.Node.link.aux Bool.true  (Data.BinomialHeap.Node.new r1 x1 c1) n2 =
+  Data.BinomialHeap.Node.new (+ r1 1) x1 (Data.BinomialHeap.cons n2 c1)
+Data.BinomialHeap.Node.link.aux Bool.false n1 (Data.BinomialHeap.Node.new r2 x2 c2) =
+  Data.BinomialHeap.Node.new (+ r2 1) x2 (Data.BinomialHeap.cons n1 c2)

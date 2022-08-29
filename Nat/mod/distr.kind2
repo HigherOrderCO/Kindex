@@ -1,0 +1,29 @@
+// TODO: Finish this proof!
+
+Nat.mod.distr (a: Nat) (b: Nat) (c: Nat): Equal (Nat.mod (Nat.add (Nat.mod a c) (Nat.mod b c)) c) (Nat.mod (Nat.add a b) c)
+// ((0 % c) + (b + c)) % c == (b % c)
+Nat.mod.distr Nat.zero b c =
+	// 0 % c == 0
+	let e = Equal.mirror (Nat.mod.zero c)
+	// (0 % c) + (b % c) == b % c
+	let e = Equal.apply (x => (Nat.add x (Nat.mod b c))) e
+	// ((0 % c) + (b % c)) % c == (b % c) % c
+	let e = Equal.apply (x => (Nat.mod x c)) e
+	// (b % c) = (b % c) % c
+	let idemp = Nat.mod.idemp b c
+	Equal.chain e (Equal.mirror idemp)
+
+Nat.mod.distr a Nat.zero c = 
+	// 0 % c == 0
+	let e = Equal.mirror (Nat.mod.zero c)
+	// (0 % c) + (a % c) == a % c
+	let e = Equal.apply (x => (Nat.add (Nat.mod a c) x)) e
+	// ((0 % c) + (a % c)) % c == (a % c) % c
+	let e = Equal.apply (x => (Nat.mod x c)) e
+	
+	
+	let idemp = Nat.mod.idemp a c
+	let r = Equal.apply (x => (Nat.mod x c)) (Nat.add.comm Nat.zero a)
+	let l = Equal.apply (x => (Nat.mod x c)) (Nat.add.comm (Nat.mod a c) Nat.zero )
+		
+	Equal.chain e (Equal.chain (Equal.chain l (Equal.mirror idemp)) r)
