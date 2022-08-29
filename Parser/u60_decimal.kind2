@@ -2,5 +2,6 @@
 Parser.u60_decimal : Parser U60 {
   let f   = (str: String) => U60.read_decimal str
   let prs = Parser.take_while1 (c => Char.is_decimal c)
-  Parser.fail_on_none (Parser.map f prs)
+  let prs = Parser.fail_on_none (Parser.map f prs)
+  Parser.expecting prs "decimal number"
 }

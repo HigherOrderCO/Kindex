@@ -1,7 +1,0 @@
-Parser.with_err_msg <a> (prs: Parser a) (err_msg: String) : Parser a {
-  state =>
-    match Parser.Result r = (prs state) {
-      done => Parser.Result.done r.state r.result
-      fail => Parser.Result.fail r.state err_msg
-    }
-}

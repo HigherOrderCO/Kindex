@@ -5,7 +5,7 @@ Parser.fail_on_none <a> (prs: Parser (Maybe a)) : Parser a {
   do Parser {
     ask ma = prs
     match Maybe ma {
-      none => Parser.empty ""
+      none => Parser.empty
       some => Parser.pure ma.value
     }
   }

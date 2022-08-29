@@ -4,7 +4,7 @@ Parser.take_while1 (cond: Char -> Bool) : Parser String {
   do Parser {
     ask r = Parser.take_while cond
     match String r {
-      nil  => Parser.empty ""
+      nil  => Parser.empty
       cons => Parser.pure (String.cons r.head r.tail)
     }
   }

@@ -1,7 +1,7 @@
 /// Evaluates a parser until a condition parser succeeds. Returns an array of results.
 Parser.repeat_until <a> <b> (cond: Parser a) (prs: Parser b) : Parser (List b) {
   do Parser {
-    ask done = Parser.to_bool cond
+    ask done = Parser.is_some (Parser.try cond)
     if done {
       Parser.pure []
     } else {

@@ -2,25 +2,25 @@
 Parser.look_ahead <a> (prs: Parser a) : Parser a {
   state => match Parser.State state { new =>
     // save initial index
-    let init_idx = state.index
+    let init = state.index
     let state    = Parser.State.new state.left state.back state.index
     // Apply parser
     match Parser.Result res = (prs state) {
       // on success, backtrack and return result
       done => match Parser.State new_state = res.state { new =>
-        let end_idx   = new_state.index
-        let back_n    = (- end_idx init_idx)  // TODO: prove that no parser moves back
+        let last   = new_state.index
+        let back_n    = (- last init)  // TODO: prove that no parser moves back
         let new_state = Parser.State.new new_state.left new_state.back new_state.index
         let old_state = Parser.State.backtrack back_n new_state
         Parser.Result.done old_state res.result
       }
-      // on fail, backtrack and return err msg
+      // on fail, backtrack and propagate fail
       fail => match Parser.State new_state = res.state { new =>
-        let end_idx   = new_state.index
-        let back_n    = (- end_idx init_idx)
+        let last      = new_state.index
+        let back_n    = (- last init)
         let new_state = Parser.State.new new_state.left new_state.back new_state.index
         let old_state = Parser.State.backtrack back_n new_state
-        Parser.Result.fail old_state res.msg
+        Parser.Result.fail old_state res.error
       }
     }
   }

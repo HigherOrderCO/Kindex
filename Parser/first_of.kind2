@@ -2,7 +2,7 @@
 // Backtracks after each failed parser
 // Fails if no parsers succeed
 Parser.first_of <a> (parsers: List (Parser a)) : Parser a
-Parser.first_of a (List.nil  la)           = Parser.empty ""
+Parser.first_of a (List.nil  la)           = Parser.empty
 Parser.first_of a (List.cons la head tail) = 
   do Parser {
     ask ma = Parser.try head

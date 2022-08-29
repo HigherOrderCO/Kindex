@@ -1,21 +1,27 @@
-// Succeeds if the head character satisfies a condition
+// Succeeds if the head character satisfies a condition.
+// This is implemented as the only code-taking primitive of the library.
+// All other functions that consume characters are based on `satisfy`
 Parser.satisfy (cond: Char -> Bool) : Parser Char {
   state =>
     match Parser.State state {
       new =>
         match String state.left {
-          nil  => Parser.empty "Unexpected EOF"
+          nil =>
+            let new_state = Parser.State.new String.nil state.back state.index
+            let error = Parser.Error.new "Unexpected EOF" state.index state.index
+            Parser.Result.fail new_state error
           cons =>
-            // Advance state by 1 char
-            let left  = state.left.tail
-            let back  = String.cons state.left.head state.back
-            let index = (+ 1 state.index)
-            let state  = Parser.State.new left back index
+            let head = state.left.head
+            let old_state = Parser.State.new (String.cons state.left.head state.left.tail) state.back state.index
+            let new_state = Parser.State.forward 1 old_state
+            let index     = (+ 1 state.index)
             // Check condition
-            if (cond state.left.head) {
-              Parser.Result.done state state.left.head
+            if (cond head) {
+              let result = head
+              Parser.Result.done new_state result
             } else {
-              Parser.Result.fail state ""
+              let error = Parser.Error.new "" state.index index
+              Parser.Result.fail new_state error
             }
         }
     }

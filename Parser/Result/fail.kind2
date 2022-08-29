@@ -1,2 +1,2 @@
 // Automatically derived from Parser/Result/_.type
-Parser.Result.fail <r: Type> (state: Parser.State) (msg: String) : (Parser.Result r)
+Parser.Result.fail <r: Type> (state: Parser.State) (error: Parser.Error) : (Parser.Result r)
