@@ -1,1 +1,7 @@
-// afk
+Apps.Fib.Map.got <v: Type> (bases: List Apps.Fib.Map.Base) (key: Apps.Fib.Map.Key bases) (map: Apps.Fib.Map bases v): Pair (Apps.Fib.Map bases v) v
+Apps.Fib.Map.got v (List.nil t) Unit.new val = Pair.new val val
+Apps.Fib.Map.got v (List.cons b.t Apps.Fib.Map.Base.2 bs) (Apps.Fib.Map.Base.Bin.0 k.t ks) (Apps.Fib.Map.Bin.tie m.t b0 b1) =
+  match Pair res = Apps.Fib.Map.got v bs ks b0 {
+    new => Pair.new (Apps.Fib.Map.Bin.tie m.t res.fst b1) res.snd
+  }
+// TODO: continue...

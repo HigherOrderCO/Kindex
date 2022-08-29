@@ -1,9 +1,16 @@
-TestMap (x: U60) (map: Data.PatriciaTree U60): Data.PatriciaTree U60
-TestMap 0 map = map
-TestMap x map = TestMap (- x 1) (Data.PatriciaTree.set U60 map x (* x 2))
+Gen (x: U60) (map: Data.PatriciaTree U60): Data.PatriciaTree U60
+Gen 0 map = map
+Gen x map =
+  Gen (- x 1) (Data.PatriciaTree.set U60 map x (* x 2))
 
-Test : _
-Test = TestMap 1048576 Data.PatriciaTree.empty
+Sum (map: Data.PatriciaTree U60) : U60
+Sum (Data.PatriciaTree.empty t)          = 0
+Sum (Data.PatriciaTree.leaf t k v)       = v
+Sum (Data.PatriciaTree.branch t p b l r) = (+ (Sum l) (Sum r))
 
-Main : _ 
-Main = Data.PatriciaTree.get Test 723401
+//Test : _
+//Test = Gen 1048576 Data.PatriciaTree.empty
+
+Main { 
+  (Sum (Gen 1600 Data.PatriciaTree.empty))
+}
