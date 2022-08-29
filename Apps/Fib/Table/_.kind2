@@ -1,0 +1,3 @@
+Apps.Fib.Table : Type {
+  Data.BaseTree Apps.Fib.Table.Bases Apps.Fib.Entity
+}

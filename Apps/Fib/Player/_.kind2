@@ -1,0 +1,24 @@
+Apps.Fib.Player : Type {
+  Apps.Fib.Entity
+}
+
+// Player : 
+//   U120
+//     xy: u18 - Position
+//     xp: u16 - Experience
+//     hp: u12 - Current Health
+//     s0: u16 - 1st selling slot
+//     s1: u16 - 2nd selling slot
+//     bs: U42 - 42 remaining bits
+//   U120
+//      12 Skills
+//      each skill uses 10 bits
+
+// type sell: 16 bits
+// -  4 bits : skill_id
+// - 12 bits : float_12
+// type float_12: 12 bits
+// - 4 bits mantissa (m)
+// - 8 bits exponent (e)
+// - value = (1/m) * 2 ^ (1 + e)
+// - https://gist.githubusercontent.com/VictorTaelin/81c3f6fffaaf14573728b3100d3d3535/raw/67b5389ffec79edd97fef1203dbce8501cf23649/12-bit-unsigned-floating-point-values.txt

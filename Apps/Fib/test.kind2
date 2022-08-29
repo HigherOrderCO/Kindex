@@ -1,0 +1,22 @@
+Main : _ {
+  let map  = Apps.Fib.Map.alloc
+  let pos  = Apps.Fib.Pos.new (U120.new 0 147) (U120.new 0 22)
+  let p_2  = Apps.Fib.Pos.set_x pos (U120.new 0 139)
+  let p_2  = Apps.Fib.Pos.set_y p_2 (U120.new 0 34)
+  let x    = Apps.Fib.Pos.get_x pos 
+  let y    = Apps.Fib.Pos.get_y pos 
+  let x_2  = Apps.Fib.Pos.get_x p_2
+  let y_2  = Apps.Fib.Pos.get_y p_2 
+  let id   = (U120.new 0 1217)
+  let id2  = (U120.new 0 214)
+  let map  = Apps.Fib.Map.set pos id map
+  let map  = Apps.Fib.Map.set p_2 id2 map
+  let shw  = Apps.Fib.Map.show 130 20 50 20 map
+  let get1 = Apps.Fib.Map.get map pos 
+  let got1 = Pair.snd (Apps.Fib.Map.got map pos)
+  let tbl  = Apps.Fib.Table.alloc
+  let ent  = Pair.new (U120.new 0 1423) (U120.new 0 3561)
+  let tbl  = Apps.Fib.Table.set ent id tbl
+  let got2 = Pair.snd (Apps.Fib.Table.got tbl id)
+  got1
+}

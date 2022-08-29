@@ -1,0 +1,16 @@
+Apps.Fib.Table.Bases : List Data.BaseTree.Base {
+  [
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2
+    Data.BaseTree.Base.2           
+  ]
+}

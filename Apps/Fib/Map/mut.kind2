@@ -1,21 +1,10 @@
-Apps.Fib.Map.mut <val: Type> (bases : List Apps.Fib.Map.Base) (map : Apps.Fib.Map bases val) (key : Apps.Fib.Map.Key bases) (func : val -> val) : Apps.Fib.Map bases val
-  // Last Branch
-Apps.Fib.Map.mut val (List.nil Apps.Fib.Map.Base) end unit func =
-  HVM.log "end" (func end)
-  // Base 2 Branch
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.2 tail) (Apps.Fib.Map.Bin.tie v2 b0 b1) (Apps.Fib.Map.Base.Bin.0 r key) func =
-  Apps.Fib.Map.Bin.tie _ (Apps.Fib.Map.mut val tail b0 key func) b1
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.2 tail) (Apps.Fib.Map.Bin.tie v2 b0 b1) (Apps.Fib.Map.Base.Bin.1 r key) func =
-  Apps.Fib.Map.Bin.tie _ b0 (Apps.Fib.Map.mut val tail b1 key func)
-  // Base 5 Branch
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.5 tail) (Apps.Fib.Map.Qui.tie v2 b0 b1 b2 b3 b4) (Apps.Fib.Map.Base.Qui.0 r key) func =
-  Apps.Fib.Map.Qui.tie _ (Apps.Fib.Map.mut val tail b0 key func) b1 b2 b3 b4
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.5 tail) (Apps.Fib.Map.Qui.tie v2 b0 b1 b2 b3 b4) (Apps.Fib.Map.Base.Qui.1 r key) func =
-  Apps.Fib.Map.Qui.tie _ b0 (Apps.Fib.Map.mut val tail b1 key func) b2 b3 b4
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.5 tail) (Apps.Fib.Map.Qui.tie v2 b0 b1 b2 b3 b4) (Apps.Fib.Map.Base.Qui.2 r key) func =
-  Apps.Fib.Map.Qui.tie _ b0 b1 (Apps.Fib.Map.mut val tail b2 key func) b3 b4
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.5 tail) (Apps.Fib.Map.Qui.tie v2 b0 b1 b2 b3 b4) (Apps.Fib.Map.Base.Qui.3 r key) func =
-  Apps.Fib.Map.Qui.tie _ b0 b1 b2 (Apps.Fib.Map.mut val tail b3 key func) b4
-Apps.Fib.Map.mut val (List.cons Apps.Fib.Map.Base Apps.Fib.Map.Base.5 tail) (Apps.Fib.Map.Qui.tie v2 b0 b1 b2 b3 b4) (Apps.Fib.Map.Base.Qui.4 r key) func =
-  Apps.Fib.Map.Qui.tie _ b0 b1 b2 b3 (Apps.Fib.Map.mut val tail b4 key func)
-
+Apps.Fib.Map.mut (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) (func: U120 -> U120) : Apps.Fib.Map {
+  let keys = Apps.Fib.Map.Key.from_pos pos
+  let key  = Pair.fst keys 
+  let idx  = Pair.snd keys
+  match Pair keys {
+    new => 
+      let func = (chunk: U120) => Apps.Fib.set_in_u120 (U120.mul keys.snd (U120.new 0 12)) (func (Apps.Fib.Map.get_tile chunk keys.snd)) chunk
+      Data.BaseTree.mut U120 Apps.Fib.Map.Bases map keys.fst func
+  }
+}
