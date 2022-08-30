@@ -1,0 +1,25 @@
+Main : _ {
+  // let map  = Apps.Fib.Map.alloc 
+  let map  = Apps.Fib.Map.range
+  let map  = Apps.Fib.Map.set (Apps.Fib.Pos.new (U120.new 0 01) (U120.new 0 05)) (U120.new 0 080) map
+  let map  = Apps.Fib.Map.set (Apps.Fib.Pos.new (U120.new 0 02) (U120.new 0 05)) (U120.new 0 105) map
+  let map  = Apps.Fib.Map.set (Apps.Fib.Pos.new (U120.new 0 03) (U120.new 0 05)) (U120.new 0 110) map
+  let map  = Apps.Fib.Map.set (Apps.Fib.Pos.new (U120.new 0 04) (U120.new 0 05)) (U120.new 0 116) map
+  let map  = Apps.Fib.Map.set (Apps.Fib.Pos.new (U120.new 0 05) (U120.new 0 05)) (U120.new 0 111) map
+  let show = Apps.Fib.Map.show 0 0 15 15 map
+  show
+  // map
+}
+
+// ????,
+// repeating chunks
+
+// 00
+// 33
+// 66
+// 99
+// ?
+
+// 32  - 50  ?
+// 83  - 101 ?
+// 134 - 152

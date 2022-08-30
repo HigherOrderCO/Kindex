@@ -1,0 +1,5 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Base/Bin/_.type
+// TODO: understand?
+Data.BaseTree.Base.Bin.match <r: Type> (x: (Data.BaseTree.Base.Bin r)) -(p: (x: (Data.BaseTree.Base.Bin r)) Type) (0: (pred: r) (p (Data.BaseTree.Base.Bin.0 r pred))) (1: (pred: r) (p (Data.BaseTree.Base.Bin.1 r pred))) : (p x)
+Data.BaseTree.Base.Bin.match r (Data.BaseTree.Base.Bin.0 r_ pred_) p 0 1 = (0 pred_)
+Data.BaseTree.Base.Bin.match r (Data.BaseTree.Base.Bin.1 r_ pred_) p 0 1 = (1 pred_)

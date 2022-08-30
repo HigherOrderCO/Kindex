@@ -1,3 +1,0 @@
-type Apps.Fib.Map.Bin <r: Type> {
-  tie (b0: r) (b1: r) : Apps.Fib.Map.Bin r
-}

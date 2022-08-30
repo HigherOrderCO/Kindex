@@ -1,0 +1,116 @@
+Apps.Fib.Map.set (pos: Apps.Fib.Pos) (id: Apps.Fib.Id) (map: Apps.Fib.Map) : Apps.Fib.Map {
+  let keys = Apps.Fib.Map.Key.from_pos pos
+  let key  = Pair.fst keys 
+  let idx  = Pair.snd keys
+  let func = (chunk: U120) => Apps.Fib.set_in_u120 (U120.mul idx (U120.new 0 12)) id chunk
+  Data.BaseTree.mut U120 Apps.Fib.Map.Bases map key func
+}
+
+
+// Apps.Fib.Map.set (key: Apps.Fib.Map.Key) (chunk: U120) (map: Apps.Fib.Map)  : Apps.Fib.Map {
+//   Apps.Fib.Map.set.11 key chunk map
+// }
+
+// Apps.Fib.Map.set.00 (key: Data.BaseTree.Key [Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.00 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   Data.BaseTree.Bin.tie r chunk right
+// Apps.Fib.Map.set.00 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   Data.BaseTree.Bin.tie r left chunk
+
+// Apps.Fib.Map.set.01 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.01 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.00 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.01 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.00 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.02 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.02 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.01 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.02 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.01 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.03 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.03 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.02 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.03 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.02 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.04 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.04 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.03 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.04 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.03 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.05 (key: Data.BaseTree.Key [Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.05 (Data.BaseTree.Base.Qui.0 t pred) chunk (Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4) =
+//   let b0 = Apps.Fib.Map.set.04 pred chunk b0
+//   Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4
+// Apps.Fib.Map.set.05 (Data.BaseTree.Base.Qui.1 t pred) chunk (Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4) =
+//   let b1 = Apps.Fib.Map.set.04 pred chunk b1
+//   Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4
+// Apps.Fib.Map.set.05 (Data.BaseTree.Base.Qui.2 t pred) chunk (Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4) =
+//   let b2 = Apps.Fib.Map.set.04 pred chunk b2
+//   Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4
+// Apps.Fib.Map.set.05 (Data.BaseTree.Base.Qui.3 t pred) chunk (Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4) =
+//   let b3 = Apps.Fib.Map.set.04 pred chunk b3
+//   Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4
+// Apps.Fib.Map.set.05 (Data.BaseTree.Base.Qui.4 t pred) chunk (Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4) =
+//   let b4 = Apps.Fib.Map.set.04 pred chunk b4
+//   Data.BaseTree.Qui.tie r b0 b1 b2 b3 b4
+
+// Apps.Fib.Map.set.06 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.06 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.05 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.06 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.05 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.07 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.07 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.06 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.07 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.06 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.08 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.08 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.07 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.08 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.07 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.09 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.09 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.08 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.09 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.08 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.10 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.10 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.09 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.10 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.09 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
+// Apps.Fib.Map.set.11 (key: Data.BaseTree.Key [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2]) (chunk: U120) (map: Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120) : Data.BaseTree [Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2] U120
+// Apps.Fib.Map.set.11 (Data.BaseTree.Base.Bin.0 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let left = Apps.Fib.Map.set.10 pred chunk left
+//   Data.BaseTree.Bin.tie r left right
+// Apps.Fib.Map.set.11 (Data.BaseTree.Base.Bin.1 t pred) chunk (Data.BaseTree.Bin.tie r left right) = 
+//   let right = Apps.Fib.Map.set.10 pred chunk right
+//   Data.BaseTree.Bin.tie r left right
+
