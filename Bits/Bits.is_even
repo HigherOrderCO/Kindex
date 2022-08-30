@@ -1,0 +1,2 @@
+Bits.is_even (a: Bits) : Bool 
+Bits.is_even a = (Nat.is_even (Bits.to_nat a))
