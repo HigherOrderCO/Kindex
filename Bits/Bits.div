@@ -1,0 +1,2 @@
+Bits.div (a: Bits) (b: Bits) : Bits 
+Bits.div a b = (Nat.to_bits (Nat.div (Bits.to_nat a) (Bits.to_nat b)))
