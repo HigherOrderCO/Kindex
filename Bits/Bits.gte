@@ -1,0 +1,2 @@
+Bits.gte (a: Bits) (b: Bits) : Bool 
+Bits.gte a b = (Nat.gte (Bits.to_nat a) (Bits.to_nat b))
