@@ -1,0 +1,2 @@
+Bits.eql (a: Bits) (b: Bits) : Bool 
+Bits.eql a b = (Nat.eql ((Bits.to_nat a) (Bits.to_nat b)))
