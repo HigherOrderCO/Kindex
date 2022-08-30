@@ -1,3 +1,0 @@
-// Fixme implement without using Nat
-Bits.gtn (a: Bits) (b: Bits) : Bool 
-Bits.gtn a b = (Nat.gtn (Bits.to_nat a) (Bits.to_nat b))

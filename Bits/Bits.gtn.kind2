@@ -1,0 +1,6 @@
+Bits.gtn (a: Bits) (b: Bits) : Bool 
+Bits.gtn a Bits.e = Bool.true
+Bits.gtn Bits.e b = Bool.false 
+Bits.gtn (Bits.i a) (Bits.i b) = (Bits.gtn a b)
+Bits.gtn (Bits.i a) (Bits.o b) = (Bits.gtn a b)
+Bits.gtn (Bits.o a) (Bits.i b) = (Bits.gtn a b)
