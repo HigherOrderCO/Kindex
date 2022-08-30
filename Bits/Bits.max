@@ -1,0 +1,2 @@
+Bits.max (a: Bits) (b: Bits) : Bits 
+Bits.max a b = (Nat.to_bits (Nat.max (Bits.to_nat a) (Bits.to_nat b)))
