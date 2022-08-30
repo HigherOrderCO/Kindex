@@ -1,0 +1,4 @@
+Bits.dbl (b: Bits) : Bits 
+Bits.dbl Bits.e = Bits.e 
+Bits.dbl (Bits.o b) = (Bits.o (Bits.dbl b))
+Bits.dbl (Bits.i b) = (Bits.i (Bits.o (Bits.dbl b)))
