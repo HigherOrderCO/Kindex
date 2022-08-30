@@ -1,0 +1,2 @@
+Bits.dbl (a: Bits) : Bits 
+Bits.dbl a = (Nat.to_bits (Nat.dbl (Bits.to_nat a)))
