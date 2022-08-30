@@ -1,0 +1,2 @@
+Bits.factorial (a: Bits) : Bits 
+Bits.factorial a = (Nat.to_bits (Nat.factorial (Bits.to_nat a)))
