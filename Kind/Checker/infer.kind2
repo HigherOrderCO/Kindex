@@ -74,7 +74,8 @@ Kind.Checker.infer (Kind.Term.let orig name expr body) =
 
 Kind.Checker.infer (Kind.Term.ann orig expr type) =
   do Kind.Checker {
-    ask Kind.Checker.check expr (Kind.Term.eval type)
+    let type = Kind.Term.eval type
+    ask Kind.Checker.check expr type
     return type
   }
 
