@@ -1,2 +1,3 @@
+// Fixme implement without using Nat
 Bits.gcd (a: Bits) (b: Bits) : Bits 
 Bits.gcd a b = (Nat.to_bits (Nat.gcd ((Bits.to_nat a) (Bits.gcd b))))
