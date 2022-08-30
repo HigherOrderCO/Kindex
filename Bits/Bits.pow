@@ -1,2 +1,3 @@
+// Fixme implement without using Nat
 Bits.pow (a: Bits) (b: Bits) : Bits 
 Bits.pow a b = (Nat.to_bits (Nat.pow (Bits.to_nat a) (Bits.to_nat b)))
