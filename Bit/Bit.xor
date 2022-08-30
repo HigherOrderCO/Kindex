@@ -1,0 +1,3 @@
+Bit.xor (a: Bit) (b: Bit) : Bit 
+Bit.xor Bit.1 b = (Bit.not b)
+Bit.xor Bit.0 b = b
