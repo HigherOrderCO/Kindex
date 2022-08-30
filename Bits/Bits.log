@@ -1,0 +1,2 @@
+Bits.log (a: Bits) (b: Bits) : Bits 
+Bits.log a b = (Nat.to_bits (Nat.log (Bits.to_nat a) (Bits.to_nat b)))
