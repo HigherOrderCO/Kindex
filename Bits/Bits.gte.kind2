@@ -1,0 +1,7 @@
+Bits.gte (a: Bits) (b: Bits) : Bool 
+Bits.gte Bits.e Bits.e = Bool.true 
+Bits.gte a Bits.e = Bool.true 
+Bits.gte Bits.e b = Bool.false 
+Bits.gte (Bits.i a) (Bits.i b) = (Bits.gte a b)
+Bits.gte (Bits.i a) (Bits.o b) = (Bits.gte a b)
+Bits.gte (Bits.o a) (Bits.i b) = (Bits.gte a b)
