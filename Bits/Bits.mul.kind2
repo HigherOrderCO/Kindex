@@ -1,0 +1,7 @@
+Bits.mul  (a: Bits) (b: Bits) : Bits
+Bits.mul  a b = Bits.mul_go  a  b  Bits.e
+
+Bits.mul_go (a: Bits) (b: Bits) (acum: Bits) : Bits
+Bits.mul_go  a Bits.e acum = acum
+Bits.mul_go  a (Bits.o b) acum = Bits.mul_go (Bits.o a) b acum
+Bits.mul_go  a (Bits.i b) acum = Bits.mul_go (Bits.o a) b (Bits.add a acum)
