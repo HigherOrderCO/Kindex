@@ -1,0 +1,7 @@
+Bits.eql (a: Bits) (b: Bits) : Bool
+Bits.eql Bits.e Bits.e = Bool.true
+Bits.eql (Bits.o a) (Bits.o b) = (Bits.eql a b)
+Bits.eql (Bits.o a) (Bits.i b) = (Bits.eql a b)
+Bits.eql (Bits.i a) (Bits.o b) = (Bits.eql a b)
+Bits.eql (Bits.i a) (Bits.i b) = (Bits.eql a b)
+Bits.eql a b = Bool.false
