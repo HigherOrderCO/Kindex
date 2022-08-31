@@ -1,3 +1,7 @@
-// Fixme implement without using Nat
-Bits.sub (a: Bits) (b: Bits) : Bits
-Bits.sub a b = (Nat.to_Bits (Nat.sub (Bits.to_nat a) (Bits.to_nat b)))
+Bits.sub (a: Bits) (b: Bits) : Bits 
+Bits.sub a (Bits.e) = a 
+Bits.sub (Bits.e) b = (Bits.e)
+Bits.sub (Bits.i a) (Bits.i b) = Bits.o (Bits.sub a b)
+Bits.sub (Bits.i a) (Bits.o b) = Bits.i (Bits.sub a b)
+Bits.sub (Bits.o a) (Bits.o b) = Bits.o (Bits.sub a b)
+Bits.sub (Bits.o a) (Bits.i b) = Bits.i (Bits.sub a b)
