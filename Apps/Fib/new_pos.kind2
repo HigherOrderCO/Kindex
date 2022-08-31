@@ -1,0 +1,228 @@
+// This is a draft of Fib's Pos type
+
+// Positions.range (center: Pos) (deltas: List Pos) : List ([pos: Pos] (Apps.Fib.InRange pos))
+// Apps.Fib.Pos.to_key (pos: U120) (inrange: Apps.Fib.InRange pos) : Key ....
+
+// A position is represented as a U120 value. Each coordinate uses 9 bits. For
+// a U120 value to be a valid position, each coordinate must be less than 320.
+// 00000000 00000000 00000000 00000000 00000000
+// 00000000 00000000 00000000 00000000 00000000
+// 00000000 00000000 000000yy yyyyyyyx xxxxxxxx
+Apps.Fib.Pos : Type {
+  [value: U120] (Apps.Fib.Pos.Value.IsValid value)
+}
+
+// A U120 coordinate is valid if it is less than 320
+Apps.Fib.Pos.Coord.IsValid (coord: U120) : Type
+//Apps.Fib.Pos.Coord.IsValid (U120.new 0 0) = Unit
+Apps.Fib.Pos.Coord.IsValid coord = U120.IsLessThan coord (U120.new 0 320)
+
+// A U120 value is a valid position if each coordinate is less than 320.
+Apps.Fib.Pos.Value.IsValid (value: U120) : Type
+//Apps.Fib.Pos.Value.IsValid (U120.new 0 0) = Unit
+Apps.Fib.Pos.Value.IsValid value =
+  let x.chk = Apps.Fib.Pos.Coord.IsValid (Apps.Fib.Pos.Value.get_x value)
+  let y.chk = Apps.Fib.Pos.Coord.IsValid (Apps.Fib.Pos.Value.get_y value)
+  Pair x.chk y.chk
+
+// Gets the x component of a U120 position value.
+Apps.Fib.Pos.Value.get_x (val: U120) : U120 {
+  U120.bitwise_and val (U120.new 0 511)
+}
+
+// Gets the y component of a U120 position value.
+Apps.Fib.Pos.Value.get_y (val: U120) : U120 {
+  U120.bitwise_and (U120.shift_right val (U120.new 0 9)) (U120.new 0 511)
+}
+
+// Creates a U120 value from a x and a y.
+Apps.Fib.Pos.Value.new (x: U120) (y: U120) {
+  U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x
+}
+
+// Creates a position from a x and a y.
+Apps.Fib.Pos.new (x: U120) (y: U120) : Apps.Fib.Pos {
+  let x.val = U120.mod x (U120.new 0 320)
+  let e0    = U120.mod.is_less_than x (U120.new 0 320) Pos.320_is_not_0
+  let y.val = U120.mod y (U120.new 0 320)
+  $ (Apps.Fib.Pos.Value.new x.val y.val)
+    (Pair.new _ _ (Provona x.val y.val e0) ?)
+}
+
+Pos.320_is_not_0 : (Not (Equal U120 (U120.new 0 320) (U120.new 0 0))) {
+  absurd => Equal.rewrite absurd ((x: U120) => if (U120.equal x (U120.new 0 320)) { Unit } else { Empty }) Unit.new
+}
+
+// Apps.Fib.Pos.x.aux (a: U120) (b: U120) : Equal Bool (U120.less_than a b) Bool.true
+
+Provona (x: U120) (y: U120) (e0: Equal Bool (U120.less_than x (U120.new 0 320)) Bool.true) : (Equal Bool (U120.less_than (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x) (U120.new 0 511)) (U120.new 0 320)) Bool.true) {
+  let e1 = U120.and.less_equal_a x (U120.new 0 511)
+  let e2 = U120.IsGreaterThan.chain (U120.bitwise_and x (U120.new 0 511)) x (U120.new 0 320) e1 e0
+  let e3 = U120.or.zero_left (U120.bitwise_and x (U120.new 0 511))
+  let e4 = U120.shift_left.mask_zero y (U120.new 0 9)
+  let e5 = U120.and.pass_or (U120.shift_left y (U120.new 0 9)) x (U120.new 0 511)
+  let e5.1 = Equal.rewrite e4 (k => (Equal U120 _ (U120.bitwise_or k (U120.bitwise_and x (U120.new 0 511))))) e5
+  let e5.2 = Equal.rewrite e3 (k => (Equal U120 _ k)) e5.1
+  let e2.1 = Equal.rewrite (Equal.mirror e5.2) (k => (Equal Bool (U120.less_than k (U120.new 0 320)) _)) e2
+  e2.1
+}
+
+
+
+// (Equal U120 (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x) (U120.new 0 511)))
+// (U120.bitwise_and x (U120.new 0 511))
+// (Equal Bool (U120.less_than (U120.bitwise_and x (U120.new 0 511)) (U120.new 0 320)) Bool.true)
+
+                                                 
+// e4 (k => (Equal U120 _ (U120.bitwise_or k) (U120.bitwise_and x (U120.new 0 511)))) e5
+
+//    (& (| (<< y 9) x) 511) =
+//                             (& x 511) <= x
+                            
+//                             x         = x
+//    (& (| (<< y 9) x) 511)
+
+//   (Equal U120 (U120.bitwise_or (U120.bitwise_and (U120.shift_left y (U120.new 0 9)) (U120.new 0 511)) x) x)
+// (| (& (<< y 9) 511) x)
+
+// (Equal U120
+//   (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x) (U120.new 0 511))
+//   (U120.bitwise_or (U120.bitwise_and (U120.shift_left y (U120.new 0 9)) (U120.new 0 511)) (U120.bitwise_and x (U120.new 0 511))))
+
+// (Equal U120
+//   (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 320))))) (U120.new 0 9)) x) (U120.new 0 511))
+//   (U120.bitwise_or (U120.bitwise_and (U120.shift_left y (U120.new 0 320))))) (U120.new 0 9)) (U120.new 0 511)) (U120.bitwise_and x (U120.new 0 511))))
+
+// (& (| (<< y 9) x) 511) = (| (& (<< y 9) 511) (& x 511))
+// (Equal U120
+  // (U120.bitwise_and (U120.bitwise_or                    (U120.shiftleft                  y U120.new 0 9)) x) (U120.new 0 511))
+    //  (& (| (<< y 9) x) 511) = (| (& (<< y 9) 511) (& x 511))
+    //  (U120.bitwise_or (U120.bitwise_and (U120.shiftleft y U120.new 0 9)) (U120.new 0 511)) (U120.bitwise_and x (U120.new 0 511))
+    //  (| (& (<< y 9) 511) (& x 511))
+// (Equal U120 (U120.bitwise_or (U120.bitwise_and (U120.shift_left y (U120.new 0 9)) (U120.new 0 511)) x) x)
+// (| (& (<< y 9) 511) x) x 
+
+//   (U120.bitwise_or  (U120.bitwise_and (U120.bitwise_and (U120.bitwise_or (U120.shiftleft (Pair.snd   (Maybe.match  (U120.msb y) (msb=>) (Pair.new  _ (U120.new 0 0) (U120.new 0 0)) (msb.value=>(U120.divmod.go (U120.inc msb.value) (Pair.new  _ (U120.new 0 0) (U120.new 0 0)) y (U120.new 0 320))))) (U120.new 0 9)) x) (U120.new 0 511)) (U120.new 0 511)) (U120.bitwise_and x (U120.new 0 511))))
+
+//  (& (| (<< y 9) x) 511) < 320
+//  (| (& (<< y 9) 511) (& x 511)) < 320
+
+// For every a b c: (& (| a b) c) == (| (& a b) (& b c))
+
+// This can be used to build more complex proofs by a
+// Bool.true_not_false (e: (Equal Bool Bool.true Bool.false)) : Empty
+// Bool.true_not_false e = 
+// 	Equal.rewrite e (x => Bool.if Type x Unit Empty) Unit.new
+
+
+
+// (Equal U120 (U120.bitwise_or k x) x)
+// k = U120.bitwise_and (U120.shift_left y (U120.new 0 9)) (U120.new 0 511) 
+
+// (Equal Bool (U120.less_than (U120.bitwise_and x (U120.new 0 511)) (U120.new 0 320)) Bool.true)
+// (Equal Bool (U120.less_than (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x) (U120.new 0 511)) (U120.new 0 320)) Bool.true)
+
+// For every a b c, if a <= b and b < c: a < c
+// U120.IsGreaterThan.chain (a: U120) (b: U120) (c: U120)
+//   (e0: U120.IsLessEqual a b)
+//   (e1: U120.IsLessThan b c)
+// : U120.IsLessThan a c
+
+// Propositional `a <= b`
+// U120.IsLessEqual (a: U120) (b: U120) : Type {
+//   Equal Bool (U120.less_equal a b) Bool.true
+// }
+
+
+// (Equal U120
+//   (U120.bitwise_and (U120.bitwise_or (U120.shift_left (Pair.snd _ _ (Maybe.match _ (U120.msb y) (msb=>_) (Pair.new _ _ (U120.new 0 0) (U120.new 0 0)) (msb.value=>(U120.div_mod.go (U120.inc msb.value) (Pair.new _ _ (U120.new 0 0) (U120.new 0 0)) y (U120.new 0 320))))) (U120.new 0 9)) x) (U120.new 0 511))
+//   (U120.bitwise_or (U120.bitwise_and (U120.bitwise_and (U120.bitwise_or (U120.shift_left (Pair.snd _ _ (Maybe.match _ (U120.msb y) (msb=>_) (Pair.new _ _ (U120.new 0 0) (U120.new 0 0)) (msb.value=>(U120.div_mod.go (U120.inc msb.value) (Pair.new _ _ (U120.new 0 0) (U120.new 0 0)) y (U120.new 0 320))))) (U120.new 0 9)) x) (U120.new 0 511)) (U120.new 0 511)) (U120.bitwise_and x (U120.new 0 511))))
+
+// For every a b c: (& (| a b) c) == (| (& a b) (& b c))
+
+ //(absurd => Equal.rewrite absurd (x => if (U120.equal x (U120.new 0 0)) { Unit } else { Empty }) e)
+  
+// O plano:
+// - e0: (% x 320) < 320                                      // usando U120.mod.is_less_than
+// - e1: (& (% x 320) 511) <= (% x 320)                       // usando U120.and.less_than_a
+// - e2: (& (% x 320) 511) < 320                              // usando U120.IsGreaterThan.chain em e2 e e3
+// - e3: (| 0 (& (% x 320) 511)) < 320                        // usando U120.or.zero_left
+// - e4: (| (& (<< (% y 320) 9) 511) (& (% x 320) 511)) < 320 // usando U120.shift_left.mask_zero
+// - e5: (& (| (<< (% y 320) 9) (% x 320)) 511) < 320         // usando U120.and.pass_or
+// - qed
+
+
+
+// [U120.and.pass_or]          For every a b c:(& (| a b) c) == (| (& a b) (& b c))
+// [U120.shift_left.mask_zero] For every a s: (<< a s) & (- (1 << s) 1) == 0
+// [U120.or.zero_right]        For every a: (| a 0) == a
+// [U120.and.less_than_a]      For every a b: (& a b) <= a
+// [U120.and.less_than_b]      For every a b: (& a b) <= b
+// [U120.mod.is_less_than]     For every a b: (% a b) < b
+// [U120.IsGreaterThan.chain]  For every a b c, if a <= b and b < c: a < c
+
+
+// Apps.Fib.Pos.new.aux0 (x: U120) (y: U120)
+// : (Equal Bool
+//     (U120.less_than
+//       (U120.bitwise_and (U120.bitwise_or (U120.shift_left (U120.mod y (U120.new 0 320)) (U120.new 0 9)) (U120.mod x (U120.new 0 320))) (U120.new 0 511))
+//       (U120.new 0 320))
+//     Bool.true)
+// Apps.Fib.Pos.new.aux0 x y = ?
+
+// // O objetivo #2:
+// // - ?
+// // O plano:
+// // - descubra
+// Apps.Fib.Pos.new.aux1 (x: U120) (y: U120)
+// : (Equal Bool
+//     (U120.less_than
+//       (U120.bitwise_and (U120.shift_right (U120.bitwise_or (U120.shift_left (U120.mod y (U120.new 0 320)) (U120.new 0 9)) (U120.mod x (U120.new 0 320))) (U120.new 0 9)) (U120.new 0 511))
+//       (U120.new 0 320))
+//     Bool.true)
+// Apps.Fib.Pos.new.aux1 x y = ?
+
+// // Gets the x component of a U120 position.
+// Apps.Fib.Pos.get_x (pos: Apps.Fib.Pos) : U120 
+// Apps.Fib.Pos.get_x (Sigma.new p.a p.b value valid) = Apps.Fib.Pos.Value.get_x value
+
+// // Gets the x component of a U120 position.
+// Apps.Fib.Pos.get_y (pos: Apps.Fib.Pos) : U120 
+// Apps.Fib.Pos.get_y (Sigma.new p.a p.b value valid) = Apps.Fib.Pos.Value.get_y value
+
+// Adds two positions
+// a.x + b.x tem que ser menor que 320
+// comportamento = wrap around
+//Apps.Fib.Pos.add (a: Apps.Fib.Pos) (b: Apps.Fib.Pos) : Apps.Fib.Pos
+//Apps.Fib.Pos.add (Sigma.new a.a a.b a.value a.valid) (Sigma.new b.a b.b b.value b.valid) =
+  //let a.x = Apps.Fib.Pos.Value.get_x a.value
+  //let a.y = Apps.Fib.Pos.Value.get_y a.value
+  //let b.x = Apps.Fib.Pos.Value.get_x b.value
+  //let b.y = Apps.Fib.Pos.Value.get_y b.value
+  //let c.x = U120.mod (U120.add a.x b.x) (U120.new 0 320)
+  //let c.y = U120.mod (U120.add a.y b.y) (U120.new 0 320)
+  //Apps.Fib.Pos.new c.x c.y
+
+//Apps.Fib.Pos.add.safe (a: Apps.Fib.Pos) (b: Apps.Fib.Pos) (e: ..............)
+  //let a.x = Apps.Fib.Pos.Value.get_x a.value
+  //let a.y = Apps.Fib.Pos.Value.get_y a.value
+  //let b.x = Apps.Fib.Pos.Value.get_x b.value
+  //let b.y = Apps.Fib.Pos.Value.get_y b.value
+  //let c.x = U120.mod (U120.add a.x b.x) (U120.new 0 320)
+  //let c.y = U120.mod (U120.add a.y b.y) (U120.new 0 320)
+  //let val = .................
+  //$ .........
+//   //  .........
+
+
+//  (& (| (<< (% y 320) 9) (% x 320)) 511) < 320
+
+// (Pair
+//   (Equal Bool 
+//     (U120.less_than
+//       (U120.bitwise_and (U120.bitwise_or (U120.shift_left y.val (U120.new 0 9)) x.val) (U120.new 0 511))
+//       (U120.new 0 320)
+//     )
+//   Bool.true)
+//   (Equal Bool 
+//     (U120.less_than (U120.bitwise_and (U120.shift_right (U120.bitwise_or (U120.shift_left y.val (U120.new 0 9)) x.val) (U120.new 0 9)) (U120.new 0 511)) (U120.new 0 320)) Bool.true))
