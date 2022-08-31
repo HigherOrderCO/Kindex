@@ -1,9 +1,7 @@
-Bits.mul (a: Bits) (b: Bits) : Bits 
-Bits.mul (Bits.i b) (Bits.i(Bits.e)) = Bits.i(Bits.e)
-Bits.mul (Bits.o b) (Bits.i (Bits.e)) = Bits.o(Bits.e)
-Bits.mul (Bits.i b) (Bits.o (Bits.e)) = Bits.o(Bits.e)
-Bits.mul (Bits.o b) (Bits.o (Bits.e)) = Bits.o(Bits.e)
-Bits.mul (Bits.i a) (Bits.i b) = (Bits.add (Bits.mul (Bits.i a) (Bits.i(Bits.e))) (Bits.mul (Bits.i a) b))
-Bits.mul (Bits.o a) (Bits.o b) = (Bits.add (Bits.mul (Bits.o a) (Bits.o(Bits.e))) (Bits.mul (Bits.o a) b))
-Bits.mul (Bits.i a) (Bits.o b) = (Bits.add (Bits.mul (Bits.i a) (Bits.o(Bits.e))) (Bits.mul (Bits.i a) b))
-Bits.mul (Bits.o a) (Bits.i b) = (Bits.add (Bits.mul (Bits.o a) (Bits.i(Bits.e))) (Bits.mul (Bits.o a) b))
+Bits.mul  (a: Bits) (b: Bits) : Bits
+Bits.mul  a b = Bits.mul_go  a  b  Bits.e
+
+Bits.mul_go (a: Bits) (b: Bits) (acum: Bits) : Bits
+Bits.mul_go  a Bits.e acum = acum
+Bits.mul_go  a (Bits.o b) acum = Bits.mul_go (Bits.o a) b acum
+Bits.mul_go  a (Bits.i b) acum = Bits.mul_go (Bits.o a) b (Bits.add a acum)
