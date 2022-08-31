@@ -1,0 +1,2 @@
+Algebra.Laws.Inverse.right_inverse <t> <concat: t -> t -> t> <inverse: t -> t> <empty: t> (id: Algebra.Laws.Inverse t concat inverse empty) : (x: t) -> Equal empty (concat (inverse x) x)
+Algebra.Laws.Inverse.right_inverse t concat inverse empty (Algebra.Laws.Inverse.new t_ concat_ inverse_ empty_ left right) = right

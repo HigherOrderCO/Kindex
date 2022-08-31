@@ -1,0 +1,2 @@
+Algebra.Monoid.empty <t> (monoid: Algebra.Monoid t): t
+Algebra.Monoid.empty t (Algebra.Monoid.new t_ sg empty id) = empty

@@ -1,0 +1,4 @@
+// Get the elements of a pair and apply them to a lambda
+Pair.get <a: Type> <b: Type> <c: Type> (p: (Pair a b)) (fn: a -> b -> c) : c
+
+Pair.get a1 b1 c1 (Pair.new a2 b2 fst snd) fn = (fn fst snd)

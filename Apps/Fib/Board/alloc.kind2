@@ -1,3 +1,0 @@
-Apps.Fib.Board.alloc: Apps.Fib.Board {
-  Apps.Fib.Map.alloc U120 Apps.Fib.Board.Bases (U120.new 0 0)
-}

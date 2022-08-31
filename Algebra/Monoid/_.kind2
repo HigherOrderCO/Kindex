@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Monoid/_.type
+Algebra.Monoid (t: Type) : Type

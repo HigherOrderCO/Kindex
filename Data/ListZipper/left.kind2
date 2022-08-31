@@ -1,0 +1,3 @@
+ListZipper.left <a: Type> (z: (ListZipper a)) : (ListZipper a)
+ListZipper.left a (ListZipper.new b (List.nil  t      ) rgt) = (ListZipper.new (List.nil t) rgt)
+ListZipper.left a (ListZipper.new b (List.cons t x lft) rgt) = (ListZipper.new lft (List.cons t x rgt))

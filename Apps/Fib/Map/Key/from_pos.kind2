@@ -1,0 +1,7 @@
+Apps.Fib.Map.Key.from_pos (pos: Apps.Fib.Pos): Pair Apps.Fib.Map.Key U120 {
+  let x = U120.bitwise_and (U120.new 0 511) pos
+  let y = U120.shift_right pos (U120.new 0 9)
+  let key = U120.low (U120.add (U120.div x (U120.new 0 10)) (U120.mul y (U120.new 0 32)))
+  Pair.new (Data.BaseTree.Key.from_u60 Apps.Fib.Map.Bases 10240 (% key 10240)) (U120.mod x (U120.new 0 10))
+}
+

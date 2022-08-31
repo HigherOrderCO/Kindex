@@ -1,0 +1,3 @@
+// Fixme implement without using Nat
+Bits.is_odd (a: Bits) : Bool 
+Bits.is_odd a = (Nat.is_odd (Bits.to_nat a))

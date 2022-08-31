@@ -1,0 +1,3 @@
+Bit.is_false (a: Bit) : Bit 
+Bit.is_false Bit.0 = Bit.1 
+Bit.is_false Bit.1 = Bit.0

@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Group/_.type
+Algebra.Group (t: Type) : Type

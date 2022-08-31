@@ -1,0 +1,2 @@
+// For every a: (| a 0) == a
+U120.or.zero_right (a: U120) : Equal U120 (U120.bitwise_or a U120.0) a

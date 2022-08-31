@@ -1,2 +1,0 @@
-// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Bin/_.type
-Apps.Fib.Map.Bin.tie <r: Type> (b0: r) (b1: r) : (Apps.Fib.Map.Bin r)

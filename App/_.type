@@ -7,5 +7,5 @@ type App <s: Type> {
     (draw: s -> App.DOM)
 
     // Handles events
-    (when: (event: App.Event) (state: s) -> IO Unit)
+    (when: (event: App.Event) (state: s) -> IO s)
 }

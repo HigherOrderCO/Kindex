@@ -1,0 +1,3 @@
+Apps.Fib.Pos.new (x: U120) (y: U120): Apps.Fib.Pos {
+  U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x
+}

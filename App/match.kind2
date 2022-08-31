@@ -1,3 +1,3 @@
 // Automatically derived from App/_.type
-App.match <s: Type> (x: (App s)) -(p: (x: (App s)) Type) (new: (init: s) (draw: (_: s) App.DOM) (when: (event: App.Event) (state: s) (IO Unit)) (p (App.new s init draw when))) : (p x)
+App.match <s: Type> (x: (App s)) -(p: (x: (App s)) Type) (new: (init: s) (draw: (_: s) App.DOM) (when: (event: App.Event) (state: s) (IO s)) (p (App.new s init draw when))) : (p x)
 App.match s (App.new s_ init_ draw_ when_) p new = (new init_ draw_ when_)
