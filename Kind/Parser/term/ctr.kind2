@@ -1,0 +1,29 @@
+// Parses a constructor
+// ( "(" ctr_name term* ")" ) | (ctr_name)
+Kind.Parser.term.ctr (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = do Parser {
+    ask open = Kind.Parser.skipping (Kind.Parser.token '(')
+    ask        Kind.Parser.skipping (Parser.look_ahead (Parser.satisfy (c => Char.is_upper c)))
+    return open
+  }  // TODO: make the guard return the constructor name
+
+  let body = (open: Bool) => do Parser {
+    ask        Kind.Parser.skipping (Kind.Parser.token '(')
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask args = if open {
+      do Parser {
+        // TODO: This mixed with the "apps" logic is kinda ugly. There must be a way of unifying both
+        ask args = Parser.repeat_until (Parser.look_ahead (Parser.char ')')) Kind.Parser.term
+        ask        Parser.char ')'
+        return args
+      }
+    } else {
+      // TODO: (same as above) It'd be nice if we could somehow find the arguments in this function and not in apps
+      Parser.pure []
+    }
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.ctr orig name args
+  }
+  Kind.Parser.term_guard guard body
+}

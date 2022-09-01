@@ -1,0 +1,18 @@
+// Parses a let statement in a do block
+// "let" var_name "=" apps ";"? term_st
+Kind.Parser.term.st.let (init: U60) : Parser (Maybe ((monad: String) -> Kind.Parser.Term)) {
+  // TODO: Reuse the let parser, don't reimplement
+  let guard = Parser.string "let "
+  let body = (_: Unit) => do Parser {
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask        Kind.Parser.skipping (Parser.char '=')
+    ask expr = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.try (Parser.char ';'))
+    ask body = Kind.Parser.term.st
+    let body = body :: String -> Kind.Parser.Term
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return (monad: String) => Kind.Parser.Term.let orig name expr (body monad)
+  }
+  Kind.Parser.term_guard guard body
+}

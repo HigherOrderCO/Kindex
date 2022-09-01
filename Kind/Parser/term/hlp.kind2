@@ -1,0 +1,12 @@
+// Parses an inspect
+// "?" var_name
+Kind.Parser.term.hlp (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.char '?'
+  let body = (_: Unit) => do Parser {
+    ask name = Kind.Parser.skipping Kind.Parser.name  // TODO: use the name
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.hlp orig
+  }
+  Kind.Parser.term_guard guard body
+}

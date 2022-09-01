@@ -1,0 +1,3 @@
+// Automatically derived from HashMap/_.type
+HashMap.match <k: Type> <v: Type> (x: (HashMap k v)) -(p: (x: (HashMap k v)) Type) (new: (hash_fn: (_: k) U60) (map: (Map v)) (p (HashMap.new k v hash_fn map))) : (p x)
+HashMap.match k v (HashMap.new k_ v_ hash_fn_ map_) p new = (new hash_fn_ map_)

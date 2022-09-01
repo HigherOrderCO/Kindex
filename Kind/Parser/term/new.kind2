@@ -1,0 +1,14 @@
+// Parses a Sigma.new sugar
+// "$" term term
+Kind.Parser.term.new (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.char '$'
+  let body  = (_: Unit) => do Parser {
+    ask val0 = Kind.Parser.term
+    ask val1 = Kind.Parser.term
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let args = [(Kind.Parser.Term.hol orig 0) (Kind.Parser.Term.hol orig 0) val0 val1]
+    return Kind.Parser.Term.ctr orig "Sigma.new" args
+  }
+  Kind.Parser.term_guard guard body
+}

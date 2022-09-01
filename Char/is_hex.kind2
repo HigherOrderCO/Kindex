@@ -1,4 +1,4 @@
 // True if Char represents a hexa digit (0 to 9, a to f, A to F)
-Char.is_hex (c: Char) : Bool {
-  Bool.or (Char.between 48 c 58) (Bool.or (Char.between 65 c 71) (Char.between 97 c 103))
+Char.is_hex (chr: Char) : Bool {
+  Bool.or (Char.between_incl '0' chr '9') (Bool.or (Char.between_incl 'a' chr 'f') (Char.between_incl 'A' chr 'F'))
 }

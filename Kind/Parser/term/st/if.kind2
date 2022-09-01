@@ -1,0 +1,23 @@
+// Parses an if statement in a do block
+// "if " apps "{" term_st "}" "else" "{" term_st "}"
+Kind.Parser.term.st.if (init: U60) : Parser (Maybe ((monad: String) -> Kind.Parser.Term)) {
+  // TODO: Reuse the if parser, don't reimplement
+  let guard = Parser.string "if "
+  let body = (_: Unit) => do Parser {
+    ask cond = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.char '{')
+    ask if_t = Kind.Parser.term.st
+    let if_t = if_t :: String -> Kind.Parser.Term
+    ask        Kind.Parser.skipping (Parser.char '}')
+    ask        Kind.Parser.skipping (Parser.string "else")
+    ask        Kind.Parser.skipping (Parser.char '{')
+    ask if_f = Kind.Parser.term.st
+    let if_f = if_f :: String -> Kind.Parser.Term
+    ask        Kind.Parser.skipping (Parser.char '}')
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let moti = Kind.Parser.Term.hol orig 0  // TODO: Add if motive
+    return (monad: String) => Kind.Parser.Term.ctr orig "Bool.if" [moti cond (if_t monad) (if_f monad)]
+  }
+  Kind.Parser.term_guard guard body
+}

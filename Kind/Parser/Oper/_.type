@@ -1,0 +1,18 @@
+type Kind.Parser.Oper {
+  add
+  sub
+  mul
+  div
+  mod
+  and
+  or
+  xor
+  shl
+  shr
+  ltn
+  lte
+  eql
+  gte
+  gtn
+  neq
+}

@@ -1,0 +1,2 @@
+// Automatically derived from HashMap/_.type
+HashMap.new <k: Type> <v: Type> (hash_fn: (_: k) U60) (map: (Map v)) : (HashMap k v)

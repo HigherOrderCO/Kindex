@@ -1,0 +1,6 @@
+Kind.Parser.Rule.to_string (rule: Kind.Parser.Rule) : String
+Kind.Parser.Rule.to_string (Kind.Parser.Rule.new orig name pats body) =
+  let pats = List.map pats ((p: Kind.Parser.Term) => Kind.Parser.Term.to_string p)
+  let pats = String.join " " pats
+  let body = Kind.Parser.Term.to_string body
+  String.flatten [name " " pats " = " body]

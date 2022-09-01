@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Parser/Term/_.type
+Kind.Parser.Term.all (orig: U60) (name: String) (tipo: Kind.Parser.Term) (body: Kind.Parser.Term) : (Kind.Parser.Term)

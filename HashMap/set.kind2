@@ -1,0 +1,5 @@
+HashMap.set <k> <v> (map: HashMap k v) (key: k) (val: v) : HashMap k v
+HashMap.set k v (HashMap.new k_ v_ hashf map) key val =
+  let hash = hashf key
+  let map  = Map.set map hash val
+  HashMap.new hashf map

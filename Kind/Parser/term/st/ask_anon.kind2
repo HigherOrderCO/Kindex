@@ -1,0 +1,19 @@
+// Parses an anonymous ask statement
+// "ask" term_st
+Kind.Parser.term.st.ask_anon (init: U60) : Parser (Maybe ((monad: String) -> Kind.Parser.Term)) {
+  let guard = Parser.string "ask "
+  let body  = (_: Unit) => do Parser {
+    ask acti = Kind.Parser.apps
+    ask body = Kind.Parser.term.st
+    let body = body :: String -> Kind.Parser.Term
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let name = "_"
+    return ((monad: String) =>
+      let bnam = String.concat monad ".bind"
+      let args = [acti (Kind.Parser.Term.lam orig name (body monad))]
+      Kind.Parser.Term.ctr orig bnam args
+    )
+  }
+  Kind.Parser.term_guard guard body
+}

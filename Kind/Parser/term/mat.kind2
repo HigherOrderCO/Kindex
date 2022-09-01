@@ -1,0 +1,40 @@
+// Parses a match
+// "match " ctr_name var_name ("=" apps)? "{" (var_name "=>" apps ";"?)* "}" (":" apps)?
+Kind.Parser.term.mat (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.string "match "  // TODO: should accept other whitespaces
+  let body  = (_: Unit) => do Parser {
+    ask tipo = Kind.Parser.skipping Kind.Parser.name
+    ask nm_i = Kind.Parser.skipping Parser.get_index
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask next = Kind.Parser.skipping (Kind.Parser.token '=')
+    ask expr = if next {
+      Kind.Parser.apps
+    } else {
+      do Parser {
+        ask nm_j = Parser.get_index
+        let orig = Kind.Parser.make_origin 0 nm_i nm_j
+        return Kind.Parser.Term.var orig name
+      }
+    }
+    ask        Kind.Parser.skipping (Parser.char '{')
+    let clos = Kind.Parser.skipping (Parser.char '}')
+    let pcas = do Parser {
+      ask name = Kind.Parser.skipping Kind.Parser.name
+      ask        Kind.Parser.skipping (Parser.string "=>")
+      ask body = Kind.Parser.apps
+      ask        Parser.try (Parser.char ';')
+      return Pair.new name body
+    }
+    ask cses = Parser.repeat_until clos pcas
+    ask next = Kind.Parser.token ':'
+    ask moti = if next {
+      Kind.Parser.apps
+    } else {
+      Parser.pure (Kind.Parser.Term.hol 0 0)
+    }
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.mat orig tipo name expr cses moti
+  }
+  Kind.Parser.term_guard guard body
+}

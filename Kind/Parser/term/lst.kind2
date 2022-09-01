@@ -1,0 +1,19 @@
+// Parses a list sugar
+// "[" (term (","? term)*)? "]"
+Kind.Parser.term.lst (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.char '['
+  let body  = (_: Unit) => do Parser {
+    let prs_list_el = do Parser {
+      ask term = Kind.Parser.term
+      ask Kind.Parser.skipping (Parser.try (Parser.char ','))
+      return term
+    }
+    ask elms = Parser.repeat_until (Kind.Parser.skipping (Parser.char ']')) prs_list_el
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let empt = Kind.Parser.Term.ctr orig "List.nil" []
+    let cons = (el: Kind.Parser.Term) => (lst: Kind.Parser.Term) => Kind.Parser.Term.ctr orig "List.cons" [el lst]
+    return List.foldr empt cons elms
+  }
+  Kind.Parser.term_guard guard body
+}

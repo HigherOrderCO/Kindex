@@ -1,0 +1,17 @@
+type Kind.Parser.Term {
+  typ (orig: U60)
+  var (orig: U60) (name: String)
+  all (orig: U60) (name: String)           (tipo: Kind.Parser.Term) (body: Kind.Parser.Term)
+  lam (orig: U60) (name: String)           (body: Kind.Parser.Term)
+  app (orig: U60) (func: Kind.Parser.Term) (argm: Kind.Parser.Term)
+  let (orig: U60) (name: String)           (expr: Kind.Parser.Term) (body: Kind.Parser.Term)
+  ann (orig: U60) (expr: Kind.Parser.Term) (tipo: Kind.Parser.Term)
+  ctr (orig: U60) (name: String)           (args: List Kind.Parser.Term)
+  fun (orig: U60) (name: String)           (args: List Kind.Parser.Term)
+  hlp (orig: U60)
+  u60 (orig: U60)
+  num (orig: U60) (numb: U60)
+  op2 (orig: U60) (oper: Kind.Parser.Oper) (val0: Kind.Parser.Term) (val1: Kind.Parser.Term)
+  hol (orig: U60) (numb: U60)
+  mat (orig: U60) (tipo: String) (name: String) (expr: Kind.Parser.Term) (cses: List (Pair String Kind.Parser.Term)) (moti: Kind.Parser.Term)
+}

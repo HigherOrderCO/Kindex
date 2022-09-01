@@ -1,0 +1,36 @@
+// Parses a forall
+// "(" var_name ":" term ")" "->"? apps
+Kind.Parser.term.all (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = do Parser {
+    ask        Kind.Parser.skipping (Parser.char '(')
+    ask name = Kind.Parser.skipping (Kind.Parser.name)  // TODO: Make var name and fn name different functions
+    ask        Kind.Parser.skipping (Parser.char ':')
+    ask tipo = Kind.Parser.apps
+    return Pair.new name tipo
+  }
+  let body = (pair: Pair String Kind.Parser.Term) => do Parser {
+    let name = Pair.fst pair
+    let tipo = Pair.snd pair
+    ask        Kind.Parser.skipping (Parser.char ')')
+    ask isfn = Kind.Parser.skipping (Kind.Parser.text "=>")
+    if isfn {
+      do Parser {
+        ask body = Kind.Parser.apps
+        ask last = Parser.get_index
+        let orig = Kind.Parser.make_origin 0 init last
+        let expr = Kind.Parser.Term.lam orig name body
+        let tipo = Kind.Parser.Term.all orig name tipo (Kind.Parser.Term.hol orig 0)
+        return Kind.Parser.Term.ann orig expr tipo
+      }
+    } else {
+      do Parser {
+        ask        Kind.Parser.skipping (Parser.try (Parser.string "->"))
+        ask body = Kind.Parser.apps
+        ask last = Parser.get_index
+        let orig = Kind.Parser.make_origin 0 init last
+        return Kind.Parser.Term.all orig name tipo body
+      }
+    }
+  }
+  Kind.Parser.term_guard guard body
+}

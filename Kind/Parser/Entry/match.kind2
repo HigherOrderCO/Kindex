@@ -1,0 +1,3 @@
+// Automatically derived from Kind/Parser/Entry/_.type
+Kind.Parser.Entry.match (x: (Kind.Parser.Entry)) -(p: (x: (Kind.Parser.Entry)) Type) (new: (name: String) (args: (List Kind.Parser.Argument)) (tipo: Kind.Parser.Term) (rules: (List Kind.Parser.Rule)) (p (Kind.Parser.Entry.new name args tipo rules))) : (p x)
+Kind.Parser.Entry.match (Kind.Parser.Entry.new name_ args_ tipo_ rules_) p new = (new name_ args_ tipo_ rules_)

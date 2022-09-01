@@ -1,0 +1,37 @@
+/// Take the lines marked as having an error from the state.
+/// Return the error lines, as well a pair of index of where the lines start and end inside the state's text.
+Kind.Parser.get_err_line (state: Parser.State) (err: Parser.Error) : Pair String (Pair U60 U60)
+Kind.Parser.get_err_line state (Parser.Error.new msg init last) =
+  // Move state to init
+  let state = Parser.State.move_to_pos state init
+  // Move state to last new line before init
+  let state = Kind.Parser.get_err_line.back_nl state
+  match Parser.State state {
+    new =>
+      let start_idx = state.index
+      // Take out the text up to last
+      match Pair p = String.split_at state.left (U60.to_nat (- last start_idx)) {
+        new =>
+          let text = p.fst
+          let rest = p.snd
+          // Append rest of text up to new line to the extracted text
+          let rest = String.take_while ((c: Char) => Bool.not (Char.equal c Char.newline)) rest
+          let rest_len = String.length rest
+          let text = String.concat text rest
+          let end_idx = (+ last (Nat.to_u60 rest_len))
+          // Return this new block of text, along with its start and end index
+          Pair.new text (Pair.new start_idx end_idx)
+      }
+  }
+
+// Backtrack the state until we hit a new line
+Kind.Parser.get_err_line.back_nl (state: Parser.State) : Parser.State
+Kind.Parser.get_err_line.back_nl (Parser.State.new left  String.nil       index) = Parser.State.new left String.nil index
+Kind.Parser.get_err_line.back_nl (Parser.State.new left (String.cons h t) index) =
+  let state = Parser.State.new left (String.cons h t) index
+  if Char.equal h Char.newline {
+    state
+  } else {
+    let state = Parser.State.backtrack 1 state
+    Kind.Parser.get_err_line.back_nl state
+  }

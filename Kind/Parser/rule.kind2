@@ -1,0 +1,12 @@
+Kind.Parser.rule (name: String) : Parser Kind.Parser.Rule {
+  do Parser {
+    ask init = Kind.Parser.skipping Parser.get_index
+    ask        Parser.string (String.concat name " ")
+    let stop = Kind.Parser.skipping (Parser.char '=')
+    ask pats = Parser.repeat_until stop Kind.Parser.term
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    ask body = Kind.Parser.apps
+    return Kind.Parser.Rule.new orig name pats body
+  }
+}

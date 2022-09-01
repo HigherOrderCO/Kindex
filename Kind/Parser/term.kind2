@@ -1,0 +1,50 @@
+Kind.Parser.term : Parser Kind.Parser.Term {
+  let prs = do Parser {
+    ask init = Kind.Parser.skipping Parser.get_index
+    ask pfx  = Kind.Parser.term.prefix init
+    ask sfx  = Kind.Parser.term.suffix init
+    let sfx  = sfx :: (term: Kind.Parser.Term) -> Kind.Parser.Term
+    return (sfx pfx)
+  }
+  prs
+}
+
+Kind.Parser.term.prefix (init: U60) : Parser Kind.Parser.Term {
+  do Parser {
+    ask mterm = Kind.Parser.first_some [
+      (Kind.Parser.term.all init)  // `(name:`
+      (Kind.Parser.term.ctr init)  // `(Name`
+      (Kind.Parser.term.op2 init)  // `(+`
+      (Kind.Parser.term.grp init)  // `(`
+      (Kind.Parser.term.sig init)  // `[name:`
+      (Kind.Parser.term.new init)  // `$`
+      (Kind.Parser.term.lst init)  // `[`
+      (Kind.Parser.term.str init)  // `"`
+      (Kind.Parser.term.chr init)  // `'`
+      (Kind.Parser.term.lam init)  // `@`
+      (Kind.Parser.term.let init)  // `let `
+      (Kind.Parser.term.if  init)  // `if `
+      (Kind.Parser.term.mat init)  // `match `
+      (Kind.Parser.term.do  init)  // `do `
+      (Kind.Parser.term.hlp init)  // `?`
+      (Kind.Parser.term.hol init)  // `_`
+      (Kind.Parser.term.num init)  //
+      (Kind.Parser.term.var init)  //
+    ]
+    match Maybe mterm {
+      none => Parser.fail "Expected term" init init  // TODO: Some way to used expecting?
+      some => Parser.pure mterm.value
+    }
+  }
+}
+
+Kind.Parser.term.suffix (init: U60) : Parser ((term: Kind.Parser.Term) -> Kind.Parser.Term) {
+  do Parser {
+    ask res = Kind.Parser.first_some [
+      (Kind.Parser.term.arr init)
+      (Kind.Parser.term.ann init)
+    ]
+    let dflt = (term: Kind.Parser.Term) => term
+    return Maybe.default res dflt
+  }
+}

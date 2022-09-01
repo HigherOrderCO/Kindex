@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Parser/Entry/_.type
+Kind.Parser.Entry.new (name: String) (args: (List Kind.Parser.Argument)) (tipo: Kind.Parser.Term) (rules: (List Kind.Parser.Rule)) : (Kind.Parser.Entry)

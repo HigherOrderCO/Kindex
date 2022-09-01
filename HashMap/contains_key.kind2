@@ -1,0 +1,4 @@
+HashMap.contains_key <k> <v> (map: HashMap k v) (key: k) : Bool
+HashMap.contains_key k v (HashMap.new k_ v_ hash_fn map) key =
+  let hash = hash_fn key
+  Maybe.is_some (Map.get map hash)

@@ -1,0 +1,5 @@
+// true if a <= b <= c
+// Takes the numeric value behind the char
+Char.between_incl (small: Char) (val: Char) (big: Char) : Bool {
+  U60.between_incl small val big
+}

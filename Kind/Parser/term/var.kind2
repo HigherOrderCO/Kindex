@@ -1,0 +1,13 @@
+// Parses a variable
+// var_name
+Kind.Parser.term.var (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.look_ahead (Parser.satisfy ((c: Char) => Char.is_lower c))
+  let body  = (_: Char) => do Parser {
+    ask name = Kind.Parser.name
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let term = Kind.Parser.Term.var orig name
+    return term
+  }
+  Kind.Parser.term_guard guard body
+}

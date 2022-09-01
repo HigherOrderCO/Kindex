@@ -1,0 +1,5 @@
+HashMap.mut <k> <v> (map : HashMap k v) (key : k) (init : v) (func : v -> v) : HashMap k v
+HashMap.mut k v (HashMap.new k_ v_ hashf map) key init mutf =
+  let hash = hashf key
+  let map  = Map.mut map hash init mutf
+  HashMap.new hashf map

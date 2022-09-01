@@ -1,0 +1,3 @@
+Kind.Parser.Term.show (term: Kind.Parser.Term) : Show {
+  h => String.concat (Kind.Parser.Term.to_string term) h
+}

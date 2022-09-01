@@ -1,0 +1,34 @@
+// Parses a book of entries
+Kind.Parser.book : Parser Kind.Parser.Book {
+  let names   = List.nil
+  let entries = HashMap.empty String Kind.Parser.Entry (s => String.hash s)
+  Kind.Parser.book.go names entries
+}
+
+Kind.Parser.book.go (names: List String) (entries: HashMap String Kind.Parser.Entry) : Parser Kind.Parser.Book {
+  do Parser {
+    ask eof = Parser.to_bool (Kind.Parser.skipping Parser.eof)
+    if eof {
+      Parser.pure (Kind.Parser.Book.new names entries 0)
+    } else {
+      do Parser {
+        ask init  = Parser.get_index
+        ask entry = Kind.Parser.entry
+        match Kind.Parser.Entry entry {
+          new =>
+            if HashMap.contains_key entries entry.name {
+              let msg = String.concat "Redefinition of " entry.name
+              let len  = Nat.to_u60 (String.length entry.name)
+              let last = (+ init len)
+              Parser.fail msg init last
+            } else {
+              let entry   = Kind.Parser.Entry.new entry.name entry.args entry.tipo entry.rules
+              let names   = List.cons entry.name names
+              let entries = HashMap.set entries entry.name entry
+              Kind.Parser.book.go names entries
+            }
+        }
+      }
+    }
+  }
+}

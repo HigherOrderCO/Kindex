@@ -1,0 +1,21 @@
+// Parses a sigma sugar
+// "[" var_name ":" apps "]" "->" apps
+Kind.Parser.term.sig (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = do Parser {
+    ask        Kind.Parser.skipping (Parser.char '[')
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask        Kind.Parser.skipping (Parser.char ':')
+    return name
+  }
+  let body = (name: String) => do Parser {
+    ask tipo = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.char ']')
+    ask        Kind.Parser.skipping (Parser.string "->")
+    ask body = Kind.Parser.apps
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let args = [tipo (Kind.Parser.Term.lam orig name body)]
+    return (Kind.Parser.Term.ctr orig "Sigma" args)
+  }
+  Kind.Parser.term_guard guard body
+}

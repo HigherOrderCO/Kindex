@@ -1,0 +1,13 @@
+// Parses a char sugar
+// "'" . "'"
+Kind.Parser.term.chr (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.char 39  // '
+  let body  = (_: Unit) => do Parser {
+    ask char = Parser.any_char
+    ask        Parser.char 39
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.num orig char
+  }
+  Kind.Parser.term_guard guard body
+}

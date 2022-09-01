@@ -1,3 +1,4 @@
+// true if the character is a lowercase ascii letter (a-z)
 Char.is_lower (c: Char) : Bool {
-  Bool.not (Char.between 65 c 91)
+  Char.between_incl 'a' c 'z'
 }

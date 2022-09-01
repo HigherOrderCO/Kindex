@@ -1,0 +1,26 @@
+/// Tries to run the guard parser. 
+/// If it succeeds, applies the second parser and returns `some`.
+/// The second parser receives the result of the guard as well as the index before running it
+/// If the guard fails, returns `none`.
+
+/// The idea here is that the guard uniquely identifies a type of term
+/// So, if the guard passes we can fail hard at the body since it couldn't possibly be anything else
+/// Passing the guard result as argument so we don't need to redo this initial parsing
+Kind.Parser.term_guard <a> <b>
+  (guard : Parser a)
+  (body  : (gres: a) -> (Parser b))
+: Parser (Maybe b) {
+  do Parser {
+    ask gres = Parser.try guard
+    match Maybe gres {
+      none => do Parser {
+        return Maybe.none
+      }
+      some => 
+      do Parser {
+        ask bres = (body gres.value)
+        return Maybe.some bres
+      }
+    }
+  }
+}

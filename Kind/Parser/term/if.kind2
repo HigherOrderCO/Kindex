@@ -1,0 +1,20 @@
+// Parses an if
+// "if " apps "{" apps "}" "else" "{" apps "}"
+Kind.Parser.term.if (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.string "if "  // TODO: should accept other whitespaces
+  let body = (_: Unit) => do Parser {
+    ask cond = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.char '{')
+    ask if_t = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.char '}')
+    ask        Kind.Parser.skipping (Parser.string "else")
+    ask        Kind.Parser.skipping (Parser.char '{')
+    ask if_f = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.char '}')
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let moti = Kind.Parser.Term.hol orig 0  // TODO: Add if motive
+    return Kind.Parser.Term.ctr orig "Bool.if" [moti cond if_t if_f]
+  }
+  Kind.Parser.term_guard guard body
+}

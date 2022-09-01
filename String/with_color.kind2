@@ -1,0 +1,8 @@
+// Returns a string marked with a Select Graphic Rendition code
+// This can be different fg or bg colors, bold text, etc
+// All attributes are reset at the end of the given string
+String.with_color (code: String) (str: String) : String {
+  let start = String.color code
+  let end   = String.color "0"
+  String.concat start (String.concat str end)
+}

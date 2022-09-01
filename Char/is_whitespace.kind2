@@ -1,3 +1,4 @@
+// True if the char is one of the ascii whitespaces
 Char.is_whitespace (c: Char) : Bool
 Char.is_whitespace   9 = Bool.true
 Char.is_whitespace  10 = Bool.true

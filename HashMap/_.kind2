@@ -1,0 +1,2 @@
+// Automatically derived from HashMap/_.type
+HashMap (k: Type) (v: Type) : Type

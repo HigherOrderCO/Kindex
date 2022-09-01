@@ -1,0 +1,47 @@
+// Parses an OP2 term
+// "(" oper term term ")"
+Kind.Parser.term.op2 (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = do Parser {
+    ask Kind.Parser.skipping (Parser.char '(')
+    (Kind.Parser.skipping Kind.Parser.term.op2.parse_oper)
+  }
+  let body = (oper: Kind.Parser.Oper) => do Parser {
+    ask val0 = Kind.Parser.term
+    ask val1 = Kind.Parser.term
+    ask        Kind.Parser.skipping (Parser.char ')')
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.op2 orig oper val0 val1
+  }
+  Kind.Parser.term_guard guard body
+}
+
+Kind.Parser.term.op2.parse_oper : Parser Kind.Parser.Oper {
+  let ops = [
+    (Pair.new "+"  Kind.Parser.Oper.add)
+    (Pair.new "-"  Kind.Parser.Oper.sub)
+    (Pair.new "*"  Kind.Parser.Oper.mul)
+    (Pair.new "/"  Kind.Parser.Oper.div)
+    (Pair.new "%"  Kind.Parser.Oper.mod)
+    (Pair.new "&"  Kind.Parser.Oper.and)
+    (Pair.new "|"  Kind.Parser.Oper.or )
+    (Pair.new "^"  Kind.Parser.Oper.xor)
+    (Pair.new "<<" Kind.Parser.Oper.shl)
+    (Pair.new ">>" Kind.Parser.Oper.shr)
+    (Pair.new "<=" Kind.Parser.Oper.lte)
+    (Pair.new "<"  Kind.Parser.Oper.ltn)
+    (Pair.new ">=" Kind.Parser.Oper.gte)
+    (Pair.new ">"  Kind.Parser.Oper.gtn)
+    (Pair.new "==" Kind.Parser.Oper.eql)
+    (Pair.new "!=" Kind.Parser.Oper.neq)
+  ]
+  let parsers = List.map ops ((p: Pair String Kind.Parser.Oper) => Kind.Parser.term.op2.parse_oper.build p)
+  Kind.Parser.skipping (Parser.first_of parsers)
+}
+
+Kind.Parser.term.op2.parse_oper.build (op: Pair String Kind.Parser.Oper) : Parser Kind.Parser.Oper
+Kind.Parser.term.op2.parse_oper.build (Pair.new a b op_str op_obj) =
+  do Parser {
+    ask Parser.string op_str
+    return op_obj
+  }

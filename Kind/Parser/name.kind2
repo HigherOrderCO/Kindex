@@ -1,0 +1,12 @@
+// Parses a kind name 
+Kind.Parser.name : Parser String {
+  // TODO: should not accept names starting with numbers
+  // TODO: prohibit using keywords (try, match, dup?, return?)
+  // TODO: parse variable name separately from constructor name
+  let prs = Parser.take_while1 (c => Kind.Parser.name.is_name_char c)
+  Parser.expecting prs "name"
+}
+
+Kind.Parser.name.is_name_char (c: Char) : Bool {
+  Bool.or (Char.is_alphanum c) (Bool.or (Char.equal '.' c) (Bool.or (Char.equal '_' c) (Char.equal '$' c)))
+}

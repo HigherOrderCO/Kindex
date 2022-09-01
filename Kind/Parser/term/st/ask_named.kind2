@@ -1,0 +1,23 @@
+// Parses a named ask statement
+// "ask" var_name "=" term_st
+Kind.Parser.term.st.ask_named (init: U60) : Parser (Maybe ((monad: String) -> Kind.Parser.Term)) {
+  let guard = do Parser {
+    ask        Kind.Parser.skipping (Parser.string "ask ")
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask        Kind.Parser.skipping (Parser.char '=')
+    return name
+  }
+  let body = (name: String) => do Parser {
+    ask acti = Kind.Parser.apps
+    ask body = Kind.Parser.term.st  // TODO: Fix ask type inference and annotation
+    let body = body :: (monad: String) -> Kind.Parser.Term
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return ((monad: String) =>
+      let bnam = String.concat monad ".bind"
+      let args = [acti (Kind.Parser.Term.lam orig name (body monad))]
+      Kind.Parser.Term.ctr orig bnam args
+    )
+  }
+  Kind.Parser.term_guard guard body
+}

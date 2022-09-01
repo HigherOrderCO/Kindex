@@ -1,0 +1,6 @@
+Main {
+  do IO {
+    ask code = IO.input
+    ?
+  }
+}

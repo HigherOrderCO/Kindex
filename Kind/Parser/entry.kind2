@@ -1,0 +1,44 @@
+Kind.Parser.entry : Parser Kind.Parser.Entry {
+  do Parser {
+    ask sign  = Kind.Parser.entry.signature
+    match Kind.Parser.Entry sign {
+      new =>
+        do Parser {
+          let args  = List.map sign.args ((arg: Kind.Parser.Argument) => Kind.Parser.Argument.get_name arg)
+          ask rules = Kind.Parser.entry.rules sign.name args
+          return Kind.Parser.Entry.new sign.name sign.args sign.tipo rules
+        }
+    }
+  }
+}
+
+Kind.Parser.entry.signature : Parser Kind.Parser.Entry {
+  do Parser {
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    let cond = Kind.Parser.skipping (Parser.look_ahead (Parser.char_any_of "{:"))
+    ask args = Parser.repeat_until cond Kind.Parser.argument
+    ask anno = Kind.Parser.skipping (Kind.Parser.token ':')
+    ask tipo = if anno {
+      Kind.Parser.apps
+    } else {
+      Parser.pure (Kind.Parser.Term.hol 0 U60.max_val)
+    }
+    return Kind.Parser.Entry.new name args tipo []
+  }
+}
+
+Kind.Parser.entry.rules (name: String) (args: List String): Parser (List Kind.Parser.Rule) {
+  do Parser {
+    ask dflt_rule = Kind.Parser.skipping (Kind.Parser.token '{')
+    if dflt_rule {
+      do Parser {
+        ask body = Kind.Parser.apps
+        ask        Kind.Parser.skipping (Parser.char '}')
+        let pats = List.map args ((arg: String) => Kind.Parser.Term.var 0 arg)
+        return [(Kind.Parser.Rule.new 0 name pats body)]
+      }
+    } else {
+      Parser.many (Kind.Parser.rule name)
+    }
+  }
+}

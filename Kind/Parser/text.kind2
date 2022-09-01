@@ -1,0 +1,5 @@
+// If the text left starts with the given string, consume and return true
+// Otherwise, don't consume and return false
+Kind.Parser.text (str: String) : Parser Bool {
+  Parser.is_some (Parser.try (Parser.string str))
+}

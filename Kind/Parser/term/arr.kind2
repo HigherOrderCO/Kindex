@@ -1,0 +1,12 @@
+Kind.Parser.term.arr (init: U60) : Parser (Maybe ((tipo: Kind.Parser.Term) -> Kind.Parser.Term)) {
+  let guard = Kind.Parser.skipping (Parser.string "->")
+  let body  = (_: Unit) => do Parser {
+    ask body = Kind.Parser.apps
+    ask last = Parser.get_index
+    return (tipo: Kind.Parser.Term) =>
+      let orig = Kind.Parser.make_origin 0 init last
+      let name = "_"
+      Kind.Parser.Term.all orig name tipo body
+  }
+  Kind.Parser.term_guard guard body
+}

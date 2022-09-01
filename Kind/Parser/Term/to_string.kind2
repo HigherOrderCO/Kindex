@@ -1,0 +1,71 @@
+Kind.Parser.Term.to_string (term: Kind.Parser.Term) : String 
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.typ orig) =
+  "Type"
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.var orig name) =
+  name
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.all orig name tipo body) =
+  let tipo = Kind.Parser.Term.to_string tipo
+  let body = Kind.Parser.Term.to_string body
+  String.flatten ["(" name ": " tipo ")" body]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.lam orig name body) = 
+  let body = Kind.Parser.Term.to_string body
+  String.flatten ["(" name " => " body ")"]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.app orig func argm) =
+  let terms = Kind.Parser.Term.to_string.unfold_app func [argm]
+  let terms = List.map terms ((t: Kind.Parser.Term) => Kind.Parser.Term.to_string t)
+  let str   = String.join " " terms
+  String.flatten ["(" str ")"]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.let orig name expr body) =
+  let body = Kind.Parser.Term.to_string body
+  let expr = Kind.Parser.Term.to_string expr
+  String.flatten ["let " name " = " expr "; " body]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.ann orig expr tipo) =
+  let expr = Kind.Parser.Term.to_string expr
+  let tipo = Kind.Parser.Term.to_string tipo
+  String.flatten ["{{" expr " :: " tipo "}}"]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.ctr orig name args) =
+  let args  = List.map args ((t: Kind.Parser.Term) => Kind.Parser.Term.to_string t)
+  let terms = List.cons name args
+  let terms = String.join " " terms
+  String.flatten ["(" terms ")"]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.fun orig name args) =
+  let args  = List.map args ((t: Kind.Parser.Term) => Kind.Parser.Term.to_string t)
+  let terms = List.cons name args
+  let terms = String.join " " terms
+  String.flatten ["(" terms ")"]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.hlp orig) =
+  "?"
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.u60 orig) =
+  "U60"
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.num orig numb) =
+  (U60.show numb) ""
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.op2 orig oper val0 val1) =
+  let oper = Kind.Parser.Oper.to_string oper
+  let val0 = Kind.Parser.Term.to_string val0
+  let val1 = Kind.Parser.Term.to_string val1
+  String.flatten ["(" oper " " val0 " " val1 ")"]
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.hol orig numb) =
+  "_"
+
+Kind.Parser.Term.to_string (Kind.Parser.Term.mat orig tipo name expr cses moti) =
+  "##Error: Should have been removed after adjust##"
+
+
+
+Kind.Parser.Term.to_string.unfold_app (fun: Kind.Parser.Term) (terms: List Kind.Parser.Term) : List Kind.Parser.Term
+Kind.Parser.Term.to_string.unfold_app (Kind.Parser.Term.app orig fun arg) terms = Kind.Parser.Term.to_string.unfold_app fun (List.cons arg terms)
+Kind.Parser.Term.to_string.unfold_app fun                                 terms = List.cons fun terms

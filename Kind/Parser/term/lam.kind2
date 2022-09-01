@@ -1,0 +1,16 @@
+// Parses a lambda
+// var_name "=>" apps
+Kind.Parser.term.lam (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = do Parser {
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask        Kind.Parser.skipping (Parser.string "=>")
+    return name
+  }
+  let body = (name: String) => do Parser {
+    ask body = Kind.Parser.apps
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.lam orig name body
+  }
+  Kind.Parser.term_guard guard body
+}

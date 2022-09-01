@@ -1,0 +1,10 @@
+String.hash (xs: String) : U60 {
+  let salt = 880120993273872548
+  let f = (chr: Char) => (acc: U60) => String.hash.combine acc (String.hash.combine salt chr)
+  String.foldl salt f xs
+}
+
+String.hash.combine (a: U60) (b: U60) : U60 {
+  let prime = 16777619
+  (^ (* a prime) b)
+}

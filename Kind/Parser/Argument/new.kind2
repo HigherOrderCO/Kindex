@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Parser/Argument/_.type
+Kind.Parser.Argument.new (hide: Bool) (eras: Bool) (name: String) (tipo: Kind.Parser.Term) : (Kind.Parser.Argument)

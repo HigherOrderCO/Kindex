@@ -1,0 +1,13 @@
+// Returns the first parser that gives some
+// Returns none if no parser returned some
+// Fails if any parser fails
+Kind.Parser.first_some <a> (parsers: List (Parser (Maybe a))) : Parser (Maybe a)
+Kind.Parser.first_some a (List.nil  la)           = Parser.pure Maybe.none
+Kind.Parser.first_some a (List.cons la head tail) = 
+  do Parser {
+    ask ma = head
+    match Maybe ma {
+      none => Kind.Parser.first_some tail
+      some => Parser.pure (Maybe.some ma.value)
+    }
+  }

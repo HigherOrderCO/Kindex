@@ -1,3 +1,4 @@
+// true if the char is an uppercase ascii letter (A-Z)
 Char.is_upper (c: Char) : Bool {
-  Bool.not (Char.between 97 c 123)
+  Char.between_incl 'A' c 'Z'
 }

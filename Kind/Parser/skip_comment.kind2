@@ -1,0 +1,13 @@
+// Skips a Kind2 comment
+// A comment is "//" followed by any sequence of characters, up to a newline
+Kind.Parser.skip_comment : Parser Bool {
+  do Parser {
+    ask skp = Parser.is_some (Parser.try (Parser.string "//"))
+    ask if skp {
+      Parser.skip_line
+    } else {
+      Parser.pure Bool.true
+    }
+    return skp
+  }
+}

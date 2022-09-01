@@ -1,0 +1,4 @@
+HashMap.get <k> <v> (map: HashMap k v) (key: k) : Maybe v
+HashMap.get k v (HashMap.new k_ v_ hashf map) key =
+  let hash = hashf key
+  Map.get map hash

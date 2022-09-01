@@ -1,0 +1,24 @@
+// Parses the body of a do block (a term statement)
+Kind.Parser.term.st : Parser ((monad: String) -> Kind.Parser.Term) {
+  let term_prs = do Parser {
+    ask term = Kind.Parser.term
+    return Maybe.some ((monad: String) => term)
+  }
+  do Parser {
+    ask init = Kind.Parser.skipping Parser.get_index
+    ask res  = Kind.Parser.first_some [
+      (Kind.Parser.term.st.return    init)
+      (Kind.Parser.term.st.ask_named init)
+      (Kind.Parser.term.st.ask_anon  init)
+      (Kind.Parser.term.st.let       init)
+      // TODO: Enable if and match in do blocks
+      // (Kind.Parser.term.st.if        init)
+      // (Kind.Parser.term.st.match     init)
+      term_prs
+    ]
+    match Maybe res {
+      some => Parser.pure res.value
+      none => Parser.fail "Expected monadic statement" init init
+    }
+  }
+}

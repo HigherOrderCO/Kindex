@@ -1,3 +1,5 @@
-Char.between (a: Char) (b: Char) (c: Char) : Bool {
-  U60.between a b c
+// true if a <= b < c
+// Takes the numeric value behind the char
+Char.between (small: Char) (val: Char) (big: Char) : Bool {
+  U60.between small val big
 }

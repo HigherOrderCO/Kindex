@@ -1,0 +1,5 @@
+// If the next character is the expected one, consume and return true
+// Else, don't consume and return false
+Kind.Parser.token (chr: Char) : Parser Bool {
+  Parser.is_some (Parser.try (Parser.char chr))
+}

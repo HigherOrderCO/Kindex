@@ -1,0 +1,6 @@
+// Return a Select Graphic Rendition code
+// This can change the appearence of text in the terminal
+// "0" turns of all previously active attributes
+String.color (code: String) : String {
+  String.cons 27 (String.cons '[' (String.concat code (String.cons 'm' String.nil)))
+}

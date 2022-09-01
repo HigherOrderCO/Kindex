@@ -1,0 +1,3 @@
+// Automatically derived from Kind/Parser/Book/_.type
+Kind.Parser.Book.match (x: (Kind.Parser.Book)) -(p: (x: (Kind.Parser.Book)) Type) (new: (names: (List String)) (entrs: (HashMap String Kind.Parser.Entry)) (holes: U60) (p (Kind.Parser.Book.new names entrs holes))) : (p x)
+Kind.Parser.Book.match (Kind.Parser.Book.new names_ entrs_ holes_) p new = (new names_ entrs_ holes_)

@@ -1,0 +1,14 @@
+Kind.Parser.Argument.to_string (arg: Kind.Parser.Argument) : String
+Kind.Parser.Argument.to_string (Kind.Parser.Argument.new hide eras name tipo) =
+  match Pair dlims = Delims hide eras {
+    new =>
+      let tipo = Kind.Parser.Term.to_string tipo
+      String.flatten [dlims.fst name ": " tipo dlims.snd]
+  }
+
+
+Delims (hide: Bool) (eras: Bool) : Pair String String
+Delims Bool.false Bool.false = Pair.new  "(" ")"
+Delims Bool.false Bool.true  = Pair.new "+<" ">"
+Delims Bool.true  Bool.false = Pair.new "-(" ")"
+Delims Bool.true  Bool.true  = Pair.new  "<" ">"

@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Parser/Term/_.type
+Kind.Parser.Term.ctr (orig: U60) (name: String) (args: (List Kind.Parser.Term)) : (Kind.Parser.Term)

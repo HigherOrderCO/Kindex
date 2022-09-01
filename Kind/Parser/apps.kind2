@@ -1,0 +1,37 @@
+Kind.Parser.apps : Parser Kind.Parser.Term {
+  do Parser {
+    ask init = Kind.Parser.skipping Parser.get_index
+    ask term = Kind.Parser.term
+    (Kind.Parser.apps.go init term)
+  }
+}
+
+Kind.Parser.apps.go (init: U60) (term: Kind.Parser.Term) : Parser Kind.Parser.Term {
+  do Parser {
+    ask Parser.skip_while (c => Char.equal c ' ')  // TODO: Should this also match some other whitespace?
+    let f = (c: Char) => Kind.Parser.apps.is_term_initializer c
+    ask is_term = Parser.to_bool (Parser.look_ahead (Parser.satisfy f))
+    if is_term {
+      do Parser {
+        // Wrap term in an application with the next term as argument and recurse
+        ask argm = Kind.Parser.term
+        ask last = Parser.get_index
+        let orig = Kind.Parser.make_origin 0 init last
+        let term = Kind.Parser.Term.app orig term argm
+        (Kind.Parser.apps.go init term)
+      }
+    } else {
+      Parser.pure term
+    }
+  }
+}
+
+// NOTE: this must cover all characters that can start a term
+Kind.Parser.apps.is_term_initializer (chr: Char) : Bool {
+  (Bool.or
+    (Char.is_alphanum chr)
+    // TODO: Escaping chars doesn't work right now
+    // TODO: Shouldn't it be `(["'@?_$.` now?
+    (String.contains_char chr `(["'@?_#`)
+  )
+}

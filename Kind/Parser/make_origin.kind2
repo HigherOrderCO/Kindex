@@ -1,0 +1,3 @@
+Kind.Parser.make_origin (file: U60) (init: U60) (last: U60) : U60 {
+  (| (| (<< file 48) (<< (& last 16777215) 24)) (& init 16777215))
+}

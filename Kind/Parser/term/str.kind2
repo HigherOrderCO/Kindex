@@ -1,0 +1,20 @@
+// Parses a string sugar
+// (""" (^("""))* """) | ("`" (^("`"))* "`")
+Kind.Parser.term.str (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.satisfy (c => Char.is_str_delim c)
+  let body  = (dlim: Char) => do Parser {
+    ask chrs = Parser.take_while (c => Bool.not (Char.equal dlim c))
+    ask        Parser.char dlim
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    let empt = Kind.Parser.Term.ctr orig "String.nil" []
+    let cons = (c: Char) => (str: Kind.Parser.Term) => Kind.Parser.Term.ctr orig "String.cons" [(Kind.Parser.Term.num orig c) str]
+    return String.foldr empt cons chrs
+  }
+  Kind.Parser.term_guard guard body
+}
+
+Char.is_str_delim (c: Char) : Bool
+Char.is_str_delim '"' = Bool.true  // "
+Char.is_str_delim '`' = Bool.true  // `
+Char.is_str_delim c  = Bool.false

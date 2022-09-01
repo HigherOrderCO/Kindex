@@ -1,0 +1,16 @@
+// Parses a let
+// "let " name "=" apps ";"? apps
+Kind.Parser.term.let (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.string "let "  // TODO: should accept other whitespaces
+  let body = (_: Unit) => do Parser {
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask        Kind.Parser.skipping (Parser.char '=')
+    ask expr = Kind.Parser.apps
+    ask        Kind.Parser.skipping (Parser.try (Parser.char ';'))
+    ask body = Kind.Parser.apps
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.let orig name expr body
+  }
+  Kind.Parser.term_guard guard body
+}

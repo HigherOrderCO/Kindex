@@ -1,0 +1,3 @@
+// Automatically derived from Kind/Parser/Argument/_.type
+Kind.Parser.Argument.match (x: (Kind.Parser.Argument)) -(p: (x: (Kind.Parser.Argument)) Type) (new: (hide: Bool) (eras: Bool) (name: String) (tipo: Kind.Parser.Term) (p (Kind.Parser.Argument.new hide eras name tipo))) : (p x)
+Kind.Parser.Argument.match (Kind.Parser.Argument.new hide_ eras_ name_ tipo_) p new = (new hide_ eras_ name_ tipo_)

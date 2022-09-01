@@ -1,0 +1,3 @@
+// Automatically derived from Kind/Parser/Rule/_.type
+Kind.Parser.Rule.match (x: (Kind.Parser.Rule)) -(p: (x: (Kind.Parser.Rule)) Type) (new: (orig: U60) (name: String) (pats: (List Kind.Parser.Term)) (body: Kind.Parser.Term) (p (Kind.Parser.Rule.new orig name pats body))) : (p x)
+Kind.Parser.Rule.match (Kind.Parser.Rule.new orig_ name_ pats_ body_) p new = (new orig_ name_ pats_ body_)

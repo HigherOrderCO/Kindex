@@ -1,0 +1,4 @@
+HashMap.empty <k> <v> (hash_fn: k -> U60) : HashMap k v {
+  let map = Bits.Map.new v
+  HashMap.new hash_fn map
+}

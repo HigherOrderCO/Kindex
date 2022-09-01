@@ -1,0 +1,11 @@
+// Parses a number
+// [0-9]+
+Kind.Parser.term.num (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.u60_decimal
+  let body  = (numb: U60) => do Parser {
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.num orig numb
+  }
+  Kind.Parser.term_guard guard body
+}

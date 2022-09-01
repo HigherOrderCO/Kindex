@@ -1,0 +1,22 @@
+// "-"? "+"?
+Kind.Parser.argument : Parser Kind.Parser.Argument {
+  // TODO: This logic accepts invalid things like "-   +(cool_name)"
+  // Should be ( "+"? "<" name (":" apps)? ">" ) | ( "-"? "(" name (":" apps)? ")" )
+  do Parser {
+    ask eras = Kind.Parser.skipping (Kind.Parser.token '-')
+    ask keep = Kind.Parser.skipping (Kind.Parser.token '+')
+    ask open = Kind.Parser.skipping (Parser.char_any_of "(<")
+    let clos = if (Char.equal open '(') {')'} else {'>'}
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask anno = Kind.Parser.skipping (Kind.Parser.token ':')
+    ask tipo = if anno {
+      Kind.Parser.apps
+    } else {
+      Parser.pure (Kind.Parser.Term.typ 0)
+    }
+    ask Kind.Parser.skipping (Parser.char clos)
+    let hide = Char.equal open '<'
+    let eras = if hide { Bool.not keep } else { eras }
+    return (Kind.Parser.Argument.new hide eras name tipo)
+  }
+}

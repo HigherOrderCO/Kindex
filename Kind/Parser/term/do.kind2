@@ -1,0 +1,14 @@
+// Parses a monadic do block
+// "do " ctr_name "{" term_statement "}"
+Kind.Parser.term.do (init: U60) : Parser (Maybe Kind.Parser.Term) {
+  let guard = Parser.string "do "  // TODO: should accept other whitespaces
+  let body = (_: Unit) => do Parser {
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask        Kind.Parser.skipping (Parser.char '{')
+    ask term = Kind.Parser.term.st
+    let term = term :: String -> Kind.Parser.Term
+    ask        Kind.Parser.skipping (Parser.char '}')
+    return (term name)
+  }
+  Kind.Parser.term_guard guard body
+}

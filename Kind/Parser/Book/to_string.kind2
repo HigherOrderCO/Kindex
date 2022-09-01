@@ -1,0 +1,10 @@
+Kind.Parser.Book.to_string (book: Kind.Parser.Book) : String
+Kind.Parser.Book.to_string (Kind.Parser.Book.new (List.nil  t)            entries holes) = String.nil
+Kind.Parser.Book.to_string (Kind.Parser.Book.new (List.cons t name names) entries holes) =
+  match Maybe me = HashMap.get entries name {
+    some =>
+      let entry = Kind.Parser.Entry.to_string me.value
+      let tail = Kind.Parser.Book.to_string (Kind.Parser.Book.new names entries holes)
+      String.flatten [entry String.new_line tail]
+    none => String.nil
+  }

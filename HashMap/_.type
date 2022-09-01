@@ -1,0 +1,4 @@
+// TODO: Breaks on collision
+type HashMap <k: Type> <v: Type> {
+  new (hash_fn: k -> U60) (map: Map v)
+}

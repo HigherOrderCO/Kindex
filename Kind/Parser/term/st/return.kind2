@@ -1,0 +1,12 @@
+// Parses a return statement
+// "return " apps
+Kind.Parser.term.st.return (init: U60) : Parser (Maybe ((monad: String) -> Kind.Parser.Term)) {
+  let guard = Parser.string "return "
+  let body = (_: Unit) => do Parser {
+    ask term = Kind.Parser.apps
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return (monad: String) => Kind.Parser.Term.ctr orig (String.concat monad ".pure") [term]
+  }
+  Kind.Parser.term_guard guard body
+}

@@ -1,0 +1,13 @@
+// Parses a hole
+// "_"
+Kind.Parser.term.hol (init: U60) : Parser (Maybe Kind.Parser.Term){
+  // TODO: we probably don't want to parse things like "_asdf" as a hole and a name
+  // Maybe require a separator like whitespace or ) after
+  let guard = Parser.char '_'
+  let body = (_: Unit) => do Parser {
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return Kind.Parser.Term.hol orig 0
+  }
+  Kind.Parser.term_guard guard body
+}

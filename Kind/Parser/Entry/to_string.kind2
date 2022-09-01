@@ -1,0 +1,8 @@
+Kind.Parser.Entry.to_string (entry: Kind.Parser.Entry) : String
+Kind.Parser.Entry.to_string (Kind.Parser.Entry.new name args tipo rules) =
+  let args  = List.map args  ((a: Kind.Parser.Argument) => Kind.Parser.Argument.to_string a)
+  let left  = String.join " " (List.cons name args)
+  let right = Kind.Parser.Term.to_string tipo
+  let entry = String.flatten [left " : " right]
+  let rules = List.map rules ((r: Kind.Parser.Rule) => Kind.Parser.Rule.to_string r)
+  String.join String.new_line (List.cons entry rules)

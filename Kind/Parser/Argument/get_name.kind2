@@ -1,0 +1,2 @@
+Kind.Parser.Argument.get_name (arg: Kind.Parser.Argument) : String
+Kind.Parser.Argument.get_name (Kind.Parser.Argument.new hide eras name tipo) = name

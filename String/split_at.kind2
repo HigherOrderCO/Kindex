@@ -1,8 +1,7 @@
-String.split_at (n: Nat) (xs: String) : Pair String String {
-  String.split_at.go n xs ""
-}
-
-String.split_at.go (n: Nat) (xs: String) (fst: String) : Pair String String
-String.split_at.go  n            String.nil        fst = Pair.new fst String.nil
-String.split_at.go  Nat.zero    (String.cons x xs) fst = Pair.new fst xs
-String.split_at.go (Nat.succ n) (String.cons x xs) fst = String.split_at.go n xs (String.cons x fst)
+String.split_at (xs : String) (n : Nat) : Pair String String
+String.split_at  xs                 Nat.zero    = Pair.new String.nil xs
+String.split_at  String.nil        (Nat.succ n) = Pair.new String.nil String.nil
+String.split_at (String.cons x xs) (Nat.succ n) =
+  match Pair tail = String.split_at xs n {
+    new => Pair.new (String.cons x tail.fst) tail.snd
+  }

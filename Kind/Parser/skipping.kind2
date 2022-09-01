@@ -1,0 +1,7 @@
+// Skips whitespace and comments and then runs a parser
+Kind.Parser.skipping <a> (prs: Parser a) : Parser a {
+  do Parser {
+    ask Kind.Parser.skip_all
+    prs
+  }
+}

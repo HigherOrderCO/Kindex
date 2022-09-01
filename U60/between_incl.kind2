@@ -1,0 +1,4 @@
+// a <= b <= c
+U60.between_incl (small: U60) (val: U60) (big: U60) : Bool {
+  U60.to_bool (& (<= small val) (<= val big))
+}

@@ -1,0 +1,3 @@
+Char.is_alpha (c: Char) : Bool {
+  Bool.or (Char.between_incl 'a' c 'z') (Char.between_incl 'A' c 'Z')
+}

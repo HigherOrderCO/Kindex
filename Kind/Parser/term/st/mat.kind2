@@ -1,0 +1,47 @@
+// Parses a match inside of an do block
+// "match " ctr_name var_name ("=" apps)? "{" (var_name "=>" apps ";"?)* "}" (":" apps)?
+Kind.Parser.term.st.mat (init: U60) : Parser (Maybe ((monad: String) -> Kind.Parser.Term)) {
+  // TODO: Reuse the match parser, don't reimplement
+  let guard = Parser.string "match "
+  let body = (_: Unit) => do Parser {
+    ask tipo = Kind.Parser.skipping Kind.Parser.name
+    ask nm_i = Kind.Parser.skipping Parser.get_index
+    ask name = Kind.Parser.skipping Kind.Parser.name
+    ask next = Kind.Parser.skipping (Kind.Parser.token '=')
+    ask expr = if next {
+      Kind.Parser.apps
+    } else {
+      do Parser {
+        ask nm_j = Parser.get_index
+        let orig = Kind.Parser.make_origin 0 nm_i nm_j
+        return Kind.Parser.Term.var orig name
+      }
+    }
+    ask        Kind.Parser.skipping (Parser.char '{')
+    let clos = Kind.Parser.skipping (Parser.char '}')
+    let pcas = do Parser {
+      ask name = Kind.Parser.skipping Kind.Parser.name
+      ask        Kind.Parser.skipping (Parser.string "=>")
+      ask body = Kind.Parser.term.st
+      let body = body :: String -> Kind.Parser.Term
+      ask        Parser.try (Parser.char ';')
+      return Pair.new name body
+    }
+    ask cses = Parser.repeat_until clos pcas
+    ask next = Kind.Parser.token ':'  // TODO: Shouldn't this allow whitespace before?
+    ask moti = if next {
+      Kind.Parser.apps
+    } else {
+      Parser.pure (Kind.Parser.Term.hol 0 0)
+    }
+    ask last = Parser.get_index
+    let orig = Kind.Parser.make_origin 0 init last
+    return ((monad: String) =>
+      // Applies the monad name to the monad lambda inside each case
+      let fill_term = (term :              String -> Kind.Parser.Term)  => term monad
+      let fill_case = (case : Pair String (String -> Kind.Parser.Term)) => Pair.map_snd case fill_term
+      let cses = List.map fill_case cses
+      Kind.Parser.Term.mat orig tipo name expr cses moti)
+  }
+  Kind.Parser.term_guard guard body
+}

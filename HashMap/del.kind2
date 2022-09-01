@@ -1,0 +1,5 @@
+HashMap.del <k> <v> (map: HashMap k v) (key: k) : HashMap k v
+HashMap.del k v (HashMap.new k_ v_ hashf map) key =
+  let hash = hashf key
+  let map  = Map.del map hash
+  HashMap.new hashf map

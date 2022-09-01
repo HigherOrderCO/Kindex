@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Parser/Term/_.type
+Kind.Parser.Term.op2 (orig: U60) (oper: Kind.Parser.Oper) (val0: Kind.Parser.Term) (val1: Kind.Parser.Term) : (Kind.Parser.Term)

@@ -1,0 +1,24 @@
+// Skips any sequence of comments and whitespaces
+Kind.Parser.skip_all : Parser Bool {
+  do Parser {
+    ask comment = Kind.Parser.skip_comment
+    ask spaces  = Parser.skip_whitespace
+    if Bool.or comment spaces {
+      Kind.Parser.skip_all.go
+    } else {
+      Parser.pure Bool.false
+    }
+  }
+}
+
+Kind.Parser.skip_all.go : Parser Bool { 
+  do Parser {
+    ask comment = Kind.Parser.skip_comment
+    ask spaces  = Parser.skip_whitespace
+    if Bool.not (Bool.or comment spaces) {
+      Parser.pure Bool.true
+    } else {
+      Kind.Parser.skip_all.go
+    }
+  }
+}
