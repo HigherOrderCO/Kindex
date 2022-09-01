@@ -1,0 +1,1 @@
+Apps.Fib.Pos.Value.IsValid.Confia (x: U120) (b: U120) : Equal Bool (U120.less_than x b) Bool.true

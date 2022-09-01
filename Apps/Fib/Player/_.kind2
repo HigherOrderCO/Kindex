@@ -2,6 +2,25 @@ Apps.Fib.Player : Type {
   Apps.Fib.Entity
 }
 
+// NEW FORMAT
+// Char:
+// xy: u16 // posição
+// xp: u12 // experiencia
+// hp: u12 // hp atual
+// sl: u16 // venda de item
+// rt: u2  // root counter
+// sl: u2  // silence counter
+// gd: u12 // quantidade de kgt 
+// cd: u12 // proximo turno que pode se mover
+// skills:
+// - skill_0: u6
+// - skill_1: u6
+// - skill_2: u6
+// - skill_3: u6
+// - skill_4: u6
+
+
+// OLD FORMAT
 // Player : 
 //   U120
 //     xy: u18 - Position
@@ -22,3 +41,4 @@ Apps.Fib.Player : Type {
 // - 8 bits exponent (e)
 // - value = (1/m) * 2 ^ (1 + e)
 // - https://gist.githubusercontent.com/VictorTaelin/81c3f6fffaaf14573728b3100d3d3535/raw/67b5389ffec79edd97fef1203dbce8501cf23649/12-bit-unsigned-floating-point-values.txt
+// - skill_5: u6
