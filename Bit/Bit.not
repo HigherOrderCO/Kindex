@@ -1,0 +1,3 @@
+Bit.not (a: Bit) : Bit 
+Bit.not Bit.0 = Bit.1
+Bit.not Bit.1 = Bit.0

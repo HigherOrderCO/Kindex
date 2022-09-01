@@ -1,0 +1,3 @@
+// Equal -> Nat.equal
+Nat.equal.from_equal (a: Nat) (b: Nat) (eq: Equal Nat a b): (Equal (Nat.equal a b) Bool.true)
+Nat.equal.from_equal a b (Equal.refl t c) = (Nat.equal.refl c)

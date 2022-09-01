@@ -1,0 +1,10 @@
+// Finds the minimal element of the heap
+// Returns Maybe.none if the heap is empty
+Data.BinomialHeap.findMin (pq: Data.BinomialHeap) : Maybe U60
+// Data.BinomialHeap.findMin (List.nil t) = (Maybe.none U60)
+Data.BinomialHeap.findMin pq =
+  Data.BinomialHeap.findMin.aux (Data.BinomialHeap.findMinNode pq)
+
+Data.BinomialHeap.findMin.aux (x: Maybe (Pair U60 U60)) : Maybe U60
+Data.BinomialHeap.findMin.aux (Maybe.none t    ) = Maybe.none
+Data.BinomialHeap.findMin.aux (Maybe.some t val) = Maybe.some (Pair.snd val)

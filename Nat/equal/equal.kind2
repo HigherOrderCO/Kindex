@@ -1,0 +1,8 @@
+// Turns a Nat.equal into Equal
+// This is a proof that Nat.equal does what we expect it to do.
+
+Nat.equal.equal (a: Nat) 	 (b: Nat) 	  (proof: Equal (Nat.equal a b) Bool.true ): (Equal a b)
+Nat.equal.equal Nat.zero     Nat.zero     proof = Equal.refl
+Nat.equal.equal (Nat.succ n) Nat.zero 	  proof = Empty.absurd (Bool.true_not_false proof)
+Nat.equal.equal Nat.zero 	 (Nat.succ m) proof = Empty.absurd (Bool.true_not_false proof)
+Nat.equal.equal (Nat.succ n) (Nat.succ m) proof = (Equal.apply (x => (Nat.succ x)) (Nat.equal.equal n m proof))

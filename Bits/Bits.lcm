@@ -1,0 +1,3 @@
+// Fixme implement without using Nat
+Bits.lcm (a: Bits) (b: Bits) : Bits 
+Bits.lcm a b = (Nat.to_bits (Nat.lcm (Bits.to_nat a) (Bits.to_nat b)))

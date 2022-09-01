@@ -1,0 +1,8 @@
+// A semigroup is a magma with the associative property.
+// Let '*' be the the binary operation then:
+//
+// - forall a b c, (a * b) * c = a * (b * c) (Associativity)
+//
+type Algebra.Semigroup <t: Type> {
+  new (magma: Algebra.Magma t) (associativity: Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))
+}

@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Laws/Inverse/_.type
+Algebra.Laws.Inverse.new <t: Type> <concat: (_: t) (_: t) t> <inverse: (_: t) t> <empty: t> (left_inverse: (x: t) (Equal empty (concat x (inverse x)))) (right_inverse: (x: t) (Equal empty (concat (inverse x) x))) : (Algebra.Laws.Inverse t concat inverse empty)

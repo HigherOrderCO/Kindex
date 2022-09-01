@@ -1,0 +1,3 @@
+Bit.nand (a: Bit) (b: Bit) : Bit 
+Bit.nand Bit.1 Bit.1 = Bit.0
+Bit.nand a b = Bit.1

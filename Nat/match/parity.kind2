@@ -1,0 +1,18 @@
+// Nat match based on parity.
+// Given predicate on Nats,
+// a proof that, for any Nat m, the predicate holds for m*2
+// a proof that, for any Nat m, the predicate holds for m*2+1
+// then the predicate holds for every Nat n.
+Nat.match.parity
+  (n: Nat)
+  (p: Nat -> Type)
+  (e: (m: Nat) -> p (Nat.double m))
+  (o: (m: Nat) -> p (Nat.succ (Nat.double m)))
+: (p n)
+Nat.match.parity n p e o =
+  (Sigma.match (Nat.half.rel n) (x => p n) (fst => snd => 
+    match Either snd {
+      left  => Equal.rewrite (Equal.mirror snd.val) (x => p x) (e fst)
+      right => Equal.rewrite (Equal.mirror snd.val) (x => p x) (o fst)
+    }
+  ))

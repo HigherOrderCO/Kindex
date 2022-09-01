@@ -1,0 +1,15 @@
+// A set equipped with a single binary operation that is associative
+// with a neutral element and inverse for all elements.
+// Let '*' be the the binary operation and 'e' the neutral element then:
+//
+// - forall a b c, (a * b) * c = a * (b * c) (Associativity)
+// - forall a    , a = a * e                 (Right identity)
+// - forall a    , a = e * a                 (Left identity)
+// - forall a    , a * a^-1 = e              (Right inverse)
+// - forall a    , a^-1 * a = e              (Left inverse)
+//
+// Or just a monoid with inverse.
+
+type Algebra.Group <t> {
+  new (monoid: Algebra.Monoid t) (invert: t -> t) (inverse: Algebra.Laws.Inverse t (Algebra.Monoid.concat monoid) invert (Algebra.Monoid.empty monoid))
+}

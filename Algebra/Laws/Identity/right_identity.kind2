@@ -1,0 +1,2 @@
+Algebra.Laws.Identity.right_identity <t> <concat: t -> t -> t> <empty: t> (id: Algebra.Laws.Identity t concat empty) : (x: t) -> Equal x (concat x empty)
+Algebra.Laws.Identity.right_identity t concat empty (Algebra.Laws.Identity.new t_ concat_ empty_ left right) = right

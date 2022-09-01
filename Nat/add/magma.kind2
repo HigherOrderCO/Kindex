@@ -1,0 +1,3 @@
+Nat.add.magma : Algebra.Magma Nat
+Nat.add.magma =
+  (Algebra.Magma.new (x => y => Nat.add x y))

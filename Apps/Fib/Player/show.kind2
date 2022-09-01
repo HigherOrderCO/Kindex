@@ -1,0 +1,26 @@
+Apps.Fib.Player.show (player: Apps.Fib.Player) : String {
+  let fst  = Pair.fst player
+  let snd  = Pair.snd player
+  let list = 
+    [
+      (Pair.new "Pos x:  " 9)
+      (Pair.new "Pos y:  " 9)
+      (Pair.new "Exp:    " 16)
+      (Pair.new "Health: " 12)
+      (Pair.new "s0:     " 16)
+      (Pair.new "s1:     " 16)
+      (Pair.new "Rest:   " 42)
+    ]
+  let func =
+    (current: Pair String U60) =>
+    (acc: Pair String U60) =>
+      let pos = Pair.snd acc
+      let len = Pair.snd current
+      let val = U120.bitwise_and (U120.shift_right fst (U60.to_u120 (pos))) (U60.to_u120 (- (^ 2 len) 1))
+      let str = String.concat (Pair.fst current) (Show.to_string (U120.show val))
+      let acc = Pair.new str (+ (Pair.snd current) (Pair.snd acc))
+      acc
+  let acc  = Pair.new String.nil 0
+  let fold = List.foldl (Pair String U60) (Pair String U60) acc func list
+  Pair.fst fold
+}

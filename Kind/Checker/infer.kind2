@@ -37,7 +37,7 @@ Kind.Checker.infer (Kind.Term.all orig name type body) =
   do Kind.Checker {
     ask depth = Kind.Checker.get_depth
     ask Kind.Checker.check type (Kind.Term.typ orig)
-    ask Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name depth)) (Kind.Term.typ orig)) name type []
+    ask Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name depth)) (Kind.Term.typ orig)) name (Kind.Term.eval type) []
     return (Kind.Term.typ orig)
   }
 
@@ -74,12 +74,13 @@ Kind.Checker.infer (Kind.Term.let orig name expr body) =
 
 Kind.Checker.infer (Kind.Term.ann orig expr type) =
   do Kind.Checker {
-    ask Kind.Checker.check expr (Kind.Term.eval type)
+    let type = Kind.Term.eval type
+    ask Kind.Checker.check expr type
     return type
   }
 
 Kind.Checker.infer (Kind.Term.ct0 ctid orig) =
-  Kind.Checker.pure (TypeOf ctid)
+  Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
 
 Kind.Checker.infer (Kind.Term.ct1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0)
@@ -108,7 +109,7 @@ Kind.Checker.infer (Kind.Term.ct8 ctid orig args) =
   Kind.Checker.infer (expr ctid orig)
 
 Kind.Checker.infer (Kind.Term.fn0 ctid orig) =
-  Kind.Checker.pure (TypeOf ctid)
+  Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
 
 Kind.Checker.infer (Kind.Term.fn1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0)
