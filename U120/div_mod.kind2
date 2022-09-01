@@ -1,5 +1,5 @@
-// Binary long division
-// Returns the integer division num/den, as well as the remainder
+// Returns the quocient and remainder of the integer division num/den
+// Implemented as binary long division
 U120.div_mod (num: U120) (den: U120) : Pair U120 U120
 U120.div_mod num (U120.new 0 0) = Pair.new (U60.to_u120 (/ 0 0)) (U60.to_u120 (% 0 0))  // cause panic like in U60
 U120.div_mod num den            =

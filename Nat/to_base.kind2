@@ -3,7 +3,7 @@ Nat.to_base(base: Nat) (nat: Nat) : List Nat {
 }
 
 Nat.to_base.go (base: Nat) (nat: Nat) (res: List Nat) (dvm: Pair Nat Nat) : List Nat
-Nat.to_base.go base nat res (Pair.new Nat Nat  Nat.zero       mod) = List.cons mod res
-Nat.to_base.go base nat res (Pair.new Nat Nat (Nat.succ divp) mod) =
+Nat.to_base.go base nat res (Pair.new a b  Nat.zero       mod) = List.cons mod res
+Nat.to_base.go base nat res (Pair.new a b (Nat.succ divp) mod) =
   let div = (Nat.succ divp)
   Nat.to_base.go base div (List.cons mod res) (Nat.div_mod div base)
