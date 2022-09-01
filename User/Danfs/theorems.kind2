@@ -136,7 +136,16 @@ Problems.t26 a (List.cons t x xs) ys =
   let app = Equal.apply (x => Nat.succ x) ind
   app
 
-// Problems.t27 <a: Type> (xs: List a) : (Equal (List a) (List.reverse a (List.reverse a xs)) xs)
+Problems.t27 <a: Type> (xs: List a) : (Equal (List a) (List.reverse a (List.reverse a xs)) xs)
+Problems.t27 a xs =
+  let app = Problems.t27.aux a xs (List.nil a)
+  app
+
+Problems.t27.aux <a: Type> (xs: List a) (ys: List a) : (Equal (List a) (List.reverse a (List.reverse.go a xs ys)) (List.reverse.go a ys xs))
+Problems.t27.aux a (List.nil  t     ) ys = Equal.refl
+Problems.t27.aux a (List.cons t x xs) ys =
+  let ind = Problems.t27.aux xs (List.cons x ys)
+  ind
 
 Problems.t28 : Not (Equal Bool Bool.true Bool.false)
 Problems.t28 =
