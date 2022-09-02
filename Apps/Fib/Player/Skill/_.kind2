@@ -1,3 +1,4 @@
+// TODO: update to new skill format
 // First 10 bits
 Apps.Fib.Player.Skill : Type {
   U120

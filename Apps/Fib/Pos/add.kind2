@@ -1,7 +1,5 @@
-Apps.Fib.Pos.add (a: Apps.Fib.Pos) (b: Apps.Fib.Pos) : Apps.Fib.Pos {
+// TODO
+// Apps.Fib.Pos.add (a: Apps.Fib.Pos) (b: Apps.Fib.Pos) : Apps.Fib.Pos {
+//   ?
+// }
 
-}
-
-Objective = ?                 //      v--- (current Pos makes it impossible)
-x0 = 319  x1 = 200  -> x = 199 | x = 519              | x = 7
-y0 = 10   y1 = 2    -> y = 12  | y = 12               | y = 13
