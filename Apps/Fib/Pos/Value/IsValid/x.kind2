@@ -10,3 +10,7 @@ Apps.Fib.Pos.Value.IsValid.x (x: U120) (y: U120) (e0: Equal Bool (U120.less_than
   let e5.1 = Equal.rewrite (Equal.mirror e1.2) (k => Equal Bool (U120.less_than k (U120.new 0 160)) Bool.true) e5
   e5.1
   }
+
+
+  // x  = U120.mod x 160
+  // e0 = U120.mod x 160 < 160

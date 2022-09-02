@@ -1,0 +1,3 @@
+Apps.Fib.Player.rt.get (player: Apps.Fib.Player) : U120 {
+  Apps.Fib.get_in_u120 player (U120.new 0 56) (U120.new 0 2)
+}

@@ -1,24 +1,12 @@
 Apps.Fib.Pos.new (x: U120) (y: U120) : Apps.Fib.Pos {
   let x.val = U120.mod x (U120.new 0 160)
   let y.val = U120.mod y (U120.new 0 160)
-  // let e0    = (U120.mod.is_less_than x (U120.new 0 160) Pos.160_is_not_0) :: (Equal Bool (U120.less_than (U120.mod x (U120.new 0 160)) (U120.new 0 160)) Bool.true)
-  let e0 = (Apps.Fib.Pos.Value.IsValid.Confia x.val (U120.new 0 160)) // Todo change
-  // let e1    = U120.mod.is_less_than x (U120.new 0 160) ?
-  let e1 = (Apps.Fib.Pos.Value.IsValid.Confia y.val (U120.new 0 160)) // Todo change
+  let e0    = U120.mod.is_less_than x (U120.new 0 160) Pos.160_is_not_0
+  let e1    = U120.mod.is_less_than y (U120.new 0 160) Pos.160_is_not_0
   $ (Apps.Fib.Pos.Value.new x.val y.val)
     (Pair.new _ _ (Apps.Fib.Pos.Value.IsValid.x x.val y.val e0 ) (Apps.Fib.Pos.Value.IsValid.y x.val y.val e0 e1)) // (Pair.new _ _ (Provona x.val y.val e0) ?)
 }
 
-// Pos.160_is_not_0 : (Not (Equal U120 (U120.new 0 160) (U120.new 0 0))) {
-//   absurd => Equal.rewrite absurd ((x: U120) => if (U120.equal x (U120.new 0 160)) { Unit } else { Empty }) Unit.new
-// }
- 
-// ==> (Equal Bool (U120.less_than x.val (U120.new 0 160)) Bool.true)
-
-
-// U120.mod.is_less_than (a: U120) (b: U120) (e: Not (Equal U120 b U120.0)) : U120.IsLessThan (U120.mod a b) b
-
-// // Propositional `a < b`
-// U120.IsLessThan (a: U120) (b: U120) : Type {
-//   Equal Bool (U120.less_than a b) Bool.true
-// }
+Pos.160_is_not_0 : (Not (Equal U120 (U120.new 0 160) (U120.new 0 0))) {
+  absurd => Equal.rewrite absurd ((x: U120) => if (U120.equal x (U120.new 0 160)) { Unit } else { Empty }) Unit.new
+}
