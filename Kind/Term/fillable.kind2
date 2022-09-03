@@ -12,6 +12,7 @@ Kind.Term.fillable (Kind.Term.lam orig name body)              sub = Kind.Term.f
 Kind.Term.fillable (Kind.Term.app orig expr typ)               sub = Bool.or (Kind.Term.fillable expr sub) (Kind.Term.fillable typ sub)
 Kind.Term.fillable (Kind.Term.let orig name expr body)         sub = Bool.or (Kind.Term.fillable expr sub) (Kind.Term.fillable (body (Kind.Term.hlp 0)) sub)
 Kind.Term.fillable (Kind.Term.ann orig expr typ)               sub = Bool.or (Kind.Term.fillable expr sub) (Kind.Term.fillable typ sub)
+Kind.Term.fillable (Kind.Term.sub orig name indx redx expr)    sub = Kind.Term.fillable expr sub
 Kind.Term.fillable (Kind.Term.op2 orig op left right)          sub = Bool.or (Kind.Term.fillable left sub) (Kind.Term.fillable right sub)
 Kind.Term.fillable (Kind.Term.hol orig numb)                   sub = Maybe.is_some (Kind.Subst.look sub numb)
 Kind.Term.fillable (Kind.Term.ct0 ctid orig)                   sub = Bool.false

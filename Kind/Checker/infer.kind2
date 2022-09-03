@@ -79,6 +79,26 @@ Kind.Checker.infer (Kind.Term.ann orig expr type) =
     return type
   }
 
+Kind.Checker.infer (Kind.Term.sub orig name indx redx expr) =
+  do Kind.Checker {
+    ask dep = Kind.Checker.get_depth
+    ask got = Kind.Checker.find indx Maybe.none (n => t => v => Maybe.some (Pair.new t v))
+    match Maybe got {
+      none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
+      some => match Pair got.value {
+        new => do Kind.Checker {
+          match Maybe reduction = List.at.u60 got.value.snd redx {
+            none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
+            some => do Kind.Checker {
+              ask expr_typ = Kind.Checker.infer expr
+              return Kind.Term.eval (Kind.Term.replace expr_typ indx reduction.value)
+            }
+          }
+        }
+      }
+    }
+  }
+
 Kind.Checker.infer (Kind.Term.ct0 ctid orig) =
   Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
 

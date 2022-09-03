@@ -9,10 +9,11 @@ Kind.Term.show.forall orig name type body =
 // Pretty prints a @Kind.Term@ into a string.
 Kind.Term.show (term: Kind.Term): String
 Kind.Term.show term =
-  let sugars = [ (Kind.Term.show.sugar.string term)
-                 (Kind.Term.show.sugar.list   term)
-                 (Kind.Term.show.sugar.sigma  term)
-               ]
+  let sugars = [
+    (Kind.Term.show.sugar.string term)
+    (Kind.Term.show.sugar.list   term)
+    (Kind.Term.show.sugar.sigma  term)
+  ]
   Maybe.try sugars (Kind.Term.show.go term)
 
 Kind.Term.show.go (term: Kind.Term): String
@@ -20,9 +21,10 @@ Kind.Term.show.go (Kind.Term.typ orig)                        = "Type"
 Kind.Term.show.go (Kind.Term.var orig name index)             = Kind.Printer.text [(Kind.Name.show name)]
 Kind.Term.show.go (Kind.Term.hol orig numb)                   = Kind.Printer.text ["_"]
 Kind.Term.show.go (Kind.Term.all orig name type body)         = Kind.Term.show.forall orig name type body
-Kind.Term.show.go (Kind.Term.lam orig name body)              = Kind.Printer.text ["(" (Kind.Name.show name) "=>" (Kind.Term.show (body (Kind.Term.var orig name 0))) ")"]
+Kind.Term.show.go (Kind.Term.lam orig name body)              = Kind.Printer.text ["(" (Kind.Name.show name) " => " (Kind.Term.show (body (Kind.Term.var orig name 0))) ")"]
 Kind.Term.show.go (Kind.Term.let orig name exp body)          = Kind.Printer.text ["let " (Kind.Name.show name) " = " (Kind.Term.show exp) "; " (Kind.Term.show (body (Kind.Term.var orig name 0)))]
 Kind.Term.show.go (Kind.Term.ann orig expr type)              = Kind.Printer.text ["{" (Kind.Term.show expr) " :: " (Kind.Term.show type) "}"]
+Kind.Term.show.go (Kind.Term.sub orig name indx redx expr)    = Kind.Printer.text [(Kind.Term.show expr) " # " (Kind.Name.show name) "/" (Show.to_string (U60.show redx))]
 Kind.Term.show.go (Kind.Term.app orig func argm)              = Kind.Printer.text ["(" (Kind.Term.show func) " " (Kind.Term.show argm) ")"]
 Kind.Term.show.go (Kind.Term.ct0 ctid orig)                   = NameOf ctid
 Kind.Term.show.go (Kind.Term.ct1 ctid orig x0)                = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) ")"]

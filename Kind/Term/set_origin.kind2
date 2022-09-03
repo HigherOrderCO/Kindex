@@ -6,6 +6,7 @@ Kind.Term.set_origin new_origin (Kind.Term.all old_orig name typ body)          
 Kind.Term.set_origin new_origin (Kind.Term.lam old_orig name body)              = Kind.Term.lam new_origin name body
 Kind.Term.set_origin new_origin (Kind.Term.let old_orig name expr body)         = Kind.Term.let new_origin name expr body
 Kind.Term.set_origin new_origin (Kind.Term.ann old_orig expr typ)               = Kind.Term.ann new_origin expr typ
+Kind.Term.set_origin new_origin (Kind.Term.sub old_orig name indx redx expr)    = Kind.Term.sub new_origin name indx redx expr
 Kind.Term.set_origin new_origin (Kind.Term.app old_orig func arg)               = Kind.Term.app new_origin func arg
 Kind.Term.set_origin new_origin (Kind.Term.hlp old_orig)                        = Kind.Term.hlp new_origin
 Kind.Term.set_origin new_origin (Kind.Term.u60 old_orig)                        = Kind.Term.u60 new_origin
