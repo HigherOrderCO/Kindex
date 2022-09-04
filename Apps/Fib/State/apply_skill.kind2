@@ -1,0 +1,6 @@
+Apps.Fib.State.apply_skill (skill: U120) (entity: U120) (target_pos: U120) (state: Apps.Fib.State) : Apps.Fib.State
+Apps.Fib.State.apply_skill (U120.new 0 0) entity target_pos state = ?
+Apps.Fib.State.apply_skill (U120.new 0 1) entity target_pos state = ?
+Apps.Fib.State.apply_skill (U120.new 0 2) entity target_pos state = ?
+Apps.Fib.State.apply_skill (U120.new 0 3) entity target_pos state = ?
+Apps.Fib.State.apply_skill (U120.new 0 4) entity target_pos state = ?
