@@ -7,8 +7,7 @@ Apps.Fib.Map.show.y (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): Stri
     String.nil
   }
   else {
-    let string = String.concat "
-" (String.from_list (Apps.Fib.Map.show.x (+ x w) (- y h) w map))
+    let string = String.cons 10 (String.from_list (Apps.Fib.Map.show.x (+ x w) (- y h) w map))
 
     String.concat string (Apps.Fib.Map.show.y x y w (U60.sub.saturated h 1) map)
   }
