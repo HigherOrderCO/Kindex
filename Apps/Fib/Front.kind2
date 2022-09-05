@@ -1,0 +1,35 @@
+Apps.Fib.Front.State : Type {
+  Apps.Fib.State
+}
+
+// Fib's state has:
+// - map: Apps.Fib.Map   // the game's map, a 160x160 grid
+// - tab: Apps.Fib.Table // an `EntityID -> Entity` map, where EntityID is a 12-bit key
+// What must be done is:
+//   for x from 0 to 160:
+//     for y from 0 to 160:
+//       entity = get x y from map
+//       switch entity:
+//         case 0   => draw grass
+//         case 1   => draw rock
+//         case 256 => draw dragon
+//         default  => draw poring
+
+Apps.Fib.Front : App Apps.Fib.Front.State {
+
+  // The initial state.
+  let init = Apps.Fib.State.init
+
+  // TODO: render the state as a map.
+  let draw = (state: Apps.Fib.Front.State) =>
+    App.DOM.text "TODO"
+
+  // TODO: get the state from the blockchain.
+  let when = (event: App.Event) => (state: Apps.Fib.Front.State) =>
+    do IO {
+      return state
+    }
+
+  App.new init draw when
+
+}

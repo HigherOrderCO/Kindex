@@ -1,0 +1,35 @@
+// replacees a free variable by a value. Used on the 'sub' syntax.
+Kind.Term.replace (term: Kind.Term) (index: U60) (value: Kind.Term): Kind.Term
+Kind.Term.replace (Kind.Term.typ orig)                        idx val = Kind.Term.typ orig
+Kind.Term.replace (Kind.Term.var orig name index)             idx val = if U60.equal idx index { val } else { Kind.Term.var orig name index }
+Kind.Term.replace (Kind.Term.all orig name typ body)          idx val = Kind.Term.all orig name (Kind.Term.replace typ idx val) (x => Kind.Term.replace (body x) idx val)
+Kind.Term.replace (Kind.Term.lam orig name body)              idx val = Kind.Term.lam orig name (x => Kind.Term.replace (body x) idx val)
+Kind.Term.replace (Kind.Term.let orig name expr body)         idx val = Kind.Term.let orig name (Kind.Term.replace expr idx val) (x => Kind.Term.replace (body x) idx val)
+Kind.Term.replace (Kind.Term.ann orig expr typ)               idx val = Kind.Term.ann orig (Kind.Term.replace expr idx val) (Kind.Term.replace typ idx val)
+Kind.Term.replace (Kind.Term.sub orig name indx redx expr)    idx val = Kind.Term.sub orig name indx redx (Kind.Term.replace expr idx val)
+Kind.Term.replace (Kind.Term.app orig expr typ)               idx val = Kind.Term.app orig (Kind.Term.replace expr idx val) (Kind.Term.replace typ idx val)
+Kind.Term.replace (Kind.Term.hlp orig)                        idx val = Kind.Term.hlp orig
+Kind.Term.replace (Kind.Term.u60 orig)                        idx val = Kind.Term.u60 orig
+Kind.Term.replace (Kind.Term.num orig num)                    idx val = Kind.Term.num orig num
+Kind.Term.replace (Kind.Term.op2 orig op left right)          idx val = Kind.Term.op2 orig op (Kind.Term.replace left idx val) (Kind.Term.replace right idx val)
+Kind.Term.replace (Kind.Term.ct0 ctid orig)                   idx val = Kind.Term.ct0 ctid orig
+Kind.Term.replace (Kind.Term.ct1 ctid orig x0)                idx val = Kind.Term.ct1 ctid orig (Kind.Term.replace x0 idx val)
+Kind.Term.replace (Kind.Term.ct2 ctid orig x0 x1)             idx val = Kind.Term.ct2 ctid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val)
+Kind.Term.replace (Kind.Term.ct3 ctid orig x0 x1 x2)          idx val = Kind.Term.ct3 ctid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val)
+Kind.Term.replace (Kind.Term.ct4 ctid orig x0 x1 x2 x3)       idx val = Kind.Term.ct4 ctid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val)
+Kind.Term.replace (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)    idx val = Kind.Term.ct5 ctid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val) (Kind.Term.replace x4 idx val)
+Kind.Term.replace (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) idx val = Kind.Term.ct6 ctid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val) (Kind.Term.replace x4 idx val) (Kind.Term.replace x5 idx val)
+Kind.Term.replace (Kind.Term.ct7 ctid orig args)              idx val = Kind.Term.ct7 ctid orig (Kind.Term.replace args idx val)
+Kind.Term.replace (Kind.Term.ct8 ctid orig args)              idx val = Kind.Term.ct8 ctid orig (Kind.Term.replace args idx val)
+Kind.Term.replace (Kind.Term.fn0 fnid orig)                   idx val = Kind.Term.FN0 fnid orig
+Kind.Term.replace (Kind.Term.fn1 fnid orig x0)                idx val = Kind.Term.FN1 fnid orig (Kind.Term.replace x0 idx val)
+Kind.Term.replace (Kind.Term.fn2 fnid orig x0 x1)             idx val = Kind.Term.FN2 fnid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val)
+Kind.Term.replace (Kind.Term.fn3 fnid orig x0 x1 x2)          idx val = Kind.Term.FN3 fnid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val)
+Kind.Term.replace (Kind.Term.fn4 fnid orig x0 x1 x2 x3)       idx val = Kind.Term.FN4 fnid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val)
+Kind.Term.replace (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)    idx val = Kind.Term.FN5 fnid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val) (Kind.Term.replace x4 idx val)
+Kind.Term.replace (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5) idx val = Kind.Term.FN6 fnid orig (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val) (Kind.Term.replace x4 idx val) (Kind.Term.replace x5 idx val)
+Kind.Term.replace (Kind.Term.fn7 fnid orig args)              idx val = Kind.Term.FN7 fnid orig (Kind.Term.replace args idx val)
+Kind.Term.replace (Kind.Term.fn8 fnid orig args)              idx val = Kind.Term.FN8 fnid orig (Kind.Term.replace args idx val)
+Kind.Term.replace (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)      idx val = Kind.Term.args7 (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val) (Kind.Term.replace x4 idx val) (Kind.Term.replace x5 idx val) (Kind.Term.replace x6 idx val)
+Kind.Term.replace (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)   idx val = Kind.Term.args8 (Kind.Term.replace x0 idx val) (Kind.Term.replace x1 idx val) (Kind.Term.replace x2 idx val) (Kind.Term.replace x3 idx val) (Kind.Term.replace x4 idx val) (Kind.Term.replace x5 idx val) (Kind.Term.replace x6 idx val) (Kind.Term.replace x7 idx val)
+Kind.Term.replace (Kind.Term.hol orig numb)                   idx val = Kind.Term.hol orig numb
