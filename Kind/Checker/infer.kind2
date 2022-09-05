@@ -49,19 +49,17 @@ Kind.Checker.infer (Kind.Term.lam orig name body) =
 
 Kind.Checker.infer (Kind.Term.app orig func argm) =
   do Kind.Checker {
-    ask subst    = Kind.Checker.get_subst
-    ask func_typ = Kind.Checker.infer func
-    (Kind.Term.if_all func_typ
-      (func_orig => func_name => func_type => func_body =>
-        do Kind.Checker {
-          ask Kind.Checker.check argm func_type
-          return (func_body (Kind.Term.eval argm))
-        }
-      )
+    ask fn_infer = Kind.Checker.infer func
+    ask ap_infer = (Kind.Checker.infer.forall fn_infer
+      (fn_orig => fn_name => fn_type => fn_body => do Kind.Checker {
+        ask Kind.Checker.check argm fn_type
+        return (fn_body (Kind.Term.eval argm))
+      })
       (do Kind.Checker {
         ask ctx = Kind.Checker.get_context
         (Kind.Checker.fail (Kind.Error.invalid_call ctx orig))
       }))
+    return ap_infer
   }
 
 Kind.Checker.infer (Kind.Term.let orig name expr body) =
@@ -175,3 +173,17 @@ Kind.Checker.infer (Kind.Term.op2 orig oper left right) =
     ask Kind.Checker.check right (Kind.Term.u60 0)
     return Kind.Term.u60 0
   }
+
+Kind.Checker.infer.forall <r> (term: Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
+Kind.Checker.infer.forall r (Kind.Term.all orig name type body) then_fn else_val = then_fn orig name type body
+Kind.Checker.infer.forall r (Kind.Term.var orig name index) then_fn else_val = do Kind.Checker {
+  ask reducs = Kind.Checker.find index [] (n => t => v => v)
+  ask result = Kind.Checker.infer.forall.try_values r reducs then_fn else_val
+  return result
+}
+Kind.Checker.infer.forall r other then_fn else_val = else_val
+
+Kind.Checker.infer.forall.try_values <r> (terms: List Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
+Kind.Checker.infer.forall.try_values r (List.cons (Kind.Term.all orig name type body) terms) then_fn else_val = then_fn orig name type body
+Kind.Checker.infer.forall.try_values r (List.cons other                               terms) then_fn else_val = Kind.Checker.infer.forall.try_values r terms then_fn else_val
+Kind.Checker.infer.forall.try_values r List.nil                                              then_fn else_val = else_val
