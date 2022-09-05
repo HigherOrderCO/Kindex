@@ -7,6 +7,7 @@ Kind.Term.eval (Kind.Term.all orig name typ body)          = Kind.Term.all orig 
 Kind.Term.eval (Kind.Term.lam orig name body)              = Kind.Term.lam orig name (x => Kind.Term.eval (body x))
 Kind.Term.eval (Kind.Term.let orig name expr body)         = Kind.Term.eval_let orig name (Kind.Term.eval expr) (x => Kind.Term.eval (body x))
 Kind.Term.eval (Kind.Term.ann orig expr typ)               = Kind.Term.eval_ann orig (Kind.Term.eval expr) (Kind.Term.eval typ)
+Kind.Term.eval (Kind.Term.sub orig name indx redx expr)    = Kind.Term.eval_sub orig name indx redx (Kind.Term.eval expr)
 Kind.Term.eval (Kind.Term.app orig expr typ)               = Kind.Term.eval_app orig (Kind.Term.eval expr) (Kind.Term.eval typ)
 Kind.Term.eval (Kind.Term.hlp orig)                        = Kind.Term.hlp orig
 Kind.Term.eval (Kind.Term.u60 orig)                        = Kind.Term.u60 orig

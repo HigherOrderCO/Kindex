@@ -1,0 +1,7 @@
+// action includes:
+// - EntityID (12 bits)
+// - Command (4 bits)
+// - DeltaY (4 bits)
+// - DeltaX (4 bits)
+
+Apps.Fib.State.update (action: U120) (state: Apps.Fib.State) : Apps.Fib.State

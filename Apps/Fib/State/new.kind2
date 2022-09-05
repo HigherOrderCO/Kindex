@@ -1,0 +1,4 @@
+Apps.Fib.State.new
+  (map: Apps.Fib.Map)
+  (tab: Apps.Fib.Table)
+: Apps.Fib.State

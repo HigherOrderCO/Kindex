@@ -1,5 +1,74 @@
-// Applies a function to the second element of the pair
-// Example: (Pair.map_fst (Pair 3 2) (Nat.add 2)) -> 5
-Pair.map_fst <a> <b> <c> (pair: Pair a b) (func: a -> c) : Pair c b
-Pair.map_fst a b c (Pair.new t.a t.b p.fst p.snd) func =
-  Pair.new c t.b (func p.fst) p.snd
+//Foo (a: Nat) (b: Nat) (e: Equal Nat a b) : Equal Nat b a
+//Foo a b e =
+  //let e0 = Equal.rewrite 
+  //?
+
+
+
+Equal.rewrite
+  <t: Type>
+  <a: t>
+  <b: t>
+  (e: Equal t a b)
+  (p: t -> Type)
+  (x: p a)
+: p b
+
+
+
+//e: (3 + a) == (b - 1)
+//v: Vector (3 + a) Bool
+//k: ......... ........ (PARQUE_QUE_QUEREMOS_TROCAR) ...................
+//----------------------
+
+
+//(Equal.rewrite e (x => Vector x Bool) v) : Vector (b - 1) Bool
+
+
+//v: Vector (3 + a) Bool
+//e: (3 + a) == (b - 1)
+
+//Equal.rewrite e (x => Vector x Bool) v
+//- substitua o lado esquerdo de 'e',
+//- pelo lado direito de 'e',
+//- no tipo do 'v', que é (.... X ....)
+
+
+//...
+//...
+//...
+//...
+//...
+//...
+//...
+//e: (x + 0) == x
+//...
+//...
+//...
+//...
+//...
+//...
+//...
+//...
+Foo
+  (a: Nat)
+  (b: Nat)
+  (c: Nat)
+  (p: Nat -> Type)
+  (e: Equal Nat (Nat.add a b) c)
+  (k: p (Nat.add (Nat.add a b) Nat.zero))
+: p (Nat.add c Nat.zero)
+//Foo a b c p e k = Confia
+
+
+
+//Confia <t: Type> : t
+
+
+
+
+
+
+
+
+
