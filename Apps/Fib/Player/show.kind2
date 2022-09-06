@@ -32,9 +32,3 @@ Apps.Fib.Player.show #fib_plr_show (player: Apps.Fib.Player) : String {
   Pair.fst fold
 }
 
-Main : _ {
-  let player = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 1710) (U120.new 0 22450) (U120.new 0 1) (U120.new 0 3) [U120.1]
-  // let player = U120.new 2174634716 113313552593458289
-  let show   = Apps.Fib.Player.show player
-  show
-}
