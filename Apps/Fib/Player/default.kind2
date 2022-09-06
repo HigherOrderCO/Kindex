@@ -1,4 +1,4 @@
-Apps.Fib.Player.default #fib_plr_dflt (x: U120) (y: U120) : Apps.Fib.Player {
+Apps.Fib.Player.default #Fib_plr_dflt (x: U120) (y: U120) : Apps.Fib.Player {
   let xp = U120.0
   let hp = U120.new 0 100
   let of = U120.0

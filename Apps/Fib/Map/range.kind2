@@ -1,4 +1,4 @@
-Apps.Fib.Map.range #fib_map_rnge : Apps.Fib.Map {
+Apps.Fib.Map.range #Fib_map_rnge : Apps.Fib.Map {
   Apps.Fib.Map.range.aux0 (U120.new 0 0) Apps.Fib.Map.Bases
 }
 

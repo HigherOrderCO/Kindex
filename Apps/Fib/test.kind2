@@ -47,8 +47,8 @@ Main : _ {
 }
 
 
-Apps.Fib.test.Table #fib_tst_tabl (state: Apps.Fib.State) : Apps.Fib.Table
+Apps.Fib.test.Table #Fib_tst_tabl (state: Apps.Fib.State) : Apps.Fib.Table
 Apps.Fib.test.Table (Apps.Fib.State.new map tbl) = tbl
 
-Apps.Fib.test.Map #fib_tst_map (state: Apps.Fib.State) : Apps.Fib.Map
+Apps.Fib.test.Map #Fib_tst_map (state: Apps.Fib.State) : Apps.Fib.Map
 Apps.Fib.test.Map (Apps.Fib.State.new map tbl) = map

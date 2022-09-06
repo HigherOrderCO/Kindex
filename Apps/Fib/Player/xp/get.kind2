@@ -1,3 +1,3 @@
-Apps.Fib.Player.xp.get #fib_plr_xp_g (player: Apps.Fib.Player) : U120 {
+Apps.Fib.Player.xp.get #Fib_plr_xp_g (player: Apps.Fib.Player) : U120 {
   Apps.Fib.get_in_u120 player (U120.new 0 16) (U120.new 0 12)
 }

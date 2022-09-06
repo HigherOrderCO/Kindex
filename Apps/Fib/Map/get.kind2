@@ -1,11 +1,11 @@
-Apps.Fib.Map.get #fib_map_get (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Apps.Fib.Id {
+Apps.Fib.Map.get #Fib_map_get (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Apps.Fib.Id {
   let keys = Apps.Fib.Map.get.chunk map pos
   match Pair keys {
     new => Apps.Fib.Map.get_tile keys.fst keys.snd
   }
 }
 
-Apps.Fib.Map.get.chunk (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Pair U120 U120 {
+Apps.Fib.Map.get.chunk #Fib_map_getc (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Pair U120 U120 {
   let keys  = Apps.Fib.Map.Key.from_pos pos
   let chunk = Data.BaseTree.get U120 Apps.Fib.Map.Bases (Pair.fst keys) map 
   let idx   = Pair.snd keys

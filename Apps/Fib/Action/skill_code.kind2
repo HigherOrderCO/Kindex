@@ -1,4 +1,4 @@
-Apps.Fib.Action.skill_code (state: Apps.Fib.State) (skill_id: U120) (caster_id: U120) (target: Apps.Fib.Pos) : U120
+Apps.Fib.Action.skill_code #Fib_ac_skcd (state: Apps.Fib.State) (skill_id: U120) (caster_id: U120) (target: Apps.Fib.Pos) : U120
 Apps.Fib.Action.skill_code (Apps.Fib.State.new map tab) skill_id caster_id target =
   let tab_ent = Apps.Fib.Table.got tab caster_id
   let player  = Pair.snd tab_ent

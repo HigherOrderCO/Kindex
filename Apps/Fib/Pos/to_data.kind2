@@ -1,4 +1,4 @@
-Apps.Fib.Pos.to_data (center: Apps.Fib.Pos) (target: Apps.Fib.Pos) : U120 {
+Apps.Fib.Pos.to_data #Fib_pos_tdat (center: Apps.Fib.Pos) (target: Apps.Fib.Pos) : U120 {
   let cx = Apps.Fib.Pos.get_x center
   let cy = Apps.Fib.Pos.get_y center
   let tx = Apps.Fib.Pos.get_x target

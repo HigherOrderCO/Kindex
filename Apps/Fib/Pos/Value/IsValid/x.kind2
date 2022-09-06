@@ -1,5 +1,5 @@
 // for every x y, if x < 160: ((( y << 8) | x) & 255) < 160
-Apps.Fib.Pos.Value.IsValid.x #fib_pos_vivx (x: U120) (y: U120) (e0: Equal Bool (U120.less_than x (U120.new 0 160)) Bool.true) : Equal Bool (U120.less_than (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 8)) x) (U120.new 0 255)) (U120.new 0 160)) Bool.true {
+Apps.Fib.Pos.Value.IsValid.x #Fib_pos_vivx (x: U120) (y: U120) (e0: Equal Bool (U120.less_than x (U120.new 0 160)) Bool.true) : Equal Bool (U120.less_than (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 8)) x) (U120.new 0 255)) (U120.new 0 160)) Bool.true {
   let e1   = U120.and.pass_or (U120.shift_left y (U120.new 0 8)) x (U120.new 0 255)
   let e2   = U120.shift_left.mask_zero y (U120.new 0 8)
   let e1.1 = Equal.rewrite e2 (k => Equal U120 (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 8)) x) (U120.new 0 255)) (U120.bitwise_or k (U120.bitwise_and x (U120.new 0 255)))) e1
