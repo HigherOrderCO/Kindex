@@ -139,7 +139,7 @@ Problems.t26 a (List.cons t x xs) ys =
 Problems.t27 <a: Type> (xs: List a) : (Equal (List a) (List.reverse a (List.reverse a xs)) xs)
 Problems.t27 a xs =
   let app = Problems.t27.aux a xs (List.nil a)
-  ?
+  app
 
 Problems.t27.aux <a: Type> (xs: List a) (ys: List a) : (Equal (List a) (List.reverse a (List.reverse.go a xs ys)) (List.reverse.go a ys xs))
 Problems.t27.aux a (List.nil  t     ) ys = Equal.refl
