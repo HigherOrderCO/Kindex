@@ -1,52 +1,7 @@
 // action includes:
 // - EntityID (12 bits)
-// - Command (4 bits)
-// - DeltaX (4 bits)
-// - DeltaY (4 bits)
-
-//Player é tudo que é 512 acima
-
-// Command
-// 0000 - Walk
-// 0001 - Interact
-// 0010 - 
-// 0011 - 
-// 0100 - 
-// 0101 - 
-// 0110 - 
-// 0111 - 
-// 1000 - 
-// 1001 - 
-// 1010 - Skill0
-// 1011 - Skill1
-// 1100 - Skill2
-// 1101 - Skill3
-// 1110 - Skill4
-// 1111 - Skill5
-
-// Char:
-// xy: u16 - Position
-// xp: u12 - Experience
-// hp: u12 - Current HP
-// of: u16 - Sell offer
-// rt: u2  - Root counter
-// sl: u2  - Silence counter
-// gd: u12 - Gold, kgt amount stored in a character 
-// cd: u12 - Cooldown, when is the next turn that player can move
-// skills:
-// - skill_0: u6
-// - skill_1: u6
-// - skill_2: u6
-// - skill_3: u6
-// - skill_4: u6
-// - skill_5: u6
-
-
-// Walk - 
-  // Entity ID
-  // Delta x
-  // Delta y
-  // State
+// - Command  (4 bits)
+// - Data     (8 bits)
 
 
 Apps.Fib.State.update (state: Apps.Fib.State) (action: U120): Apps.Fib.State
@@ -59,7 +14,7 @@ Apps.Fib.State.update (Apps.Fib.State.new map tab) action =
     new =>
       let ent = ent_tab.snd
       if (Bool.and (U120.equal ent U120.0) (U120.equal comm (U120.new 0 8))) {
-        Apps.Fib.State.create_unit (Apps.Fib.State.new map tab) data id
+        Apps.Fib.State.create_unit (Apps.Fib.State.new map tab) id data
       }
       else {
         Apps.Fib.State.update.command (Apps.Fib.State.new map tab) comm data id ent
@@ -67,8 +22,8 @@ Apps.Fib.State.update (Apps.Fib.State.new map tab) action =
   }
 
 Apps.Fib.State.update.command (state: Apps.Fib.State) (command: U120) (data: U120) (id: Apps.Fib.Id) (ent: Apps.Fib.Entity) : Apps.Fib.State
-Apps.Fib.State.update.command state (U120.new 0 0) data id ent =  Apps.Fib.Action.walk state data ent id
-Apps.Fib.State.update.command state (U120.new 0 1) data id ent =  state // interact?
+Apps.Fib.State.update.command state (U120.new 0 0) data id ent = Apps.Fib.State.walk state data ent id
+Apps.Fib.State.update.command state (U120.new 0 1) data id ent = state // interact?
 Apps.Fib.State.update.command state (U120.new 0 2) data id ent = Apps.Fib.State.update.skill state (U120.new 0 0) data ent
 Apps.Fib.State.update.command state (U120.new 0 3) data id ent = Apps.Fib.State.update.skill state (U120.new 0 1) data ent
 Apps.Fib.State.update.command state (U120.new 0 4) data id ent = Apps.Fib.State.update.skill state (U120.new 0 2) data ent

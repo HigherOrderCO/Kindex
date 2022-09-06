@@ -1,0 +1,6 @@
+Apps.Fib.Action.spawn_code (id: Apps.Fib.Id) (town: U120) : U120 {
+  let comm = U120.shift_left (U120.new 0 8) (U120.new 0 12)
+  let data = U120.shift_left (U120.mod town (U120.new 0 4)) (U120.new 0 16)
+  let code = U120.bitwise_or (U120.bitwise_or comm data) id
+  code
+}

@@ -20,7 +20,7 @@ Apps.Fib.Map.show.x (x: U60) (y:U60) (w: U60) (map: Apps.Fib.Map): List U60 {
   else {
     let real_x = (- x w)
     let string = Apps.Fib.Map.get map (Apps.Fib.Pos.new (U120.new 0 real_x) (U120.new 0 y))
-    let string = if (U60.equal (U120.low string) 0) {U120.new 0 32} else {string} // 32 stands for spacebar
+    let string = if (U60.equal (U120.low string) 0) {U120.new 0 '.'} else {string} // 32 stands for spacebar
     List.cons (U120.low string) (Apps.Fib.Map.show.x x y (- w 1) map)
   }
 }

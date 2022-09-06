@@ -1,4 +1,0 @@
-Apps.Fib.Action.use_skill (state: Apps.Fib.State) (skill: U120) (entity: U120) (target: Apps.Fib.Pos) : Apps.Fib.State {
-  let skill_id = Apps.Fib.Player.skills.get entity skill
-  Apps.Fib.State.apply_skill state skill_id entity target
-}

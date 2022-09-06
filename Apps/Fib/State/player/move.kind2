@@ -8,7 +8,7 @@ Apps.Fib.State.player.move (Apps.Fib.State.new map table) ori des =
 
   // Player Pos verification
   // Pair Map ID
-  let origin_map_id        = Apps.Fib.Map.got map ori
+  let origin_map_id        = (Apps.Fib.Map.got map ori)
 
   // Pair Table Entity
   let table_entity_ori = Apps.Fib.Table.got table (Pair.snd origin_map_id)
