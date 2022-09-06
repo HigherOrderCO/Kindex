@@ -1,0 +1,4 @@
+type Kind.Coverage.SplitTree {
+  done
+  at (splits: Kind.Coverage.SplitTrees)
+}

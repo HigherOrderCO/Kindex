@@ -1,0 +1,4 @@
+// Automatically derived from Kind/Coverage/SplitTree/_.type
+Kind.Coverage.SplitTree.match (x: (Kind.Coverage.SplitTree)) -(p: (x: (Kind.Coverage.SplitTree)) Type) (done: (p (Kind.Coverage.SplitTree.done))) (at: (splits: Kind.Coverage.SplitTrees) (p (Kind.Coverage.SplitTree.at splits))) : (p x)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.done) p done at = (done)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.at splits_) p done at = (at splits_)

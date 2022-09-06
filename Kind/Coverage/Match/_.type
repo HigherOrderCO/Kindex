@@ -1,0 +1,5 @@
+type Kind.Coverage.Match <a> {
+  yes (data: a)
+  no
+  block (on: List U60)
+}

@@ -1,0 +1,2 @@
+Kind.Coverage.SplitTrees : Type
+Kind.Coverage.SplitTrees = List (Pair Kind.Coverage.SplitTag Kind.Coverage.SplitTree)

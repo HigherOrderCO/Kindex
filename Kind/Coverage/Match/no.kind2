@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Coverage/Match/_.type
+Kind.Coverage.Match.no <a: Type> : (Kind.Coverage.Match a)

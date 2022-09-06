@@ -1,0 +1,4 @@
+type Kind.Coverage.SplitTag {
+  construtor (constructor: U60)
+  catchAll
+}

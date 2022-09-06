@@ -1,0 +1,127 @@
+Impossible <a> (reason: String) : a
+
+Constructor.TypeOf (constructor_name: U60): Kind.Term
+
+Inst : Type
+Inst = List (Pair U60 Kind.Term)
+
+Kind.Coverage.args_to_list (n: Kind.Term) : List Kind.Term
+Kind.Coverage.args_to_list (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6) = [x0 x1 x3 x4 x5 x6]
+Kind.Coverage.args_to_list (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = [x0 x1 x3 x4 x5 x6 x7]
+
+Kind.Coverage.match_constructor (n: Kind.Term) : Either Kind.Term (Pair U60 (List Kind.Term))
+Kind.Coverage.match_constructor (Kind.Term.ct0 ctid orig)                   = Either.right (Pair.new ctid [])
+Kind.Coverage.match_constructor (Kind.Term.ct1 ctid orig x1)                = Either.right (Pair.new ctid [x1])
+Kind.Coverage.match_constructor (Kind.Term.ct2 ctid orig x1 x2)             = Either.right (Pair.new ctid [x1 x2])
+Kind.Coverage.match_constructor (Kind.Term.ct3 ctid orig x1 x2 x3)          = Either.right (Pair.new ctid [x1 x2 x3])
+Kind.Coverage.match_constructor (Kind.Term.ct4 ctid orig x1 x2 x3 x4)       = Either.right (Pair.new ctid [x1 x2 x3 x4])
+Kind.Coverage.match_constructor (Kind.Term.ct5 ctid orig x1 x2 x3 x4 x5)    = Either.right (Pair.new ctid [x1 x2 x3 x4 x5])
+Kind.Coverage.match_constructor (Kind.Term.ct6 ctid orig x1 x2 x3 x4 x5 x6) = Either.right (Pair.new ctid [x1 x2 x3 x4 x5 x6])
+Kind.Coverage.match_constructor (Kind.Term.ct7 ctid orig args)              = Either.right (Pair.new ctid (Kind.Coverage.args_to_list args))
+Kind.Coverage.match_constructor (Kind.Term.ct8 ctid orig args)              = Either.right (Pair.new ctid (Kind.Coverage.args_to_list args))
+Kind.Coverage.match_constructor other                                       = Either.left other
+
+
+Kind.Coverage.Match.combine (n: Kind.Coverage.Match Inst) (m: Kind.Coverage.Match Inst) : Kind.Coverage.Match Inst
+Kind.Coverage.Match.combine (Kind.Coverage.Match.no t)      m                                = Kind.Coverage.Match.no
+Kind.Coverage.Match.combine (Kind.Coverage.Match.yes t a)   (Kind.Coverage.Match.yes t1 b)   = Kind.Coverage.Match.yes (List.concat a b)
+Kind.Coverage.Match.combine (Kind.Coverage.Match.block t n) (Kind.Coverage.Match.block t1 m) = Kind.Coverage.Match.block (List.concat n m)
+Kind.Coverage.Match.combine (Kind.Coverage.Match.yes t a)   other                            = other
+Kind.Coverage.Match.combine (Kind.Coverage.Match.block t n) other                            = other
+
+Kind.Coverage.Match.choice (n: Kind.Coverage.Match Inst) (m: Kind.Coverage.Match Inst) : Kind.Coverage.Match Inst
+Kind.Coverage.Match.choice (Kind.Coverage.Match.block t n) (Kind.Coverage.Match.yes t1 a) = Kind.Coverage.Match.yes t1 a
+Kind.Coverage.Match.choice (Kind.Coverage.Match.no t)      m                              = m
+Kind.Coverage.Match.choice (Kind.Coverage.Match.yes t a)   m                              = Kind.Coverage.Match.yes t a
+Kind.Coverage.Match.choice (Kind.Coverage.Match.block t n) m                              = Kind.Coverage.Match.block t n
+
+Kind.Coverage.match_patterns (n: List Kind.Term) (m: List Kind.Term) : Kind.Coverage.Match Inst
+Kind.Coverage.match_patterns (List.nil t)        (List.nil t1)       = Kind.Coverage.Match.yes List.nil
+Kind.Coverage.match_patterns (List.nil t)        (List.cons t1 x xs) = Kind.Coverage.Match.yes List.nil
+Kind.Coverage.match_patterns (List.cons t x xs)  (List.cons t1 y ys) = Kind.Coverage.Match.combine (Kind.Coverage.match_pattern x y) (Kind.Coverage.match_patterns xs ys)
+Kind.Coverage.match_patterns (List.cons t1 x xs) (List.nil t)        = (HVM.log "qq" (Kind.Coverage.Match.block []))
+
+Kind.Coverage.match_constructors (n: Pair U60 (List Kind.Term)) (m: Pair U60 (List Kind.Term)) : Kind.Coverage.Match Inst
+Kind.Coverage.match_constructors (Pair.new a b name pats) (Pair.new a1 b1 name1 pats1) = 
+  if U60.equal name name1 {
+    Kind.Coverage.match_patterns pats pats1
+  } else {
+    Kind.Coverage.Match.no
+  }
+
+Kind.Coverage.get_match (m: (Pair U60 (List Kind.Term))) (n: Either Kind.Term (Pair U60 (List Kind.Term))) : Kind.Coverage.Match Inst
+Kind.Coverage.get_match cons.val (Either.right a b const2.val)           = Kind.Coverage.match_constructors cons.val const2.val
+Kind.Coverage.get_match cons.val (Either.left a b (Kind.Term.var o i n)) = Kind.Coverage.Match.block [i]
+
+Kind.Coverage.match_pattern (n: Kind.Term) (m: Kind.Term) : Kind.Coverage.Match Inst
+Kind.Coverage.match_pattern (Kind.Term.var o n i) m = Kind.Coverage.Match.yes [(Pair.new i m)]
+Kind.Coverage.match_pattern constructor m =
+  let cons = Kind.Coverage.match_constructor constructor
+  match Either cons {
+    right => Kind.Coverage.get_match cons.val (Kind.Coverage.match_constructor m)
+    left  => Kind.Coverage.match_pattern cons.val m
+  }
+
+Kind.Coverage.match_rule (clause: Kind.Rule) (telescope: Kind.Coverage.Telescope) : Kind.Coverage.Match Inst
+Kind.Coverage.match_rule (Kind.Rule.lhs term rule) (Kind.Coverage.Telescope.cons pat ty_ rest) =
+  let res = Kind.Coverage.match_pattern term pat
+  Kind.Coverage.Match.combine res (Kind.Coverage.match_rule rule rest)
+Kind.Coverage.match_rule (Kind.Rule.rhs other) Kind.Coverage.Telescope.nil = Kind.Coverage.Match.block []
+Kind.Coverage.match_rule (Kind.Rule.lhs term other) other_ = Kind.Coverage.Match.yes []
+Kind.Coverage.match_rule (Kind.Rule.rhs other) other_      = Kind.Coverage.Match.yes []
+
+Kind.Coverage.match_first_rule (clauses: List Kind.Rule) (telescope: Kind.Coverage.Telescope) (best: Kind.Coverage.Match Inst) : Kind.Coverage.Match Inst
+Kind.Coverage.match_first_rule (List.nil t)       telescope best = best
+Kind.Coverage.match_first_rule (List.cons t x xs) telescope best =
+  let result = Kind.Coverage.match_rule x telescope
+  match Kind.Coverage.Match result {
+    yes   => result
+    no    => Kind.Coverage.match_first_rule xs telescope best
+    block => Kind.Coverage.match_first_rule xs telescope (Kind.Coverage.Match.choice best result)
+  }
+
+// This is the entry point for the coverage checking.
+// It receives a list of clauses @clauses@ and a type
+// @ty@ and tries to check if the all of the set of
+// clauses covers all of the possible data constructor
+// in the type @ty@. e.g.
+//
+// @
+// isZero (n: Nat) : Nat
+// isZero Nat.zero = Nat.zero
+// @
+//
+// The function above does not match with "Nat.succ" so
+// it does not cover the type Nat.
+
+Head (n : List U60) : String
+Head (List.nil t) = "wtf it's empty lol, probably blocked on application.."
+Head (List.cons t x xs) = (Kind.Name.show x)
+
+Kind.Coverage.check_coverage (clauses: List Kind.Rule) (ty: Kind.Term) : String // (Pair Kind.Coverage.SplitTree (List Kind.Coverage.Telescope))
+Kind.Coverage.check_coverage clauses ty =
+  let telescope = Kind.Coverage.Telescope.from_term ty
+  let result = Kind.Coverage.match_first_rule clauses telescope Kind.Coverage.Match.no
+  match Kind.Coverage.Match result {
+    yes   => "yse" // (Pair.new Kind.Coverage.SplitTree.done [])
+    no    => "no" // (Pair.new Kind.Coverage.SplitTree.done [telescope])
+    block => Impossible (Head result.on)
+  }
+
+Kind.Coverage.Telescope.show (telescope: Kind.Coverage.Telescope) : String
+Kind.Coverage.Telescope.show (Kind.Coverage.Telescope.nil)         = ""
+Kind.Coverage.Telescope.show (Kind.Coverage.Telescope.cons x xs r) =
+  Kind.Printer.text ["- " (Kind.Term.show x) " : " (Kind.Term.show xs) (String.cons 10 "") (Kind.Coverage.Telescope.show r)]
+
+Coverage : List U60
+
+Definition.RulesOf (n: U60) : List Kind.Rule
+Definition.TypeOf (n: U60)  : Kind.Term
+
+Main : String
+Main =
+  let r = Coverage
+  match List r {
+    nil => "woot"
+    cons => Kind.Coverage.check_coverage (Definition.RulesOf r.head) (Definition.TypeOf r.head)
+  }
