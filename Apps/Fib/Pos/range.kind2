@@ -4,16 +4,12 @@ Apps.Fib.Pos.range center (List.cons r head tail) =
   match Pair head {
     new =>
       let validate = (val : U120) => U120.less_than val (U120.new 0 160)
-      let delta_x  = head.fst
-      let delta_y  = head.snd
-      let x        = Apps.Fib.Pos.get_x center
-      let y        = Apps.Fib.Pos.get_y center
-      let new_x    = U120.add x delta_x
-      let new_y    = U120.add y delta_y
-      let is_valid = Bool.and (validate new_x) (validate new_y)
+      let x        = U120.add (Apps.Fib.Pos.get_x center) head.fst
+      let y        = U120.add (Apps.Fib.Pos.get_y center) head.snd
+      let is_valid = Bool.and (validate x) (validate y)
       let go       = Apps.Fib.Pos.range center tail
       match Bool is_valid {
         false => go
-        true  => List.cons (Apps.Fib.Pos.new new_x new_y) go
+        true  => List.cons (Apps.Fib.Pos.new x y) go
       }
   }

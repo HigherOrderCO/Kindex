@@ -9,14 +9,14 @@ Main : _ {
   let y_2  = Apps.Fib.Pos.get_y p_2 
   let id   = (U120.new 0 1217)
   let id2  = (U120.new 0 214)
-  let map  = Apps.Fib.Map.set pos id map
-  let map  = Apps.Fib.Map.set p_2 id2 map
+  let map  = Apps.Fib.Map.set map id pos
+  let map  = Apps.Fib.Map.set map id2 p_2 
   let shw  = Apps.Fib.Map.show 130 20 50 20 map
   let get1 = Apps.Fib.Map.get map pos 
   let got1 = Pair.snd (Apps.Fib.Map.got map pos)
   let tbl  = Apps.Fib.Table.alloc
   let ent  = (U120.new 0 1423)
-  let tbl  = Apps.Fib.Table.set ent id tbl
+  let tbl  = Apps.Fib.Table.set tbl ent id
   let got2 = Pair.snd (Apps.Fib.Table.got tbl id)
   shw
 }
