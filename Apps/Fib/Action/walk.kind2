@@ -1,1 +1,21 @@
-Apps.Fib.Action.walk (
+Apps.Fib.Action.walk (state: Apps.Fib.State) (data: U120) (entity: Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.State
+Apps.Fib.Action.walk (Apps.Fib.State.new map table) data entity id = 
+
+  let max_move = (U120.new 0 2)
+
+  let dx          = U120.bitwise_and data (U120.new 0 15)
+  let dy          = U120.shift_right data (U120.new 0 4)
+
+  let real_change = (x: U120) => U120.bitwise_and x (U120.new 0 7)
+
+  let gtn     = U120.greater_equal max_move (U120.add (real_change dx) (real_change dy))
+
+  let delta_xy  = Apps.Fib.Pos.get_xy_delta data
+  let dx        = Pair.fst delta_xy
+  let dy        = Pair.snd delta_xy
+
+  if gtn {
+    Apps.Fib.State.move entity dx dy (Apps.Fib.State.new map table)
+  } else { 
+    Apps.Fib.State.new map table
+  }

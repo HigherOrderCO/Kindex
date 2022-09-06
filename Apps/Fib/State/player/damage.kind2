@@ -1,0 +1,25 @@
+Apps.Fib.State.player.damage (state: Apps.Fib.State) (pos: Apps.Fib.Pos) (dmg: U120)  : Apps.Fib.State
+Apps.Fib.State.player.damage (Apps.Fib.State.new map table) pos dmg =
+
+  // Pair Map ID
+  let map_id  = Apps.Fib.Map.got map pos
+  let id      = (Pair.snd map_id)
+  
+  // Pair Table Entity
+  let table_entity = Apps.Fib.Table.got table id
+  let table        = (Pair.fst table_entity)
+  let player       = (Pair.snd table_entity)
+
+  let player_hp    = Apps.Fib.Player.hp.get player 
+  let dmg_gte      = U120.greater_equal dmg player_hp
+
+  if dmg_gte { 
+    let new_player = (x: Apps.Fib.Player) => Apps.Fib.Player.damage x player_hp
+    let new_table  = Apps.Fib.Table.mut table new_player id
+    let new_map    = Apps.Fib.Map.del (Pair.fst map_id) pos
+    Apps.Fib.State.new new_map new_table
+  } else { 
+    let new_player = (x: Apps.Fib.Player) => Apps.Fib.Player.damage x dmg
+    let new_table  = Apps.Fib.Table.mut table new_player id
+    Apps.Fib.State.new map new_table
+  }
