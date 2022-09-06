@@ -11,5 +11,3 @@ Apps.Fib.Pos.get_xy_delta (delta: U120) : Pair U120 U120 {
       }
   Pair.new (func dx) (func dy)
 }
-  
-

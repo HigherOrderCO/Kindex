@@ -49,26 +49,6 @@
   // State
 
 
-  //let dx          = U120.bitwise_and data (U120.new 0 15)
-  //let dy          = U120.shift_right data (U120.new 0 4)
-
-
-Apps.Fib.State.move (entity_id: Apps.Fib.Id) (dx: U120) (dy: U120) (state: Apps.Fib.State) : Apps.Fib.State
-Apps.Fib.State.move entity_id dx dy (Apps.Fib.State.new map table) = 
-  let tab_ent = Apps.Fib.Table.got table entity_id
-  let player      = Pair.snd tab_ent
-
-  let x           = Apps.Fib.Player.pos.get_x player
-  let y           = Apps.Fib.Player.pos.get_y player
-  let origin_pos  = Apps.Fib.Pos.new x y
-
-  let modify  = Apps.Fib.Pos.modify origin_pos (Pair.new dx dy)
-  match Maybe modify {
-    none => Apps.Fib.State.new map table
-    some => Apps.Fib.Player.pos.move (Apps.Fib.State.new map table) origin_pos modify.value
-  }
-
-
 Apps.Fib.State.update (action: U120) (state: Apps.Fib.State) : Apps.Fib.State
 Apps.Fib.State.update action (Apps.Fib.State.new map tab) = 
   let id      = Apps.Fib.Action.get_id action
@@ -84,7 +64,7 @@ Apps.Fib.State.update action (Apps.Fib.State.new map tab) =
   }
 
 Apps.Fib.State.update.command (state: Apps.Fib.State) (command: U120) (data: U120) (ent: Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.State
-Apps.Fib.State.update.command state (U120.new 0 0) data ent id =  state // Apps.Fib.Action.walk state data ent id
+Apps.Fib.State.update.command state (U120.new 0 0) data ent id =  Apps.Fib.Action.walk state data ent id
 Apps.Fib.State.update.command state (U120.new 0 1) data ent id =  state // interact?
 Apps.Fib.State.update.command state (U120.new 0 2) data ent id = Apps.Fib.State.update.skill state (U120.new 0 0) ent data
 Apps.Fib.State.update.command state (U120.new 0 3) data ent id = Apps.Fib.State.update.skill state (U120.new 0 1) ent data
