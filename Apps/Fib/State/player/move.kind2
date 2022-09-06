@@ -1,0 +1,22 @@
+Apps.Fib.State.player.move (state: Apps.Fib.State) (ori: Apps.Fib.Pos) (des: Apps.Fib.Pos) : Apps.Fib.State
+Apps.Fib.State.player.move (Apps.Fib.State.new map table) ori des =
+
+  // Destination Verification
+  // Pair Map ID
+  let destination_map_id  = Apps.Fib.Map.got map des
+  let empty_destination   = Apps.Fib.Map.tile_is_empty (Pair.snd destination_map_id)
+
+  // Player Pos verification
+  // Pair Map ID
+  let origin_map_id        = Apps.Fib.Map.got map ori
+
+  // Pair Table Entity
+  let table_entity_ori = Apps.Fib.Table.got table (Pair.snd origin_map_id)
+
+  if empty_destination { 
+      let new_player = (player: Apps.Fib.Player) => Apps.Fib.Player.pos.change player (x => (Sigma.fst des))
+      let new_table  = Apps.Fib.Table.mut (Pair.fst table_entity_ori) new_player (Pair.snd origin_map_id)
+      let new_map    = Apps.Fib.Map.del (Pair.fst origin_map_id) ori
+      let new_map    = Apps.Fib.Map.set des (Pair.snd origin_map_id) new_map
+      Apps.Fib.State.new new_map new_table
+  } else { Apps.Fib.State.new map table }

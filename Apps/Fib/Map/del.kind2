@@ -1,0 +1,3 @@
+Apps.Fib.Map.del (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Apps.Fib.Map {
+  Apps.Fib.Map.set pos U120.0 map
+}
