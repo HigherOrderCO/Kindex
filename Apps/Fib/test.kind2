@@ -7,18 +7,22 @@ Main : _ {
   let y    = Apps.Fib.Pos.get_y pos 
   let x_2  = Apps.Fib.Pos.get_x p_2
   let y_2  = Apps.Fib.Pos.get_y p_2 
-  let id   = (U120.new 0 1217)
-  let id2  = (U120.new 0 214)
+  let id   = (U120.new 0 1017)
+  let id2  = (U120.new 0 625)
   let map  = Apps.Fib.Map.set map id pos
   let map  = Apps.Fib.Map.set map id2 p_2 
   let shw  = Apps.Fib.Map.show 130 20 50 20 map
   let get1 = Apps.Fib.Map.get map pos 
   let got1 = Pair.snd (Apps.Fib.Map.got map pos)
   let tbl  = Apps.Fib.Table.alloc
-  let ent  = (U120.new 0 1423)
-  let tbl  = Apps.Fib.Table.set tbl ent id
+  let plr1 = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 1710) (U120.new 0 22450) (U120.new 0 1) (U120.new 0 3) [U120.1]
+  let plr2 = Apps.Fib.Player.new (U120.new 0 200) (U120.new 0 222) (U120.new 0 1423) (U120.new 0 234) (U120.new 0 22450) (U120.new 0 1) (U120.new 0 3) [U120.1]
+  let tbl  = Apps.Fib.Table.set tbl plr1 id
+  let tbl  = Apps.Fib.Table.set tbl plr2 id2
+  // let tbl  = Apps.Fib.Table.set tbl  id
   let got2 = Pair.snd (Apps.Fib.Table.got tbl id)
-  shw
+  let shw2 = Apps.Fib.Table.show_players tbl
+  shw2
 }
 
 

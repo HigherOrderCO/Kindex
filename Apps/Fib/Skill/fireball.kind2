@@ -1,0 +1,21 @@
+Apps.Fib.Skill.fireball (state: Apps.Fib.State) (player: Apps.Fib.Player) (pos: Apps.Fib.Pos) : Apps.Fib.State
+Apps.Fib.Skill.fireball (Apps.Fib.State.new map tab) player pos = 
+  let deltas = Apps.Fib.Pos.around (U120.new 0 3)
+  let x      = Apps.Fib.Player.pos.get_x player
+  let y      = Apps.Fib.Player.pos.get_y player
+  let coords = Apps.Fib.Pos.range (Apps.Fib.Pos.new x y) deltas
+  let damage = (
+    state =>
+    pos =>
+      
+      )
+//   let func   = (pos => acc =>   
+  
+
+//   List.foldl <a> <b> (nil: b) (cons: a -> b -> b) (xs: List a) : b
+
+//   Nat.to_string_base (base: Nat) (nat: Nat) : String {
+//   let fold = List.fold (Nat.to_base base nat)
+//   let show = (n => str => (String.cons (Nat.to_char base n) str)) :: Nat -> String -> String
+//   (fold String.nil show)
+// }

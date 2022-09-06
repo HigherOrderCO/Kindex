@@ -1,6 +1,6 @@
-Apps.Fib.Pos.get_xy_delta (delta: U120) : Pair U120 U120 {
-  let dx = U120.bitwise_and delta (U120.new 0 15)
-  let dy = U120.shift_left (U120.bitwise_and delta (U120.new 0 240)) (U120.new 0 4)
+Apps.Fib.Pos.get_xy_delta (data: U120) : Pair U120 U120 {
+  let dx = U120.bitwise_and data (U120.new 0 15)
+  let dy = U120.shift_right data (U120.new 0 4)
   let func =
     (n: U120) =>
       if (U120.equal (U120.div n (U120.new 0 8)) U120.1) {
