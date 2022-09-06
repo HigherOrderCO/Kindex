@@ -13,7 +13,7 @@ Kind.Checker.unify.go (List.nil t) unsolved Bool.true    = Kind.Checker.unify.go
 Kind.Checker.unify.go (List.nil t) unsolved Bool.false   = Kind.Checker.unify.go.fail unsolved
 Kind.Checker.unify.go (List.cons t (Kind.Equation.new ctx orig left right) equations) unsolved changed =
   do Kind.Checker {
-    ask is_equal = Kind.Checker.equal (Kind.Term.eval left) (Kind.Term.eval right)
+    ask is_equal = Kind.Checker.with_context (Kind.Checker.equal (Kind.Term.eval left) (Kind.Term.eval right)) ctx
     let unify =
       (if is_equal {
         (equations: List Kind.Equation) => (unsolved: List Kind.Equation) =>

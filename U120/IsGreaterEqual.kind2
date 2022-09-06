@@ -1,0 +1,4 @@
+// Propositional `a >= b`
+U120.IsGreaterEqual (a: U120) (b: U120) : Type {
+  Equal Bool (U120.greater_equal a b) Bool.true
+}

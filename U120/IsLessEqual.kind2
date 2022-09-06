@@ -1,0 +1,4 @@
+// Propositional `a <= b`
+U120.IsLessEqual (a: U120) (b: U120) : Type {
+  Equal Bool (U120.less_equal a b) Bool.true
+}

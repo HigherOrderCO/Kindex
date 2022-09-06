@@ -1,0 +1,2 @@
+Bits.to_Bool (a: Bits) : Bool 
+Bits.to_Bool a = (Nat.gtn (Bits.to_nat a) Nat.zero)
