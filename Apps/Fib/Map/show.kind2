@@ -1,8 +1,8 @@
-Apps.Fib.Map.show (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map) : String {
+Apps.Fib.Map.show #fib_map_shw (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map) : String {
   Apps.Fib.Map.show.y x (+ y h) w h map
 }
 
-Apps.Fib.Map.show.y (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): String {
+Apps.Fib.Map.show.y #fib_map_shwy(x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): String {
   if (U60.equal h 0) {
     String.nil
   }
@@ -13,7 +13,7 @@ Apps.Fib.Map.show.y (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): Stri
   }
 }
 
-Apps.Fib.Map.show.x (x: U60) (y:U60) (w: U60) (map: Apps.Fib.Map): List U60 {
+Apps.Fib.Map.show.x #fib_map_shwx (x: U60) (y:U60) (w: U60) (map: Apps.Fib.Map): List U60 {
   if (U60.equal w 0) {
     []
   }

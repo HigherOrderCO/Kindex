@@ -1,4 +1,4 @@
-Apps.Fib.State.create_unit (state: Apps.Fib.State) (id: Apps.Fib.Id) (data: U120) : Apps.Fib.State
+Apps.Fib.State.create_unit #fib_st_crtun (state: Apps.Fib.State) (id: Apps.Fib.Id) (data: U120) : Apps.Fib.State
 Apps.Fib.State.create_unit (Apps.Fib.State.new map tab) id data = 
   let spawn_pos  = Apps.Fib.State.create_unit.city data
   let new_player = match Pair spawn_pos { new => Apps.Fib.Player.default spawn_pos.fst spawn_pos.snd }

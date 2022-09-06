@@ -1,3 +1,3 @@
-Apps.Fib.Table.alloc : Apps.Fib.Table {
+Apps.Fib.Table.alloc #fib_tbl_allc : Apps.Fib.Table {
   Data.BaseTree.alloc Apps.Fib.Entity Apps.Fib.Table.Bases U120.0
 }

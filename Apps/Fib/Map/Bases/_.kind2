@@ -1,4 +1,4 @@
-Apps.Fib.Map.Bases : List Data.BaseTree.Base {
+Apps.Fib.Map.Bases #fib_map_base : List Data.BaseTree.Base {
   [
     // y, from most signficant to the least significant digit
     Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5

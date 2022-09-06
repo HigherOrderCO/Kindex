@@ -1,4 +1,4 @@
-Apps.Fib.Pos.new (x: U120) (y: U120) : Apps.Fib.Pos {
+Apps.Fib.Pos.new #fib_pos_new (x: U120) (y: U120) : Apps.Fib.Pos {
   let x.val = U120.mod x (U120.new 0 160)
   let y.val = U120.mod y (U120.new 0 160)
   let e0    = U120.mod.is_less_than x (U120.new 0 160) Pos.160_is_not_0

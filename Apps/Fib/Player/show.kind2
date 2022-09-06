@@ -1,5 +1,5 @@
 // TODO: update to new Player format
-Apps.Fib.Player.show (player: Apps.Fib.Player) : String {
+Apps.Fib.Player.show #fib_plr_show (player: Apps.Fib.Player) : String {
   let list = 
     [
       (Pair.new "Pos x:    " (U120.new 0 8 )) // (Pair.new (U120.new 0 8 ) ((v : U120) => (Show.to_string (U120.show v)))))

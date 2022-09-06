@@ -11,7 +11,7 @@ U120.div_mod num den            =
       U120.div_mod.go idx qr num den
   }
 
-U120.div_mod.go
+U120.div_mod.go #u120_dm_go
   (idx : U120)
   (qr  : Pair U120 U120)
   (num : U120)

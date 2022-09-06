@@ -1,4 +1,4 @@
 // TODO: Use (U120.mod x 160) to assure that new coord is valid
-Apps.Fib.Pos.set_x (pos: Apps.Fib.Pos) (x: U120) : Apps.Fib.Pos {
+Apps.Fib.Pos.set_x #fib_pos_s_x (pos: Apps.Fib.Pos) (x: U120) : Apps.Fib.Pos {
   pos // U120.bitwise_or (U120.bitwise_and pos (U120.new 0 65280)) x
 }

@@ -1,11 +1,11 @@
-Apps.Fib.Table.Key.from_id (id: U120) : Apps.Fib.Table.Key {
+Apps.Fib.Table.Key.from_id #fib_tbl_fid (id: U120) : Apps.Fib.Table.Key {
   Apps.Fib.Table.Key.from_id.aux0 Apps.Fib.Table.Bases id
 }
 
-Apps.Fib.Table.Key.from_id.aux0 (bases: List Data.BaseTree.Base) (id: U120) : Data.BaseTree.Key bases
+Apps.Fib.Table.Key.from_id.aux0 #fib_tbl_fid0 (bases: List Data.BaseTree.Base) (id: U120) : Data.BaseTree.Key bases
 Apps.Fib.Table.Key.from_id.aux0 (List.nil  r) id = Unit.new
 Apps.Fib.Table.Key.from_id.aux0 (List.cons r Data.BaseTree.Base.2 t) id = Apps.Fib.Table.Key.from_id.aux1 t (U120.div id (U120.new 0 2)) (U120.mod id (U120.new 0 2))
 
-Apps.Fib.Table.Key.from_id.aux1 (bases: List Data.BaseTree.Base) (id: U120) (b: U120) : Data.BaseTree.Base.Bin (Data.BaseTree.Key bases)
+Apps.Fib.Table.Key.from_id.aux1 #fib_tbl_fid1 (bases: List Data.BaseTree.Base) (id: U120) (b: U120) : Data.BaseTree.Base.Bin (Data.BaseTree.Key bases)
 Apps.Fib.Table.Key.from_id.aux1 bases id (U120.new 0 0) = Data.BaseTree.Base.Bin.0 (Data.BaseTree.Key bases) (Apps.Fib.Table.Key.from_id.aux0 bases id)
 Apps.Fib.Table.Key.from_id.aux1 bases id (U120.new 0 1) = Data.BaseTree.Base.Bin.1 (Data.BaseTree.Key bases) (Apps.Fib.Table.Key.from_id.aux0 bases id)

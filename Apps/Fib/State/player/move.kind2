@@ -1,4 +1,4 @@
-Apps.Fib.State.player.move (state: Apps.Fib.State) (ori: Apps.Fib.Pos) (des: Apps.Fib.Pos) : Apps.Fib.State
+Apps.Fib.State.player.move #fib_st_pmov (state: Apps.Fib.State) (ori: Apps.Fib.Pos) (des: Apps.Fib.Pos) : Apps.Fib.State
 Apps.Fib.State.player.move (Apps.Fib.State.new map table) ori des =
 
   // Destination Verification

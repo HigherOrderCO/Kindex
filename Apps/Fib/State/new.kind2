@@ -1,4 +1,4 @@
-Apps.Fib.State.new
+Apps.Fib.State.new #fib_st_new
   (map: Apps.Fib.Map)
   (tab: Apps.Fib.Table)
 : Apps.Fib.State

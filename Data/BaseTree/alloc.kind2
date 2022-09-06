@@ -1,4 +1,4 @@
-Data.BaseTree.alloc <val: Type> (bases: List Data.BaseTree.Base) (default: val): Data.BaseTree bases val 
+Data.BaseTree.alloc #bt_alloc <val: Type> (bases: List Data.BaseTree.Base) (default: val): Data.BaseTree bases val 
 Data.BaseTree.alloc val (List.nil b) default =
   default
 Data.BaseTree.alloc val (List.cons b Data.BaseTree.Base.2 t) default =

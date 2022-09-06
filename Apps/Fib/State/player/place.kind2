@@ -1,4 +1,4 @@
-Apps.Fib.State.player.place (state: Apps.Fib.State) (player: Apps.Fib.Player) (id: Apps.Fib.Id) : Apps.Fib.State
+Apps.Fib.State.player.place #fib_st_pplc (state: Apps.Fib.State) (player: Apps.Fib.Player) (id: Apps.Fib.Id) : Apps.Fib.State
 Apps.Fib.State.player.place (Apps.Fib.State.new map tab) player id =
   let x   = Apps.Fib.Player.pos.get_x player
   let y   = Apps.Fib.Player.pos.get_y player

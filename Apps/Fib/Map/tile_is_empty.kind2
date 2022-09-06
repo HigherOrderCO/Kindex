@@ -1,4 +1,4 @@
-Apps.Fib.Map.tile_is_empty (tile: U120): Bool {
+Apps.Fib.Map.tile_is_empty #fib_map_tlem (tile: U120): Bool {
   U120.is_zero tile
 }
 
