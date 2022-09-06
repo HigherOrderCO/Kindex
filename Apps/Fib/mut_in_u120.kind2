@@ -5,5 +5,5 @@ Apps.Fib.mut_in_u120 (chunk: U120) (pos: U120) (size: U120) (f: U120 -> U120) : 
   let num   = f num
   let chunk = U120.bitwise_and (U120.bitwise_complement (U120.shift_left mask pos)) chunk
   let chunk = U120.bitwise_or (U120.shift_left num pos) chunk
-  HVM.log num chunk
+  chunk
 }
