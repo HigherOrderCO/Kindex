@@ -1,0 +1,13 @@
+Apps.Fib.Pos.get_xy_delta #Fib_pos_g_xy (data: U120) : Pair U120 U120 {
+  let dx = U120.bitwise_and data (U120.new 0 15)
+  let dy = U120.shift_right data (U120.new 0 4)
+  let func =
+    (n: U120) =>
+      if (U120.equal (U120.div n (U120.new 0 8)) U120.1) {
+        U120.sub U120.0 (U120.mod n (U120.new 0 8))
+      }  
+      else {
+        U120.mod n (U120.new 0 8)
+      }
+  Pair.new (func dx) (func dy)
+}

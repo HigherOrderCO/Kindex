@@ -1,0 +1,9 @@
+Apps.Fib.Player.default #Fib_plr_dflt (x: U120) (y: U120) : Apps.Fib.Player {
+  let xp = U120.0
+  let hp = U120.new 0 100
+  let of = U120.0
+  let gd = U120.new 0 50
+  let cd = U120.0
+  let skills = [U120.1]
+  Apps.Fib.Player.new x y xp hp of gd cd skills
+}

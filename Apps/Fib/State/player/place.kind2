@@ -1,0 +1,22 @@
+Apps.Fib.State.player.place #Fib_st_pplc (state: Apps.Fib.State) (player: Apps.Fib.Player) (id: Apps.Fib.Id) : Apps.Fib.State
+Apps.Fib.State.player.place (Apps.Fib.State.new map tab) player id =
+  let x   = Apps.Fib.Player.pos.get_x player
+  let y   = Apps.Fib.Player.pos.get_y player
+  let pos = Apps.Fib.Pos.new x y
+  let map_id  = Apps.Fib.Map.got map pos
+  match Pair map_id {
+    new =>
+      if (U120.equal U120.0 map_id.snd) {
+        let tab_ent = Apps.Fib.Table.got tab id
+        match Pair tab_ent {
+          new =>
+            if (U120.equal U120.0 tab_ent.snd) {
+              let tab = Apps.Fib.Table.set tab_ent.fst player id 
+              let map = Apps.Fib.Map.set map_id.fst id pos 
+              Apps.Fib.State.new map tab
+            }
+            else { Apps.Fib.State.new map tab }
+        }
+      }
+      else { Apps.Fib.State.new map tab }
+  }

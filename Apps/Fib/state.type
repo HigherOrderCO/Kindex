@@ -1,0 +1,3 @@
+type State { 
+  new (map: Apps.Fib.Map) (tab: Apps.Fib.Table)
+}

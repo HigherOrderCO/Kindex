@@ -1,0 +1,9 @@
+Apps.Fib.Action.walk_code #Fb_ac_wkcd (state: Apps.Fib.State) (player_id: U120) (target: Apps.Fib.Pos) : U120
+Apps.Fib.Action.walk_code (Apps.Fib.State.new map tab) player_id target =
+  let tab_ent = Apps.Fib.Table.got tab player_id
+  let player  = Pair.snd tab_ent
+  let center  = Apps.Fib.Pos.new (Apps.Fib.Player.pos.get_x player) (Apps.Fib.Player.pos.get_y player)
+  let comm    = U120.0
+  let data    = Apps.Fib.Pos.to_data center target
+  let action  = (U120.add player_id  (U120.shift_left data (U120.new 0 16)))
+  action

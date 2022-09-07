@@ -1,0 +1,3 @@
+Apps.Fib.Player.pos.get_y #Fib_plr_p_gy (player: Apps.Fib.Player) : U120 {
+  Apps.Fib.get_in_u120 player (U120.new 0 8) (U120.new 0 8)
+}

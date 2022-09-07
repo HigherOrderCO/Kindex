@@ -1,0 +1,12 @@
+Apps.Fib.Skill.fireball #Fib_sk_fireb (state: Apps.Fib.State) (player: Apps.Fib.Player) (pos: Apps.Fib.Pos) : Apps.Fib.State
+Apps.Fib.Skill.fireball (Apps.Fib.State.new map tab) player pos =
+  let print  = Pair.new (Apps.Fib.Pos.get_x pos) (Apps.Fib.Pos.get_y pos)
+  let deltas = (Apps.Fib.Pos.around (U120.new 0 2))
+  let x      = Apps.Fib.Player.pos.get_x player
+  let y      = Apps.Fib.Player.pos.get_y player
+  let coords = List.cons pos (Apps.Fib.Pos.range (Apps.Fib.Pos.new x y) deltas)
+  // let c      = List.map coords (x => Sigma.fst x)
+  let fold   = List.fold coords
+  let damage = (pos => state => Apps.Fib.State.player.damage state pos (U120.new 0 50)) :: Apps.Fib.Pos -> Apps.Fib.State -> Apps.Fib.State
+  (fold (Apps.Fib.State.new map tab) damage)
+
