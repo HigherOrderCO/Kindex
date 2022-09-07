@@ -68,14 +68,8 @@ Apps.Fib.Action.walk_code_direction_aux command = Pair.new U120.0 U120.0
 // dd - RG RG - (+2 +0)
 
 
-Apps.Fib.Interface.add_coords (pair: Pair U120 U120) (delta: Pair U120 U120): Pair U120 U120 {
-  let dfst = Pair.fst delta
-  let pfst = Pair.fst pair
+Apps.Fib.Interface.add_coords (pair: Pair U120 U120) (delta: Pair U120 U120): Pair U120 U120 
+Apps.Fib.Interface.add_coords (Pair.new pfst psnd) (Pair.new dfst dsnd) = 
   let rfst = U120.add dfst pfst
-  
-  let dsnd = Pair.snd delta
-  let psnd = Pair.snd pair
   let rsnd = U120.add dsnd psnd
-  
   Pair.new rfst rsnd
-}
