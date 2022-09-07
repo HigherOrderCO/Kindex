@@ -1,3 +1,3 @@
-Apps.Fib.Action.get_data (action: U120) : U120 {
+Apps.Fib.Action.get_data #Fib_ac_gdata (action: U120) : U120 {
   Apps.Fib.get_in_u120 action (U120.new 0 16) (U120.new 0 8)
 }

@@ -1,2 +1,2 @@
 // For every a b, if a < (2 ^ b): a >> b = 0
-U120.shift_right.zero_if_less_equal_length (a: U120) (b: U120) (e0: Equal Bool (U120.less_than a (U120.shift_left U120.1 b)) Bool.true): Equal U120 (U120.shift_right a b) U120.0
+U120.shift_right.zero_if_less_equal_length #U120_sr_zlel (a: U120) (b: U120) (e0: Equal Bool (U120.less_than a (U120.shift_left U120.1 b)) Bool.true): Equal U120 (U120.shift_right a b) U120.0

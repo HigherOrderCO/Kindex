@@ -42,7 +42,7 @@ Main : _ {
   // Action code to walk to a point (max range = 2)
   let code_2 = Apps.Fib.Action.walk_code state p0_id (Apps.Fib.Pos.new (U120.new 0 141) (U120.new 0 17))
   // Action code to walk a direction 
-  let code_3 = Apps.Fib.Action.walk_code_direction state "wa" p0_id
+  let code_3 = Apps.Fib.Action.wasd_code state "wa" p0_id
   // let 
   // Runs Fireball action code in the state
   let state  = Apps.Fib.State.update state code_0
@@ -67,10 +67,10 @@ Main : _ {
 
 
 
-Apps.Fib.test.Table (state: Apps.Fib.State) : Apps.Fib.Table
+Apps.Fib.test.Table #Fib_tst_tabl (state: Apps.Fib.State) : Apps.Fib.Table
 Apps.Fib.test.Table (Apps.Fib.State.new map tbl) = tbl
 
-Apps.Fib.test.Map (state: Apps.Fib.State) : Apps.Fib.Map
+Apps.Fib.test.Map #Fib_tst_map (state: Apps.Fib.State) : Apps.Fib.Map
 Apps.Fib.test.Map (Apps.Fib.State.new map tbl) = map
 
 // Main : _ {

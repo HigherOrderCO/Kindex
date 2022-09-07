@@ -1,4 +1,4 @@
-Apps.Fib.Pos.around (range: U120) : List (Pair U120 U120)
+Apps.Fib.Pos.around #Fib_pos_arn (range: U120) : List (Pair U120 U120)
 Apps.Fib.Pos.around (U120.new 0 0) = List.nil
 Apps.Fib.Pos.around range          = 
   let fst = (Pair.new (range)                 U120.0)
@@ -8,7 +8,7 @@ Apps.Fib.Pos.around range          =
       (Apps.Fib.Pos.around.variations (U120.dec range) range)))
 
 
-Apps.Fib.Pos.around.variations (variations: U120) (range: U120) : List (Pair U120 U120) 
+Apps.Fib.Pos.around.variations #Fib_pos_arnv (variations: U120) (range: U120) : List (Pair U120 U120) 
 Apps.Fib.Pos.around.variations (U120.new 0 0) range = 
   let fst = (Pair.new U120.0 (range)                )
   let snd = (Pair.new U120.0 (U120.sub U120.0 range))

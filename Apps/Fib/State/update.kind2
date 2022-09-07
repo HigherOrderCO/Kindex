@@ -3,8 +3,44 @@
 // - Command  (4 bits)
 // - Data     (8 bits)
 
+// Walk = 
+// - Player ID   (12 bits)
+// - Walk - 0000 (4 bits)
 
-Apps.Fib.State.update (state: Apps.Fib.State) (action: U120): Apps.Fib.State
+// - Delta X and y
+// - 4 bits for each, with the last bit being used to determine direction
+// - 0011 1001 -
+//   This corresponds to
+//   x = -1
+//   y = +3
+
+// Skill
+// - Player ID (12 bits)
+// - Skill     (4 bits )
+//   0010 - Skill00
+//   0011 - Skill01
+//   0100 - Skill02
+//   0101 - Skill03
+//   0110 - Skill04
+//   0111 - Skill05
+
+// - Delta X and y
+// - 4 bits for each, with the last bit being used to determine direction
+// - 0011 1001 -
+//   This corresponds to
+//   x = -1
+//   y = +3
+
+// Spawn
+// - Player ID   (12 bits)
+// - 1000        (4 bits )
+// - spawn point (8 bits )
+// - 00000000 = Top Left 
+// - 00000001 = Top Right 
+// - 00000010 = Bot Right  
+// - 00000011 = Bot Left 
+
+Apps.Fib.State.update #Fib_st_upd (state: Apps.Fib.State) (action: U120): Apps.Fib.State
 Apps.Fib.State.update (Apps.Fib.State.new map tab) action = 
   let data    = Apps.Fib.Action.get_data action
   let comm    = Apps.Fib.Action.get_comm action
@@ -21,7 +57,7 @@ Apps.Fib.State.update (Apps.Fib.State.new map tab) action =
       }
   }
 
-Apps.Fib.State.update.command (state: Apps.Fib.State) (command: U120) (data: U120) (id: Apps.Fib.Id) (ent: Apps.Fib.Entity) : Apps.Fib.State
+Apps.Fib.State.update.command #Fib_st_updcm (state: Apps.Fib.State) (command: U120) (data: U120) (id: Apps.Fib.Id) (ent: Apps.Fib.Entity) : Apps.Fib.State
 Apps.Fib.State.update.command state (U120.new 0 0) data id ent = Apps.Fib.State.walk state data ent id
 Apps.Fib.State.update.command state (U120.new 0 1) data id ent = state // interact?
 Apps.Fib.State.update.command state (U120.new 0 2) data id ent = Apps.Fib.State.update.skill state (U120.new 0 0) data ent
@@ -31,10 +67,7 @@ Apps.Fib.State.update.command state (U120.new 0 5) data id ent = Apps.Fib.State.
 Apps.Fib.State.update.command state (U120.new 0 6) data id ent = Apps.Fib.State.update.skill state (U120.new 0 4) data ent
 Apps.Fib.State.update.command state (U120.new 0 7) data id ent = Apps.Fib.State.update.skill state (U120.new 0 5) data ent
 
-
-
-
-Apps.Fib.State.update.skill (state: Apps.Fib.State) (skill_id: U120) (data: U120) (entity: Apps.Fib.Entity) : Apps.Fib.State {
+Apps.Fib.State.update.skill #Fib_st_updsk (state: Apps.Fib.State) (skill_id: U120) (data: U120) (entity: Apps.Fib.Entity) : Apps.Fib.State {
   let skill  = Apps.Fib.Player.skills.get entity skill_id
   let pos    = Apps.Fib.Pos.new (Apps.Fib.Player.pos.get_x entity) (Apps.Fib.Player.pos.get_y entity)
   let delta  = Apps.Fib.Pos.get_xy_delta data

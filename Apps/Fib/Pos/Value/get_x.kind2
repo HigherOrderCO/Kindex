@@ -1,4 +1,4 @@
 // Gets the x component of a U120 position value.
-Apps.Fib.Pos.Value.get_x (val: U120) : U120 {
+Apps.Fib.Pos.Value.get_x #Fib_pos_v_gx (val: U120) : U120 {
   U120.bitwise_and val (U120.new 0 255)
 }

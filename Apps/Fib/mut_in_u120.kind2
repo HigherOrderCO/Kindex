@@ -1,5 +1,5 @@
 // Modify a part of a U120
-Apps.Fib.mut_in_u120 (chunk: U120) (pos: U120) (size: U120) (f: U120 -> U120) : U120 {
+Apps.Fib.mut_in_u120 #Fib_m_u120 (chunk: U120) (pos: U120) (size: U120) (f: U120 -> U120) : U120 {
   let mask  = (U120.sub (U120.shift_left U120.1 size) U120.1)
   let num   = U120.bitwise_and (U120.shift_right chunk pos) mask
   let num   = f num

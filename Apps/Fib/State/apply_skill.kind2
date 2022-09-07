@@ -1,4 +1,4 @@
-Apps.Fib.State.apply_skill (state: Apps.Fib.State) (skill: U120) (entity: U120) (target: Apps.Fib.Pos) : Apps.Fib.State
+Apps.Fib.State.apply_skill #Fib_st_appsk (state: Apps.Fib.State) (skill: U120) (entity: U120) (target: Apps.Fib.Pos) : Apps.Fib.State
 Apps.Fib.State.apply_skill  state (U120.new 0 0) entity target = state
 Apps.Fib.State.apply_skill  state (U120.new 0 1) entity target = Apps.Fib.Skill.fireball state entity target // TODO)
 Apps.Fib.State.apply_skill  state (U120.new 0 2) entity target = state // TODO

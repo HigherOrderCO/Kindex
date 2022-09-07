@@ -1,4 +1,4 @@
-Apps.Fib.Player.new
+Apps.Fib.Player.new #Fib_plr_new
   (x  : U120)
   (y  : U120)
   (xp : U120)

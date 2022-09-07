@@ -1,8 +1,8 @@
-Apps.Fib.Map.show (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map) : String {
+Apps.Fib.Map.show #Fib_map_shw (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map) : String {
   Apps.Fib.Map.show.y x (+ y h) w h map
 }
 
-Apps.Fib.Map.show.y (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): String {
+Apps.Fib.Map.show.y #Fib_map_shwy (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): String {
   if (U60.equal h 0) {
     String.nil
   }
@@ -13,21 +13,13 @@ Apps.Fib.Map.show.y (x: U60) (y:U60) (w: U60) (h: U60) (map: Apps.Fib.Map): Stri
   }
 }
 
-Apps.Fib.Map.show.x (x: U60) (y:U60) (w: U60) (map: Apps.Fib.Map): List U60 {
+Apps.Fib.Map.show.x #Fib_map_shwx (x: U60) (y:U60) (w: U60) (map: Apps.Fib.Map): List U60 {
   if (U60.equal w 0) {
     []
   }
   else {
     let real_x = (- x w)
     let string = Apps.Fib.Map.get map (Apps.Fib.Pos.new (U120.new 0 real_x) (U120.new 0 y))
-    let string = if (U60.equal (U120.low string) 0) {U120.new 0 '.'} else {string} // 32 stands for spacebar
-    List.cons (U120.low string) (Apps.Fib.Map.show.x x y (- w 1) map)
+    let string = if (U60.equal (U120.low string) 0) {U120.new 0 '.'} else {string}
   }
 }
-
-// Apps.Fib.Map.show.chunk_part (n: U60) (chunk: U120) : List U60
-// Apps.Fib.Map.show.chunk_part 0 chunk = []
-// Apps.Fib.Map.show.chunk_part n chunk =
-//   let string = (U120.low (U120.bitwise_and chunk (U60.to_u120 4095)))
-//     List.cons string (Apps.Fib.Map.show.chunk_part (- n 1) (U120.shift_right chunk(U60.to_u120 12)))
-  

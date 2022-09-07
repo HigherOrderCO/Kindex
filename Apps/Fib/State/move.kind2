@@ -1,4 +1,4 @@
-Apps.Fib.State.move (entity_id: Apps.Fib.Id) (dx: U120) (dy: U120) (state: Apps.Fib.State) : Apps.Fib.State
+Apps.Fib.State.move #Fib_st_move (entity_id: Apps.Fib.Id) (dx: U120) (dy: U120) (state: Apps.Fib.State) : Apps.Fib.State
 Apps.Fib.State.move entity_id dx dy (Apps.Fib.State.new map table) = 
   let tab_ent = Apps.Fib.Table.got table entity_id
   let player  = Pair.snd tab_ent

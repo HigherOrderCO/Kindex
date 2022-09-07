@@ -1,5 +1,5 @@
 type Kindelia.IO <r: Type> {
   done (val: r)
-  do_take (s: Type) (cont: s -> (Kindelia.IO r))
-  do_save (s: Type) (val: s) (cont: Unit -> (Kindelia.IO r))
+  do_take <s: Type> (cont: s -> (Kindelia.IO r))
+  do_save <s: Type> (val: s) (cont: Unit -> (Kindelia.IO r))
 }

@@ -1,4 +1,4 @@
-Apps.Fib.Map.set (map: Apps.Fib.Map) (id: Apps.Fib.Id) (pos: Apps.Fib.Pos) : Apps.Fib.Map {
+Apps.Fib.Map.set #Fib_map_set (map: Apps.Fib.Map) (id: Apps.Fib.Id) (pos: Apps.Fib.Pos) : Apps.Fib.Map {
   let keys = Apps.Fib.Map.Key.from_pos pos
   let key  = Pair.fst keys 
   let idx  = Pair.snd keys

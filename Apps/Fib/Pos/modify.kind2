@@ -1,4 +1,4 @@
-Apps.Fib.Pos.modify (pos: Apps.Fib.Pos) (delta: Pair U120 U120) : Maybe Apps.Fib.Pos {
+Apps.Fib.Pos.modify #Fib_pos_mod (pos: Apps.Fib.Pos) (delta: Pair U120 U120) : Maybe Apps.Fib.Pos {
   let list = Apps.Fib.Pos.range pos [delta]
   match List list {
     nil  => Maybe.none

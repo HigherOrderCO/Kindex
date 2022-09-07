@@ -1,2 +1,2 @@
-Equal.rewrite <t> <a: t> <b: t> (e: Equal t a b) (p: t -> Type) (x: p a) : p b
+Equal.rewrite <t> <a: t> <b: t> (e: Equal t a b) -(p: t -> Type) (x: p a) : p b
 Equal.rewrite t a b (Equal.refl u k) p x = x :: p k

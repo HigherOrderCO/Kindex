@@ -1,5 +1,5 @@
 // For every a b c, if a <= b and b < c: a < c
-U120.IsLessThan.chain.less_than (a: U120) (b: U120) (c: U120)
+U120.IsLessThan.chain.less_than #U120_ilt_clt (a: U120) (b: U120) (c: U120)
   (e0: U120.IsLessThan a b)
   (e1: U120.IsLessThan b c)
 : U120.IsLessThan a c
