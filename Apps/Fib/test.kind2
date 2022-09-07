@@ -61,8 +61,8 @@ Main : _ {
   let m_show = Apps.Fib.Map.show 130 0 30 20 (Apps.Fib.test.Map state)
   // Shows all players in the Table
   let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
-  String.concat t_shw0 t_shw1
-  // m_show
+  // String.concat t_shw0 t_shw1
+  m_show
 }
 
 
