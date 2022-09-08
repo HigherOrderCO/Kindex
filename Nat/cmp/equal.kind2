@@ -1,0 +1,27 @@
+//Proofs ((Nat.equal n m) == true) if n m are equal
+Nat.cmp.equal (n: Nat) (m: Nat) : Decidable (Equal Nat n m)
+Nat.cmp.equal  Nat.zero          Nat.zero         = Decidable.yep Equal.refl
+Nat.cmp.equal  Nat.zero         (Nat.succ m.pred) = Decidable.nop e =>  (Nat.absurd.zero_not_succ m.pred) e
+Nat.cmp.equal (Nat.succ n.pred)  Nat.zero         = Decidable.nop e => (Nat.absurd.zero_not_succ n.pred) (Equal.mirror e)
+Nat.cmp.equal (Nat.succ n.pred) (Nat.succ m.pred) = 
+  let ind = Nat.cmp.equal n.pred m.pred
+  match Decidable ind { 
+    nop => Decidable.nop e => (ind.proof (Equal.apply (x => Nat.pred x) e))
+    yep => Decidable.yep (Equal.apply (x => (Nat.succ x)) ind.proof)
+  }
+
+
+//Do not use the proof below
+
+//Nat.cmp.equal (n: Nat) (m: Nat) (e: Equal Bool (Nat.equal n m) Bool.true): Equal Nat n m
+//Nat.cmp.equal Nat.zero Nat.zero e = 
+  //Equal.refl Nat Nat.zero
+//Nat.cmp.equal Nat.zero (Nat.succ m.pred) e =
+  //let absurd = Bool.true_not_false (Equal.mirror e)
+   //Empty.absurd absurd
+//Nat.cmp.equal (Nat.succ n.pred) Nat.zero e = 
+  //let absurd = Bool.true_not_false (Equal.mirror e)
+  //Empty.absurd absurd
+//Nat.cmp.equal (Nat.succ n.pred) (Nat.succ m.pred) e = 
+  //let ind = Nat.cmp.equal n.pred m.pred e 
+  //Equal.apply (x => (Nat.succ x)) ind

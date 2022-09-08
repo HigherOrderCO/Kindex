@@ -1,0 +1,6 @@
+//Proofs that (n <= m) if (n <= m)
+Nat.cmp.lte (n: Nat) (m: Nat) : Decidable (Equal Bool (Nat.lte n m) Bool.true)
+Nat.cmp.lte  Nat.zero          Nat.zero         = Decidable.yep Equal.refl
+Nat.cmp.lte  Nat.zero         (Nat.succ m.pred) = Decidable.yep Equal.refl
+Nat.cmp.lte (Nat.succ n.pred)  Nat.zero         = Decidable.nop e => Empty.absurd (Bool.true_not_false (Equal.mirror e))
+Nat.cmp.lte (Nat.succ n.pred) (Nat.succ m.pred) = Nat.cmp.lte n.pred m.pred
