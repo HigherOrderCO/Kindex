@@ -1,5 +1,3 @@
 U120.logic_or (a: U120) (b: U120) : U120
-U120.logic_or (U120.new ahi alo) (U120.new bhi blo) =
-  let aone = (!= (| ahi alo) 0)
-  let bone = (!= (| bhi blo) 0)
-  U60.to_u120 (| aone bone)
+U120.logic_or (U120.new 0 0) (U120.new 0 0) = (U120.new 0 0)
+U120.logic_or a              b              = (U120.new 0 1)

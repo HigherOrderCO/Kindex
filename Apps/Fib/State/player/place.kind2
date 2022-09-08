@@ -6,11 +6,11 @@ Apps.Fib.State.player.place (Apps.Fib.State.new map tab) player id =
   let map_id  = Apps.Fib.Map.got map pos
   match Pair map_id {
     new =>
-      if (U120.equal U120.0 map_id.snd) {
+      if (U120.equal (U120.new 0 0) map_id.snd) {
         let tab_ent = Apps.Fib.Table.got tab id
         match Pair tab_ent {
           new =>
-            if (U120.equal U120.0 tab_ent.snd) {
+            if (U120.equal (U120.new 0 0) tab_ent.snd) {
               let tab = Apps.Fib.Table.set tab_ent.fst player id 
               let map = Apps.Fib.Map.set map_id.fst id pos 
               Apps.Fib.State.new map tab

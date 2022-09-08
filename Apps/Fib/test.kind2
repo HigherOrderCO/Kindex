@@ -32,7 +32,7 @@ Main : _ {
   // U120.0 stands for the first skill in a character
   // let code_0 = Apps.Fib.Action.skill_code state U120.0 p0_id p1_pos
   // let code_0 = Apps.Fib.Interact.skill p0_id (U120.new 0 0) (U120.new 0 3) (U120.new 0 13)
-  let code_0 = Apps.Fib.Interact.pos.skill p0_id (U120.new 0 0) (Sigma.fst p0_pos) (Sigma.fst p1_pos)
+  let code_0 = Apps.Fib.Interact.pos.skill p0_id (U120.new 0 0) (Apps.Fib.Pos.get_x p0_pos) (Apps.Fib.Pos.get_y p0_pos) (Apps.Fib.Pos.get_x p1_pos) (Apps.Fib.Pos.get_y p1_pos)
   // Player 2 Id
   let p2_id  = U120.new 0 780
   // Action code to create a new character in a town
@@ -60,10 +60,12 @@ Main : _ {
   // Starting y = 0
   // Width      = 20
   // Height     = 20
-  let m_show = Apps.Fib.Map.show 130 0 30 20 (Apps.Fib.test.Map state)
+  // let m_show = Apps.Fib.Map.show (U120.new 0 130) (U120.new 0 0) (U120.new 0 30) (U120.new 0 20) (Apps.Fib.test.Map state)
   // Shows all players in the Table
-  let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
-  t_shw1
+  // let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
+  let j = Pair.snd (Apps.Fib.Table.got (Apps.Fib.test.Table state) p0_id)
+  U120.show j 
+  // state
   // m_show
 }
 
