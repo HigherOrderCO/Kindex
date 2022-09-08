@@ -23,7 +23,7 @@ Apps.Fib.Player.show #Fib_plr_show (player: Apps.Fib.Player) : String {
     (acc: Pair String U120) =>
       let bit = Pair.snd acc
       let len = Pair.snd cur
-      let str = Show.to_string (U120.show (U120.bitwise_and bit (U120.sub (U120.shift_left U120.1 len) U120.1)))
+      let str = Show.to_string (U120.show (U120.bitwise_and bit (U120.sub (U120.shift_left (U120.new 0 1) len) (U120.new 0 1))))
       let str = String.concat (String.concat (Pair.fst acc) (String.cons 10 (Pair.fst cur))) str
       let acc = Pair.new str (U120.shift_right bit len)
       acc

@@ -19,7 +19,7 @@ Apps.Fib.Player.new #Fib_plr_new
     // let player = Apps.Fib.Player.sl.change  player ((val : U120) => sl)
     let player = Apps.Fib.Player.gd.change player ((x : U120) => gd)
     let player = Apps.Fib.Player.cd.change player ((x : U120) => cd)
-    let func   = ((skill_id : U120) => (acc : Pair U120 U120) => (Pair.new (Apps.Fib.Player.skills.change (Pair.fst acc) (Pair.snd acc) ((x : U120) => skill_id)) (U120.add (Pair.snd acc) U120.1)))
-    let pair   = List.foldl U120 (Pair U120 U120) (Pair.new player U120.0) func skills
+    let func   = ((skill_id : U120) => (acc : Pair U120 U120) => (Pair.new (Apps.Fib.Player.skills.change (Pair.fst acc) (Pair.snd acc) ((x : U120) => skill_id)) (U120.add (Pair.snd acc) (U120.new 0 1))))
+    let pair   = List.foldl U120 (Pair U120 U120) (Pair.new player (U120.new 0 0)) func skills
     Pair.fst pair
   }

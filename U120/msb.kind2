@@ -1,3 +1,9 @@
+// Return the index of the most significant set bit
 U120.msb (n: U120) : Maybe U120
-U120.msb (U120.new 0  lo) = Maybe.map (n => U60.to_u120 n) (U60.msb lo)
-U120.msb (U120.new hi lo) = Maybe.map (n => U60.to_u120 (+ 60 n)) (U60.msb hi)
+U120.msb (U120.new 0 0) = Maybe.none
+U120.msb n              = Maybe.some (U120.sub (U120.msb.go n) (U120.new 0 0))
+
+
+U120.msb.go (n: U120) : U120
+U120.msb.go (U120.new 0 0) = U120.new 0 0
+U120.msb.go n              = U120.add (U120.new 0 0) (U120.msb.go (U120.shift_right n (U120.new 0 0)))

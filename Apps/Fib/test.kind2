@@ -1,5 +1,5 @@
 
-Main : _ {
+Main {
   // Initial State
   let state  = Apps.Fib.State.init
   // Player 0
@@ -7,13 +7,13 @@ Main : _ {
   // Exp  = 3251
   // Hp   = 100
   // Spls = Fireball
-  let p0     = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [U120.1]
+  let p0     = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [(U120.new 0 1)]
   // Player 1
   // Pos  = 144 : 10
   // Exp  = 1423
   // Hp   = 100
   // Spls = Fireball 
-  let p1     = Apps.Fib.Player.new (U120.new 0 144) (U120.new 0 10) (U120.new 0 1423) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [U120.1]
+  let p1     = Apps.Fib.Player.new (U120.new 0 144) (U120.new 0 10) (U120.new 0 1423) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [(U120.new 0 1)]
   // Id for player 0
   let p0_id  = (U120.new 0 1017)
   // Id for player 1
@@ -28,10 +28,10 @@ Main : _ {
   // Places player 1 on the state
   let state  = Apps.Fib.State.player.place state p1 p1_id
   // Shows All players in the Table
-  let t_shw0 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
+  // let t_shw0 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
   // Action code for Player 0 casting Fireball on Player 1
-  // U120.0 stands for the first skill in a character
-  let a_code = Apps.Fib.Action.skill_code state U120.0 p0_id p1_pos
+  // 0 stands for the first skill in a character
+  let a_code = Apps.Fib.Action.skill_code state (U120.new 0 0) p0_id p1_pos
   // Runs Fireball action code in the state
   let state  = Apps.Fib.State.update state a_code
   // Shows a certain part of the map
@@ -39,11 +39,13 @@ Main : _ {
   // Starting y = 0
   // Width      = 20
   // Height     = 20
-  let m_show = Apps.Fib.Map.show 130 0 20 20 (Apps.Fib.test.Map state)
-  // Shows all players in the Table
-  let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
-  String.concat t_shw0 t_shw1
+  // let m_show = Apps.Fib.Map.show 130 0 20 20 (Apps.Fib.test.Map state)
+  // // Shows all players in the Table
+  // let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
+  // String.concat t_shw0 t_shw1
   // m_show
+  let player = Pair.snd (Apps.Fib.Table.got (Apps.Fib.test.Table state) p1_id)
+  (Apps.Fib.Player.hp.get player)
 }
 
 

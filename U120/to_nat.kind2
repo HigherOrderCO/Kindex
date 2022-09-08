@@ -1,3 +1,3 @@
 U120.to_nat (num: U120) : Nat
 U120.to_nat (U120.new 0 0) = Nat.zero
-U120.to_nat n              = Nat.succ (U120.to_nat (U120.dec n))
+U120.to_nat n              = Nat.succ (U120.to_nat (U120.sub n (U120.new 0 1)))
