@@ -1,2 +1,2 @@
-Kindelia.IO.save <s: Type> (val: s) : Kindelia.IO Unit
+Kindelia.IO.save #Save <s: Type> (val: s) : Kindelia.IO Unit
 Kindelia.IO.save s val = Kindelia.IO.do_save Unit s val (x => Kindelia.IO.done Unit Unit.new)
