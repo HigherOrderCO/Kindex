@@ -30,23 +30,23 @@ Apps.Fib.Action.wasd_code.pos command ori =
 
 Apps.Fib.Action.wasd_code.aux #Fib_ac_wasda (command: Char) : Pair U120 U120
 // Up
-Apps.Fib.Action.wasd_code.aux 'w' = Pair.new U120.0 (U120.sub U120.0 U120.1)
-Apps.Fib.Action.wasd_code.aux 'W' = Pair.new U120.0 (U120.sub U120.0 U120.1)
+Apps.Fib.Action.wasd_code.aux 'w' = Pair.new (U120.new 0 0) (U120.sub (U120.new 0 0) (U120.new 0 1))
+Apps.Fib.Action.wasd_code.aux 'W' = Pair.new (U120.new 0 0) (U120.sub (U120.new 0 0) (U120.new 0 1))
 
 // Left
-Apps.Fib.Action.wasd_code.aux 'a' = Pair.new (U120.sub U120.0 U120.1) U120.0
-Apps.Fib.Action.wasd_code.aux 'A' = Pair.new (U120.sub U120.0 U120.1) U120.0
+Apps.Fib.Action.wasd_code.aux 'a' = Pair.new (U120.sub (U120.new 0 0) (U120.new 0 1)) (U120.new 0 0)
+Apps.Fib.Action.wasd_code.aux 'A' = Pair.new (U120.sub (U120.new 0 0) (U120.new 0 1)) (U120.new 0 0)
 
 // Down
-Apps.Fib.Action.wasd_code.aux 's' = Pair.new U120.0 U120.1
-Apps.Fib.Action.wasd_code.aux 'S' = Pair.new U120.0 U120.1
+Apps.Fib.Action.wasd_code.aux 's' = Pair.new (U120.new 0 0) (U120.new 0 1)
+Apps.Fib.Action.wasd_code.aux 'S' = Pair.new (U120.new 0 0) (U120.new 0 1)
 
 // Right
-Apps.Fib.Action.wasd_code.aux 'd' = Pair.new U120.1 U120.0
-Apps.Fib.Action.wasd_code.aux 'D' = Pair.new U120.1 U120.0
+Apps.Fib.Action.wasd_code.aux 'd' = Pair.new (U120.new 0 1) (U120.new 0 0)
+Apps.Fib.Action.wasd_code.aux 'D' = Pair.new (U120.new 0 1) (U120.new 0 0)
 
 // Anything_else
-Apps.Fib.Action.wasd_code.aux command = Pair.new U120.0 U120.0
+Apps.Fib.Action.wasd_code.aux command = Pair.new (U120.new 0 0) (U120.new 0 0)
 
 
 // w  - UP    - (+0 -1)

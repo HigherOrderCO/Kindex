@@ -6,13 +6,13 @@ Main : _ {
   // Exp  = 3251
   // Hp   = 100
   // Spls = Fireball
-  let p0     = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [U120.1]
+  let p0     = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [(U120.new 0 1)]
   // Player 1
   // Pos  = 144 : 10
   // Exp  = 1423
   // Hp   = 100
   // Spls = Fireball 
-  let p1     = Apps.Fib.Player.new (U120.new 0 144) (U120.new 0 10) (U120.new 0 1423) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [U120.1]
+  let p1     = Apps.Fib.Player.new (U120.new 0 144) (U120.new 0 10) (U120.new 0 1423) (U120.new 0 100) (U120.new 0 0) (U120.new 0 0) (U120.new 0 0) [(U120.new 0 1)]
   // Id for player 0
   let p0_id  = (U120.new 0 1017)
   // Id for player 1
@@ -29,8 +29,8 @@ Main : _ {
   // Shows All players in the Table
   let t_shw0 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
   // Action code for Player 0 casting Fireball on Player 1
-  // U120.0 stands for the first skill in a character
-  // let code_0 = Apps.Fib.Action.skill_code state U120.0 p0_id p1_pos
+  // (U120.new 0 0) stands for the first skill in a character
+  // let code_0 = Apps.Fib.Action.skill_code state (U120.new 0 0) p0_id p1_pos
   // let code_0 = Apps.Fib.Interact.skill p0_id (U120.new 0 0) (U120.new 0 3) (U120.new 0 13)
   let code_0 = Apps.Fib.Interact.pos.skill p0_id (U120.new 0 0) (Apps.Fib.Pos.get_x p0_pos) (Apps.Fib.Pos.get_y p0_pos) (Apps.Fib.Pos.get_x p1_pos) (Apps.Fib.Pos.get_y p1_pos)
   // Player 2 Id
@@ -40,7 +40,7 @@ Main : _ {
   // 1 = top right
   // 2 = bot right
   // 3 = bot left
-  let code_1 = Apps.Fib.Interact.spawn p2_id U120.1
+  let code_1 = Apps.Fib.Interact.spawn p2_id (U120.new 0 1)
   // Action code to walk to a point (max range = 2)
   // let code_2 = Apps.Fib.Action.walk_code state p0_id (Apps.Fib.Pos.new (U120.new 0 141) (U120.new 0 17))
   // Action code to walk a direction 
@@ -60,13 +60,15 @@ Main : _ {
   // Starting y = 0
   // Width      = 20
   // Height     = 20
-  // let m_show = Apps.Fib.Map.show (U120.new 0 130) (U120.new 0 0) (U120.new 0 30) (U120.new 0 20) (Apps.Fib.test.Map state)
+  let m_show = Apps.Fib.Map.show (U120.new 0 130) (U120.new 0 0) (U120.new 0 30) (U120.new 0 20) (Apps.Fib.test.Map state)
   // Shows all players in the Table
-  // let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
-  let j = Pair.snd (Apps.Fib.Table.got (Apps.Fib.test.Table state) p0_id)
-  U120.show j 
+  let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
+  // let j = Apps.Fib.Table.got (Apps.Fib.test.Table state) p0_id
+  // let jsnd = Pair.snd j
+  // Show.to_string (U120.show jsnd)
   // state
   // m_show
+  t_shw1
 }
 
 
@@ -102,12 +104,12 @@ Apps.Fib.test.Map (Apps.Fib.State.new map tbl) = map
   // let p_2  = Apps.Fib.Pos.new (U120.new 0 144) (U120.new 0 10)
   // let id   = (U120.new 0 1017)
   // let id2  = (U120.new 0 625)
-  // let plr1 = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 100) (U120.new 0 250) (U120.new 0 1) (U120.new 0 3) [U120.1]
-  // let plr2 = Apps.Fib.Player.new (U120.new 0 144) (U120.new 0 10) (U120.new 0 1423) (U120.new 0 100) (U120.new 0 22450) (U120.new 0 1) (U120.new 0 3) [U120.1]
+  // let plr1 = Apps.Fib.Player.new (U120.new 0 141) (U120.new 0 15) (U120.new 0 3251) (U120.new 0 100) (U120.new 0 250) (U120.new 0 1) (U120.new 0 3) [(U120.new 0 1)]
+  // let plr2 = Apps.Fib.Player.new (U120.new 0 144) (U120.new 0 10) (U120.new 0 1423) (U120.new 0 100) (U120.new 0 22450) (U120.new 0 1) (U120.new 0 3) [(U120.new 0 1)]
   // let stt  = Apps.Fib.State.init
   // let stt  = Apps.Fib.State.player.place stt plr1 id
   // let stt  = Apps.Fib.State.player.place stt plr2 id2
-  // let actn = Apps.Fib.Action.skill_code stt U120.0 p_1 p_2
+  // let actn = Apps.Fib.Action.skill_code stt (U120.new 0 0) p_1 p_2
   // let stt  = Apps.Fib.State.update stt actn
   // let stt  = Apps.Fib.State.update stt actn
   // let tbl  = Apps.Fib.test.Table stt
@@ -115,5 +117,5 @@ Apps.Fib.test.Map (Apps.Fib.State.new map tbl) = map
   // let shw3 = Apps.Fib.Map.show 130 0 20 20 map 
   // let shw2 = Apps.Fib.Table.show_players tbl
   // shw2
-  // U120.0
+  // (U120.new 0 0)
 // }

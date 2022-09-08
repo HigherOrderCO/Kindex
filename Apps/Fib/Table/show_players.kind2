@@ -3,7 +3,7 @@ Apps.Fib.Table.show_players #Fib_tbl_spl (table: Apps.Fib.Table) : String {
 }
 
 Apps.Fib.Table.show_players.aux #Fib_tbl_spl0 (table: Apps.Fib.Table) (id: U120) : String
-Apps.Fib.Table.show_players.aux table (U120.new 0 514) = String.nil
+Apps.Fib.Table.show_players.aux table (U120.new 0 1024) = String.nil
 Apps.Fib.Table.show_players.aux table id = 
   let tab_ent = Apps.Fib.Table.got table id
   match Pair tab_ent {
