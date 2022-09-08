@@ -30,7 +30,9 @@ Main : _ {
   let t_shw0 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
   // Action code for Player 0 casting Fireball on Player 1
   // U120.0 stands for the first skill in a character
-  let code_0 = Apps.Fib.Action.skill_code state U120.0 p0_id p1_pos
+  // let code_0 = Apps.Fib.Action.skill_code state U120.0 p0_id p1_pos
+  // let code_0 = Apps.Fib.Interact.skill p0_id (U120.new 0 0) (U120.new 0 3) (U120.new 0 13)
+  let code_0 = Apps.Fib.Interact.pos.skill p0_id (U120.new 0 0) (Sigma.fst p0_pos) (Sigma.fst p1_pos)
   // Player 2 Id
   let p2_id  = U120.new 0 780
   // Action code to create a new character in a town
@@ -38,11 +40,11 @@ Main : _ {
   // 1 = top right
   // 2 = bot right
   // 3 = bot left
-  let code_1 = Apps.Fib.Action.spawn_code p2_id U120.1
+  let code_1 = Apps.Fib.Interact.spawn p2_id U120.1
   // Action code to walk to a point (max range = 2)
-  let code_2 = Apps.Fib.Action.walk_code state p0_id (Apps.Fib.Pos.new (U120.new 0 141) (U120.new 0 17))
+  // let code_2 = Apps.Fib.Action.walk_code state p0_id (Apps.Fib.Pos.new (U120.new 0 141) (U120.new 0 17))
   // Action code to walk a direction 
-  let code_3 = Apps.Fib.Action.wasd_code state "wa" p0_id
+  let code_2 = Apps.Fib.Interact.walk p0_id (U120.new 0 9) (U120.new 0 9)
   // let 
   // Runs Fireball action code in the state
   let state  = Apps.Fib.State.update state code_0
@@ -52,7 +54,7 @@ Main : _ {
   // Runs walk action code in the state
   let state  = Apps.Fib.State.update state code_2
   // Runs walk action code in the state
-  let state  = Apps.Fib.State.update state code_3
+  // let state  = Apps.Fib.State.update state code_3
   // Shows a certain part of the map
   // Starting x = 130
   // Starting y = 0
@@ -61,8 +63,8 @@ Main : _ {
   let m_show = Apps.Fib.Map.show 130 0 30 20 (Apps.Fib.test.Map state)
   // Shows all players in the Table
   let t_shw1 = Apps.Fib.Table.show_players (Apps.Fib.test.Table state)
-  // String.concat t_shw0 t_shw1
-  m_show
+  t_shw1
+  // m_show
 }
 
 

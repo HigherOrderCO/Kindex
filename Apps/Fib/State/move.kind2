@@ -3,7 +3,7 @@ Apps.Fib.State.move entity_id dx dy (Apps.Fib.State.new map table) =
   let tab_ent = Apps.Fib.Table.got table entity_id
   let player  = Pair.snd tab_ent
 
-  let x          = HVM.log entity_id (Apps.Fib.Player.pos.get_x player)
+  let x          = Apps.Fib.Player.pos.get_x player
   let y          = Apps.Fib.Player.pos.get_y player
   let origin_pos = Apps.Fib.Pos.new x y
 
