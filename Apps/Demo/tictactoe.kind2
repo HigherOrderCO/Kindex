@@ -18,32 +18,33 @@ Apps.Demo.init : Apps.Demo.State {
 Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
 Apps.Demo.draw (Pair.new u v count text) =
   let square =
-        (App.DOM.node "button" [(Pair.new "className" "square")] [] [
-          (App.DOM.text "X")
-        ])
+    (App.DOM.node "button" [(Pair.new "className" "square")] [] [
+      (App.DOM.text "")
+      ])
+  let status = (App.DOM.text "Next player: X")
+  let board =
+    (App.DOM.node "div" [] [] [
+      (App.DOM.node "div" [(Pair.new "className" "status")] [] [status]),
+      (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
+        square,
+        square,
+        square,
+      ]),
+      (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
+        square,
+        square,
+        square,
+      ]),
+      (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
+        square,
+        square,
+        square,
+      ])
+    ])
 
 (App.DOM.node "div" [(Pair.new "className" "game")] [] [
   (App.DOM.node "div" [(Pair.new "className" "game-board")] [] [
-    (App.DOM.node "div" [] [] [
-       (App.DOM.node "div" [] [] [
-        (App.DOM.text "Next player: X")
-       ]),
-       (App.DOM.node "div" [] [] [
-         square,
-         square,
-         square,
-       ]),
-       (App.DOM.node "div" [] [] [
-         square,
-         square,
-         square,
-       ]),
-       (App.DOM.node "div" [] [] [
-         square,
-         square,
-         square,
-       ])
-    ])
+  board
   ])
   (App.DOM.node "div" [(Pair.new "className" "game-info")] [] [
     (App.DOM.node "div"  [] [] [])
