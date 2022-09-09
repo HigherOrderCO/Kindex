@@ -17,29 +17,24 @@ Apps.Demo.init : Apps.Demo.State {
 // The 'draw' function converts the state into an HTML element.
 Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
 Apps.Demo.draw (Pair.new u v count text) =
-  let square =
+    let square = (x : String) =>
     (App.DOM.node "button" [(Pair.new "className" "square")] [] [
-      (App.DOM.text "")
-      ])
+      (App.DOM.text x)
+     ])
   let status = (App.DOM.text "Next player: X")
   let board =
     (App.DOM.node "div" [] [] [
       (App.DOM.node "div" [(Pair.new "className" "status")] [] [status]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        square,
-        square,
-        square,
+        (square "1"), (square "2"), (square "3"),
       ]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        square,
-        square,
-        square,
+        (square "4"), (square "5"), (square "6"),
       ]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        square,
-        square,
-        square,
+        (square "7"),(square "8"), (square "9"),
       ])
+      // squareOther "3"
     ])
 
 (App.DOM.node "div" [(Pair.new "className" "game")] [] [
