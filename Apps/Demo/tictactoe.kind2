@@ -17,52 +17,37 @@ Apps.Demo.init : Apps.Demo.State {
 // The 'draw' function converts the state into an HTML element.
 Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
 Apps.Demo.draw (Pair.new u v count text) =
-  let props = []
-  let style = [
-    (Pair.new "background" "#282828")
-    (Pair.new "height" "100%")
-    (Pair.new "fontSize" "40px")
-    (Pair.new "fontFamily" "monaco")
-    (Pair.new "color" "white")
-  ]
+  let square =
+        (App.DOM.node "button" [(Pair.new "className" "square")] [] [
+          (App.DOM.text "X")
+        ])
 
-
-(App.DOM.node "div" props style [
-    (App.DOM.text "Tic-Tac-Toe"),
+(App.DOM.node "div" [(Pair.new "className" "game")] [] [
+  (App.DOM.node "div" [(Pair.new "className" "game-board")] [] [
     (App.DOM.node "div" [] [] [
        (App.DOM.node "div" [] [] [
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "A1")
-         ]),
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "A2")
-         ]),
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "A3")
-         ]),
+        (App.DOM.text "Next player: X")
        ]),
        (App.DOM.node "div" [] [] [
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "B1")
-         ]),
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "B2")
-         ]),
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "B3")
-         ]),
+         square,
+         square,
+         square,
        ]),
        (App.DOM.node "div" [] [] [
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "C1")
-         ]),
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "C2")
-         ]),
-         (App.DOM.node "button" [] [] [
-            (App.DOM.text "C3")
-         ]),
+         square,
+         square,
+         square,
+       ]),
+       (App.DOM.node "div" [] [] [
+         square,
+         square,
+         square,
        ])
+    ])
+  ])
+  (App.DOM.node "div" [(Pair.new "className" "game-info")] [] [
+    (App.DOM.node "div"  [] [] [])
+    (App.DOM.node "ol"  [] [] [])
     ])
 ])
 
