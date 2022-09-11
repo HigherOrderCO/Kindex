@@ -49,8 +49,8 @@ Apps.Fib.State.update (Apps.Fib.State.new map tab) action =
   match Pair ent_tab {
     new =>
       let ent = ent_tab.snd
-      if (Bool.and (U120.equal ent U120.0) (U120.equal comm (U120.new 0 8))) {
-        Apps.Fib.State.create_unit (Apps.Fib.State.new map tab) id data
+      if (Bool.and (U120.equal ent (U120.new 0 0)) (U120.equal comm (U120.new 0 8))) {
+        Apps.Fib.State.create_unit (Apps.Fib.State.new map tab) data id
       }
       else {
         Apps.Fib.State.update.command (Apps.Fib.State.new map tab) comm data id ent

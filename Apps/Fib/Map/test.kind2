@@ -6,7 +6,7 @@ Main : _ {
   let map  = Apps.Fib.Map.set map (U120.new 0 110) (Apps.Fib.Pos.new (U120.new 0 03) (U120.new 0 05))
   let map  = Apps.Fib.Map.set map (U120.new 0 116) (Apps.Fib.Pos.new (U120.new 0 04) (U120.new 0 05))
   let map  = Apps.Fib.Map.set map (U120.new 0 111) (Apps.Fib.Pos.new (U120.new 0 05) (U120.new 0 05))
-  let show = Apps.Fib.Map.show 0 0 160 160 map
+  let show = Apps.Fib.Map.show (U120.new 0 0) (U120.new 0 0) (U120.new 0 160) (U120.new 0 160) map
   show
   // map
 }
