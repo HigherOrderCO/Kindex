@@ -1,0 +1,8 @@
+type JSON {
+  object (obj: List (Pair String JSON))
+  array (arr: List JSON)
+  string (text: String)
+  number (float: F64)
+  bool (bool: Bool)
+  null
+}

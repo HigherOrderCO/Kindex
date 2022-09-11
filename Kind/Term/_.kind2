@@ -1,4 +1,3 @@
-// Automatically derived from Kind/Term/_.type
 Kind.Term : Type
 
 Kind.Term.typ (orig: U60) : (Kind.Term)
@@ -9,6 +8,7 @@ Kind.Term.lam (orig: U60) (name: U60) (body: (_: Kind.Term) Kind.Term) : (Kind.T
 Kind.Term.app (orig: U60) (func: Kind.Term) (arg: Kind.Term) : (Kind.Term)
 Kind.Term.let (orig: U60) (name: U60) (expr: Kind.Term) (body: (_: Kind.Term) Kind.Term) : (Kind.Term)
 Kind.Term.ann (orig: U60) (expr: Kind.Term) (typ: Kind.Term) : (Kind.Term)
+Kind.Term.sub (orig: U60) (name: U60) (indx: U60) (redx: U60) (expr: Kind.Term) : (Kind.Term)
 
 Kind.Term.ct0 (ctid: U60) (orig: U60) : (Kind.Term)
 Kind.Term.ct1 (ctid: U60) (orig: U60) (x0: Kind.Term) : (Kind.Term)
