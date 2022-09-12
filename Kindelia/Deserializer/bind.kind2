@@ -1,0 +1,15 @@
+Kindelia.Deserializer.bind <a> <b> (deserialize: Kindelia.Deserializer a) (next: a -> Kindelia.Deserializer b) : Kindelia.Deserializer b {
+  (bits: Bits) => (names: Data.BBT U120 U120) => (names_size: U120) =>
+    let res = (deserialize bits names names_size);
+    match Maybe res {
+      none => Maybe.none
+      some => 
+        let resA  = Pair.fst res.value
+        let remd = Pair.snd res.value
+        match Kindelia.Deserializer.Result resA {
+          new => 
+            let resB = ((next resA.result) remd resA.names resA.names_size)
+            resB
+        }
+    }
+}

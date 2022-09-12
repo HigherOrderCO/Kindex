@@ -1,0 +1,4 @@
+Kindelia.Deserializer.pure <a> (value: a): Kindelia.Deserializer a {
+  (bits: Bits) => (names: Data.BBT U120 U120) => (names_size: U120) =>
+    Maybe.some (Pair.new (Kindelia.Deserializer.Result.new a value names names_size) bits)
+}

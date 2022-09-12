@@ -1,0 +1,4 @@
+type Data.BBT <k: Type> <v: Type> {
+  tip
+  bin (size: U120) (key: k) (val: v) (left: Data.BBT k v) (right: Data.BBT k v)
+}

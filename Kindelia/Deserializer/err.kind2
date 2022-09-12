@@ -1,0 +1,4 @@
+Kindelia.Deserializer.err <a> : Kindelia.Deserializer a {
+  (bits: Bits) => (names: Kindelia.Deserializer.Names) => (names_size: U120) =>
+    Maybe.none
+}
