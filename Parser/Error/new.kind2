@@ -1,0 +1,2 @@
+// Automatically derived from Parser/Error/_.type
+Parser.Error.new (msg: String) (init: U60) (last: U60) : (Parser.Error)

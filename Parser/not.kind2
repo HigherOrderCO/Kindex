@@ -1,0 +1,12 @@
+// Fails when the given parser succeeds and succeeds when it fails
+// Erases any result
+Parser.not <a> (prs: Parser a) : Parser Unit {
+  do Parser {
+    ask success = Parser.to_bool prs
+    if success {
+      Parser.empty
+    } else {
+      Parser.pure Unit.new
+    }
+  }
+}

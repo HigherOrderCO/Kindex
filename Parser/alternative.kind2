@@ -1,0 +1,4 @@
+// Runs the first parser. If it fails, runs the second one
+Parser.alternative <a> (x : Parser a) (y : Parser a) : (Parser a) {
+  Parser.first_of [x y]
+}
