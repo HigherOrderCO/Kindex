@@ -1,0 +1,3 @@
+IO.load (key: String) : IO String {
+  IO.do_load key (x => IO.done x)
+}
