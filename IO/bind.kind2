@@ -1,4 +1,6 @@
 IO.bind <a: Type> <b: Type> (io: IO a) (cont: a -> IO b) : IO b
-IO.bind a b (IO.done   t val)          next = next val
-IO.bind a b (IO.do_input  t cont)      next = IO.do_input  b      (x => IO.bind a b (cont x) next)
-IO.bind a b (IO.do_output t text cont) next = IO.do_output b text (x => IO.bind a b (cont x) next)
+IO.bind (IO.done      val)          next = next val
+IO.bind (IO.do_input          cont) next = IO.do_input          (x => IO.bind (cont x) next)
+IO.bind (IO.do_output text    cont) next = IO.do_output text    (x => IO.bind (cont x) next)
+IO.bind (IO.do_load   key     cont) next = IO.do_load   key     (x => IO.bind (cont x) next)
+IO.bind (IO.do_store  key val cont) next = IO.do_store  key val (x => IO.bind (cont x) next)
