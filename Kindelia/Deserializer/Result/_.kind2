@@ -1,0 +1,2 @@
+// Automatically derived from Kindelia/Deserializer/Result/_.type
+Kindelia.Deserializer.Result (t: Type) : Type

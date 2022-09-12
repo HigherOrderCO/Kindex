@@ -1,0 +1,10 @@
+// Automatically derived from Kindelia/Term/_.type
+Kindelia.Term.match (x: (Kindelia.Term)) -(p: (x: (Kindelia.Term)) Type) (var: (name: U120) (p (Kindelia.Term.var name))) (dpk: (nam0: U120) (nam1: U120) (expr: Kindelia.Term) (body: Kindelia.Term) (p (Kindelia.Term.dpk nam0 nam1 expr body))) (lam: (name: U120) (body: Kindelia.Term) (p (Kindelia.Term.lam name body))) (app: (func: Kindelia.Term) (argm: Kindelia.Term) (p (Kindelia.Term.app func argm))) (ctr: (name: U120) (args: (List Kindelia.Term)) (p (Kindelia.Term.ctr name args))) (fun: (name: U120) (args: (List Kindelia.Term)) (p (Kindelia.Term.fun name args))) (num: (numb: U120) (p (Kindelia.Term.num numb))) (op2: (oper: U120) (val0: Kindelia.Term) (val1: Kindelia.Term) (p (Kindelia.Term.op2 oper val0 val1))) : (p x)
+Kindelia.Term.match (Kindelia.Term.var name_) p var dpk lam app ctr fun num op2 = (var name_)
+Kindelia.Term.match (Kindelia.Term.dpk nam0_ nam1_ expr_ body_) p var dpk lam app ctr fun num op2 = (dpk nam0_ nam1_ expr_ body_)
+Kindelia.Term.match (Kindelia.Term.lam name_ body_) p var dpk lam app ctr fun num op2 = (lam name_ body_)
+Kindelia.Term.match (Kindelia.Term.app func_ argm_) p var dpk lam app ctr fun num op2 = (app func_ argm_)
+Kindelia.Term.match (Kindelia.Term.ctr name_ args_) p var dpk lam app ctr fun num op2 = (ctr name_ args_)
+Kindelia.Term.match (Kindelia.Term.fun name_ args_) p var dpk lam app ctr fun num op2 = (fun name_ args_)
+Kindelia.Term.match (Kindelia.Term.num numb_) p var dpk lam app ctr fun num op2 = (num numb_)
+Kindelia.Term.match (Kindelia.Term.op2 oper_ val0_ val1_) p var dpk lam app ctr fun num op2 = (op2 oper_ val0_ val1_)
