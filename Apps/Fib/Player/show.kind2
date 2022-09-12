@@ -1,26 +1,34 @@
-Apps.Fib.Player.show (player: Apps.Fib.Player) : String {
-  let fst  = Pair.fst player
-  let snd  = Pair.snd player
+// TODO: update to new Player format
+Apps.Fib.Player.show #Fib_plr_show (player: Apps.Fib.Player) : String {
   let list = 
     [
-      (Pair.new "Pos x:  " 9)
-      (Pair.new "Pos y:  " 9)
-      (Pair.new "Exp:    " 16)
-      (Pair.new "Health: " 12)
-      (Pair.new "s0:     " 16)
-      (Pair.new "s1:     " 16)
-      (Pair.new "Rest:   " 42)
+      (Pair.new "Pos x:    " (U120.new 0 8 )) // (Pair.new (U120.new 0 8 ) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Pos y:    " (U120.new 0 8 )) // (Pair.new (U120.new 0 8 ) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Exp:      " (U120.new 0 12)) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Health:   " (U120.new 0 12)) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Offer:    " (U120.new 0 16)) // (Pair.new (U120.new 0 16) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Root:     " (U120.new 0 2 )) // (Pair.new (U120.new 0 2 ) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Silence:  " (U120.new 0 2 )) // (Pair.new (U120.new 0 2 ) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Gold:     " (U120.new 0 12)) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Cooldown: " (U120.new 0 12)) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Skill a:  " (U120.new 0 6 )) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Skill b:  " (U120.new 0 6 )) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Skill c:  " (U120.new 0 6 )) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Skill d:  " (U120.new 0 6 )) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Skill e:  " (U120.new 0 6 )) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
+      (Pair.new "Skill f:  " (U120.new 0 6 )) // (Pair.new (U120.new 0 12) ((v : U120) => (Show.to_string (U120.show v)))))
     ]
   let func =
-    (current: Pair String U60) =>
-    (acc: Pair String U60) =>
-      let pos = Pair.snd acc
-      let len = Pair.snd current
-      let val = U120.bitwise_and (U120.shift_right fst (U60.to_u120 (pos))) (U60.to_u120 (- (^ 2 len) 1))
-      let str = String.concat (Pair.fst current) (Show.to_string (U120.show val))
-      let acc = Pair.new str (+ (Pair.snd current) (Pair.snd acc))
+    (cur: Pair String U120) =>
+    (acc: Pair String U120) =>
+      let bit = Pair.snd acc
+      let len = Pair.snd cur
+      let str = Show.to_string (U120.show (U120.bitwise_and bit (U120.sub (U120.shift_left (U120.new 0 1) len) (U120.new 0 1))))
+      let str = String.concat (String.concat (Pair.fst acc) (String.cons 10 (Pair.fst cur))) str
+      let acc = Pair.new str (U120.shift_right bit len)
       acc
-  let acc  = Pair.new String.nil 0
-  let fold = List.foldl (Pair String U60) (Pair String U60) acc func list
+  let acc  = Pair.new String.nil player
+  let fold = List.foldl (Pair String U120) (Pair String U120) acc func list
   Pair.fst fold
 }
+

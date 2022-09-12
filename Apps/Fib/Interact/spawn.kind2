@@ -1,0 +1,3 @@
+Apps.Fib.Interact.spawn #Fib_it_sp (id: Apps.Fib.Id) (town: U120) : U120 {
+  Apps.Fib.Action.spawn_code id town
+}

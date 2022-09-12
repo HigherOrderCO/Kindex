@@ -40,8 +40,14 @@ Kind.Checker.equal (Kind.Term.let a.orig a.name a.expr a.body) (Kind.Term.let b.
 Kind.Checker.equal (Kind.Term.ann a.orig a.expr a.type) (Kind.Term.ann b.orig b.expr b.type) =
   do Kind.Checker {
     ask func = Kind.Checker.equal a.expr b.expr
-    ask arg  = Kind.Checker.equal a.type b.type
-    return (Bool.and func arg)
+    ask type = Kind.Checker.equal a.type b.type
+    return (Bool.and func type)
+  }
+
+Kind.Checker.equal (Kind.Term.sub a.orig a.name a.indx a.redx a.expr) (Kind.Term.sub b.orig b.name b.indx b.redx b.expr) =
+  do Kind.Checker {
+    ask func = Kind.Checker.equal a.expr b.expr
+    return func
   }
 
 Kind.Checker.equal (Kind.Term.u60 a.orig) (Kind.Term.u60 b.orig) =

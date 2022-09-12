@@ -1,17 +1,17 @@
-// Binary long division
-// Returns the integer division num/den, as well as the remainder
+// Returns the quocient and remainder of the integer division num/den
+// Implemented as binary long division
 U120.div_mod (num: U120) (den: U120) : Pair U120 U120
 U120.div_mod num (U120.new 0 0) = Pair.new (U60.to_u120 (/ 0 0)) (U60.to_u120 (% 0 0))  // cause panic like in U60
 U120.div_mod num den            =
   match Maybe msb = U120.msb num {
-    none => Pair.new U120.zero U120.zero // numerator is 0
+    none => Pair.new (U120.new 0 0) (U120.new 0 0) // numerator is 0
     some =>
-      let qr  = (Pair.new U120.zero U120.zero)
+      let qr  = (Pair.new (U120.new 0 0) (U120.new 0 0))
       let idx = U120.inc msb.value
       U120.div_mod.go idx qr num den
   }
 
-U120.div_mod.go
+U120.div_mod.go #U120_dm_go
   (idx : U120)
   (qr  : Pair U120 U120)
   (num : U120)
@@ -21,7 +21,7 @@ U120.div_mod.go (U120.new 0 0) qr num den = qr
 U120.div_mod.go idx            qr num den =
   let quo = Pair.fst qr
   let rem = Pair.snd qr
-  let rem = U120.shift_left rem U120.one
+  let rem = U120.shift_left rem (U120.new 0 1)
   // set lsb of rem to `bit` of num
   let bit = U120.dec idx
   let rem = U120.add rem (U120.get_bit num bit)
