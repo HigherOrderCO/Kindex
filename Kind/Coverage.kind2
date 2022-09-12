@@ -1,0 +1,2 @@
+Main : String
+Main = Kind.API.check_coverage

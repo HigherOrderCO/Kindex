@@ -1,2 +1,0 @@
-// Automatically derived from Kind/Coverage/Match/_.type
-Kind.Coverage.Match.yes <a: Type> (data: a) : (Kind.Coverage.Match a)

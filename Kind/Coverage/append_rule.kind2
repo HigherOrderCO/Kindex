@@ -1,0 +1,3 @@
+Kind.Coverage.append_rule (term: List Kind.Term) (rule: Kind.Rule) : Kind.Rule
+Kind.Coverage.append_rule (List.nil t)       rule = rule
+Kind.Coverage.append_rule (List.cons t x xs) rule = Kind.Rule.lhs x (Kind.Coverage.append_rule xs rule)

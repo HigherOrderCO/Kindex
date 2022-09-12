@@ -1,4 +1,0 @@
-// Automatically derived from Kind/Coverage/SplitTag/_.type
-Kind.Coverage.SplitTag.match (x: (Kind.Coverage.SplitTag)) -(p: (x: (Kind.Coverage.SplitTag)) Type) (construtor: (constructor: U60) (p (Kind.Coverage.SplitTag.construtor constructor))) (catchAll: (p (Kind.Coverage.SplitTag.catchAll))) : (p x)
-Kind.Coverage.SplitTag.match (Kind.Coverage.SplitTag.construtor constructor_) p construtor catchAll = (construtor constructor_)
-Kind.Coverage.SplitTag.match (Kind.Coverage.SplitTag.catchAll) p construtor catchAll = (catchAll)

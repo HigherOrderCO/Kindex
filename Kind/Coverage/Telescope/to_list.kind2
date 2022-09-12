@@ -1,4 +1,0 @@
-
-Kind.Coverage.Telescope.to_list (x: Kind.Coverage.Telescope): List Kind.Term
-Kind.Coverage.Telescope.to_list (Kind.Coverage.Telescope.nil) = List.nil
-Kind.Coverage.Telescope.to_list (Kind.Coverage.Telescope.cons val_ ty_ tail) = List.cons val (Kind.Coverage.Telescope.to_list tail)

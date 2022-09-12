@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Creator/_.type
+Kind.Coverage.Creator.cons (ty: Kind.Term) (next: (_: Kind.Term) Kind.Coverage.Creator) : (Kind.Coverage.Creator)

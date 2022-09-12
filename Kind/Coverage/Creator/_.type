@@ -1,0 +1,4 @@
+type Kind.Coverage.Creator {
+  end (end: Kind.Term)
+  cons (ty: Kind.Term) (next: Kind.Term -> Kind.Coverage.Creator)
+}

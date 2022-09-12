@@ -1,0 +1,3 @@
+List.at_u60 <a> (xs: List a) (idx: U60) : Maybe a
+List.at_u60 a (List.nil t)        other = Maybe.none
+List.at_u60 a (List.cons t head tail) n = if (U60.equal n 0) { Maybe.some head } else { List.at_u60 a tail (- n 1) }

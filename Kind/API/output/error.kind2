@@ -1,0 +1,60 @@
+Kind.API.output.error (fnid: U60) (err: Kind.Error) (sub: Kind.Subst): String
+Kind.API.output.error f_ (Kind.Error.uncovered orig_ fnid cause) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "The function is not covering all constructors. Example:" String.new_line " - "
+                      (String.join " " (List.map cause (x => Kind.Term.show x))) (Kind.Printer.color "0") String.new_line String.new_line
+                      (Kind.API.output.error.details fnid Kind.Context.empty sub orig_)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.unbound_variable ctx orig) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Unbound Variable." (Kind.Printer.color "0") String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.cant_infer_lambda ctx orig) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Can't infer lambda." (Kind.Printer.color "0") String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.cant_infer_hole ctx orig) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Can't infer hole." (Kind.Printer.color "0") String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.too_many_arguments ctx orig) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Too many arguments." (Kind.Printer.color "0") String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.invalid_call ctx orig) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Invalid call." (Kind.Printer.color "0") String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.type_mismatch ctx orig expected detected) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Type mismatch" (Kind.Printer.color "0") String.new_line
+                      "- Expected: " (String.cut (Kind.Term.show (Kind.Term.fill expected sub))) String.new_line
+                      "- Detected: " (String.cut (Kind.Term.show (Kind.Term.fill detected sub))) String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.impossible_case ctx orig expected detected) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Impossible case. You can remove it." (Kind.Printer.color "0") String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error fnid (Kind.Error.inspection ctx orig expected) sub =
+  Kind.Printer.text [ (Kind.Printer.color "4") "Inspection." (Kind.Printer.color "0") String.new_line
+                      "- Goal: " (String.cut (Kind.Term.show (Kind.Term.fill expected sub))) String.new_line
+                      (Kind.API.output.error.details fnid ctx sub orig)
+                    ]
+
+Kind.API.output.error.details (fnid: U60) (ctx: Kind.Context) (sub: Kind.Subst) (origin: U60): String
+Kind.API.output.error.details fnid ctx sub orig =
+  Kind.Printer.text [ (Bool.if (Kind.Context.is_empty ctx)
+                               ""
+                               (Kind.Printer.text [(Kind.Printer.color "4") "Kind.Context:" (Kind.Printer.color "0")
+                                                   String.new_line
+                                                   (Kind.Context.show ctx sub)]))
+                      (Kind.Printer.color "4") "On '{{#F" (Show.to_string (U60.show (>> orig 48))) "F#}}':" (Kind.Printer.color "0") String.new_line
+                      "{{#R" (Show.to_string (U60.show (>> orig 48))) ":" (Show.to_string (U60.show (& orig 16777215))) ":" (Show.to_string (U60.show (& (>> orig 24) 16777215))) "R#}}" String.new_line
+                    ]

@@ -1,0 +1,2 @@
+// Automatically derived from Kind/SplitTree/_.type
+Kind.SplitTree.split (list: (List (Pair U60 Kind.SplitTree))) : (Kind.SplitTree)

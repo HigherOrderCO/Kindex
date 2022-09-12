@@ -1,4 +1,0 @@
-// Automatically derived from Kind/Coverage/Telescope/_.type
-Kind.Coverage.Telescope.match (x: (Kind.Coverage.Telescope)) -(p: (x: (Kind.Coverage.Telescope)) Type) (nil: (p (Kind.Coverage.Telescope.nil))) (cons: (val: Kind.Term) (ty: Kind.Term) (tail: Kind.Coverage.Telescope) (p (Kind.Coverage.Telescope.cons val ty tail))) : (p x)
-Kind.Coverage.Telescope.match (Kind.Coverage.Telescope.nil) p nil cons = (nil)
-Kind.Coverage.Telescope.match (Kind.Coverage.Telescope.cons val_ ty_ tail_) p nil cons = (cons val_ ty_ tail_)

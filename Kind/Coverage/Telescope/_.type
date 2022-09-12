@@ -1,4 +1,0 @@
-type Kind.Coverage.Telescope {
-  nil
-  cons (val: Kind.Term) (ty: Kind.Term) (tail: Kind.Coverage.Telescope)
-}

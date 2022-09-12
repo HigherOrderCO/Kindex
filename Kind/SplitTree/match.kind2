@@ -1,0 +1,7 @@
+// Automatically derived from Kind/SplitTree/_.type
+Kind.SplitTree.match (x: (Kind.SplitTree)) -(p: (x: (Kind.SplitTree)) Type) (split: (list: (List (Pair U60 Kind.SplitTree))) (p (Kind.SplitTree.split list))) (intro: (tree: Kind.SplitTree) (p (Kind.SplitTree.intro tree))) (done: (p (Kind.SplitTree.done))) (impossible: (p (Kind.SplitTree.impossible))) (uncovered: (p (Kind.SplitTree.uncovered))) : (p x)
+Kind.SplitTree.match (Kind.SplitTree.split list_) p split intro done impossible uncovered = (split list_)
+Kind.SplitTree.match (Kind.SplitTree.intro tree_) p split intro done impossible uncovered = (intro tree_)
+Kind.SplitTree.match (Kind.SplitTree.done) p split intro done impossible uncovered = (done)
+Kind.SplitTree.match (Kind.SplitTree.impossible) p split intro done impossible uncovered = (impossible)
+Kind.SplitTree.match (Kind.SplitTree.uncovered) p split intro done impossible uncovered = (uncovered)

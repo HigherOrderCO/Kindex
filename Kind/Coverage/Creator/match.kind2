@@ -1,0 +1,4 @@
+// Automatically derived from Kind/Creator/_.type
+Kind.Coverage.Creator.match (x: (Kind.Coverage.Creator)) -(p: (x: (Kind.Coverage.Creator)) Type) (end: (end: Kind.Term) (p (Kind.Coverage.Creator.end end))) (cons: (ty: Kind.Term) (next: (_: Kind.Term) Kind.Coverage.Creator) (p (Kind.Coverage.Creator.cons ty next))) : (p x)
+Kind.Coverage.Creator.match (Kind.Coverage.Creator.end end_) p end cons = (end end_)
+Kind.Coverage.Creator.match (Kind.Coverage.Creator.cons ty_ next_) p end cons = (cons ty_ next_)

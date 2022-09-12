@@ -1,2 +1,0 @@
-// Automatically derived from Kind/Coverage/Match/_.type
-Kind.Coverage.Match.block <a: Type> (on: (List U60)) : (Kind.Coverage.Match a)

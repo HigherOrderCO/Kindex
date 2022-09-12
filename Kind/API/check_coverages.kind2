@@ -1,0 +1,9 @@
+/// Check if all the functions in the @function_ids@ list cover all possibilities.
+Kind.API.check_coverages (function_ids: List U60): List (Pair Kind.SplitTree U60)
+Kind.API.check_coverages (List.nil t)          = List.nil
+Kind.API.check_coverages (List.cons t fnid fs) =
+  let rules = Definition.RulesOf fnid
+  let ty    = Definition.TypeOf fnid
+  let head  = Kind.Coverage.cover Kind.Context.empty fnid rules ty
+  let tail  = Kind.API.check_coverages fs
+  List.cons (Pair.new (HVM.log (Kind.SplitTree.show head) head) fnid) tail

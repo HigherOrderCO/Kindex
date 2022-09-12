@@ -1,0 +1,25 @@
+Constructor.NameOf (name: U60) : String
+
+Kind.SplitTree.show.list (last: Bool) (ident: String) (list: List (Pair U60 Kind.SplitTree)) : List String
+Kind.SplitTree.show.list last ident (List.nil t)                  = List.nil
+Kind.SplitTree.show.list last ident (List.cons t_ x (List.nil t)) =
+  (List.cons (Kind.SplitTree.show.go Bool.true (String.join "" [ident (Constructor.NameOf (Pair.fst x)) " => "]) (Pair.snd x))
+      List.nil)
+Kind.SplitTree.show.list last ident (List.cons t_ x xs) =
+  (List.cons (Kind.SplitTree.show.go Bool.false (String.join "" [ident (Constructor.NameOf (Pair.fst x)) " => "]) (Pair.snd x))
+             (Kind.SplitTree.show.list last ident xs))
+
+Kind.SplitTree.show.go (last: Bool) (ident: String) (tree: Kind.SplitTree) : String
+Kind.SplitTree.show.go last ident (Kind.SplitTree.split split) =
+  String.join "" [ident "Split" (String.cons 10 "") (String.join "" (Kind.SplitTree.show.list last ident split))]
+
+Kind.SplitTree.show.go last ident (Kind.SplitTree.intro s) =
+  String.join "" [ident "Intro" (String.cons 10 "") (Kind.SplitTree.show.go last ident s)]
+
+Kind.SplitTree.show.go last ident (Kind.SplitTree.done) = String.join "" [ident "done" (String.cons 10 "")]
+Kind.SplitTree.show.go last ident (Kind.SplitTree.impossible) = String.join "" [ident "impossible" (String.cons 10 "")]
+Kind.SplitTree.show.go last ident (Kind.SplitTree.uncovered) = String.join "" [ident "uncovered" (String.cons 10 "")]
+
+// Function useful for dev purposes.
+Kind.SplitTree.show (tree: Kind.SplitTree) : String
+Kind.SplitTree.show tree = Kind.SplitTree.show.go Bool.true "" tree

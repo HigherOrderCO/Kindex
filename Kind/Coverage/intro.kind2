@@ -1,0 +1,4 @@
+Kind.Coverage.intro (clauses: List Kind.Rule) : List Kind.Rule
+Kind.Coverage.intro (List.nil t)                         = List.nil
+Kind.Coverage.intro (List.cons t (Kind.Rule.lhs x r) xs) = List.cons r (Kind.Coverage.intro xs)
+Kind.Coverage.intro (List.cons t x xs)                   = Impossible "bad intro lol"

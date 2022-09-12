@@ -1,0 +1,12 @@
+Kind.Coverage.cover (context: Kind.Context) (depth: U60) (clauses: List Kind.Rule) (funTy: Kind.Term) : Kind.SplitTree
+Kind.Coverage.cover ctx dep clauses funTy =
+  if Kind.Coverage.catch_all clauses {
+    Kind.SplitTree.done
+  } else {
+    let res = Kind.Coverage.is_empty ctx dep clauses (Kind.Term.eval funTy)
+    if res {
+      Kind.SplitTree.done
+    } else {
+      Kind.Coverage.act ctx dep clauses (Kind.Term.eval funTy)
+    }
+  }

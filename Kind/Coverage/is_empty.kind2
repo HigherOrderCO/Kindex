@@ -1,0 +1,15 @@
+Kind.Coverage.is_empty (context: Kind.Context) (depth: U60) (clauses: List Kind.Rule) (funTy: Kind.Term) : Bool
+Kind.Coverage.is_empty ctx depth clauses (Kind.Term.all orig_ name_ typ body) =
+  let data_type = Kind.Coverage.get_inductive typ
+  match Maybe data_type {
+    some =>
+      let constructors = Family.ConstructorsOf data_type.value
+      if Nat.equal (List.length constructors) Nat.zero {
+        Bool.true
+      } else {
+        Kind.Coverage.is_empty ctx depth clauses (body (Kind.Term.hol orig_ name_))
+      }
+    none => Kind.Coverage.is_empty ctx depth clauses (body (Kind.Term.hol orig_ name_))
+  }
+
+Kind.Coverage.is_empty ctx depth clauses typ = Bool.false

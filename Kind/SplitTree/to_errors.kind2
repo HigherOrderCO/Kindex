@@ -1,0 +1,26 @@
+Kind.Split.complete_matcher (creator: Kind.Coverage.Creator): Kind.Term
+Kind.Split.complete_matcher (Kind.Coverage.Creator.cons x xs) = Kind.Split.complete_matcher (xs (Kind.Term.hol 0 0))
+Kind.Split.complete_matcher (Kind.Coverage.Creator.end term) = term
+
+Kind.SplitTree.to_errors.go (split: Kind.SplitTree) : List (List Kind.Term)
+Kind.SplitTree.to_errors.go (Kind.SplitTree.split list) = Kind.SplitTree.to_errors.list.go list
+Kind.SplitTree.to_errors.go (Kind.SplitTree.intro s)    = List.map (Kind.SplitTree.to_errors.go s) (xs => List.cons (Kind.Term.hol 0 0) xs)
+Kind.SplitTree.to_errors.go Kind.SplitTree.done         = []
+Kind.SplitTree.to_errors.go Kind.SplitTree.impossible   = []
+Kind.SplitTree.to_errors.go Kind.SplitTree.uncovered    = [[]]
+
+Kind.SplitTree.to_errors.list.go (split: List (Pair U60 Kind.SplitTree)) : List (List Kind.Term)
+Kind.SplitTree.to_errors.list.go (List.nil t)       = List.nil
+Kind.SplitTree.to_errors.list.go (List.cons t x xs) =
+  let terms = Kind.SplitTree.to_errors.go (Pair.snd x)
+  let matcher = Kind.Split.complete_matcher (Constructor.CreatorOf (Pair.fst x))
+  let head = List.map terms (xs => List.cons matcher xs)
+  let tail = Kind.SplitTree.to_errors.list.go xs
+  List.concat head tail
+
+Kind.SplitTree.to_errors (orig_: U60) (fnid: U60) (split: Kind.SplitTree) : List Kind.Error
+Kind.SplitTree.to_errors orig_ fnid (Kind.SplitTree.split list) = List.map (Kind.SplitTree.to_errors.list.go list) (x => Kind.Error.uncovered orig_ fnid x)
+Kind.SplitTree.to_errors orig_ fnid (Kind.SplitTree.intro s)    = List.map (Kind.SplitTree.to_errors.go (Kind.SplitTree.intro s)) (x => Kind.Error.uncovered orig_ fnid x)
+Kind.SplitTree.to_errors orig_ fnid Kind.SplitTree.done         = []
+Kind.SplitTree.to_errors orig_ fnid Kind.SplitTree.impossible   = []
+Kind.SplitTree.to_errors orig_ fnid Kind.SplitTree.uncovered    = []

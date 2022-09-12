@@ -1,5 +1,0 @@
-// Automatically derived from Kind/Coverage/Match/_.type
-Kind.Coverage.Match.match <a: Type> (x: (Kind.Coverage.Match a)) -(p: (x: (Kind.Coverage.Match a)) Type) (yes: (data: a) (p (Kind.Coverage.Match.yes a data))) (no: (p (Kind.Coverage.Match.no a))) (block: (on: (List U60)) (p (Kind.Coverage.Match.block a on))) : (p x)
-Kind.Coverage.Match.match a (Kind.Coverage.Match.yes a_ data_) p yes no block = (yes data_)
-Kind.Coverage.Match.match a (Kind.Coverage.Match.no a_) p yes no block = (no)
-Kind.Coverage.Match.match a (Kind.Coverage.Match.block a_ on_) p yes no block = (block on_)
