@@ -1,0 +1,25 @@
+NameOf (name: U60) : String
+
+Kind.Coverage.SplitTree.show.list (last: Bool) (ident: String) (list: List (Pair U60 Kind.Coverage.SplitTree)) : List String
+Kind.Coverage.SplitTree.show.list last ident (List.nil t)                  = List.nil
+Kind.Coverage.SplitTree.show.list last ident (List.cons t_ x (List.nil t)) =
+  (List.cons (Kind.Coverage.SplitTree.show.go Bool.true (String.join "" [ident (NameOf (Pair.fst x)) " => "]) (Pair.snd x))
+      List.nil)
+Kind.Coverage.SplitTree.show.list last ident (List.cons t_ x xs) =
+  (List.cons (Kind.Coverage.SplitTree.show.go Bool.false (String.join "" [ident (NameOf (Pair.fst x)) " => "]) (Pair.snd x))
+             (Kind.Coverage.SplitTree.show.list last ident xs))
+
+Kind.Coverage.SplitTree.show.go (last: Bool) (ident: String) (tree: Kind.Coverage.SplitTree) : String
+Kind.Coverage.SplitTree.show.go last ident (Kind.Coverage.SplitTree.split split) =
+  (String.join "" (Kind.Coverage.SplitTree.show.list last ident split))
+
+Kind.Coverage.SplitTree.show.go last ident (Kind.Coverage.SplitTree.intro s) =
+  Kind.Coverage.SplitTree.show.go last (String.concat "intro " ident) s
+
+Kind.Coverage.SplitTree.show.go last ident (Kind.Coverage.SplitTree.done) = String.join "" [ident "done" (String.cons 10 "")]
+Kind.Coverage.SplitTree.show.go last ident (Kind.Coverage.SplitTree.impossible) = String.join "" [ident "impossible" (String.cons 10 "")]
+Kind.Coverage.SplitTree.show.go last ident (Kind.Coverage.SplitTree.uncovered) = String.join "" [ident "uncovered" (String.cons 10 "")]
+
+// Function useful for dev purposes.
+Kind.Coverage.SplitTree.show (tree: Kind.Coverage.SplitTree) : String
+Kind.Coverage.SplitTree.show tree = Kind.Coverage.SplitTree.show.go Bool.true "" tree

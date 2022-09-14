@@ -1,2 +1,0 @@
-// Automatically derived from Kind/SplitTree/_.type
-Kind.SplitTree.intro (tree: Kind.SplitTree) : (Kind.SplitTree)

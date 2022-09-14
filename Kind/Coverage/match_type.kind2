@@ -1,14 +1,9 @@
-Kind.Coverage.match_type.go (depth: U60) (left: Kind.Term) (right: Kind.Term): Kind.Checker Bool
-Kind.Coverage.match_type.go depth (Kind.Term.all orig_ name typ body) right =
-  Kind.Coverage.match_type.go (+ depth 1) (Kind.Term.eval (body (Kind.Term.hol orig_ depth))) right
-
-Kind.Coverage.match_type.go depth left right = Kind.Checker.equal left right
-
-Kind.Coverage.match_type (ctx: Kind.Context) (depth: U60) (left: Kind.Term) (right: Kind.Term) : Bool
-Kind.Coverage.match_type ctx depth left right =
-  let checker = (Kind.Coverage.match_type.go depth left right)
-  let res = checker ctx depth Bool.true Kind.Subst.end [] []
-  match Kind.Result res {
-    checked => res.ret
-    errored => Bool.false
+Kind.Coverage.match_type (left: Kind.Term) (right: Kind.Term): Kind.Checker Bool
+Kind.Coverage.match_type (Kind.Term.all orig_ name typ body) right =
+  do Kind.Checker {
+    ask Kind.Checker.extend name typ []
+    ask depth = Kind.Checker.get_depth
+    (Kind.Coverage.match_type (Kind.Term.eval (body (Kind.Term.var orig_ name depth))) right)
   }
+
+Kind.Coverage.match_type left right = Kind.Checker.equal left right

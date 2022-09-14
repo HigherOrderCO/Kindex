@@ -85,7 +85,7 @@ Kind.Checker.infer (Kind.Term.sub orig name indx redx expr) =
       none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
       some => match Pair got.value {
         new => do Kind.Checker {
-          match Maybe reduction = List.at.u60 got.value.snd redx {
+          match Maybe reduction = List.at_u60 got.value.snd redx {
             none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
             some => do Kind.Checker {
               ask expr_typ = Kind.Checker.infer expr

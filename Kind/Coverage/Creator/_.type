@@ -1,3 +1,20 @@
+// Structure similar to a telescope that is useful to
+// join types and apply a constructor. It's used to simulate
+// the pattern list of the paper "Warnings for pattern matching"
+// but using types that are convenient to checking the coverage
+// of dependently typed pattern matching.
+//
+// Example omiting all the paths and origins:
+//
+// @
+// Creator.cons (ct0 Nat.) (x => Creator.end (ct1 Nat.succ. x))
+// @
+//
+// with syntax sugar would be "(x : Nat) -> Nat.succ x"
+// mixing with the type "(z : Nat) -> (y : Nat) -> Vec (Nat.add z y) Type"
+// would lead to "(x : Nat) -> (y : Nat) -> Vec (Nat.add (Nat.succ x y) Type"
+// that is really useful when specializing a pattern matrix without having
+// to rely on the particular patterns of each clause.
 type Kind.Coverage.Creator {
   end (end: Kind.Term)
   cons (ty: Kind.Term) (next: Kind.Term -> Kind.Coverage.Creator)

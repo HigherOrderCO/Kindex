@@ -1,0 +1,2 @@
+// Automatically derived from Kind/SplitTree/_.type
+Kind.Coverage.SplitTree.intro (tree: Kind.Coverage.SplitTree) : (Kind.Coverage.SplitTree)

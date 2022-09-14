@@ -1,5 +1,0 @@
-Kind.Coverage.catch_all (clauses: List Kind.Rule) : Bool
-Kind.Coverage.catch_all (List.cons t (Kind.Rule.lhs (Kind.Term.var orig_ name_ idx_) rule) xs) = Kind.Coverage.catch_all (List.cons t rule xs)
-Kind.Coverage.catch_all (List.nil t)                          = Bool.false
-Kind.Coverage.catch_all (List.cons t (Kind.Rule.rhs rule) xs) = Bool.true
-Kind.Coverage.catch_all (List.cons t x xs)                    = Kind.Coverage.catch_all xs

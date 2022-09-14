@@ -1,0 +1,8 @@
+Kind.Coverage.is_uncovered.list (split: List (Pair U60 Kind.Coverage.SplitTree)): Bool
+Kind.Coverage.is_uncovered.list (List.cons t pair xs) = Bool.or (Kind.Coverage.is_uncovered (Pair.snd pair)) (Kind.Coverage.is_uncovered.list xs)
+Kind.Coverage.is_uncovered.list List.nil = Bool.false
+
+Kind.Coverage.is_uncovered (split: Kind.Coverage.SplitTree): Bool
+Kind.Coverage.is_uncovered Kind.Coverage.SplitTree.uncovered    = Bool.true
+Kind.Coverage.is_uncovered (Kind.Coverage.SplitTree.split list) = Kind.Coverage.is_uncovered.list list
+Kind.Coverage.is_uncovered other = Bool.false

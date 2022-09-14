@@ -1,12 +1,24 @@
-Kind.Coverage.cover (context: Kind.Context) (depth: U60) (clauses: List Kind.Rule) (funTy: Kind.Term) : Kind.SplitTree
-Kind.Coverage.cover ctx dep clauses funTy =
-  if Kind.Coverage.catch_all clauses {
-    Kind.SplitTree.done
+Kind.Coverage.cover.go (ctx: Kind.Context) (clauses: List Kind.Rule) (ty: Kind.Term) : Kind.Checker Kind.Coverage.SplitTree
+Kind.Coverage.cover.go ctx clauses (Kind.Term.all orig_ name typ body) =
+  if Kind.Coverage.Strategies.can_intro clauses {
+    Kind.Coverage.Strategies.intro clauses orig_ name typ body
   } else {
-    let res = Kind.Coverage.is_empty ctx dep clauses (Kind.Term.eval funTy)
-    if res {
-      Kind.SplitTree.done
+    Kind.Coverage.Strategies.split ctx clauses orig_ name (Kind.Term.eval typ) body
+  }
+
+Kind.Coverage.cover.go ctx clauses ty = Kind.Checker.pure Kind.Coverage.SplitTree.uncovered
+
+Kind.Coverage.cover (clauses: List Kind.Rule) (ty: Kind.Term) : Kind.Checker Kind.Coverage.SplitTree
+Kind.Coverage.cover clauses ty =
+  do Kind.Checker {
+    ask ctx = Kind.Checker.get_context
+    if Kind.Coverage.Strategies.catch_all clauses {
+      Kind.Checker.pure Kind.Coverage.SplitTree.done
     } else {
-      Kind.Coverage.act ctx dep clauses (Kind.Term.eval funTy)
+      if Kind.Coverage.Strategies.vacously_true ctx ty {
+        Kind.Checker.pure Kind.Coverage.SplitTree.impossible
+      } else {
+        Kind.Coverage.cover.go ctx clauses ty
+      }
     }
   }

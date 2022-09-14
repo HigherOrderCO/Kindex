@@ -1,0 +1,14 @@
+// Describes a tree that is generate by a list of clauses
+// of a particular type. It's useful to analyse the coverage
+// of a group of equations of a function.
+//
+// For optimization purposes, it does not include all the branches
+// if one of the branches is @Kind.Coverage.SplitTree.uncovered@.
+
+type Kind.Coverage.SplitTree {
+  split (list: List (Pair U60 Kind.Coverage.SplitTree))
+  intro (tree: Kind.Coverage.SplitTree)
+  done
+  impossible
+  uncovered
+}

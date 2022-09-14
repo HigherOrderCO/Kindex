@@ -1,4 +1,0 @@
-Kind.Coverage.can_intro (clauses: List Kind.Rule) : Bool
-Kind.Coverage.can_intro (List.nil t)                                                 = Bool.true
-Kind.Coverage.can_intro (List.cons t (Kind.Rule.lhs (Kind.Term.var o_ n_ i_) t_) xs) = Kind.Coverage.can_intro xs
-Kind.Coverage.can_intro (List.cons t x xs)                                           = Bool.false

@@ -1,0 +1,29 @@
+Kind.Split.complete_matcher (creator: Kind.Coverage.Creator) (ls: List Kind.Term): List Kind.Term
+Kind.Split.complete_matcher (Kind.Coverage.Creator.cons x xs) (List.cons t_ y ys) = Kind.Split.complete_matcher (xs y) ys
+Kind.Split.complete_matcher (Kind.Coverage.Creator.cons x xs) List.nil            = List.nil
+Kind.Split.complete_matcher (Kind.Coverage.Creator.end term) res                  = List.cons term res
+
+Kind.Coverage.SplitTree.to_errors.go (split: Kind.Coverage.SplitTree) : List (List Kind.Term)
+Kind.Coverage.SplitTree.to_errors.go (Kind.Coverage.SplitTree.split list) = Kind.Coverage.SplitTree.to_errors.list.go list
+Kind.Coverage.SplitTree.to_errors.go (Kind.Coverage.SplitTree.intro s)    = List.map (Kind.Coverage.SplitTree.to_errors.go s) (xs => List.cons (Kind.Term.hol 0 0) xs)
+Kind.Coverage.SplitTree.to_errors.go Kind.Coverage.SplitTree.done         = []
+Kind.Coverage.SplitTree.to_errors.go Kind.Coverage.SplitTree.impossible   = []
+Kind.Coverage.SplitTree.to_errors.go Kind.Coverage.SplitTree.uncovered    = [[]]
+
+Kind.Coverage.SplitTree.to_errors.list.go (split: List (Pair U60 Kind.Coverage.SplitTree)) : List (List Kind.Term)
+Kind.Coverage.SplitTree.to_errors.list.go (List.nil t)       = List.nil
+Kind.Coverage.SplitTree.to_errors.list.go (List.cons t x xs) =
+  let terms = Kind.Coverage.SplitTree.to_errors.go (Pair.snd x)
+  let creator_of = (Constructor.CreatorOf (Pair.fst x))
+  let head = List.map terms (xs => Kind.Split.complete_matcher creator_of xs)
+  let tail = Kind.Coverage.SplitTree.to_errors.list.go xs
+  List.concat head tail
+
+// Function that is useful to get a particular @Kind.Coverage.SplitTree@ and
+// transform it into a list of coverage errors described as @Kind.Error@.
+Kind.Coverage.SplitTree.to_errors (orig_: U60) (fnid: U60) (split: Kind.Coverage.SplitTree) : List Kind.Error
+Kind.Coverage.SplitTree.to_errors orig_ fnid (Kind.Coverage.SplitTree.split list) = List.map (Kind.Coverage.SplitTree.to_errors.list.go list) (x => Kind.Error.uncovered orig_ fnid x)
+Kind.Coverage.SplitTree.to_errors orig_ fnid (Kind.Coverage.SplitTree.intro s)    = List.map (Kind.Coverage.SplitTree.to_errors.go (Kind.Coverage.SplitTree.intro s)) (x => Kind.Error.uncovered orig_ fnid x)
+Kind.Coverage.SplitTree.to_errors orig_ fnid Kind.Coverage.SplitTree.done         = []
+Kind.Coverage.SplitTree.to_errors orig_ fnid Kind.Coverage.SplitTree.impossible   = []
+Kind.Coverage.SplitTree.to_errors orig_ fnid Kind.Coverage.SplitTree.uncovered    = []

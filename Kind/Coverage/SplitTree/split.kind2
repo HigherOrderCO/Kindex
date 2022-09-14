@@ -1,0 +1,2 @@
+// Automatically derived from Kind/SplitTree/_.type
+Kind.Coverage.SplitTree.split (list: (List (Pair U60 Kind.Coverage.SplitTree))) : (Kind.Coverage.SplitTree)

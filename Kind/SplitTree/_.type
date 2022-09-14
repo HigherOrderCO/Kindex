@@ -1,7 +1,0 @@
-type Kind.SplitTree {
-  split (list: List (Pair U60 Kind.SplitTree))
-  intro (tree: Kind.SplitTree)
-  done
-  impossible
-  uncovered
-}

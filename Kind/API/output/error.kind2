@@ -1,6 +1,6 @@
 Kind.API.output.error (fnid: U60) (err: Kind.Error) (sub: Kind.Subst): String
 Kind.API.output.error f_ (Kind.Error.uncovered orig_ fnid cause) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "The function is not covering all constructors. Example:" String.new_line " - "
+  Kind.Printer.text [ (Kind.Printer.color "4") "The function '" (NameOf fnid) "' is not covering all constructors. Example:" String.new_line " - "
                       (String.join " " (List.map cause (x => Kind.Term.show x))) (Kind.Printer.color "0") String.new_line String.new_line
                       (Kind.API.output.error.details fnid Kind.Context.empty sub orig_)
                     ]

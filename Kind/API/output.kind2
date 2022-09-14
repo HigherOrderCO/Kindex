@@ -19,5 +19,5 @@ Kind.API.output.function.show_errors (ls: List Kind.Error) (sub: Kind.Subst) (fn
 Kind.API.output.function.show_errors (List.nil t) sub fnid checks = Kind.API.output.function fnid checks
 Kind.API.output.function.show_errors (List.cons t err errs) sub fnid checks =
   Kind.Printer.text [ (Kind.API.output.error fnid err sub) String.new_line
-                      (Kind.API.output.show_errors errs sub fnid checks)
+                      (Kind.API.output.function.show_errors errs sub fnid checks)
                     ]

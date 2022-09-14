@@ -1,0 +1,5 @@
+Kind.Checker.local <a> (checker: Kind.Checker a) : Kind.Checker (Kind.Result a)
+Kind.Checker.local a checker =
+ (context => depth => rhs => subst => eqts => errs =>
+    let res = checker context depth rhs subst eqts errs
+    Kind.Result.checked context depth rhs subst eqts errs res)

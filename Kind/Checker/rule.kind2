@@ -16,6 +16,8 @@ Kind.Checker.rule (rule: Kind.Rule) (term: Kind.Term): Kind.Checker Unit
 Kind.Checker.rule (Kind.Rule.lhs arg args) (Kind.Term.all orig name type body) =
   do Kind.Checker {
     ask Kind.Checker.check arg type
+    ask ctx = Kind.Checker.get_context
+    ask subs = Kind.Checker.get_subst
     ask Kind.Checker.rule args (body arg)
     return Unit.new
   }
