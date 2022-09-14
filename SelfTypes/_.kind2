@@ -1,0 +1,474 @@
+// Term types
+// ====================
+
+Term : Type
+  Var (name: String) (idx : U60) : Term
+  Ref (name: String) : Term
+  Typ : Term
+  All (eras: Bool) (self: String) (name: String) (var_type: Term) (body: Term -> Term -> Term) : Term
+  Lam (var: String) (body: Term -> Term) : Term
+  App (func: Term) (arg: Term) : Term
+  Let (var: String) (expr: Term) (body: Term -> Term) : Term
+  Ann (done: Bool) (expr: Term) (typp: Term) : Term
+  
+// Automatically derived from _.type
+Term.match (x: (Term)) -(p: (x: (Term)) Type) (Var: (name: String) (idx: U60) (p (Var name idx))) (Ref: (name: String) (p (Ref name))) (Typ: (p (Typ))) (All: (eras: Bool) (self: String) (name: String) (var_type: Term) (body: (_: Term) (_: Term) Term) (p (All eras self name var_type body))) (Lam: (var: String) (arg: Term -> Term) (p (Lam var arg))) (App: (rator: Term) (rand: Term) (p (App rator rand))) (Let: (var: String) (expr: Term) (bodyy: Term -> Term) (p (Let var expr bodyy))) (Ann: (done: Bool) (expr: Term) (typp: Term) (p (Ann done expr typp))) : (p x)
+Term.match (Var name_ idx_) p var ref typ all lam app lett ann = (var name_ idx_)
+Term.match (Ref name_) p var ref typ all lam app lett ann = (ref name_)
+Term.match (Typ) p var ref typ all lam app lett ann = (typ)
+Term.match (All eras_ self_ name_ var_type_ body_) p var ref typ all lam app lett ann = (all eras_ self_ name_ var_type_ body_)
+Term.match (Lam var_ arg_) p var ref typ all lam app lett ann = (lam var_ arg_)
+Term.match (App rator_ rand_) p var ref typ all lam app lett ann = (app rator_ rand_)
+Term.match (Let var_ expr_ body_) p var ref typ all lam app lett ann = (lett var_ expr_ body_)
+Term.match (Ann done_ expr_ typp_) p var ref typ all lam app lett ann = (ann done_ expr_ typp_)
+
+
+Def: Type
+Def.new (name : String) (typp: Term) (term: Term) : Def
+
+Def.get_term (deff: Def) : Term
+Def.get_term (Def.new name typp term) = term
+
+Def.get_typp (deff: Def) : Term
+Def.get_typp (Def.new name typp term) = typp
+
+Ctx : Type
+Ctx = List (Pair String Term) // TODO: should be a hash map
+
+Ctx.length (ctx: Ctx) : U60
+Ctx.length ctx = (Nat.to_u60 (List.length ctx))
+
+Ctx.find (pred: String -> Bool) (ctx: Ctx) : Maybe Term
+Ctx.find pred [] = Maybe.none
+Ctx.find pred (List.cons head tail) =
+  let name = (Pair.fst head)
+  if (pred name) { Maybe.some (Pair.snd head) } else { Ctx.find pred tail } 
+
+
+Reply (A: Type) : Type
+Reply.Val <a> (val : a)   : Reply a
+Reply.Err <a> (err : String) : Reply a
+
+Reply.bind <a: Type> <b: Type> (x : Reply a) (f : a -> Reply b) : Reply b
+Reply.bind a b (Reply.Val x) f = f x
+Reply.bind a b (Reply.Err msg) f = Reply.Err msg
+
+Reply.pure <a> (val: a) : Reply a
+Reply.pure a val = Reply.Val val
+
+Reply.monad : Monad (a => Reply a) {
+  (Monad.new (a => Reply a)
+             (a => x => Reply.Val x)
+	     (a => b => x => f => Reply.bind a b x f))
+}
+
+Defs : Type
+Defs = List (Pair String Def) // TODO: should also be a map
+
+Defs.find (name : String) (defs : Defs) : Maybe Def
+Defs.find name List.nil = Maybe.none
+Defs.find name (List.cons pair tail) =
+  let def_name = Pair.fst pair
+  let definition = Pair.snd pair
+  if (String.equal name def_name) {
+    Maybe.some definition
+  }
+  else {
+    Defs.find name tail
+  }
+
+// TODO: should be a hash set
+Seen.member (seen: List (Pair String String)) (elem: (Pair String String)) : Bool
+Seen.member List.nil x = Bool.false
+Seen.member (List.cons head tail) x =
+  let eq = Bool.and (String.equal (Pair.fst head) (Pair.fst x)) (String.equal (Pair.snd head) (Pair.snd x)) 
+  if eq {Bool.true} else {Seen.member tail x}  
+
+// Term utilities
+// =====================
+
+Term.show (t: Term) : String
+Term.show (Var name _) = name
+Term.show (Ref name)   = name
+Term.show  Typ         = "Type"
+Term.show (All eras self name var_type body) =
+  let bind  = Bool.if eras "∀" "Π"
+  let var_t = Term.show var_type
+  let body_ =  body (Var self 0) (Var name 0)
+  String.join "" [bind, self, " (", name, ": ", var_t, ") ", (Term.show body_)]
+Term.show (Lam name body) =
+  let body_show = Term.show (body (Var name 0))
+  String.join "" ["#", name, " ", body_show]
+Term.show (App rator rand) =
+  let func = Term.show rator
+  let arg = Term.show rand
+  String.join "" ["(", func, " ", arg, ")"]
+Term.show (Ann _ expr _) = Term.show expr
+
+Term.serialize (t: Term) (depth: U60) (ini: U60) : String
+Term.serialize  Typ        _   _   = "*"
+Term.serialize (Var _ lvl) dep ini =
+  if (U60.greater_equal lvl ini) {
+    String.concat "^-" ((U60.show (- (- dep lvl) 1)) "")
+  } else {
+    String.concat "^-" ((U60.show lvl) "")
+  }
+Term.serialize (Ref name)  _   _   = String.concat "$" name
+Term.serialize (All eras self name vart body) dep ini =
+  let init = Bool.if eras "%" "@"
+  let bind = Term.serialize vart dep ini
+  let bodys = Term.serialize (body (Var "" dep) (Var "" (+ dep 1))) (+ dep 2) ini
+  String.join "" [init, self, bind, bodys]
+Term.serialize (Lam _ body) dep ini =
+  String.concat "#" (Term.serialize (body (Var "" dep)) (+ dep 1) ini)
+Term.serialize (App func args) dep ini =
+  let funs = Term.serialize func dep ini
+  let argm = Term.serialize args dep ini
+  String.join "" ["(", funs, " ", argm, ")"]
+Term.serialize (Let _ expr body) dep ini =
+  let exp = Term.serialize expr dep ini
+  let bod = Term.serialize (body (Var "" dep)) (+ dep 1) ini
+  String.join "" ["!", exp, bod]
+
+Term.reduce (t: Term) (defs: Defs) : Term
+Term.reduce (Ref name) defs =
+  let search = Defs.find name defs
+  match Maybe search {
+    none => Ref name
+    some => Term.reduce (Def.get_term search.value) defs
+  }
+Term.reduce (App rator rand) defs =
+  let func = Term.reduce rator defs
+  Term.reduce_app func rand defs
+Term.reduce (Ann _ expr _) defs = Term.reduce expr defs
+Term.reduce (Let _ expr body) defs = Term.reduce (body expr) defs
+Term.reduce other defs = other
+
+Term.reduce_app (f: Term) (rand: Term) (defs : Defs) : Term
+Term.reduce_app (Lam _ body) rand defs = Term.reduce (body rand) defs
+Term.reduce_app f rand defs = App f rand
+
+Term.normalize (t: Term) (defs : Defs) : Term
+Term.normalize (Var name idx) defs = Var name idx
+Term.normalize (Ref name) defs = Ref name
+Term.normalize Typ defs = Typ
+Term.normalize (All eras self name var_type body) defs =
+  let x_type = Term.normalize var_type defs
+  let new_body = (s => x => Term.normalize (body s x) defs) :: Term -> Term -> Term
+  All eras self name x_type new_body
+Term.normalize (Lam name body) defs =
+  let new_body = (x => Term.normalize (body x) defs) :: Term -> Term
+  Lam name new_body
+Term.normalize (App rator rand) defs =
+  let func = Term.normalize rator defs
+  let args = Term.normalize rand defs
+  App func args
+Term.normalize (Let _ expr body) defs = Term.normalize (body expr) defs
+Term.normalize (Ann _ expr _) defs = Term.normalize expr defs
+
+// Term equality
+// ===================
+
+// TODO: should really study how this works
+
+Term.equal (t1: Term) (t2: Term) (defs: Defs) (depth: U60) (seen: List (Pair String String)) : Bool
+Term.equal t1 t2 defs depth seen =
+  let t1_reduced = Term.reduce t1 defs
+  let t2_reduced = Term.reduce t2 defs
+  let t1_serialized = Term.serialize t1_reduced depth depth
+  let t2_serialized = Term.serialize t2_reduced depth depth
+  let comparison = (Pair.new t1_serialized t2_serialized)
+  if (Bool.or (String.equal t1_serialized t2_serialized)
+              (Seen.member seen comparison)) {
+     Bool.true
+  } else {
+    (Term.equal.aux t1_reduced t2_reduced defs depth (List.cons comparison seen))
+  } // TODO: isnt there any smarter way to check this?
+
+
+Term.equal.aux (t1: Term) (t2: Term) (defs: Defs) (depth: U60) (seen: List (Pair String String)) : Bool
+Term.equal.aux (Ann _ exp1 _) (Ann _ exp2 _ ) defs depth seen =
+  Term.equal exp1 exp2 defs depth seen // smaller recursion
+
+Term.equal.aux (Let name1 exp1 body1) (Let name2 exp2 body2) defs depth seen = 
+  let t1_body = (body1 (Var name1 depth))
+  let t2_body = (body2 (Var name1 depth)) // TODO: is this index right? shouldnt be name2?
+  Bool.and (Term.equal exp1    exp2    defs (+ depth 0) seen) (Term.equal t1_body t2_body defs (+ depth 1) seen) // smaller recursion
+	   
+Term.equal.aux (Lam var1 body1) (Lam var2 body2) defs depth seen =
+  let t1_body = body1 (Var var1 depth)
+  let t2_body = body2 (Var var1 depth) // TODO : check index here too
+  Term.equal t1_body t2_body defs (+ depth 1) seen // smaller
+
+Term.equal.aux (All eras1 self1 name1 var_type1 body1) (All eras2 self2 name2 var_type2 body2) defs depth seen =
+  let t1_body = body1 (Var self1 depth) (Var name1 (+ depth 1))
+  let t2_body = body2 (Var self1 depth) (Var name1 (+ depth 1)) // TODO: check index here aswell
+  (Bool.and
+    (Bool.and (Term.equal var_type1 var_type2 defs (+ depth 0) seen)
+              (Term.equal t1_body   t2_body   defs (+ depth 2) seen))
+	      (Bool.equal eras1 eras2))
+
+Term.equal.aux Typ Typ defs depth seen = Bool.true
+Term.equal.aux (Var _ idx1) (Var _ idx2) defs depth seen = U60.equal idx1 idx2
+Term.equal.aux (Ref name1) (Ref name2) defs depth seen = String.equal name1 name2
+
+// Type checking
+// ===========================
+
+Term.type_check (t: Term) (typ: Term) (def_name : String) (defs : Defs) (ctx: Ctx) : Reply Term
+Term.type_check term typ def_name defs ctx =
+  let typev = Term.reduce typ defs
+  Term.type_check.aux term typ def_name defs ctx
+
+Term.type_check.aux (t: Term) (typ: Term) (def_name : String) (defs : Defs) (ctx: Ctx) : Reply Term
+Term.type_check.aux (Let name expr body) typp def_name defs ctx =
+  do Reply {
+    ask expr_type = Term.type_infer expr def_name defs ctx
+    let expr_var  = Ann Bool.true (Var name (Ctx.length ctx)) expr_type
+    let body_ctx  = List.cons (Pair.new name expr_type) ctx
+    (Term.type_check (body expr_var) typp def_name defs body_ctx)
+  }
+
+Term.type_check.aux (Lam var lam_body) (All eras self name var_type body) def_name defs ctx =
+  let self_var = Ann Bool.true (Lam var lam_body) (All eras self name var_type body)
+  let name_var = Ann Bool.true (Var name (+ (Ctx.length ctx) 1)) var_type
+  let body_typ = body self_var name_var
+  let body_ctx = List.cons (Pair.new name var_type) ctx
+  Term.type_check (lam_body name_var) body_typ def_name defs body_ctx
+
+Term.type_check.aux term typp def_name defs ctx =
+  do Reply {
+    ask infer = Term.type_infer term def_name defs ctx
+    let eq = Term.equal infer typp defs (Ctx.length ctx) []
+    match Bool eq {
+      true => Reply.Val term
+      false =>
+        let expected = Term.show (Term.normalize typp  []);
+	let infered  = Term.show (Term.normalize infer []);
+	Reply.Err (String.join "" ["Expected term: ",  (Term.show term),
+		                "\nto have type: ", expected,
+				"\nbut infered: ",  infered,
+				"\nin: ",           def_name])
+      }
+  }
+
+  
+Term.type_infer (t: Term) (def_name: String) (defs: Defs) (ctx: Ctx) : (Reply Term)
+Term.type_infer (Var name idx) def_name defs ctx = Reply.Val (Var name idx) 
+Term.type_infer (Ref name) def_name defs ctx =
+  let definition = Defs.find name defs
+  match Maybe definition {
+     none => Reply.Err (String.join "" ["Unbound reference", name, " in ", def_name, " : ", name])
+     some => Reply.Val (Def.get_typp definition.value)
+  }
+
+Term.type_infer Typ _ _ _ = Reply.Val Typ
+Term.type_infer (Let name expr body) def_name defs ctx =
+  do Reply {
+    ask expr_typ = Term.type_infer expr def_name defs ctx
+    let expr_var = Ann Bool.true (Var name (+ (Ctx.length ctx) 1)) expr_typ
+    let body_ctx = List.cons (Pair.new name expr_typ) ctx
+    (Term.type_infer (body expr_var) def_name defs body_ctx)
+  }
+
+Term.type_infer (All eras self name var_type body) def_name defs ctx =
+  do Reply {
+    let term = (All eras self name var_type body) 
+    let self_var = Ann Bool.true (Var self (Ctx.length ctx)) term
+    let name_var = Ann Bool.true (Var self (Ctx.length ctx)) var_type
+    let body_ctx = List.cons (Pair.new self term) (List.cons (Pair.new name var_type) ctx)
+    ask _        = (Term.type_check var_type Typ def_name defs ctx)
+    ask _        = (Term.type_check (body self_var name_var) Typ def_name defs body_ctx)
+    return Typ
+  }
+
+Term.type_infer (Ann don expr typ) def_name defs ctx =
+  if don {
+    Reply.Val typ
+  }
+  else {
+    Term.type_check expr typ def_name defs ctx
+  }
+
+Term.type_infer (App func args) def_name defs ctx =
+  do Reply {
+    ask func_infer = Term.type_infer func def_name defs ctx
+    let func_type  = Term.reduce func_infer defs
+    (Term.type_infer.app (App func args) func_type def_name defs ctx)
+  }
+
+Term.type_infer.app (app: Term)  (typp : Term) (def_name: String) (defs: Defs) (ctx: Ctx) : Reply Term
+Term.type_infer.app (App func args) (All eras self name var_type body) def_name defs ctx =
+  do Reply {
+    let self_var = Ann Bool.true func (All eras self name var_type body)
+    let name_var = Ann Bool.true args var_type
+    ask _        = Term.type_check args var_type def_name defs ctx
+    let term_typ = body self_var name_var
+    return term_typ
+  }
+
+Term.type_infer.app f t def_name defs ctx =
+  Reply.Err (String.join "" ["Cannot apply non-function.\nIn definition ", def_name, " : ", (Term.show t)])
+
+// Main : String
+// Main =
+//   let func = Lam "x" (x => (Lam "y" (y => x))) 
+//   let arg = Var "cu" 0
+//   Term.show (Term.normalize (App func arg) [])
+
+Check_defs (defs: Defs) (list_defs: Defs) : Reply String
+Check_defs defs List.nil = do Reply {return "\nEverything Checks."}
+Check_defs defs (List.cons pair tail) =
+  do Reply {
+    let name = Pair.fst pair
+    let deff = Pair.snd pair
+    let typp = Def.get_typp deff
+    let term = Def.get_term deff
+    ask _    = Term.type_check typp Typ name defs []
+    ask _    = Term.type_check term Typ name defs []
+    ask msg  = Check_defs defs tail
+    return String.join "" [name, " : ", (Term.show typp), "\n", msg]
+  }
+
+
+//        Kirei Kirei.Parser
+// ============================
+
+State : Type
+State = Ctx -> Term
+
+Symbol (str: String) : Parser Unit {
+  let prs = do Parser {
+    ask Parser.skip_whitespace
+    ask r = Parser.string str
+    return r 
+  }
+  Parser.expecting prs str
+}
+
+Parens <a: Type> (parser: Parser a) : Parser a {
+  do Parser {
+    ask Symbol "("
+    ask ret = parser
+    ask Symbol ")"
+    return ret
+  }
+}
+
+Identifier : Parser String {
+  let prs = do Parser {
+    ask Parser.skip_whitespace
+    ask name = Parser.take_while1 (x => IsChar x)
+    if (IsKeyword name) {
+      Parser.empty
+    }
+    else {
+      do Parser { return name }
+    }
+  }
+  Parser.expecting prs "identifier"
+}
+
+IsChar (c: Char) : Bool {
+  (Bool.or (Char.is_lower c)
+  (Bool.or (Char.is_upper c)
+  (Bool.or (Char.is_decimal c)
+  (Bool.or (Char.equal '-' c)
+  	   (Char.equal '_' c)))))
+}
+
+IsKeyword (c: String) : Bool {
+  Bool.or (String.equal c "let") (String.equal c "Type")
+}
+Var.Parser : Parser State {
+  do Parser {
+    ask name = Identifier
+    return ((ctx : Ctx) =>
+      let pred = (x => String.equal x name) :: String -> Bool
+      let index = Ctx.find pred ctx
+      match Maybe index {
+        none => Ref name
+	some => index.value
+      }
+    ) :: Ctx -> Term
+  }
+}
+
+Typ.Parser : Parser State {
+  do Parser {
+    ask Symbol "Type"
+    return (_ => Typ) :: Ctx -> Term 
+  }
+}
+
+Atom : Parser State {
+  let possibles = [Var.Parser, Typ.Parser]
+  Parser.first_of possibles
+}
+
+Lam.Parser : Parser State {
+  do Parser {
+    ask var = Identifier
+    ask Symbol "=>"
+    ask body = Term.Parser
+    let body = body :: Ctx -> Term
+    return (ctx =>
+      Lam var (x => body (List.cons (Pair.new var x) ctx))
+    ) :: Ctx -> Term
+  }
+}
+
+All.Parser : Parser State {
+  do Parser {
+    ask self = Parser.try Identifier
+    let self = Maybe.default self ""
+    ask eras = Parser.first_of [
+	do Parser {
+	  ask Symbol "("
+	  return Bool.false
+	},
+	do Parser {
+	  ask Symbol "<"
+	  return Bool.true
+	}
+    ]
+    ask name = Parser.try Identifier
+    let name = Maybe.default name "" :: String
+    ask Symbol ":"
+    ask bind = Term.Parser
+    let bind = bind :: Ctx -> Term
+    ask (if eras { Symbol ">" }
+         else    { Symbol ")" })
+    ask Symbol "->"
+    ask body = Term.Parser
+    let body = body :: Ctx -> Term
+    return (ctx =>
+      All eras self name (bind ctx) (s => x =>
+        body (List.cons (Pair.new name x) (List.cons (Pair.new self s) ctx)))
+    ):: Ctx -> Term
+  }
+}
+
+// App.Parser : Parser State {
+
+// }
+
+Term.Parser : Parser State {
+  let grammar = [
+    All.Parser,
+    Lam.Parser,
+    Atom,s
+    (Parens Term.Parser)
+    ]
+  Parser.expecting (Parser.first_of grammar) "term."
+}
+
+Main : Either Term String {
+  let parsed = Parser.run Term.Parser "<x: Type> -> Type"
+  match Either parsed {
+    left =>
+      let term = parsed.val :: Ctx -> Term
+      Either.left (term [])
+    right => Either.right match Parser.Error parsed.val {new => parsed.val.msg}
+  }
+}
