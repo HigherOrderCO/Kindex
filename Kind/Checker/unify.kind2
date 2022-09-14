@@ -1,11 +1,10 @@
 // Runs the @Kind.Checker@ and then attempts to unify all equations produced.
-Kind.Checker.unify <r> (checker: Kind.Checker r): Kind.Checker r
-Kind.Checker.unify r checker =
+Kind.Checker.unify (checker: Kind.Checker Unit): Kind.Checker Unit
+Kind.Checker.unify checker =
   do Kind.Checker {
-    ask r = checker
+    ask checker
     ask equations = Kind.Checker.get_equations
-    ask Kind.Checker.unify.go equations List.nil Bool.false
-    return r
+    (Kind.Checker.unify.go equations List.nil Bool.false)
   }
 
 Kind.Checker.unify.go (equations: List Kind.Equation) (unsolved: List Kind.Equation) (changed: Bool): Kind.Checker Unit
