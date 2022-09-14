@@ -19,28 +19,29 @@ Apps.Demo.init : Apps.Demo.State {
 // // The 'draw' function converts the state into an HTML element.
 Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
 Apps.Demo.draw (List.cons (List String) array1 (List.nil (List String))) =
-    let square = (x : String) =>
-    (App.DOM.node "button" [(Pair.new "className" "square") (Pair.new "id" x)] [] [
-      (App.DOM.text x)
+    let square = (x : U60) =>
+    (App.DOM.node "button" [(Pair.new "className" "square")
+    (Pair.new "id" (Show.to_string (U60.show x)))] [] [
+      (App.DOM.text (Maybe.to_string (List.at String array1 (U60.to_nat x))))
      ])
   let status = (App.DOM.text "Next player: X")
   let board =
     (App.DOM.node "div" [] [] [
       (App.DOM.node "div" [(Pair.new "className" "status")] [] [status]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 0)))),
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 1)))),
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 2)))),
+        (square 0),
+        (square 1),
+        (square 2),
       ]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 3)))),
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 4)))),
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 5)))),
+        (square 3),
+        (square 4),
+        (square 5),
       ]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 6)))),
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 7)))),
-        (square (Maybe.to_string (List.at String array1 (U60.to_nat 8)))),
+        (square 6),
+        (square 7),
+        (square 8),
       ])
     ])
 
