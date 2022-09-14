@@ -1,10 +1,6 @@
 // Kind2 Demo App
 // ==============
-// This is a simple app that just displays a string showing the last event.
 
-// The Demo app's state is a pair with:
-// - A frame count (U60)
-// - A text to display (String)
 Apps.Demo.State : Type {
   List (List String)
 }
@@ -13,8 +9,6 @@ Apps.Demo.State : Type {
 Apps.Demo.init : Apps.Demo.State {
    [["1" "2" "3" "4" "5" "6" "7" "8" "9"]]
 }
-
-// List.repeat
 
 // // The 'draw' function converts the state into an HTML element.
 Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
@@ -66,7 +60,9 @@ Apps.Demo.when (event: App.Event) (state: Apps.Demo.State) : IO Apps.Demo.State
 Apps.Demo.when App.Event.init (matrix) = do IO {
   return [["1" "2" "3" "4" "5" "6" "7" "8" "9"]]
 }
-
+Apps.Demo.when (App.Event.mouse_click "1") state = do IO {
+  return [["1" "2" "3" "4" "5" "0" "7" "8" "9"]]
+}
 
 // Apps.Demo.when (App.Event.mouse_click id) state = ?
 Apps.Demo.when event state = do IO {
