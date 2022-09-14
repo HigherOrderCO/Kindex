@@ -30,4 +30,6 @@ Kind.Term.set_origin new_origin (Kind.Term.fn5 fnid old_orig x0 x1 x2 x3 x4)    
 Kind.Term.set_origin new_origin (Kind.Term.fn6 fnid old_orig x0 x1 x2 x3 x4 x5) = Kind.Term.fn6 fnid new_origin x0 x1 x2 x3 x4 x5
 Kind.Term.set_origin new_origin (Kind.Term.fn7 ctid old_orig args)              = Kind.Term.ct7 ctid new_origin args
 Kind.Term.set_origin new_origin (Kind.Term.fn8 ctid old_orig args)              = Kind.Term.ct8 ctid new_origin args
+Kind.Term.set_origin new_origin (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)          = Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6
+Kind.Term.set_origin new_origin (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)       = Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7
 

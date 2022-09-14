@@ -1,9 +1,0 @@
-// Fill a term using the subst from the checker
-Kind.Checker.fill_term (val: Kind.Term): Kind.Checker Kind.Term
-Kind.Checker.fill_term val = context => depth => rhs => subst => eqts => errs =>
-  (Kind.Result.checked context depth rhs subst eqts errs
-    (if Kind.Term.fillable val subst {
-      Kind.Term.fill val subst
-    } else {
-      val
-    }))

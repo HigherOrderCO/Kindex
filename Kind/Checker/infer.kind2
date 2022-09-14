@@ -1,5 +1,3 @@
-TypeOf (u: U60): Kind.Term
-
 // Function that helps the compiler to bootstrap itself.
 // It's required by the limitation of arity of each constructor
 // and function that would lead the type checker to not be able
@@ -12,6 +10,8 @@ Kind.Checker.infer_args (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6) = ctid => orig =>
 
 Kind.Checker.infer_args (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = ctid => orig =>
   Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7
+
+Kind.Checker.infer_args other = ctid => orig => other
 
 // Tries to discover a type for a term.
 Kind.Checker.infer (term: Kind.Term): Kind.Checker Kind.Term

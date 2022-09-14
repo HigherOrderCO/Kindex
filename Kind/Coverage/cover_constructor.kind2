@@ -1,5 +1,3 @@
-Constructor.CreatorOf (ctid: U60) : Kind.Coverage.Creator
-
 Kind.Coverage.cover_constructor (clauses: List Kind.Rule) (ty: Kind.Term) (body: Kind.Term -> Kind.Term) (constructor: U60): Kind.Checker (Pair U60 Kind.Coverage.SplitTree)
 Kind.Coverage.cover_constructor clauses ty body constr =
   do Kind.Checker {

@@ -1,7 +1,6 @@
 Null <a> : a
 HashOf (u: U60): U60
 
-
 // Conversion checking for two terms. Returns true
 // iff the two terms converge.
 Kind.Checker.equal (left: Kind.Term) (right: Kind.Term): Kind.Checker Bool
@@ -276,18 +275,6 @@ Kind.Checker.equal a b =
       Kind.Checker.equal (Kind.Term.fill a sub) (Kind.Term.fill b sub)
     } else {
       Kind.Checker.pure Bool.false
-    }
-  }
-
-Kind.Checker.equal.var.left (rhs: Bool) (orig: U60) (name: U60) (idx: U60) (b: Kind.Term): Kind.Checker Bool
-Kind.Checker.equal.var.left rhs orig name idx b =
-  if rhs {
-    Kind.Checker.equal.var rhs orig name idx b
-  } else {
-    do Kind.Checker {
-      ask val = Kind.Checker.find idx [] (n => t => v => v)
-      ask chk = Kind.Checker.equal.var.try_values val b
-      return chk
     }
   }
 
