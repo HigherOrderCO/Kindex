@@ -11,7 +11,7 @@ Apps.Demo.State : Type {
 
 // The 'init' constant defines the initial state.
 Apps.Demo.init : Apps.Demo.State {
-   [["4" "" "" "" "" "" "" "" ""]]
+   [["1" "2" "3" "4" "5" "6" "7" "8" "9"]]
 }
 
 // List.repeat
@@ -28,19 +28,19 @@ Apps.Demo.draw (List.cons (List String) array1 (List.nil (List String))) =
     (App.DOM.node "div" [] [] [
       (App.DOM.node "div" [(Pair.new "className" "status")] [] [status]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        (square (Maybe.to_string (List.head array1))),
-        (square "2"),
-        (square "3"),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 0)))),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 1)))),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 2)))),
       ]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        (square "4"),
-        (square "5"),
-        (square "6"),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 3)))),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 4)))),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 5)))),
       ]),
       (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
-        (square "7"),
-        (square "8"),
-        (square "9"),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 6)))),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 7)))),
+        (square (Maybe.to_string (List.at String array1 (U60.to_nat 8)))),
       ])
     ])
 
@@ -63,7 +63,7 @@ Apps.Demo.draw (List.cons (List String) array1 (List.nil (List String))) =
 // The 'when' function reacts to events. Can perform effects via IO, and may return a new state.
 Apps.Demo.when (event: App.Event) (state: Apps.Demo.State) : IO Apps.Demo.State
 Apps.Demo.when App.Event.init (matrix) = do IO {
-  return [["6" "" "" "" "" "" "" "" ""]]
+  return [["1" "2" "3" "4" "5" "6" "7" "8" "9"]]
 }
 
 
