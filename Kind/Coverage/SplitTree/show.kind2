@@ -1,12 +1,12 @@
-NameOf (name: U60) : String
+Kind.Axiom.name_of (name: U60) : String
 
 Kind.Coverage.SplitTree.show.list (last: Bool) (ident: String) (list: List (Pair U60 Kind.Coverage.SplitTree)) : List String
 Kind.Coverage.SplitTree.show.list last ident (List.nil t)                  = List.nil
 Kind.Coverage.SplitTree.show.list last ident (List.cons t_ x (List.nil t)) =
-  (List.cons (Kind.Coverage.SplitTree.show.go Bool.true (String.join "" [ident (NameOf (Pair.fst x)) " => "]) (Pair.snd x))
+  (List.cons (Kind.Coverage.SplitTree.show.go Bool.true (String.join "" [ident (Kind.Axiom.name_of (Pair.fst x)) " => "]) (Pair.snd x))
       List.nil)
 Kind.Coverage.SplitTree.show.list last ident (List.cons t_ x xs) =
-  (List.cons (Kind.Coverage.SplitTree.show.go Bool.false (String.join "" [ident (NameOf (Pair.fst x)) " => "]) (Pair.snd x))
+  (List.cons (Kind.Coverage.SplitTree.show.go Bool.false (String.join "" [ident (Kind.Axiom.name_of (Pair.fst x)) " => "]) (Pair.snd x))
              (Kind.Coverage.SplitTree.show.list last ident xs))
 
 Kind.Coverage.SplitTree.show.go (last: Bool) (ident: String) (tree: Kind.Coverage.SplitTree) : String

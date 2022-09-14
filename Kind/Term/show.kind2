@@ -1,5 +1,3 @@
-NameOf (name: U60): String
-
 Kind.Term.show.forall (orig: U60) (name: U60) (type: Kind.Term) (body: Kind.Term -> Kind.Term): String
 Kind.Term.show.forall orig name type body =
   (U60.if (== name 63)
@@ -26,24 +24,24 @@ Kind.Term.show.go (Kind.Term.let orig name exp body)          = Kind.Printer.tex
 Kind.Term.show.go (Kind.Term.ann orig expr type)              = Kind.Printer.text ["{" (Kind.Term.show expr) " :: " (Kind.Term.show type) "}"]
 Kind.Term.show.go (Kind.Term.sub orig name indx redx expr)    = Kind.Printer.text [(Kind.Term.show expr) " ## " (Kind.Name.show name) "/" (Show.to_string (U60.show redx))]
 Kind.Term.show.go (Kind.Term.app orig func argm)              = Kind.Printer.text ["(" (Kind.Term.show func) " " (Kind.Term.show argm) ")"]
-Kind.Term.show.go (Kind.Term.ct0 ctid orig)                   = NameOf ctid
-Kind.Term.show.go (Kind.Term.ct1 ctid orig x0)                = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) ")"]
-Kind.Term.show.go (Kind.Term.ct2 ctid orig x0 x1)             = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) ")"]
-Kind.Term.show.go (Kind.Term.ct3 ctid orig x0 x1 x2)          = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) ")"]
-Kind.Term.show.go (Kind.Term.ct4 ctid orig x0 x1 x2 x3)       = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) ")"]
-Kind.Term.show.go (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)    = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) ")"]
-Kind.Term.show.go (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) ")"]
-Kind.Term.show.go (Kind.Term.ct7 ctid orig args)              = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show args) ")"]
-Kind.Term.show.go (Kind.Term.ct8 ctid orig args)              = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show args) ")"]
-Kind.Term.show.go (Kind.Term.fn0 ctid orig)                   = NameOf ctid
-Kind.Term.show.go (Kind.Term.fn1 ctid orig x0)                = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) ")"]
-Kind.Term.show.go (Kind.Term.fn2 ctid orig x0 x1)             = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) ")"]
-Kind.Term.show.go (Kind.Term.fn3 ctid orig x0 x1 x2)          = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) ")"]
-Kind.Term.show.go (Kind.Term.fn4 ctid orig x0 x1 x2 x3)       = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) ")"]
-Kind.Term.show.go (Kind.Term.fn5 ctid orig x0 x1 x2 x3 x4)    = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) ")"]
-Kind.Term.show.go (Kind.Term.fn6 ctid orig x0 x1 x2 x3 x4 x5) = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) ")"]
-Kind.Term.show.go (Kind.Term.fn7 ctid orig args)              = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show args) ")"]
-Kind.Term.show.go (Kind.Term.fn8 ctid orig args)              = Kind.Printer.text ["(" (NameOf ctid) " " (Kind.Term.show args) ")"]
+Kind.Term.show.go (Kind.Term.ct0 ctid orig)                   = Kind.Axiom.name_of ctid
+Kind.Term.show.go (Kind.Term.ct1 ctid orig x0)                = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) ")"]
+Kind.Term.show.go (Kind.Term.ct2 ctid orig x0 x1)             = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) ")"]
+Kind.Term.show.go (Kind.Term.ct3 ctid orig x0 x1 x2)          = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) ")"]
+Kind.Term.show.go (Kind.Term.ct4 ctid orig x0 x1 x2 x3)       = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) ")"]
+Kind.Term.show.go (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)    = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) ")"]
+Kind.Term.show.go (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) ")"]
+Kind.Term.show.go (Kind.Term.ct7 ctid orig args)              = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show args) ")"]
+Kind.Term.show.go (Kind.Term.ct8 ctid orig args)              = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show args) ")"]
+Kind.Term.show.go (Kind.Term.fn0 ctid orig)                   = Kind.Axiom.name_of ctid
+Kind.Term.show.go (Kind.Term.fn1 ctid orig x0)                = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) ")"]
+Kind.Term.show.go (Kind.Term.fn2 ctid orig x0 x1)             = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) ")"]
+Kind.Term.show.go (Kind.Term.fn3 ctid orig x0 x1 x2)          = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) ")"]
+Kind.Term.show.go (Kind.Term.fn4 ctid orig x0 x1 x2 x3)       = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) ")"]
+Kind.Term.show.go (Kind.Term.fn5 ctid orig x0 x1 x2 x3 x4)    = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) ")"]
+Kind.Term.show.go (Kind.Term.fn6 ctid orig x0 x1 x2 x3 x4 x5) = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) ")"]
+Kind.Term.show.go (Kind.Term.fn7 ctid orig args)              = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show args) ")"]
+Kind.Term.show.go (Kind.Term.fn8 ctid orig args)              = Kind.Printer.text ["(" (Kind.Axiom.name_of ctid) " " (Kind.Term.show args) ")"]
 Kind.Term.show.go (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)      = Kind.Printer.text [(Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) " " (Kind.Term.show x6)]
 Kind.Term.show.go (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)   = Kind.Printer.text [(Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) " " (Kind.Term.show x6) " " (Kind.Term.show x7)]
 Kind.Term.show.go (Kind.Term.hlp orig)                        = "?"

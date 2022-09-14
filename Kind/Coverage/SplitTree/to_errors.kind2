@@ -14,7 +14,7 @@ Kind.Coverage.SplitTree.to_errors.list.go (split: List (Pair U60 Kind.Coverage.S
 Kind.Coverage.SplitTree.to_errors.list.go (List.nil t)       = List.nil
 Kind.Coverage.SplitTree.to_errors.list.go (List.cons t x xs) =
   let terms = Kind.Coverage.SplitTree.to_errors.go (Pair.snd x)
-  let creator_of = (Constructor.CreatorOf (Pair.fst x))
+  let creator_of = ( Kind.Axiom.creator_of (Pair.fst x))
   let head = List.map terms (xs => Kind.Split.complete_matcher creator_of xs)
   let tail = Kind.Coverage.SplitTree.to_errors.list.go xs
   List.concat head tail

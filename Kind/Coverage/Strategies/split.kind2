@@ -18,7 +18,7 @@ Kind.Coverage.Strategies.split ctx clauses orig_ name typ body =
       none => HVM.log (Pair.new "Compiler Error: Induction is not possible in this type. Open a PR reporting this error please." clauses) (Kind.Coverage.SplitTree.impossible)
       some =>
         do Kind.Checker {
-          let constructors = Family.ConstructorsOf type_name.value
+          let constructors = Kind.Axiom.constructors_of type_name.value
           ask split_trees  = Kind.Coverage.specialize_constructors clauses (Kind.Term.eval typ) body constructors
           return (Kind.Coverage.SplitTree.split split_trees)
         }

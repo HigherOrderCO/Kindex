@@ -3,15 +3,15 @@
 // and function that would lead the type checker to not be able
 // to type check FN8 and FN7 (because they would have 9 and 10
 // parameters respectively).
-Kind.Checker.infer_args (args: Kind.Term): U60 -> U60 -> Kind.Term
+Kind.Checker.infer_args (ctid: U60) (args: Kind.Term): U60 -> Kind.Term
 
-Kind.Checker.infer_args (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6) = ctid => orig =>
+Kind.Checker.infer_args ctid (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6) = orig =>
   Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6
 
-Kind.Checker.infer_args (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = ctid => orig =>
+Kind.Checker.infer_args ctid (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = orig =>
   Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7
 
-Kind.Checker.infer_args other = ctid => orig => other
+Kind.Checker.infer_args ctid other = orig => other
 
 // Tries to discover a type for a term.
 Kind.Checker.infer (term: Kind.Term): Kind.Checker Kind.Term
@@ -98,7 +98,7 @@ Kind.Checker.infer (Kind.Term.sub orig name indx redx expr) =
   }
 
 Kind.Checker.infer (Kind.Term.ct0 ctid orig) =
-  Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
+  Kind.Checker.pure (Kind.Term.eval (Kind.Axiom.type_of ctid))
 
 Kind.Checker.infer (Kind.Term.ct1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0)
@@ -119,15 +119,15 @@ Kind.Checker.infer (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5)
 
 Kind.Checker.infer (Kind.Term.ct7 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+  let expr = Kind.Checker.infer_args ctid args
+  Kind.Checker.infer (expr orig)
 
 Kind.Checker.infer (Kind.Term.ct8 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+  let expr = Kind.Checker.infer_args ctid args
+  Kind.Checker.infer (expr orig)
 
 Kind.Checker.infer (Kind.Term.fn0 ctid orig) =
-  Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
+  Kind.Checker.pure (Kind.Term.eval (Kind.Axiom.type_of ctid))
 
 Kind.Checker.infer (Kind.Term.fn1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0)
@@ -148,12 +148,12 @@ Kind.Checker.infer (Kind.Term.fn6 ctid orig x0 x1 x2 x3 x4 x5) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5)
 
 Kind.Checker.infer (Kind.Term.fn7 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+  let expr = Kind.Checker.infer_args ctid args
+  Kind.Checker.infer (expr orig)
 
 Kind.Checker.infer (Kind.Term.fn8 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+  let expr = Kind.Checker.infer_args ctid args
+  Kind.Checker.infer (expr orig)
 
 Kind.Checker.infer (Kind.Term.hlp orig) =
   do Kind.Checker {
@@ -173,6 +173,10 @@ Kind.Checker.infer (Kind.Term.op2 orig oper left right) =
     ask Kind.Checker.check right (Kind.Term.u60 0)
     return Kind.Term.u60 0
   }
+
+Kind.Checker.infer (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6) = Kind.Axiom.impossible "Invariant: Cannot infer args7"
+
+Kind.Checker.infer (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = Kind.Axiom.impossible "Invariant: Cannot infer args8"
 
 Kind.Checker.infer.forall <r> (term: Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
 Kind.Checker.infer.forall r (Kind.Term.all orig name type body) then_fn else_val = then_fn orig name type body

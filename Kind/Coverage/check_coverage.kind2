@@ -1,11 +1,9 @@
-OrigOf (fnid : U60) : U60
-
 // Checks if the function @fnid@ cover all the possibilities in
 // the rules @rules@ for the particular type @type@ in the function.
 Kind.Coverage.check_coverage (fnid: U60) (rules: List Kind.Rule) (type: Kind.Term): Kind.Checker Unit
 Kind.Coverage.check_coverage fnid rules type =
   do Kind.Checker {
     ask tree = Kind.Coverage.cover rules type
-    let errs = Kind.Coverage.SplitTree.to_errors (OrigOf fnid) fnid tree
+    let errs = Kind.Coverage.SplitTree.to_errors (Kind.Axiom.orig_of fnid) fnid tree
     (Kind.Checker.errors errs Unit.new)
   }

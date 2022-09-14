@@ -1,5 +1,4 @@
 Null <a> : a
-HashOf (u: U60): U60
 
 // Conversion checking for two terms. Returns true
 // iff the two terms converge.
@@ -91,20 +90,20 @@ Kind.Checker.equal b (Kind.Term.var a.orig a.name a.idx) =
 
 Kind.Checker.equal (Kind.Term.ct0 a.ctid a.orig) (Kind.Term.ct0 b.ctid b.orig) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     return ctid
   }
 
 Kind.Checker.equal (Kind.Term.ct1 a.ctid a.orig a.x0) (Kind.Term.ct1 b.ctid b.orig b.x0) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     return Bool.and ctid x0
   }
 
 Kind.Checker.equal (Kind.Term.ct2 a.ctid a.orig a.x0 a.x1) (Kind.Term.ct2 b.ctid b.orig b.x0 b.x1) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     return Bool.and ctid (Bool.and x0 x1)
@@ -112,7 +111,7 @@ Kind.Checker.equal (Kind.Term.ct2 a.ctid a.orig a.x0 a.x1) (Kind.Term.ct2 b.ctid
 
 Kind.Checker.equal (Kind.Term.ct3 a.ctid a.orig a.x0 a.x1 a.x2) (Kind.Term.ct3 b.ctid b.orig b.x0 b.x1 b.x2) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -121,7 +120,7 @@ Kind.Checker.equal (Kind.Term.ct3 a.ctid a.orig a.x0 a.x1 a.x2) (Kind.Term.ct3 b
 
 Kind.Checker.equal (Kind.Term.ct4 a.ctid a.orig a.x0 a.x1 a.x2 a.x3) (Kind.Term.ct4 b.ctid b.orig b.x0 b.x1 b.x2 b.x3) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -131,7 +130,7 @@ Kind.Checker.equal (Kind.Term.ct4 a.ctid a.orig a.x0 a.x1 a.x2 a.x3) (Kind.Term.
 
 Kind.Checker.equal (Kind.Term.ct5 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4) (Kind.Term.ct5 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -142,7 +141,7 @@ Kind.Checker.equal (Kind.Term.ct5 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4) (Kind.
 
 Kind.Checker.equal (Kind.Term.ct6 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (Kind.Term.ct6 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -154,14 +153,14 @@ Kind.Checker.equal (Kind.Term.ct6 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (
 
 Kind.Checker.equal (Kind.Term.ct7 a.ctid a.orig a.args) (Kind.Term.ct7 b.ctid b.orig b.args) =
   do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid  = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask xargs = Kind.Checker.equal a.args b.args
     return Bool.and ctid xargs
   }
 
 Kind.Checker.equal (Kind.Term.ct8 a.ctid a.orig a.args) (Kind.Term.ct8 b.ctid b.orig b.args) =
   do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid  = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask xargs = Kind.Checker.equal a.args b.args
     return Bool.and ctid xargs
   }
@@ -193,20 +192,20 @@ Kind.Checker.equal (Kind.Term.args8 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7) (Ki
 
 Kind.Checker.equal (Kind.Term.fn0 a.ctid a.orig) (Kind.Term.fn0 b.ctid b.orig) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     return ctid
   }
 
 Kind.Checker.equal (Kind.Term.fn1 a.ctid a.orig a.x0) (Kind.Term.fn1 b.ctid b.orig b.x0) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     return Bool.and ctid x0
   }
 
 Kind.Checker.equal (Kind.Term.fn2 a.ctid a.orig a.x0 a.x1) (Kind.Term.fn2 b.ctid b.orig b.x0 b.x1) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     return Bool.and ctid (Bool.and x0 x1)
@@ -214,7 +213,7 @@ Kind.Checker.equal (Kind.Term.fn2 a.ctid a.orig a.x0 a.x1) (Kind.Term.fn2 b.ctid
 
 Kind.Checker.equal (Kind.Term.fn3 a.ctid a.orig a.x0 a.x1 a.x2) (Kind.Term.fn3 b.ctid b.orig b.x0 b.x1 b.x2) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -223,7 +222,7 @@ Kind.Checker.equal (Kind.Term.fn3 a.ctid a.orig a.x0 a.x1 a.x2) (Kind.Term.fn3 b
 
 Kind.Checker.equal (Kind.Term.fn4 a.ctid a.orig a.x0 a.x1 a.x2 a.x3) (Kind.Term.fn4 b.ctid b.orig b.x0 b.x1 b.x2 b.x3) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -233,7 +232,7 @@ Kind.Checker.equal (Kind.Term.fn4 a.ctid a.orig a.x0 a.x1 a.x2 a.x3) (Kind.Term.
 
 Kind.Checker.equal (Kind.Term.fn5 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4) (Kind.Term.fn5 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -244,7 +243,7 @@ Kind.Checker.equal (Kind.Term.fn5 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4) (Kind.
 
 Kind.Checker.equal (Kind.Term.fn6 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (Kind.Term.fn6 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -256,14 +255,14 @@ Kind.Checker.equal (Kind.Term.fn6 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (
 
 Kind.Checker.equal (Kind.Term.fn7 a.ctid a.orig a.args) (Kind.Term.fn7 b.ctid b.orig b.args) =
   do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid  = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask xargs = Kind.Checker.equal a.args b.args
     return Bool.and ctid xargs
   }
 
 Kind.Checker.equal (Kind.Term.fn8 a.ctid a.orig a.args) (Kind.Term.fn8 b.ctid b.orig b.args) =
   do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let ctid  = U60.equal (Kind.Axiom.hash_of a.ctid) (Kind.Axiom.hash_of b.ctid)
     ask xargs = Kind.Checker.equal a.args b.args
     return Bool.and ctid xargs
   }

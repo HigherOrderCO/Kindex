@@ -5,7 +5,7 @@ Kind.Coverage.specialize (List.nil t)                            constr = List.n
 Kind.Coverage.specialize (List.cons t (Kind.Rule.rhs t1)     xs) constr = List.cons t (Kind.Rule.rhs t1) xs
 
 Kind.Coverage.specialize (List.cons t (Kind.Rule.lhs (Kind.Term.var orig_ name_ idx_) re) xs) constr =
-  let creator = Constructor.CreatorOf constr
+  let creator =  Kind.Axiom.creator_of constr
   let synth = Kind.Coverage.Creator.synth creator (Kind.Term.var orig_ name_ idx_)
   let res = Kind.Coverage.possible_match synth constr
   match Maybe res {

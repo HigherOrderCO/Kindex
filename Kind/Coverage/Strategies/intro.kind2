@@ -1,9 +1,7 @@
-Impossible <a> <b> (reason: b) : a
-
 Kind.Coverage.Strategies.remove_column (clauses: List Kind.Rule) : List Kind.Rule
 Kind.Coverage.Strategies.remove_column (List.nil t)                         = List.nil
 Kind.Coverage.Strategies.remove_column (List.cons t (Kind.Rule.lhs x r) xs) = List.cons r (Kind.Coverage.Strategies.remove_column xs)
-Kind.Coverage.Strategies.remove_column (List.cons t x xs)                   = Impossible "Invariant: Bad Intro"
+Kind.Coverage.Strategies.remove_column (List.cons t x xs)                   = Kind.Axiom.impossible "Invariant: Bad Intro"
 
 // Removes the first column of the pattern matrix @clauses@ and adds an "intro" to the tree.
 Kind.Coverage.Strategies.intro (clauses: List Kind.Rule) (orig_: U60) (name: U60) (typ: Kind.Term) (body: Kind.Term -> Kind.Term): Kind.Checker Kind.Coverage.SplitTree

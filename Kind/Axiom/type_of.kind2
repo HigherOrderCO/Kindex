@@ -1,0 +1,2 @@
+[axiom] Kind.Axiom.rule_of (fnid: U60): List Kind.Rule
+[axiom] Kind.Axiom.type_of (fnid: U60): Kind.Term

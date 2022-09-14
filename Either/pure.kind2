@@ -1,2 +1,0 @@
-Either.pure <l> <r> (r1: r) : Either l r
-Either.pure l r r1 = Either.right r1
