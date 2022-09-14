@@ -1,0 +1,12 @@
+// Runs a parser that returns a maybe and try to extract the value
+// Succeeds on some and fails on none
+// The inverse of Parser.to_maybe
+Parser.fail_on_none <a> (prs: Parser (Maybe a)) : Parser a {
+  do Parser {
+    ask ma = prs
+    match Maybe ma {
+      none => Parser.empty
+      some => Parser.pure ma.value
+    }
+  }
+}

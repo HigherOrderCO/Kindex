@@ -1,0 +1,7 @@
+// A parser that always fails with empty error
+Parser.empty <a> : Parser a {
+  do Parser {
+    ask index = Parser.get_index
+    (Parser.fail "" index index)
+  }
+}

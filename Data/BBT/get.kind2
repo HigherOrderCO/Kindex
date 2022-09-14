@@ -1,0 +1,12 @@
+Data.BBT.get <k> <v>(cmp: k -> k -> Cmp) (key: k) (map: Data.BBT k v): Maybe v {
+  match Data.BBT map {
+    tip => Maybe.none
+    bin => 
+      let comp = cmp key map.key
+      match Cmp comp {
+        ltn => (Data.BBT.get k v cmp key map.left)
+        eql => Maybe.some map.val
+        gtn => (Data.BBT.get k v cmp key map.right)
+      }
+  }
+}

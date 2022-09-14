@@ -1,0 +1,4 @@
+Kindelia.Deserializer.get_names: Kindelia.Deserializer Kindelia.Deserializer.Names {
+  (bits: Bits) => (names: Kindelia.Deserializer.Names) => (names_size: U120) =>
+    Maybe.some (Pair.new (Kindelia.Deserializer.Result.new _ names names names_size) bits)
+}

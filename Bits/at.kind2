@@ -1,0 +1,6 @@
+Bits.at (idx: Nat) (a: Bits) : Maybe Bit
+Bits.at (idx) (Bits.e) = (Maybe.none)
+Bits.at (Nat.zero) (Bits.i pred) = Maybe.some Bit.1
+Bits.at (Nat.zero) (Bits.o pred) = Maybe.some Bit.0
+Bits.at (Nat.succ idxp) (Bits.i pred) = (Bits.at idxp pred)
+Bits.at (Nat.succ idxp) (Bits.o pred) = (Bits.at idxp pred)

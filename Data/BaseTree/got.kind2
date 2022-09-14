@@ -1,4 +1,4 @@
-Data.BaseTree.got <v: Type> (bases: List Data.BaseTree.Base) (key: Data.BaseTree.Key bases) (map: Data.BaseTree bases v): Pair (Data.BaseTree bases v) v
+Data.BaseTree.got #Bt_got <v: Type> (bases: List Data.BaseTree.Base) (key: Data.BaseTree.Key bases) (map: Data.BaseTree bases v): Pair (Data.BaseTree bases v) v
 Data.BaseTree.got v (List.nil t) Unit.new val = Pair.new val val
 Data.BaseTree.got v (List.cons b.t Data.BaseTree.Base.2 bs) (Data.BaseTree.Base.Bin.0 k.t ks) (Data.BaseTree.Bin.tie m.t b0 b1) =
   match Pair res = Data.BaseTree.got v bs ks b0 {

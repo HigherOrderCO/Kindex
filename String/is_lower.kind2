@@ -1,3 +1,4 @@
+// True if the string contains only lowercase letters or other non-letter characters
 String.is_lower (xs: String) : Bool {
-  String.all (c => Char.is_lower c) xs
+  String.all (c => Bool.not (Char.is_upper c)) xs
 }

@@ -1,0 +1,7 @@
+// Runs the entire list applying a function to the head, an accumulator and the index
+List.ifor <a> <b> (xs: List a) (acum: b) (f: (x: a) (ac: b) (i: Nat) b) : b
+List.ifor a b list acum f = List.ifor.go a b list acum f Nat.zero
+
+List.ifor.go <a> <b> (xs: List a) (acum: b) (f: (x: a) (ac: b) (i: Nat) b) (idx: Nat) : b
+List.ifor.go a b (List.nil t)          acum f idx = acum
+List.ifor.go a b (List.cons head tail) acum f idx = List.ifor.go tail (f head acum idx) f (Nat.succ idx)

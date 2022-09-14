@@ -1,0 +1,3 @@
+Apps.Fib.Player.xp.change #Fib_plr_xp_c (player: Apps.Fib.Player) (f: U120 -> U120) : Apps.Fib.Player {
+  Apps.Fib.mut_in_u120 player (U120.new 0 16) (U120.new 0 12) f 
+}

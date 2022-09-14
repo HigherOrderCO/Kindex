@@ -1,0 +1,2 @@
+// The type of natural numbers smaller than `lim`
+Fin (lim: Nat) : Type

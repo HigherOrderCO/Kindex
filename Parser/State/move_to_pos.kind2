@@ -1,0 +1,10 @@
+Parser.State.move_to_pos (state: Parser.State) (pos: U60) : Parser.State
+Parser.State.move_to_pos (Parser.State.new left back index) pos =
+  let state = (Parser.State.new left back index)
+  if U60.greater_than pos index {
+    let fwd_n = (- pos index)
+    Parser.State.forward fwd_n state
+  } else {
+    let back_n = (- index pos)
+    Parser.State.backtrack back_n state
+  }
