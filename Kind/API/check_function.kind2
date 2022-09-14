@@ -1,11 +1,3 @@
-Kind.API.is_on_error.go (k: Kind.Result Unit) : Bool
-Kind.API.is_on_error.go (Kind.Result.checked c d r s e (List.nil t_) r_) = Bool.false
-Kind.API.is_on_error.go other = Bool.true
-
-Kind.API.is_on_error (ls: List (Kind.Result Unit)) : Bool
-Kind.API.is_on_error (List.nil t)         = Bool.false
-Kind.API.is_on_error (List.cons t res xs) = if Kind.API.is_on_error.go res { Bool.true } else { Kind.API.is_on_error xs }
-
 Kind.API.check_function (fnid: U60): List (Kind.Result Unit)
 Kind.API.check_function fnid =
   let rules = Kind.Axiom.rule_of fnid
@@ -13,7 +5,7 @@ Kind.API.check_function fnid =
   let type_check = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.check type (Kind.Term.typ 0))) Bool.true
   let rule_check = Kind.API.check_function.rules rules (Kind.Term.eval type)
   let result = List.cons type_check rule_check
-  if Bool.or (Kind.API.is_on_error result) (Bool.not (Kind.Axiom.should_check fnid)) {
+  if Bool.or (Bool.not (Kind.Axiom.should_check fnid)) (List.any result (x => Kind.Result.has_error x)) {
     result
   } else {
     List.cons (Kind.Checker.run (Kind.Coverage.check_coverage fnid rules type) Bool.true) result

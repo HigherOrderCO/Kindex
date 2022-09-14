@@ -1,0 +1,3 @@
+Kind.Result.has_error (k: Kind.Result Unit) : Bool
+Kind.Result.has_error (Kind.Result.checked c d r s e (List.nil t_) r_) = Bool.false
+Kind.Result.has_error other = Bool.true

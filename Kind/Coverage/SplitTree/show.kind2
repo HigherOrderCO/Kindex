@@ -1,5 +1,3 @@
-Kind.Axiom.name_of (name: U60) : String
-
 Kind.Coverage.SplitTree.show.list (last: Bool) (ident: String) (list: List (Pair U60 Kind.Coverage.SplitTree)) : List String
 Kind.Coverage.SplitTree.show.list last ident (List.nil t)                  = List.nil
 Kind.Coverage.SplitTree.show.list last ident (List.cons t_ x (List.nil t)) =
