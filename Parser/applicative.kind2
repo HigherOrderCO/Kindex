@@ -1,0 +1,8 @@
+Parser.applicative <a> <b> (p : Parser (a -> b)) (p1 : Parser a) : (Parser b) {
+  do Parser {
+    ask f = p
+    let f = f :: a -> b
+    ask r = p1
+    return (f r)
+  }
+}

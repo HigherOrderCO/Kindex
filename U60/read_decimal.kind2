@@ -1,0 +1,8 @@
+U60.read_decimal (xs: String) : Maybe U60
+U60.read_decimal  String.nil        = Maybe.some 0
+U60.read_decimal (String.cons x xs) =
+  do Maybe {
+    ask digit = Char.to_decimal x
+    ask tail = U60.read_decimal xs
+    return (+ (* 10 tail) digit)
+  }

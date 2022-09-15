@@ -1,0 +1,2 @@
+// Automatically derived from Parser/State/_.type
+Parser.State.new (left: String) (back: String) (index: U60) : (Parser.State)

@@ -1,4 +1,0 @@
-Apps.Fib.Map.move (map: Apps.Fib.Map) (ori: Apps.Fib.Pos) (des: Apps.Fib.Pos) : Apps.Fib.Map {
-  let id = Apps.Fib.Map.get map ori
-  Apps.Fib.Map.set des id (Apps.Fib.Map.set ori Apps.Fib.Id.empty map)
-}

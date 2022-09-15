@@ -1,4 +1,0 @@
-Apps.Fib.Player.Skill.add (player: Apps.Fib.Player) (skill: Apps.Fib.Player.Skill) (idx: U120) : Apps.Fib.Player {
-  let change_skill  = (old: U120) => Apps.Fib.set_in_u120 (U120.mul idx (U120.new 0 10)) skill old
-  Pair.map_snd U120 U120 U120 player change_skill
-}

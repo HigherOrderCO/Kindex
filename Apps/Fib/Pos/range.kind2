@@ -1,0 +1,15 @@
+Apps.Fib.Pos.range #Fib_pos_rnge (center: Apps.Fib.Pos) (deltas: List (Pair U120 U120)) : List Apps.Fib.Pos 
+Apps.Fib.Pos.range center (List.nil) = List.nil
+Apps.Fib.Pos.range center (List.cons r head tail) =
+  match Pair head {
+    new =>
+      let validate = (val : U120) => U120.less_than val (U120.new 0 160)
+      let x        = U120.add (Apps.Fib.Pos.get_x center) head.fst
+      let y        = U120.add (Apps.Fib.Pos.get_y center) head.snd
+      let is_valid = Bool.and (validate x) (validate y)
+      let go       = Apps.Fib.Pos.range center tail
+      match Bool is_valid {
+        false => go
+        true  => List.cons (Apps.Fib.Pos.new x y) go
+      }
+  }

@@ -1,0 +1,6 @@
+Data.BBT.node <k> <v> (key: k) (val: v) (left: Data.BBT k v) (right: Data.BBT k v): Data.BBT k v {
+  let size_left  = (Data.BBT.size left)
+  let size_right = (Data.BBT.size right)
+  let new_size   = U120.add U120.1 (U120.add size_left size_right)
+  Data.BBT.bin new_size key val left right
+}

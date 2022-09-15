@@ -1,0 +1,58 @@
+Kindelia.Deserializer.term: Kindelia.Deserializer Kindelia.Term {
+  do Kindelia.Deserializer {
+    ask tag = Kindelia.Deserializer.fixlen (U120.new 0 3)
+    (Kindelia.Deserializer.term.go tag)
+  }
+}
+
+Kindelia.Deserializer.term.go (tag: U120): Kindelia.Deserializer Kindelia.Term
+Kindelia.Deserializer.term.go (U120.new 0 0) =
+  do Kindelia.Deserializer {
+    ask name = Kindelia.Deserializer.name
+    return Kindelia.Term.var name
+  }
+Kindelia.Deserializer.term.go (U120.new 0 1) =
+  do Kindelia.Deserializer {
+    ask nam0 = Kindelia.Deserializer.name
+    ask nam1 = Kindelia.Deserializer.name
+    ask expr = Kindelia.Deserializer.term
+    ask body = Kindelia.Deserializer.term
+    return Kindelia.Term.dpk nam0 nam1 expr body
+  }
+Kindelia.Deserializer.term.go (U120.new 0 2)=
+  do Kindelia.Deserializer {
+    ask name = Kindelia.Deserializer.name
+    ask body = Kindelia.Deserializer.term
+    return (Kindelia.Term.lam name body)
+  }
+Kindelia.Deserializer.term.go (U120.new 0 3) =
+  do Kindelia.Deserializer {
+    ask func = Kindelia.Deserializer.term
+    ask argm = Kindelia.Deserializer.term
+    return Kindelia.Term.app func argm
+  }
+Kindelia.Deserializer.term.go (U120.new 0 4) =
+  do Kindelia.Deserializer {
+    ask name = Kindelia.Deserializer.name
+    ask args = Kindelia.Deserializer.list (Kindelia.Deserializer.term)
+    return Kindelia.Term.ctr name args
+  }
+Kindelia.Deserializer.term.go (U120.new 0 5) =
+  do Kindelia.Deserializer {
+    ask name = Kindelia.Deserializer.name
+    ask args = Kindelia.Deserializer.list (Kindelia.Deserializer.term)
+    return Kindelia.Term.fun name args
+  }
+Kindelia.Deserializer.term.go (U120.new 0 6) =
+  do Kindelia.Deserializer {
+    ask size = Kindelia.Deserializer.varlen
+    ask numb = Kindelia.Deserializer.fixlen size
+    return Kindelia.Term.num numb
+  }
+Kindelia.Deserializer.term.go (U120.new 0 7) =
+  do Kindelia.Deserializer {
+    ask oper = Kindelia.Deserializer.fixlen (U120.new 0 4)
+    ask val0 = Kindelia.Deserializer.term
+    ask val1 = Kindelia.Deserializer.term
+    return Kindelia.Term.op2 oper val0 val1
+  }

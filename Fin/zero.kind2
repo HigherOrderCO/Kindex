@@ -1,0 +1,1 @@
+Fin.zero <n: Nat> : Fin (Nat.succ n)

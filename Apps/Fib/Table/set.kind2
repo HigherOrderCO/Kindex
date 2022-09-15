@@ -1,3 +1,3 @@
-Apps.Fib.Table.set (entity: Apps.Fib.Entity) (id: Apps.Fib.Id) (map: Apps.Fib.Table) : Apps.Fib.Table {
+Apps.Fib.Table.set #Fib_tbl_set (map: Apps.Fib.Table) (entity: Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.Table {
   Data.BaseTree.set Apps.Fib.Entity Apps.Fib.Table.Bases (Apps.Fib.Table.Key.from_id id) map entity
 }

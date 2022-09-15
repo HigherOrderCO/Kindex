@@ -1,0 +1,3 @@
+Fin.to_nat <n: Nat> (fin: Fin (Nat.succ n)) : Nat
+Fin.to_nat n (Fin.zero n_)      = Nat.zero
+Fin.to_nat n (Fin.succ n_ pred) = Nat.succ (Fin.to_nat pred)

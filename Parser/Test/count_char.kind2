@@ -1,0 +1,24 @@
+Parser.Test.count_char {
+  let p = Parser.count_char 'a'
+  Parser.run p "aaaaasd"
+}
+
+Parser.count_char (chr: Char) : Parser U60 {
+  do Parser {
+    ask found_char = Parser.to_bool (Parser.char chr)
+    if found_char {
+      do Parser {
+        ask count = Parser.count_char chr
+        return (+ 1 count)
+      }
+    } else {
+      do Parser {
+        return 0
+      }
+    }
+  }
+}
+
+Main {
+  Parser.Test.count_char
+}

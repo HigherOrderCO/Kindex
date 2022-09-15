@@ -1,0 +1,5 @@
+// Consumes and returns the head
+// Fail on empty input
+Parser.any_char : Parser Char {
+  Parser.satisfy ((c: Char) => Bool.true)
+}

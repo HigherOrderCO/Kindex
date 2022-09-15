@@ -1,0 +1,2 @@
+// Automatically derived from Data/BBT/_.type
+Data.BBT.bin <k: Type> <v: Type> (size: U120) (key: k) (val: v) (left: (Data.BBT k v)) (right: (Data.BBT k v)) : (Data.BBT k v)
