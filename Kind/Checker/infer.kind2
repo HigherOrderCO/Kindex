@@ -5,13 +5,13 @@ TypeOf (u: U60): Kind.Term
 // and function that would lead the type checker to not be able
 // to type check FN8 and FN7 (because they would have 9 and 10
 // parameters respectively).
-Kind.Checker.infer_args (args: Kind.Term): U60 -> U60 -> Kind.Term
+Kind.Checker.infer_args (args: Kind.Term): Kind.Term -> U60 -> Kind.Term
 
-Kind.Checker.infer_args (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14) = ctid => orig =>
-  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x1) x12) x13) x14
+Kind.Checker.infer_args (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14) = term => orig =>
+  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x1) x12) x13) x14
 
-Kind.Checker.infer_args (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = ctid => orig =>
-  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x1) x12) x13) x14) x15
+Kind.Checker.infer_args (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = term => orig =>
+  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x1) x12) x13) x14) x15
 
 // Tries to discover a type for a term.
 Kind.Checker.infer (term: Kind.Term): Kind.Checker Kind.Term
@@ -104,49 +104,49 @@ Kind.Checker.infer (Kind.Term.ct1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0)
 
 Kind.Checker.infer (Kind.Term.ct2 ctid orig x0 x1) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1)
 
 Kind.Checker.infer (Kind.Term.ct3 ctid orig x0 x1 x2) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2)
 
 Kind.Checker.infer (Kind.Term.ct4 ctid orig x0 x1 x2 x3) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3)
 
 Kind.Checker.infer (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4)
 
 Kind.Checker.infer (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5)
 
 Kind.Checker.infer (Kind.Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6)
 
 Kind.Checker.infer (Kind.Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7)
 
 Kind.Checker.infer (Kind.Term.ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8)
 
 Kind.Checker.infer (Kind.Term.ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9)
 
 Kind.Checker.infer (Kind.Term.ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10)
 
 Kind.Checker.infer (Kind.Term.ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x11) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11)
 
 Kind.Checker.infer (Kind.Term.ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x12) x11) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12)
 
 Kind.Checker.infer (Kind.Term.ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x13) x12) x11) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13)
 
 Kind.Checker.infer (Kind.Term.ct15 ctid orig x0) =
-  (Kind.Checker.infer_args x0) ctid orig
+  (Kind.Checker.infer_args x0) (Kind.Term.ct0 ctid orig) orig
 
 Kind.Checker.infer (Kind.Term.ct16 ctid orig x0) =
-  (Kind.Checker.infer_args x0) ctid orig
+  (Kind.Checker.infer_args x0) (Kind.Term.ct0 ctid orig) orig
 
 Kind.Checker.infer (Kind.Term.fn0 fnid orig) =
   Kind.Checker.infer (Kind.Term.fn0 fnid orig)
@@ -155,49 +155,49 @@ Kind.Checker.infer (Kind.Term.fn1 fnid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0)
 
 Kind.Checker.infer (Kind.Term.fn2 fnid orig x0 x1) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1)
 
 Kind.Checker.infer (Kind.Term.fn3 fnid orig x0 x1 x2) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2)
 
 Kind.Checker.infer (Kind.Term.fn4 fnid orig x0 x1 x2 x3) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3)
 
 Kind.Checker.infer (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4)
 
 Kind.Checker.infer (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5)
 
 Kind.Checker.infer (Kind.Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6)
 
 Kind.Checker.infer (Kind.Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7)
 
 Kind.Checker.infer (Kind.Term.fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8)
 
 Kind.Checker.infer (Kind.Term.fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9)
 
 Kind.Checker.infer (Kind.Term.fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10)
 
 Kind.Checker.infer (Kind.Term.fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x11) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11)
 
 Kind.Checker.infer (Kind.Term.fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x12) x11) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12)
 
 Kind.Checker.infer (Kind.Term.fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x13) x12) x11) x10) x9) x8) x7) x6) x5) x4) x3) x2) x1) x0)
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13)
 
-Kind.Checker.infer (Kind.Term.fn15 ctid orig x0) =
-  (Kind.Checker.infer_args x0) ctid orig
+Kind.Checker.infer (Kind.Term.fn15 fnid orig x0) =
+  (Kind.Checker.infer_args x0) (Kind.Term.fn0 fnid orig) orig
 
-Kind.Checker.infer (Kind.Term.fn16 ctid orig x0) =
-  (Kind.Checker.infer_args x0) ctid orig
+Kind.Checker.infer (Kind.Term.fn16 fnid orig x0) =
+  (Kind.Checker.infer_args x0) (Kind.Term.fn0 fnid orig) orig
 
 Kind.Checker.infer (Kind.Term.hlp orig) =
   do Kind.Checker {
