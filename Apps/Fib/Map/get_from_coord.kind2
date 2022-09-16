@@ -1,0 +1,13 @@
+Apps.Fib.Map.get_from_coord #Fib_map_gfc (map: Apps.Fib.Map) (pos: Pair U60 U60) : Apps.Fib.Id {
+  let keys = Apps.Fib.Map.get_from_coord.chunk map (Pair.new (U120.new 0 (Pair.fst pos)) (U120.new 0 (Pair.snd pos)))
+  match Pair keys {
+    new => Apps.Fib.Map.get_tile keys.fst keys.snd
+  }
+}
+
+Apps.Fib.Map.get_from_coord.chunk #Fib_map_gfcc (map: Apps.Fib.Map) (pos: Pair U120 U120): Pair U120 U120 {
+  let keys  = Apps.Fib.Map.Key.from_coord pos
+  let chunk = Data.BaseTree.get U120 Apps.Fib.Map.Bases (Pair.fst keys) map 
+  let idx   = Pair.snd keys
+  Pair.new chunk idx
+}

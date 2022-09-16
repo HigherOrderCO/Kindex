@@ -1,0 +1,7 @@
+Apps.Fib.Map.Key.from_coord #Fib_map_kfcd (pos: Pair U120 U120): Pair Apps.Fib.Map.Key U120 {
+  let x = Pair.fst pos
+  let y = Pair.snd pos
+  let key = U120.low (U120.add (U120.div x (U120.new 0 10)) (U120.mul y (U120.new 0 16)))
+  Pair.new (Data.BaseTree.Key.from_u60 Apps.Fib.Map.Bases 2560 (% key 2560)) (U120.mod x (U120.new 0 10))
+}
+

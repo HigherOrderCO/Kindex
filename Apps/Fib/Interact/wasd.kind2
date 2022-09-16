@@ -1,0 +1,68 @@
+Apps.Fib.Interact.wasd #Fib_it_wasd (entity_id: Apps.Fib.Id) (code: String) : U120 {
+  let f     = (x: (Pair U120 U120)) => (y: (Pair U120 U120)) => Apps.Fib.Interact.wasd.coords x y
+  let pair = String.foldl (Pair.new (U120.new 0 0) (U120.new 0 0)) (x => (f (Apps.Fib.Interact.wasd.aux x))) code
+  let x    = Pair.fst pair
+  let y    = Pair.snd pair
+  let delt = 
+    (val: U120) => 
+      if (U120.greater_equal val (U120.new 0 8)) {
+        U120.bitwise_or (U120.new 0 8) (U120.sub (U120.new 0 0) val)
+      }
+      else {
+        val
+      }
+  let code = U120.bitwise_or (U120.shift_left (delt y) (U120.new 0 4)) (delt x)
+  code
+}
+
+Apps.Fib.Interact.wasd.aux #Fib_it_wasda (command: Char) : Pair U120 U120
+// Up
+Apps.Fib.Interact.wasd.aux 'w' = Pair.new (U120.new 0 0) (U120.sub (U120.new 0 0) (U120.new 0 1))
+Apps.Fib.Interact.wasd.aux 'W' = Pair.new (U120.new 0 0) (U120.sub (U120.new 0 0) (U120.new 0 1))
+
+// Left
+Apps.Fib.Interact.wasd.aux 'a' = Pair.new (U120.sub (U120.new 0 0) (U120.new 0 1)) (U120.new 0 0)
+Apps.Fib.Interact.wasd.aux 'A' = Pair.new (U120.sub (U120.new 0 0) (U120.new 0 1)) (U120.new 0 0)
+
+// Down
+Apps.Fib.Interact.wasd.aux 's' = Pair.new (U120.new 0 0) (U120.new 0 1)
+Apps.Fib.Interact.wasd.aux 'S' = Pair.new (U120.new 0 0) (U120.new 0 1)
+
+// Right
+Apps.Fib.Interact.wasd.aux 'd' = Pair.new (U120.new 0 1) (U120.new 0 0)
+Apps.Fib.Interact.wasd.aux 'D' = Pair.new (U120.new 0 1) (U120.new 0 0)
+
+// Anything_else
+Apps.Fib.Interact.wasd.aux command = Pair.new (U120.new 0 0) (U120.new 0 0)
+
+
+// w  - UP    - (+0 -1)
+// ww - UP UP - (+0 -2)
+// wa - UP LF - (-1 +1)
+// ws - UP DN - (+0 +0)
+// wd - UP RG - (+1 -1)
+
+// a  - LF    - (-1 +0)
+// aa - LF LF - (-2 +0)
+// as - LF DN - (-1 +1)
+// ad - LF RG - (+0 +0)
+
+// s  - DN    - (+0 +1)
+// ss - DN DN - (+0 +2)
+// sd - DN RG - (+1 +1)
+
+// d  - RG    - (+1 +0) 
+// dd - RG RG - (+2 +0)
+
+
+Apps.Fib.Interact.wasd.coords #Fib_it_wasdc (pair: Pair U120 U120) (delta: Pair U120 U120): Pair U120 U120 {
+  let dfst = Pair.fst delta
+  let pfst = Pair.fst pair
+  let rfst = U120.add dfst pfst
+  
+  let dsnd = Pair.snd delta
+  let psnd = Pair.snd pair
+  let rsnd = U120.add dsnd psnd
+  
+  Pair.new rfst rsnd
+}
