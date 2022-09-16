@@ -1,0 +1,15 @@
+// TODO: make it at least 256-bits?
+
+// Linear congruential generator: generates pseudo random numbers.
+U60.random (seed: U60): U60 {
+  (Random.U60.generator 1664525 1013904223 4294967296) seed
+}
+
+Random.U60: Type {
+  U60 -> U60
+}
+
+// generate a linear congruential generator
+Random.U60.generator (m: U60) (i: U60) (q: U60): Random.U60 {
+  (seed: U60) => U60.mod (U60.add (U60.mul seed m) i) q
+}

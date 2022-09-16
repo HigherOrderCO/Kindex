@@ -1,2 +1,2 @@
-Equal.mirror <t> <a: t> <b: t> (e: Equal t a b) : Equal t b a
+Equal.mirror #Equal_mirr <t> <a: t> <b: t> (e: Equal t a b) : Equal t b a
 Equal.mirror t a b (Equal.refl u k) = Equal.refl u k

@@ -1,1 +1,1 @@
-Sigma.new <a: Type> <b: a -> Type> (fst: a) (snd: b fst) : Sigma a b
+Sigma.new #Sigma_new <a: Type> <b: a -> Type> (fst: a) (snd: b fst) : Sigma a b

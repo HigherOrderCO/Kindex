@@ -1,3 +1,3 @@
-U120.is_zero (n: U120) : Bool
+U120.is_zero #U120_is0 (n: U120) : Bool
 U120.is_zero (U120.new 0 0) = Bool.true
 U120.is_zero n              = Bool.false

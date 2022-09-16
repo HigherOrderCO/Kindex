@@ -1,2 +1,2 @@
 // Automatically derived from String/_.type
-String.nil : (String)
+String.nil #String_nil : (String)

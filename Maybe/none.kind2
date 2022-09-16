@@ -1,2 +1,2 @@
 // Automatically derived from Maybe/_.type
-Maybe.none <t: Type> : (Maybe t)
+Maybe.none #Maybe_none <t: Type> : (Maybe t)

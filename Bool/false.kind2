@@ -1,2 +1,2 @@
 // Automatically derived from Bool/_.type
-Bool.false : (Bool)
+Bool.false #Bool_false : (Bool)

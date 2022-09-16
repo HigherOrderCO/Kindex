@@ -1,3 +1,3 @@
-U120.greater_equal (a: U120) (b: U120) : Bool {
+U120.greater_equal #U120_gte (a: U120) (b: U120) : Bool {
   U120.to_bool (U120.num_greater_equal a b)
 }

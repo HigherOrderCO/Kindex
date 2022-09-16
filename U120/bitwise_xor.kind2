@@ -1,2 +1,2 @@
-U120.bitwise_xor (a: U120) (b: U120) : U120
+U120.bitwise_xor #U120_bwxor(a: U120) (b: U120) : U120
 U120.bitwise_xor (U120.new ahi alo) (U120.new bhi blo) = U120.new (^ ahi bhi) (^ alo blo)

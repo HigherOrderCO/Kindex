@@ -1,3 +1,3 @@
-U60.if <r: Type> (n: U60) (t: r) (f: r) : r
+U60.if #U60_if <r: Type> (n: U60) (t: r) (f: r) : r
 U60.if r 0 t f = f
 U60.if r x t f = t
