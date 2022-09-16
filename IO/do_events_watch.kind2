@@ -1,0 +1,2 @@
+// Automatically derived from IO/_.type
+IO.do_events_watch <a: Type> (room: U60) (cont: (_: U60) (IO a)) : (IO a)

@@ -1,0 +1,2 @@
+// Automatically derived from IO/_.type
+IO.do_events_view <a: Type> (room: U60) (from_id: U60) (to_id: U60) (cont: (_: (List (List U60))) (IO a)) : (IO a)
