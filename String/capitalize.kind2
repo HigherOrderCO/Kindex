@@ -1,10 +1,10 @@
-// 
+// Make Each Word Have An Uppercase Head And Lowercase Tail, Just Like In This Comment
 String.capitalize (s: String) : String
 
-String.capitalize (String.cons 32 t) =
+String.capitalize (String.cons ' ' t) =
   match String t {
-    nil  => (String.cons 32  String.nil)
-    cons => (String.cons 32 (String.cons (Char.to_upper t.head) (String.capitalize t.tail)))
+    nil  => String.cons ' '  String.nil
+    cons => String.cons ' ' (String.cons (Char.to_upper t.head) (String.capitalize t.tail))
   }
-String.capitalize (String.cons h t) = (String.cons (Char.to_lower h) (String.capitalize t))
+String.capitalize (String.cons h t) = String.cons (Char.to_lower h) (String.capitalize t)
 String.capitalize  String.nil       = String.nil

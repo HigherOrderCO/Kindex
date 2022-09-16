@@ -1,0 +1,64 @@
+// Kind2 Demo App
+// ==============
+// This is a simple app that just displays a string showing the last event.
+
+// The Demo app's state is a pair with:
+// - A frame count (U60)
+// - A text to display (String)
+Apps.Demo.State : Type {
+  Pair U60 String
+}
+
+// The 'init' constant defines the initial state.
+Apps.Demo.init : Apps.Demo.State {
+  Pair.new 0 "Loading."
+}
+
+// The 'draw' function converts the state into an HTML element.
+Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
+Apps.Demo.draw (Pair.new u v count text) =
+  let props = []
+  let style = [
+    (Pair.new "background" "#282828")
+    (Pair.new "height" "100%")
+    (Pair.new "fontSize" "40px")
+    (Pair.new "fontFamily" "monaco")
+    (Pair.new "color" "white")
+  ]
+
+
+(App.DOM.node "div" props style [
+    (App.DOM.text "Título"),
+    (App.DOM.node "table" [] [] [
+       (App.DOM.node "tr" [] [] [
+         (App.DOM.node "th" [] [] [
+            (App.DOM.text "A1")
+         ]),
+         (App.DOM.node "th" [] [] [
+            (App.DOM.text "B1")
+         ]),
+       ]),
+       (App.DOM.node "tr" [] [] [
+         (App.DOM.node "th" [] [] [
+            (App.DOM.text "A2")
+         ]),
+         (App.DOM.node "th" [] [] [
+            (App.DOM.text "B2")
+         ]),
+       ])
+    ])
+])
+
+// The 'when' function reacts to events. Can perform effects via IO, and may return a new state.
+Apps.Demo.when (event: App.Event) (state: Apps.Demo.State) : IO Apps.Demo.State
+Apps.Demo.when App.Event.init (Pair.new u v count text) = do IO {
+  return Pair.new count "init"
+}
+
+// An App just combines the 'init', 'draw' and 'when' functions.
+Apps.Demo : App Apps.Demo.State {
+  (App.new
+    Apps.Demo.init
+    (state => Apps.Demo.draw state)
+    (event => state => Apps.Demo.when event state))
+}

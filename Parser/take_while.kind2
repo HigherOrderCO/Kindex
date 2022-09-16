@@ -1,0 +1,14 @@
+// Take characters from the code while a condition passes
+Parser.take_while (cond: Char -> Bool) : Parser String {
+  do Parser {
+    ask mh = Parser.try (Parser.satisfy cond)
+    match Maybe mh {
+      none => Parser.pure String.nil
+      some =>
+        do Parser {
+          ask tail = Parser.take_while cond
+          return (String.cons mh.value tail)
+        }
+    }
+  }
+}

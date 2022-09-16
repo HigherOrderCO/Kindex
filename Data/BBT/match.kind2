@@ -1,0 +1,4 @@
+// Automatically derived from Data/BBT/_.type
+Data.BBT.match <k: Type> <v: Type> (x: (Data.BBT k v)) -(p: (x: (Data.BBT k v)) Type) (tip: (p (Data.BBT.tip k v))) (bin: (size: U120) (key: k) (val: v) (left: (Data.BBT k v)) (right: (Data.BBT k v)) (p (Data.BBT.bin k v size key val left right))) : (p x)
+Data.BBT.match k v (Data.BBT.tip k_ v_) p tip bin = (tip)
+Data.BBT.match k v (Data.BBT.bin k_ v_ size_ key_ val_ left_ right_) p tip bin = (bin size_ key_ val_ left_ right_)

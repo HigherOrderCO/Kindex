@@ -152,22 +152,9 @@ Kind.Checker.equal (Kind.Term.ct6 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (
     return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 x5)))))
   }
 
-Kind.Checker.equal (Kind.Term.ct7 a.ctid a.orig a.args) (Kind.Term.ct7 b.ctid b.orig b.args) =
+Kind.Checker.equal (Kind.Term.ct7 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6) (Kind.Term.ct7 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6) =
   do Kind.Checker {
     let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask xargs = Kind.Checker.equal a.args b.args
-    return Bool.and ctid xargs
-  }
-
-Kind.Checker.equal (Kind.Term.ct8 a.ctid a.orig a.args) (Kind.Term.ct8 b.ctid b.orig b.args) =
-  do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask xargs = Kind.Checker.equal a.args b.args
-    return Bool.and ctid xargs
-  }
-
-Kind.Checker.equal (Kind.Term.args7 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6) (Kind.Term.args7 b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6) =
-  do Kind.Checker {
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
@@ -175,10 +162,143 @@ Kind.Checker.equal (Kind.Term.args7 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6) (Kind.Te
     ask x4   = Kind.Checker.equal a.x4 b.x4
     ask x5   = Kind.Checker.equal a.x5 b.x5
     ask x6   = Kind.Checker.equal a.x6 b.x6
-    return Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 x6)))))
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 x6))))))
   }
 
-Kind.Checker.equal (Kind.Term.args8 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7) (Kind.Term.args8 b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7) =
+Kind.Checker.equal (Kind.Term.ct8 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7) (Kind.Term.ct8 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 x7)))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct9 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8) (Kind.Term.ct9 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 x8))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct10 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9) (Kind.Term.ct10 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 x9)))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct11 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10) (Kind.Term.ct11 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 x10))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct12 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11) (Kind.Term.ct12 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 x11)))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct13 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11 a.x12) (Kind.Term.ct13 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11 b.x12) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    ask x12   = Kind.Checker.equal a.x12 b.x12
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 (Bool.and x11 x12))))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct14 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11 a.x12 a.x13) (Kind.Term.ct14 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11 b.x12 b.x13) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    ask x12   = Kind.Checker.equal a.x12 b.x12
+    ask x13   = Kind.Checker.equal a.x13 b.x13
+    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 (Bool.and x11 (Bool.and x12 x13)))))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.ct15 a.ctid a.orig a.args) (Kind.Term.ct15 b.ctid b.orig b.args) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask xargs = Kind.Checker.equal a.args b.args
+    return Bool.and ctid xargs
+  }
+
+Kind.Checker.equal (Kind.Term.ct16 a.ctid a.orig a.args) (Kind.Term.ct16 b.ctid b.orig b.args) =
+  do Kind.Checker {
+    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    ask xargs = Kind.Checker.equal a.args b.args
+    return Bool.and ctid xargs
+  }
+
+Kind.Checker.equal (Kind.Term.args15 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11 a.x12 a.x13 a.x14) (Kind.Term.args15 b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11 b.x12 b.x13 b.x14) =
   do Kind.Checker {
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
@@ -188,84 +308,244 @@ Kind.Checker.equal (Kind.Term.args8 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7) (Ki
     ask x5   = Kind.Checker.equal a.x5 b.x5
     ask x6   = Kind.Checker.equal a.x6 b.x6
     ask x7   = Kind.Checker.equal a.x7 b.x7
-    return Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 x7))))))
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    ask x12   = Kind.Checker.equal a.x12 b.x12
+    ask x13   = Kind.Checker.equal a.x13 b.x13
+    ask x14   = Kind.Checker.equal a.x14 b.x14
+    return Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 (Bool.and x11 (Bool.and x12 (Bool.and x13 x14)))))))))))))
   }
 
-Kind.Checker.equal (Kind.Term.fn0 a.ctid a.orig) (Kind.Term.fn0 b.ctid b.orig) =
+Kind.Checker.equal (Kind.Term.args16 a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11 a.x12 a.x13 a.x14 a.x15) (Kind.Term.args16 b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11 b.x12 b.x13 b.x14 b.x15) =
   do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    return ctid
-  }
-
-Kind.Checker.equal (Kind.Term.fn1 a.ctid a.orig a.x0) (Kind.Term.fn1 b.ctid b.orig b.x0) =
-  do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask x0   = Kind.Checker.equal a.x0 b.x0
-    return Bool.and ctid x0
-  }
-
-Kind.Checker.equal (Kind.Term.fn2 a.ctid a.orig a.x0 a.x1) (Kind.Term.fn2 b.ctid b.orig b.x0 b.x1) =
-  do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask x0   = Kind.Checker.equal a.x0 b.x0
-    ask x1   = Kind.Checker.equal a.x1 b.x1
-    return Bool.and ctid (Bool.and x0 x1)
-  }
-
-Kind.Checker.equal (Kind.Term.fn3 a.ctid a.orig a.x0 a.x1 a.x2) (Kind.Term.fn3 b.ctid b.orig b.x0 b.x1 b.x2) =
-  do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask x0   = Kind.Checker.equal a.x0 b.x0
-    ask x1   = Kind.Checker.equal a.x1 b.x1
-    ask x2   = Kind.Checker.equal a.x2 b.x2
-    return Bool.and ctid (Bool.and x0 (Bool.and x1 x2))
-  }
-
-Kind.Checker.equal (Kind.Term.fn4 a.ctid a.orig a.x0 a.x1 a.x2 a.x3) (Kind.Term.fn4 b.ctid b.orig b.x0 b.x1 b.x2 b.x3) =
-  do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask x0   = Kind.Checker.equal a.x0 b.x0
-    ask x1   = Kind.Checker.equal a.x1 b.x1
-    ask x2   = Kind.Checker.equal a.x2 b.x2
-    ask x3   = Kind.Checker.equal a.x3 b.x3
-    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 x3)))
-  }
-
-Kind.Checker.equal (Kind.Term.fn5 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4) (Kind.Term.fn5 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4) =
-  do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask x0   = Kind.Checker.equal a.x0 b.x0
-    ask x1   = Kind.Checker.equal a.x1 b.x1
-    ask x2   = Kind.Checker.equal a.x2 b.x2
-    ask x3   = Kind.Checker.equal a.x3 b.x3
-    ask x4   = Kind.Checker.equal a.x4 b.x4
-    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 x4))))
-  }
-
-Kind.Checker.equal (Kind.Term.fn6 a.ctid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (Kind.Term.fn6 b.ctid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5) =
-  do Kind.Checker {
-    let ctid = U60.equal (HashOf a.ctid) (HashOf b.ctid)
     ask x0   = Kind.Checker.equal a.x0 b.x0
     ask x1   = Kind.Checker.equal a.x1 b.x1
     ask x2   = Kind.Checker.equal a.x2 b.x2
     ask x3   = Kind.Checker.equal a.x3 b.x3
     ask x4   = Kind.Checker.equal a.x4 b.x4
     ask x5   = Kind.Checker.equal a.x5 b.x5
-    return Bool.and ctid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 x5)))))
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    ask x12   = Kind.Checker.equal a.x12 b.x12
+    ask x13   = Kind.Checker.equal a.x13 b.x13
+    ask x14   = Kind.Checker.equal a.x14 b.x14
+    ask x15   = Kind.Checker.equal a.x15 b.x15
+    return Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 (Bool.and x11 (Bool.and x12 (Bool.and x13 (Bool.and x14 x15))))))))))))))
   }
 
-Kind.Checker.equal (Kind.Term.fn7 a.ctid a.orig a.args) (Kind.Term.fn7 b.ctid b.orig b.args) =
+Kind.Checker.equal (Kind.Term.fn0 a.fnid a.orig) (Kind.Term.fn0 b.fnid b.orig) =
   do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
-    ask xargs = Kind.Checker.equal a.args b.args
-    return Bool.and ctid xargs
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    return fnid
   }
 
-Kind.Checker.equal (Kind.Term.fn8 a.ctid a.orig a.args) (Kind.Term.fn8 b.ctid b.orig b.args) =
+Kind.Checker.equal (Kind.Term.fn1 a.fnid a.orig a.x0) (Kind.Term.fn1 b.fnid b.orig b.x0) =
   do Kind.Checker {
-    let ctid  = U60.equal (HashOf a.ctid) (HashOf b.ctid)
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    return Bool.and fnid x0
+  }
+
+Kind.Checker.equal (Kind.Term.fn2 a.fnid a.orig a.x0 a.x1) (Kind.Term.fn2 b.fnid b.orig b.x0 b.x1) =
+  do Kind.Checker {
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    return Bool.and fnid (Bool.and x0 x1)
+  }
+
+Kind.Checker.equal (Kind.Term.fn3 a.fnid a.orig a.x0 a.x1 a.x2) (Kind.Term.fn3 b.fnid b.orig b.x0 b.x1 b.x2) =
+  do Kind.Checker {
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 x2))
+  }
+
+Kind.Checker.equal (Kind.Term.fn4 a.fnid a.orig a.x0 a.x1 a.x2 a.x3) (Kind.Term.fn4 b.fnid b.orig b.x0 b.x1 b.x2 b.x3) =
+  do Kind.Checker {
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 x3)))
+  }
+
+Kind.Checker.equal (Kind.Term.fn5 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4) (Kind.Term.fn5 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4) =
+  do Kind.Checker {
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 x4))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn6 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5) (Kind.Term.fn6 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5) =
+  do Kind.Checker {
+    let fnid = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 x5)))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn7 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6) (Kind.Term.fn7 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 x6))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn8 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7) (Kind.Term.fn8 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 x7)))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn9 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8) (Kind.Term.fn9 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 x8))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn10 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9) (Kind.Term.fn10 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 x9)))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn11 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10) (Kind.Term.fn11 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 x10))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn12 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11) (Kind.Term.fn12 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 x11)))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn13 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11 a.x12) (Kind.Term.fn13 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11 b.x12) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    ask x12   = Kind.Checker.equal a.x12 b.x12
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 (Bool.and x11 x12))))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn14 a.fnid a.orig a.x0 a.x1 a.x2 a.x3 a.x4 a.x5 a.x6 a.x7 a.x8 a.x9 a.x10 a.x11 a.x12 a.x13) (Kind.Term.fn14 b.fnid b.orig b.x0 b.x1 b.x2 b.x3 b.x4 b.x5 b.x6 b.x7 b.x8 b.x9 b.x10 b.x11 b.x12 b.x13) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask x0   = Kind.Checker.equal a.x0 b.x0
+    ask x1   = Kind.Checker.equal a.x1 b.x1
+    ask x2   = Kind.Checker.equal a.x2 b.x2
+    ask x3   = Kind.Checker.equal a.x3 b.x3
+    ask x4   = Kind.Checker.equal a.x4 b.x4
+    ask x5   = Kind.Checker.equal a.x5 b.x5
+    ask x6   = Kind.Checker.equal a.x6 b.x6
+    ask x7   = Kind.Checker.equal a.x7 b.x7
+    ask x8   = Kind.Checker.equal a.x8 b.x8
+    ask x9   = Kind.Checker.equal a.x9 b.x9
+    ask x10   = Kind.Checker.equal a.x10 b.x10
+    ask x11   = Kind.Checker.equal a.x11 b.x11
+    ask x12   = Kind.Checker.equal a.x12 b.x12
+    ask x13   = Kind.Checker.equal a.x13 b.x13
+    return Bool.and fnid (Bool.and x0 (Bool.and x1 (Bool.and x2 (Bool.and x3 (Bool.and x4 (Bool.and x5 (Bool.and x6 (Bool.and x7 (Bool.and x8 (Bool.and x9 (Bool.and x10 (Bool.and x11 (Bool.and x12 x13)))))))))))))
+  }
+
+Kind.Checker.equal (Kind.Term.fn15 a.fnid a.orig a.args) (Kind.Term.fn15 b.fnid b.orig b.args) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
     ask xargs = Kind.Checker.equal a.args b.args
-    return Bool.and ctid xargs
+    return Bool.and fnid xargs
+  }
+
+Kind.Checker.equal (Kind.Term.fn16 a.fnid a.orig a.args) (Kind.Term.fn16 b.fnid b.orig b.args) =
+  do Kind.Checker {
+    let fnid  = U60.equal (HashOf a.fnid) (HashOf b.fnid)
+    ask xargs = Kind.Checker.equal a.args b.args
+    return Bool.and fnid xargs
   }
 
 Kind.Checker.equal a b =

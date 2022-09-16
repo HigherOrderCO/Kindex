@@ -1,0 +1,17 @@
+// Parses a sequence of elements separated by some criteria
+// Example: To match "1,2,3,4,5,6,70", use
+//          `(Parser.sep_by (Parser.char ',') Parser.u60_decimal)`
+//          The result will be a list with the parsed numbers.
+Parser.sep_by <s> <e> (p_sep: Parser s) (p_elem: Parser e) : Parser (List e) {
+  do Parser {
+    ask me = Parser.try p_elem
+    match Maybe me {
+      none => Parser.pure []
+      some =>
+        do Parser {
+          ask tail = Parser.repeat_while p_sep p_elem
+          return List.cons me.value tail 
+        }
+    }
+  }
+}
