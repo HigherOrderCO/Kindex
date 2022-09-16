@@ -1,4 +1,4 @@
-U60.mul.carrying (a: U60) (b: U60) : U120 {
+U60.mul.carrying #U60_mul_car (a: U60) (b: U60) : U120 {
   let alo = (>> (<< a 30) 30)
   let ahi = (>> a 30)
   let blo = (>> (<< b 30) 30)
