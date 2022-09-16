@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikinder/Apps/Fib/Front/State/_.type
+Apps.Fib.Front.State.new (map_pos: (Pair U60 U60)) (fst_pos: (Maybe (Pair U60 U60))) (snd_pos: (Maybe (Pair U60 U60))) (input: String) (state: Apps.Fib.State) : (Apps.Fib.Front.State)

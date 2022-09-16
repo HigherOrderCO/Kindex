@@ -1,0 +1,2 @@
+Apps.Fib.Front.State.get_input (s : Apps.Fib.Front.State) : String
+Apps.Fib.Front.State.get_input (Apps.Fib.Front.State.new map_pos pos_fst pos_snd input state) = input

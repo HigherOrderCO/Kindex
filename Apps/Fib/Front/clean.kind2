@@ -1,0 +1,120 @@
+// https://files.catbox.moe/pqreuy.png - grass
+// https://files.catbox.moe/grvv06.png - rock
+// https://files.catbox.moe/v0b65m.png - dragon
+// https://files.catbox.moe/begh9q.png - poring
+
+Apps.Fib.Front.size_x : U60 {
+  3
+}
+
+Apps.Fib.Front.size_y : U60 {
+  3
+}
+
+Apps.Fib.Front.tile_size : U60 {
+  32
+}
+
+
+
+Apps.Fib.Front.Draw.Entity (n : U120) (text: String) (seed : U60) : App.DOM
+// Apps.Fib.Front.Draw.Entity (U120.new 0 0)   seed =
+//   (App.DOM.node "img" [(Pair.new "src" (Apps.Fib.Front.Draw.Entity.grass (% seed 4)))] [] [])
+// Apps.Fib.Front.Draw.Entity (U120.new 0 1)   seed =
+//   (App.DOM.node "img" [(Pair.new "src" "https://files.catbox.moe/grvv06.png")] [] [])
+Apps.Fib.Front.Draw.Entity (U120.new 0 725) text seed =
+  (App.DOM.node "img" [(Pair.new "src" "https://files.catbox.moe/v0b65m.png")] [] [])
+Apps.Fib.Front.Draw.Entity n text seed = // App.DOM.text text
+  (App.DOM.node "img" 
+    [
+      (Pair.new "src" (Apps.Fib.Front.Draw.Entity.grass (% seed 4)))
+      (Pair.new "id"  text)
+    ]
+    [
+      
+    ]
+    [
+      
+    ])
+
+Apps.Fib.Front.Draw.Entity.grass (seed: U60) : String
+Apps.Fib.Front.Draw.Entity.grass 0 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABqklEQVR42q1Xu04DQQz0N9KFCuUXqPgApHQ0FIgmoqLMJwJ3wtGcb2yPIcUqq+x6Z3bWr7PXz8OXOs7vR2lMzrTJZoXM9Bw7n34MT0cd9Hc/gingl8s9vYD55OntsA48yP+bKMLWnj8eVgKMhKF8jIRyOzzj8eVuHWizEHAS1AcmbxifQfWBhQBbN19QwDMZVedje83lyd6pAseDJ9GDz7QSUICQqPtK9Jd4U8WJrwogUGXgoOqIJMonUCXM5oty02xpTOIpOD4d2mfRgf9ZBM9IxBtEX3HwaNtFyU4BjNkY71V2q8DRD3Y+4BMPjatxUSM6tRiJeP6GAFv8T4WrElD8tSrpoGF2A6ZO1zuU/UAEr+RzIExKEaRT0v5SXhl4ZevkaTFimQ5vc4uOqSJnE/BJxsxUjOFtUq8HBpMuCasfU0UikBUkhQQmKi+/bRSo8d/tqWpDSmDamlVNp1obbPLxkZFgHVUFviHAutgqmVSk1CjZEagqX8yIqqOyIscuYLf+1uucmoZh12wog5Vn5QKWfWiwotRlxmXukivt3SYRdWw7x1PaOja+AUB/SW7mQ5pfAAAAAElFTkSuQmCC"
+Apps.Fib.Front.Draw.Entity.grass 1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABu0lEQVR42q1Xu07DQBDcb6QLFaKnouIDkNzRUKA0USrKfAYSPwWxYa3xePZu104xSnTn88zt2/b+efhBXC73E3h9xOn4mII6G8HUYktET0yFfBJwGq4Hh+XB57e7GSvS/+eRLEM+ixyWMN94+ThMwBf5WuYmLRHSWiwgElG63RVuOT8TkS9iQClrkoEbejHQ27fX88NqE0WM+46q6VNBqAj4f0SOIrKE7CZTL0dRSozHCscLWyUTxBaR8IPfX08TXHkIig8WwYKt52Mmx9rA2TIWr4woPGdcfFpCVHpuKc+4Zmj2SEQv9fb0B1Pmx9TcS8xxsIoBVfMXtz7eBhGPof+3tN4uqHnxr21puXtEcKu3aoNx+Iu6dUG4AkXYlvaK5FUBoyXQ3SsBWGKrNb4iQgqYyQdNnumK1ZhYWUDmvRjDFEbTetnOFKZYAD2YGVKViExcWcuUaHYWUYmRlhWtRd7yfXUKinqDVYJpzyQUXdB4ilXmbUXybgvMhYSiP6qImUm30sbt1t96GbN7QM9pyIQq7Xr1QI126gJYxv++DQMzocrF95xIURSBU5Wqmtw/rJfXPZfwCJ8ZchG/mg1LhQG19UcAAAAASUVORK5CYII="
+Apps.Fib.Front.Draw.Entity.grass 2 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABzElEQVR42rVXOW7DMBDcN6azq8BfSJUHBGCXJkWQxnCV0k+UQSUjDFd7EUoKwrBEzs5es5R8fJ8WrPv9vFzbZbl+HVuMmS1h439BYMb4SmA12H4Olo230VjFeHeO/+OMbIDtmHfRnpf3py3C+oxUQ2sBMNDr58nd0wm83Z7Nd8LsPa89YN7XCXiegkRfOwKdmQ5fBBSFHiQsQ16aVgJ9WWwjEngHB6pV3/cCf60BGEcYsbDJ8iaLDqelr7ANEQGd++wwRy2qIY3hpkCnIfLM6hCtC9nZnRJWiFgAaC+rxyuFK9p4RMKqYuxnAiDkdYM5C9jwVhNtlN2ez4iE7g4mgFrY1YAnFDwjZjSfu4cj6QqR9/LIhItSp38lEhk+GCncbPeYKYjGZiavmWZEkZSjoa2oXdSacjS/pfC3Sy5EaJVMfiuKqTvJvFH9PpdZoErIPa91BDYCPDSq9wAmMngVXO9cIZq9jGhAz6CFlbYhX0asy4cF5IWZ74LAM4tQs2IZtbS9Mm61gA0yzwSygjIBCvnWFe9OQ9zNNJjlGUegMivc9iM78h+fW5XUhN8F1VaMNKA8C7xPMz0RNUAaeielqKFBiCqXjdmURPLL+x4zr0foVgG0YwAAAABJRU5ErkJggg=="
+Apps.Fib.Front.Draw.Entity.grass 3 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB2ElEQVR42q1XOU4DQRDs9xEhZyZCfoADiHgAkjMSB4jEcuTQ3yDgT0CvqFVvbU8fyMHI1lxVU32uHC/b7+o4fexKo3OndDZXyHTvkdPh9+BhVwf922/BKuDX64P7AMGfl/ftNOxFmOso4q29nh8nAh4JsfJ5JCqvs3c8v22mYc8oAZBwfaBjQzZD1QeUgLcuWKiAj2SsOp+3VyDPyE4jJ+KLO9FjzTQRyF4JCfXQ1+d+HrpP5yLAzIlnBSxQdIBJ4CX6q4SYHEdSaIKOhAzE4PdPd6VsKRwqVSIAZQIKrCOKLjsnDD4iYWXmAd/RdT6bRclKARuzNt7Z9pDaSg+fYHDrBysfsJIuDlONYLtDajuv+yA/k+D7FwS8RbafrgMUwN48E2Az8K9EGY8JjF7B+SLrHcJ+gMEj+QBkixiDZHVC/lNePfDoLMi7xchLnfY1t+iYInLSAe8kqpGKHN5S6vXMgU6XZBOYp0qJwKjCVUjYTImilUZBtTvK9gDcmiwl0G3NoqYT4FltkM7Hx4iE11FF4AsCXhcbJZOIVDVKVgS8TnfUclcd1Sty3gPk1t96mVO7YciAUXccFSE2QeUBMvrQ8IpSlhnROaMzivxhNkGVbeZ4lbbOGz/Zq0neQ0dDZwAAAABJRU5ErkJggg=="
+
+Apps.Fib.Front.when (event: App.Event) (state: (Pair U60 U60)) : IO (Pair U60 U60)
+// TODO: make pressing arrow keys move map
+Apps.Fib.Front.when (App.Event.key_down code) map_pos = 
+  let new_pos = Apps.Fib.Front.when.move_map map_pos code
+  do IO { return new_pos }
+
+Apps.Fib.Front.when event state = do IO {return state}
+
+Apps.Fib.Front.when.move_map (map_pos: Pair U60 U60) (code: U60) : Pair U60 U60
+Apps.Fib.Front.when.move_map map_pos 'w'  = Pair.map_snd map_pos ((y : U60 ) => U60.sub.saturated y 1)
+Apps.Fib.Front.when.move_map map_pos 'W'  = Pair.map_snd map_pos ((y : U60 ) => U60.sub.saturated y 1)
+Apps.Fib.Front.when.move_map map_pos 'a'  = Pair.map_fst map_pos ((x : U60 ) => U60.sub.saturated x 1)
+Apps.Fib.Front.when.move_map map_pos 'A'  = Pair.map_fst map_pos ((x : U60 ) => U60.sub.saturated x 1)
+Apps.Fib.Front.when.move_map map_pos 's'  = Pair.map_snd map_pos ((y : U60 ) => U60.min (- 160 Apps.Fib.Front.size_y) (+ y 1))
+Apps.Fib.Front.when.move_map map_pos 'S'  = Pair.map_snd map_pos ((y : U60 ) => U60.min (- 160 Apps.Fib.Front.size_y) (+ y 1))
+Apps.Fib.Front.when.move_map map_pos 'd'  = Pair.map_fst map_pos ((x : U60 ) => U60.min (- 160 Apps.Fib.Front.size_x) (+ x 1))
+Apps.Fib.Front.when.move_map map_pos 'D'  = Pair.map_fst map_pos ((x : U60 ) => U60.min (- 160 Apps.Fib.Front.size_x) (+ x 1))
+Apps.Fib.Front.when.move_map map_pos code = map_pos
+
+
+// Fib's state has:
+// - map: Apps.Fib.Map   // the game's map, a 160x160 grid
+// - tab: Apps.Fib.Table // an `EntityID -> Entity` map, where EntityID is a 12-bit key
+// What must be done is:
+//   for x from 0 to 160:
+//     for y from 0 to 160:
+//       entity = get x y from map
+//       switch entity:
+//         case 0   => draw grass
+//         case 1   => draw rock
+//         case 256 => draw dragon
+//         default  => draw poring
+
+Apps.Fib.Front : App (Pair U60 U60) {
+
+  // The initial state.
+  let init = Pair.new 0 0
+
+  // TODO: render the state as a map.
+  let draw = (state: (Pair U60 U60)) =>
+
+  let map_style = [
+    (Pair.new "width"  (String.concat (Show.to_string (U60.show (* Apps.Fib.Front.size_x Apps.Fib.Front.tile_size))) "px"))
+    (Pair.new "height" (String.concat (Show.to_string (U60.show (* Apps.Fib.Front.size_y Apps.Fib.Front.tile_size))) "px"))]
+  (App.DOM.node "div" [] map_style (Apps.Fib.Front.draw.map state))
+  // TODO: get the state from the blockchain.
+  let when = (event: App.Event) => (state: (Pair U60 U60)) => Apps.Fib.Front.when event state
+
+  App.new init draw when
+}
+
+
+
+
+Apps.Fib.Front.draw.map (state: (Pair U60 U60)) : List App.DOM 
+Apps.Fib.Front.draw.map (Pair.new t1 t2 x y) = Apps.Fib.Front.draw.map.lines Apps.Fib.Front.size_y x y
+
+Apps.Fib.Front.draw.map.lines (cy: U60) (x: U60) (y: U60) : List App.DOM
+Apps.Fib.Front.draw.map.lines  0 x y = []
+Apps.Fib.Front.draw.map.lines cy x y = 
+  let style = [
+    (Pair.new "width" (String.concat (Show.to_string (U60.show (* Apps.Fib.Front.size_x Apps.Fib.Front.tile_size))) "px"))
+    (Pair.new "height" ((U60.show Apps.Fib.Front.tile_size) "px"))
+  ]
+  let doms = Apps.Fib.Front.draw.map.tiles Apps.Fib.Front.size_x x y 
+  let dom  = (App.DOM.node "div" [] style doms)
+  List.cons dom (Apps.Fib.Front.draw.map.lines (- cy 1) x (+ y 1))
+
+Apps.Fib.Front.draw.map.tiles (cx: U60) (x: U60) (y: U60) : List App.DOM
+Apps.Fib.Front.draw.map.tiles 0  x y = []
+Apps.Fib.Front.draw.map.tiles cx x y = 
+  let seed = (+ y x)
+  let id   = U120.0
+  let dom  = Apps.Fib.Front.Draw.Entity id ((U60.show y) (String.cons '_' (Show.to_string (U60.show x)))) seed
+  List.cons dom (Apps.Fib.Front.draw.map.tiles (- cx 1) (+ x 1) y )

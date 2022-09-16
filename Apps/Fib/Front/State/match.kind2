@@ -1,0 +1,3 @@
+// Automatically derived from /home/derenash/Wikinder/Apps/Fib/Front/State/_.type
+Apps.Fib.Front.State.match (x: (Apps.Fib.Front.State)) -(p: (x: (Apps.Fib.Front.State)) Type) (new: (map_pos: (Pair U60 U60)) (fst_pos: (Maybe (Pair U60 U60))) (snd_pos: (Maybe (Pair U60 U60))) (input: String) (state: Apps.Fib.State) (p (Apps.Fib.Front.State.new map_pos fst_pos snd_pos input state))) : (p x)
+Apps.Fib.Front.State.match (Apps.Fib.Front.State.new map_pos_ fst_pos_ snd_pos_ input_ state_) p new = (new map_pos_ fst_pos_ snd_pos_ input_ state_)

@@ -1,0 +1,2 @@
+Apps.Fib.Front.State.get_pos_snd (s : Apps.Fib.Front.State) : Maybe (Pair U60 U60)
+Apps.Fib.Front.State.get_pos_snd (Apps.Fib.Front.State.new map_pos pos_fst pos_snd input state) = pos_snd
