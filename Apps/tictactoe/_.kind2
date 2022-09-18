@@ -1,0 +1,78 @@
+// Kind2 Demo App
+// ==============
+
+Apps.Demo.State : Type {
+  List (List String)
+}
+
+// The 'init' constant defines the initial state.
+Apps.Demo.init : Apps.Demo.State {
+   [["1" "2" "3" "4" "5" "6" "7" "8" "9"]]
+}
+
+// // The 'draw' function converts the state into an HTML element.
+Apps.Demo.draw (state: Apps.Demo.State) : App.DOM
+Apps.Demo.draw (List.cons (List String) array1 (List.nil (List String))) =
+    let square = (x : U60) =>
+    (App.DOM.node "button" [(Pair.new "className" "square")
+    (Pair.new "id" (Show.to_string (U60.show x)))] [] [
+      (App.DOM.text (Maybe.to_string (List.at String array1 (U60.to_nat x))))
+     ])
+  let status = (App.DOM.text "Next player: X")
+  let board =
+    (App.DOM.node "div" [] [] [
+      (App.DOM.node "div" [(Pair.new "className" "status")] [] [status]),
+      (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
+        (square 0),
+        (square 1),
+        (square 2),
+      ]),
+      (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
+        (square 3),
+        (square 4),
+        (square 5),
+      ]),
+      (App.DOM.node "div" [(Pair.new "className" "board-row")] [] [
+        (square 6),
+        (square 7),
+        (square 8),
+      ])
+    ])
+
+    // maybe.show show.to_string, match default
+
+(App.DOM.node "div" [(Pair.new "className" "game")] [] [
+  (App.DOM.node "div" [(Pair.new "className" "game-board")] [] [
+  board
+  ])
+  (App.DOM.node "div" [(Pair.new "className" "game-info")] [] [
+    (App.DOM.node "div"  [] [] [])
+    (App.DOM.node "ol"  [] [] [])
+
+  (App.DOM.text (Show.to_string (Show.many [
+    // (String.show text)
+  ])))
+    ])
+])
+
+// The 'when' function reacts to events. Can perform effects via IO, and may return a new state.
+Apps.Demo.when (event: App.Event) (state: Apps.Demo.State) : IO Apps.Demo.State
+Apps.Demo.when App.Event.init (matrix) = do IO {
+  return [["1" "2" "3" "4" "5" "6" "7" "8" "9"]]
+}
+Apps.Demo.when (App.Event.mouse_click id) state = do IO {
+  return [["1" "2" "3" "4" "5" "6" "7" id "9"]]
+}
+
+// Apps.Demo.when (App.Event.mouse_click id) state = ?
+Apps.Demo.when event state = do IO {
+  return state
+}
+
+// An App just combines the 'init', 'draw' and 'when' functions.
+Apps.Demo : App Apps.Demo.State {
+  (App.new
+    Apps.Demo.init
+    (state => Apps.Demo.draw state)
+    (event => state => Apps.Demo.when event state))
+}
