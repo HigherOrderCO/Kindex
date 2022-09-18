@@ -1,81 +1,23 @@
-Nat : Type
-Nat.zero: Nat 
-Nat.succ(pred: Nat): Nat 
+Pair (a: Type) (b: Type) : Type 
+Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b)
 
-// Doubles a number
-Nat.dbl (x: Nat): Nat 
-Nat.dbl Nat.zero = Nat.zero 
-Nat.dbl (Nat.succ x) = (Nat.succ (Nat.succ(Nat.dbl x)))
+// Swaps the elements of a pair
 
-// Addition
-Nat.add (x: Nat) (y: Nat) : Nat 
-Nat.add x Nat.zero = x
-Nat.add x (Nat.succ y) = (Nat.succ (Nat.add x y ))
+Pair.swap <a: Type> <b: Type> (pair: (Pair a b)) : (Pair b a)
+Pair.swap a b (Pair.new pair.a pair.b fst snd) = (Pair.new pair.b pair.a snd fst)
 
-// Multiplication
-Nat.mul (x: Nat) (y: Nat) : Nat 
-Nat.mul x Nat.zero = Nat.zero 
-Nat.mul x (Nat.succ y) = (Nat.add (Nat.mul x y) x)
+// Returns the first element of a pair
+Pair.first <a: Type> <b: Type> (pair: (Pair a b)) : a
+Pair.first a b (Pair.new pair.a pair.b fst snd) = fst
 
-// Subtraction
-Nat.sub (x: Nat) (y: Nat) : Nat 
-Nat.sub x Nat.zero = x 
-Nat.sub (Nat.succ x) (Nat.succ y) = (Nat.sub x y)
+// Returns the second element of a pair
+Pair.second <a: Type> <b: Type> (pair: (Pair a b)) : b
+Pair.second a b (Pair.new pair.a pair.b fst snd) = snd
 
-// Factorial
+// Creates a Pair from 2 element
+Pair.create <a: Type> <b: Type> (x: a) (y: b): (Pair a b)
+Pair.create a b x y = (Pair.new x y)
 
-Nat.fact (x: Nat): Nat 
-Nat.fact Nat.zero = (Nat.succ (Nat.zero))
-Nat.fact (Nat.succ x) = (Nat.mul (Nat.succ x) x)
-
-// Equal
-
-Bool: Type 
-Bool.true : Bool
-Bool.false : Bool 
-
-Nat.eql (x: Nat) (y: Nat) : Bool 
-Nat.eql Nat.zero Nat.zero = Bool.true 
-Nat.eql x Nat.zero = Bool.false 
-Nat.eql Nat.zero y = Bool.false 
-Nat.eql (Nat.succ x) (Nat.succ y) = (Nat.eql x y)
-
-// Greater than
-
-Nat.gtn (x: Nat) (y: Nat) : Bool 
-Nat.gtn x Nat.zero = Bool.true 
-Nat.gtn Nat.zero y = Bool.false 
-Nat.gtn (Nat.succ x) (Nat.succ y) = (Nat.gtn x y) 
-
-// Lower than
-
-Nat.ltn (x: Nat) (y: Nat) : Bool 
-Nat.ltn x Nat.zero = Bool.false 
-Nat.ltn Nat.zero y = Bool.true 
-Nat.ltn (Nat.succ x) (Nat.succ y) = (Nat.ltn x y)
-
-// Minimum
-
-Nat.min (x: Nat) (y: Nat) : Nat 
-Nat.min x y = (Bool.if Nat (Nat.ltn x y) x y)
-
-Bool.if <a: Type> (b: Bool) (t: a) (f: a) : a
-Bool.if a Bool.true  t f = t
-Bool.if a Bool.false t f = f
-
-// Maximum
-
-Nat.max (x: Nat) (y: Nat) : Nat 
-Nat.max x y = (Bool.if Nat (Nat.gtn x y) x y)
-
-// Divides a number by two
-
-Nat.half (x: Nat) : Nat 
-Nat.half Nat.zero = Nat.zero
-Nat.half (Nat.succ (Nat.succ x)) = (Nat.succ (Nat.half x)) 
-
-// Division
-
-Nat.div (x: Nat) (y: Nat): Nat 
-Nat.div Nat.zero y = Nat.zero 
-Nat.div x y = (Nat.succ (Nat.div (Nat.sub x y) y))
+// Applies a function to both elements of a Pair
+Pair.map <a: Type> <b: Type> (fn: (x: a) b) (pair: (Pair a a)) : (Pair b b)
+Pair.map a b fn (Pair.new pair.a pair.b fst snd) = (Pair.new (fn fst) (fn snd))
