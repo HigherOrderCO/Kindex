@@ -1,0 +1,53 @@
+PairBool: Type 
+PairBool.new (fst: Bool) (snd: Bool): PairBool 
+
+Bool: Type
+Bool.true : Bool 
+Bool.false : Bool 
+
+// Returns the first element of a pair
+
+PairBool.fst (x: PairBool): Bool 
+PairBool.fst (PairBool.new x y) = x
+
+// Returns the second element of a pair
+
+PairBool.snd (x: PairBool): Bool 
+PairBool.snd (PairBool.new x y) = y 
+
+// Returns true if both elements of a PairBool are identical
+
+PairBool.eql (x: PairBool): Bool 
+PairBool.eql (PairBool.new x y) = (Bool.eql x y)
+
+Bool.eql (x: Bool) (y: Bool): Bool 
+Bool.eql Bool.true y = y 
+Bool.eql Bool.false y = (Bool.not y)
+
+Bool.not (x: Bool): Bool 
+Bool.not Bool.true = Bool.false 
+Bool.not Bool.false = Bool.true 
+
+// Returns true if both Pairs are equal 
+PairBool.eqlo (x: PairBool) (y: PairBool): Bool 
+PairBool.eqlo (PairBool.new a b) (PairBool.new c d) = (Bool.and (Bool.eql a c) (Bool.eql b d ))
+
+Bool.and (x: Bool) (y: Bool): Bool 
+Bool.and Bool.true y = y
+Bool.and Bool.false y = Bool.false
+
+// Returns true if both Pairs are different
+PairBool.eqlo1 (x: PairBool) (y: PairBool): Bool
+PairBool.eqlo1 (PairBool.new a b) (PairBool.new c d) = (Bool.and (Bool.not (Bool.eql a c)) (Bool.not (Bool.eql b d)))
+
+// Creates a PairBool from 2 Booleans
+PairBool.Creates (x: Bool) (y: Bool): PairBool 
+PairBool.Creates x y = (PairBool.new x y)
+
+// Inverts the values of a PairBool
+PairBool.neg (x: PairBool): PairBool
+PairBool.neg (PairBool.new x y) = (PairBool.new (Bool.not x) (Bool.not y))
+
+// Inverts the 2 elements of a PairBool
+PairBool.swap (x: PairBool) : PairBool 
+PairBool.swap (PairBool.new x y) = (PairBool.new y x)
