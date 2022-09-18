@@ -1,0 +1,168 @@
+// //Verifies if it is an Empty Bit
+//is_empty(a)      -> Bool.false
+//is_empty(b)      -> Bool.false
+//is_empty(c)      -> Bool.false
+//is_empty(d)      -> Bool.false
+//is_empty(Bits.e) -> Bool.true
+Bits.is_empty  (b: Bits) : Bool
+Bits.is_empty  Bits.e = Bool.true
+Bits.is_empty  b      = Bool.false
+
+// //Gets the Tail of a Bits structure
+//tail(a) -> Bits.i(Bits.e)
+//tail(b) -> Bits.i(Bits.i(Bits.e))
+//tail(c) -> Bits.o(Bits.i(Bits.i(Bits.e)))
+//tail(d) -> Bits.i(Bits.i(Bits.i(Bits.e)))
+Bits.tail (b: Bits) : Bits
+Bits.tail Bits.e = Bits.e
+Bits.tail Bits.o b = b
+Bits.tail Bits.i b = b
+
+// //Negates all Bits
+//notb(a) -> Bits.o(Bits.o(Bits.e))
+//notb(b) -> Bits.i(Bits.o(Bits.o(Bits.e)))
+//notb(c) -> Bits.i(Bits.i(Bits.o(Bits.o(Bits.e))))
+//notb(d) -> Bits.o(Bits.o(Bits.o(Bits.o(Bits.e))))
+Bits.notb (b: Bits) : Bits
+Bits.notb Bits.e = Bits.e
+Bits.notb (Bits.o b) = Bits.i (Bits.notb b)
+Bits.notb (Bits.i b) = Bits.o (Bits.notb b)
+
+// //Increments a Bit
+//inc(a) -> Bits.o(Bits.o(Bits.i(Bits.e)))
+//inc(b) -> Bits.i(Bits.i(Bits.i(Bits.e)))
+//inc(c) -> Bits.i(Bits.o(Bits.i(Bits.i(Bits.e))))
+//inc(d) -> Bits.o(Bits.o(Bits.o(Bits.o(Bits.i(Bits.e)))))
+Bits.inc (b: Bits) : Bits
+Bits.inc Bits.e     = Bits.i (Bits.e)
+Bits.inc (Bits.o b) = Bits.i b
+Bits.inc (Bits.i b) = Bits.o (Bits.inc b)
+
+// //Decrements a Bit
+//dec(a) -> Bits.o(Bits.i(Bits.e))
+//dec(b) -> Bits.i(Bits.o(Bits.i(Bits.e)))
+//dec(c) -> Bits.i(Bits.i(Bits.o(Bits.i(Bits.e))))
+//dec(d) -> Bits.o(Bits.i(Bits.i(Bits.i(Bits.e))))
+Bits.dec (b: Bits) : Bits
+Bits.dec Bits.e              = Bits.e 
+Bits.dec (Bits.o (Bits.e))   = Bits.e
+Bits.dec (Bits.o (Bits.o b)) = (Bits.i (Bits.dec b))
+Bits.dec (Bits.o (Bits.i b)) = (Bits.i (Bits.dec b))
+Bits.dec (Bits.i (Bits.e))   = (Bits.o (Bits.e))
+Bits.dec (Bits.i (Bits.o b)) = Bits.o b
+Bits.dec (Bits.i (Bits.i b)) = Bits.o b
+
+// //Concatenate two Bits structures
+//concat(a,b) -> Bits.i(Bits.i(Bits.o(Bits.i(Bits.i(Bits.e)
+//concat(b,c) -> Bits.o(Bits.i(Bits.i(Bits.o(Bits.o(Bits.i(Bits.i(Bits.e)))))))
+//concat(c,d) -> Bits.o(Bits.o(Bits.i(Bits.i(Bits.i(Bits.i(Bits.i(Bits.i(Bits.e))))))))
+Bits.concat (a: Bits) (b: Bits) : Bits
+Bits.concat Bits.e     b = b
+Bits.concat (Bits.o a) b = (Bits.o(Bits.concat a b))
+Bits.concat (Bits.i a) b = (Bits.i(Bits.concat a b))
+
+// //Adds two Bits structures
+//add(a,b) -> Bits.i(Bits.o(Bits.o(Bits.i(Bits.e))))
+//add(b,c) -> Bits.o(Bits.i(Bits.o(Bits.o(Bits.i(Bits.e)))))
+//add(c,d) -> Bits.i(Bits.i(Bits.o(Bits.i(Bits.i(Bits.e)))))
+Bits.add  (a: Bits) (b: Bits) : Bits 
+Bits.add  Bits.e b = b 
+Bits.add  a Bits.e = a 
+Bits.add  (Bits.o a) (Bits.o b) =  (Bits.o( Bits.add a b))
+Bits.add  (Bits.o a) (Bits.i b) =  (Bits.i( Bits.add a b))
+Bits.add  (Bits.i a) (Bits.o b) =  (Bits.i( Bits.add a b))
+Bits.add  (Bits.i a) (Bits.i b) =  (Bits.o( Bits.add a (Bits.inc b)))
+
+// //Returns Bits.i if only both bits are Bits.i
+//and(a,b) -> Bits.o(Bits.i(Bits.e))
+//and(b,c) -> Bits.o(Bits.o(Bits.i(Bits.e)))
+//and(c,d) -> Bits.o(Bits.o(Bits.i(Bits.i(Bits.e))))
+Bits.and  (a: Bits) (b: Bits) : Bits
+Bits.and  Bits.e b = Bits.e
+Bits.and  a Bits.e = Bits.e
+Bits.and  (Bits.o a) (Bits.o b) = Bits.o(Bits.and a b)
+Bits.and  (Bits.o a) (Bits.i b) = Bits.o(Bits.and a b)
+Bits.and  (Bits.i a) (Bits.o b) = Bits.o(Bits.and a b)
+Bits.and  (Bits.i a) (Bits.i b) = Bits.i(Bits.and a b)
+
+// //Returns Bits.i if any of bits are Bits.i
+//or(a,b) -> Bits.i(Bits.i(Bits.e))
+//or(b,c) -> Bits.o(Bits.i(Bits.i(Bits.i(Bits.e))))
+//or(c,d) -> Bits.i(Bits.i(Bits.i(Bits.i(Bits.e))))
+Bits.or  (a: Bits) (b: Bits) : Bits
+Bits.or  Bits.e b = Bits.e
+Bits.or  a Bits.e = Bits.e
+Bits.or  (Bits.o a) (Bits.o b) = Bits.o(Bits.or a b)
+Bits.or  (Bits.o a) (Bits.i b) = Bits.i(Bits.or a b)
+Bits.or  (Bits.i a) (Bits.o b) = Bits.i(Bits.or a b)
+Bits.or  (Bits.i a) (Bits.i b) = Bits.i(Bits.or a b)
+
+// //Verifies if both Bit structures are equal
+//eql(a,b) -> Bool.false
+//eql(b,c) -> Bool.false
+//eql(d,d) -> Bool.true
+Bits.eql  (a: Bits) (b: Bits) : Bool
+Bits.eql  Bits.e      Bits.e    = Bool.true
+Bits.eql  (Bits.o a) (Bits.o b) = Bits.eql a b
+Bits.eql  (Bits.o a) (Bits.i b) = Bits.eql a b
+Bits.eql  (Bits.i a) (Bits.o b) = Bits.eql a b
+Bits.eql  (Bits.i a) (Bits.i b) = Bits.eql a b
+Bits.eql  a           b         = Bool.false
+
+// //Reverses a Bits structure
+// //reverse(a) -> Bits.i(Bits.i(Bits.e))
+// //reverse(b) -> Bits.i(Bits.i(Bits.o(Bits.e)))
+// //reverse(c) -> Bits.i(Bits.i(Bits.o(Bits.o(Bits.e))))
+// //reverse(d) -> Bits.i(Bits.i(Bits.i(Bits.i(Bits.e))))
+Bits.reverse(b: Bits): Bits
+Bits.reverse b = (Bits.reverse_go b Bits.e)
+
+Bits.reverse_go (b: Bits) (acum: Bits)  : Bits
+Bits.reverse_go Bits.e     acum = acum
+Bits.reverse_go (Bits.o b) acum = Bits.reverse_go b (Bits.o acum)
+Bits.reverse_go (Bits.i b) acum = Bits.reverse_go b (Bits.i acum)
+
+// //Gets the length of the Bits structure
+//length(a) -> Nat.succ(Nat.succ(Nat.zero))
+//length(b) -> Nat.succ(Nat.succ(Nat.succ(Nat.zero)))
+//length(c) -> Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.zero))))
+//length(d) -> Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.zero))))
+Bits.length (bs: Bits)  : Nat
+Bits.length bs = Bits.length_go  bs Nat.zero
+
+Bits.length_go  (bs: Bits)  (acum: Nat) : Nat
+Bits.length_go Bits.e      acum = acum
+Bits.length_go (Bits.o bs) acum = Bits.length_go bs (Nat.succ acum)
+Bits.length_go (Bits.i bs) acum = Bits.length_go bs (Nat.succ acum)
+
+
+// //Multiplies two Bits structures
+// 0 x 0 = 0
+// 0 x 1 = 0
+// 1 x 0 = 0
+// 1 x 1 = 1
+//mul(a,b) -> Bits.o(Bits.i(Bits.o(Bits.o(Bits.i(Bits.e)))))
+//mul(b,c) -> Bits.o(Bits.o(Bits.o(Bits.i(Bits.o(Bits.o(Bits.i(Bits.e)))))))
+
+
+// //Drops a n Number of Bits starting from from the least significative bit
+//drop(1, a) -> Bits.i(Bits.e)
+//drop(1, b) -> Bits.i(Bits.i(Bits.e))
+//drop(1, c) -> Bits.o(Bits.i(Bits.i(Bits.e)))
+//drop(1, d) -> Bits.i(Bits.i(Bits.i(Bits.e)))
+Bits.drop (n: Nat)  (bs: Bits) : Bits
+Bits.drop Nat.zero     bs     = bs
+Bits.drop (Nat.succ n) Bits.e = Bits.e
+Bits.drop (Nat.succ n) (Bits.o bs) = (Bits.drop n bs)
+Bits.drop (Nat.succ n) (Bits.i bs) = (Bits.drop n bs)
+
+// //Takes n Bits from the structure, starting from the least significative bit
+//take(1, a) -> Bits.i(Bits.e)
+//take(2, b) -> Bits.o(Bits.i(Bits.e))
+//take(3, c) -> Bits.o(Bits.o(Bits.i(Bits.e)))
+//take(4, d) -> Bits.i(Bits.i(Bits.i(Bits.i(Bits.e))))
+Bits.take (n: Nat)  (bs: Bits)  : Bits
+Bits.take Nat.zero      bs          = Bits.e
+Bits.take (Nat.succ n)  (Bits.o bs) = (Bits.o (Bits.take n bs))
+Bits.take (Nat.succ n)  (Bits.i bs) = (Bits.i (Bits.take n bs))
+Bits.take (Nat.succ n)  Bits.e      = Bits.e
