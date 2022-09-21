@@ -1,0 +1,2 @@
+// Automatically derived from Data/BaseTree/Base/Qui/_.type
+Data.BaseTree.Base.Qui.1 #Bt_base_q1 <r: Type> (pred: r) : (Data.BaseTree.Base.Qui r)

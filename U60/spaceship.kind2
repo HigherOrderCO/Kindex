@@ -1,0 +1,8 @@
+// Decides if x is Greater, Lesser, or Equal to y
+U60.spaceship (x: U60) (y: U60) : Cmp
+U60.spaceship x y = (U60.spaceship.aux (< x y) (> x y))
+
+  U60.spaceship.aux (b1: U60) (b2: U60) : Cmp
+  U60.spaceship.aux 0 0 = Cmp.eql
+  U60.spaceship.aux b 0 = Cmp.ltn
+  U60.spaceship.aux 0 b = Cmp.gtn

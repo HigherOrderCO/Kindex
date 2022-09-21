@@ -1,0 +1,2 @@
+// Automatically derived from Data/PairingHeap/_.type
+Data.PairingHeap.tree (elem: U60) (children: (List Data.PairingHeap)) : (Data.PairingHeap)

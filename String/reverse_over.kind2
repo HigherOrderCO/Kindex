@@ -1,0 +1,4 @@
+// Returns ((reverse src) ++ dest)
+String.reverse_over (src: String) (dest: String) : String
+String.reverse_over  String.nil               dest = dest
+String.reverse_over (String.cons src.h src.t) dest = String.reverse_over src.t (String.cons src.h dest)

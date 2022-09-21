@@ -1,0 +1,18 @@
+Data.BaseTree.get #Bt_get <val: Type> (bases: List Data.BaseTree.Base) (key: Data.BaseTree.Key bases) (map: Data.BaseTree bases val): val
+Data.BaseTree.get val (List.cons r h t) key map = Data.BaseTree.get.aux val h t key map
+
+Data.BaseTree.get.aux #Bt_get0 <val: Type> (head: Data.BaseTree.Base) (tail: List Data.BaseTree.Base) (key: Data.BaseTree.Key (List.cons head tail)) (map: Data.BaseTree (List.cons head tail) val): val
+Data.BaseTree.get.aux val Data.BaseTree.Base.2 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Bin.0 x y) (Data.BaseTree.Bin.tie z b0 b1) = b0
+Data.BaseTree.get.aux val Data.BaseTree.Base.2 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Bin.1 x y) (Data.BaseTree.Bin.tie z b0 b1) = b1
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Qui.0 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = b0
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Qui.1 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = b1
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Qui.2 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = b2
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Qui.3 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = b3
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Qui.4 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = b4
+Data.BaseTree.get.aux val Data.BaseTree.Base.2 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Bin.0 x y) (Data.BaseTree.Bin.tie z b0 b1) = Data.BaseTree.get.aux val h c y b0
+Data.BaseTree.get.aux val Data.BaseTree.Base.2 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Bin.1 x y) (Data.BaseTree.Bin.tie z b0 b1) = Data.BaseTree.get.aux val h c y b1
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Qui.0 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = Data.BaseTree.get.aux val h c y b0
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Qui.1 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = Data.BaseTree.get.aux val h c y b1
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Qui.2 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = Data.BaseTree.get.aux val h c y b2
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Qui.3 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = Data.BaseTree.get.aux val h c y b3
+Data.BaseTree.get.aux val Data.BaseTree.Base.5 (List.cons Data.BaseTree.Base h c) (Data.BaseTree.Base.Qui.4 x y) (Data.BaseTree.Qui.tie z b0 b1 b2 b3 b4) = Data.BaseTree.get.aux val h c y b4

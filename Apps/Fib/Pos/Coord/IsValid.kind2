@@ -1,0 +1,4 @@
+// A U120 coordinate is valid if it is less than 160
+Apps.Fib.Pos.Coord.IsValid #Fib_pos_cova (coord: U120) : Type
+//Apps.Fib.Pos.Coord.IsValid (U120.new 0 0) = Unit
+Apps.Fib.Pos.Coord.IsValid coord = U120.IsLessThan coord (U120.new 0 160)

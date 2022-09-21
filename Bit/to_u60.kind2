@@ -1,0 +1,3 @@
+Bit.to_u60 (bit: Bit): U60
+Bit.to_u60 (Bit.0) = 0
+Bit.to_u60 (Bit.1) = 1

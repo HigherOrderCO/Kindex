@@ -1,0 +1,33 @@
+Apps.Fib.Player : Type {
+  Apps.Fib.Entity
+}
+
+//         2174634716 000000000000000000000000000010000001100111100100101011011100
+// 113313552593458289 000110010010100100100001001101100010100100100001010001110001
+// |000000|000000|000000|000000|000010|000001|100111100100|101011011100|00|01|1001001010010010|000100110110|001010010010|00010100|01110001
+
+// Char:
+// xy: u16 - Position
+// xp: u12 - Experience
+// hp: u12 - Current HP
+// of: u16 - Sell offer
+// rt: u2  - Root counter
+// sl: u2  - Silence counter
+// gd: u12 - Gold, kgt amount stored in a character 
+// cd: u12 - Cooldown, when is the next turn that player can move
+// skills:
+// - skill_0: u6
+// - skill_1: u6
+// - skill_2: u6
+// - skill_3: u6
+// - skill_4: u6
+// - skill_5: u6
+
+// type sell: 16 bits
+// -  4 bits : skill_id
+// - 12 bits : float_12
+// type float_12: 12 bits
+// - 4 bits mantissa (m)
+// - 8 bits exponent (e)
+// - value = (1/m) * 2 ^ (1 + e)
+// - https://gist.githubusercontent.com/VictorTaelin/81c3f6fffaaf14573728b3100d3d3535/raw/67b5389ffec79edd97fef1203dbce8501cf23649/12-bit-unsigned-floating-point-values.txt

@@ -1,3 +1,0 @@
-Apps.Fib.Board.Key : Type {
-  Apps.Fib.Map.Key Apps.Fib.Board.Bases
-}

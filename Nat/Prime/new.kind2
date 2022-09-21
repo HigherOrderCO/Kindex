@@ -1,0 +1,17 @@
+// The only way a number "p" is prime is if for all natural numbers "d"
+// either d == 0 (becuase p % d is undefined)
+// either d == 1
+// either d == p
+// p mod d != 0
+
+Nat.Prime.new 
+	(value: Nat)
+	(proof: (Quantifier.Forall Nat 
+		(divisor => (Either (Either (Either
+				(Equal divisor Nat.zero)
+				(Equal divisor (Nat.succ Nat.zero))) 
+				(Equal divisor Two))
+				(Not (Equal Nat.zero (Nat.mod value divisor)))
+			))
+	))
+: Nat.Prime

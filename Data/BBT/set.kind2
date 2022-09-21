@@ -1,0 +1,34 @@
+Data.BBT.set<k> <v>
+  (cmp: k -> k -> Cmp)
+  (key: k) 
+  (val: v) 
+  (map: Data.BBT k v)
+: Data.BBT k v {
+  match Data.BBT map {
+    tip => Data.BBT.singleton k v key val
+    bin => 
+      let comp = (cmp key map.key)
+      match Cmp comp {
+        // if key < map.key, the new value should go into the left subtree
+        ltn =>  
+          let new_key   = map.key 
+          let new_val   = map.val 
+          let new_left  = Data.BBT.set k v cmp key val map.left
+          let new_right = map.right 
+          Data.BBT.balance k v new_key new_val new_left new_right
+      // `val` is already in the map, so how do we proceed? 
+      // if we decide to simply return the map unchanged, we are
+      // ignoring the case where other fields of `val`, which are not 
+      // used in the comparison function, might have changed
+      // this comes at some extra cost, of course
+        eql => Data.BBT.node k v key val map.left map.right
+      // if key > map.key, the new value should go into the right subtree
+        gtn =>  
+          let new_key = map.key 
+          let new_val = map.val  
+          let new_left = map.left 
+          let new_right = Data.BBT.set k v cmp key val map.right
+          Data.BBT.balance k v new_key new_val new_left new_right
+      }
+  }
+}

@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Semigroup/_.type
+Algebra.Semigroup.new <t: Type> (magma: (Algebra.Magma t)) (associativity: (Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))) : (Algebra.Semigroup t)

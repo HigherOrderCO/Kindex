@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Bin/_.type
+Data.BaseTree.Bin.tie #Bt_bin_tie <r: Type> (b0: r) (b1: r) : (Data.BaseTree.Bin r)

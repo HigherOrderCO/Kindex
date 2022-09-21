@@ -1,0 +1,2 @@
+// Automatically derived from Algebra/Magma/_.type
+Algebra.Magma.new <t: Type> (concat: (_: t) (_: t) t) : (Algebra.Magma t)

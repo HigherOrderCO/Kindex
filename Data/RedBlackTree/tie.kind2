@@ -1,0 +1,2 @@
+// Automatically derived from Data/RedBlackTree/_.type
+Data.RedBlackTree.tie <k: Type> <v: Type> (color: Data.RedBlackTree.Color) (left: (Data.RedBlackTree k v)) (key: k) (val: v) (right: (Data.RedBlackTree k v)) (comp: (_: k) (_: k) Cmp) : (Data.RedBlackTree k v)

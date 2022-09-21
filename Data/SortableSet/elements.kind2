@@ -1,0 +1,2 @@
+Data.SortableSet.elements <a: Type> (set: (Data.SortableSet a)) : (List a)
+Data.SortableSet.elements t1 (Data.SortableSet.new t2 count elem comp) = (List.flatten elem)

@@ -1,0 +1,12 @@
+// dx and dy are the differences between your position and your target
+// 4 bits each
+// most significant bit determines signal
+// 1 = negative
+// 0 = positive
+// The 3 remaning bits are used for the value of x or y
+Apps.Fib.Interact.skill #Fib_it_sk (id: Apps.Fib.Id) (skill: U120) (dx: U120) (dy: U120) : U120 { 
+  let comm    = (U120.add (U120.new 0 2) skill)
+  let data    = (U120.add (U120.shift_left dy (U120.new 0 4)) dx) 
+  let action  = (U120.add id (U120.add (U120.shift_left comm (U120.new 0 12)) (U120.shift_left data (U120.new 0 16))))
+  action
+}

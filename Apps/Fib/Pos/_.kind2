@@ -1,0 +1,3 @@
+Apps.Fib.Pos : Type {
+  [value: U120] (Apps.Fib.Pos.Value.IsValid value)
+}

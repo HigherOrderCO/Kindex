@@ -1,0 +1,2 @@
+Data.BinomialHeap : Type
+Data.BinomialHeap = (List Data.BinomialHeap.Node)

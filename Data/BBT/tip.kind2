@@ -1,0 +1,2 @@
+// Automatically derived from Data/BBT/_.type
+Data.BBT.tip <k: Type> <v: Type> : (Data.BBT k v)

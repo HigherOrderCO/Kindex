@@ -1,0 +1,3 @@
+// Inserts an element to a heap
+Data.LeftistHeap.insert (x: U60) (h: Data.LeftistHeap) : Data.LeftistHeap
+Data.LeftistHeap.insert x h = (Data.LeftistHeap.merge (Data.LeftistHeap.singleton x) h)

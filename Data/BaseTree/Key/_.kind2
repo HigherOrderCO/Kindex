@@ -1,0 +1,4 @@
+Data.BaseTree.Key (r: List Data.BaseTree.Base) : Type
+Data.BaseTree.Key (List.nil t)                          = Unit
+Data.BaseTree.Key (List.cons t Data.BaseTree.Base.2 bs) = Data.BaseTree.Base.Bin (Data.BaseTree.Key bs)
+Data.BaseTree.Key (List.cons t Data.BaseTree.Base.5 bs) = Data.BaseTree.Base.Qui (Data.BaseTree.Key bs)

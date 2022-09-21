@@ -5,13 +5,13 @@ TypeOf (u: U60): Kind.Term
 // and function that would lead the type checker to not be able
 // to type check FN8 and FN7 (because they would have 9 and 10
 // parameters respectively).
-Kind.Checker.infer_args (args: Kind.Term): U60 -> U60 -> Kind.Term
+Kind.Checker.infer_args (args: Kind.Term): Kind.Term -> U60 -> Kind.Term
 
-Kind.Checker.infer_args (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6) = ctid => orig =>
-  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5) x6
+Kind.Checker.infer_args (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14) = term => orig =>
+  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13) x14
 
-Kind.Checker.infer_args (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7) = ctid => orig =>
-  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7
+Kind.Checker.infer_args (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = term => orig =>
+  Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13) x14) x15
 
 // Tries to discover a type for a term.
 Kind.Checker.infer (term: Kind.Term): Kind.Checker Kind.Term
@@ -37,7 +37,7 @@ Kind.Checker.infer (Kind.Term.all orig name type body) =
   do Kind.Checker {
     ask depth = Kind.Checker.get_depth
     ask Kind.Checker.check type (Kind.Term.typ orig)
-    ask Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name depth)) (Kind.Term.typ orig)) name type []
+    ask Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name depth)) (Kind.Term.typ orig)) name (Kind.Term.eval type) []
     return (Kind.Term.typ orig)
   }
 
@@ -49,19 +49,17 @@ Kind.Checker.infer (Kind.Term.lam orig name body) =
 
 Kind.Checker.infer (Kind.Term.app orig func argm) =
   do Kind.Checker {
-    ask subst    = Kind.Checker.get_subst
-    ask func_typ = Kind.Checker.infer func
-    (Kind.Term.if_all func_typ
-      (func_orig => func_name => func_type => func_body =>
-        do Kind.Checker {
-          ask Kind.Checker.check argm func_type
-          return (func_body (Kind.Term.eval argm))
-        }
-      )
+    ask fn_infer = Kind.Checker.infer func
+    ask ap_infer = (Kind.Checker.infer.forall fn_infer
+      (fn_orig => fn_name => fn_type => fn_body => do Kind.Checker {
+        ask Kind.Checker.check argm fn_type
+        return (fn_body (Kind.Term.eval argm))
+      })
       (do Kind.Checker {
         ask ctx = Kind.Checker.get_context
         (Kind.Checker.fail (Kind.Error.invalid_call ctx orig))
       }))
+    return ap_infer
   }
 
 Kind.Checker.infer (Kind.Term.let orig name expr body) =
@@ -74,12 +72,33 @@ Kind.Checker.infer (Kind.Term.let orig name expr body) =
 
 Kind.Checker.infer (Kind.Term.ann orig expr type) =
   do Kind.Checker {
-    ask Kind.Checker.check expr (Kind.Term.eval type)
+    let type = Kind.Term.eval type
+    ask Kind.Checker.check expr type
     return type
   }
 
+Kind.Checker.infer (Kind.Term.sub orig name indx redx expr) =
+  do Kind.Checker {
+    ask dep = Kind.Checker.get_depth
+    ask got = Kind.Checker.find indx Maybe.none (n => t => v => Maybe.some (Pair.new t v))
+    match Maybe got {
+      none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
+      some => match Pair got.value {
+        new => do Kind.Checker {
+          match Maybe reduction = List.at.u60 got.value.snd redx {
+            none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
+            some => do Kind.Checker {
+              ask expr_typ = Kind.Checker.infer expr
+              return Kind.Term.eval (Kind.Term.replace expr_typ indx reduction.value)
+            }
+          }
+        }
+      }
+    }
+  }
+
 Kind.Checker.infer (Kind.Term.ct0 ctid orig) =
-  Kind.Checker.pure (TypeOf ctid)
+  Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
 
 Kind.Checker.infer (Kind.Term.ct1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0)
@@ -99,42 +118,90 @@ Kind.Checker.infer (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4) =
 Kind.Checker.infer (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5)
 
-Kind.Checker.infer (Kind.Term.ct7 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+Kind.Checker.infer (Kind.Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6)
 
-Kind.Checker.infer (Kind.Term.ct8 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+Kind.Checker.infer (Kind.Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7)
 
-Kind.Checker.infer (Kind.Term.fn0 ctid orig) =
-  Kind.Checker.pure (TypeOf ctid)
+Kind.Checker.infer (Kind.Term.ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8)
 
-Kind.Checker.infer (Kind.Term.fn1 ctid orig x0) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0)
+Kind.Checker.infer (Kind.Term.ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9)
 
-Kind.Checker.infer (Kind.Term.fn2 ctid orig x0 x1) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1)
+Kind.Checker.infer (Kind.Term.ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10)
 
-Kind.Checker.infer (Kind.Term.fn3 ctid orig x0 x1 x2) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2)
+Kind.Checker.infer (Kind.Term.ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11)
 
-Kind.Checker.infer (Kind.Term.fn4 ctid orig x0 x1 x2 x3) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3)
+Kind.Checker.infer (Kind.Term.ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12)
 
-Kind.Checker.infer (Kind.Term.fn5 ctid orig x0 x1 x2 x3 x4) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4)
+Kind.Checker.infer (Kind.Term.ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13)
 
-Kind.Checker.infer (Kind.Term.fn6 ctid orig x0 x1 x2 x3 x4 x5) =
-  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 ctid orig) x0) x1) x2) x3) x4) x5)
+Kind.Checker.infer (Kind.Term.ct15 ctid orig x0) =
+  let expr = Kind.Checker.infer_args x0
+  Kind.Checker.infer (expr (Kind.Term.ct0 ctid orig) orig)
 
-Kind.Checker.infer (Kind.Term.fn7 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+Kind.Checker.infer (Kind.Term.ct16 ctid orig x0) =
+  let expr = Kind.Checker.infer_args x0
+  Kind.Checker.infer (expr (Kind.Term.ct0 ctid orig) orig)
 
-Kind.Checker.infer (Kind.Term.fn8 ctid orig args) =
-  let expr = Kind.Checker.infer_args args
-  Kind.Checker.infer (expr ctid orig)
+Kind.Checker.infer (Kind.Term.fn0 fnid orig) =
+  Kind.Checker.pure (Kind.Term.eval (TypeOf fnid))
+
+Kind.Checker.infer (Kind.Term.fn1 fnid orig x0) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0)
+
+Kind.Checker.infer (Kind.Term.fn2 fnid orig x0 x1) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1)
+
+Kind.Checker.infer (Kind.Term.fn3 fnid orig x0 x1 x2) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2)
+
+Kind.Checker.infer (Kind.Term.fn4 fnid orig x0 x1 x2 x3) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3)
+
+Kind.Checker.infer (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4)
+
+Kind.Checker.infer (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5)
+
+Kind.Checker.infer (Kind.Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6)
+
+Kind.Checker.infer (Kind.Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7)
+
+Kind.Checker.infer (Kind.Term.fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8)
+
+Kind.Checker.infer (Kind.Term.fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9)
+
+Kind.Checker.infer (Kind.Term.fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10)
+
+Kind.Checker.infer (Kind.Term.fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11)
+
+Kind.Checker.infer (Kind.Term.fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12)
+
+Kind.Checker.infer (Kind.Term.fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) =
+  Kind.Checker.infer (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13)
+
+Kind.Checker.infer (Kind.Term.fn15 fnid orig x0) =
+  let expr = Kind.Checker.infer_args x0
+  Kind.Checker.infer (expr (Kind.Term.fn0 fnid orig) orig)
+
+Kind.Checker.infer (Kind.Term.fn16 fnid orig x0) =
+  let expr = Kind.Checker.infer_args x0
+  Kind.Checker.infer (expr (Kind.Term.fn0 fnid orig) orig)
 
 Kind.Checker.infer (Kind.Term.hlp orig) =
   do Kind.Checker {
@@ -154,3 +221,17 @@ Kind.Checker.infer (Kind.Term.op2 orig oper left right) =
     ask Kind.Checker.check right (Kind.Term.u60 0)
     return Kind.Term.u60 0
   }
+
+Kind.Checker.infer.forall <r> (term: Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
+Kind.Checker.infer.forall r (Kind.Term.all orig name type body) then_fn else_val = then_fn orig name type body
+Kind.Checker.infer.forall r (Kind.Term.var orig name index) then_fn else_val = do Kind.Checker {
+  ask reducs = Kind.Checker.find index [] (n => t => v => v)
+  ask result = Kind.Checker.infer.forall.try_values r reducs then_fn else_val
+  return result
+}
+Kind.Checker.infer.forall r other then_fn else_val = else_val
+
+Kind.Checker.infer.forall.try_values <r> (terms: List Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
+Kind.Checker.infer.forall.try_values r (List.cons (Kind.Term.all orig name type body) terms) then_fn else_val = then_fn orig name type body
+Kind.Checker.infer.forall.try_values r (List.cons other                               terms) then_fn else_val = Kind.Checker.infer.forall.try_values r terms then_fn else_val
+Kind.Checker.infer.forall.try_values r List.nil                                              then_fn else_val = else_val

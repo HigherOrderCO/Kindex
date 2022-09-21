@@ -1,0 +1,3 @@
+Apps.Fib.Id.empty #Fib_id_empty : U120 {
+  U120.new 0 0
+}

@@ -1,4 +1,4 @@
 U60.min (a: U60) (b: U60): U60 {
-  if (U60.ltn a b) { a }
+  if (U60.less_than a b) { a }
   else       { b }
 }

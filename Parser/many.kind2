@@ -1,0 +1,14 @@
+// Applies a parser repeatedly until it fails
+// Returns a list of all results
+Parser.many <a> (prs: Parser a) : Parser (List a) {
+  do Parser {
+    ask mh = Parser.try prs
+    match Maybe mh {
+      none => Parser.pure []
+      some => do Parser {
+        ask tail = Parser.many prs
+        return List.cons mh.value tail
+      }
+    }
+  }
+}

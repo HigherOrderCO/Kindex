@@ -1,0 +1,106 @@
+Data.RedBlackTree.balance <k: Type> <v: Type>
+  (color : Data.RedBlackTree.Color)
+  (left  : Data.RedBlackTree k v)
+  (key   : k)
+  (value : v)
+  (right : Data.RedBlackTree k v)
+  (comp  : k -> k -> Cmp)
+: (Data.RedBlackTree k v)
+
+Data.RedBlackTree.balance k1 v1
+  Data.RedBlackTree.Color.black
+  (Data.RedBlackTree.tie k2 v2
+    Data.RedBlackTree.Color.red
+    (Data.RedBlackTree.tie k3 v3 Data.RedBlackTree.Color.red child0 key0 value0 child1 comp0)
+    key1
+    value1
+    child2
+    comp1
+  )
+  key2
+  value2
+  child3
+  comp2
+=
+  (Data.RedBlackTree.tie
+    Data.RedBlackTree.Color.red
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child0 key0 value0 child1 comp0)
+    key1
+    value1
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child2 key2 value2 child3 comp2)
+    comp1
+  )
+
+Data.RedBlackTree.balance k1 v1
+  Data.RedBlackTree.Color.black
+  (Data.RedBlackTree.tie k2 v2
+    Data.RedBlackTree.Color.red
+    child0
+    key0
+    value0
+    (Data.RedBlackTree.tie k3 v3 Data.RedBlackTree.Color.red child1 key1 value1 child2 comp1)
+    comp0
+  )
+  key2
+  value2
+  child3
+  comp2
+=
+  (Data.RedBlackTree.tie
+    Data.RedBlackTree.Color.red
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child0 key0 value0 child1 comp0)
+    key1
+    value1
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child2 key2 value2 child3 comp2)
+    comp1
+  )
+
+Data.RedBlackTree.balance k1 v1
+  Data.RedBlackTree.Color.black
+  child0
+  key0
+  value0
+  (Data.RedBlackTree.tie k2 v2
+    Data.RedBlackTree.Color.red
+    (Data.RedBlackTree.tie k3 v3 Data.RedBlackTree.Color.red child1 key1 value1 child2 comp1)
+    key2
+    value2
+    child3
+    comp2
+  )
+  comp0
+=
+  (Data.RedBlackTree.tie
+    Data.RedBlackTree.Color.red
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child0 key0 value0 child1 comp0)
+    key1
+    value1
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child2 key2 value2 child3 comp2)
+    comp1
+  )
+
+Data.RedBlackTree.balance k1 v1
+  Data.RedBlackTree.Color.black
+  child0
+  key0
+  value0
+  (Data.RedBlackTree.tie k2 v2
+    Data.RedBlackTree.Color.red
+    child1
+    key1
+    value1
+    (Data.RedBlackTree.tie k3 v3 Data.RedBlackTree.Color.red child2 key2 value2 child3 comp2)
+    comp1
+  )
+  comp0
+=
+  (Data.RedBlackTree.tie
+    Data.RedBlackTree.Color.red
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child0 key0 value0 child1 comp0)
+    key1
+    value1
+    (Data.RedBlackTree.tie Data.RedBlackTree.Color.black child2 key2 value2 child3 comp2)
+    comp1
+  )
+
+Data.RedBlackTree.balance k v color left key value right comp = Data.RedBlackTree.tie color left key value right comp

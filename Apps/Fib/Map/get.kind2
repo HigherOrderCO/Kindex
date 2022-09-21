@@ -1,18 +1,13 @@
-Apps.Fib.Map.get <val: Type> (bases: List Apps.Fib.Map.Base) (key: Apps.Fib.Map.Key bases) (map: Apps.Fib.Map bases val): val
-Apps.Fib.Map.get val (List.cons r h t) key map = Apps.Fib.Map.get.aux val h t key map
+Apps.Fib.Map.get #Fib_map_get (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Apps.Fib.Id {
+  let keys = Apps.Fib.Map.get.chunk map pos
+  match Pair keys {
+    new => Apps.Fib.Map.get_tile keys.fst keys.snd
+  }
+}
 
-Apps.Fib.Map.get.aux <val: Type> (head: Apps.Fib.Map.Base) (tail: List Apps.Fib.Map.Base) (key: Apps.Fib.Map.Key (List.cons head tail)) (map: Apps.Fib.Map (List.cons head tail) val): val
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.2 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Bin.0 x y) (Apps.Fib.Map.Bin.tie z b0 b1) = b0
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.2 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Bin.1 x y) (Apps.Fib.Map.Bin.tie z b0 b1) = b1
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Qui.0 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = b0
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Qui.1 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = b1
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Qui.2 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = b2
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Qui.3 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = b3
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.nil Apps.Fib.Map.Base) (Apps.Fib.Map.Base.Qui.4 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = b4
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.2 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Bin.0 x y) (Apps.Fib.Map.Bin.tie z b0 b1) = Apps.Fib.Map.get.aux val h c y b0
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.2 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Bin.1 x y) (Apps.Fib.Map.Bin.tie z b0 b1) = Apps.Fib.Map.get.aux val h c y b1
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Qui.0 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = Apps.Fib.Map.get.aux val h c y b0
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Qui.1 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = Apps.Fib.Map.get.aux val h c y b1
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Qui.2 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = Apps.Fib.Map.get.aux val h c y b2
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Qui.3 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = Apps.Fib.Map.get.aux val h c y b3
-Apps.Fib.Map.get.aux val Apps.Fib.Map.Base.5 (List.cons Apps.Fib.Map.Base h c) (Apps.Fib.Map.Base.Qui.4 x y) (Apps.Fib.Map.Qui.tie z b0 b1 b2 b3 b4) = Apps.Fib.Map.get.aux val h c y b4
+Apps.Fib.Map.get.chunk #Fib_map_getc (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Pair U120 U120 {
+  let keys  = Apps.Fib.Map.Key.from_pos pos
+  let chunk = Data.BaseTree.get U120 Apps.Fib.Map.Bases (Pair.fst keys) map 
+  let idx   = Pair.snd keys
+  Pair.new chunk idx
+}

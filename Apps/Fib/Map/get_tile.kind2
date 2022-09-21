@@ -1,0 +1,3 @@
+Apps.Fib.Map.get_tile #Fib_map_gtil (chunk: U120) (idx: U120) : Apps.Fib.Id {  
+  U120.bitwise_and (U120.shift_right chunk (U120.mul idx (U120.new 0 12))) (U120.new 0 4095)
+}

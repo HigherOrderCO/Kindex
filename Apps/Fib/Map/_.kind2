@@ -1,4 +1,3 @@
-Apps.Fib.Map (k: List Apps.Fib.Map.Base) (v: Type) : Type
-Apps.Fib.Map (List.nil k)            v = v
-Apps.Fib.Map (List.cons k Apps.Fib.Map.Base.2 bs) v = Apps.Fib.Map.Bin (Apps.Fib.Map bs v)
-Apps.Fib.Map (List.cons k Apps.Fib.Map.Base.5 bs) v = Apps.Fib.Map.Qui (Apps.Fib.Map bs v)
+Apps.Fib.Map : Type {
+  Data.BaseTree Apps.Fib.Map.Bases U120
+}
