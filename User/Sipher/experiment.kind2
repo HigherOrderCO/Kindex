@@ -102,7 +102,7 @@ Provas.t23 Nat.zero Nat.zero e =
   Equal.refl Nat Nat.zero
 Provas.t23 Nat.zero (Nat.succ m.pred) e =
   let aux = Provas.t28_2
-   Empty.absurd (aux e)
+  Empty.absurd (aux e)
 Provas.t23 (Nat.succ n.pred) Nat.zero e = 
   let aux = Provas.t28_2
   Empty.absurd (aux e)

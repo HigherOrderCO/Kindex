@@ -1,10 +1,12 @@
-//           e  
-//        /     \
+//           e          /     \
 //       0       1
 //      /  \    / \
 //     0    1  0   1
 //    / \  / \/ \ / \
 
+State {
+  new (last_mint: U120 , balances: Data.PatriciaTree)
+}
 
 
 //Bits.o Bits.e         = Corgan       - 100
@@ -392,14 +394,14 @@ User.Sipher.nday
 :Equal Nat (Nat.add (User.Sipher.map_total_value left_map) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.set Nat right_map from (Nat.sub got_from value))  to Nat.zero (x=>(Nat.add value x))))) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.none Nat) left_map (Bits.Map.set Nat right_map from (Nat.sub got_from value))) to Nat.zero (x=>(Nat.add value x))))
 User.Sipher.nday Bits.e Bits.e  (Bits.Map.new t) left_map got_from value gtn e1 =
   User.Sipher.nday_aux Bits.e Bits.e (Bits.Map.new t) left_map got_from value gtn e1
-User.Sipher.nday Bits.e Bits.e (Bits.Map.tie t mapval rleft rright) left_map got_from value gtn e1 = 
-  let aux = User.Sipher.nday_aux Bits.e Bits.e (Bits.Map.tie t mapval rleft rright) left_map got_from value gtn e1 
-  let app = Equal.apply (x => Nat.add x (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))) aux
-  let zer = Equal.mirror (Nat.add.comm.zero (Nat.add value (Nat.sub got_from value)))
-  let rew = Equal.rewrite zer (k => (Equal Nat (Nat.add (Nat.add (User.Sipher.map_total_value left_map) k) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))) (Nat.add (Nat.add (Nat.add value Nat.zero) (Nat.add (User.Sipher.map_total_value left_map) (Nat.add (Nat.sub got_from value) Nat.zero))) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))))) app
-  let com = Equal.mirror(Nat.add.comm (User.Sipher.map_total_value left_map)  (Nat.add (Nat.add value (Nat.sub got_from value)) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))))
-  let mir = Equal.mirror rew
-  ?
+//User.Sipher.nday Bits.e Bits.e (Bits.Map.tie t mapval rleft rright) left_map got_from value gtn e1 = 
+  //let aux = User.Sipher.nday_aux Bits.e Bits.e (Bits.Map.tie t mapval rleft rright) left_map got_from value gtn e1 
+  //let app = Equal.apply (x => Nat.add x (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))) aux
+  //let zer = Equal.mirror (Nat.add.comm.zero (Nat.add value (Nat.sub got_from value)))
+  //let rew = Equal.rewrite zer (k => (Equal Nat (Nat.add (Nat.add (User.Sipher.map_total_value left_map) k) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))) (Nat.add (Nat.add (Nat.add value Nat.zero) (Nat.add (User.Sipher.map_total_value left_map) (Nat.add (Nat.sub got_from value) Nat.zero))) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))))) app
+  //let com = Equal.mirror(Nat.add.comm (User.Sipher.map_total_value left_map)  (Nat.add (Nat.add value (Nat.sub got_from value)) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))))
+  //let mir = Equal.mirror rew
+  //?
 
 
 
@@ -701,7 +703,7 @@ Main {
   //Nat.to_u60 (User.Sipher.old_sum wallet)
   let n5 = U60.to_nat 5
   let n3 = U60.to_nat 3
-  //User.Sipher.Transfer.maintains_total_sum kingu sipher Nat.zero wallet
+  User.Sipher.Transfer.maintains_total_sum kingu sipher Nat.zero wallet
   //(from: Bits)
   //(to: Bits)
   //(value: Nat)
@@ -709,7 +711,7 @@ Main {
   //(a-b)
   //Nat.sub n5 n3
   //Nat.to_u60 (User.Sipher.map_total_value (Bits.Map.tie (Maybe.some (Nat.zero)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)))))
-  Nat.to_u60 (User.Sipher.map_total_value (Bits.Map.tie (Maybe.some (Nat.zero)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)))))
+  //Nat.to_u60 (User.Sipher.map_total_value (Bits.Map.tie (Maybe.some (Nat.zero)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)))))
   //Nat.to_u60 (User.Sipher.map_total_value wallet)
   //Nat.to_u60 (User.Sipher.new_sum kingu sipher value wallet)
 }
