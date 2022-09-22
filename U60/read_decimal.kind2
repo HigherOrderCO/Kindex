@@ -1,8 +1,16 @@
-U60.read_decimal (xs: String) : Maybe U60
-U60.read_decimal  String.nil        = Maybe.some 0
-U60.read_decimal (String.cons x xs) =
+U60.read_decimal (xs: String) : Maybe U60 {
+  U60.read_decimal.go xs 0
+}
+
+U60.read_decimal.go (xs: String) (acc: U60) : Maybe U60
+U60.read_decimal.go  String.nil        acc = Maybe.none
+U60.read_decimal.go (String.cons x "") acc =
   do Maybe {
     ask digit = Char.to_decimal x
-    ask tail = U60.read_decimal xs
-    return (+ (* 10 tail) digit)
+    return (+ (* 10 acc) digit)
+  }
+U60.read_decimal.go (String.cons x xs) acc =
+  do Maybe {
+    ask digit = Char.to_decimal x
+    (U60.read_decimal.go xs (+ (* 10 acc) digit))
   }

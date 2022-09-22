@@ -1,5 +1,5 @@
 // Gets the tail of the list
 // Example: (List.tail Nat [1,2,3]) -> [2,3]
 List.tail <a> (xs: List a) : List a
-List.tail a (List.nil  t)           = List.nil
-List.tail a (List.cons t head tail) = tail
+List.tail  List.nil        = List.nil
+List.tail (List.cons x xs) = xs

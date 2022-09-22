@@ -1,0 +1,5 @@
+List.show <a> (f: a -> Show) (xs: List a) : Show {
+  let xs = List.map xs ((x: a) => ((f x) ""))
+  let xs = String.intercalate ", " xs
+  h => (String.concat (String.concat "[" (String.concat xs "]")) h)
+}
