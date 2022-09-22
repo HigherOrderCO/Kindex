@@ -46,23 +46,23 @@ Kind.Term.fn14 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind
 Kind.Term.fn15 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
 Kind.Term.fn16 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
 
-Kind.Term.FN0  (fnid: U60) (orig: U60) : (Kind.Term)
-Kind.Term.FN1  (fnid: U60) (orig: U60) (x0: Kind.Term) : (Kind.Term)
-Kind.Term.FN2  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) : (Kind.Term)
-Kind.Term.FN3  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) : (Kind.Term)
-Kind.Term.FN4  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) : (Kind.Term)
-Kind.Term.FN5  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) : (Kind.Term)
-Kind.Term.FN6  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) : (Kind.Term)
-Kind.Term.FN7  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) : (Kind.Term)
-Kind.Term.FN8  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) : (Kind.Term)
-Kind.Term.FN9  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) : (Kind.Term)
-Kind.Term.FN10 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) : (Kind.Term)
-Kind.Term.FN11 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) : (Kind.Term)
-Kind.Term.FN12 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) (x11: Kind.Term) : (Kind.Term)
-Kind.Term.FN13 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) (x11: Kind.Term) (x12: Kind.Term) : (Kind.Term)
-Kind.Term.FN14 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) (x11: Kind.Term) (x12: Kind.Term) (x13: Kind.Term) : (Kind.Term)
-Kind.Term.FN15 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
-Kind.Term.FN16 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
+axiom Kind.Term.FN0  (fnid: U60) (orig: U60) : (Kind.Term)
+axiom Kind.Term.FN1  (fnid: U60) (orig: U60) (x0: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN2  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN3  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN4  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN5  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN6  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN7  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN8  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN9  (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN10 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN11 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN12 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) (x11: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN13 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) (x11: Kind.Term) (x12: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN14 (fnid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) (x8: Kind.Term) (x9: Kind.Term) (x10: Kind.Term) (x11: Kind.Term) (x12: Kind.Term) (x13: Kind.Term) : (Kind.Term)
+axiom Kind.Term.FN15 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
+axiom Kind.Term.FN16 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
 
 Kind.Term.hlp (orig: U60) : (Kind.Term)
 Kind.Term.u60 (orig: U60) : (Kind.Term)

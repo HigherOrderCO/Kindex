@@ -1,0 +1,7 @@
+// Automatically derived from Kind/Coverage/SplitTree/_.type
+Kind.Coverage.SplitTree.match (x: (Kind.Coverage.SplitTree)) -(p: (x: (Kind.Coverage.SplitTree)) Type) (split: (list: (List (Pair U60 Kind.Coverage.SplitTree))) (p (Kind.Coverage.SplitTree.split list))) (intro: (tree: Kind.Coverage.SplitTree) (is_literal: Bool) (p (Kind.Coverage.SplitTree.intro tree is_literal))) (done: (p (Kind.Coverage.SplitTree.done))) (impossible: (p (Kind.Coverage.SplitTree.impossible))) (uncovered: (p (Kind.Coverage.SplitTree.uncovered))) : (p x)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.split list_) p split intro done impossible uncovered = (split list_)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.intro tree_ is_literal_) p split intro done impossible uncovered = (intro tree_ is_literal_)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.done) p split intro done impossible uncovered = (done)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.impossible) p split intro done impossible uncovered = (impossible)
+Kind.Coverage.SplitTree.match (Kind.Coverage.SplitTree.uncovered) p split intro done impossible uncovered = (uncovered)

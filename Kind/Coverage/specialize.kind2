@@ -1,0 +1,21 @@
+// Specializes a pattern matrix @matrix@ to a single constructor.
+Kind.Coverage.specialize (matrix: List Kind.Rule) (constructor: U60) : List Kind.Rule
+
+Kind.Coverage.specialize (List.nil t)                            constr = List.nil
+Kind.Coverage.specialize (List.cons t (Kind.Rule.rhs t1)     xs) constr = List.cons t (Kind.Rule.rhs t1) xs
+
+Kind.Coverage.specialize (List.cons t (Kind.Rule.lhs (Kind.Term.var orig_ name_ idx_) re) xs) constr =
+  let creator =  Kind.Axiom.creator_of constr
+  let synth = Kind.Coverage.Creator.synth creator (Kind.Term.var orig_ name_ idx_)
+  let res = Kind.Coverage.possible_match synth constr
+  match Maybe res {
+    some => List.cons (Kind.Coverage.append_rule res.value re) (Kind.Coverage.specialize xs constr)
+    none => Kind.Coverage.specialize xs constr
+  }
+
+Kind.Coverage.specialize (List.cons t (Kind.Rule.lhs arg re) xs) constr =
+  let res = Kind.Coverage.possible_match arg constr
+  match Maybe res {
+    some => List.cons (Kind.Coverage.append_rule res.value re) (Kind.Coverage.specialize xs constr)
+    none => Kind.Coverage.specialize xs constr
+  }

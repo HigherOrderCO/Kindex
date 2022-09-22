@@ -1,0 +1,26 @@
+Kind.Coverage.Strategies.catches_all (clauses: List Kind.Rule) : Bool
+Kind.Coverage.Strategies.catches_all (List.cons t (Kind.Rule.lhs (Kind.Term.var o_ n_ i_) rule) xs) = Bool.true
+Kind.Coverage.Strategies.catches_all (List.nil t)                          = Bool.false
+Kind.Coverage.Strategies.catches_all (List.cons t x xs)                    = Kind.Coverage.Strategies.catches_all xs
+
+Kind.Coverage.Strategies.split (ctx: Kind.Context) (clauses: List Kind.Rule) (orig_: U60) (name: U60) (typ: Kind.Term) (body: Kind.Term -> Kind.Term): Kind.Checker Kind.Coverage.SplitTree
+Kind.Coverage.Strategies.split ctx clauses orig_ name (Kind.Term.u60 _) body =
+  if Kind.Coverage.Strategies.catches_all clauses {
+    Kind.Checker.pure Kind.Coverage.SplitTree.done
+  } else {
+    Kind.Checker.pure (Kind.Coverage.SplitTree.intro Kind.Coverage.SplitTree.uncovered Bool.false)
+  }
+
+Kind.Coverage.Strategies.split ctx clauses orig_ name typ body =
+  do Kind.Checker {
+    let type_name = Kind.Coverage.get_constructor_name ctx typ
+    match Maybe type_name {
+      none => HVM.log (Pair.new "Compiler Error: Induction is not possible in this type. Open a PR reporting this error please." clauses) (Kind.Coverage.SplitTree.impossible)
+      some =>
+        do Kind.Checker {
+          let constructors = Kind.Axiom.constructors_of type_name.value
+          ask split_trees  = Kind.Coverage.specialize_constructors clauses (Kind.Term.eval typ) body constructors
+          return (Kind.Coverage.SplitTree.split split_trees)
+        }
+    }
+  }

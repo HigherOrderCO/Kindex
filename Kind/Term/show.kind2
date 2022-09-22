@@ -1,4 +1,4 @@
-NameOf (name: U60): String
+axiom NameOf (name: U60): String
 
 Kind.Term.show.forall (orig: U60) (name: U60) (type: Kind.Term) (body: Kind.Term -> Kind.Term): String
 Kind.Term.show.forall orig name type body =

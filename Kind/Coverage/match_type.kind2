@@ -1,0 +1,9 @@
+Kind.Coverage.match_type (left: Kind.Term) (right: Kind.Term): Kind.Checker Bool
+Kind.Coverage.match_type (Kind.Term.all orig_ name typ body) right =
+  do Kind.Checker {
+    ask Kind.Checker.extend name typ []
+    ask depth = Kind.Checker.get_depth
+    (Kind.Coverage.match_type (Kind.Term.eval (body (Kind.Term.var orig_ name depth))) right)
+  }
+
+Kind.Coverage.match_type left right = Kind.Checker.equal left right

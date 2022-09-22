@@ -1,0 +1,4 @@
+// Adds a list of errors to the context error list and returns 'ret'.
+Kind.Checker.errors <t> (err: List Kind.Error) (ret: t): Kind.Checker t
+Kind.Checker.errors t err ret = context => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context depth rhs subst eqts (List.concat err errs) ret

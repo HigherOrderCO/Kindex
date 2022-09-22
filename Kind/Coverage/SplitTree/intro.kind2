@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Coverage/SplitTree/_.type
+Kind.Coverage.SplitTree.intro (tree: Kind.Coverage.SplitTree) (is_literal: Bool) : (Kind.Coverage.SplitTree)

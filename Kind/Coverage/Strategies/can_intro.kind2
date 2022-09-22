@@ -1,0 +1,6 @@
+// Checks if the first column of the pattern matrix @clauses@
+// is made up of @Kind.Term.var@ so we can just remove the column
+Kind.Coverage.Strategies.can_intro (clauses: List Kind.Rule) : Bool
+Kind.Coverage.Strategies.can_intro (List.nil t)                                                 = Bool.true
+Kind.Coverage.Strategies.can_intro (List.cons t (Kind.Rule.lhs (Kind.Term.var o_ n_ i_) t_) xs) = Kind.Coverage.Strategies.can_intro xs
+Kind.Coverage.Strategies.can_intro (List.cons t x xs)                                           = Bool.false

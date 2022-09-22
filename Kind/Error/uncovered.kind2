@@ -1,0 +1,2 @@
+// Automatically derived from Kind/Error/_.type
+Kind.Error.uncovered (orig: U60) (fn: U60) (synthethized_rule: (List Kind.Term)) : (Kind.Error)

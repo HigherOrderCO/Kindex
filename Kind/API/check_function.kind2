@@ -1,5 +1,5 @@
-RuleOf (fnid: U60): List Kind.Rule
-TypeOf (fnid: U60): Kind.Term
+axiom RuleOf (fnid: U60): List Kind.Rule
+axiom TypeOf (fnid: U60): Kind.Term
 
 Kind.API.check_function (fnid: U60): List (Kind.Result Unit)
 Kind.API.check_function fnid =
@@ -7,7 +7,12 @@ Kind.API.check_function fnid =
   let type  = TypeOf fnid
   let type_check = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.check type (Kind.Term.typ 0))) Bool.true
   let rule_check = Kind.API.check_function.rules rules (Kind.Term.eval type)
-  List.cons type_check rule_check
+  let result = List.cons type_check rule_check
+  if Bool.or (Bool.not (Kind.Axiom.should_check fnid)) (List.any result (x => Kind.Result.has_error x)) {
+    result
+  } else {
+    List.cons (Kind.Checker.run (Kind.Coverage.check_coverage fnid rules type) Bool.true) result
+  }
 
 Kind.API.check_function.rules (rules: List Kind.Rule) (type: Kind.Term): List (Kind.Result Unit)
 Kind.API.check_function.rules (List.nil t)             type = List.nil

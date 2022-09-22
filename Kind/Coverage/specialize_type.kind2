@@ -1,0 +1,3 @@
+Kind.Coverage.specialize_type (constr_ty: Kind.Coverage.Creator) (goal_ty: Kind.Term -> Kind.Term) : Kind.Term
+Kind.Coverage.specialize_type (Kind.Coverage.Creator.cons typ body) goal_ty = Kind.Term.all 0 0 typ (arg => Kind.Coverage.specialize_type (body arg) goal_ty)
+Kind.Coverage.specialize_type (Kind.Coverage.Creator.end res) goal_ty = goal_ty res

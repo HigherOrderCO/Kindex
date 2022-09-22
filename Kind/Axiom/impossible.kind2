@@ -1,0 +1,1 @@
+axiom Kind.Axiom.impossible <a> (s: String) : a

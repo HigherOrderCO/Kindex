@@ -1,0 +1,5 @@
+// Synthetizes a new pattern using the data type @Kind.Coverage.Creator@ that
+// is useful to create new patterns out of old ones.
+Kind.Coverage.Creator.synth (constr_ty: Kind.Coverage.Creator) (var: Kind.Term) : Kind.Term
+Kind.Coverage.Creator.synth (Kind.Coverage.Creator.cons typ body) var = Kind.Coverage.Creator.synth (body var) var
+Kind.Coverage.Creator.synth (Kind.Coverage.Creator.end res) var       = res

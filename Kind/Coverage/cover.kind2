@@ -1,0 +1,24 @@
+Kind.Coverage.cover.go (ctx: Kind.Context) (clauses: List Kind.Rule) (ty: Kind.Term) : Kind.Checker Kind.Coverage.SplitTree
+Kind.Coverage.cover.go ctx clauses (Kind.Term.all orig_ name typ body) =
+  if Kind.Coverage.Strategies.can_intro clauses {
+    Kind.Coverage.Strategies.intro clauses orig_ name typ body
+  } else {
+    Kind.Coverage.Strategies.split ctx clauses orig_ name (Kind.Term.eval typ) body
+  }
+
+Kind.Coverage.cover.go ctx clauses ty = Kind.Checker.pure Kind.Coverage.SplitTree.uncovered
+
+Kind.Coverage.cover (clauses: List Kind.Rule) (ty: Kind.Term) : Kind.Checker Kind.Coverage.SplitTree
+Kind.Coverage.cover clauses ty =
+  do Kind.Checker {
+    ask ctx = Kind.Checker.get_context
+    if Kind.Coverage.Strategies.catch_all clauses {
+      Kind.Checker.pure Kind.Coverage.SplitTree.done
+    } else {
+      if Kind.Coverage.Strategies.vacously_true ctx ty {
+        Kind.Checker.pure Kind.Coverage.SplitTree.impossible
+      } else {
+        Kind.Coverage.cover.go ctx clauses ty
+      }
+    }
+  }

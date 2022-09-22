@@ -1,0 +1,21 @@
+axiom TypeOf (fnid: U60) : Kind.Term
+
+Kind.Coverage.specialize_branch (clauses: List Kind.Rule) (ty: Kind.Term) (body: Kind.Term -> Kind.Term) (constructor: U60): Kind.Checker (Pair U60 Kind.Coverage.SplitTree)
+Kind.Coverage.specialize_branch clauses ty body constr =
+  do Kind.Checker {
+    let creator   = Kind.Axiom.creator_of constr
+    let type_cons = TypeOf constr
+    ask ctx       = Kind.Checker.get_context
+    ask depth     = Kind.Checker.get_depth
+    ask res       = Kind.Coverage.match_type type_cons ty
+    if res {
+      do Kind.Checker {
+        let new_ty      = Kind.Coverage.specialize_type creator body
+        let specialized = Kind.Coverage.specialize clauses constr
+        ask tree        = Kind.Coverage.cover specialized new_ty
+        return (Pair.new constr tree)
+      }
+    } else {
+      Kind.Checker.pure (Pair.new constr (Kind.Coverage.SplitTree.impossible))
+    }
+  }

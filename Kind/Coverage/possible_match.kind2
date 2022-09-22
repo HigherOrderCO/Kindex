@@ -1,0 +1,23 @@
+axiom HashOf (ctid: U60) : U60
+
+Kind.Coverage.possible_match (term: Kind.Term) (constructor: U60) : Maybe (List Kind.Term)
+Kind.Coverage.possible_match (Kind.Term.ct0 ctid orig)                                                const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct1 ctid orig x0)                                             const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 ] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct2 ctid orig x0 x1)                                          const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct3 ctid orig x0 x1 x2)                                       const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct4 ctid orig x0 x1 x2 x3)                                    const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 ] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)                                 const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)                              const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)                           const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)                        const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) const = if U60.equal (HashOf ctid) (HashOf const) { Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13] } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct15 ctid orig args)                                          const = if U60.equal (HashOf ctid) (HashOf const) { Kind.Coverage.possible_match args 0 } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.ct16 ctid orig args)                                          const = if U60.equal (HashOf ctid) (HashOf const) { Kind.Coverage.possible_match args 0 } else { Maybe.none }
+Kind.Coverage.possible_match (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     const = Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14]
+Kind.Coverage.possible_match (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) const = Maybe.some [x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x13 x14 x15]
+Kind.Coverage.possible_match _                                                                        const = Maybe.none

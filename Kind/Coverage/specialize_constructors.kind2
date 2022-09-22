@@ -1,0 +1,14 @@
+Kind.Coverage.specialize_constructors (clauses: List Kind.Rule) (ty: Kind.Term) (body: Kind.Term -> Kind.Term) (constructors: List U60) : Kind.Checker (List (Pair U60 Kind.Coverage.SplitTree))
+Kind.Coverage.specialize_constructors clauses typ body (List.nil t)       = Kind.Checker.pure List.nil
+Kind.Coverage.specialize_constructors clauses typ body (List.cons t constructor xs) =
+  do Kind.Checker {
+    ask res = Kind.Coverage.specialize_branch clauses typ body constructor
+    if Kind.Coverage.is_uncovered (Pair.snd res) {
+      Kind.Checker.pure (List.cons res List.nil)
+    } else {
+      do Kind.Checker {
+        ask tail = Kind.Coverage.specialize_constructors clauses typ body xs
+        return (List.cons res tail)
+      }
+    }
+  }

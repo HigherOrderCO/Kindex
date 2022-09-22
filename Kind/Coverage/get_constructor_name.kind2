@@ -1,0 +1,25 @@
+Kind.Coverage.alt <a> (l: List (Maybe a)) : Maybe a
+Kind.Coverage.alt a List.nil                      = Maybe.none
+Kind.Coverage.alt a (List.cons (Maybe.none) xs)   = Kind.Coverage.alt xs
+Kind.Coverage.alt a (List.cons x xs)  = x
+
+Kind.Coverage.get_constructor_name (ctx: Kind.Context) (term: Kind.Term) : Maybe U60
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct0 ctid orig)                                                = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct1 ctid orig x0)                                             = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct2 ctid orig x0 x1)                                          = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct3 ctid orig x0 x1 x2)                                       = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct4 ctid orig x0 x1 x2 x3)                                    = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)                                 = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)                              = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)                           = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct15 ctid orig x0)                                            = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.ct16 ctid orig x0)                                            = Maybe.some ctid
+Kind.Coverage.get_constructor_name ctx (Kind.Term.var orig_ name idx_)              = Kind.Coverage.alt (List.map (Kind.Context.find ctx name [] (n => t => v => v)) (x => Kind.Coverage.get_constructor_name ctx x))
+Kind.Coverage.get_constructor_name ctx other                                        = Maybe.none

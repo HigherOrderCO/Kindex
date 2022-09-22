@@ -1,0 +1,10 @@
+// It creates a constructor. It's useful when we have to apply
+// a type and add some other types to the context. For example,
+// if we want to specialize the type `(x: Either a b) -> FuncOr x`
+// to the `Left` constructor then we will use the creator
+// `a => Left a` and it will result in `a -> FuncOr (Left a)`.
+
+type Kind.Coverage.Creator {
+  end (end: Kind.Term)
+  cons (ty: Kind.Term) (next: Kind.Term -> Kind.Coverage.Creator)
+}

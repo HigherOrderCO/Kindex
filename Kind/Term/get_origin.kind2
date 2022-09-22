@@ -51,3 +51,6 @@ Kind.Term.get_origin r (Kind.Term.fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x
 Kind.Term.get_origin r (Kind.Term.fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) got = got orig (Kind.Term.fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13)
 Kind.Term.get_origin r (Kind.Term.fn15 fnid orig args)                                          got = got orig (Kind.Term.fn15 fnid orig args)
 Kind.Term.get_origin r (Kind.Term.fn16 fnid orig args)                                          got = got orig (Kind.Term.fn16 fnid orig args)
+
+Kind.Term.get_origin r (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     got = Kind.Axiom.impossible "Cannot get origin of a args15"
+Kind.Term.get_origin r (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) got = Kind.Axiom.impossible "Cannot get origin of a args16"

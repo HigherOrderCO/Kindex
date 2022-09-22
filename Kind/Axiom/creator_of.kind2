@@ -1,0 +1,1 @@
+axiom Kind.Axiom.creator_of (fnid: U60) : Kind.Coverage.Creator
