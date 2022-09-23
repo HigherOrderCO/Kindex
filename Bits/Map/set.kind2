@@ -14,18 +14,18 @@ Bits.Map.set a (Bits.Map.new t) Bits.e value  =
 
 Bits.Map.set a (Bits.Map.tie t old_value left right) Bits.e value = 
   let value = Maybe.some value
-  Bits.Map.tie  value left right
+  Bits.Map.tie value left right
 
 // Bits.o
 Bits.Map.set a (Bits.Map.new t) (Bits.o pred) new_value = 
   let value = Maybe.none t
-  let left  = Bits.Map.set a (Bits.Map.new) pred new_value
+  let left  = Bits.Map.set a (Bits.Map.new t) pred new_value
   let right = Bits.Map.new
-  Bits.Map.tie  value left right
-
-Bits.Map.set a (Bits.Map.tie t value left right) (Bits.o pred) new_value =
-  let left = Bits.Map.set a left pred new_value 
   Bits.Map.tie value left right
+
+Bits.Map.set a (Bits.Map.tie t old_value left right) (Bits.o pred) new_value =
+  let left = Bits.Map.set a left pred new_value 
+  Bits.Map.tie old_value left right
 
 // Bits.i
 Bits.Map.set a (Bits.Map.new t) (Bits.i pred) new_value =

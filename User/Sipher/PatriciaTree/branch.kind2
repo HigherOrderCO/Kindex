@@ -1,0 +1,2 @@
+// Automatically derived from patricia.type
+User.Sipher.PatriciaTree.branch (prefix: U120) (branchingbit: U120) (left: User.Sipher.PatriciaTree) (right: User.Sipher.PatriciaTree) : (User.Sipher.PatriciaTree)

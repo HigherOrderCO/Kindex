@@ -1,0 +1,340 @@
+// First Experiment
+
+List.sum (n: List Nat) : Nat
+List.sum (List.nil t)       = Nat.zero
+List.sum (List.cons t x xs) = Nat.add x (List.sum xs)
+
+List.count_true (xs: List Bool) : Nat
+List.count_true (List.nil t)               = Nat.zero
+List.count_true (List.cons t Bool.true x)  = Nat.succ (List.count_true x)
+List.count_true (List.cons t Bool.false x) = List.count_true x
+
+// O que eu quero que o cara implemente
+Blastoise.requisito.type : Type 
+Blastoise.requisito.type = ((x: Nat) -> (List Bool))
+
+// As restrições que eu estou impondo na função que ele vai implementar
+Blastoise.requisito.spec : (f: Blastoise.requisito.type) -> Type
+Blastoise.requisito.spec = f => (input: Nat) ->
+  // Aplica a função no input
+  let list = f input
+
+  // Primeiro requisito: o tamanho da lista é igual a input
+  let req_0 = Equal Nat (List.length Bool list) (Nat.double input)
+
+  // Segundo requisito: o somatório dos números da lista é igual a input
+  let req_1 = Equal Nat (List.count_true list) input
+  
+  (Pair req_0 req_1)
+
+Blastoise.requisito : Type
+Blastoise.requisito = Sigma Blastoise.requisito.type Blastoise.requisito.spec
+
+// --------------------------------
+
+// Some Proofs
+
+Provas.t0 : Equal Bool Bool.true Bool.true
+Provas.t0 = Equal.refl Bool Bool.true
+
+Provas.t1 (a: Bool) : Equal Bool (Bool.and a Bool.false) Bool.false
+Provas.t1 Bool.true  = Equal.refl Bool Bool.false
+Provas.t1 Bool.false = Equal.refl Bool Bool.false
+
+Provas.t6 (a: Bool) : Equal Bool (Bool.not (Bool.not a)) a
+Provas.t6 Bool.true  = Equal.refl Bool Bool.true
+Provas.t6 Bool.false = Equal.refl Bool Bool.false
+
+Half (x: Nat) : Nat 
+Half Nat.zero = Nat.zero
+Half (Nat.succ Nat.zero)     = Nat.zero
+Half (Nat.succ (Nat.succ x)) = (Nat.succ (Half x)) 
+
+Double (x: Nat): Nat 
+Double Nat.zero = Nat.zero 
+Double (Nat.succ x) = (Nat.succ (Nat.succ(Double x)))
+
+Is_even (n: Nat) : Bool
+Is_even Nat.zero            = Bool.true
+Is_even (Nat.succ Nat.zero) = Bool.false
+Is_even (Nat.succ pred)     = Is_even pred
+
+Provas.t9 (a: Pair Nat Nat): Equal (Pair Nat Nat) (Pair.new Nat Nat (Pair.fst Nat Nat a) (Pair.snd Nat Nat a)) a
+Provas.t9 (Pair.new Nat Nat fst snd) = Equal.refl (Pair Nat Nat) (Pair.new Nat Nat fst snd)
+
+Pair.swap <a> <b> (pair: Pair a b) : Pair b a
+Pair.swap a b (Pair.new pa pb fst snd) = Pair.new b a snd fst
+
+Provas.t10 (a: Pair Nat Nat) : Equal (Pair Nat Nat) (Pair.swap Nat Nat (Pair.swap Nat Nat a)) a
+Provas.t10 (Pair.new Nat Nat fst snd) = Equal.refl
+
+Provas.t11 (n: Nat) : Equal Nat (Half (Double n)) n
+Provas.t11 Nat.zero        = Equal.refl Nat Nat.zero
+Provas.t11 (Nat.succ pred) = 
+  let ind = Provas.t11 pred
+  Equal.apply (x => (Nat.succ x)) ind
+
+
+
+Nat.add.comm.b (a: Nat) (b: Nat): (Equal Nat (Nat.add a (Nat.succ b)) (Nat.succ (Nat.add a b)))
+Nat.add.comm.b Nat.zero     b = Equal.refl
+Nat.add.comm.b (Nat.succ a) b = Equal.apply (x => (Nat.succ x)) (Nat.add.comm.b a b)
+
+
+Nat.add.comm.a (a: Nat) : (Equal Nat a (Nat.add a Nat.zero))
+Nat.add.comm.a Nat.zero     = Equal.refl
+Nat.add.comm.a (Nat.succ a) = Equal.apply (x => (Nat.succ x)) (Nat.add.comm.a a)
+
+Provas.t18 (n: Nat) : Equal Nat (Nat.add n n) (Double n)
+Provas.t18 Nat.zero        = Equal.refl Nat Nat.zero
+Provas.t18 (Nat.succ pred) =
+  let ind = Provas.t18 pred
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  let aux = Nat.add.comm.b pred pred
+  let apx = Equal.chain aux app
+  Equal.apply (x => Nat.succ x) apx
+
+Provas.t22 (n: Nat) (e: Equal Nat n (Nat.succ Nat.zero)) : Equal Nat (Nat.succ n) (Nat.succ (Nat.succ Nat.zero))
+Provas.t22 n e = Equal.apply (x => Nat.succ x) e
+
+Provas.t23(n: Nat) (m: Nat) (e: Equal Bool (Nat.equal n m) Bool.true): Equal Nat n m
+Provas.t23 Nat.zero Nat.zero e = 
+  Equal.refl Nat Nat.zero
+Provas.t23 Nat.zero (Nat.succ m.pred) e =
+  let aux = Provas.t28_2
+  Empty.absurd (aux e)
+Provas.t23 (Nat.succ n.pred) Nat.zero e = 
+  let aux = Provas.t28_2
+  Empty.absurd (aux e)
+Provas.t23 (Nat.succ n.pred) (Nat.succ m.pred) e = 
+  let ind = Provas.t23 n.pred m.pred e 
+  Equal.apply (x => (Nat.succ x)) ind
+
+Provas.t25 (xs: List Nat) : Equal (List Nat) (List.map Nat Nat xs (x => x)) xs
+Provas.t25 (List.nil Nat)            = Equal.refl (List Nat) (List.nil Nat)
+Provas.t25 (List.cons Nat head tail) =
+  let tes = Provas.t25 tail
+  Equal.apply (x => (List.cons head x)) tes
+
+Provas.zerone: Not (Equal Nat Nat.zero (Nat.succ Nat.zero))
+Provas.zerone = absurd => Equal.rewrite absurd (x => if (Nat.equal x Nat.zero) {Unit} else {Empty}) Unit.new
+
+Nat_to_bool (n: Nat) : Bool
+Nat_to_bool Nat.zero  = Bool.false
+Nat_to_bool n         = Bool.true
+
+Provas.not_one (n: Nat) : Not (Equal Nat Nat.zero (Nat.succ n))
+Provas.not_one n = absurd => 
+  let to_bool = Equal.apply (n => (Nat_to_bool n)) absurd
+  let absurd = Bool.true_not_false (Equal.mirror to_bool)
+  absurd
+
+
+Provas.onezero: Not (Equal Nat (Nat.succ Nat.zero) Nat.zero)
+Provas.onezero = absurd => Equal.rewrite absurd (x => if (Nat.equal x (Nat.succ Nat.zero)) {Unit} else {Empty}) Unit.new
+
+Provas.t28: Not (Equal Bool Bool.true Bool.false)
+Provas.t28 = absurd => Equal.rewrite absurd (x => if x {Unit} else {Empty}) Unit.new
+
+Provas.t28_2: Not (Equal Bool Bool.false Bool.true)
+Provas.t28_2 = absurd => Equal.rewrite absurd (x => if x {Empty} else {Unit}) Unit.new
+
+Provas.t29: Not (Equal Nat (Nat.succ (Nat.succ (Nat.succ Nat.zero))) (Nat.succ (Nat.succ Nat.zero)))
+Provas.t29 =
+  (absurd => 
+  let app = Equal.apply (x => (Nat.pred x)) absurd
+  let app = Equal.apply (x => (Nat.pred x)) app
+  let aux = Provas.onezero
+  aux app
+  )
+
+
+Provas.t35 
+  (n  : Nat)
+  (m  : Nat)
+  (o  : Nat)
+  (e0 : Equal Nat n m)
+  (e1 : Equal Nat m o)
+: Equal Nat n o
+Provas.t35 n m o e0 e1 = Equal.chain e0 e1
+
+
+Provas.list_size_aux <a: Type>
+  (xs : List a)
+: Equal (List a) (List.concat a xs (List.nil a)) xs
+Provas.list_size_aux a (List.nil tx) =
+  Equal.refl (List a) (List.nil a)
+Provas.list_size_aux a (List.cons tx xs.head xs.tail) = 
+  let ind = Provas.list_size_aux a xs.tail
+  Equal.apply  (xs => (List.cons xs.head xs)) ind
+
+Provas.list_size <a: Type> 
+  (xs: List a) 
+  (ys: List a)
+: (Equal Nat 
+  (List.length a (List.concat a xs ys)) 
+  (Nat.add (List.length a xs) (List.length a ys)))
+
+Provas.list_size a (List.nil tx) (List.nil ty) = 
+  Equal.refl Nat Nat.zero
+
+Provas.list_size a (List.nil tx) ys = 
+  Equal.refl Nat (List.length ys)
+
+Provas.list_size a xs (List.nil ty) = 
+  let e0  = Nat.add.comm.a (List.length a xs)
+  let e1  = Provas.list_size_aux xs
+  let app = Equal.apply (x => (List.length x)) e1
+  Equal.chain app e0
+
+Provas.list_size a (List.cons tx xs.head xs.tail) (List.cons ty ys.head ys.tail) = 
+  let ind = Provas.list_size a xs.tail (List.cons ty ys.head ys.tail)
+  Equal.apply (x => (Nat.succ x)) ind
+
+Problems.t11 (n: Nat) : (Equal Nat (Nat.same n) n)
+Problems.t11 Nat.zero     = Equal.refl
+Problems.t11 (Nat.succ n) = 
+       let ind = Problems.t11 n 
+       let prf = Equal.apply (x => Nat.succ x ) ind
+       prf  
+
+
+List.reverse.go <a> (xs: (List a)) (ys: (List a)) : (List a)
+List.reverse.go a (List.nil t)            ys = ys
+List.reverse.go a (List.cons t head tail) ys = (List.reverse.go a tail (List.cons head ys))
+
+
+Problems.t36 (a: Nat) (f: Nat -> Type) (p: (f a)) : f (Nat.same a)
+Problems.t36 a f p =
+  let lem = Equal.mirror (Problems.t11 a)
+  Equal.rewrite lem f p
+
+
+// --------------------------------
+
+
+// Hardcore Experiment
+
+// O que eu quero que o cara implemente
+BoolBool.requisito.type : Type 
+BoolBool.requisito.type = ((x: Nat) -> (List Bool))
+
+// As restrições que eu estou impondo na função que ele vai implementar
+BoolBool.requisito.spec : (f: BoolBool.requisito.type) -> Type
+BoolBool.requisito.spec = f => (input: Nat) ->
+  // Aplica a função no input
+  let list = f input
+
+  // Primeiro requisito: o tamanho da lista é igual ao dobro do input
+  let req_0 = Equal Nat (List.length Bool list) (Nat.double input)
+
+  // Segundo requisito: o somatório dos números da lista é igual a input
+  let req_1 = Equal Nat (List.count_true list) input
+  
+  (Pair req_0 req_1)
+
+BoolBool.requisito : Type
+BoolBool.requisito = Sigma BoolBool.requisito.type BoolBool.requisito.spec
+
+// -------------------------------------------------------------------
+
+Teste (n: Nat) : (List Bool)
+Teste Nat.zero = List.nil
+Teste (Nat.succ n.pred) = List.cons Bool.true (List.cons Bool.false (Teste n.pred))
+
+Prova_1 (n: Nat) : (Equal Nat (List.length Bool (Teste n)) (Nat.double n))
+Prova_1 Nat.zero = Equal.refl
+Prova_1 (Nat.succ n.pred) = 
+  let ind = Prova_1 n.pred 
+  let app = Equal.apply (x => Nat.succ x)ind
+  Equal.apply (x => Nat.succ x) app
+
+
+Prova_2 (input: Nat) : Equal Nat (List.count_true (Teste input)) input
+Prova_2 Nat.zero = Equal.refl
+Prova_2 (Nat.succ n.pred) =
+  let ind = Prova_2 n.pred
+  Equal.apply (x => Nat.succ x) ind
+
+
+Sipher.blastoise.fun : BoolBool.requisito.type
+Sipher.blastoise.fun = (x => Teste x)
+
+Sipher.blastoise.proof : ((BoolBool.requisito.spec) Sipher.blastoise.fun)
+Sipher.blastoise.proof = (input => ( Pair.new (Prova_1 input) (Prova_2 input)))
+
+Sipher.blastoise : BoolBool.requisito {
+  (Sigma.new
+    BoolBool.requisito.type // o tipo do programa que o victor pediu
+    BoolBool.requisito.spec // as restrições adicionais que o victor pediu
+    Sipher.blastoise.fun    // o programa que ele implementou
+    Sipher.blastoise.proof  // a prova que a função satisfaz o requisito
+  )
+}
+
+
+Provas.zerone: Not (Equal Nat Nat.zero (Nat.succ Nat.zero))
+Provas.zerone = absurd => Equal.rewrite absurd (x => if (Nat.equal x Nat.zero) {Unit} else {Empty}) Unit.new
+
+
+Provas.onezero: Not (Equal Nat (Nat.succ Nat.zero) Nat.zero)
+Provas.onezero = absurd => Equal.rewrite absurd (x => if (Nat.equal x (Nat.succ Nat.zero)) {Unit} else {Empty}) Unit.new
+
+
+// provas pra fazer
+Nat.is_even (n: Nat) : Bool
+Nat.is_even Nat.zero                     = Bool.true
+Nat.is_even (Nat.succ Nat.zero)          = Bool.false
+Nat.is_even (Nat.succ (Nat.succ n.pred)) = Nat.is_even n.pred
+
+
+Provas1 (n: Nat) (e: (Equal Bool (Nat.is_even n) Bool.true)) : Equal Nat (Nat.double (Nat.half n)) n
+Provas1 Nat.zero                     e = Equal.refl
+Provas1 (Nat.succ Nat.zero)          e = 
+  let tf = Bool.true_not_false (Equal.mirror e)
+  Empty.absurd tf
+Provas1 (Nat.succ (Nat.succ n.pred)) e = 
+  let ind = Provas1 n.pred e
+  Equal.apply (x => (Nat.succ (Nat.succ x))) ind 
+
+
+
+Nat.IsEven.0 (n: Nat) : Type
+Nat.IsEven.0 n = Equal Bool (Nat.is_even n) Bool.true
+
+Provas2 (n: Nat) (e: Nat.IsEven.0 n) : Equal Nat (Nat.double (Nat.half n)) n
+Provas2 Nat.zero                     e = Equal.refl
+Provas2 (Nat.succ Nat.zero)          e = 
+  let tf = Bool.true_not_false (Equal.mirror e)
+  Empty.absurd tf
+Provas2 (Nat.succ (Nat.succ n.pred)) e =
+  let ind = Provas1 n.pred e
+  Equal.apply (x => (Nat.succ (Nat.succ x))) ind 
+
+
+Nat.IsEven.1 (n: Nat) : Type
+Nat.IsEven.1 Nat.zero                     = Unit
+Nat.IsEven.1 (Nat.succ Nat.zero)          = Empty
+Nat.IsEven.1 (Nat.succ (Nat.succ n.pred)) = Nat.IsEven.1 n.pred
+
+Provas3 (n: Nat) (e: Nat.IsEven.1 n) : Equal Nat (Nat.double ( Nat.half n)) n
+Provas3 Nat.zero e = Equal.refl
+Provas3 (Nat.succ Nat.zero) e = Empty.absurd e
+Provas3 (Nat.succ (Nat.succ n.pred)) e = 
+  let ind = Provas3 n.pred e
+  Equal.apply (x => (Nat.succ (Nat.succ x))) ind 
+
+Nat.IsEven.2 (n: Nat) : Type
+  IsEven.base : Nat.IsEven.2 Nat.zero 
+  IsEven.next (n: Nat) (e: Nat.IsEven.2 n) : (Nat.IsEven.2 (Nat.succ (Nat.succ n))) 
+
+Nat.IsEven.2.one_not_even (e: Nat.IsEven.2 (Nat.succ Nat.zero)) : Empty
+
+Provas4 (n: Nat) (e: Nat.IsEven.2 n) : Equal Nat (Nat.double (Nat.half n)) n
+Provas4 Nat.zero e = Equal.refl
+Provas4 (Nat.succ Nat.zero) e = 
+  let empty = Nat.IsEven.2.one_not_even e
+  Empty.absurd empty
+Provas4 (Nat.succ (Nat.succ n.pred)) (IsEven.next a b) = 
+  let ind = Provas4 n.pred b
+  Equal.apply (x => (Nat.succ (Nat.succ x))) ind

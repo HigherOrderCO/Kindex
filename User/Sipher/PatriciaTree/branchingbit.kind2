@@ -1,0 +1,15 @@
+User.Sipher.PatriciaTree.branchingbit (p0: U120) (p1: U120): U120 {
+User.Sipher.PatriciaTree.lowestbit (User.Sipher.PatriciaTree.potenciascuffed p0 p1)
+}
+
+
+// Potencia Scuffed 
+User.Sipher.PatriciaTree.potenciascuffed (a: U120) (b: U120) : U120 
+User.Sipher.PatriciaTree.potenciascuffed a (U120.new 0 0) = U120.one
+User.Sipher.PatriciaTree.potenciascuffed a b = U120.mul a (User.Sipher.PatriciaTree.potenciascuffed a (U120.sub b U120.one))
+
+Main { 
+  let jogav = (U120.new 0 55)
+  let corgv = (U120.new 0 100)
+ User.Sipher.PatriciaTree.potenciascuffed jogav jogav
+}
