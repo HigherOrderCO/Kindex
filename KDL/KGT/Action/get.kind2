@@ -1,2 +1,2 @@
-// Automatically derived from KDL/KGT/Action/_.type
-KDL.KGT.Action.get (user: Bits) : (KDL.KGT.Action)
+// Automatically derived from action.type
+KDL.KGT.Action.get #KgtAGetter (user: U120) : (KDL.KGT.Action)

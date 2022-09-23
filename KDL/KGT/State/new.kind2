@@ -1,2 +1,2 @@
-// Automatically derived from KDL/KGT/State/_.type
-KDL.KGT.State.new (balance: (Bits.Map U60)) : (KDL.KGT.State)
+// Automatically derived from state.type
+KDL.KGT.State.new #KgtState (last_mint: U120) (balance: (User.Sipher.PatriciaTree)) : (KDL.KGT.State)
