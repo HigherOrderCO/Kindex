@@ -1,0 +1,16 @@
+Main { 
+  let user = U120.new 0 1
+  let val  = U120.new 0 10
+  let map  = User.Sipher.PatriciaTree.empty
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 1) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 2) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 3) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 4) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 5) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 6) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 7) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 8) val
+  let map  = User.Sipher.PatriciaTree.set map (U120.new 0 9) val
+  let state = KDL.KGT.State.new (U120.new 0 4) map
+  User.Sipher.KGT.mint user state
+}

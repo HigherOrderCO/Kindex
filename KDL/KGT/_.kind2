@@ -11,25 +11,16 @@ KDL.KGT.main (KDL.KGT.Action.mint user value) = do Kindelia.IO {
 // Transfer action
 KDL.KGT.main (KDL.KGT.Action.send from to value) = do Kindelia.IO {
   ask state = (Kindelia.IO.take KDL.KGT.State)
-  match KDL.KGT.State state {
-    new => do Kindelia.IO {
-      let balance = User.Sipher.KGT.transfer from to value state.balance
-      let state   = KDL.KGT.State.new state.last_mint balance
-      ask (Kindelia.IO.save state)
-      return (KDL.KGT.Response.send Bool.true)
-    }
-  }
+  let state = User.Sipher.KGT.transfer from to value state
+  ask (Kindelia.IO.save state)
+  return (KDL.KGT.Response.send Bool.true)
 }
 
 //Check Balance action
 KDL.KGT.main (KDL.KGT.Action.get user) = do Kindelia.IO {
-  ask state = (Kindelia.IO.take KDL.KGT.State)
-  match KDL.KGT.State state {
-    new => do Kindelia.IO {
-      let balance = User.Sipher.KGT.get user state.balance
-      return (KDL.KGT.Response.get balance)
-    }
-  }
+  ask state   = (Kindelia.IO.take KDL.KGT.State)
+  let balance = User.Sipher.KGT.get user state
+  return (KDL.KGT.Response.get balance)
 }
 
 
