@@ -1,4 +1,4 @@
-Kindelia.IO.bind <a: Type> <b: Type> (io: Kindelia.IO a) (next: a -> (Kindelia.IO b)) : Kindelia.IO b
+Kindelia.IO.bind #KIOBind <a: Type> <b: Type> (io: Kindelia.IO a) (next: a -> (Kindelia.IO b)) : Kindelia.IO b
 
 Kindelia.IO.bind a b (Kindelia.IO.done io.a io.val) next =
   next io.val
