@@ -4,25 +4,16 @@ User.Sipher.KGT.mint #KgtMint
   (state: KDL.KGT.State)
 : KDL.KGT.State
 User.Sipher.KGT.mint miner (KDL.KGT.State.new last_mint balances) =
-  let max_KGT       = (U120.new 0 42000000000)
-  let value         = User.Sipher.KGT.halving last_mint
-  let new_value     = (x: U120) => U120.add value x
-  let new_balance   = User.Sipher.PatriciaTree.mut balances miner (U120.new 0 0) new_value
-  let total_balance = User.Sipher.Patricia_total_value new_balance
-  if (U120.greater_than total_balance max_KGT) {
+  let halving = User.Sipher.KGT.Halving last_mint
+  if (U120.greater_equal halving (U120.new 0 64)) {
     KDL.KGT.State.new last_mint balances
   } else {
+    let xp = User.Sipher.KGT.Xp_Per_Block last_mint
+    let new_value     = (x: U120) => U120.add xp x
+    let new_balance   = User.Sipher.PatriciaTree.mut balances miner (U120.new 0 0) new_value
     KDL.KGT.State.new (U120.add U120.1 last_mint) new_balance
   }
 
-
-User.Sipher.KGT.between
-  (x: U120)
-  (y: U120)
-  (z: U120)
-: Bool { 
-  Bool.and (U120.greater_equal x y) (U120.less_equal x z)
-}
 
 User.Sipher.KGT.fakenews
   (x: U120)
@@ -33,31 +24,32 @@ User.Sipher.KGT.fakenews x y = U120.mul x (User.Sipher.KGT.fakenews x (U120.sub 
   
 
 
-User.Sipher.KGT.halving
+// Returns the XP that we receive per Halving
+User.Sipher.KGT.XP_Per_Halving
   (last_mint: U120)
 : U120 {
-  let halving = U120.new 0 126230400
-  let base    = U120.new 0 166
-  let n       = U120.div last_mint halving
+  // Halvings Happens Every "125000000" (125 Millions) of blocks
+  // Xp Per Halving Base Starts with "21000000000000000000" (21 Quintillion)
+  let base    = U120.new 18 247412917076754432
+  let n       = User.Sipher.KGT.Halving last_mint
   let div     = User.Sipher.KGT.fakenews U120.2 n
   U120.div base div
 }
 
 
-User.Sipher.Patricia_total_value 
-  (map: User.Sipher.PatriciaTree)
-: U120 {
-  User.Sipher.Patricia_total_value.go map U120.0
+// Returns the XP that we receive per Block
+User.Sipher.KGT.Xp_Per_Block
+  (last_mint: U120)
+:U120 { 
+  let base = U120.new 0 125000000
+  U120.div (User.Sipher.KGT.XP_Per_Halving last_mint) base
 }
 
-User.Sipher.Patricia_total_value.go
-  (map: User.Sipher.PatriciaTree)
-  (acum: U120)
-: U120
-User.Sipher.Patricia_total_value.go (User.Sipher.PatriciaTree.empty) acum = U120.0
-User.Sipher.Patricia_total_value.go (User.Sipher.PatriciaTree.branch prefix branchingbit left right) acum =
-  let left  = User.Sipher.Patricia_total_value.go left  acum
-  let right = User.Sipher.Patricia_total_value.go right acum
-  U120.add left right
-User.Sipher.Patricia_total_value.go (User.Sipher.PatriciaTree.leaf key value) acum =
-  U120.add value acum
+
+// Function to verify which halving we are right now
+User.Sipher.KGT.Halving
+  (last_mint: U120)
+: U120 {
+  let halving = U120.new 0 125000000
+  U120.div last_mint halving
+}
