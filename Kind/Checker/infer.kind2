@@ -44,7 +44,15 @@ Kind.Checker.infer (Kind.Term.all orig name type body) =
 Kind.Checker.infer (Kind.Term.lam orig name body) =
   do Kind.Checker {
     ask ctx = Kind.Checker.get_context
-    (Kind.Checker.fail (Kind.Error.cant_infer_lambda ctx orig))
+
+    // Damas-Milner inference.
+    ask arg  = Kind.Checker.new_hole orig
+    ask ret  = Kind.Checker.new_hole orig
+    let term = Kind.Term.all orig name arg (_ => ret)
+
+    ask Kind.Checker.check (Kind.Term.lam orig name body) term
+
+    return term
   }
 
 Kind.Checker.infer (Kind.Term.app orig func argm) =
@@ -222,6 +230,24 @@ Kind.Checker.infer (Kind.Term.op2 orig oper left right) =
     return Kind.Term.u60 0
   }
 
+Kind.Checker.equal.hol (orig: U60) (numb: U60) (b: Kind.Term): Kind.Checker Bool
+Kind.Checker.equal.hol a.orig a.numb b =
+  do Kind.Checker {
+    ask got = Kind.Checker.look a.numb
+    ask res = Kind.Checker.equal.hol.val got a.orig a.numb b
+    return res
+  }
+
+Kind.Checker.equal.hol.val (val: Maybe Kind.Term) (orig: U60) (numb: U60) (b: Kind.Term): Kind.Checker Bool
+Kind.Checker.equal.hol.val (Maybe.none t) orig numb b =
+  do Kind.Checker {
+    ask Kind.Checker.fill numb b
+    return Bool.true
+  }
+
+Kind.Checker.equal.hol.val (Maybe.some t val) orig numb b =
+  Kind.Checker.equal val b
+
 Kind.Checker.infer.forall <r> (term: Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
 Kind.Checker.infer.forall r (Kind.Term.all orig name type body) then_fn else_val = then_fn orig name type body
 Kind.Checker.infer.forall r (Kind.Term.var orig name index) then_fn else_val = do Kind.Checker {
@@ -229,6 +255,23 @@ Kind.Checker.infer.forall r (Kind.Term.var orig name index) then_fn else_val = d
   ask result = Kind.Checker.infer.forall.try_values r reducs then_fn else_val
   return result
 }
+
+Kind.Checker.infer.forall r (Kind.Term.hol orig numb) then_fn else_val =
+  do Kind.Checker {
+    ask got = Kind.Checker.look numb
+    match Maybe got {
+      none =>
+        do Kind.Checker {
+          ask arg  = Kind.Checker.new_hole orig
+          ask ret  = Kind.Checker.new_hole orig
+          let term = Kind.Term.all orig 0 arg (_ => ret)
+          ask Kind.Checker.fill numb term
+          Kind.Checker.infer.forall r term then_fn else_val
+        }
+      some => Kind.Checker.infer.forall r got.value then_fn else_val
+    }
+  }
+
 Kind.Checker.infer.forall r other then_fn else_val = else_val
 
 Kind.Checker.infer.forall.try_values <r> (terms: List Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r

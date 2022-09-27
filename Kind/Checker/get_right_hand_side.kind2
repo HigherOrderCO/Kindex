@@ -1,4 +1,4 @@
 // Gets if the @Kind.Checker@ is on the right hand side mode.
 Kind.Checker.get_right_hand_side : Kind.Checker Bool
-Kind.Checker.get_right_hand_side = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked context depth rhs subst eqts errs rhs
+Kind.Checker.get_right_hand_side = context => hole_depth => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context hole_depth depth rhs subst eqts errs rhs

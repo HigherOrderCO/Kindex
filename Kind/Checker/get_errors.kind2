@@ -1,4 +1,4 @@
 // Gets all of the errors inside of the @Kind.Checker@.
 Kind.Checker.get_errors : Kind.Checker (List Kind.Error)
-Kind.Checker.get_errors = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked context depth rhs subst eqts errs errs
+Kind.Checker.get_errors = context => hole_depth => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context hole_depth depth rhs subst eqts errs errs

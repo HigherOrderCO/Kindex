@@ -1,3 +1,5 @@
+HoleInit : U60
+
 // Run the @Kind.Checker@ with all of the arguments setted to a default value.
 Kind.Checker.run <t> (checker: Kind.Checker t) (rhs: Bool): Kind.Result t
-Kind.Checker.run t checker rhs = checker Kind.Context.empty 0 rhs Kind.Subst.end List.nil List.nil
+Kind.Checker.run t checker rhs = checker Kind.Context.empty (+ HoleInit 1) 0 rhs Kind.Subst.end List.nil List.nil

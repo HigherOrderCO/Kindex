@@ -11,7 +11,10 @@ Kind.Checker.check (Kind.Term.lam orig name body) type =
         }
       )
       ((orig: U60) => (name: U60) => (body: Kind.Term -> Kind.Term) =>
-        Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.cant_infer_lambda ctx orig)))
+        do Kind.Checker {
+          ask rhs = Kind.Checker.get_right_hand_side
+          Kind.Checker.compare rhs (Kind.Term.lam orig name body) type
+        })
     ) :: U60 -> U60 -> ((_:Kind.Term) -> Kind.Term) -> Kind.Checker Unit
     fun orig name body
   )

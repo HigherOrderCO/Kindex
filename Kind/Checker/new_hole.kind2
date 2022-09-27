@@ -1,0 +1,4 @@
+// Monadic operation `pure` for @Kind.Checker@
+Kind.Checker.new_hole (origin: U60) : Kind.Checker Kind.Term
+Kind.Checker.new_hole origin = context => hole_depth => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context (+ hole_depth 1) depth rhs subst eqts errs (Kind.Term.hol origin hole_depth)

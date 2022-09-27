@@ -5,4 +5,4 @@
 // a list of errors and returns if the checking process failed
 // or succeeded.
 Kind.Checker (a: Type) : Type
-Kind.Checker a = Kind.Context -> U60 -> Bool -> Kind.Subst -> (List Kind.Equation) -> (List Kind.Error) -> Kind.Result a
+Kind.Checker a = Kind.Context -> (hole_count: U60) -> (depth: U60) -> (rhs: Bool) -> Kind.Subst -> (List Kind.Equation) -> (List Kind.Error) -> Kind.Result a

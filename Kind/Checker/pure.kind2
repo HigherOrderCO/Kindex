@@ -1,4 +1,4 @@
 // Monadic operation `pure` for @Kind.Checker@
 Kind.Checker.pure <t> (a: t): Kind.Checker t
-Kind.Checker.pure t res = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked context depth rhs subst eqts errs res
+Kind.Checker.pure t res = context => hole_depth => depth => rhs => subst => eqts => errs =>
+  Kind.Result.checked context hole_depth depth rhs subst eqts errs res
