@@ -4,9 +4,9 @@
 //     0    1  0   1
 //    / \  / \/ \ / \
 
-State {
-  new (last_mint: U120 , balances: Data.PatriciaTree)
-}
+//State {
+  //new (last_mint: U120 , balances: Data.PatriciaTree)
+//}
 
 
 //Bits.o Bits.e         = Corgan       - 100
@@ -564,11 +564,21 @@ User.Sipher.try2 (Bits.Map.tie t (Maybe.some u val) left right) Bits.e value got
   let fin  = User.Sipher.gg got_from value (User.Sipher.map_total_value left) (User.Sipher.map_total_value right) e1
   let lft =  (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))
   let rgt = (k: Nat) => (Nat.sub (Nat.add k (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value) 
-  let rew = Equal.rewrite (Equal.mirror dft) (k => (Equal Nat (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))
- (Nat.sub (Nat.add k (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value) 
-)) fin
-  rew
+  (Equal.rewrite (Equal.mirror dft) (k => Equal Nat (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) (Nat.sub (Nat.add k(Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value))
+    fin)
+  //let rew = Equal.rewrite (Equal.mirror dft) (k => (Equal Nat (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))
+ //(Nat.sub (Nat.add k (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value) 
+//)) fin
+  //rew
 
+
+
+ //let aux.1 = Equal.mirror (Reverse.involution.aux1 a xs [x])
+  //(Equal.rewrite aux.0 (k => Equal (List a) k (List.cons a v (Reverse.go a xs [x])))
+  //(Equal.rewrite aux.1 (k => Equal (List a) (List.concat a (Reverse.go a (List.concat a xs [v]) []) [x]) (List.cons a v k))
+  //(Equal.rewrite ind.0 (k => (Equal (List a) (List.concat a k [x]) (List.cons a v (List.concat a (Reverse.go a xs []) [x]))))
+  //Equal.refl
+  //)))
 
 
 

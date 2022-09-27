@@ -1,5 +1,5 @@
 type KDL.KGT.State {
-  new(
-    balance: (Bits.Map U60) // user -> balance
-  )
+  new
+    (last_mint: U120)
+    (balance: (User.Sipher.PatriciaTree)) // user -> balance
 }

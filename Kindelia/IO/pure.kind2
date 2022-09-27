@@ -1,2 +1,2 @@
-Kindelia.IO.pure <r: Type> (val: r) : Kindelia.IO r
+Kindelia.IO.pure #Done <r: Type> (val: r) : Kindelia.IO r
 Kindelia.IO.pure r val = Kindelia.IO.done r val

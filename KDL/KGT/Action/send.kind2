@@ -1,2 +1,2 @@
-// Automatically derived from KDL/KGT/Action/_.type
-KDL.KGT.Action.send (from: Bits) (to: Bits) (value: U60) : (KDL.KGT.Action)
+// Automatically derived from action.type
+KDL.KGT.Action.send #KgtASend (from: U120) (to: U120) (value: U120) : (KDL.KGT.Action)

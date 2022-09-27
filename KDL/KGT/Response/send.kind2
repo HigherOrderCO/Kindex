@@ -1,2 +1,2 @@
-// Automatically derived from KDL/KGT/Response/_.type
-KDL.KGT.Response.send (success: Bool) : (KDL.KGT.Response)
+// Automatically derived from response.type
+KDL.KGT.Response.send #KgtRSend (success: Bool) : (KDL.KGT.Response)

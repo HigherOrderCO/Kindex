@@ -3,7 +3,6 @@ Data.PatriciaTree.set a (Data.PatriciaTree.empty t) key value =
   Data.PatriciaTree.leaf key value
 Data.PatriciaTree.set a (Data.PatriciaTree.leaf t j y) key value =
   Data.PatriciaTree.set.leaf (U60.equal j key) value y j key
-  // (SetAux0 (== j key) value y j key (Leaf j y))
 Data.PatriciaTree.set a (Data.PatriciaTree.branch t p m t0 t1) key value =
   Data.PatriciaTree.set.branch0 (Data.PatriciaTree.matchprefix key p m) p m t0 t1 key value
 

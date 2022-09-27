@@ -1,4 +1,4 @@
-User.Sipher.PatriciaTree.zerobit (x: U120) (y: U120): Bool {
-U120.equal (U120.bitwise_and x y) U120.zero
+User.Sipher.PatriciaTree.zerobit #PZeroBit (x: U120) (y: U120): Bool {
+U120.equal (U120.bitwise_and x y) U120.0
 }
 

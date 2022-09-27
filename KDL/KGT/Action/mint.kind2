@@ -1,2 +1,2 @@
-// Automatically derived from KDL/KGT/Action/_.type
-KDL.KGT.Action.mint (user: Bits) (value: U60) : (KDL.KGT.Action)
+// Automatically derived from action.type
+KDL.KGT.Action.mint #KgtAMint (user: U120) (value: U120) : (KDL.KGT.Action)
