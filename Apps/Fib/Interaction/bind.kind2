@@ -1,0 +1,17 @@
+// Maybe.bind <a> <b> (ma: Maybe a) (mb: a -> Maybe b) : Maybe b
+// Maybe.bind a b (Maybe.none t)     mb = Maybe.none
+// Maybe.bind a b (Maybe.some t val) mb = (mb val)
+
+
+Apps.Fib.Interaction.bind <a> <b> (itr: Apps.Fib.Interaction a) (next: a -> Apps.Fib.Interaction b) : Apps.Fib.Interaction b {
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
+    let r_a = itr state player entity frame
+    match Apps.Fib.Interaction.Result r_a {
+      new => 
+        let r_b = (next r_a.val) r_a.state r_a.player r_a.entity r_a.frame
+        r_b
+      err => 
+        Apps.Fib.Interaction.Result.err 
+    }
+}
+

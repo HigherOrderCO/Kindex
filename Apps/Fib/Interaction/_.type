@@ -1,0 +1,3 @@
+Apps.Fib.Interaction <a> : Type {
+  (Apps.Fib.State) -> (player: Apps.Fib.Id) -> (object: Apps.Fib.Id) -> (frame: U120) -> (Apps.Fib.Interaction.Result a)
+}

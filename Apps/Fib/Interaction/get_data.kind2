@@ -1,0 +1,4 @@
+Apps.Fib.Interaction.get_data (data: U120) : U120 {
+  U120.bitwise_and (U120.new 0 252) (U120.new 0 3)
+}
+

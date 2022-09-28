@@ -1,0 +1,13 @@
+Apps.Fib.Interaction.get_direction (data: U120) : Pair U120 U120 {
+  Apps.Fib.Interaction.get_direction.aux (U120.bitwise_and data (U120.new 0 3))
+}
+
+Apps.Fib.Interaction.get_direction.aux (val: U120) : Pair U120 U120
+Apps.Fib.Interaction.get_direction.aux (U120.new 0 0) = Pair.new (U120.new 0 0) (U120.new 1152921504606846975 1152921504606846975)
+Apps.Fib.Interaction.get_direction.aux (U120.new 0 1) = Pair.new (U120.new 1152921504606846975 1152921504606846975) (U120.new 0 0)
+Apps.Fib.Interaction.get_direction.aux (U120.new 0 2) = Pair.new (U120.new 0 0) (U120.new 0 1)
+Apps.Fib.Interaction.get_direction.aux (U120.new 0 0) = Pair.new (U120.new 0 1) (U120.new 0 0)
+Apps.Fib.Interaction.get_direction.aux val            = Pair.new (U120.new 0 0) (U120.new 0 0)
+
+
+

@@ -1,0 +1,4 @@
+type Apps.Fib.Interaction.Result <a> {
+  new (val: a) (state: Apps.Fib.State) (player: Apps.Fib.Id) (entity: Apps.Fib.Id) (frame: U120)
+  err
+}

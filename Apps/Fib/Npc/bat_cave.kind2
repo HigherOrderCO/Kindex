@@ -1,0 +1,35 @@
+Apps.Fib.Npc.bat_cave (hp: U120) (spawn_points: List Apps.Fib.Pos) (bat_id: Apps.Fib.Id): Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
+    ask entity = Apps.Fib.Interaction.entity.get
+    ask player = Apps.Fib.Interaction.player.get
+    ask map    = Apps.Fib.Interaction.map.get
+    // Checks if bat_cave is out of cooldown
+    ask Apps.Fib.Interaction.frame.check_cd entity
+    // Finds the first available coord in the list
+    // If there isn't any, interaction fails
+    let pos = Apps.Fib.Npc.bat_cave.available_pos spawn_points map
+    match Maybe pos {
+      none => Apps.Fib.Interaction.fail
+      some => do Apps.Fib.Interaction {
+        // Creates Bat's Entity
+        let bat  = U120.add (Sigma.fst pos.value) (U120.shift_left hp (U120.new 0 16))
+        let func = (state: Apps.Fib.State) => Apps.Fib.State.create_unit state bat pos.value bat_id
+        // Creates the bat in the game state
+        ask Apps.Fib.Interaction.state.mut func
+        ask Apps.Fib.Interaction.entity.set (U120.new 0 4095)
+        return Unit.new }
+    }
+  }
+}
+
+Apps.Fib.Npc.bat_cave.available_pos (list: List Apps.Fib.Pos) (map: Apps.Fib.Map) : Maybe Apps.Fib.Pos
+Apps.Fib.Npc.bat_cave.available_pos (List.nil r) map = Maybe.none
+Apps.Fib.Npc.bat_cave.available_pos (List.cons r h t) map = 
+  let val = Apps.Fib.Map.get map h
+  if (U120.is_zero val) {
+    Maybe.some h
+  }
+  else {
+    Apps.Fib.Npc.bat_cave.available_pos t map
+  }
+  

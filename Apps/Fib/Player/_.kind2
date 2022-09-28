@@ -9,10 +9,10 @@ Apps.Fib.Player : Type {
 // Char:
 // xy: u16 - Position
 // xp: u12 - Experience
-// hp: u12 - Current HP
+// hp: u10 - Current HP
 // of: u16 - Sell offer
-// rt: u2  - Root counter
-// sl: u2  - Silence counter
+// rt: u3  - Root counter
+// sl: u3  - Silence counter
 // gd: u12 - Gold, kgt amount stored in a character 
 // cd: u12 - Cooldown, when is the next turn that player can move
 // skills:
@@ -22,6 +22,8 @@ Apps.Fib.Player : Type {
 // - skill_3: u6
 // - skill_4: u6
 // - skill_5: u6
+
+
 
 // type sell: 16 bits
 // -  4 bits : skill_id

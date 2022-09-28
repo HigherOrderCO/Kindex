@@ -6,11 +6,11 @@
 // https://files.catbox.moe/begh9q.png - poring
 
 Apps.Fib.Front.size_x : U60 {
-  14
+  15
 }
 
 Apps.Fib.Front.size_y : U60 {
-  14
+  15
 }
 
 Apps.Fib.Front.tile_size : U60 {
@@ -24,29 +24,20 @@ Apps.Fib.Front.Draw.Entity (n : U120) (text: String) (seed : U60) : App.DOM
 //   (App.DOM.node "img" [(Pair.new "src" (Apps.Fib.Front.Draw.Entity.grass (% seed 4)))] [] [])
 // Apps.Fib.Front.Draw.Entity (U120.new 0 1)   seed =
 //   (App.DOM.node "img" [(Pair.new "src" "https://files.catbox.moe/grvv06.png")] [] [])
-Apps.Fib.Front.Draw.Entity (U120.new 0 725) text seed =
-  (App.DOM.node "img" 
+Apps.Fib.Front.Draw.Entity (U120.new 0 0) text seed = // App.DOM.text text
+  (App.DOM.node "div" 
     [
-      (Pair.new "src" "https://files.catbox.moe/v0b65m.png")
-      (Pair.new "id"  text)]
-    [
-
-    ]
-    [
-
-    ])
-Apps.Fib.Front.Draw.Entity n text seed = // App.DOM.text text
-  (App.DOM.node "img" 
-    [
-      (Pair.new "src" (Apps.Fib.Front.Draw.Entity.grass (% seed 4)))
       (Pair.new "id"  text)
     ]
+    [(Pair.new "height" "32px") (Pair.new "width" "32px") (Pair.new "background-color" "lightgrey")]
+    [])
+Apps.Fib.Front.Draw.Entity n text seed =
+  (App.DOM.node "img" 
     [
-      
-    ]
-    [
-      
-    ])
+      (Pair.new "src" "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAppJREFUWIXtlkFIFFEYx39WiCvOUHkIdpFdqBCktyeFXAPFKD14iOrSrUOmB0UPXcJTJ48ieVC8BnUR9iCSRQch2oMddCeEbrPoLHRYiZnFXTR3O9hM6u6bebsQdvC7DDPz/97///2/N2++BsMwypxhXDhL8nMB5wL+CwGX6kkSQlR9bhjGvxXgEhdWTZp6W0+8K67lCIlYzUKUWyCEYHd8i3LRqSAHaOptpVx02B3fkjpULRpUTkIhRNWqZVFcyxEaiCk5EeiAW7kqORy5oeqEUgv0scsAHGacQKyLcXOCRPgKEELw7eE7LkY1DjMOB+a+r4jjmJ3pDTpu9gcKDvwKwpE4AAfmvnc9MHO+OTvTG0Tn+/hqXaFzcAohhHQ/BLYgNNTsW3VheY8fb7foe/mKwvIeAHnbpmBt0jk4FbS8XIBrP4A991NKbjsm0fk+AO68H/PeqZD7CoC/9rtkboVuZK004ZkbFKxNHCfj4WoJ3z0QGmquWPD0/a/dXEW1LbquLKCqA0IIzKcrSgscJ9e0KAC6FmOycdR7vtg2If0cpS249qTD63FQaFoUTYt6bQB43H+LlZ4XfB6co6z3SHN994DtmORtm6yVriokHIkz2TiK42RwnMyJqt1cgER7Scoh3QOne523bfJ2ugKXaIcEz//clchaJzFBDp75QBIo4Mv3+jWq5EoRS8kFdC3mLVSLkON4XYuRWk9JsdJ5wP0NZ6103S4k2kuEI3Guvu6o71+wlFwgHIn77mI/8usjt1lKLvjipF+BYRhHh0cSHj0YIYG6Ey75m2czDG/P+k5GgSOZEILFtgnu3R0A4MN63pf8flcLAB8/rQaSKwlwRcDRkdrd1e2LTa2nGN6eBdSmYyUBp4UERS1j+W/fhS3sjGNLFgAAAABJRU5ErkJggg==")
+      (Pair.new "id"  text)]
+    []
+    [])
 
 Apps.Fib.Front.Draw.Entity.grass (seed: U60) : String
 Apps.Fib.Front.Draw.Entity.grass 0 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABqklEQVR42q1Xu04DQQz0N9KFCuUXqPgApHQ0FIgmoqLMJwJ3wtGcb2yPIcUqq+x6Z3bWr7PXz8OXOs7vR2lMzrTJZoXM9Bw7n34MT0cd9Hc/gingl8s9vYD55OntsA48yP+bKMLWnj8eVgKMhKF8jIRyOzzj8eVuHWizEHAS1AcmbxifQfWBhQBbN19QwDMZVedje83lyd6pAseDJ9GDz7QSUICQqPtK9Jd4U8WJrwogUGXgoOqIJMonUCXM5oty02xpTOIpOD4d2mfRgf9ZBM9IxBtEX3HwaNtFyU4BjNkY71V2q8DRD3Y+4BMPjatxUSM6tRiJeP6GAFv8T4WrElD8tSrpoGF2A6ZO1zuU/UAEr+RzIExKEaRT0v5SXhl4ZevkaTFimQ5vc4uOqSJnE/BJxsxUjOFtUq8HBpMuCasfU0UikBUkhQQmKi+/bRSo8d/tqWpDSmDamlVNp1obbPLxkZFgHVUFviHAutgqmVSk1CjZEagqX8yIqqOyIscuYLf+1uucmoZh12wog5Vn5QKWfWiwotRlxmXukivt3SYRdWw7x1PaOja+AUB/SW7mQ5pfAAAAAElFTkSuQmCC"
@@ -80,25 +71,28 @@ Apps.Fib.Front : App Apps.Fib.Front.State {
     let map     = Apps.Fib.Front.State.get_map     state
     let input   = Apps.Fib.Front.State.get_input   state
     let divs    = match Maybe pos_fst {
-      none => []
+      none => [(App.DOM.node "div" [] [] [(App.DOM.text "Choose First Coord" )])]
       some =>
         match Maybe pos_snd {
-          none => []
+          none => [(App.DOM.node "div" [] [] [(App.DOM.text "Choose Second Coord" )])]
           some => 
             let id     = (Apps.Fib.Map.get_from_coord map pos_fst.value) 
-            let x0     = U120.new 0 (Pair.fst pos_fst.value)
-            let y0     = U120.new 0 (Pair.snd pos_fst.value)
-            let x1     = U120.new 0 (Pair.fst pos_snd.value)
-            let y1     = U120.new 0 (Pair.snd pos_snd.value)
-            // (U60.show (Pair.fst pos_fst.value)) ((U60.show (Pair.snd pos_fst.value)) "_")
-            let walk   = String.concat "Walk code: "    ((U120.show (Apps.Fib.Interact.pos.walk  id                x0 y0 x1 y1)) String.nil)
-            let skill0 = String.concat "Skill_0 code: " ((U120.show (Apps.Fib.Interact.pos.skill id (U120.new 0 0) x0 y0 x1 y1)) String.nil)
-            let skill1 = String.concat "Skill_1 code: " ((U120.show (Apps.Fib.Interact.pos.skill id (U120.new 0 1) x0 y0 x1 y1)) String.nil)
-            [
-              (App.DOM.node "div" [] [] [(App.DOM.text walk  )])
-              (App.DOM.node "div" [] [] [(App.DOM.text skill0)])
-              (App.DOM.node "div" [] [] [(App.DOM.text skill1)])
-            ]
+            if (U120.equal id (U120.new 0 0)) {[(App.DOM.node "div" [] [] [(App.DOM.text "No Entity There" )])]}
+            else {
+              let x0     = U120.new 0 (Pair.fst pos_fst.value)
+              let y0     = U120.new 0 (Pair.snd pos_fst.value)
+              let x1     = U120.new 0 (Pair.fst pos_snd.value)
+              let y1     = U120.new 0 (Pair.snd pos_snd.value)
+              // (U60.show (Pair.fst pos_fst.value)) ((U60.show (Pair.snd pos_fst.value)) "_")
+              let walk   = String.concat "Walk code: "    ((U120.show (Apps.Fib.Interact.pos.walk  id                x0 y0 x1 y1)) String.nil)
+              let skill0 = String.concat "Skill_0 code: " ((U120.show (Apps.Fib.Interact.pos.skill id (U120.new 0 0) x0 y0 x1 y1)) String.nil)
+              let skill1 = String.concat "Skill_1 code: " ((U120.show (Apps.Fib.Interact.pos.skill id (U120.new 0 1) x0 y0 x1 y1)) String.nil)
+              [
+                (App.DOM.node "div" [] [] [(App.DOM.text walk  )])
+                (App.DOM.node "div" [] [] [(App.DOM.text skill0)])
+                (App.DOM.node "div" [] [] [(App.DOM.text skill1)])
+              ]
+            }
         }
     }
     let page_style = [
@@ -146,14 +140,22 @@ Apps.Fib.Front.when (App.Event.key_down code) (Apps.Fib.Front.State.new map_pos 
   do IO { return Apps.Fib.Front.State.new new_pos pos_fst pos_snd input state }
 
 Apps.Fib.Front.when (App.Event.mouse_click elem) (Apps.Fib.Front.State.new map_pos (Maybe.some s val) (Maybe.none n) input state) = 
-  let pos     = Apps.Fib.Front.read elem
-  let new_pos = Maybe.some pos
-  do IO { return Apps.Fib.Front.State.new map_pos (Maybe.some s val) new_pos input state }
+  if String.starts_with elem "coord " {
+    let coord   = String.drop (U60.to_nat 6) elem
+    let pos     = Apps.Fib.Front.read coord
+    let new_pos = Maybe.some pos
+    do IO { return (Apps.Fib.Front.State.new map_pos (Maybe.some s val) new_pos input state)}
+  }
+  else { do IO { return Apps.Fib.Front.State.new map_pos (Maybe.some s val) (Maybe.none n) input state }}
   
 Apps.Fib.Front.when (App.Event.mouse_click elem) (Apps.Fib.Front.State.new map_pos pos_fst pos_snd input state) = 
-  let pos     = Apps.Fib.Front.read elem
-  let new_pos = Maybe.some pos
+  if String.starts_with elem "coord " {
+    let coord   = String.drop (U60.to_nat 6) elem
+    let pos     = Apps.Fib.Front.read coord
+    let new_pos = Maybe.some pos
   do IO { return Apps.Fib.Front.State.new map_pos new_pos Maybe.none input state }
+  }
+  else { do IO { return (Apps.Fib.Front.State.new map_pos pos_fst pos_snd input state)}}
 
 // Apps.Fib.Front.when (App.Event.input elem text) (Apps.Fib.Front.State.new map_pos pos_fst pos_snd input state) = 
 //   do IO { return Apps.Fib.Front.State.new map_pos Maybe.none Maybe.none text state }
@@ -182,6 +184,7 @@ Apps.Fib.Front.draw.map.lines cy x y map =
   let style = [
     (Pair.new "width" (String.concat (Show.to_string (U60.show (* Apps.Fib.Front.size_x Apps.Fib.Front.tile_size))) "px"))
     (Pair.new "height" ((U60.show Apps.Fib.Front.tile_size) "px"))
+    (Pair.new "display" "flex")
   ]
   let doms = Apps.Fib.Front.draw.map.tiles Apps.Fib.Front.size_x x y map
   let dom  = (App.DOM.node "div" [] style doms)
@@ -190,7 +193,8 @@ Apps.Fib.Front.draw.map.lines cy x y map =
 Apps.Fib.Front.draw.map.tiles (cx: U60) (x: U60) (y: U60) (map: Apps.Fib.Map) : List App.DOM
 Apps.Fib.Front.draw.map.tiles 0  x y map = []
 Apps.Fib.Front.draw.map.tiles cx x y map = 
-  let seed = (+ y x)
-  let id   = Apps.Fib.Map.get_from_coord map (Pair.new x y)
-  let dom  = Apps.Fib.Front.Draw.Entity id ((U60.show x) (String.cons '_' (Show.to_string (U60.show y)))) seed
+  let seed  = 0
+  let id    = Apps.Fib.Map.get_from_coord map (Pair.new x y)
+  let c_txt = String.concat "coord "((U60.show x) (String.cons '_' (Show.to_string (U60.show y))))
+  let dom   = Apps.Fib.Front.Draw.Entity id c_txt seed
   List.cons dom (Apps.Fib.Front.draw.map.tiles (- cx 1) (+ x 1) y map)

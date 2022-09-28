@@ -1,0 +1,9 @@
+Apps.Fib.Interaction.frame.check_cd_at (entity: Apps.Fib.Entity) (at: U120) : Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
+    ask frame = Apps.Fib.Interaction.frame.get
+    let cd    = U120.bitwise_and (U120.new 0 4095) (U120.shift_right entity at)
+    let is_ready = U120.less_equal cd frame
+    ask Apps.Fib.Interaction.check is_ready
+    return Unit.new
+  }
+}

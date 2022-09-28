@@ -1,0 +1,4 @@
+Apps.Fib.Interaction.map.get : Apps.Fib.Interaction Apps.Fib.Map {
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
+    Apps.Fib.Interaction.Result.new (Apps.Fib.State.get_map state) state player entity frame
+}

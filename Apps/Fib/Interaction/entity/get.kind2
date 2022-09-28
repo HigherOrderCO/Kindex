@@ -1,0 +1,8 @@
+Apps.Fib.Interaction.entity.get : Apps.Fib.Interaction Apps.Fib.Player {
+  do Apps.Fib.Interaction {
+    ask id = Apps.Fib.Interaction.entity.get_id
+    ask table = Apps.Fib.Interaction.table.get
+    let entity = Apps.Fib.Table.get table id
+    return entity
+  }
+}

@@ -1,0 +1,4 @@
+Apps.Fib.Interaction.state.mut (func: Apps.Fib.State -> Apps.Fib.State) : Apps.Fib.Interaction Unit {
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
+    Apps.Fib.Interaction.Result.new Unit.new (func state) player entity frame
+}

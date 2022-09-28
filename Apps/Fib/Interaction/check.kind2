@@ -1,0 +1,3 @@
+Apps.Fib.Interaction.check (bool: Bool) : Apps.Fib.Interaction Unit
+Apps.Fib.Interaction.check Bool.true  = Apps.Fib.Interaction.pure Unit.new
+Apps.Fib.Interaction.check Bool.false = Apps.Fib.Interaction.fail

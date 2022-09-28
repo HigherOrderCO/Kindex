@@ -1,4 +1,2 @@
-Apps.Fib.State.new #Fib_st_new
-  (map: Apps.Fib.Map)
-  (tab: Apps.Fib.Table)
-: Apps.Fib.State
+// Automatically derived from /home/derenash/Wikinder/Apps/Fib/state.type
+Apps.Fib.State.new (map: Apps.Fib.Map) (tab: Apps.Fib.Table) : (Apps.Fib.State)

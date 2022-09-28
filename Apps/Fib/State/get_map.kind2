@@ -1,0 +1,2 @@
+Apps.Fib.State.get_map (state: Apps.Fib.State) : Apps.Fib.Map
+Apps.Fib.State.get_map (Apps.Fib.State.new map tbl) = map

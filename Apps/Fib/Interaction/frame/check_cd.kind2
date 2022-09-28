@@ -1,0 +1,8 @@
+Apps.Fib.Interaction.frame.check_cd (cd: U120) : Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
+    ask frame = Apps.Fib.Interaction.frame.get
+    let is_ready = U120.less_equal cd frame
+    ask Apps.Fib.Interaction.check is_ready
+    return Unit.new
+  }
+}

@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikinder/Apps/Fib/State/Interaction/_.type
+Apps.Fib.Interaction.new <a: Type> (state: Apps.Fib.State) (player: Apps.Fib.Id) (object: Apps.Fib.Id) (val: a) : (Apps.Fib.Interaction a)

@@ -1,0 +1,6 @@
+// Apps.Fib.Interaction.test : _ {
+//   do Apps.Fib.Interaction {
+//     ask map = Apps.Fib.Interaction.map.get
+//     ?
+//   }
+// }

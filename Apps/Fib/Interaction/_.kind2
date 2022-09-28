@@ -1,0 +1,9 @@
+Apps.Fib.Interaction <a> : Type {
+  (state: Apps.Fib.State) -> (player: Apps.Fib.Id) -> (object: Apps.Fib.Id) -> (frame: U120) -> (Apps.Fib.Interaction.Result a)
+}
+
+
+
+// Fun <a> (value: a) (state: Apps.Fib.State) (player: Apps.Fib.Id) (object: Apps.Fib.Id) : (Apps.Fib.Interaction.Result a) {
+//   Apps.Fib.Interaction.Result.new a state player object value
+// }

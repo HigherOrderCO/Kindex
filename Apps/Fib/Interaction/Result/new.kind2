@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikinder/Apps/Fib/Interaction/Result/_.type
+Apps.Fib.Interaction.Result.new <a: Type> (val: a) (state: Apps.Fib.State) (player: Apps.Fib.Id) (entity: Apps.Fib.Id) (frame: U120) : (Apps.Fib.Interaction.Result a)

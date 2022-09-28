@@ -1,0 +1,6 @@
+Apps.Fib.Interaction.table.set (table: Apps.Fib.Table): Apps.Fib.Interaction Unit {
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
+    let map       = Apps.Fib.State.get_map state
+    let new_state = Apps.Fib.State.new map table
+    Apps.Fib.Interaction.Result.new Unit.new new_state player entity frame
+}

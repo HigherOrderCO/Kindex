@@ -1,0 +1,17 @@
+// Monad.new
+//   (f    : Type -> Type)
+//   (pure : (a: Type) (x: a) (f a))
+//   (bind : (a: Type) (b: Type) (x: (f a)) (y: a -> (f b)) (f b))
+// : Monad f
+
+
+// Maybe.bind <a> <b> (ma: Maybe a) (mb: a -> Maybe b) : Maybe b
+// Maybe.bind a b (Maybe.none t)     mb = Maybe.none
+// Maybe.bind a b (Maybe.some t val) mb = (mb val)
+
+// Maybe.pure <a: Type> (x: a) : Maybe a
+// Maybe.pure a x = Maybe.some x
+
+Apps.Fib.State2 
+
+Fib.State.bind (state: Apps.Fib.State) ()
