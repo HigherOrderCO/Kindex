@@ -671,7 +671,7 @@ fun (Fib_st_move entity_id dx dy state) {
 
 // Apps.Fib.State.player.move #Fib_st_pmov (state: (Apps.Fib.State)) (ori: (Apps.Fib.Pos)) (des: (Apps.Fib.Pos)) : (Apps.Fib.State)
 fun (Fib_st_pmov state ori des) {
-  (Fib_st_pmov {Fib_st_new map table} ori des) = dup _10 _11 = table; dup _8 _9 = ori; dup _4 _5 = map; dup _6 _7 = _4; dup _0 _1 = des; dup _2 _3 = _0; let destination_map_id = (Fib_map_got _5 _1); let empty_destination = (Fib_map_tlem (Pair_snd destination_map_id)); let origin_map_id = (Fib_map_got _6 _8); dup _12 _13 = origin_map_id; dup _14 _15 = _12; dup _16 _17 = _13; let table_entity_ori = (Fib_tbl_got _10 (Pair_snd _14)); (Bool_if empty_destination let new_player = @player (Fib_plr_p_c player @~ (Sigma_fst _2)); let new_table = (Fib_tbl_mut (Pair_fst table_entity_ori) new_player (Pair_snd _15)); let new_map = (Fib_map_del (Pair_fst _16) _9); let new_map = (Fib_map_set new_map (Pair_snd _17) _3); {Fib_st_new new_map new_table} {Fib_st_new _7 _11})
+  (Fib_st_pmov {Fib_st_new map table} ori des) = dup _10 _11 = table; dup _8 _9 = ori; dup _4 _5 = map; dup _6 _7 = _4; dup _0 _1 = des; dup _2 _3 = _0; let dmi = (Fib_map_got _5 _1); let ed = (Fib_map_tlem (Pair_snd dmi)); let omi = (Fib_map_got _6 _8); dup _12 _13 = omi; dup _14 _15 = _12; dup _16 _17 = _13; let teo = (Fib_tbl_got _10 (Pair_snd _14)); (Bool_if ed let new_player = @player (Fib_plr_p_c player @~ (Sigma_fst _2)); let new_table = (Fib_tbl_mut (Pair_fst teo) new_player (Pair_snd _15)); let new_map = (Fib_map_del (Pair_fst _16) _9); let new_map = (Fib_map_set new_map (Pair_snd _17) _3); {Fib_st_new new_map new_table} {Fib_st_new _7 _11})
 }
 
 // Apps.Fib.Player.pos.change #Fib_plr_p_c (player: (Apps.Fib.Player)) (f: (_: (U120)) (U120)) : (Apps.Fib.Player)
@@ -707,7 +707,7 @@ fun (Fib_ac_gid action) {
 
 // Apps.Fib.State.create_player #Fib_st_crtu (state: (Apps.Fib.State)) (id: (Apps.Fib.Id)) (data: (U120)) : (Apps.Fib.State)
 fun (Fib_st_crtu state id data) {
-  (Fib_st_crtu {Fib_st_new map tab} id data) = let spawn_pos = (Fib_st_crtuc (% data #4)); let new_player = (Pair_match spawn_pos @spawn_pos.fst @spawn_pos.snd (Fib_plr_dflt spawn_pos.fst spawn_pos.snd)); (Fib_st_pplc {Fib_st_new map tab} new_player id)
+  (Fib_st_crtu {Fib_st_new map tab} id data) = let sp = (Fib_st_crtuc (% data #4)); let new_player = (Pair_match sp @sp.fst @sp.snd (Fib_plr_dflt sp.fst sp.snd)); (Fib_st_pplc {Fib_st_new map tab} new_player id)
 }
 
 // Apps.Fib.State.create_player.city #Fib_st_crtuc (data: (U120)) : (Pair (U120) (U120))
