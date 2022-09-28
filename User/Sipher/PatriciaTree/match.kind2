@@ -1,0 +1,5 @@
+// Automatically derived from patricia.type
+User.Sipher.PatriciaTree.match #PMatch (x: (User.Sipher.PatriciaTree)) -(p: (x: (User.Sipher.PatriciaTree)) Type) (empty: (p (User.Sipher.PatriciaTree.empty))) (leaf: (key: U120) (value: U120) (p (User.Sipher.PatriciaTree.leaf key value))) (branch: (prefix: U120) (branchingbit: U120) (left: User.Sipher.PatriciaTree) (right: User.Sipher.PatriciaTree) (p (User.Sipher.PatriciaTree.branch prefix branchingbit left right))) : (p x)
+User.Sipher.PatriciaTree.match (User.Sipher.PatriciaTree.empty) p empty leaf branch = (empty)
+User.Sipher.PatriciaTree.match (User.Sipher.PatriciaTree.leaf key_ value_) p empty leaf branch = (leaf key_ value_)
+User.Sipher.PatriciaTree.match (User.Sipher.PatriciaTree.branch prefix_ branchingbit_ left_ right_) p empty leaf branch = (branch prefix_ branchingbit_ left_ right_)

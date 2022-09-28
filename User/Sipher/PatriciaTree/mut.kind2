@@ -1,0 +1,38 @@
+User.Sipher.PatriciaTree.mut #PMut
+  (map  : User.Sipher.PatriciaTree)
+  (key  : U120)
+  (init : U120)
+  (func : U120 -> U120)
+: User.Sipher.PatriciaTree
+
+
+User.Sipher.PatriciaTree.mut (User.Sipher.PatriciaTree.empty)    key init func = User.Sipher.PatriciaTree.leaf key (func init)
+User.Sipher.PatriciaTree.mut (User.Sipher.PatriciaTree.branch prefix bbit t0 t1) key init func = 
+  User.Sipher.PatriciaTree.mut.branch0 (User.Sipher.PatriciaTree.matchprefix key prefix bbit) prefix bbit t0 t1 key init func
+
+User.Sipher.PatriciaTree.mut (User.Sipher.PatriciaTree.leaf k v) key init func = 
+  User.Sipher.PatriciaTree.mutAux0 (U120.equal k key) key k v init func
+
+
+User.Sipher.PatriciaTree.mutAux0 #PMutAux (b: Bool) (key: U120) (old_key: U120) (val: U120) (init: U120) (func: U120 -> U120):  User.Sipher.PatriciaTree
+User.Sipher.PatriciaTree.mutAux0 Bool.true  key old_key val init func = User.Sipher.PatriciaTree.leaf key (func val) 
+User.Sipher.PatriciaTree.mutAux0 Bool.false key old_key val init func = 
+  let new_leaf = User.Sipher.PatriciaTree.leaf key (func init)
+  let old_leaf = User.Sipher.PatriciaTree.leaf old_key val
+  User.Sipher.PatriciaTree.join key new_leaf old_key old_leaf
+
+
+User.Sipher.PatriciaTree.mut.branch0 #PMutBrnch (b: Bool) (prefix: U120) (bbit: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree) (key: U120) (init: U120) (func: U120 -> U120) : User.Sipher.PatriciaTree 
+User.Sipher.PatriciaTree.mut.branch0 Bool.false prefix bbit t0 t1 key init func = 
+  let new_leaf = User.Sipher.PatriciaTree.leaf key (func init)
+  let old_brch = User.Sipher.PatriciaTree.branch prefix bbit t0 t1
+  User.Sipher.PatriciaTree.join key new_leaf prefix old_brch
+
+User.Sipher.PatriciaTree.mut.branch0 Bool.true  prefix bbit t0 t1 key init func = 
+  User.Sipher.PatriciaTree.mut.branch1 (User.Sipher.PatriciaTree.zerobit key bbit) prefix bbit t0 t1 key init func
+
+User.Sipher.PatriciaTree.mut.branch1 #PMutBrnch1 (b: Bool) (prefix: U120) (bbit: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree) (key: U120) (init: U120) (func: U120 -> U120) : User.Sipher.PatriciaTree
+User.Sipher.PatriciaTree.mut.branch1 Bool.true  prefix bbit t0 t1 key init func = 
+  User.Sipher.PatriciaTree.branch prefix bbit (User.Sipher.PatriciaTree.mut t0 key init func) t1
+User.Sipher.PatriciaTree.mut.branch1 Bool.false prefix bbit t0 t1 key init func =
+  User.Sipher.PatriciaTree.branch prefix bbit t0 (User.Sipher.PatriciaTree.mut t1 key init func)

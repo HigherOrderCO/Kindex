@@ -1,2 +1,2 @@
-// Automatically derived from KDL/KGT/Response/_.type
-KDL.KGT.Response.mint (success: Bool) : (KDL.KGT.Response)
+// Automatically derived from response.type
+KDL.KGT.Response.mint #KgtRMint (success: Bool) : (KDL.KGT.Response)

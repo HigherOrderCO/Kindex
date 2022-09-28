@@ -1,0 +1,57 @@
+//Transfer Function without any verification
+User.Sipher.KGT.transfer #KgtTransfer
+  (from  : U120)
+  (to    : U120)
+  (value : U120)
+  (state : KDL.KGT.State)
+: KDL.KGT.State
+
+// Sender can't be zero address
+User.Sipher.KGT.transfer (U120.new 0 0) to   value state = state
+
+// Receiver can't be zero address
+User.Sipher.KGT.transfer from (U120.new 0 0) value state = state
+
+// You can't make a zero value transaction
+User.Sipher.KGT.transfer from to (U120.new 0 0)    state = state
+
+// If the wallets aren't invalid and the transaction isn't zero, proceeds to the
+// next verification
+User.Sipher.KGT.transfer from to value (KDL.KGT.State.new last_mint balances) = 
+  let sender_money = User.Sipher.PatriciaTree.get balances from
+  User.Sipher.KGT.transfer.sender sender_money from to value (KDL.KGT.State.new last_mint balances)
+
+// Verifies if the sender is really a valid person
+User.Sipher.KGT.transfer.sender #KgtSender
+  (sender : Maybe U120)
+  (from   : U120)
+  (to     : U120)
+  (value  : U120)
+  (state : KDL.KGT.State)
+: KDL.KGT.State
+User.Sipher.KGT.transfer.sender (Maybe.none t)       from to value state = state
+User.Sipher.KGT.transfer.sender (Maybe.some t money) from to value state = 
+  User.Sipher.KGT.transfer.finish (U120.greater_than money value) money value from to state
+
+
+// Once verified that the sender is a valid person, verifies if he has money, if
+// so the transfer completes
+User.Sipher.KGT.transfer.finish #KgtFinish
+  (has_money         : Bool)
+  (sender_money      : U120)
+  (transaction_value : U120)
+  (from              : U120)
+  (to                : U120)
+  (state             : KDL.KGT.State)
+: KDL.KGT.State
+User.Sipher.KGT.transfer.finish Bool.false sender_money transaction_value from to state = state
+User.Sipher.KGT.transfer.finish Bool.true  sender_money transaction_value from to (KDL.KGT.State.new last_mint balances) = 
+  // Removes the value from the sender
+  let new_value = U120.sub sender_money transaction_value
+  let balances  = User.Sipher.PatriciaTree.set balances from new_value
+
+  // Adds the value to the receiver
+  let new_value = (x: U120) => U120.add transaction_value x
+  let balances  = User.Sipher.PatriciaTree.mut balances to (U120.new 0 0) new_value
+  
+  KDL.KGT.State.new last_mint balances

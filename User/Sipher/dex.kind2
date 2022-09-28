@@ -1,282 +1,738 @@
-User.Sipher.Wallet : Type
-User.Sipher.Wallet = Pair String Nat
+//           e          /     \
+//       0       1
+//      /  \    / \
+//     0    1  0   1
+//    / \  / \/ \ / \
 
-User.Sipher.Zero_address : String
-User.Sipher.Zero_address = "0x0000"
-
-User.Sipher.Zero_wallet : User.Sipher.Wallet
-User.Sipher.Zero_wallet = Pair.new (User.Sipher.Zero_address) Nat.zero
+//State {
+  //new (last_mint: U120 , balances: Data.PatriciaTree)
+//}
 
 
-Pair.map_fst <a> <b> <c> (pair: Pair a b) (func: a -> c) : Pair c b
-Pair.map_fst a b c (Pair.new t.a t.b p.fst p.snd) func =
-  Pair.new c t.b (func p.fst) p.snd
+//Bits.o Bits.e         = Corgan       - 100
+//Bits.o(Bits.o Bits.e) = Kingu        -  80
+//Bits.o(Bits.i Bits.e) = Jotario      -  50
+//Bits.e                = Zero_wallet  -   0
+//Bits.i Bits.e         = Taelin       -  75
+//Bits.i(Bits.o Bits.e) = Sipher       -  60
+//Bits.i(Bits.i Bits.e) = Derenash     -  50
 
-Pair.map_snd <a> <b> <c> (pair: Pair a b) (func: b -> c) : Pair a c
-Pair.map_snd a b c (Pair.new t.a t.b p.fst p.snd) func =
-  Pair.new t.a c p.fst (func p.snd)
 
-User.Sipher.Transaction : Type
-User.Sipher.Transaction.recipt 
-  (mana_limit : String)
-  (mana_price : String)
-  (to         : String)
-  (value      : String)
-  (data       : String)
-: User.Sipher.Transaction
+//----------------------------
+//User.Sipher.Map : Bits.Map Nat {
+  //let left  = 
+    ////O E = Corgan
+    //(Bits.Map.tie (Maybe.some (U60.to_nat 100))
+      ////O O E = Kingu
+      //(Bits.Map.tie (Maybe.some (U60.to_nat 80)) Bits.Map.new Bits.Map.new)
+        ////O I E = Jotario
+        //(Bits.Map.tie (Maybe.some (U60.to_nat 50)) Bits.Map.new Bits.Map.new))
+  //let right = 
+    ////I E = Taelin
+    //(Bits.Map.tie (Maybe.some (U60.to_nat 75))
+      ////I O E = Sipher
+      //(Bits.Map.tie (Maybe.some (U60.to_nat 60)) Bits.Map.new Bits.Map.new)
+        //// I I E = Derenash
+        //(Bits.Map.tie (Maybe.some  (U60.to_nat 50)) Bits.Map.new Bits.Map.new))
 
-User.Sipher.Transaction_to_text (transaction: User.Sipher.Transaction) : String
-User.Sipher.Transaction_to_text (User.Sipher.Transaction.recipt mana_limit mana_price to value data)  = 
-  let pre_nonce      = "Nonce: " 
-  let pre_mana_limit = "Mana limit: "
-  let pre_mana_price = "Mana price: "
-  let pre_to         = "Receiver: "
-  let pre_value      = "Value: "
-  let pre_data       = "Data: "
-  let concat         = (x => y => (String.concat x y)) :: String -> String -> String
-
-  let mana_limit  = concat (concat pre_mana_limit mana_limit) ", "
-  let mana_price  = concat (concat pre_mana_price mana_price) ", "
-  let to          = concat (concat pre_to to) ", "
-  let value       = concat (concat pre_value value) ", "
-  let data        = concat (concat pre_data data) ", "
-  concat (concat value (concat to (concat mana_price mana_limit ))) data
+  //Bits.Map.tie (Maybe.some Nat.zero) left right
+//}
 
 
 
-
-
-//Pior funcao do mundo apenas
-//Preciso ajustar o for la no final
-//fiz de uma forma esquisita pq sao 5am
-User.Sipher.List_to_BitsMap
-  (list: List (Pair String (Pair String Nat)))
-: Bits.Map (Pair String Nat)
-User.Sipher.List_to_BitsMap (List.nil t) = Bits.Map.new
-User.Sipher.List_to_BitsMap (List.cons t head tail)  =
-  let fst = Pair.fst head
-  let equal = List.any tail (x => (String.equal (Pair.fst x) fst)) ::  (Pair String (Pair String Nat)) -> Bool
-  if equal { 
-    User.Sipher.List_to_BitsMap tail
-  } else { 
-    let converted_list = (pair => (Pair.map_fst String (Pair String Nat) Bits pair (x => (Bits.read x )))) :: (Pair String (Pair String Nat)) -> (Pair Bits (Pair String Nat))
-    let convert = List.map (List.cons head tail) converted_list
-    User.Sipher.List_to_BitsMap_aux convert Bits.Map.new
-  }
-
-User.Sipher.List_to_BitsMap_aux (xs: List (Pair Bits (Pair String Nat))) (map: Bits.Map (Pair String Nat)) : Bits.Map (Pair String Nat)
-User.Sipher.List_to_BitsMap_aux (List.nil t) map = map
-User.Sipher.List_to_BitsMap_aux (List.cons t head tail ) map =
-    let key = Pair.fst head
-    let value = Pair.snd head
-    let map = Bits.Map.set map key value
-    User.Sipher.List_to_BitsMap_aux tail map
-
-
-//           e
-//         /   \
-//        0     1
-//      /  \   / \
-//     0    1 0   1
-
-
-
-//Bits.o Bits.e         = Corgan
-//Bits.o(Bits.o Bits.e) = Kingu
-//Bits.o(Bits.i Bits.e) = Jotario
-//Bits.e                = Zero_wallet
-//Bits.i Bits.e         = Taelin
-//Bits.i(Bits.o Bits.e) = Sipher
-//Bits.i(Bits.i Bits.e) = Derenash
-
-
-User.Sipher.Wallets : Bits.Map User.Sipher.Wallet
-User.Sipher.Wallets = 
+User.Sipher.Map : Bits.Map Nat {
   let left  = 
     //O E = Corgan
-    (Bits.Map.tie (Maybe.some (Pair.new "0x0001" (U60.to_nat 100)))
+    (Bits.Map.tie (Maybe.some (U60.to_nat 5))
       //O O E = Kingu
-      (Bits.Map.tie (Maybe.some (Pair.new "0x0002" (U60.to_nat 80))) Bits.Map.new Bits.Map.new)
+      (Bits.Map.tie (Maybe.some (U60.to_nat 5)) Bits.Map.new Bits.Map.new)
         //O I E = Jotario
-        (Bits.Map.tie (Maybe.some (Pair.new "0x0003" (U60.to_nat 50))) Bits.Map.new Bits.Map.new))
+        (Bits.Map.tie (Maybe.some (U60.to_nat 5)) Bits.Map.new Bits.Map.new))
   let right = 
     //I E = Taelin
-    (Bits.Map.tie (Maybe.some (Pair.new "0x0004" (U60.to_nat 75)))
+    (Bits.Map.tie (Maybe.some (U60.to_nat 5))
       //I O E = Sipher
-      (Bits.Map.tie (Maybe.some (Pair.new "0x0005" (U60.to_nat 60))) Bits.Map.new Bits.Map.new)
+      (Bits.Map.tie (Maybe.some (U60.to_nat 5)) Bits.Map.new Bits.Map.new)
         // I I E = Derenash
-        (Bits.Map.tie (Maybe.some (Pair.new "0x0006" (U60.to_nat 50))) Bits.Map.new Bits.Map.new))
+        (Bits.Map.tie (Maybe.some  (U60.to_nat 5)) Bits.Map.new Bits.Map.new))
 
-  Bits.Map.tie (Maybe.some User.Sipher.Zero_wallet) left right
+  Bits.Map.tie (Maybe.some Nat.zero) left right
+}
+
+User.Sipher.Wallet : Type {
+  Bits.Map Nat
+}
+
+
+// Given a map, converts it to a list with a pair of key value
+//------------------------
+User.Sipher.map_to_list <a: Type>
+  (map : User.Sipher.Wallet)
+: List (Pair Bits a)
+User.Sipher.map_to_list Nat map = User.Sipher.map_to_list.go map List.nil Bits.e
+
+User.Sipher.map_to_list.go <a: Type>
+  (map : Bits.Map a)
+  (key_val: List (Pair Bits a))
+  (acum: Bits)
+: List (Pair Bits a)
+User.Sipher.map_to_list.go a (Bits.Map.new t) key_val acum = key_val
+User.Sipher.map_to_list.go a (Bits.Map.tie t val left right) key_val acum =
+  let list0 = match Maybe val {
+    none => key_val
+    some => (List.cons (Pair.new (Bits.reverse acum) val.value) key_val)
+  }
+  let list1 = User.Sipher.map_to_list.go left list0 (Bits.o acum)
+  User.Sipher.map_to_list.go right list1 (Bits.i acum)
+//------------------------
+
+User.Sipher.map_values <a: Type>
+  (map: Bits.Map a)
+: List a {
+  User.Sipher.map_values.go a map (List.nil a)
+}
+
+
+User.Sipher.map_values.go <a: Type>
+  (map : Bits.Map a)
+  (key_val: List a)
+: List a
+User.Sipher.map_values.go a (Bits.Map.new t)                key_val = key_val
+User.Sipher.map_values.go a (Bits.Map.tie t val left right) key_val = 
+  let list0 = User.Sipher.map_values_aux a val key_val
+  let list1 = User.Sipher.map_values.go a left list0 
+  User.Sipher.map_values.go a right list1 
+
+
+User.Sipher.map_values_aux <a: Type>
+  (value: Maybe a)
+  (list: List a)
+: List a
+User.Sipher.map_values_aux a (Maybe.none t)       list = list
+User.Sipher.map_values_aux a (Maybe.some t value) list = List.cons a value list
+
+
+
+User.Sipher.List_sum
+  (list: List Nat)
+: Nat
+
+User.Sipher.List_sum (List.nil t) = Nat.zero
+User.Sipher.List_sum (List.cons t head tail) = Nat.add head (User.Sipher.List_sum tail)
   
 
-//-----------------------------
-//Transfer_zero
-
-//Returns false if transaction is with Zero value
-User.Sipher.Can_transfer_zero (value: Nat) : Bool
-User.Sipher.Can_transfer_zero Nat.zero              = Bool.false
-User.Sipher.Can_transfer_zero (Nat.succ value.pred) = Bool.true
-//-----------------------------
-
-//-----------------------------
-// No_Zero Address 
-
-//Returns false if any of address are invalid
-User.Sipher.Can_transfer_address
-  (from: User.Sipher.Wallet)
-  (to: User.Sipher.Wallet)
-: Bool
-User.Sipher.Can_transfer_address (Pair.new a b f.address f.value) (Pair.new c d t.address t.value) = 
-  let f_empty   = String.equal f.address User.Sipher.Zero_address
-  let t_empty   = String.equal t.address User.Sipher.Zero_address
-  Bool.not ( Bool.or f_empty t_empty )
+User.Sipher.map_total_value 
+  (map: Bits.Map Nat)
+: Nat
+User.Sipher.map_total_value (Bits.Map.new t) = Nat.zero
+User.Sipher.map_total_value (Bits.Map.tie t val left right) =  
+  let value = Maybe.default val Nat.zero
+  let left  = User.Sipher.map_total_value left
+  let right = User.Sipher.map_total_value right
+  let child = Nat.add left right
+   Nat.add value child
+  
+// Given a Wallet, returns the sum of its value 
+//------------------------
+User.Sipher.get_total_wallet_value
+  (map: User.Sipher.Wallet)
+: Nat
+User.Sipher.get_total_wallet_value map = 
+  User.Sipher.map_total_value map
+//------------------------
 
 
-//Proof
-//User.Sipher.Can_transfer_address_proof 
-  //(from: User.Sipher.Wallet) 
-  //(to: User.Sipher.Wallet)
-//: Decidable (Equal Bool (User.Sipher.Can_transfer_address from to) Bool.true)
-  //User.Sipher.Can_transfer_address_proof (Pair.new f.a f.b f.address f.value)
-                                         //(Pair.new t.a t.b t.address t.value) = 
-    //?
-//-----------------------------
-
-//Returns false if the value is higher than the sender money
-User.Sipher.Can_transfer_no_money 
-  (from: User.Sipher.Wallet)
-  (value: Nat)
-: Bool
-User.Sipher.Can_transfer_no_money (Pair.new a b address money) value = Nat.gte money value
-
-User.Sipher.Can_transfer 
-  (from  : User.Sipher.Wallet)
-  (to    : User.Sipher.Wallet)
-  (value : Nat)
-: Bool
-
-User.Sipher.Can_transfer from to value =
-  let zero_transf     = User.Sipher.Can_transfer_zero value
-  let invalid_address = User.Sipher.Can_transfer_address from to
-  let has_money       = User.Sipher.Can_transfer_no_money from value
-  Bool.and zero_transf (Bool.and invalid_address has_money)
-    
-
-//Cant_transfer_zero
-  //(from: Bits) 
-  //(to: Bits) 
-  //(wallet: Bits.Map User.Sipher.Wallet) 
-  //(money: Nat)
-//: Equal (User.Sipher.Transfer from to wallet Nat.zero) Maybe.none
-//Cant_transfer_zero from to wallet = Equal.refl
-
-Cant_transfer_zero_address 
-  (to   : Bits)
-  (wallet : Bits.Map User.Sipher.Wallet)
-  (money  : Nat)
-: Equal (Maybe (Pair (Bits.Map User.Sipher.Wallet) User.Sipher.Transaction )) (User.Sipher.Transfer Bits.e to wallet money) Maybe.none
+// Gets the sum of the value of the wallet in the current state
+//------------------------
+User.Sipher.old_sum
+  (wallet: User.Sipher.Wallet)
+: Nat {
+  User.Sipher.map_total_value wallet
+}
+//------------------------
 
 
-
+// Gets the sum of the value of the wallet after a transaction
+//------------------------
+User.Sipher.new_sum
+  (from   : Bits) //It is going to be a string next
+  (to     : Bits) //It is going to be a string next
+  (value  : Nat)
+  (wallet : User.Sipher.Wallet)
+: Nat { 
+  let transaction = User.Sipher.Transfer from to value wallet 
+  User.Sipher.get_total_wallet_value transaction
+}
+//------------------------
 
 User.Sipher.Transfer
   (from   : Bits) //It is going to be a string next
   (to     : Bits) //It is going to be a string next
-  (wallet : Bits.Map User.Sipher.Wallet)
   (value  : Nat)
-: Maybe (Pair (Bits.Map User.Sipher.Wallet) User.Sipher.Transaction )
+  (wallet : User.Sipher.Wallet)
+: User.Sipher.Wallet
 
-//Can use Mut for that? instead of get/set
-User.Sipher.Transfer from to wallet value = 
-  let get_to   = Maybe.case_with_default (Bits.Map.get wallet to) User.Sipher.Zero_wallet
-  let get_from = Maybe.case_with_default (Bits.Map.get wallet from) User.Sipher.Zero_wallet
-  let can_traf = User.Sipher.Can_transfer get_from get_to value
-  if can_traf {
-    let to_value        = Pair.snd get_to
-    let from_value      = Pair.snd get_from
+// Sender can't be zero address
+User.Sipher.Transfer Bits.e to value wallet  = wallet
 
-    let new_to_value    = (x => (Nat.add x value)) :: Nat -> Nat
-    let new_from_value  = (x => (Nat.sub x value)) :: Nat -> Nat
+// Receiver can't be zero address
+User.Sipher.Transfer from Bits.e value wallet = wallet
 
-    let new_to          = Pair.map_snd get_to   new_to_value
-    let new_from        = Pair.map_snd get_from new_from_value
-    
-    let wallet          = Bits.Map.set wallet to new_to
-    let wallet          = Bits.Map.set wallet from new_from
+// You can't make a zero value transaction
+User.Sipher.Transfer from to Nat.zero wallet = wallet
 
-    let new_transaction = 
-      (User.Sipher.Transaction.recipt 
-        "topo pagar até 12 pila"
-        "custou 10 conto"
-        (Pair.fst new_to)
-        (Show.to_string (U60.show (Nat.to_u60 value)))
-        "Transferencia braba"
-        )
-      Maybe.some (Pair.new wallet new_transaction)
-  } else {
-    Maybe.none
-  }
+User.Sipher.Transfer from to value wallet = 
+  let sender_money = Bits.Map.get Nat wallet from
+  User.Sipher.Transfer.sender sender_money from to value wallet
+
+
+// Verifies if the sender is really a valid person
+User.Sipher.Transfer.sender 
+  (sender: (Maybe Nat)) 
+  (from: Bits)
+  (to: Bits)
+  (value: Nat) 
+  (wallet: User.Sipher.Wallet)
+: User.Sipher.Wallet
+User.Sipher.Transfer.sender (Maybe.none t) from to value wallet = wallet
+User.Sipher.Transfer.sender (Maybe.some t money) from to value wallet =
+  User.Sipher.Transfer.finish (Nat.gtn money value) money value from to wallet
+
+
+User.Sipher.Transfer.finish
+  (has_money: Bool)
+  (sender_money: Nat)
+  (transaction_value: Nat)
+  (from: Bits)
+  (to: Bits)
+  (wallet: User.Sipher.Wallet)
+: User.Sipher.Wallet
+User.Sipher.Transfer.finish Bool.false sender_money transaction_value from to wallet = wallet
+User.Sipher.Transfer.finish Bool.true sender_money transaction_value from to wallet = 
+  // Removes the value from the sender
+  let new_value = Nat.sub sender_money transaction_value
+  let wallet    = Bits.Map.set Nat wallet from new_value
+
+  // Adds the value to the receiver
+  let new_value = (x: Nat) => Nat.add transaction_value x
+  let wallet    = Bits.Map.mut Nat wallet to Nat.zero new_value
+
+  wallet
+
+
+
+//----------
+// Proofs
+User.Sipher.Cant_transfer_zero_theorem 
+  (from: Bits) 
+  (to: Bits) 
+  (wallet: User.Sipher.Wallet) 
+: Equal (User.Sipher.Transfer from to Nat.zero wallet ) wallet
+User.Sipher.Cant_transfer_zero_theorem Bits.e          Bits.e          wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem (Bits.o f.pred) Bits.e          wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem (Bits.i f.pred) Bits.e          wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem Bits.e          (Bits.o t.pred) wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem Bits.e          (Bits.i t.pred) wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem (Bits.o f.pred) (Bits.o t.pred) wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem (Bits.o f.pred) (Bits.i t.pred) wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem (Bits.i f.pred) (Bits.o t.pred) wallet = Equal.refl
+User.Sipher.Cant_transfer_zero_theorem (Bits.i f.pred) (Bits.i t.pred) wallet = Equal.refl
+
+//
+User.Sipher.From_cant_be_zero_address_theorem
+  (to: Bits) 
+  (value: Nat)
+  (wallet: User.Sipher.Wallet)
+: Equal (User.Sipher.Transfer Bits.e to value wallet) wallet
+User.Sipher.From_cant_be_zero_address_theorem Bits.e          Nat.zero          wallet = Equal.refl
+User.Sipher.From_cant_be_zero_address_theorem Bits.e          (Nat.succ v.pred) wallet = Equal.refl
+User.Sipher.From_cant_be_zero_address_theorem (Bits.o t.pred) Nat.zero          wallet = Equal.refl
+User.Sipher.From_cant_be_zero_address_theorem (Bits.o t.pred) (Nat.succ v.pred) wallet = Equal.refl
+User.Sipher.From_cant_be_zero_address_theorem (Bits.i t.pred) Nat.zero          wallet = Equal.refl
+User.Sipher.From_cant_be_zero_address_theorem (Bits.i t.pred) (Nat.succ v.pred) wallet = Equal.refl
+
+//
+User.Sipher.To_cant_be_zero_address_theorem
+  (from: Bits) 
+  (value: Nat)
+  (wallet: User.Sipher.Wallet) 
+: Equal (User.Sipher.Transfer from Bits.e value wallet) wallet
+User.Sipher.To_cant_be_zero_address_theorem Bits.e          Nat.zero          wallet = Equal.refl
+User.Sipher.To_cant_be_zero_address_theorem Bits.e          (Nat.succ v.pred) wallet = Equal.refl
+User.Sipher.To_cant_be_zero_address_theorem (Bits.o t.pred) Nat.zero          wallet = Equal.refl
+User.Sipher.To_cant_be_zero_address_theorem (Bits.o t.pred) (Nat.succ v.pred) wallet = Equal.refl
+User.Sipher.To_cant_be_zero_address_theorem (Bits.i t.pred) Nat.zero          wallet = Equal.refl
+User.Sipher.To_cant_be_zero_address_theorem (Bits.i t.pred) (Nat.succ v.pred) wallet = Equal.refl
+
+//
+User.Sipher.Cannot_transfer_from_ghost_account_theorem
+  (from: Bits)
+  (to: Bits)
+  (value: Nat)
+  (wallet: User.Sipher.Wallet)
+  (e0: Equal User.Sipher.Wallet (
+    let invalid_address = Bits.Map.get wallet from
+    let verification = User.Sipher.Transfer.sender invalid_address from to value wallet
+    verification) wallet)
+: Equal User.Sipher.Wallet (User.Sipher.Transfer from to value wallet) wallet
+
+User.Sipher.Cannot_transfer_from_ghost_account_theorem Bits.e          Bits.e          Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem Bits.e          Bits.e          (Nat.succ n.pred) wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.o f.pred) Bits.e          Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.o f.pred) Bits.e          (Nat.succ n.pred) wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.i f.pred) Bits.e          Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.i f.pred) Bits.e          (Nat.succ n.pred) wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem Bits.e          (Bits.o t.pred) Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem Bits.e          (Bits.o t.pred) (Nat.succ n.pred) wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem Bits.e          (Bits.i t.pred) Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem Bits.e          (Bits.i t.pred) (Nat.succ n.pred) wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.o f.pred) (Bits.o t.pred) Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.o f.pred) (Bits.o t.pred) (Nat.succ n.pred) wallet e0 = e0
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.o f.pred) (Bits.i t.pred) Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.o f.pred) (Bits.i t.pred) (Nat.succ n.pred) wallet e0 = e0
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.i f.pred) (Bits.o t.pred) Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.i f.pred) (Bits.o t.pred) (Nat.succ n.pred) wallet e0 = e0
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.i f.pred) (Bits.i t.pred) Nat.zero          wallet e0 = Equal.refl
+User.Sipher.Cannot_transfer_from_ghost_account_theorem (Bits.i f.pred) (Bits.i t.pred) (Nat.succ n.pred) wallet e0 = e0
+
+
+
+User.Sipher.Transfer.maintains_total_sum
+  (from: Bits)
+  (to: Bits)
+  (value: Nat)
+  (wallet: User.Sipher.Wallet)
+: Equal Nat (User.Sipher.old_sum wallet) (User.Sipher.new_sum from to value wallet)
+User.Sipher.Transfer.maintains_total_sum Bits.e          Bits.e          Nat.zero          wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum Bits.e          Bits.e          (Nat.succ n.pred) wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum (Bits.o f.pred) Bits.e          Nat.zero          wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum (Bits.o f.pred) Bits.e          (Nat.succ n.pred) wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum (Bits.i f.pred) Bits.e          Nat.zero          wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum (Bits.i f.pred) Bits.e          (Nat.succ n.pred) wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum (Bits.o f.pred) (Bits.o t.pred) Nat.zero          wallet  = Equal.refl
+User.Sipher.Transfer.maintains_total_sum (Bits.o f.pred) (Bits.o t.pred) (Nat.succ n.pred) wallet  = 
+  User.Sipher.t0 (Bits.o f.pred) (Bits.o t.pred) (Nat.succ n.pred) wallet
+User.Sipher.Transfer.maintains_total_sum (Bits.i f.pred) (Bits.o t.pred) (Nat.succ n.pred) wallet  = 
+  User.Sipher.t0 (Bits.i f.pred) (Bits.o t.pred) (Nat.succ n.pred) wallet
+
+User.Sipher.t0 
+  (from: Bits)
+  (to: Bits)
+  (value: Nat)
+  (wallet: User.Sipher.Wallet)
+:(Equal Nat (User.Sipher.map_total_value wallet) 
+          (User.Sipher.map_total_value (User.Sipher.Transfer.sender (Bits.Map.get Nat wallet from) from to value wallet)))
+User.Sipher.t0 from to value wallet = 
+  User.Sipher.t1 from to value wallet (Bits.Map.get Nat wallet from) Equal.refl
+
+User.Sipher.t1
+  (from: Bits)
+  (to: Bits)
+  (value: Nat)
+  (wallet: User.Sipher.Wallet)
+  (got_from: Maybe Nat)
+  (got_from.eq: Equal (Maybe Nat) got_from (Bits.Map.get wallet from))
+: (Equal Nat (User.Sipher.map_total_value wallet)
+             (User.Sipher.map_total_value (User.Sipher.Transfer.sender got_from from to value wallet)))
+
+User.Sipher.t1 from to value wallet (Maybe.none t) eq = Equal.refl
+User.Sipher.t1 from to value wallet (Maybe.some u got_from.value) eq = 
+  User.Sipher.t2 from to value got_from.value wallet (Nat.gtn got_from.value value) (Equal.mirror eq) Equal.refl
+
+
+User.Sipher.t2
+  (from: Bits)
+  (to: Bits)
+  (value: Nat)
+  (got_from: Nat)
+  (wallet: User.Sipher.Wallet)
+  (gtn: Bool)
+  (e0: Equal (Maybe Nat) (Bits.Map.get Nat wallet from) (Maybe.some got_from))
+  (e1: Equal Bool (Nat.gtn got_from value) gtn)
+:(Equal Nat (User.Sipher.map_total_value wallet) 
+            (User.Sipher.map_total_value (User.Sipher.Transfer.finish gtn got_from value from to wallet)))
+
+User.Sipher.t2 from to value got_from wallet Bool.false e0 e1 = Equal.refl
+User.Sipher.t2 Bits.e to value got_from (Bits.Map.tie t (Maybe.some u val) left right) Bool.true  e0 e1 =
+  let dft    = Equal.mirror (Equal.apply (x => Maybe.default x got_from) e0)
+  let mutter = User.Sipher.try (Bits.Map.tie t (Maybe.some u val) left right) to value
+  let app    = Equal.apply (x => (Nat.sub x value)) mutter
+  let ne1    = Equal.rewrite  dft (k => Equal Bool (Nat.gtn k value) Bool.true) e1
+  let aux    = User.Sipher.dios to right left value val ne1
+  let aus    = User.Sipher.dios to right left value got_from e1
   
+  let rpp = Equal.rewrite (Equal.mirror e0) (k =>  (Equal Nat (Nat.sub (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat k left right) to Nat.zero (x=>(Nat.add x value)))) value) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.some _ (Nat.sub got_from value)) left right) to Nat.zero (x=>(Nat.add value x)))))) aus
+  let chn    = Equal.chain app aux
+  let acb    = User.Sipher.acabou value got_from (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)
+  let mal    = User.Sipher.acabou value val (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)
+  let mch    = Equal.mirror acb
+  let com    = Nat.add.comm (User.Sipher.map_total_value right) (User.Sipher.map_total_value left)
+  let mml    = Equal.mirror mal
+  let fin    = Equal.rewrite com (k => (Equal Nat  (Nat.add val (Nat.add (User.Sipher.map_total_value right) (User.Sipher.map_total_value left))) (Nat.sub (Nat.add value (Nat.add val k)) value))) mml
+  let ans    = Equal.chain fin chn
+  let sui    = Equal.rewrite com (k => (Equal Nat (Nat.add val k)  (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.some Nat (Nat.sub val value)) left right) to Nat.zero (x=>(Nat.add value x)))))) ans
+  Equal.rewrite (Equal.mirror dft)(k => (Equal Nat  (Nat.add val (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.some _ (Nat.sub k value)) left right) to Nat.zero (x=>(Nat.add value x)))))) sui
+//User.Sipher.t2 (Bits.i pred) to value got_from (Bits.Map.tie t (Maybe.none u) left right) Bool.true e0 e1 =  
+  //let ind = User.Sipher.t2 pred to value got_from right Bool.true e0 e1
+  //let app = Equal.apply (x => (Nat.add (User.Sipher.map_total_value left) x)) ind
+  //////let aux = User.Sipher.try (Bits.Map.tie t (Maybe.none u) left right) to value
+  //////let au2 = User.Sipher.try2 (Bits.Map.tie t (Maybe.none u) left right) (Bits.i pred) value got_from e0 e1
+  //////let au2 = User.Sipher.try2 (Bits.Map.tie t (Maybe.none u) left right) pred value got_from e0 e1
+  //////let au2 = Equal.mirror (User.Sipher.try2 right pred value got_from e0 e1)
+  //?
+
+//Left_val and left map must be the same
+User.Sipher.nday
+  (from: Bits)
+  (to: Bits)
+  (right_map: User.Sipher.Wallet)
+  (left_map: User.Sipher.Wallet)
+  (got_from: Nat)
+  (value: Nat)
+  (gtn: Bool)
+  (e1: Equal Bool (Nat.gtn got_from value) gtn)
+:Equal Nat (Nat.add (User.Sipher.map_total_value left_map) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.set Nat right_map from (Nat.sub got_from value))  to Nat.zero (x=>(Nat.add value x))))) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.none Nat) left_map (Bits.Map.set Nat right_map from (Nat.sub got_from value))) to Nat.zero (x=>(Nat.add value x))))
+User.Sipher.nday Bits.e Bits.e  (Bits.Map.new t) left_map got_from value gtn e1 =
+  User.Sipher.nday_aux Bits.e Bits.e (Bits.Map.new t) left_map got_from value gtn e1
+//User.Sipher.nday Bits.e Bits.e (Bits.Map.tie t mapval rleft rright) left_map got_from value gtn e1 = 
+  //let aux = User.Sipher.nday_aux Bits.e Bits.e (Bits.Map.tie t mapval rleft rright) left_map got_from value gtn e1 
+  //let app = Equal.apply (x => Nat.add x (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))) aux
+  //let zer = Equal.mirror (Nat.add.comm.zero (Nat.add value (Nat.sub got_from value)))
+  //let rew = Equal.rewrite zer (k => (Equal Nat (Nat.add (Nat.add (User.Sipher.map_total_value left_map) k) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))) (Nat.add (Nat.add (Nat.add value Nat.zero) (Nat.add (User.Sipher.map_total_value left_map) (Nat.add (Nat.sub got_from value) Nat.zero))) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))))) app
+  //let com = Equal.mirror(Nat.add.comm (User.Sipher.map_total_value left_map)  (Nat.add (Nat.add value (Nat.sub got_from value)) (Nat.add (User.Sipher.map_total_value rleft) (User.Sipher.map_total_value rright))))
+  //let mir = Equal.mirror rew
+  //?
 
 
-Main {
-  let list = (
-    [
-    //(Pair.new String (Pair String Nat) ("0")  (Pair.new String Nat "0x000001" (U60.to_nat 3)))
-    //(Pair.new String (Pair String Nat) ("00") (Pair.new String Nat "0x000002" (U60.to_nat 3)))
-    //(Pair.new String (Pair String Nat) ("01") (Pair.new String Nat "0x000003" (U60.to_nat 3)))
-    //(Pair.new String (Pair String Nat) ("1")  (Pair.new String Nat "0x000004" (U60.to_nat 3)))
-    //(Pair.new String (Pair String Nat) ("10") (Pair.new String Nat "0x000005" (U60.to_nat 3)))
-    //(Pair.new String (Pair String Nat) ("11") (Pair.new String Nat "0x000006" (U60.to_nat 3)))
-      
-    (Pair.new String (Pair String Nat) ("0000001") (Pair.new String Nat "0x000001" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0000010") (Pair.new String Nat "0x000002" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0000011") (Pair.new String Nat "0x000003" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0000100") (Pair.new String Nat "0x000004" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0000101") (Pair.new String Nat "0x000005" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0000110") (Pair.new String Nat "0x000006" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0000111") (Pair.new String Nat "0x000007" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0001000") (Pair.new String Nat "0x000008" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0001001") (Pair.new String Nat "0x000009" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0001010") (Pair.new String Nat "0x000010" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0001011") (Pair.new String Nat "0x000011" (U60.to_nat 1)))
-    (Pair.new String (Pair String Nat) ("0001111") (Pair.new String Nat "0x000012" (U60.to_nat 1)))
-    ])
 
+User.Sipher.nday_aux
+  (from: Bits)
+  (to: Bits)
+  (right_map: User.Sipher.Wallet)
+  (left_map: User.Sipher.Wallet)
+  (got_from: Nat)
+  (value: Nat)
+  (gtn: Bool)
+  (e1: Equal Bool (Nat.gtn got_from value) gtn)
+: Equal Nat (Nat.add (User.Sipher.map_total_value left_map) (Nat.add (Nat.add value (Nat.sub got_from value)) Nat.zero)) (Nat.add (Nat.add value Nat.zero) (Nat.add (User.Sipher.map_total_value left_map) (Nat.add (Nat.sub got_from value) Nat.zero)))
+User.Sipher.nday_aux from to right_map left_map (Nat.succ n.pred) Nat.zero gtn e1 = Equal.refl
+User.Sipher.nday_aux from to right_map left_map (Nat.succ n.pred) (Nat.succ m.pred) gtn e1 =
+  let ind = User.Sipher.nday_aux from to right_map left_map n.pred m.pred gtn e1
+  let app = Equal.apply (x => Nat.succ x) ind
+  let lft = Nat.add.comm.succ (User.Sipher.map_total_value left_map)  (Nat.add (Nat.add m.pred (Nat.sub n.pred m.pred)) Nat.zero)
+  Equal.chain lft app
+
+
+
+
+User.Sipher.sera
+  (val: Maybe Nat)
+  (left: User.Sipher.Wallet)
+  (right: User.Sipher.Wallet)
+: Equal Nat (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)) (User.Sipher.map_total_value (Bits.Map.tie Nat (Maybe.none Nat) left right))
+User.Sipher.sera val (Bits.Map.new t) (Bits.Map.new u) = Equal.refl
+User.Sipher.sera val (Bits.Map.tie t (Maybe.none u) lft rgt) (Bits.Map.new v) = Equal.refl
+User.Sipher.sera val (Bits.Map.tie t (Maybe.some u value) lft rgt) (Bits.Map.new v) = Equal.refl
+User.Sipher.sera val (Bits.Map.tie t (Maybe.some u value) llft lrgt) (Bits.Map.tie v (Maybe.none w) rlft rrgt) = Equal.refl
+User.Sipher.sera val (Bits.Map.tie t (Maybe.some u lvalue) llft lrgt) (Bits.Map.tie v (Maybe.some w rvalue) rlft rrgt) = Equal.refl
+
+
+//(Equal Nat (Nat.add left_val (User.Sipher.map_total_value (Bits.Map.mut Nat                                             (Bits.Map.set Nat right_map from (Nat.sub got_from value))  to Nat.zero (x=>(Nat.add value x)))))
+//                             (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.none Nat) left_map (Bits.Map.set Nat right_map from (Nat.sub got_from value))) to Nat.zero (x=>(Nat.add value x)))))
+
+
+User.Sipher.acabou (value: Nat) (val: Nat) (right: Nat) (left: Nat) : (Equal Nat (Nat.sub (Nat.add value (Nat.add val (Nat.add left right))) value) (Nat.add val (Nat.add left right)))
+User.Sipher.acabou (Nat.succ n.pred) Nat.zero Nat.zero Nat.zero = 
+  let ind = User.Sipher.acabou n.pred Nat.zero Nat.zero Nat.zero
+  ind
+//User.Sipher.acabou (Nat.succ n.pred) (Nat.succ x.pred) Nat.zero Nat.zero = 
+  //let ind = User.Sipher.acabou n.pred x.pred Nat.zero Nat.zero
+  //let tes = Nat.add.comm.succ n.pred (Nat.add x.pred Nat.zero)
+  //?
+
+
+
+User.Sipher.dios
+(to: Bits)
+(right: User.Sipher.Wallet)
+(left: User.Sipher.Wallet)
+(value: Nat)
+(got_from: Nat)
+(e0: Equal Bool (Nat.gtn got_from value) Bool.true)
+:Equal (Nat.sub (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.some Nat got_from) left right) to Nat.zero (x=>(Nat.add x value)))) value) (User.Sipher.map_total_value (Bits.Map.mut Nat (Bits.Map.tie Nat (Maybe.some (Nat.sub got_from value)) left right) to  Nat.zero (x=>(Nat.add value x))))
+User.Sipher.dios Bits.e right left Nat.zero (Nat.succ Nat.zero) e0 = Equal.refl
+//User.Sipher.dios Bits.e right left (Nat.succ n.pred) (Nat.succ x.pred) e0 = 
+//?
+//User.Sipher.dios (Bits.o pred) right left (Nat.succ n.pred) (Nat.succ x.pred) e0 = ?
+  //let ind = User.Sipher.dios Bits.e right left n.pred x.pred e0 
+  ////let rgt = Nat.add.comm.succ x.pred (Nat.add (Nat.add x.pred (Nat.succ n.pred)) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))
+  //?
+
+
+User.Sipher.t2_aux <a: Type> 
+  (key: Bits)
+: Equal (Maybe a) (Bits.Map.get a (Bits.Map.new a) key) Maybe.none
+User.Sipher.t2_aux a Bits.e        = Equal.refl
+User.Sipher.t2_aux a (Bits.o pred) = Equal.refl
+User.Sipher.t2_aux a (Bits.i pred) = Equal.refl
+
+
+User.Sipher.values.go_aux
+(map: User.Sipher.Wallet)
+:Equal (List Nat)  (User.Sipher.map_values.go Nat map []) (User.Sipher.map_values map)
+User.Sipher.values.go_aux (Bits.Map.new t) = Equal.refl
+User.Sipher.values.go_aux (Bits.Map.tie t val left right) = Equal.refl
+
+
+User.Sipher.get_aux
+  (from: Bits)
+  (got_from: Nat)
+  (value: Nat)
+  (wallet: User.Sipher.Wallet)
+:Equal (Maybe Nat) (Bits.Map.get (Bits.Map.set Nat wallet from (Nat.sub got_from value)) from) (Maybe.some (Nat.sub got_from value))
+User.Sipher.get_aux Bits.e got_from value (Bits.Map.new t) = Equal.refl
+User.Sipher.get_aux Bits.e got_from value (Bits.Map.tie t val left right) = Equal.refl
+User.Sipher.get_aux (Bits.o pred) got_from value (Bits.Map.new t) = User.Sipher.get_aux pred got_from value (Bits.Map.new t)
+User.Sipher.get_aux (Bits.o pred) got_from value (Bits.Map.tie t val left right) = User.Sipher.get_aux pred got_from value left
+User.Sipher.get_aux (Bits.i pred) got_from value (Bits.Map.new t) = User.Sipher.get_aux pred got_from value (Bits.Map.new t)
+User.Sipher.get_aux (Bits.i pred) got_from value (Bits.Map.tie t val left right) = User.Sipher.get_aux pred got_from value right
+
+User.Sipher.get_mut_aux
+  (to: Bits)
+  (value: Nat)
+  (init: Nat)
+  (wallet: User.Sipher.Wallet)
+:Equal (Bits.Map Nat) (Bits.Map.mut Nat wallet to init (x => (Nat.add x value))) (
+  let maybe_val = Bits.Map.get wallet to
+  let add = (x: Nat) => Nat.add x value
+  Bits.Map.set wallet to (User.Sipher.meudeus maybe_val init add))
+
+User.Sipher.get_mut_aux Bits.e value Nat.zero (Bits.Map.new t) = Equal.refl
+User.Sipher.get_mut_aux Bits.e value Nat.zero (Bits.Map.tie t (Maybe.none u) left right) = Equal.refl
+User.Sipher.get_mut_aux Bits.e value Nat.zero (Bits.Map.tie t (Maybe.some u val) left right) = Equal.refl
+User.Sipher.get_mut_aux (Bits.o pred) value Nat.zero (Bits.Map.new t) = 
+  let ind = User.Sipher.get_mut_aux pred value Nat.zero (Bits.Map.new t)
+  let app = Equal.apply (x => (Bits.Map.tie t (Maybe.none) x (Bits.Map.new t))) ind
+  let aux_rew = User.Sipher.get_from_empty pred
+  let rew = Equal.rewrite aux_rew (k => (Equal (Bits.Map.tie t (Maybe.none t) (Bits.Map.mut Nat (Bits.Map.new t) pred Nat.zero (x=>(Nat.add x value))) (Bits.Map.new t)) (Bits.Map.tie t (Maybe.none t) (Bits.Map.set (Bits.Map.new t) pred (User.Sipher.meudeus k Nat.zero (x=>(Nat.add x value)))) (Bits.Map.new t)))) app
+  rew
+User.Sipher.get_mut_aux (Bits.o pred) value Nat.zero (Bits.Map.tie t val left right) = 
+  let ind = User.Sipher.get_mut_aux pred value Nat.zero left
+  let app = Equal.apply (x => (Bits.Map.tie t val x right)) ind
+  app
+User.Sipher.get_mut_aux (Bits.i pred) value Nat.zero (Bits.Map.new t) = 
+  let ind = User.Sipher.get_mut_aux pred value Nat.zero (Bits.Map.new t)
+  let aux_rew = User.Sipher.get_from_empty pred
+  let app = Equal.apply (x => (Bits.Map.tie t (Maybe.none) (Bits.Map.new t)x)) ind
+  let rew = Equal.rewrite aux_rew (k => (Equal (Bits.Map.tie t (Maybe.none t) (Bits.Map.new t) (Bits.Map.mut Nat (Bits.Map.new t) pred Nat.zero (x=>(Nat.add x value)))) (Bits.Map.tie t (Maybe.none t) (Bits.Map.new t) (Bits.Map.set  (Bits.Map.new t) pred (User.Sipher.meudeus k  Nat.zero (x=>(Nat.add x value))))))) app
+  rew
+User.Sipher.get_mut_aux (Bits.i pred) value Nat.zero (Bits.Map.tie t val left right) = 
+  let ind = User.Sipher.get_mut_aux pred value Nat.zero right
+  let app = Equal.apply (x => (Bits.Map.tie t val left x)) ind
+  app
+
+
+User.Sipher.get_from_empty
+  (key: Bits)
+: Equal (Maybe Nat) (Bits.Map.get (Bits.Map.new Nat) key) Maybe.none
+User.Sipher.get_from_empty Bits.e = Equal.refl
+User.Sipher.get_from_empty (Bits.o pred) = Equal.refl
+User.Sipher.get_from_empty (Bits.i pred) = Equal.refl
+
+
+
+User.Sipher.meudeus 
+  (x: Maybe Nat)
+  (y: Nat)
+  (f: Nat -> Nat)
+: Nat
+User.Sipher.meudeus (Maybe.none t ) y f = f y
+User.Sipher.meudeus (Maybe.some t val) y f = f val
+
+
+User.Sipher.try2
+  (wallet: User.Sipher.Wallet)
+  (from: Bits)
+  (value: Nat)
+  (got_from: Nat)
+  (e0: Equal (Maybe Nat) (Bits.Map.get Nat wallet from) (Maybe.some got_from))
+  (e1: Equal Bool (Nat.gtn got_from value) Bool.true)
+: Equal Nat (User.Sipher.map_total_value (Bits.Map.set Nat wallet from (Nat.sub got_from value))) (Nat.sub (User.Sipher.map_total_value wallet) value)
+User.Sipher.try2 (Bits.Map.tie t (Maybe.some u val) left right) Bits.e value got_from e0 e1 = 
+  let dft  = Equal.apply (x => Maybe.default x got_from) e0
+  let e0m  = Equal.mirror e0
+  let fin  = User.Sipher.gg got_from value (User.Sipher.map_total_value left) (User.Sipher.map_total_value right) e1
+  let lft =  (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))
+  let rgt = (k: Nat) => (Nat.sub (Nat.add k (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value) 
+  (Equal.rewrite (Equal.mirror dft) (k => Equal Nat (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) (Nat.sub (Nat.add k(Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value))
+    fin)
+  //let rew = Equal.rewrite (Equal.mirror dft) (k => (Equal Nat (Nat.add (Nat.sub got_from value) (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))
+ //(Nat.sub (Nat.add k (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))) value) 
+//)) fin
+  //rew
+
+
+
+ //let aux.1 = Equal.mirror (Reverse.involution.aux1 a xs [x])
+  //(Equal.rewrite aux.0 (k => Equal (List a) k (List.cons a v (Reverse.go a xs [x])))
+  //(Equal.rewrite aux.1 (k => Equal (List a) (List.concat a (Reverse.go a (List.concat a xs [v]) []) [x]) (List.cons a v k))
+  //(Equal.rewrite ind.0 (k => (Equal (List a) (List.concat a k [x]) (List.cons a v (List.concat a (Reverse.go a xs []) [x]))))
+  //Equal.refl
+  //)))
+
+
+
+User.Sipher.gg (x: Nat) (y: Nat) (left: Nat) (right: Nat) (e0: Equal Bool (Nat.gtn x y) Bool.true) : Equal Nat (Nat.add (Nat.sub x y) (Nat.add left right)) (Nat.sub (Nat.add x (Nat.add left right))y)
+//User.Sipher.gg Nat.zero Nat.zero left right e0 = absurd
+//User.Sipher.gg  Nat.zero (Nat.succ n.pred) left right e0 = absurd
+User.Sipher.gg (Nat.succ Nat.zero) Nat.zero left right e0 = Equal.refl
+User.Sipher.gg (Nat.succ n.pred) Nat.zero left right e0 = Equal.refl
+User.Sipher.gg (Nat.succ n.pred) (Nat.succ y.pred) left right e0 = 
+  User.Sipher.gg n.pred y.pred left right e0
+
+
+User.Sipher.try
+  (wallet: User.Sipher.Wallet)
+  (key: Bits)
+  (val: Nat)
+: (Equal Nat ( 
+    (Nat.add val (User.Sipher.map_total_value wallet)))
+    (User.Sipher.map_total_value (Bits.Map.mut wallet key Nat.zero (x => (Nat.add x val)))))
+
+User.Sipher.try (Bits.Map.new t) (Bits.e) val = Equal.refl
+User.Sipher.try (Bits.Map.new t) (Bits.o pred) val = 
+  let rec = User.Sipher.try (Bits.Map.new t) pred val 
+  let app = Equal.apply (x => (Nat.add x Nat.zero)) rec
+  let aux = User.Sipher.af (Nat.add val Nat.zero)
+  let rew = Equal.rewrite aux (k => Equal k (Nat.add (User.Sipher.map_total_value (Bits.Map.mut (Bits.Map.new t) pred Nat.zero (x=>(Nat.add x val)))) Nat.zero)) app
+  rew
+User.Sipher.try (Bits.Map.new t) (Bits.i pred) val = 
+  let rec = User.Sipher.try (Bits.Map.new t) pred val 
+  rec
+User.Sipher.try (Bits.Map.tie t (Maybe.none u) left right) Bits.e val = Equal.refl
+User.Sipher.try (Bits.Map.tie t (Maybe.some u value) left right) Bits.e val = 
+  let assoc = Nat.add.assoc val value (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))
+  let comm  = Nat.add.comm val value
+  Equal.rewrite comm (k => (Equal (Nat.add val (Nat.add value (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)))) (Nat.add k (Nat.add (User.Sipher.map_total_value left) (User.Sipher.map_total_value right))))) assoc
+User.Sipher.try (Bits.Map.tie t (Maybe.none u) left right) (Bits.o pred) val = 
+  let ind = User.Sipher.try left pred val 
+  let app = Equal.apply (x => (Nat.add x (User.Sipher.map_total_value right))) ind
+  let aux = User.Sipher.mds val (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)
+  let mir = Equal.mirror app
+  let mau = Equal.mirror aux
+  let chn = Equal.chain mir mau
+  Equal.mirror chn
+User.Sipher.try (Bits.Map.tie t (Maybe.some u value) left right) (Bits.o pred) val = 
+  let ind = User.Sipher.try left pred val
+  let apf = Equal.apply (x => (Nat.add value x)) ind
+  let aps = Equal.apply (x => (Nat.add x (User.Sipher.map_total_value right))) apf
+  let aux = User.Sipher.scr value val (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)
+  let mir = Equal.mirror aps
+  let chn = Equal.chain mir aux
+  let nmr = Equal.mirror chn
+  let otr = User.Sipher.mds value (User.Sipher.map_total_value (Bits.Map.mut left pred Nat.zero (x=>(Nat.add x val)))) (User.Sipher.map_total_value right)
+  let mot = Equal.mirror otr
+  let ch2 = Equal.chain nmr mot
+  ch2
+User.Sipher.try (Bits.Map.tie t (Maybe.none u) left right) (Bits.i pred) val = 
+  let ind = User.Sipher.try right pred val
+  let app = Equal.apply (x => Nat.add (User.Sipher.map_total_value left) x) ind
+  let aux = User.Sipher.save_me val (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)
+  let mir = (Equal.mirror app)
+  let mau = (Equal.mirror aux)
+  let chn = Equal.chain mir mau
+  Equal.mirror chn
+User.Sipher.try (Bits.Map.tie t (Maybe.some u value) left right) (Bits.i pred) val = 
+  let ind = User.Sipher.try right pred val
+  let apf = Equal.apply (x => Nat.add (User.Sipher.map_total_value left) x) ind
+  let aps = Equal.apply (x => Nat.add value x) apf
+  let aux = User.Sipher.fds value val (User.Sipher.map_total_value left) (User.Sipher.map_total_value right)
+  let chn = Equal.chain (Equal.mirror aps) aux
+  Equal.mirror chn
+
+
+
+
+User.Sipher.save_me (x: Nat) (left: Nat) (right: Nat) : Equal Nat (Nat.add x (Nat.add left right)) (Nat.add left (Nat.add x right))
+User.Sipher.save_me Nat.zero l r = Equal.refl
+User.Sipher.save_me (Nat.succ n.pred) l r = 
+  let aux = Equal.mirror ( Nat.add.comm.succ l (Nat.add n.pred r) )
+  let ind = User.Sipher.save_me n.pred l r
+  let app = Equal.apply (x => Nat.succ x) ind
+  Equal.chain app aux
+
+
+User.Sipher.fds (x: Nat) (y: Nat) (left: Nat) (right: Nat) : Equal Nat (Nat.add x (Nat.add left (Nat.add y right))) (Nat.add y   (Nat.add x (Nat.add left right)))
+User.Sipher.fds x Nat.zero left right =  Equal.refl
+User.Sipher.fds x (Nat.succ n.pred) left right = 
+  let ind = User.Sipher.fds x n.pred left right 
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  let aux = User.Sipher.suic x n.pred left right 
+  let chn = Equal.chain (Equal.mirror app) aux
+  Equal.mirror chn
+
+User.Sipher.suic (x: Nat) (y: Nat) (left: Nat) (right: Nat) : Equal Nat (Nat.succ  (Nat.add x    (Nat.add left (Nat.add y right)))) (Nat.add x (Nat.add left (Nat.succ     (Nat.add y right))))
+User.Sipher.suic Nat.zero y left right = 
+  let rgt = Nat.add.comm.succ left (Nat.add y right)
+  Equal.mirror rgt
+User.Sipher.suic (Nat.succ n.pred) y left right = 
+  let ind = User.Sipher.suic n.pred y left right
+  let app = Equal.apply ( x => Nat.succ x) ind
+  app
+
+User.Sipher.mds (val: Nat) (x: Nat) (y: Nat): (Equal Nat (Nat.add val (Nat.add x y)) (Nat.add (Nat.add val x) y))
+User.Sipher.mds Nat.zero x y = Equal.refl
+User.Sipher.mds (Nat.succ n.pred) x y = 
+  let ind = User.Sipher.mds n.pred x y 
+  Equal.apply (x => Nat.succ x) ind
+
+User.Sipher.scr (x: Nat) (y: Nat) (left: Nat) (right: Nat) : Equal Nat (Nat.add (Nat.add x (Nat.add y left)) right) (Nat.add y (Nat.add x (Nat.add left right)))
+User.Sipher.scr Nat.zero y left right = 
+  Equal.mirror (Nat.add.assoc y left right )
+User.Sipher.scr (Nat.succ n.pred) y left right = 
+  let ind = User.Sipher.scr n.pred y left right
+  let app = Equal.apply (x => Nat.succ x)  ind
+  let aux = Nat.add.comm.succ y (Nat.add n.pred (Nat.add left right))
+  let mir = Equal.mirror aux
+  Equal.chain app mir
+
+User.Sipher.af
+  (x: Nat)
+: Equal Nat (Nat.add x Nat.zero) x
+User.Sipher.af Nat.zero = Equal.refl
+User.Sipher.af (Nat.succ n.pred) = 
+  let ind = User.Sipher.af n.pred 
+  Equal.apply (x => (Nat.succ x)) ind
+
+
+Main { 
   let kingu = Bits.o(Bits.o Bits.e)
   let sipher = Bits.i(Bits.o Bits.e) 
-
-  let w1  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.e))))))))
-  let w2  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.e))))))))
-  let w3  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.e))))))))
-  let w4  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.o (Bits.e))))))))
-  let w5  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.i (Bits.e))))))))
-  let w6  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.o (Bits.e))))))))
-  let w7  = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.i (Bits.e))))))))
-  let w8  = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.o (Bits.o (Bits.e))))))))
-  let w9  = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.o (Bits.i (Bits.e))))))))
-  let w10 = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.i (Bits.o (Bits.e))))))))
-  let w11 = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.o (Bits.i (Bits.i (Bits.e))))))))
-  let w12 = (Bits.o (Bits.o (Bits.o (Bits.i (Bits.i (Bits.i (Bits.i (Bits.e))))))))
-  let value  = U60.to_nat 1
-  let wallet = User.Sipher.Wallets
-  //let wallet = User.Sipher.List_to_BitsMap list
-  User.Sipher.Transfer kingu sipher wallet value
+  let value  = U60.to_nat 80
+  let wallet = User.Sipher.Map
+  //Nat.to_u60 (User.Sipher.old_sum wallet)
+  let n5 = U60.to_nat 5
+  let n3 = U60.to_nat 3
+  User.Sipher.Transfer.maintains_total_sum kingu sipher Nat.zero wallet
+  //(from: Bits)
+  //(to: Bits)
+  //(value: Nat)
+  //(wallet: User.Sipher.Wallet)
+  //(a-b)
+  //Nat.sub n5 n3
+  //Nat.to_u60 (User.Sipher.map_total_value (Bits.Map.tie (Maybe.some (Nat.zero)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)))))
+  //Nat.to_u60 (User.Sipher.map_total_value (Bits.Map.tie (Maybe.some (Nat.zero)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)) (Bits.Map.tie (Maybe.some (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.zero))))))) (Bits.Map.new) (Bits.Map.new)))))
+  //Nat.to_u60 (User.Sipher.map_total_value wallet)
+  //Nat.to_u60 (User.Sipher.new_sum kingu sipher value wallet)
 }
-//Bits.o Bits.e         = Corgan
-//Bits.o(Bits.o Bits.e) = Kingu
-//Bits.o(Bits.i Bits.e) = Jotario
-//Bits.e
-//Bits.i Bits.e         = Taelin
-//Bits.i(Bits.o Bits.e) = Sipher
-//Bits.i(Bits.i Bits.e) = Derenash
 
-  ////let kingu = Bits.o(Bits.o Bits.e)
-  ////let sipher = Bits.i(Bits.o Bits.e) 
-  ////let wallet = User.Sipher.Wallets
-  ////let transfer = User.Sipher.Transfer sipher kingu wallet 200
-  ////let list = ["0101", "1010", "1001"]
-  ////User.Sipher.List_to_BitsMap (list)
-  //////transfer
-////}
+
+
+//Goal: (Equal Bool (U120.less_than (U120.bitwise_and (U120.bitwise_or (U120.shift_left y (U120.new 0 9)) x) (U120.new 0 511)) (U120.new 0 320)) Bool.true)
+
+List.reverse.involutive.aux <a> (xs: List a) (ys: List a) : Equal (List.reverse.go (List.reverse.go xs ys) []) (List.reverse.go ys xs)
+List.reverse.involutive.aux a (List.nil t)            ys = Equal.refl
+List.reverse.involutive.aux a (List.cons t head tail) ys = List.reverse.involutive.aux a tail (List.cons t head ys)
+
+List.reverse.involutive <a> (xs: List a) : Equal (List.reverse (List.reverse xs)) xs
+List.reverse.involutive a xs = List.reverse.involutive.aux xs []

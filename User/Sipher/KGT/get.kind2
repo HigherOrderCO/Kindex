@@ -1,0 +1,8 @@
+User.Sipher.KGT.get #KgtGet
+  (user  : U120)
+  (state : KDL.KGT.State)
+: Maybe U120 
+
+User.Sipher.KGT.get user (KDL.KGT.State.new last_mint balances) = 
+  User.Sipher.PatriciaTree.get balances user
+

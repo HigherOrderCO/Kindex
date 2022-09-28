@@ -1,0 +1,9 @@
+// 
+
+Bits.Map.Theorems.get <a: Type>
+  (map: Bits.Map a)
+  (key : Bits)
+: Equal (Maybe a) (Bits.Map.get map key) Maybe.none
+
+Bits.Map.Theorems.get a (Bits.Map.new t) Bits.e = Equal.refl
+Bits.Map.Theorems.get a (Bits.Map.tie t val left right) Bits.e = ?

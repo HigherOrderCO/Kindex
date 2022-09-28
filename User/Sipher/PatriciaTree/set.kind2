@@ -1,0 +1,21 @@
+User.Sipher.PatriciaTree.set #PSet (tree: User.Sipher.PatriciaTree) (key: U120) (value: U120): User.Sipher.PatriciaTree
+User.Sipher.PatriciaTree.set (User.Sipher.PatriciaTree.empty)    key value = User.Sipher.PatriciaTree.leaf key value
+User.Sipher.PatriciaTree.set (User.Sipher.PatriciaTree.leaf j y) key value = User.Sipher.PatriciaTree.set.leaf (U120.equal j key) value y j key
+User.Sipher.PatriciaTree.set (User.Sipher.PatriciaTree.branch p m t0 t1) key value = 
+  User.Sipher.PatriciaTree.set.branch0 (User.Sipher.PatriciaTree.matchprefix key p m) p m t0 t1 key value
+
+User.Sipher.PatriciaTree.set.branch0 #PSetBrnch (b: Bool) (p: U120) (m: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree) (key: U120) (value: U120): User.Sipher.PatriciaTree 
+User.Sipher.PatriciaTree.set.branch0 Bool.false p m t0 t1 key value = User.Sipher.PatriciaTree.join key (User.Sipher.PatriciaTree.leaf key value) p (User.Sipher.PatriciaTree.branch p m t0 t1)
+User.Sipher.PatriciaTree.set.branch0 Bool.true  p m t0 t1 key value =
+  User.Sipher.PatriciaTree.set.branch1 (User.Sipher.PatriciaTree.zerobit key m) p m t0 t1 key value
+
+User.Sipher.PatriciaTree.set.branch1 #PSetBrnch1 (b: Bool) (p: U120) (m: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree) (key: U120) (value: U120): User.Sipher.PatriciaTree
+User.Sipher.PatriciaTree.set.branch1 Bool.true  p m t0 t1 key value = 
+  User.Sipher.PatriciaTree.branch p m (User.Sipher.PatriciaTree.set t0 key value) t1
+User.Sipher.PatriciaTree.set.branch1 Bool.false p m t0 t1 key value =
+  User.Sipher.PatriciaTree.branch p m t0 (User.Sipher.PatriciaTree.set t1 key value)
+
+User.Sipher.PatriciaTree.set.leaf #PSetLeaf (b: Bool) (value: U120) (y: U120) (j: U120) (key: U120) : User.Sipher.PatriciaTree
+User.Sipher.PatriciaTree.set.leaf Bool.true  value y j key = User.Sipher.PatriciaTree.leaf key value
+User.Sipher.PatriciaTree.set.leaf Bool.false value y j key = 
+  User.Sipher.PatriciaTree.join key (User.Sipher.PatriciaTree.leaf key value) j (User.Sipher.PatriciaTree.leaf j y)
