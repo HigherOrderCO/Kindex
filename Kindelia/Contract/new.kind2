@@ -1,2 +1,2 @@
-// Automatically derived from Kindelia/Contract/_.type
-Kindelia.Contract.new #CONEW <state: Type> <action: Type> <response: Type> (main: (_: action) (Kindelia.IO response)) (init: state) : (Kindelia.Contract state action response)
+#kdl_name = KdlCon
+Kindelia.Contract.new <state: Type> <action: Type> <response: Type> (main: (_: action) (Kindelia.IO response)) (init: state) : (Kindelia.Contract state action response)

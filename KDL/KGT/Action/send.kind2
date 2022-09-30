@@ -1,2 +1,2 @@
-// Automatically derived from action.type
-KDL.KGT.Action.send #KgtASend (from: U120) (to: U120) (value: U120) : (KDL.KGT.Action)
+#kdl_name = KgtASend
+KDL.KGT.Action.send (from: U120) (to: U120) (value: U120) : (KDL.KGT.Action)

@@ -1,4 +1,5 @@
-Apps.Fib.Action.wasd_code #Fib_ac_wasd (state: Apps.Fib.State) (command: String) (id: Apps.Fib.Id) : U120
+#kdl_name = Fib_ac_wasd
+Apps.Fib.Action.wasd_code (state: Apps.Fib.State) (command: String) (id: Apps.Fib.Id) : U120
 Apps.Fib.Action.wasd_code (Apps.Fib.State.new map tab) command id = 
   let player = Pair.snd (Apps.Fib.Table.got tab id)
   let x      = Apps.Fib.Player.pos.get_x player
@@ -8,7 +9,8 @@ Apps.Fib.Action.wasd_code (Apps.Fib.State.new map tab) command id =
   Apps.Fib.Action.walk_code (Apps.Fib.State.new map tab) id des
 
 
-Apps.Fib.Action.wasd_code.pos #Fib_ac_wasdp (command: String) (ori: Apps.Fib.Pos) : Apps.Fib.Pos
+#kdl_name = Fib_ac_wasdp
+Apps.Fib.Action.wasd_code.pos (command: String) (ori: Apps.Fib.Pos) : Apps.Fib.Pos
 Apps.Fib.Action.wasd_code.pos command ori = 
   // Verifies the character and returns a Delta
   let aux   = (x: Char) => Apps.Fib.Action.wasd_code.aux x
@@ -28,7 +30,8 @@ Apps.Fib.Action.wasd_code.pos command ori =
   Apps.Fib.Pos.new x y
 
 
-Apps.Fib.Action.wasd_code.aux #Fib_ac_wasda (command: Char) : Pair U120 U120
+#kdl_name = Fib_ac_wasda
+Apps.Fib.Action.wasd_code.aux (command: Char) : Pair U120 U120
 // Up
 Apps.Fib.Action.wasd_code.aux 'w' = Pair.new (U120.new 0 0) (U120.sub (U120.new 0 0) (U120.new 0 1))
 Apps.Fib.Action.wasd_code.aux 'W' = Pair.new (U120.new 0 0) (U120.sub (U120.new 0 0) (U120.new 0 1))
@@ -68,7 +71,8 @@ Apps.Fib.Action.wasd_code.aux command = Pair.new (U120.new 0 0) (U120.new 0 0)
 // dd - RG RG - (+2 +0)
 
 
-Apps.Fib.Action.wasd_code.coords #Fib_ac_wasdc (pair: Pair U120 U120) (delta: Pair U120 U120): Pair U120 U120 {
+#kdl_name = Fib_ac_wasdc
+Apps.Fib.Action.wasd_code.coords (pair: Pair U120 U120) (delta: Pair U120 U120): Pair U120 U120 {
   let dfst = Pair.fst delta
   let pfst = Pair.fst pair
   let rfst = U120.add dfst pfst

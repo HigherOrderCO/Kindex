@@ -1,3 +1,3 @@
-// Automatically derived from state.type
-KDL.KGT.State.match #KdlSMatch (x: (KDL.KGT.State)) -(p: (x: (KDL.KGT.State)) Type) (new: (last_mint: U120) (balance: (User.Sipher.PatriciaTree)) (p (KDL.KGT.State.new last_mint balance))) : (p x)
+#kdl_name = KgtSMatch
+KDL.KGT.State.match (x: (KDL.KGT.State)) -(p: (x: (KDL.KGT.State)) Type) (new: (last_mint: U120) (balance: (User.Sipher.PatriciaTree)) (p (KDL.KGT.State.new last_mint balance))) : (p x)
 KDL.KGT.State.match (KDL.KGT.State.new last_mint_ balance_) p new = (new last_mint_ balance_)

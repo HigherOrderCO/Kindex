@@ -1,8 +1,10 @@
-Apps.Fib.Table.show_players #Fib_tbl_spl (table: Apps.Fib.Table) : String {
+#kdl_name = Fib_tbl_spl
+Apps.Fib.Table.show_players (table: Apps.Fib.Table) : String {
   String.cons 10 (String.concat "Players in Table : " (String.cons 10 (Apps.Fib.Table.show_players.aux table (U120.new 0 512))))
 }
 
-Apps.Fib.Table.show_players.aux #Fib_tbl_spl0 (table: Apps.Fib.Table) (id: U120) : String
+#kdl_name = Fib_tbl_spl0
+Apps.Fib.Table.show_players.aux (table: Apps.Fib.Table) (id: U120) : String
 Apps.Fib.Table.show_players.aux table (U120.new 0 1024) = String.nil
 Apps.Fib.Table.show_players.aux table id = 
   let tab_ent = Apps.Fib.Table.got table id

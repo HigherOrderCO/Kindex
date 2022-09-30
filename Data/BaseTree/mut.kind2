@@ -1,4 +1,5 @@
-Data.BaseTree.mut #Bt_mut <val: Type> (bases : List Data.BaseTree.Base) (map : Data.BaseTree bases val) (key : Data.BaseTree.Key bases) (func : val -> val) : Data.BaseTree bases val
+#kdl_name = Bt_mut
+Data.BaseTree.mut <val: Type> (bases : List Data.BaseTree.Base) (map : Data.BaseTree bases val) (key : Data.BaseTree.Key bases) (func : val -> val) : Data.BaseTree bases val
   // Last Branch
 Data.BaseTree.mut val (List.nil Data.BaseTree.Base) end unit func =
   func end

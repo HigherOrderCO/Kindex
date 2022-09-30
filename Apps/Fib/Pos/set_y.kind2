@@ -1,5 +1,6 @@
 // TODO: Use (U120.mod y 160) to assure that new coord is valid
-Apps.Fib.Pos.set_y #Fib_pos_s_y (pos: Apps.Fib.Pos) (y: U120) : Apps.Fib.Pos {
+#kdl_name = Fib_pos_s_y
+Apps.Fib.Pos.set_y (pos: Apps.Fib.Pos) (y: U120) : Apps.Fib.Pos {
   pos // U120.bitwise_or (U120.bitwise_and pos (U120.new 0 255)) (U120.shift_left y (U120.new 0 8))
 }
 
