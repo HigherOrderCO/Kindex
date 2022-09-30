@@ -1,99 +1,81 @@
 //Test Function to add money
 User.Sipher.KGT.mint #KgtMint
   (miner: U120)
-  (mine_block: U120)
   (current_block: U120)
   (state: KDL.KGT.State)
 : KDL.KGT.State
-User.Sipher.KGT.mint miner mine_block current_block (KDL.KGT.State.new last_mint balances) =
-  let halving = User.Sipher.KGT.Halving last_mint
+User.Sipher.KGT.mint miner current_block (KDL.KGT.State.new last_mint balances) =
+
+// Constants 
+// -----------------------------------------------------------------------------
+  // Total blocks per halving
+  let bk_base = U120.new 0 125000000
+
+  // Xp Per Halving Base Starts with "21000000000000000000" (21 Quintillion)
+  let xp_base = U120.new 18 247412917076754432
+// -----------------------------------------------------------------------------
+
+  // Halving number is increased by 1 every 125000000 (125 Million) blocks
+  let halving = U120.div last_mint bk_base
+
+  // No experience can be obtained once halving reaches 38
+  // This function becomes useless on block 64
   if (U120.greater_equal halving (U120.new 0 64)) {
     KDL.KGT.State.new last_mint balances
   } else { 
-    if (User.Sipher.KGT.between_equal mine_block last_mint current_block) {
-      let extra_xp = User.Sipher.KGT.extra_xp current_block last_mint
-      let new_value     = (x: U120) => U120.add extra_xp x
-      let new_balance   = User.Sipher.PatriciaTree.mut balances miner (U120.new 0 0) new_value
-      KDL.KGT.State.new mine_block new_balance
-    } else {
-      let xp = User.Sipher.KGT.Xp_Per_Block last_mint
-      let new_value     = (x: U120) => U120.add xp x
-      let new_balance   = User.Sipher.PatriciaTree.mut balances miner (U120.new 0 0) new_value
-      KDL.KGT.State.new (U120.add U120.1 last_mint) new_balance
-      }
+    let xp            = User.Sipher.KGT.xp xp_base bk_base current_block last_mint
+    let new_value     = (x: U120) => U120.add xp x
+    let new_balance   = User.Sipher.PatriciaTree.mut balances miner (U120.new 0 0) new_value
+    KDL.KGT.State.new current_block new_balance
   }
 
 
 // mine_block    is the block that the person wants to mint
 // last_mint     is the last time that xp was minted
-// current_block is the current block in the blockchain
-
 
 // x = current_block
 // y = last_mint
-User.Sipher.KGT.extra_blocks
-  (x: U120)
-  (y: U120)
-  (acum: List U120)
-: List U120
-User.Sipher.KGT.extra_blocks x y acum = 
-  if (U120.equal x y) { 
-    acum
+User.Sipher.KGT.xp
+  (xp_base         : U120)
+  (bk_base         : U120)
+  (current_block   : U120)
+  (last_mint       : U120)
+: U120
+User.Sipher.KGT.xp xp_base  bk_base current_block last_mint = 
+  if (U120.equal current_block last_mint) { 
+    U120.0
   } else {
-    let new_y = (U120.add U120.1 y)
-    List.cons new_y (User.Sipher.KGT.extra_blocks x new_y acum)
+    let halving = U120.div last_mint bk_base
+    let value   = User.Sipher.KGT.XP_Per_Block xp_base halving bk_base
+    U120.add value (User.Sipher.KGT.xp xp_base bk_base current_block (U120.add last_mint U120.1))
   }
 
-User.Sipher.KGT.extra_xp
-  (current_block: U120)
-  (last_mint: U120)
-: U120 { 
-  let list      = User.Sipher.KGT.extra_blocks current_block last_mint []
-  let map       = List.map list ((x: U120) => User.Sipher.KGT.Xp_Per_Block x)
-  List.for map U120.0 ((x: U120) => (y: U120) => U120.add x y)
-}
 
-
-User.Sipher.KGT.fakenews
+// x^y
+User.Sipher.KGT.pow
   (x: U120)
   (y: U120)
 : U120
-User.Sipher.KGT.fakenews x (U120.new 0 0) = (U120.new 0 1)
-User.Sipher.KGT.fakenews x y = U120.mul x (User.Sipher.KGT.fakenews x (U120.sub y U120.1))
+User.Sipher.KGT.pow x (U120.new 0 0) = (U120.new 0 1)
+User.Sipher.KGT.pow x y = U120.mul x (User.Sipher.KGT.pow x (U120.sub y U120.1))
   
-
-// x = mine_block
-// y = last_mint
-// z = current_block
-User.Sipher.KGT.between_equal
-  (x: U120)
-  (y: U120)
-  (z: U120)
-: Bool {  // Se mine_block > last_mint && mine_block <= current block 
-  Bool.and (U120.greater_than x y) (U120.less_equal x z)
-}
-
-
 
 // Returns the XP that we receive per Halving
 User.Sipher.KGT.XP_Per_Halving
-  (last_mint: U120)
+  (xp_base         : U120)
+  (current_halving : U120)
 : U120 {
-  // Halvings Happens Every "125000000" (125 Millions) of blocks
-  // Xp Per Halving Base Starts with "21000000000000000000" (21 Quintillion)
-  let base    = U120.new 18 247412917076754432
-  let n       = User.Sipher.KGT.Halving last_mint
-  let div     = User.Sipher.KGT.fakenews U120.2 n
-  U120.div base div
+  U120.div xp_base (User.Sipher.KGT.pow U120.2 current_halving)
 }
 
 
-// Returns the XP that we receive per Block
-User.Sipher.KGT.Xp_Per_Block
-  (last_mint: U120)
-:U120 { 
-  let base = U120.new 0 125000000
-  U120.div (User.Sipher.KGT.XP_Per_Halving last_mint) base
+// XP that can be obtained per block
+User.Sipher.KGT.XP_Per_Block
+  (xp_base         : U120)
+  (current_halving : U120)
+  (bk_base         : U120)
+: U120 { 
+  U120.div (User.Sipher.KGT.XP_Per_Halving xp_base current_halving) bk_base
 }
 
 
