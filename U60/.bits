@@ -1,0 +1,4 @@
+// U60 to bits without 60 bits on right side of the bits 
+
+U60.bits (u: U60) : Bits
+U60.bits u = Nat.to_bits(U60.to_nat u) 
