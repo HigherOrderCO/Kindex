@@ -1,4 +1,5 @@
-Apps.Fib.Pos.range #Fib_pos_rnge (center: Apps.Fib.Pos) (deltas: List (Pair U120 U120)) : List Apps.Fib.Pos 
+#kdl_name = Fib_pos_rnge
+Apps.Fib.Pos.range (center: Apps.Fib.Pos) (deltas: List (Pair U120 U120)) : List Apps.Fib.Pos 
 Apps.Fib.Pos.range center (List.nil) = List.nil
 Apps.Fib.Pos.range center (List.cons r head tail) =
   match Pair head {

@@ -1,5 +1,6 @@
 //Test Function to add money
-User.Sipher.KGT.mint #KgtMint
+#kdl_name = KgtMint
+User.Sipher.KGT.mint
   (miner: U120)
   (state: KDL.KGT.State)
 : KDL.KGT.State

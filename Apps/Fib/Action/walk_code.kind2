@@ -1,4 +1,5 @@
-Apps.Fib.Action.walk_code #Fb_ac_wkcd (state: Apps.Fib.State) (player_id: U120) (target: Apps.Fib.Pos) : U120
+#kdl_name = Fib_ac_wkcd
+Apps.Fib.Action.walk_code (state: Apps.Fib.State) (player_id: U120) (target: Apps.Fib.Pos) : U120
 Apps.Fib.Action.walk_code (Apps.Fib.State.new map tab) player_id target =
   let tab_ent = Apps.Fib.Table.got tab player_id
   let player  = Pair.snd tab_ent

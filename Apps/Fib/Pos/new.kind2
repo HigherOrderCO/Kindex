@@ -1,4 +1,5 @@
-Apps.Fib.Pos.new #Fib_pos_new (x: U120) (y: U120) : Apps.Fib.Pos {
+#kdl_name = Fib_pos_new
+Apps.Fib.Pos.new (x: U120) (y: U120) : Apps.Fib.Pos {
   let x.val = U120.mod x (U120.new 0 160)
   let y.val = U120.mod y (U120.new 0 160)
   let e0    = U120.mod.is_less_than x (U120.new 0 160) Pos.160_is_not_0
@@ -7,6 +8,7 @@ Apps.Fib.Pos.new #Fib_pos_new (x: U120) (y: U120) : Apps.Fib.Pos {
     (Pair.new _ _ (Apps.Fib.Pos.Value.IsValid.x x.val y.val e0 ) (Apps.Fib.Pos.Value.IsValid.y x.val y.val e0 e1)) // (Pair.new _ _ (Provona x.val y.val e0) ?)
 }
 
-Pos.160_is_not_0 #Fib_pos_160n : (Not (Equal U120 (U120.new 0 160) (U120.new 0 0))) {
+#kdl_name = Fib_pos_160n
+Pos.160_is_not_0 : (Not (Equal U120 (U120.new 0 160) (U120.new 0 0))) {
   absurd => Equal.rewrite absurd ((x: U120) => if (U120.equal x (U120.new 0 160)) { Unit } else { Empty }) Unit.new
 }

@@ -1,4 +1,5 @@
-Apps.Fib.Interact.pos.aux #Fib_itp_ax (cx: U120) (cy: U120) (tx: U120) (ty: U120) : U120 {
+#kdl_name = Fib_itp_ax
+Apps.Fib.Interact.pos.aux (cx: U120) (cy: U120) (tx: U120) (ty: U120) : U120 {
   let func =
     (c => t => 
     if (U120.greater_than c t) {

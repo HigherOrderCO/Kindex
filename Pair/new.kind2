@@ -1,2 +1,3 @@
-// Automatically derived from Pair/_.type
+#kdl_name = T2
+#kdl_erase
 Pair.new <a: Type> <b: Type> (fst: a) (snd: b) : (Pair a b)

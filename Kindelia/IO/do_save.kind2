@@ -1,2 +1,3 @@
-// Automatically derived from Kindelia/IO/_.type
-Kindelia.IO.do_save #SAVE <r: Type> <s: Type> (val: s) (cont: (_: Unit) (Kindelia.IO r)) : (Kindelia.IO r)
+#kdl_name = SAVE
+#kdl_erase
+Kindelia.IO.do_save <r: Type> <s: Type> (val: s) (cont: (_: Unit) (Kindelia.IO r)) : (Kindelia.IO r)

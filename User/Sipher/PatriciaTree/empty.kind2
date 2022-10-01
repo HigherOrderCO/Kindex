@@ -1,2 +1,2 @@
-// Automatically derived from patricia.type
-User.Sipher.PatriciaTree.empty #PEmpty : (User.Sipher.PatriciaTree)
+#kdl_name = PEmpty
+User.Sipher.PatriciaTree.empty : (User.Sipher.PatriciaTree)

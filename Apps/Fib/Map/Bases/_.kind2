@@ -1,4 +1,5 @@
-Apps.Fib.Map.Bases #Fib_map_base : List Data.BaseTree.Base {
+#kdl_name = Fib_map_base
+Apps.Fib.Map.Bases : List Data.BaseTree.Base {
   [
     // y, from most signficant to the least significant digit
     Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.2 Data.BaseTree.Base.5

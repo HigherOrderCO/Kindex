@@ -1,4 +1,5 @@
-Apps.Fib.Map.alloc #Fib_map_allc : Apps.Fib.Map {
+#kdl_name = Fib_map_allc
+Apps.Fib.Map.alloc : Apps.Fib.Map {
   Data.BaseTree.alloc U120 Apps.Fib.Map.Bases (U120.new 0 0)
 }
 

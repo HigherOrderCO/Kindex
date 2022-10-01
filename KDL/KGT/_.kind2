@@ -1,4 +1,5 @@
-KDL.KGT.main #KgtMain (action: KDL.KGT.Action) : (Kindelia.IO KDL.KGT.Response)
+#kdl_name = KgtMain
+KDL.KGT.main (action: KDL.KGT.Action) : (Kindelia.IO KDL.KGT.Response)
 
 // Mine action
 KDL.KGT.main (KDL.KGT.Action.mint user value) = do Kindelia.IO {
@@ -23,11 +24,12 @@ KDL.KGT.main (KDL.KGT.Action.get user) = do Kindelia.IO {
   return (KDL.KGT.Response.get balance)
 }
 
-
-KDL.KGT.init #KgtInit : KDL.KGT.State {
+#kdl_name = KgtInit
+KDL.KGT.init : KDL.KGT.State {
   (KDL.KGT.State.new (U120.new 0 0) User.Sipher.PatriciaTree.empty)
 }
 
-KDL.KGT #KGT : Kindelia.Contract KDL.KGT.State KDL.KGT.Action KDL.KGT.Response {
+#kdl_name = KGT
+KDL.KGT : Kindelia.Contract KDL.KGT.State KDL.KGT.Action KDL.KGT.Response {
   Kindelia.Contract.new (act => KDL.KGT.main act) KDL.KGT.init
 }
