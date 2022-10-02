@@ -1,0 +1,27 @@
+// Demo #Demo (action: (Demo.Act)) : (Kindelia.IO (Nat))
+fun (Demo action) {
+  (Demo {Demo.Act.inc}) = {TAKE @x let y = {Nat.succ x}; dup _0 _1 = y; {SAVE _0 @~ {DONE _1}}}
+}
+
+// Demo.init #Demo.init : _
+fun (Demo.init) {
+  (Demo.init) = {Nat.succ {Nat.zero}}
+}
+
+// Nat.succ #Nat.succ (pred: (Nat)) : (Nat)
+ctr {Nat.succ pred}
+
+// Nat.zero #Nat.zero : (Nat)
+ctr {Nat.zero}
+
+// Kindelia.IO.do_take #TAKE -(r: Type) -(s: Type) (cont: (_: s) (Kindelia.IO r)) : (Kindelia.IO r)
+ctr {TAKE cont}
+
+// Kindelia.IO.done #DONE -(r: Type) (val: r) : (Kindelia.IO r)
+ctr {DONE val}
+
+// Demo.Act.inc #Demo.Act.inc : (Demo.Act)
+ctr {Demo.Act.inc}
+
+// Kindelia.IO.do_save #SAVE -(r: Type) -(s: Type) (val: s) (cont: (_: (Unit)) (Kindelia.IO r)) : (Kindelia.IO r)
+ctr {SAVE val cont}

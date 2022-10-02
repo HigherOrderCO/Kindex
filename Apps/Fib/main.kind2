@@ -1,5 +1,5 @@
 Apps.Fib.main #Fib_main : U120 {
   let init  = Apps.Fib.State.init
-  let next  = Apps.Fib.State.update init (U120.new 0 0)
+  let next  = Apps.Fib.State.update init (U120.new 0 0) (U120.new 0 0)
   U120.new 0 0
 }

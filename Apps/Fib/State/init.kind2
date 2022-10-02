@@ -1,3 +1,22 @@
+// Apps.Fib.State.init #Fib_st_init : Apps.Fib.State
+// Apps.Fib.State.init = 
+//   let map   = Apps.Fib.Map.alloc
+//   let tab   = Apps.Fib.Table.alloc
+//   let state = Apps.Fib.State.new map tab
+//   let state = Apps.Fib.State.update state (U120.new 0 62162) (U120.new 0 0)
+//   let state = Apps.Fib.State.update state (U120.new 0 1049298) (U120.new 0 0)
+//   let state = Apps.Fib.State.update state (U120.new 0 62161) (U120.new 0 0)
+//   let state = Apps.Fib.State.update state (U120.new 0 1057490) (U120.new 0 0)
+//   state
+
+
+// Main {
+//   let state = Apps.Fib.State.init
+//   // let map   = Apps.Fib.Map.show (U120.new 0 0) (U120.new 0 0) (U120.new 0 160) (U120.new 0 160) (Apps.Fib.State.get_map state)
+//   let map = Apps.Fib.Table.show_players (Apps.Fib.State.get_table state)
+//   map
+// }
+
 Apps.Fib.State.init #Fib_st_init : Apps.Fib.State
 Apps.Fib.State.init = 
   let map = Apps.Fib.Map.alloc

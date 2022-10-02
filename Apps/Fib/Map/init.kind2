@@ -1,24 +1,24 @@
 Apps.Fib.Map.init : Apps.Fib.Map {
   let map     = Apps.Fib.Map.alloc
-  let new_map = Apps.Fib.Map.init.set map (U120.new 0 0) (U120.new 0 0) Apps.Fib.Map.walkable_tiles
-  new_map
+  // let map = Apps.Fib.Map.init.set map (U120.new 0 0) (U120.new 0 0) Apps.Fib.Map.walkable_tiles
+  map
 }
 
-Apps.Fib.Map.init.set (map: Apps.Fib.Map) (x: U120) (y: U120) (tiles: List (Pair Bool (List U120))) : Apps.Fib.Map
-Apps.Fib.Map.init.set map x y (List.nil r0) = map
-Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new Bool r2 Bool.false (List.cons U120 h0 t1)) t0) =
-  Apps.Fib.Map.init.set map (U120.add x h0) y (List.cons (Pair.new Bool.true t1) t0) 
-Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new r1 r2 bool (List.nil U120)) t0) =
-  Apps.Fib.Map.init.set map (U120.new 0 0) (U120.add (U120.new 0 1) y) t0
-Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new Bool r2 Bool.true (List.cons U120 (U120.new 0 0) t1)) t0) = 
-  Apps.Fib.Map.init.set map x y (List.cons (Pair.new Bool.false t1) t0)
-Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new Bool r2 Bool.true (List.cons U120 amount t1)) t0) = 
-  let pos = Apps.Fib.Pos.new x y
-  let map = Apps.Fib.Map.set map (U120.new 0 43) pos
-  Apps.Fib.Map.init.set map (U120.add (U120.new 0 1) x) y (List.cons (Pair.new Bool.true (List.cons (U120.sub amount (U120.new 0 1)) t1)) t0)
+// Apps.Fib.Map.init.set (map: Apps.Fib.Map) (x: U120) (y: U120) (tiles: List (Pair Bool (List U120))) : Apps.Fib.Map
+// Apps.Fib.Map.init.set map x y (List.nil r0) = map
+// Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new Bool r2 Bool.false (List.cons U120 h0 t1)) t0) =
+//   Apps.Fib.Map.init.set map (U120.add x h0) y (List.cons (Pair.new Bool.true t1) t0) 
+// Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new r1 r2 bool (List.nil U120)) t0) =
+//   Apps.Fib.Map.init.set map (U120.new 0 0) (U120.add (U120.new 0 1) y) t0
+// Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new Bool r2 Bool.true (List.cons U120 (U120.new 0 0) t1)) t0) = 
+//   Apps.Fib.Map.init.set map x y (List.cons (Pair.new Bool.false t1) t0)
+// Apps.Fib.Map.init.set map x y (List.cons r0 (Pair.new Bool r2 Bool.true (List.cons U120 amount t1)) t0) = 
+//   let pos = Apps.Fib.Pos.new x y
+//   let map = Apps.Fib.Map.set map (U120.new 0 43) pos
+//   Apps.Fib.Map.init.set map (U120.add (U120.new 0 1) x) y (List.cons (Pair.new Bool.true (List.cons (U120.sub amount (U120.new 0 1)) t1)) t0)
 
-Main {
-let map = Apps.Fib.Map.init 
-let m_show = Apps.Fib.Map.show (U120.new 0 0) (U120.new 0 0) (U120.new 0 160) (U120.new 0 160) map
-m_show
-}
+// Main {
+// let map = Apps.Fib.Map.init 
+// let m_show = Apps.Fib.Map.show (U120.new 0 0) (U120.new 0 0) (U120.new 0 160) (U120.new 0 160) map
+// m_show
+// }

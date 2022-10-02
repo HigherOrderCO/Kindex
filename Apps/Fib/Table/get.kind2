@@ -1,4 +1,4 @@
-Apps.Fib.Table.get #Fib_tbl_got (map: Apps.Fib.Table) (id: Apps.Fib.Id) : Apps.Fib.Entity {
+Apps.Fib.Table.get #Fib_tbl_get (map: Apps.Fib.Table) (id: Apps.Fib.Id) : Apps.Fib.Entity {
   Data.BaseTree.get Apps.Fib.Entity Apps.Fib.Table.Bases (Apps.Fib.Table.Key.from_id id) map
 }
 
