@@ -1,8 +1,10 @@
-Apps.Fib.Map.show #Fib_map_shw (x: U120) (y:U120) (w: U120) (h: U120) (map: Apps.Fib.Map) : String {
+#kdl_name = Fib_map_shw
+Apps.Fib.Map.show (x: U120) (y:U120) (w: U120) (h: U120) (map: Apps.Fib.Map) : String {
   Apps.Fib.Map.show.y x (U120.add y h) w h map
 }
 
-Apps.Fib.Map.show.y #Fib_map_shwy (x: U120) (y:U120) (w: U120) (h: U120) (map: Apps.Fib.Map): String {
+#kdl_name = Fib_map_shwy
+Apps.Fib.Map.show.y (x: U120) (y:U120) (w: U120) (h: U120) (map: Apps.Fib.Map): String {
   if (U120.equal h (U120.new 0 0)) {
     String.nil
   }
@@ -13,7 +15,8 @@ Apps.Fib.Map.show.y #Fib_map_shwy (x: U120) (y:U120) (w: U120) (h: U120) (map: A
   }
 }
 
-Apps.Fib.Map.show.x #Fib_map_shwx (x: U120) (y: U120) (w: U120) (map: Apps.Fib.Map): String {
+#kdl_name = Fib_map_shwx
+Apps.Fib.Map.show.x (x: U120) (y: U120) (w: U120) (map: Apps.Fib.Map) : String {
   if (U120.equal w (U120.new 0 0)) {
     String.nil
   }

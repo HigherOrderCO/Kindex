@@ -1,4 +1,5 @@
-Apps.Fib.Map.got #Fib_map_got (map: Apps.Fib.Map) (pos: Apps.Fib.Pos): Pair Apps.Fib.Map Apps.Fib.Id {
+#kdl_name = Fib_map_got
+Apps.Fib.Map.got (map: Apps.Fib.Map) (pos: Apps.Fib.Pos): Pair Apps.Fib.Map Apps.Fib.Id {
   let keys = Apps.Fib.Map.Key.from_pos pos
   match Pair keys {
     new =>

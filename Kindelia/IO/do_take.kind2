@@ -1,2 +1,3 @@
-// Automatically derived from Kindelia/IO/_.type
-Kindelia.IO.do_take #TAKE <r: Type> <s: Type> (cont: (_: s) (Kindelia.IO r)) : (Kindelia.IO r)
+#kdl_name = TAKE
+#kdl_erase
+Kindelia.IO.do_take <r: Type> <s: Type> (cont: (_: s) (Kindelia.IO r)) : (Kindelia.IO r)

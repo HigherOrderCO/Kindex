@@ -1,3 +1,4 @@
-Apps.Fib.Action.get_comm #Fib_ac_gcomm (action: U120) : U120 {
+#kdl_name = Fib_ac_gcomm
+Apps.Fib.Action.get_comm (action: U120) : U120 {
   Apps.Fib.get_in_u120 action (U120.new 0 12) (U120.new 0 4)
 }

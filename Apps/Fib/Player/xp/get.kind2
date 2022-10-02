@@ -1,3 +1,4 @@
-Apps.Fib.Player.xp.get #Fib_plr_xp_g (player: Apps.Fib.Player) : U120 {
+#kdl_name = Fib_plr_xp_g
+Apps.Fib.Player.xp.get (player: Apps.Fib.Player) : U120 {
   Apps.Fib.get_in_u120 player (U120.new 0 16) (U120.new 0 12)
 }

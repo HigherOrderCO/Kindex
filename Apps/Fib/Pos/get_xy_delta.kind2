@@ -1,4 +1,5 @@
-Apps.Fib.Pos.get_xy_delta #Fib_pos_g_xy (data: U120) : Pair U120 U120 {
+#kdl_name = Fib_pos_g_xy
+Apps.Fib.Pos.get_xy_delta (data: U120) : Pair U120 U120 {
   let dx = U120.bitwise_and data (U120.new 0 15)
   let dy = U120.shift_right data (U120.new 0 4)
   let func =

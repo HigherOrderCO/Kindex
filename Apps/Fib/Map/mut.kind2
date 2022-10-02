@@ -1,4 +1,5 @@
-Apps.Fib.Map.mut #Fib_map_mut (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) (func: U120 -> U120) : Apps.Fib.Map {
+#kdl_name = Fib_map_mut
+Apps.Fib.Map.mut (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) (func: U120 -> U120) : Apps.Fib.Map {
   let keys = Apps.Fib.Map.Key.from_pos pos
   let key  = Pair.fst keys 
   let idx  = Pair.snd keys

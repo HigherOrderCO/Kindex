@@ -1,3 +1,5 @@
-U60.if #U60_if <r: Type> (n: U60) (t: r) (f: r) : r
-U60.if r 0 t f = f
-U60.if r x t f = t
+#kdl_name = If
+#kdl_erase
+U60.if <r: Type> (n: U60) (t: r) (f: r) : r
+U60.if 0 t f = f
+U60.if n t f = t

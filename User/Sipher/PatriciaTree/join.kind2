@@ -1,11 +1,14 @@
-User.Sipher.PatriciaTree.join #PJoin (p0: U120) (t0: User.Sipher.PatriciaTree) (p1: U120) (t1: User.Sipher.PatriciaTree): User.Sipher.PatriciaTree
+#kdl_name = PJoin
+User.Sipher.PatriciaTree.join (p0: U120) (t0: User.Sipher.PatriciaTree) (p1: U120) (t1: User.Sipher.PatriciaTree): User.Sipher.PatriciaTree
 User.Sipher.PatriciaTree.join p0 t0 p1 t1 = User.Sipher.PatriciaTree.joinAux0 (User.Sipher.PatriciaTree.branchingbit p0 p1) p0 t0 t1
 
-User.Sipher.PatriciaTree.joinAux0 #PJoinAux (m: U120) (p0: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): User.Sipher.PatriciaTree
+#kdl_name = PJoinAux
+User.Sipher.PatriciaTree.joinAux0 (m: U120) (p0: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): User.Sipher.PatriciaTree
 User.Sipher.PatriciaTree.joinAux0 m p0 t0 t1 = 
   User.Sipher.PatriciaTree.joinAux1 (User.Sipher.PatriciaTree.zerobit m p0) m p0 t0 t1
 
-User.Sipher.PatriciaTree.joinAux1 #PJoinAux1 (b: Bool) (m: U120) (p0: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): User.Sipher.PatriciaTree
+#kdl_name = PJoinAux1
+User.Sipher.PatriciaTree.joinAux1 (b: Bool) (m: U120) (p0: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): User.Sipher.PatriciaTree
 User.Sipher.PatriciaTree.joinAux1 Bool.true  m p0 t0 t1 =
   User.Sipher.PatriciaTree.branch (User.Sipher.PatriciaTree.mask p0 m) m t0 t1
 User.Sipher.PatriciaTree.joinAux1 Bool.false m p0 t0 t1 =

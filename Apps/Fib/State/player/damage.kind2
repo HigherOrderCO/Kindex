@@ -1,4 +1,5 @@
-Apps.Fib.State.player.damage #Fib_st_pdmg (state: Apps.Fib.State) (pos: Apps.Fib.Pos) (dmg: U120)  : Apps.Fib.State
+#kdl_name = Fib_st_pdmg
+Apps.Fib.State.player.damage (state: Apps.Fib.State) (pos: Apps.Fib.Pos) (dmg: U120)  : Apps.Fib.State
 Apps.Fib.State.player.damage (Apps.Fib.State.new map table) pos dmg =
 
   // Pair Map ID

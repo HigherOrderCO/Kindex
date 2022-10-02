@@ -17,7 +17,8 @@
 //   map
 // }
 
-Apps.Fib.State.init #Fib_st_init : Apps.Fib.State
+#kdl_name = Fib_st_init
+Apps.Fib.State.init : Apps.Fib.State
 Apps.Fib.State.init = 
   let map = Apps.Fib.Map.alloc
   let tab = Apps.Fib.Table.alloc

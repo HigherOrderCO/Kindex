@@ -1,2 +1,2 @@
-// Automatically derived from response.type
-KDL.KGT.Response.get #KgtRGetter (balance: (Maybe U120)) : (KDL.KGT.Response)
+#kdl_name = KgtRGetter
+KDL.KGT.Response.get (balance: (Maybe U120)) : (KDL.KGT.Response)

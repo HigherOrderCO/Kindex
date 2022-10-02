@@ -1,2 +1,5 @@
-// Automatically derived from /home/derenash/Wikinder/Apps/Fib/state.type
-Apps.Fib.State.new (map: Apps.Fib.Map) (tab: Apps.Fib.Table) : (Apps.Fib.State)
+#kdl_name = Fib_st_new
+Apps.Fib.State.new
+  (map: Apps.Fib.Map)
+  (tab: Apps.Fib.Table)
+: Apps.Fib.State

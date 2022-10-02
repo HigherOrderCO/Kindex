@@ -1,3 +1,4 @@
+#kdl_name = Fib_st_crtu
 Apps.Fib.State.create_unit (state: Apps.Fib.State) (init: Apps.Fib.Entity) (pos: Apps.Fib.Pos) (id: Apps.Fib.Id) : Apps.Fib.State
 Apps.Fib.State.create_unit (Apps.Fib.State.new map table) init pos id =
   let tile = Apps.Fib.Map.got map pos

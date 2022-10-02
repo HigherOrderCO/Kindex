@@ -1,4 +1,5 @@
-Apps.Fib.Table.Bases #Fib_tbl_bses : List Data.BaseTree.Base {
+#kdl_name = Fib_tbl_bses
+Apps.Fib.Table.Bases : List Data.BaseTree.Base {
   [
     Data.BaseTree.Base.2
     Data.BaseTree.Base.2
