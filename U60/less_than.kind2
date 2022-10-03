@@ -1,3 +1,4 @@
-U60.less_than #U60_ltn (a: U60) (b: U60) : Bool {
+#kdl_name = U60_ltn
+U60.less_than  (a: U60) (b: U60) : Bool {
   U60.to_bool (< a b)
 }

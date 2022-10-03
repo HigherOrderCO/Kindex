@@ -1,3 +1,4 @@
-U120.greater_than #U120_gtn (a: U120) (b: U120) : Bool {
+#kdl_name = U120_gtns
+U120.greater_than  (a: U120) (b: U120) : Bool {
   U120.to_bool (U120.num_greater_than a b)
 }

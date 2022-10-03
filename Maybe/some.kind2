@@ -1,2 +1,3 @@
 // Automatically derived from Maybe/_.type
-Maybe.some #Maybe_some <t: Type> (value: t) : (Maybe t)
+#kdl_name = Maybe_some
+Maybe.some  <t: Type> (value: t) : (Maybe t)

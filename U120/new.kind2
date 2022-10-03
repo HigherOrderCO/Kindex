@@ -1,2 +1,3 @@
 // Automatically derived from U120/_.type
-U120.new #U120_new (hi: U60) (lo: U60) : (U120)
+#kdl_name = U120_new
+U120.new (hi: U60) (lo: U60) : (U120)

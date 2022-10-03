@@ -1,4 +1,5 @@
-U60.add.overflowing #U60_add_ow (a: U60) (b: U60) : Pair Bool U60 {
+#kdl_name = U60_add_ow
+U60.add.overflowing  (a: U60) (b: U60) : Pair Bool U60 {
   let res = (+ a b)
   let ovr = U60.less_than res a
   Pair.new ovr res

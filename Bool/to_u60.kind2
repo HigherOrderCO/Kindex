@@ -1,3 +1,4 @@
-Bool.to_u60 #Bool_tu60 (b: Bool) : U60
+#kdl_name = Bool_tu60
+Bool.to_u60  (b: Bool) : U60
 Bool.to_u60 Bool.false = 0
 Bool.to_u60 Bool.true  = 1

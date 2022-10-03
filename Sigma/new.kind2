@@ -1,1 +1,2 @@
-Sigma.new #Sigma_new <a: Type> <b: a -> Type> (fst: a) (snd: b fst) : Sigma a b
+#kdl_name = Sigma_new
+Sigma.new  <a: Type> <b: a -> Type> (fst: a) (snd: b fst) : Sigma a b

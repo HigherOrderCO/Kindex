@@ -1,7 +1,7 @@
 Apps.Fib.Front.State.init : Apps.Fib.Front.State {
   let state = Apps.Fib.State.init 
-  let state = Apps.Fib.State.update state (U120.new 0 33493)
-  let ml    = (state: Apps.Fib.State) => Apps.Fib.State.update state (U120.new 0 590549)
+  let state = Apps.Fib.State.Update state (U120.new 0 33493)
+  let ml    = (state: Apps.Fib.State) => Apps.Fib.State.Update state (U120.new 0 590549)
   let state = ml state
   let state = ml state
   let state = ml state

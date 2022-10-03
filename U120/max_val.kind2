@@ -1,3 +1,4 @@
-U120.max_val #U120_maxval : U120 {
+#kdl_name = U120_maxval
+U120.max_val  : U120 {
   U120.new 1152921504606846975 1152921504606846975
 }

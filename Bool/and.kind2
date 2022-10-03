@@ -1,5 +1,6 @@
 // Given two different Boolean values, verifies if they are equal
 // Example: (Bool.and Bool.false Bool.true) -> Bool.false
-Bool.and #Bool_and (a: Bool) (b: Bool) : Bool
+#kdl_name = Bool_and
+Bool.and  (a: Bool) (b: Bool) : Bool
 Bool.and Bool.true  b = b
 Bool.and Bool.false b = Bool.false

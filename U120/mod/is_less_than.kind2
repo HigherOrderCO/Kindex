@@ -1,2 +1,3 @@
 // For every a b, if b != 0: a % b < b
-U120.mod.is_less_than #U120_mod_ilt (a: U120) (b: U120) (e: Not (Equal U120 b (U120.new 0 0))) : U120.IsLessThan (U120.mod a b) b
+#kdl_name = U120_mod_ilt
+U120.mod.is_less_than  (a: U120) (b: U120) (e: Not (Equal U120 b (U120.new 0 0))) : U120.IsLessThan (U120.mod a b) b

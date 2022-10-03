@@ -1,4 +1,5 @@
 // Automatically derived from List/_.type
-List.match #List_match <t: Type> (x: (List t)) -(p: (x: (List t)) Type) (nil: (p (List.nil t))) (cons: (head: t) (tail: (List t)) (p (List.cons t head tail))) : (p x)
+#kdl_name = List_match
+List.match  <t: Type> (x: (List t)) -(p: (x: (List t)) Type) (nil: (p (List.nil t))) (cons: (head: t) (tail: (List t)) (p (List.cons t head tail))) : (p x)
 List.match t (List.nil t_) p nil cons = (nil)
 List.match t (List.cons t_ head_ tail_) p nil cons = (cons head_ tail_)

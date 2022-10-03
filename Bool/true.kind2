@@ -1,2 +1,3 @@
 // Automatically derived from Bool/_.type
-Bool.true #Bool_true: (Bool)
+#kdl_name = Bool_true
+Bool.true : (Bool)

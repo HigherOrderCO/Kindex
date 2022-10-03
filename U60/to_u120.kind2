@@ -1,3 +1,4 @@
-U60.to_u120 #U60_tu120 (num: U60) : U120 {
+#kdl_name = U60_tu120
+U60.to_u120  (num: U60) : U120 {
   U120.new 0 num
 }

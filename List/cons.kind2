@@ -1,2 +1,3 @@
 // Automatically derived from List/_.type
-List.cons #List_cons <t: Type> (head: t) (tail: (List t)) : (List t)
+#kdl_name = List_cons
+List.cons  <t: Type> (head: t) (tail: (List t)) : (List t)

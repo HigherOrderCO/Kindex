@@ -1,3 +1,4 @@
-U120.dec #U120_dec (num: U120) : U120 {
+#kdl_name = U120_decs
+U120.dec  (num: U120) : U120 {
   U120.sub num (U120.new 0 1)
 }
