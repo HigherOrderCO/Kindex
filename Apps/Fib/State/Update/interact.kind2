@@ -1,0 +1,19 @@
+#kdl_name = Fib_st_updit
+Apps.Fib.State.Update.interact (state: Apps.Fib.State) (data: U120) (player_id: Apps.Fib.Id) (player: Apps.Fib.Entity) (frame: U120): Apps.Fib.State {
+  let map   = Apps.Fib.State.get_map state
+  let pos   = Apps.Fib.Pos.new (Apps.Fib.Player.pos.get_x player) (Apps.Fib.Player.pos.get_y player)
+  let delta = Apps.Fib.Interaction.get_direction data
+  let data  = Apps.Fib.Interaction.get_data data
+  match Maybe target = (Apps.Fib.Pos.modify pos delta) {
+    none => state
+    some => 
+      let npc    = Apps.Fib.Map.get map target.value
+      let int    = Apps.Fib.Interaction.get npc data
+      let result = int state player_id npc frame
+      match Apps.Fib.Interaction.Result result {
+        new => result.state
+        err => state
+      }
+      // Apps.Fib.Interaction state object player 
+  }
+}

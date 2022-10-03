@@ -1,3 +1,0 @@
-type Fib.Act {
-  next (code: U120)
-}

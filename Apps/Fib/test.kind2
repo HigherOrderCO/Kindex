@@ -51,14 +51,14 @@
 //   let code_2 = Apps.Fib.Interact.walk p0_id (U120.new 0 9) (U120.new 0 9)
 //   // let 
 //   // Runs Fireball action code in the state
-//   let state  = Apps.Fib.State.update state code_0
-//   let state  = Apps.Fib.State.update state code_0 
+//   let state  = Apps.Fib.State.Update state code_0
+//   let state  = Apps.Fib.State.Update state code_0 
 //   // Runs Spawn action code in the state
-//   let state  = Apps.Fib.State.update state code_1
+//   let state  = Apps.Fib.State.Update state code_1
 //   // Runs walk action code in the state
-//   let state  = Apps.Fib.State.update state code_2
+//   let state  = Apps.Fib.State.Update state code_2
 //   // Runs walk action code in the state
-//   // let state  = Apps.Fib.State.update state code_3
+//   // let state  = Apps.Fib.State.Update state code_3
 //   // Shows a certain part of the map
 //   // Starting x = 130
 //   // Starting y = 0
@@ -114,8 +114,8 @@
   // let stt  = Apps.Fib.State.player.place stt plr1 id
   // let stt  = Apps.Fib.State.player.place stt plr2 id2
   // let actn = Apps.Fib.Action.skill_code stt (U120.new 0 0) p_1 p_2
-  // let stt  = Apps.Fib.State.update stt actn
-  // let stt  = Apps.Fib.State.update stt actn
+  // let stt  = Apps.Fib.State.Update stt actn
+  // let stt  = Apps.Fib.State.Update stt actn
   // let tbl  = Apps.Fib.test.Table stt
   // let map  = Apps.Fib.test.Map stt
   // let shw3 = Apps.Fib.Map.show 130 0 20 20 map 

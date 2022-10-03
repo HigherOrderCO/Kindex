@@ -1,0 +1,6 @@
+// Fib (action: (Fib.Act)) : (Kindelia.IO (Apps.Fib.State))
+fun (Fib action) {
+  (Fib {Fib_Act_next code}) = {TAKE @state let y = (Fib_st_upd state code #0); dup _0 _1 = y; {SAVE _0 @~ {DONE _1}}}
+} with {
+  (Fib_st_init)
+}

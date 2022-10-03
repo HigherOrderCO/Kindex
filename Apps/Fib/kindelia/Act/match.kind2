@@ -1,0 +1,3 @@
+// Automatically derived from /home/derenash/Wikinder/Fib/Act/_.type
+Apps.Fib.kindelia.Act.match (x: (Apps.Fib.kindelia.Act)) -(p: (x: (Apps.Fib.kindelia.Act)) Type) (next: (code: U120) (p (Apps.Fib.kindelia.Act.next code))) : (p x)
+Apps.Fib.kindelia.Act.match (Apps.Fib.kindelia.Act.next code_) p next = (next code_)

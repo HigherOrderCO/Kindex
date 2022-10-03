@@ -3,10 +3,10 @@
 //   let map   = Apps.Fib.Map.alloc
 //   let tab   = Apps.Fib.Table.alloc
 //   let state = Apps.Fib.State.new map tab
-//   let state = Apps.Fib.State.update state (U120.new 0 62162) (U120.new 0 0)
-//   let state = Apps.Fib.State.update state (U120.new 0 1049298) (U120.new 0 0)
-//   let state = Apps.Fib.State.update state (U120.new 0 62161) (U120.new 0 0)
-//   let state = Apps.Fib.State.update state (U120.new 0 1057490) (U120.new 0 0)
+//   let state = Apps.Fib.State.Update state (U120.new 0 62162) (U120.new 0 0)
+//   let state = Apps.Fib.State.Update state (U120.new 0 1049298) (U120.new 0 0)
+//   let state = Apps.Fib.State.Update state (U120.new 0 62161) (U120.new 0 0)
+//   let state = Apps.Fib.State.Update state (U120.new 0 1057490) (U120.new 0 0)
 //   state
 
 

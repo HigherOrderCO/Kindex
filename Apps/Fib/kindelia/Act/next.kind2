@@ -1,0 +1,3 @@
+#kdl_name = Fib_Act_next
+// Automatically derived from /home/derenash/Wikinder/Fib/Act/_.type
+Apps.Fib.kindelia.Act.next (code: U120) : (Apps.Fib.kindelia.Act)

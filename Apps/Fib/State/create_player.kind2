@@ -1,11 +1,12 @@
-
-Apps.Fib.State.create_player #Fib_st_crtu (state: Apps.Fib.State) (id: Apps.Fib.Id) (data: U120) : Apps.Fib.State
+#kdl_name = Fib_st_crtp
+Apps.Fib.State.create_player (state: Apps.Fib.State) (id: Apps.Fib.Id) (data: U120) : Apps.Fib.State
 Apps.Fib.State.create_player (Apps.Fib.State.new map tab) id data = 
   let s_pos  = Apps.Fib.State.create_player.city (U120.mod data (U120.new 0 4))
   let new_player = match Pair s_pos { new => Apps.Fib.Player.default s_pos.fst s_pos.snd }
   Apps.Fib.State.player.place (Apps.Fib.State.new map tab) new_player id
 
-Apps.Fib.State.create_player.city #Fib_st_crtuc (data: U120) : Pair U120 U120
+#kdl_name = Fib_st_crtpc
+Apps.Fib.State.create_player.city  (data: U120) : Pair U120 U120
 Apps.Fib.State.create_player.city (U120.new 0 0) = Pair.new (U120.new 0 12 ) (U120.new 0 12)
 Apps.Fib.State.create_player.city (U120.new 0 1) = Pair.new (U120.new 0 147) (U120.new 0 12)
 Apps.Fib.State.create_player.city (U120.new 0 2) = Pair.new (U120.new 0 147) (U120.new 0 147)

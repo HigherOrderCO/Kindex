@@ -1,0 +1,4 @@
+run {
+  ask x = (Call 'Fib' {Fib_Act_next #69365});
+  (Done x)
+}

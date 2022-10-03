@@ -1,3 +1,0 @@
-// Automatically derived from /home/derenash/Wikinder/Fib/Act/_.type
-Fib.Act.match (x: (Fib.Act)) -(p: (x: (Fib.Act)) Type) (next: (code: U120) (p (Fib.Act.next code))) : (p x)
-Fib.Act.match (Fib.Act.next code_) p next = (next code_)

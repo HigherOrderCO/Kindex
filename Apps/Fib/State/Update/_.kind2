@@ -1,0 +1,17 @@
+#kdl_name = Fib_st_upd
+Apps.Fib.State.Update (state: Apps.Fib.State) (action: U120) (frame: U120): Apps.Fib.State
+Apps.Fib.State.Update (Apps.Fib.State.new map tab) action frame = 
+  let data    = Apps.Fib.Action.get_data action
+  let comm    = Apps.Fib.Action.get_comm action
+  let id      = Apps.Fib.Action.get_id action
+  let ent_tab = Apps.Fib.Table.got tab id
+  match Pair ent_tab {
+    new =>
+      let ent = ent_tab.snd
+      if (Bool.and (U120.equal ent (U120.new 0 0)) (U120.equal comm (U120.new 0 15))) {
+        Apps.Fib.State.create_player (Apps.Fib.State.new map tab) id data
+      }
+      else {
+        Apps.Fib.State.Update.command (Apps.Fib.State.new map tab) comm data id ent frame
+      }
+  }

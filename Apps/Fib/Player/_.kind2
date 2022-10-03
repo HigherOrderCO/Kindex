@@ -23,7 +23,21 @@ Apps.Fib.Player : Type {
 // - skill_4: u6
 // - skill_5: u6
 
-
+// 0   - 7  :  Pos x 
+// 8   - 15 :  Pos y
+// 16  - 27 :  Experience 
+// 28  - 37 :  Current HP 
+// 38  - 53 :  Sell offer 
+// 54  - 56 :  Root counter 
+// 57  - 59 :  Silence counter 
+// 60  - 71 :  Gold 
+// 72  - 83 :  Cooldown 
+// 84  - 89 :  Skill 0 
+// 90  - 95 :  Skill 1 
+// 96  - 101 : Skill 2 
+// 102 - 107 : Skill 3 
+// 108 - 113 : Skill 4 
+// 114 - 119 : Skill 5 
 
 // type sell: 16 bits
 // -  4 bits : skill_id

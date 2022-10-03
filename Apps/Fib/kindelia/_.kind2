@@ -1,0 +1,13 @@
+#kdl_name = Fib
+Apps.Fib.kindelia (action: Apps.Fib.kindelia.Act) : Kindelia.IO Apps.Fib.State 
+Apps.Fib.kindelia (Apps.Fib.kindelia.Act.next code) = 
+  (Kindelia.IO.do_take (state: Apps.Fib.State) =>
+    let y = Apps.Fib.State.Update state code (U120.new 0 0)
+    (Kindelia.IO.do_save y (_: Unit) =>
+      Kindelia.IO.done y
+    )
+  )
+
+Fib.init {
+  Apps.Fib.State.init
+}

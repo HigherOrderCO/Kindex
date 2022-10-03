@@ -1,0 +1,12 @@
+#kdl_name = Fib_st_updcm
+Apps.Fib.State.Update.command  (state: Apps.Fib.State) (command: U120) (data: U120) (id: Apps.Fib.Id) (ent: Apps.Fib.Entity) (frame: U120): Apps.Fib.State
+Apps.Fib.State.Update.command state (U120.new 0 0) data id ent frame = Apps.Fib.State.walk state data ent id
+Apps.Fib.State.Update.command state (U120.new 0 1) data id ent frame = state // interact?
+Apps.Fib.State.Update.command state (U120.new 0 2) data id ent frame = Apps.Fib.State.Update.skill state (U120.new 0 0) data ent
+Apps.Fib.State.Update.command state (U120.new 0 3) data id ent frame = Apps.Fib.State.Update.skill state (U120.new 0 1) data ent
+Apps.Fib.State.Update.command state (U120.new 0 4) data id ent frame = Apps.Fib.State.Update.skill state (U120.new 0 2) data ent
+Apps.Fib.State.Update.command state (U120.new 0 5) data id ent frame = Apps.Fib.State.Update.skill state (U120.new 0 3) data ent
+Apps.Fib.State.Update.command state (U120.new 0 6) data id ent frame = Apps.Fib.State.Update.skill state (U120.new 0 4) data ent
+Apps.Fib.State.Update.command state (U120.new 0 7) data id ent frame = Apps.Fib.State.Update.skill state (U120.new 0 5) data ent
+Apps.Fib.State.Update.command state (U120.new 0 8) data id ent frame = Apps.Fib.State.Update.interact state data id ent frame
+Apps.Fib.State.Update.command state command        data id ent frame = state
