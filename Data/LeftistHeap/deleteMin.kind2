@@ -1,4 +1,4 @@
 // Deletes the node with the minimum element. Returns Data.LeftistHeap.empty if called on an empty heap.
-Data.LeftistHeap.deleteMin (h: Data.LeftistHeap) : Data.LeftistHeap
-Data.LeftistHeap.deleteMin Data.LeftistHeap.empty = Data.LeftistHeap.empty
-Data.LeftistHeap.deleteMin (Data.LeftistHeap.tree r x a b) = (Data.LeftistHeap.merge a b)
+/deleteMin (h: Data.LeftistHeap) : Data.LeftistHeap
+/deleteMin Data.LeftistHeap.empty = Data.LeftistHeap.empty
+/deleteMin (Data.LeftistHeap.tree r x a b) = (Data.LeftistHeap.merge a b)

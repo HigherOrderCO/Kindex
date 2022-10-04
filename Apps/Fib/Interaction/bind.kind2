@@ -4,14 +4,19 @@
 
 
 Apps.Fib.Interaction.bind <a> <b> (itr: Apps.Fib.Interaction a) (next: a -> Apps.Fib.Interaction b) : Apps.Fib.Interaction b {
-  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
-    let r_a = itr state player entity frame
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (target: Apps.Fib.Pos) => (frame: U120) => 
+    let r_a = itr state player target frame 
     match Apps.Fib.Interaction.Result r_a {
       new => 
-        let r_b = (next r_a.val) r_a.state r_a.player r_a.entity r_a.frame
-        r_b
-      err => 
-        Apps.Fib.Interaction.Result.err 
+        let r_b    = (next r_a.val) r_a.state r_a.player r_a.target r_a.frame
+        match Apps.Fib.Interaction.Result r_b {
+          new =>
+            let events = List.concat r_a.events r_b.events
+            let result = Apps.Fib.Interaction.Result.new r_b.val r_b.state r_b.player r_b.target r_b.frame events
+            result
+          err => Apps.Fib.Interaction.Result.err 
+        } 
+      err => Apps.Fib.Interaction.Result.err 
     }
 }
 

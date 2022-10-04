@@ -1,13 +1,25 @@
-#kdl_name = Fib_sk_fireb
-Apps.Fib.Skill.fireball (state: Apps.Fib.State) (player: Apps.Fib.Player) (pos: Apps.Fib.Pos) : Apps.Fib.State
-Apps.Fib.Skill.fireball (Apps.Fib.State.new map tab) player pos =
-  let print  = Pair.new (Apps.Fib.Pos.get_x pos) (Apps.Fib.Pos.get_y pos)
-  let deltas = (Apps.Fib.Pos.around (U120.new 0 2))
-  let x      = Apps.Fib.Player.pos.get_x player
-  let y      = Apps.Fib.Player.pos.get_y player
-  let coords = List.cons pos (Apps.Fib.Pos.range (Apps.Fib.Pos.new x y) deltas)
-  // let c      = List.map coords (x => Sigma.fst x)
-  let fold   = List.fold coords
-  let damage = (pos => state => Apps.Fib.State.player.damage state pos (U120.new 0 50)) :: Apps.Fib.Pos -> Apps.Fib.State -> Apps.Fib.State
-  (fold (Apps.Fib.State.new map tab) damage)
+use Apps.Fib.Interaction as It
+use Apps.Fib.Pos as Pos
+Apps.Fib.Skill.fireball : Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
 
+    let damage   = U120.new 0 50
+    let range    = U120.new 0 6 
+    let area     = U120.new 0 2
+    let speed    = U120.new 0 35
+
+    ask cooldown = Apps.Fib.Interaction.player.cooldown speed
+    ask target   = It/target.get
+    // Get the delta of all coordinates within 2 tiles of a point
+    let deltas   = (Pos/around area)
+    // Get the coords within 2 tiles of a point
+    let around   = Pos/range target deltas
+    // Adds the center coord to the coords around it
+    let coords   = List.cons target around
+    // Damages the unities in the area
+    // ask It/damage damage coords
+    // Adds Fatigue to the caster
+    ask It/player.add_cd cooldown
+    return Unit.new
+  }
+}

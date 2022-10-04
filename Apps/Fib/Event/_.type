@@ -1,0 +1,12 @@
+type Apps.Fib.Event {
+  damage    (id: U120) (pos: U120) (value: U120)
+  heal      (id: U120) (pos: U120) (value: U120)
+  movement  (id: U120) (ori: U120) (des  : U120)
+  skill     (id: U120) (pos: U120) (skill: U120) (target: U120)
+  exp_get   (id: U120) (pos: U120) (value: U120)
+  add_cc    (id: U120) (pos: U120) (type : U120) (value : U120)
+  add_gold  (id: U120) (pos: U120) (value: U120)
+  take_gold (id: U120) (pos: U120) (value: U120)
+  add_item  (id: U120) (pos: U120) (item : U120) (slot  : U120)
+  del_item  (id: U120) (pos: U120) (item : U120)
+}

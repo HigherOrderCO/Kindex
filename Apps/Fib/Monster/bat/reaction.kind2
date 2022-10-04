@@ -1,0 +1,7 @@
+Apps.Fib.Monster.bat.reaction (bat_pos: Apps.Fib.Pos): Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
+    let repel        = (U120.new 0 3)
+    ask attacker_pos = Apps.Fib.Interaction.player.get_pos
+    let destination  = Apps.Fib.Pos.move_away attacker_pos bat_pos repel
+  }
+}

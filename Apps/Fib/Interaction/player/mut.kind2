@@ -1,0 +1,10 @@
+Apps.Fib.Interaction.player.mut (func: Apps.Fib.Player -> Apps.Fib.Player) : Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
+    ask id   = Apps.Fib.Interaction.player.get_id
+    let func = (table: Apps.Fib.Table) => Apps.Fib.Table.mut table func id
+    ask Apps.Fib.Interaction.table.mut func 
+    return Unit.new
+  }
+}
+
+// Apps.Fib.Table.mut (table: Apps.Fib.Table) (func: Apps.Fib.Entity -> Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.Table {

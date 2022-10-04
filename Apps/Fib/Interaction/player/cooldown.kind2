@@ -1,0 +1,6 @@
+Apps.Fib.Interaction.player.cooldown (speed: U120) : Apps.Fib.Interaction U120 {
+  do Apps.Fib.Interaction {
+    let cd = (U120.div (U120.new 0 200) speed)
+    return cd
+  }
+}

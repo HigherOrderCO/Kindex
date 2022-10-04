@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Event/_.type
+Apps.Fib.Event.add_item (id: U120) (pos: U120) (item: U120) (slot: U120) : (Apps.Fib.Event)

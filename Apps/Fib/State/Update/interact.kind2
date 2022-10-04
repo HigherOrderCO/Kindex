@@ -8,8 +8,8 @@ Apps.Fib.State.Update.interact (state: Apps.Fib.State) (data: U120) (player_id: 
     none => state
     some => 
       let npc    = Apps.Fib.Map.get map target.value
-      let int    = Apps.Fib.Interaction.get npc data
-      let result = int state player_id npc frame
+      let int    = Apps.Fib.Interaction.get_npc npc data
+      let result = int state player_id target.value frame
       match Apps.Fib.Interaction.Result result {
         new => result.state
         err => state

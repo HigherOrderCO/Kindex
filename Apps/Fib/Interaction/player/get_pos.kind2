@@ -1,0 +1,9 @@
+Apps.Fib.Interaction.player.get_pos : Apps.Fib.Interaction Apps.Fib.Pos {
+  do Apps.Fib.Interaction {
+    ask id     = Apps.Fib.Interaction.player.get_id
+    ask table  = Apps.Fib.Interaction.table.get
+    let player = Apps.Fib.Table.get table id
+    let pos    = Apps.Fib.Pos.new (Apps.Fib.Player.pos.get_x player) (Apps.Fib.Player.pos.get_y player)
+    return pos
+  }
+}

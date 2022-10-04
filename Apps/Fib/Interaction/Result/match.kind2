@@ -1,4 +1,4 @@
-// Automatically derived from /home/derenash/Wikinder/Apps/Fib/Interaction/Result/_.type
-Apps.Fib.Interaction.Result.match <a: Type> (x: (Apps.Fib.Interaction.Result a)) -(p: (x: (Apps.Fib.Interaction.Result a)) Type) (new: (val: a) (state: Apps.Fib.State) (player: Apps.Fib.Id) (entity: Apps.Fib.Id) (frame: U120) (p (Apps.Fib.Interaction.Result.new a val state player entity frame))) (err: (p (Apps.Fib.Interaction.Result.err a))) : (p x)
-Apps.Fib.Interaction.Result.match a (Apps.Fib.Interaction.Result.new a_ val_ state_ player_ entity_ frame_) p new err = (new val_ state_ player_ entity_ frame_)
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Interaction/Result/_.type
+Apps.Fib.Interaction.Result.match <a: Type> (x: (Apps.Fib.Interaction.Result a)) -(p: (x: (Apps.Fib.Interaction.Result a)) Type) (new: (val: a) (state: Apps.Fib.State) (player: Apps.Fib.Id) (target: Apps.Fib.Pos) (frame: U120) (events: (List Apps.Fib.Event)) (p (Apps.Fib.Interaction.Result.new a val state player target frame events))) (err: (p (Apps.Fib.Interaction.Result.err a))) : (p x)
+Apps.Fib.Interaction.Result.match a (Apps.Fib.Interaction.Result.new a_ val_ state_ player_ target_ frame_ events_) p new err = (new val_ state_ player_ target_ frame_ events_)
 Apps.Fib.Interaction.Result.match a (Apps.Fib.Interaction.Result.err a_) p new err = (err)

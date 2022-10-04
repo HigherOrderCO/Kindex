@@ -1,4 +1,8 @@
 Apps.Fib.Interaction.entity.get_id : Apps.Fib.Interaction Apps.Fib.Id {
-  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
-    Apps.Fib.Interaction.Result.new entity state player entity frame 
+  do Apps.Fib.Interaction {
+    ask map = Apps.Fib.Interaction.map.get
+    ask pos = Apps.Fib.Interaction.target.get
+    let id  = Apps.Fib.Map.get map pos
+    return id
+  }
 }

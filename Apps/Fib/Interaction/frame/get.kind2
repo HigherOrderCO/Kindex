@@ -1,4 +1,4 @@
 Apps.Fib.Interaction.frame.get : Apps.Fib.Interaction U120 {
-  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
-    Apps.Fib.Interaction.Result.new frame state player entity frame
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (target: Apps.Fib.Pos) => (frame: U120) => 
+    Apps.Fib.Interaction.Result.new frame state player target frame List.nil
 }

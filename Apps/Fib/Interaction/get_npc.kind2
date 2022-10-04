@@ -1,8 +1,8 @@
-Apps.Fib.Interaction.get (id: U120) (data: U120) : Apps.Fib.Interaction Unit
+Apps.Fib.Interaction.get_npc (id: U120) (data: U120) : Apps.Fib.Interaction Unit
 // Bat Caves:
 //  (25, 154)
 //  (25, 155)
-Apps.Fib.Interaction.get (U120.new 0 256) data =
+Apps.Fib.Interaction.get_npc (U120.new 0 256) data =
   let spawn_points = [
       (Apps.Fib.Pos.new (U120.new 0 26) (U120.new 0 154))
       (Apps.Fib.Pos.new (U120.new 0 26) (U120.new 0 155))
@@ -13,7 +13,7 @@ Apps.Fib.Interaction.get (U120.new 0 256) data =
 // Bat Caves:
 //  (37, 132)
 //  (37, 133)
-Apps.Fib.Interaction.get (U120.new 0 257) data =
+Apps.Fib.Interaction.get_npc (U120.new 0 257) data =
   let spawn_points = [
       (Apps.Fib.Pos.new (U120.new 0 36) (U120.new 0 132))
       (Apps.Fib.Pos.new (U120.new 0 36) (U120.new 0 133))
@@ -24,7 +24,7 @@ Apps.Fib.Interaction.get (U120.new 0 257) data =
 // Bat Caves:
 //  (50, 136)
 //  (51, 136)
-Apps.Fib.Interaction.get (U120.new 0 258) data =
+Apps.Fib.Interaction.get_npc (U120.new 0 258) data =
   let spawn_points = [
       (Apps.Fib.Pos.new (U120.new 0 49) (U120.new 0 136))
       (Apps.Fib.Pos.new (U120.new 0 50) (U120.new 0 137))

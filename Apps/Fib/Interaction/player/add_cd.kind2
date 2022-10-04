@@ -1,0 +1,20 @@
+Apps.Fib.Interaction.player.add_cd (cd: U120) : Apps.Fib.Interaction Unit {
+  do Apps.Fib.Interaction {
+    ask frame = Apps.Fib.Interaction.frame.get
+    let cd    = U120.add frame cd
+    let func  = (player: Apps.Fib.Player) => Apps.Fib.Player.cd.set player cd
+    ask Apps.Fib.Interaction.player.mut func
+    return Unit.new
+  }
+}
+
+// Apps.Fib.Interaction.player.add_cd (cd: U120) : Apps.Fib.Interaction Unit {
+//   (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (target: Apps.Fib.Pos) => (frame: U120) => 
+//     let cd    = U120.add frame cd
+//     let func  = (player: Apps.Fib.Player) => Apps.Fib.Player.cd.set player cd
+//     let func  = (table: Apps.Fib.Table) => Apps.Fib.Table.mut table func player
+//     let table = Apps.Fib.State.get_table state
+//     let map   = Apps.Fib.State.get_map state
+//     let state = Apps.Fib.State.new map (func table)
+//     Apps.Fib.Interaction.Result.new Unit.new state player target frame List.nil
+// }

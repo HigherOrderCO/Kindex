@@ -1,0 +1,4 @@
+#kdl_name = Fib_plr_cd_s
+Apps.Fib.Player.cd.set (player: Apps.Fib.Player) (cd: U120) : Apps.Fib.Player {
+  Apps.Fib.Player.cd.change player (x => cd)
+}

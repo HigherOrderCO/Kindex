@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Event/_.type
+Apps.Fib.Event.movement (id: U120) (ori: U120) (des: U120) : (Apps.Fib.Event)

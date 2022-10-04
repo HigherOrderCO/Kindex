@@ -2,6 +2,6 @@
 // Maybe.pure a x = Maybe.some x
 
 Apps.Fib.Interaction.pure <a> (x: a) : Apps.Fib.Interaction {
-  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (entity: Apps.Fib.Id) => (frame: U120) => 
-    Apps.Fib.Interaction.Result.new x state player entity frame
+  (state: Apps.Fib.State) => (player: Apps.Fib.Id) => (target: Apps.Fib.Pos) => (frame: U120) => 
+    Apps.Fib.Interaction.Result.new x state player target frame List.nil
 }

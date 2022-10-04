@@ -1,4 +1,4 @@
-Apps.Fib.Interaction.entity.set (new_entity: Apps.Fib.Entity): Apps.Fib.Interaction Unit {
+Apps.Fib.Interaction.entity.set_at_target_id (new_entity: Apps.Fib.Entity): Apps.Fib.Interaction Unit {
   do Apps.Fib.Interaction {
     ask entity = Apps.Fib.Interaction.entity.get
     let func = (table: Apps.Fib.Table) => Apps.Fib.Table.set table new_entity entity

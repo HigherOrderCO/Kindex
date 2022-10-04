@@ -1,0 +1,5 @@
+Apps.Fib.Interaction.damage (value: U120) (coords: List Apps.Fib.Pos) : Apps.Fib.Interaction U120 {
+  do Apps.Fib.Interaction {
+    
+  }
+}

@@ -1,0 +1,11 @@
+Apps.Fib.Npc.bat_cave.find_pos (list: List Apps.Fib.Pos) (map: Apps.Fib.Map) : Maybe Apps.Fib.Pos
+Apps.Fib.Npc.bat_cave.find_pos (List.nil r) map = Maybe.none
+Apps.Fib.Npc.bat_cave.find_pos (List.cons r h t) map = 
+  let val = Apps.Fib.Map.get map h
+  if (U120.is_zero val) {
+    Maybe.some h
+  }
+  else {
+    Apps.Fib.Npc.bat_cave.find_pos t map
+  }
+  

@@ -1,0 +1,2 @@
+// Automatically derived from /home/derenash/Wikind/Apps/Fib/Event/_.type
+Apps.Fib.Event.damage (id: U120) (pos: U120) (value: U120) : (Apps.Fib.Event)

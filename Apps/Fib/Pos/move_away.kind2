@@ -1,0 +1,7 @@
+Apps.Fib.Pos.move_away (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) (to_move: Apps.Fib.Pos) (distance: U120) : Apps.Fib.Pos
+Apps.Fib.Pos.move_away pos to_move (U120.new 0 0) = to_move
+Apps.Fib.Pos.move_away pos to_move n              =
+  ?
+
+
+
