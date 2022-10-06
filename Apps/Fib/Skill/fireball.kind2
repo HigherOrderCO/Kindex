@@ -1,5 +1,3 @@
-use Apps.Fib.Interaction as It
-use Apps.Fib.Pos as Pos
 Apps.Fib.Skill.fireball : Apps.Fib.Interaction Unit {
   do Apps.Fib.Interaction {
 
@@ -9,17 +7,17 @@ Apps.Fib.Skill.fireball : Apps.Fib.Interaction Unit {
     let speed    = U120.new 0 35
 
     ask cooldown = Apps.Fib.Interaction.player.cooldown speed
-    ask target   = It/target.get
+    ask target   = Apps.Fib.Interaction.target.get
     // Get the delta of all coordinates within 2 tiles of a point
-    let deltas   = (Pos/around area)
+    let deltas   = (Apps.Fib.Pos.around area)
     // Get the coords within 2 tiles of a point
-    let around   = Pos/range target deltas
+    let around   = Apps.Fib.Pos.range target deltas
     // Adds the center coord to the coords around it
     let coords   = List.cons target around
     // Damages the unities in the area
-    // ask It/damage damage coords
+    // ask Apps.Fib.Interaction.damage damage coords
     // Adds Fatigue to the caster
-    ask It/player.add_cd cooldown
+    ask Apps.Fib.Interaction.player.add_cd cooldown
     return Unit.new
   }
 }
