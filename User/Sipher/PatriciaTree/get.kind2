@@ -1,17 +1,17 @@
-User.Sipher.PatriciaTree.get #PGet (map: User.Sipher.PatriciaTree) (key: U120): Maybe U120
+User.Sipher.PatriciaTree.get (map: User.Sipher.PatriciaTree) (key: U120): Maybe U120
 User.Sipher.PatriciaTree.get (User.Sipher.PatriciaTree.leaf k v) key = 
   User.Sipher.PatriciaTree.getAux0 (U120.equal k key) v
 User.Sipher.PatriciaTree.get (User.Sipher.PatriciaTree.branch  p m t0 t1) key = 
   User.Sipher.PatriciaTree.getAux1 (User.Sipher.PatriciaTree.matchprefix key p m) key m t0 t1
 
-User.Sipher.PatriciaTree.getAux0 #PGetAux (b: Bool) (val: U120):  Maybe U120
+User.Sipher.PatriciaTree.getAux0 (b: Bool) (val: U120):  Maybe U120
 User.Sipher.PatriciaTree.getAux0 Bool.true  val = Maybe.some val
 User.Sipher.PatriciaTree.getAux0 Bool.false val = Maybe.none
 
-User.Sipher.PatriciaTree.getAux1 #PGetAux1 (b: Bool) (key: U120) (m: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): Maybe U120
+User.Sipher.PatriciaTree.getAux1 (b: Bool) (key: U120) (m: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): Maybe U120
 User.Sipher.PatriciaTree.getAux1 Bool.false k m t0 t1 = Maybe.none
 User.Sipher.PatriciaTree.getAux1 Bool.true  k m t0 t1 = User.Sipher.PatriciaTree.getAux2 (User.Sipher.PatriciaTree.zerobit k m) k t0 t1
 
-User.Sipher.PatriciaTree.getAux2 #PGetAux2 (b: Bool) (key: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): Maybe U120
+User.Sipher.PatriciaTree.getAux2 (b: Bool) (key: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree): Maybe U120
 User.Sipher.PatriciaTree.getAux2 Bool.true  k t0 t1 = User.Sipher.PatriciaTree.get t0 k
 User.Sipher.PatriciaTree.getAux2 Bool.false k t0 t1 = User.Sipher.PatriciaTree.get t1 k

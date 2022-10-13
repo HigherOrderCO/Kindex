@@ -1,5 +1,5 @@
 //Test Function to add money
-User.Sipher.KGT.mint #KgtMint
+User.Sipher.KGT.mint
   (miner: U120)
   (current_block: U120)
   (state: KDL.KGT.State)
@@ -42,30 +42,21 @@ User.Sipher.KGT.xp
   (last_mint       : U120)
 : U120
 User.Sipher.KGT.xp xp_base  bk_base current_block last_mint = 
-  if (U120.equal current_block last_mint) { 
+  if (U120.greater_equal last_mint current_block) { 
     U120.0
   } else {
     let halving = U120.div last_mint bk_base
     let value   = User.Sipher.KGT.XP_Per_Block xp_base halving bk_base
-    U120.add value (User.Sipher.KGT.xp xp_base bk_base current_block (U120.add last_mint U120.1))
+    U120.add value (User.Sipher.KGT.xp xp_base bk_base current_block (U120.inc last_mint))
   }
 
-
-// x^y
-User.Sipher.KGT.pow
-  (x: U120)
-  (y: U120)
-: U120
-User.Sipher.KGT.pow x (U120.new 0 0) = (U120.new 0 1)
-User.Sipher.KGT.pow x y = U120.mul x (User.Sipher.KGT.pow x (U120.sub y U120.1))
-  
 
 // Returns the XP that we receive per Halving
 User.Sipher.KGT.XP_Per_Halving
   (xp_base         : U120)
   (current_halving : U120)
 : U120 {
-  U120.div xp_base (User.Sipher.KGT.pow U120.2 current_halving)
+  U120.div xp_base (U120.shift_left (U120.new 0 1) current_halving)
 }
 
 
@@ -76,13 +67,4 @@ User.Sipher.KGT.XP_Per_Block
   (bk_base         : U120)
 : U120 { 
   U120.div (User.Sipher.KGT.XP_Per_Halving xp_base current_halving) bk_base
-}
-
-
-// Function to verify which halving we are right now
-User.Sipher.KGT.Halving
-  (last_mint: U120)
-: U120 {
-  let halving = U120.new 0 125000000
-  U120.div last_mint halving
 }

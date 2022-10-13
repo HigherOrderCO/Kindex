@@ -1,2 +1,2 @@
 // Automatically derived from action.type
-KDL.KGT.Action.mint #KgtAMint (user: U120) (value: U120) : (KDL.KGT.Action)
+KDL.KGT.Action.mint (user: U120) (value: U120) : (KDL.KGT.Action)

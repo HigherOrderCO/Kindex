@@ -2,6 +2,7 @@ Main {
   let user = U120.new 0 1
   let val  = U120.new 0 0
   let last_mint = U120.0
+  let current_block =(U120.new 0 4625000000)
   //let last_mint = (U120.new 0 8000000000)
   //let last_mint = (U120.new 0 7000000000)
   //let last_mint = (U120.new 0 4125000000)
@@ -18,5 +19,6 @@ Main {
   let map  = User.Sipher.PatriciaTree.set map (U120.new 0 8) val
   let map  = User.Sipher.PatriciaTree.set map (U120.new 0 9) val
   let state = KDL.KGT.State.new last_mint map
-  User.Sipher.KGT.mint user (U120.new 0 5) last_mint state
+  ?
+  //User.Sipher.KGT.mint user (U120.new 0 5) last_mint state
 }

@@ -1,2 +1,2 @@
 // Automatically derived from action.type
-KDL.KGT.Action.get #KgtAGetter (user: U120) : (KDL.KGT.Action)
+KDL.KGT.Action.get (user: U120) : (KDL.KGT.Action)

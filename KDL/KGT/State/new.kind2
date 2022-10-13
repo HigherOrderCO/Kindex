@@ -1,2 +1,2 @@
 // Automatically derived from state.type
-KDL.KGT.State.new #KgtState (last_mint: U120) (balance: (User.Sipher.PatriciaTree)) : (KDL.KGT.State)
+KDL.KGT.State.new (last_mint: U120) (balance: (User.Sipher.PatriciaTree)) : (KDL.KGT.State)

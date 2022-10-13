@@ -1,8 +1,14 @@
-User.Sipher.KGT.get #KgtGet
+User.Sipher.KGT.get 
   (user  : U120)
   (state : KDL.KGT.State)
-: Maybe U120 
+: U120
 
 User.Sipher.KGT.get user (KDL.KGT.State.new last_mint balances) = 
-  User.Sipher.PatriciaTree.get balances user
+  let mbalance = User.Sipher.PatriciaTree.get balances user
+  User.Sipher.KGT.get.aux mbalance
 
+User.Sipher.KGT.get.aux 
+  (balance: Maybe U120)
+: U120
+User.Sipher.KGT.get.aux (Maybe.none t) = U120.new 0 0
+User.Sipher.KGT.get.aux (Maybe.some t val) = val
