@@ -1,2 +1,3 @@
 // Automatically derived from state.type
+#kdl_name = KgtState
 KDL.KGT.State.new (last_mint: U120) (balance: (User.Sipher.PatriciaTree)) : (KDL.KGT.State)

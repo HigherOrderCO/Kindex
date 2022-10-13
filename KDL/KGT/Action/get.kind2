@@ -1,2 +1,3 @@
 // Automatically derived from action.type
+#kdl_name = KgtAGetter
 KDL.KGT.Action.get (user: U120) : (KDL.KGT.Action)

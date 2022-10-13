@@ -1,4 +1,5 @@
-Apps.Fib.set_in_u120 #Fib_s_u120 (x: U120) (id: Apps.Fib.Id) (chunk: U120) : U120 {
+#kdl_name = Fib_s_u120
+Apps.Fib.set_in_u120 (x: U120) (id: Apps.Fib.Id) (chunk: U120) : U120 {
   let shl = (n: U120) => U120.shift_left n x
   let res = U120.bitwise_or (U120.bitwise_and (U120.bitwise_complement (shl (U120.new 0 4095))) chunk) (shl id)
   res

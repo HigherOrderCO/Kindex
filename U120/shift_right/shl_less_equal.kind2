@@ -1,2 +1,3 @@
 // for every a b, ((a << b) >> b) <= a
-U120.shift_right.shl_less_equal #U120_sr_slle (a: U120) (b: U120): Equal Bool (U120.less_equal (U120.shift_right (U120.shift_left a b) b) a) Bool.true 
+#kdl_name = U120_sr_slle
+U120.shift_right.shl_less_equal (a: U120) (b: U120): Equal Bool (U120.less_equal (U120.shift_right (U120.shift_left a b) b) a) Bool.true 

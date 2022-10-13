@@ -1,4 +1,5 @@
-Apps.Fib.State.walk #Fib_st_walk (state: Apps.Fib.State) (data: U120) (entity: Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.State
+#kdl_name = Fib_st_walk
+Apps.Fib.State.walk (state: Apps.Fib.State) (data: U120) (entity: Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.State
 Apps.Fib.State.walk (Apps.Fib.State.new map table) data entity id = 
 
   let max_move = (U120.new 0 2)

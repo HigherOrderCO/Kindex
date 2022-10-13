@@ -1,4 +1,5 @@
 //Transfer Function without any verification
+#kdl_name = KgtTransfer
 User.Sipher.KGT.transfer
   (from  : U120)
   (to    : U120)
@@ -22,6 +23,7 @@ User.Sipher.KGT.transfer from to value (KDL.KGT.State.new last_mint balances) =
   User.Sipher.KGT.transfer.sender sender_money from to value (KDL.KGT.State.new last_mint balances)
 
 // Verifies if the sender is really a valid person
+#kdl_name = KgtSender
 User.Sipher.KGT.transfer.sender
   (sender : Maybe U120)
   (from   : U120)
@@ -36,6 +38,7 @@ User.Sipher.KGT.transfer.sender (Maybe.some t money) from to value state =
 
 // Once verified that the sender is a valid person, verifies if he has money, if
 // so the transfer completes
+#kdl_name = KgtFinish
 User.Sipher.KGT.transfer.finish
   (has_money         : Bool)
   (sender_money      : U120)

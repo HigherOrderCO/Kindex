@@ -1,7 +1,9 @@
+#kdl_name = PLowstBit
 User.Sipher.PatriciaTree.lowestbit (x: U120): U120 {
   User.Sipher.PatriciaTree.lowestbitAux0 (U120.mod x (U120.new 0 2)) x
 }
 
+#kdl_name = PLowstBit1
 User.Sipher.PatriciaTree.lowestbitAux0 (b: U120) (x: U120): U120
 User.Sipher.PatriciaTree.lowestbitAux0 (U120.new 0 0) x =  
   U120.mul (U120.new 0 2) (User.Sipher.PatriciaTree.lowestbit (U120.div x (U120.new 0 2)))

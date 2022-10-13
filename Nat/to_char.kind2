@@ -3,7 +3,7 @@
 // Anything outside the valid range returns '#'
 
 Nat.to_char (base: Nat) (n: Nat) : Char
-Nat.to_char  Nat.zero     n = 35 // #
+Nat.to_char  Nat.zero     n = '#'
 Nat.to_char (Nat.succ bp) n =
   let base = (Nat.succ bp)
   let m = Nat.mod n base
@@ -11,5 +11,5 @@ Nat.to_char (Nat.succ bp) n =
   let n64 = (U60.to_nat 64)
   if Bool.and (Nat.is_succ base) (Nat.lte base n64) {
     let mc = String.at m base64
-    Maybe.default mc 35
-  } else { 35 }
+    Maybe.default mc '#'
+  } else { '#' }

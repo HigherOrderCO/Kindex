@@ -1,4 +1,5 @@
-User.Sipher.KGT.get 
+#kdl_name = KgtGet
+User.Sipher.KGT.get
   (user  : U120)
   (state : KDL.KGT.State)
 : U120

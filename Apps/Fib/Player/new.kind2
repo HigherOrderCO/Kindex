@@ -1,4 +1,5 @@
-Apps.Fib.Player.new #Fib_plr_new
+#kdl_name = Fib_plr_new
+Apps.Fib.Player.new
   (x  : U120)
   (y  : U120)
   (xp : U120)

@@ -1,2 +1,3 @@
 // Automatically derived from response.type
+#kdl_name = KgtRGetter
 KDL.KGT.Response.get (balance: U120) : (KDL.KGT.Response)

@@ -1,4 +1,5 @@
-Apps.Fib.Map.range #Fib_map_rnge : Apps.Fib.Map {
+#kdl_name = Fib_map_rnge
+Apps.Fib.Map.range : Apps.Fib.Map {
   Apps.Fib.Map.range.aux0 (U120.new 0 0) Apps.Fib.Map.Bases
 }
 

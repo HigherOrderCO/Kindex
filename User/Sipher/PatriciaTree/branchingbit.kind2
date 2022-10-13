@@ -1,3 +1,4 @@
+#kdl_name = PBrnchBit
 User.Sipher.PatriciaTree.branchingbit (p0: U120) (p1: U120): U120 {
   User.Sipher.PatriciaTree.lowestbit (U120.bitwise_xor p0 p1)
 }

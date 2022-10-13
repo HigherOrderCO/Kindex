@@ -1,1 +1,2 @@
-Data.BaseTree.Base.2 #Bt_base2 : Data.BaseTree.Base
+#kdl_name = Bt_base2
+Data.BaseTree.Base.2 : Data.BaseTree.Base

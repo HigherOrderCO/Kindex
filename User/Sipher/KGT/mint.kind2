@@ -1,4 +1,5 @@
 //Test Function to add money
+#kdl_name = KgtMint
 User.Sipher.KGT.mint
   (miner: U120)
   (current_block: U120)

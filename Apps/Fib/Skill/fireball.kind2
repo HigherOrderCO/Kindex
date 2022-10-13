@@ -1,4 +1,5 @@
-Apps.Fib.Skill.fireball #Fib_sk_fireb (state: Apps.Fib.State) (player: Apps.Fib.Player) (pos: Apps.Fib.Pos) : Apps.Fib.State
+#kdl_name = Fib_sk_fireb
+Apps.Fib.Skill.fireball (state: Apps.Fib.State) (player: Apps.Fib.Player) (pos: Apps.Fib.Pos) : Apps.Fib.State
 Apps.Fib.Skill.fireball (Apps.Fib.State.new map tab) player pos =
   let print  = Pair.new (Apps.Fib.Pos.get_x pos) (Apps.Fib.Pos.get_y pos)
   let deltas = (Apps.Fib.Pos.around (U120.new 0 2))
