@@ -1,4 +1,4 @@
-#kdl_name KIOSave
+#kdl_name = KIOSave
 Kindelia.IO.save <s: Type> (val: s) : Kindelia.IO Unit {
   Kindelia.IO.do_save Unit s val (x => Kindelia.IO.done Unit Unit.new)
 }

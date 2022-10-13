@@ -25,7 +25,8 @@ User.Sipher.PatriciaTree.mutAux0 Bool.false key old_key val init func =
 
 
 #kdl_name = PMutBrnch
-User.Sipher.PatriciaTree.mut.branch0 (b: Bool) (prefix: U120) (bbit: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree) (key: U120) (init: U120) (func: U120 -> U120) : User.Sipher.PatriciaTree User.Sipher.PatriciaTree.mut.branch0 Bool.false prefix bbit t0 t1 key init func = 
+User.Sipher.PatriciaTree.mut.branch0 (b: Bool) (prefix: U120) (bbit: U120) (t0: User.Sipher.PatriciaTree) (t1: User.Sipher.PatriciaTree) (key: U120) (init: U120) (func: U120 -> U120) : User.Sipher.PatriciaTree 
+User.Sipher.PatriciaTree.mut.branch0 Bool.false prefix bbit t0 t1 key init func = 
   let new_leaf = User.Sipher.PatriciaTree.leaf key (func init)
   let old_brch = User.Sipher.PatriciaTree.branch prefix bbit t0 t1
   User.Sipher.PatriciaTree.join key new_leaf prefix old_brch

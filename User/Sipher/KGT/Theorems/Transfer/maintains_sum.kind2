@@ -1,0 +1,46 @@
+User.Sipher.KGT.Theorems.Transfer.old_sum
+  (state: KDL.KGT.State)
+: U120 
+User.Sipher.KGT.Theorems.Transfer.old_sum (KDL.KGT.State.new last_mint balance) = 
+  User.Sipher.PatriciaTree.total_value balance
+
+User.Sipher.KGT.Theorems.Transfer.new_sum
+  (from: U120)
+  (to: U120)
+  (value: U120)
+  (state: KDL.KGT.State)
+: U120 
+User.Sipher.KGT.Theorems.Transfer.new_sum from to value state = 
+  let state = User.Sipher.KGT.transfer from to value state
+  User.Sipher.KGT.Theorems.Transfer.new_sum_aux state
+
+User.Sipher.KGT.Theorems.Transfer.new_sum_aux
+  (state: KDL.KGT.State)
+: U120
+User.Sipher.KGT.Theorems.Transfer.new_sum_aux (KDL.KGT.State.new last_mint balance) = 
+  User.Sipher.PatriciaTree.total_value balance
+
+User.Sipher.KGT.Theorems.Transfer.maintains_sum
+  (from: U120)
+  (to: U120)
+  (value: U120)
+  (state: KDL.KGT.State)
+: Equal U120 (User.Sipher.KGT.Theorems.Transfer.old_sum state) (User.Sipher.KGT.Theorems.Transfer.new_sum from to value state)
+
+User.Sipher.KGT.Theorems.Transfer.maintains_sum (U120.new 0 0) to value (KDL.KGT.State.new last_mint balance) = 
+  let aux = User.Sipher.KGT.Theorems.Transfer.maintains_sum_aux to value (KDL.KGT.State.new last_mint balance)
+  (Equal.rewrite (Equal.mirror aux) (k => Equal (User.Sipher.PatriciaTree.total_value.go balance (U120.new 0 0)) (User.Sipher.KGT.Theorems.Transfer.new_sum_aux k))
+  Equal.refl)
+
+//User.Sipher.KGT.Theorems.Transfer.maintains_sum from to value (KDL.KGT.State.new last_mint balance) = ?
+
+
+User.Sipher.KGT.Theorems.Transfer.maintains_sum_aux
+  (to: U120)
+  (value: U120)
+  (state: KDL.KGT.State)
+:Equal KDL.KGT.State (User.Sipher.KGT.transfer (U120.new 0 0) to value state) state
+
+//User.Sipher.KGT.Theorems.Transfer.maintains_sum_aux (U120.new 0 0) (U120.new 0 0) (KDL.KGT.State.new x y) = Equal.refl
+
+

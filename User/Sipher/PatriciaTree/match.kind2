@@ -1,3 +1,4 @@
+// Automatically derived from patricia.type
 #kdl_name = PMatch
 User.Sipher.PatriciaTree.match (x: (User.Sipher.PatriciaTree)) -(p: (x: (User.Sipher.PatriciaTree)) Type) (empty: (p (User.Sipher.PatriciaTree.empty))) (leaf: (key: U120) (value: U120) (p (User.Sipher.PatriciaTree.leaf key value))) (branch: (prefix: U120) (branchingbit: U120) (left: User.Sipher.PatriciaTree) (right: User.Sipher.PatriciaTree) (p (User.Sipher.PatriciaTree.branch prefix branchingbit left right))) : (p x)
 User.Sipher.PatriciaTree.match (User.Sipher.PatriciaTree.empty) p empty leaf branch = (empty)
