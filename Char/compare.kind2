@@ -1,3 +1,4 @@
+#inline
 Char.compare (a: Char) (b: Char) : Cmp {
   U60.compare a b
 }

@@ -1,3 +1,4 @@
+#inline
 U60.add (a: U60) (b: U60) : U60 {
   (+ a b)
 }

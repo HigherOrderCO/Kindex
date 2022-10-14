@@ -1,3 +1,4 @@
+#inline
 U60.bitwise_xor (a: U60) (b: U60) : U60 {
   (^ a b)
 }

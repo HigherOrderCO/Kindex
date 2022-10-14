@@ -1,3 +1,4 @@
+#inline
 U60.bitwise_complement (n: U60) : U60 {
   (^ n U60.max_val)
 }
