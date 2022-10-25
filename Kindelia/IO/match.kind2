@@ -1,5 +1,7 @@
 // Automatically derived from Kindelia/IO/_.type
-Kindelia.IO.match <r: Type> (x: (Kindelia.IO r)) -(p: (x: (Kindelia.IO r)) Type) (done: (val: r) (p (Kindelia.IO.done r val))) (do_take: (s: Type) (cont: (_: s) (Kindelia.IO r)) (p (Kindelia.IO.do_take r s cont))) (do_save: (s: Type) (val: s) (cont: (_: Unit) (Kindelia.IO r)) (p (Kindelia.IO.do_save r s val cont))) : (p x)
-Kindelia.IO.match r (Kindelia.IO.done r_ val_) p done do_take do_save = (done val_)
-Kindelia.IO.match r (Kindelia.IO.do_take r_ s_ cont_) p done do_take do_save = (do_take s_ cont_)
-Kindelia.IO.match r (Kindelia.IO.do_save r_ s_ val_ cont_) p done do_take do_save = (do_save s_ val_ cont_)
+Kindelia.IO.match <r: Type> (x: (Kindelia.IO r)) -(p: (x: (Kindelia.IO r)) Type) (done: (val: r) (p (Kindelia.IO.done r val))) (do_take: (s: Type) (cont: (_: s) (Kindelia.IO r)) (p (Kindelia.IO.do_take r s cont))) (do_save: (s: Type) (val: s) (cont: (_: Unit) (Kindelia.IO r)) (p (Kindelia.IO.do_save r s val cont))) (do_tick: (cont: (_: U120) (Kindelia.IO r)) (p (Kindelia.IO.do_tick r cont))) (do_subj: (cont: (_: U120) (Kindelia.IO r)) (p (Kindelia.IO.do_subj r cont))) : (p x)
+Kindelia.IO.match r (Kindelia.IO.done r_ val_) p done do_take do_save do_tick do_subj = (done val_)
+Kindelia.IO.match r (Kindelia.IO.do_take r_ s_ cont_) p done do_take do_save do_tick do_subj = (do_take s_ cont_)
+Kindelia.IO.match r (Kindelia.IO.do_save r_ s_ val_ cont_) p done do_take do_save do_tick do_subj = (do_save s_ val_ cont_)
+Kindelia.IO.match r (Kindelia.IO.do_tick r_ cont_) p done do_take do_save do_tick do_subj = (do_tick cont_)
+Kindelia.IO.match r (Kindelia.IO.do_subj r_ cont_) p done do_take do_save do_tick do_subj = (do_subj cont_)

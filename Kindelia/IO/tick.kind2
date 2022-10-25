@@ -1,0 +1,4 @@
+#kdl_name = KIOTick
+Kindelia.IO.tick <s: Type> : Kindelia.IO s {
+  Kindelia.IO.do_tick s (x => Kindelia.IO.tick s)
+}

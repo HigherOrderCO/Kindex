@@ -1,3 +1,4 @@
+// Automatically derived from Kindelia/IO/_.type
 #kdl_name = DONE
 #kdl_erase
 Kindelia.IO.done <r: Type> (val: r) : (Kindelia.IO r)
