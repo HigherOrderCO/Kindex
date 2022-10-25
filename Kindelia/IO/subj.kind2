@@ -1,0 +1,4 @@
+#kdl_name = KIOSubj
+Kindelia.IO.subj <s: Type> : Kindelia.IO s {
+  Kindelia.IO.do_subj s  (x => Kindelia.IO.subj s)
+}

@@ -1,6 +1,8 @@
 type Kindelia.IO <r: Type> {
   done (val: r)
-  do_take <s: Type> (cont: s -> (Kindelia.IO r))
-  do_save <s: Type> (val: s) (cont: Unit -> (Kindelia.IO r))
+  do_take (s: Type) (cont: s -> (Kindelia.IO r))
+  do_save (s: Type) (val: s) (cont: Unit -> (Kindelia.IO r))
+  do_tick (cont: U120 -> (Kindelia.IO r))
+  do_subj (cont: U120 -> (Kindelia.IO r))
   // TODO: Add the rest of the kindelia io operations
 }

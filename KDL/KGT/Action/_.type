@@ -1,7 +1,7 @@
 type KDL.KGT.Action {
 
   // mine some tokens
-  mint (user: U120) (value: U120)
+  mint (user: U120)
 
   // send some tokens
   send (from: U120) (to: U120) (value: U120)
