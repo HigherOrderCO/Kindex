@@ -9,8 +9,3 @@ U60.to_bits.go n c r =
   let bit = U60.is_bit_set n 59
   let r   = if bit { Bits.i r } else { Bits.o r }
   U60.to_bits.go (<< n 1) (- c 1) r
-
-
-Main { 
-(<< 60 1)
-}
