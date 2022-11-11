@@ -1,4 +1,3 @@
-// Automatically derived from Kindelia/IO/_.type
 #kdl_name = SUBJ
 #kdl_erase
-Kindelia.IO.do_subj <r: Type> (cont: (_: U120) (Kindelia.IO r)) : (Kindelia.IO r)
+Kindelia.IO.do_subj <c: Type> (cont: (_: U120) (Kindelia.IO c)) : (Kindelia.IO c)

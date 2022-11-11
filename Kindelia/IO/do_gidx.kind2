@@ -1,0 +1,3 @@
+#kdl_name = GIDX
+#kdl_erase
+Kindelia.IO.do_gidx <c: Type> (name: U120) (cont: (_: U120) (Kindelia.IO c)) : (Kindelia.IO c)

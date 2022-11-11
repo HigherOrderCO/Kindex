@@ -1,0 +1,4 @@
+#kdl_name = KIOGetStmHash1
+Kindelia.IO.get_stm_hash_1 (idx: U120) : Kindelia.IO U120 {
+  Kindelia.IO.do_sth1 U120 idx (x => Kindelia.IO.done U120 x)
+}

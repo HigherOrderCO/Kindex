@@ -1,8 +1,19 @@
-type Kindelia.IO <r: Type> {
-  done (val: r)
-  do_take (s: Type) (cont: s -> (Kindelia.IO r))
-  do_save (s: Type) (val: s) (cont: Unit -> (Kindelia.IO r))
-  do_tick (cont: U120 -> (Kindelia.IO r))
-  do_subj (cont: U120 -> (Kindelia.IO r))
-  // TODO: Add the rest of the kindelia io operations
+type Kindelia.IO <c: Type> {
+  done (val: c)
+  do_take (r: Type) (cont: r -> (Kindelia.IO c))
+  do_save (t: Type) (expr: t) (cont: Unit -> (Kindelia.IO c))
+  do_call (r: Type) (t: Type) (name: U120) (argm: t) (cont: r -> (Kindelia.IO c))
+  do_subj (cont: U120 -> (Kindelia.IO c))
+  do_from (cont: U120 -> (Kindelia.IO c))
+  do_tick (cont: U120 -> (Kindelia.IO c))
+  do_gidx (name: U120) (cont: U120 -> (Kindelia.IO c))
+  do_sth0 (idx: U120) (cont: U120 -> (Kindelia.IO c))
+  do_sth1 (idx: U120) (cont: U120 -> (Kindelia.IO c))
+  do_time (cont: U120 -> (Kindelia.IO c))
+  do_meta (cont: U120 -> (Kindelia.IO c))
+  do_hax0 (cont: U120 -> (Kindelia.IO c))
+  do_hax1 (cont: U120 -> (Kindelia.IO c))
 }
+
+// TODO: CALL - Use a string for name and change it to u72 representation of kdl_name in compilation
+// TODO: CALL - Figure out a way to type check the argument and return with the actual function

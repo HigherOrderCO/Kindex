@@ -1,0 +1,4 @@
+#kdl_name = KIOMeta
+Kindelia.IO.meta : Kindelia.IO U120 {
+  Kindelia.IO.do_meta U120 (x => Kindelia.IO.done U120 x)
+}

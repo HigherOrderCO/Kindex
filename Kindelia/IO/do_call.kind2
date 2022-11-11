@@ -1,0 +1,3 @@
+#kdl_name = CALL
+#kdl_erase
+Kindelia.IO.do_call <c: Type> <r: Type> <t: Type> (name: U120) (argm: t) (cont: (_: r) (Kindelia.IO c)) : (Kindelia.IO c)

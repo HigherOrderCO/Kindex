@@ -1,4 +1,4 @@
 #kdl_name = KIOTick
-Kindelia.IO.tick <s: Type> : Kindelia.IO s {
-  Kindelia.IO.do_tick s (x => Kindelia.IO.tick s)
+Kindelia.IO.tick : Kindelia.IO U120 {
+  Kindelia.IO.do_tick U120 (x => Kindelia.IO.done U120 x)
 }
