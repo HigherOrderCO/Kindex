@@ -1,2 +1,3 @@
+#inline
 Map.get <a> (map : Map a) (key : U60) : Maybe a
 Map.get a map key = Bits.Map.get map (U60.to_bits key)

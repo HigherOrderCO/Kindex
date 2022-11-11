@@ -1,2 +1,3 @@
+#inline
 IO.pure <a: Type> (val: a) : IO a
 IO.pure a val = IO.done a val

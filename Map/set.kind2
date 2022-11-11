@@ -1,2 +1,3 @@
+#inline
 Map.set <a> (map: Map a) (key: U60) (value: a) : Bits.Map a
 Map.set a map key value = Bits.Map.set a map (U60.to_bits key) value

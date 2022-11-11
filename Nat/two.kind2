@@ -1,2 +1,3 @@
+#inline
 Nat.two : Nat
 Nat.two = Nat.succ (Nat.succ Nat.zero)

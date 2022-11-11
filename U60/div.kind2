@@ -1,3 +1,4 @@
+#inline
 U60.div (a: U60) (b: U60) : U60 {
   (/ a b)
 }

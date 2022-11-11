@@ -1,3 +1,4 @@
+#inline
 U120.dec (num: U120) : U120 {
   U120.sub num (U120.new 0 1)
 }

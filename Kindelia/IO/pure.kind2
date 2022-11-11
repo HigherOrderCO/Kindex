@@ -1,7 +1,3 @@
-// TODO: Instead of redirecting it to the same name as IO.done,
-//       we should have compile-time reduction of this.
-//       Could be and attribute "alias = Kindelia.IO.done" or "compile-time", etc
-#kdl_name = DONE
-#kdl_erase
+#inline
 Kindelia.IO.pure <r: Type> (val: r) : Kindelia.IO r
 Kindelia.IO.pure r val = Kindelia.IO.done r val

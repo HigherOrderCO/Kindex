@@ -1,2 +1,3 @@
+#inline
 Map.mut <a> (map : Bits.Map a) (key : U60) (init : a) (func : a -> a) : Bits.Map a
 Map.mut a map key init func = Bits.Map.mut a map (U60.to_bits key) init func
