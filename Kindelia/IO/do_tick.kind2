@@ -1,4 +1,3 @@
-// Automatically derived from Kindelia/IO/_.type
 #kdl_name = TICK
 #kdl_erase
-Kindelia.IO.do_tick <r: Type> (cont: (_: U120) (Kindelia.IO r)) : (Kindelia.IO r)
+Kindelia.IO.do_tick <c: Type> (cont: (_: U120) (Kindelia.IO c)) : (Kindelia.IO c)

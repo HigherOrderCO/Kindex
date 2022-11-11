@@ -1,0 +1,4 @@
+#kdl_name = KIOGetIdx
+Kindelia.IO.get_idx (name: U120) : Kindelia.IO U120 {
+  Kindelia.IO.do_gidx U120 name (x => Kindelia.IO.done U120 x)
+}

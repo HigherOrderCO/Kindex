@@ -1,0 +1,3 @@
+#kdl_name = META
+#kdl_erase
+Kindelia.IO.do_meta <c: Type> (cont: (_: U120) (Kindelia.IO c)) : (Kindelia.IO c)
