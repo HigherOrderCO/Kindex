@@ -11,7 +11,9 @@ Kind.Term.fill (Kind.Term.sub orig name indx redx expr)    sub = Kind.Term.eval_
 Kind.Term.fill (Kind.Term.app orig expr typ)               sub = Kind.Term.eval_app orig (Kind.Term.fill expr sub) (Kind.Term.fill typ sub)
 Kind.Term.fill (Kind.Term.hlp orig)                        sub = Kind.Term.hlp orig
 Kind.Term.fill (Kind.Term.u60 orig)                        sub = Kind.Term.u60 orig
-Kind.Term.fill (Kind.Term.num orig num)                    sub = Kind.Term.num orig num
+Kind.Term.fill (Kind.Term.u120 orig)                       sub = Kind.Term.u120 orig
+Kind.Term.fill (Kind.Term.num60 orig num)                  sub = Kind.Term.num60 orig num
+Kind.Term.fill (Kind.Term.num120 orig num)                 sub = Kind.Term.num120 orig num
 Kind.Term.fill (Kind.Term.op2 orig op left right)          sub = Kind.Term.op2 orig op (Kind.Term.fill left sub) (Kind.Term.fill right sub)
 
 Kind.Term.fill (Kind.Term.ct0 ctid orig)                                                sub = Kind.Term.ct0 ctid orig

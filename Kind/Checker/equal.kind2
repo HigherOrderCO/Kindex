@@ -53,8 +53,14 @@ Kind.Checker.equal (Kind.Term.sub a.orig a.name a.indx a.redx a.expr) (Kind.Term
 Kind.Checker.equal (Kind.Term.u60 a.orig) (Kind.Term.u60 b.orig) =
   Kind.Checker.pure Bool.true
 
-Kind.Checker.equal (Kind.Term.num a.orig a.num) (Kind.Term.num b.orig b.num) =
+Kind.Checker.equal (Kind.Term.u120 a.orig) (Kind.Term.u120 b.orig) =
+  Kind.Checker.pure Bool.true
+
+Kind.Checker.equal (Kind.Term.num60 a.orig a.num) (Kind.Term.num60 b.orig b.num) =
   Kind.Checker.pure (U60.equal a.num b.num)
+
+Kind.Checker.equal (Kind.Term.num120 a.orig a.num) (Kind.Term.num120 b.orig b.num) =
+  Kind.Checker.pure (U120.equal a.num b.num)
 
 Kind.Checker.equal (Kind.Term.op2 a.orig a.op a.val0 a.val1) (Kind.Term.op2 b.orig b.op b.val0 b.val1) =
   do Kind.Checker {

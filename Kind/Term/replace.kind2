@@ -10,7 +10,9 @@ Kind.Term.replace (Kind.Term.sub orig name indx redx expr)    idx val = Kind.Ter
 Kind.Term.replace (Kind.Term.app orig expr typ)               idx val = Kind.Term.app orig (Kind.Term.replace expr idx val) (Kind.Term.replace typ idx val)
 Kind.Term.replace (Kind.Term.hlp orig)                        idx val = Kind.Term.hlp orig
 Kind.Term.replace (Kind.Term.u60 orig)                        idx val = Kind.Term.u60 orig
-Kind.Term.replace (Kind.Term.num orig num)                    idx val = Kind.Term.num orig num
+Kind.Term.replace (Kind.Term.u120 orig)                       idx val = Kind.Term.u120 orig
+Kind.Term.replace (Kind.Term.num60 orig num)                  idx val = Kind.Term.num60 orig num
+Kind.Term.replace (Kind.Term.num120 orig num)                 idx val = Kind.Term.num120 orig num
 Kind.Term.replace (Kind.Term.op2 orig op left right)          idx val = Kind.Term.op2 orig op (Kind.Term.replace left idx val) (Kind.Term.replace right idx val)
 
 Kind.Term.replace (Kind.Term.ct0 ctid orig)                                                idx val = Kind.Term.ct0 ctid orig

@@ -66,7 +66,9 @@ Kind.Term.FN16 (fnid: U60) (orig: U60) (args: Kind.Term) : Kind.Term
 
 Kind.Term.hlp (orig: U60) : (Kind.Term)
 Kind.Term.u60 (orig: U60) : (Kind.Term)
-Kind.Term.num (orig: U60) (num: U60) : (Kind.Term)
+Kind.Term.u120 (orig: U60) : (Kind.Term)
+Kind.Term.num60 (orig: U60) (num: U60) : (Kind.Term)
+Kind.Term.num120 (orig: U60) (num: U120) : (Kind.Term)
 
 Kind.Term.op2 (orig: U60) (operator: Kind.Operator) (left: Kind.Term) (right: Kind.Term) : (Kind.Term)
 
