@@ -1,6 +1,7 @@
 // Function to negate a Bool
 // Example: (Bool.not Bool.true)  -> Bool.false
 // Example: (Bool.not Bool.false) -> Bool.true
+#kdl_name = Bool_not
 Bool.not (a: Bool) : Bool
 Bool.not Bool.true  = Bool.false
 Bool.not Bool.false = Bool.true

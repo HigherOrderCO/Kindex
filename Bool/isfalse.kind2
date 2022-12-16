@@ -1,7 +1,0 @@
-// Given a boolean checks if it is false
-// Bool.isfalse ( Bool.true ) -> Bool.false
-// Bool.isfalse ( Bool.false ) -> Bool.true 
-
-Bool.isfalse (a: Bool) : Bool 
-Bool.isfalse Bool.true = Bool.false 
-Bool.isfalse Bool.false = Bool.true
