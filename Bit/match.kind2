@@ -1,4 +1,0 @@
-// Automatically derived from Bit/_.type
-Bit.match (x: (Bit)) -(p: (x: (Bit)) Type) (0: (p (Bit.0))) (1: (p (Bit.1))) : (p x)
-Bit.match (Bit.0) p 0 1 = (0)
-Bit.match (Bit.1) p 0 1 = (1)

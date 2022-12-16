@@ -1,0 +1,5 @@
+#kdl_name = Bit_equal
+Bit.equal (a: Bit) (b: Bit) : Bit 
+Bit.equal Bit.1 Bit.1 = Bit.0
+Bit.equal Bit.0 Bit.0 = Bit.0
+Bit.equal a b = Bit.1

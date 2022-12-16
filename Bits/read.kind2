@@ -1,5 +1,6 @@
 // Converts all 0 and 1 from a string in a Bit structure
 // Example : (Bits.read ("1101")) -> (Bits.i (Bits.i (Bits.o (Bits.i Bits.e))))
+#kdl_name = Bits_read
 Bits.read (text: String) : Bits
 Bits.read String.nil              = Bits.e
 Bits.read (String.cons head tail) = 

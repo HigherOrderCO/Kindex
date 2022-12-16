@@ -1,2 +1,0 @@
-// Automatically derived from App/Event/_.type
-App.Event.mouse_click (element: String) : (App.Event)

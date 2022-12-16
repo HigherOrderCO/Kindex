@@ -1,3 +1,0 @@
-Bit.nor (a: Bit) (b: Bit) : Bit 
-Bit.nor Bit.0 Bit.0 = Bit.1 
-Bit.nor a b = Bit.0

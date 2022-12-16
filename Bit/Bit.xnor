@@ -1,3 +1,0 @@
-Bit.xnor (a: Bit) (b: Bit) : Bit 
-Bit.xnor Bit.1 b = b 
-Bit.xnor Bit.0 b = (Bit.not b)

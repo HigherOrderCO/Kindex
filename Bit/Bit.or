@@ -1,3 +1,0 @@
-Bit.or (a: Bit) (b : Bit) : Bit 
-Bit.or Bit.0 Bit.0 = Bit.0 
-Bit.or a b = Bit.1
