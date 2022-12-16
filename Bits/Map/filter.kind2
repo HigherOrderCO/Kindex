@@ -1,0 +1,23 @@
+#kdl_name = Bitsmap_fil
+Bits.Map.filter <a> 
+	(cond: a -> Bool) 
+	(map: Bits.Map a) 
+: (Bits.Map a)
+
+Bits.Map.filter a cond Bits.Map.new = Bits.Map.new
+
+Bits.Map.filter a cond (Bits.Map.tie Maybe.none left right) = 
+	let value = Maybe.none
+	let left  = Bits.Map.filter cond left
+	let right = Bits.Map.filter cond right
+	Bits.Map.tie value left right
+
+Bits.Map.filter a cond (Bits.Map.tie (Maybe.some value) left right) =
+	let left  = Bits.Map.filter cond left
+	let right = Bits.Map.filter cond right
+	let cond  = cond value
+	let value = Maybe.some value
+	match Bool cond {
+    true => Bits.Map.tie value left right
+    false => Bits.Map.tie Maybe.none left right
+	}

@@ -1,7 +1,8 @@
+#kdl_name = Bitsmap_up
 Bits.Map.update <a> 
-  (map  : Bits.Map a)
-  (key  : Bits)
-  (func : a -> a)
+  (map: Bits.Map a)
+  (key: Bits)
+  (func: a -> a)
 : Bits.Map a
 
 // Bits.e

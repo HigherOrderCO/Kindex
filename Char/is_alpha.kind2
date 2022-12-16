@@ -1,3 +1,4 @@
+#kdl_name = Char_alpha
 Char.is_alpha (c: Char) : Bool {
   Bool.or (Char.between 'A' c '[') (Char.between 'a' c '{')
 }

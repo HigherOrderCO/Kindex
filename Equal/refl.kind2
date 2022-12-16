@@ -1,1 +1,2 @@
+#kdl_name = Equal_refl
 Equal.refl <t> <a: t> : Equal t a a

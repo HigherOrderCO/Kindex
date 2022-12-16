@@ -1,8 +1,9 @@
 // Sets a value to a Map in a given position
+#kdl_name = Bitsmap_set
 Bits.Map.set <a> 
-  (map   : Bits.Map a)
-  (key   : Bits)
-  (value : a)
+  (map: Bits.Map a)
+  (key: Bits)
+  (value: a)
 : Bits.Map a
 
 // Bits.e

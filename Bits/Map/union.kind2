@@ -1,0 +1,20 @@
+#kdl_name = Bitsmap_uni
+Bits.Map.union <a> 
+	(mapa: Bits.Map a) 
+	(mapb: Bits.Map a) 
+: (Bits.Map a) 
+
+Bits.Map.union a Bits.Map.new mapb = mapb
+
+Bits.Map.union a mapa Bits.Map.new = mapa
+
+Bits.Map.union a (Bits.Map.tie t (Maybe.none) t.left t.right) (Bits.Map.tie s s.value s.left s.right) = 
+	let left  = Bits.Map.union t.left s.left
+	let right = Bits.Map.union t.right s.right
+	Bits.Map.tie s.value left right 
+
+Bits.Map.union a (Bits.Map.tie t (Maybe.some x value) t.left t.right) (Bits.Map.tie s s.value s.left s.right) = 
+	let value = Maybe.some value
+	let left  = Bits.Map.union t.left s.left
+	let right = Bits.Map.union t.right s.right
+	Bits.Map.tie value left right

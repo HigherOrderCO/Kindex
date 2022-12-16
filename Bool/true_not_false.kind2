@@ -1,5 +1,6 @@
 // Proof that Bool.true != Bool.false
 // This can be used to build more complex proofs by a
+#kdl_name = Bool_t_n_f
 Bool.true_not_false (e: (Equal Bool Bool.true Bool.false)) : Empty
 Bool.true_not_false e = 
   // How this works: Equal.rewrite takes a predicate that changes a value into a

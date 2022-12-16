@@ -1,3 +1,4 @@
+#kdl_name = Bool_bit
 Bool.to_bit (b: Bool) : Bit
 Bool.to_bit Bool.false = Bit.0
 Bool.to_bit Bool.true  = Bit.1

@@ -1,1 +1,0 @@
-Fin.succ <n: Nat> (pred: Fin n) : Fin (Nat.succ n)

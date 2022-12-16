@@ -1,5 +1,3 @@
-// 
-
 Bits.Map.Theorems.get <a: Type>
   (map: Bits.Map a)
   (key : Bits)
