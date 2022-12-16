@@ -1,2 +1,0 @@
-Sigma.match <a: Type> <b: a -> Type> (s: Sigma a b) -(p: (Sigma a b) -> Type) (new: (x: a) -> (y: b x) -> p (Sigma.new a b x y)) : p s
-Sigma.match a b (Sigma.new s.a s.b s.x s.y) p new = new s.x s.y
