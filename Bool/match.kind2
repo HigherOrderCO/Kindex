@@ -1,4 +1,0 @@
-// Automatically derived from Bool/_.type
-Bool.match (x: (Bool)) -(p: (x: (Bool)) Type) (true: (p (Bool.true))) (false: (p (Bool.false))) : (p x)
-Bool.match (Bool.true) p true false = (true)
-Bool.match (Bool.false) p true false = (false)
