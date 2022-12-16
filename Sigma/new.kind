@@ -1,3 +1,0 @@
-Sigma.new (a: Type) (b: Type -> a) : Sigma a b
-Sigma.new a b = ?
-  

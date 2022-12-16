@@ -1,2 +1,0 @@
-// Automatically derived from IO/_.type
-IO.do_input <a: Type> (cont: (_: String) (IO a)) : (IO a)

@@ -1,2 +1,0 @@
-// Automatically derived from IO/_.type
-IO.do_load <a: Type> (key: String) (cont: (_: String) (IO a)) : (IO a)

@@ -1,1 +1,4 @@
-Sigma (a: Type) (b: a -> Type) : Type
+record Sigma (a: Type) (f: a -> Type) {
+    fst: a
+    snd: f fst
+}
