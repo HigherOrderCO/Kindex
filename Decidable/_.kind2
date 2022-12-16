@@ -1,2 +1,7 @@
-// Automatically derived from Decidable/_.type
-Decidable (p: Type) : Type
+#derive[match]
+type Decidable (p: Type) {
+  #kdl_name = Dec_yep
+  yep (proof: p)
+  #kdl_name = Dec_nop
+  nop (proof: Not p)
+}
