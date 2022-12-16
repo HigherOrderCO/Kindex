@@ -1,2 +1,0 @@
-// Automatically derived from App/Event/_.type
-App.Event.input (element: String) (text: String) : (App.Event)

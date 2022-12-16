@@ -1,2 +1,10 @@
-// Automatically derived from App/DOM/_.type
-App.DOM : Type
+// Automatically derived from App/DOM/_.kind2
+#derive[match]
+type App.DOM {
+	#kdl_name = App_D_node
+  node (tag: String) (props: List (Pair String String)) (style: List (Pair String String)) (children: List App.DOM)
+	#kdl_name = App_D_text
+  text (value: String)
+	#kdl_name = App_D_many
+  many (children: List App.DOM)
+}
