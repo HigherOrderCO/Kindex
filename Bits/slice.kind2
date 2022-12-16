@@ -1,4 +1,5 @@
 // Takes a part of the bit structure between n and m
 // Example: (Bits.slice 1 2 (Bits.i (Bits.o (Bits.i (Bits.o Bits.e)))) -> (Bits.o (Bits.i Bits.e))
+#kdl_name = Bits_slice
 Bits.slice (n: Nat) (m: Nat) (b: Bits) : Bits
 Bits.slice (n) (m) (b) = (Bits.take m (Bits.drop n b))

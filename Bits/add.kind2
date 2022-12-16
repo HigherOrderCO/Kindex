@@ -1,5 +1,6 @@
 // Adds a bit structure to another
 // Example: (Bits.add (Bits.i Bits.e) (Bits.i (Bits.o Bits.e))) -> (Bits.i (Bits.i Bits.e))
+#kdl_name = Bits_add
 Bits.add (a: Bits) (b: Bits) : Bits
 Bits.add (Bits.e)        (b)             = (b)
 Bits.add (a)             (Bits.e)        = (a)

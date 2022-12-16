@@ -1,3 +1,4 @@
+#kdl_name = Bits_hex
 Bits.from_hex (hex: String): Bits
 Bits.from_hex (String.nil) = Bits.e
 Bits.from_hex (String.cons '0' xs) = (Bits.o (Bits.o (Bits.o (Bits.o (Bits.from_hex xs)))))

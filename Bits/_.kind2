@@ -1,2 +1,14 @@
 // Automatically derived from Bits/_.type
-Bits : Type
+// Bits : Type
+// Bits.e : (Bits)
+// Bits.o (pred: Bits) : (Bits)
+// Bits.i (pred: Bits) : (Bits)
+#derive[match]
+type Bits { 
+	#kdl_name = Bits_e
+  e
+	#kdl_name = Bits_o
+  o (pred: Bits)
+	#kdl_name = Bits_i
+  i (pred: Bits)
+}

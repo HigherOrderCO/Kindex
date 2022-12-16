@@ -1,5 +1,0 @@
-type Bits { 
-  e
-  o(pred: Bits)
-  i(pred: Bits)
-}

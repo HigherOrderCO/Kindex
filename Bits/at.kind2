@@ -1,3 +1,4 @@
+#kdl_name = Bits_at
 Bits.at (idx: Nat) (a: Bits) : Maybe Bit
 Bits.at (idx) (Bits.e) = (Maybe.none)
 Bits.at (Nat.zero) (Bits.i pred) = Maybe.some Bit.1

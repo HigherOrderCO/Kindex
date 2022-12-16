@@ -1,3 +1,0 @@
-// Fixme implement without using Nat
-Bits.sub (a: Bits) (b: Bits) : Bits
-Bits.sub a b = (Nat.to_Bits (Nat.sub (Bits.to_nat a) (Bits.to_nat b)))

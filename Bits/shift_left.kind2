@@ -1,5 +1,6 @@
 // Shift n times the structure to the left
 // Example: (Bits.shift_left 1 (Bits.i (Bits.i (Bits.i Bits.e))) -> (Bits.o (Bits.i (Bits.i (Bits.i Bits.e))))
+#kdl_name = Bits_shl
 Bits.shift_left (n: Nat) (b: Bits) : Bits
 Bits.shift_left (Nat.zero)        (b) = (b)
 Bits.shift_left (Nat.succ n.pred) (b) = (Bits.o (Bits.shift_left n.pred b))
