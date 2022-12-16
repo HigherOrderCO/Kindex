@@ -1,5 +1,0 @@
-// Automatically derived from Cmp/_.type
-Cmp.match (x: (Cmp)) -(p: (x: (Cmp)) Type) (ltn: (p (Cmp.ltn))) (eql: (p (Cmp.eql))) (gtn: (p (Cmp.gtn))) : (p x)
-Cmp.match (Cmp.ltn) p ltn eql gtn = (ltn)
-Cmp.match (Cmp.eql) p ltn eql gtn = (eql)
-Cmp.match (Cmp.gtn) p ltn eql gtn = (gtn)

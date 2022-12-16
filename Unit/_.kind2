@@ -1,1 +1,4 @@
-Unit: Type
+#kdl_name = T0
+#kdl_erase
+#derive[open]
+record Unit {}

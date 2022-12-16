@@ -1,2 +1,6 @@
-// Automatically derived from Cmp/_.type
-Cmp : Type
+#derive[match]
+type Cmp {
+  ltn
+  eql
+  gtn
+}

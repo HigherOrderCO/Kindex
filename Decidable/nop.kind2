@@ -1,2 +1,0 @@
-// Automatically derived from Decidable/_.type
-Decidable.nop <p: Type> (proof: (Not p)) : (Decidable p)

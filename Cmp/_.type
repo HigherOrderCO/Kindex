@@ -1,5 +1,0 @@
-type Cmp {
-  ltn
-  eql
-  gtn
-}

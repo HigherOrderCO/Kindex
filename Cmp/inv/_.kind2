@@ -1,3 +1,4 @@
+#kdl_name = Cmp_inv
 Cmp.inv (cmp: Cmp) : Cmp
 Cmp.inv Cmp.ltn = Cmp.gtn
 Cmp.inv Cmp.eql = Cmp.eql

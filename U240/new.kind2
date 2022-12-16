@@ -1,2 +1,0 @@
-// Automatically derived from U240/_.type
-U240.new (hi: U120) (lo: U120) : (U240)

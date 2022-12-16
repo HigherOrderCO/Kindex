@@ -1,2 +1,7 @@
-// Automatically derived from Either/_.type
-Either (l: Type) (r: Type) : Type
+#derive[match]
+type Either (l: Type) (r: Type) {
+  #kdl_name = Either_lft
+  left  (val: l)
+  #kdl_name = Either_rgt
+  right (val: r)
+}
