@@ -1,3 +1,4 @@
+#kdl_name = Cmp_as_eql
 Cmp.as_eql (cmp: Cmp) : Bool
 Cmp.as_eql Cmp.ltn = Bool.false
 Cmp.as_eql Cmp.eql = Bool.true

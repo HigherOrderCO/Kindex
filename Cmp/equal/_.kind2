@@ -1,3 +1,4 @@
+#kdl_name = Cmp_equal
 Cmp.equal (x : Cmp) (y : Cmp) : Bool
 Cmp.equal Cmp.ltn Cmp.ltn = Bool.true
 Cmp.equal Cmp.eql Cmp.eql = Bool.true
