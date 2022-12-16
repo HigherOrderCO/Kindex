@@ -1,3 +1,0 @@
-// Automatically derived from Algebra/Magma/_.type
-Algebra.Magma.match <t: Type> (x: (Algebra.Magma t)) -(p: (x: (Algebra.Magma t)) Type) (new: (concat: (_: t) (_: t) t) (p (Algebra.Magma.new t concat))) : (p x)
-Algebra.Magma.match t (Algebra.Magma.new t_ concat_) p new = (new concat_)

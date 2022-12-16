@@ -1,2 +1,3 @@
+#kdl_name = Al_Mo_cat
 Algebra.Monoid.concat <t> (monoid: Algebra.Monoid t): t -> t -> t
 Algebra.Monoid.concat t (Algebra.Monoid.new t_ sg empty id) = Algebra.Semigroup.concat sg
