@@ -1,0 +1,19 @@
+#kdl_name = Bitsmap_map
+Bits.Map.map <a> <b> 
+	(func: a -> b) 
+	(map: Bits.Map a)
+: (Bits.Map b)
+
+Bits.Map.map a b func Bits.Map.new = Bits.Map.new
+
+Bits.Map.map a b func (Bits.Map.tie t (Maybe.none) left right) =
+	let value = Maybe.none
+	let left  = Bits.Map.map func left
+	let right = Bits.Map.map func right
+	Bits.Map.tie value left right
+
+Bits.Map.map a b func (Bits.Map.tie t (Maybe.some x value) left right) = 
+	let value = Maybe.some (func value)
+	let left = Bits.Map.map func left
+	let right = Bits.Map.map func right
+	Bits.Map.tie value left right
