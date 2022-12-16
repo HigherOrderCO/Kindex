@@ -1,2 +1,7 @@
 // Automatically derived from Pair/_.type
-Pair (a: Type) (b: Type) : Type
+#kdl_name  = T2
+#kdl_erase
+record Pair (a) (b) {
+  fst : a
+  snd : b
+}

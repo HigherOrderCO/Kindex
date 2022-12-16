@@ -1,2 +1,3 @@
+#kdl_name = Pair_swap
 Pair.swap <a: Type> <b:Type> (pair: Pair a b) : (Pair b a)
 Pair.swap a1 b1 (Pair.new a2 b2 fst snd) = Pair.new snd fst
