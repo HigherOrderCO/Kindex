@@ -1,3 +1,4 @@
+#kdl_name = Variadic
 Variadic (r: Type) (p: Type) (n: Nat) : Type
 Variadic r p  Nat.zero    = p
 Variadic r p (Nat.succ n) = r -> Variadic r p n
