@@ -1,2 +1,0 @@
-// Automatically derived from IO/_.type
-IO.do_output <a: Type> (text: String) (cont: (_: U60) (IO a)) : (IO a)

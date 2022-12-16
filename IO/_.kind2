@@ -1,2 +1,89 @@
-// Automatically derived from IO/_.type
-IO (a: Type) : Type
+type IO (a: Type) {
+  done (val: a)
+
+  // Input / Output
+  do_input  (cont: String -> (IO a))
+  do_output (text: String) (cont: U60 -> (IO a))
+
+  // Persistence
+  do_load   (key: String)  (cont: String -> (IO a))
+  do_store  (key: String)  (val: String) (cont: U60 -> (IO a))
+
+  // Global Events
+
+  // Posts a buffer of up to 20 U60 numbers (1200 bits) to a global room
+  do_events_post (room: U60) (data: List U60) (cont: U60 -> IO a)
+
+  // Returns all the posts on the [from_id .. to_id] range of a global room, truncating
+  // If we are watching this room, return from the local buffer
+  // Otherwise, makes a get request
+  do_events_view (room: U60) (from_id: U60) (to_id: U60) (cont: List (List U60) -> IO a)
+
+  // The events below are optimizations that make `do_events_view` to return faster.
+
+  // Watches a room. This has no direct effect, but will cause the process to
+  // keep a buffer with all the post on given room cached on memory. This will
+  // cause `do_events_view` to return instantly if the target room is watched.
+  do_events_watch (room: U60) (cont: U60 -> IO a)
+
+  // Unwatches a room. Will clear the cached event buffer from memory.
+  do_events_unwatch (room: U60) (cont: U60 -> IO a)
+
+  // Stores a room to disk
+  do_events_save (room: U60)
+
+  // Clears a room from disk
+  do_events_forget (room: U60)
+
+  // Returns our best estimative of the rooms.kindelia.org server time.
+  do_events_get_time (cont: U60 -> IO a)
+
+  // Returns our best estimative of the ping to rooms.kindelia.org.
+  do_events_get_ping (cont: U60 -> IO a)
+
+  // Starts synchronizing with the rooms.kindelia.org clock
+  do_events_start_sync (cont: U60 -> IO a)
+
+  // Stops synchronizing with the rooms.kindelia.org clock
+  do_events_stop_sync (cont: U60 -> IO a)
+
+  // TODO: make the APIs above work on both HVM-JS (web version) and `hvm run` (Rust's interpreter)
+
+}
+
+// server_delta_time = 0
+// server_delta_erro = 0
+
+// do_events_time retorna:
+//   get_local_time() + server_delta_time
+
+// ping              = local_time[1] - local_time[0]
+// half_ping         = ping / 2
+// now_server_time   = got_server_time + half_ping
+// server_delta_time = new_server_time - local_time[1]
+// server_delta_erro = ping
+
+// do_events_start_sync
+//   local_time=1200 ping!
+//   local_time=1300 pong? got_server_time=1400
+//     ping              = 1300 - 1200 = 100
+//     half_ping         = 50
+//     now_server_time   = 1400 + 50 = 1450
+//     server_delta_time = 1450 - 1300 = 150
+//     server_delta_erro = 100
+
+//   local_time=2200 ping!
+//   local_time=2400 pong? got_server_time=2420
+//     ping              = 2400 - 2200 = 200
+//     half_ping         = 100
+//     now_server_time   = 2520
+//     server_delta_time = 2520 - 2400 = 120
+//     server_delta_erro = 200
+
+// In a future:
+// RollbackNetcode : IO <...>
+// - tx   : Action -> State -> State
+// - tick : State -> State
+// - ini  : State
+// - fps  : U60
+// IO utility that automatically syncs a global state in an online app.

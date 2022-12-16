@@ -1,7 +1,0 @@
-// Automatically derived from IO/_.type
-IO.match <a: Type> (x: (IO a)) -(p: (x: (IO a)) Type) (done: (val: a) (p (IO.done a val))) (do_input: (cont: (_: String) (IO a)) (p (IO.do_input a cont))) (do_output: (text: String) (cont: (_: U60) (IO a)) (p (IO.do_output a text cont))) (do_load: (key: String) (cont: (_: String) (IO a)) (p (IO.do_load a key cont))) (do_store: (key: String) (val: String) (cont: (_: U60) (IO a)) (p (IO.do_store a key val cont))) : (p x)
-IO.match a (IO.done a_ val_) p done do_input do_output do_load do_store = (done val_)
-IO.match a (IO.do_input a_ cont_) p done do_input do_output do_load do_store = (do_input cont_)
-IO.match a (IO.do_output a_ text_ cont_) p done do_input do_output do_load do_store = (do_output text_ cont_)
-IO.match a (IO.do_load a_ key_ cont_) p done do_input do_output do_load do_store = (do_load key_ cont_)
-IO.match a (IO.do_store a_ key_ val_ cont_) p done do_input do_output do_load do_store = (do_store key_ val_ cont_)
