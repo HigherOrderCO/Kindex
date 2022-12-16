@@ -1,3 +1,4 @@
+#kdl_name = Char_upper
 Char.to_upper (char: Char) : Char {
   if Char.is_lower char {
     (- char 32)

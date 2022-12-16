@@ -1,3 +1,4 @@
+#kdl_name = Char_dec
 Char.dec_value (chr: Char) : Nat
 Char.dec_value 48 = U60.to_nat 0
 Char.dec_value 49 = U60.to_nat 1
