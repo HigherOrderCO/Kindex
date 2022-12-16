@@ -1,3 +1,4 @@
+#kdl_name = Maybe_t_nins
 Maybe.Theorems.none_is_not_some <a: Type> (x: a): Not (Equal (Maybe.none a) (Maybe.some a x)) { 
   absurd => Equal.rewrite absurd (l => if (Maybe.is_some l) {Empty} else {Unit}) Unit.new
 }

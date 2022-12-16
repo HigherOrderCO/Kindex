@@ -1,3 +1,4 @@
+#kdl_name = Maybe_is_som
 Maybe.is_some <a: Type> (m: Maybe a) : Bool
 Maybe.is_some a (Maybe.none t)   = Bool.false
 Maybe.is_some a (Maybe.some t v) = Bool.true

@@ -1,6 +1,5 @@
-// Automatically derived from Maybe/_.type
 #derive[match]
-type Maybe <t> {
+type Maybe (t) {
   #kdl_name = Maybe_none
   none 
   #kdl_name = Maybe_some

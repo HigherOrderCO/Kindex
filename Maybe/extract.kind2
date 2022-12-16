@@ -1,3 +1,4 @@
+#kdl_name = Maybe_extract
 Maybe.extract <a: Type> <b: Type> (m: Maybe a) (dflt: b) (f: a -> b) : b
 Maybe.extract a b (Maybe.none t)     dflt f = dflt
 Maybe.extract a b (Maybe.some t val) dflt f = f val

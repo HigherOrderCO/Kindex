@@ -1,7 +1,9 @@
+#kdl_name = Maybe_unfld
 Maybe.unfold <a> (f: a -> Maybe a) (x: a) : a {
   Maybe.unfold.aux f x (f x)
 }
 
+#kdl_name = Maybe_unfld0
 Maybe.unfold.aux <a> (f: a -> Maybe a) (x: a) (c: Maybe a) : a
 Maybe.unfold.aux a f x (Maybe.none t)     = x
 Maybe.unfold.aux a f x (Maybe.some t val) = Maybe.unfold f val

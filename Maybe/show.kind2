@@ -1,3 +1,5 @@
+// Check - String
+#kdl_name = Maybe_show
 Maybe.show <a: Type> (f: a -> String) (m: Maybe a) : Show
 Maybe.show a f (Maybe.none t) =
   h => String.concat "Maybe.none" h

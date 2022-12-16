@@ -1,3 +1,4 @@
+#kdl_name = Maybe_to_str
 Maybe.to_string (argument: Maybe String): String
 Maybe.to_string (Maybe.none String) = ""
 Maybe.to_string (Maybe.some String text)  = text

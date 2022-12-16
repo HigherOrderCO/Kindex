@@ -1,6 +1,7 @@
 //Verifies if your "Maybe" is none or some, if none returns the first value, if
 //some, returns the second
 //example: (Maybe.if Nat Nat (Maybe.none Nat) (Nat.zero) (Nat.succ Nat.zero)) -> (Nat.zero)
+#kdl_name = Maybe_if
 Maybe.if <a> <b> (m: Maybe a) (none: b) (some: b) : b
 Maybe.if a b (Maybe.none t)       none some = none
 Maybe.if a b (Maybe.some t value) none some = some

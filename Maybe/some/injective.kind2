@@ -1,3 +1,0 @@
-Maybe.some.injective <a: Type> (x: a) (y: a) (eq: Equal (Maybe.some x) (Maybe.some y)) : Equal x y {
-  Equal.apply (m => Maybe.default m x) eq
-}

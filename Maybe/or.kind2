@@ -1,3 +1,4 @@
+#kdl_name = Maybe_or
 Maybe.or <t: Type> (a: Maybe t) (b: Maybe t) : Maybe t
 Maybe.or t (Maybe.none at) b = b
 Maybe.or t a               b = a

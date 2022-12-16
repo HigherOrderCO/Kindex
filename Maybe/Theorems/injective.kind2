@@ -1,0 +1,4 @@
+#kdl_name = Maybe_t_sinj
+Maybe.Theorems.some_injective <a: Type> (x: a) (y: a) (eq: Equal (Maybe.some x) (Maybe.some y)) : Equal x y {
+  Equal.apply (m => Maybe.default m x) eq
+}
