@@ -1,3 +1,0 @@
-// Automatically derived from Algebra/Group/_.type
-Algebra.Group.match <t: Type> (x: (Algebra.Group t)) -(p: (x: (Algebra.Group t)) Type) (new: (monoid: (Algebra.Monoid t)) (invert: (_: t) t) (inverse: (Algebra.Laws.Inverse t (Algebra.Monoid.concat monoid) invert (Algebra.Monoid.empty monoid))) (p (Algebra.Group.new t monoid invert inverse))) : (p x)
-Algebra.Group.match t (Algebra.Group.new t_ monoid_ invert_ inverse_) p new = (new monoid_ invert_ inverse_)

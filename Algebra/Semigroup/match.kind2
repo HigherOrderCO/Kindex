@@ -1,3 +1,0 @@
-// Automatically derived from Algebra/Semigroup/_.type
-Algebra.Semigroup.match <t: Type> (x: (Algebra.Semigroup t)) -(p: (x: (Algebra.Semigroup t)) Type) (new: (magma: (Algebra.Magma t)) (associativity: (Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))) (p (Algebra.Semigroup.new t magma associativity))) : (p x)
-Algebra.Semigroup.match t (Algebra.Semigroup.new t_ magma_ associativity_) p new = (new magma_ associativity_)

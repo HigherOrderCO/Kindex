@@ -1,3 +1,0 @@
-// Automatically derived from Algebra/Monoid/_.type
-Algebra.Monoid.match <t: Type> (x: (Algebra.Monoid t)) -(p: (x: (Algebra.Monoid t)) Type) (new: (sg: (Algebra.Semigroup t)) (empty: t) (identity: (Algebra.Laws.Identity t (Algebra.Semigroup.concat sg) empty)) (p (Algebra.Monoid.new t sg empty identity))) : (p x)
-Algebra.Monoid.match t (Algebra.Monoid.new t_ sg_ empty_ identity_) p new = (new sg_ empty_ identity_)

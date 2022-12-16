@@ -1,2 +1,3 @@
+#kdl_name = Al_Sg_cat
 Algebra.Semigroup.concat <t> (semigroup: Algebra.Semigroup t): t -> t -> t
 Algebra.Semigroup.concat t (Algebra.Semigroup.new t_ magma assoc) = Algebra.Magma.concat magma
