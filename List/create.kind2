@@ -1,7 +1,9 @@
+#kdl_name = List_create
 List.create <a> (len: Nat) (create_f: Nat -> a) : List a {
   List.create.go len create_f List.nil
 }
 
+#kdl_name = List_create0
 List.create.go <a> (len: Nat) (create_f: Nat -> a) (result: List a) : List a
 List.create.go a  Nat.zero     create_f res = res
 List.create.go a (Nat.succ lp) create_f res = List.create.go lp create_f (List.cons (create_f lp) res)

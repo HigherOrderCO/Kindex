@@ -1,5 +1,6 @@
 // Insert an element at the given index
 // If the index is larger than the length of the list, insert at the back
+#kdl_name = List_insrtat
 List.insert_at <a> (idx: Nat) (val: a) (xs: List a) : List a
 List.insert_at a  Nat.zero     val xs                      = List.cons val xs
 List.insert_at a (Nat.succ ip) val (List.nil  x.a)         = List.pure val

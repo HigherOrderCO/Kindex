@@ -1,3 +1,4 @@
+#kdl_name = List_intrsps
 List.intersperse <a> (sep: a) (xs: List a) : List a
 List.intersperse a sep (List.nil xa) = List.nil
 List.intersperse a sep (List.cons xa xh (List.nil xa_)) = List.pure xh

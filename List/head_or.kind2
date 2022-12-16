@@ -1,3 +1,4 @@
+#kdl_name = List_heador
 List.head_or <a> (xs: List a) (dflt: a) : a
 List.head_or a (List.nil  a_)           dflt = dflt
 List.head_or a (List.cons a_ head tail) dflt = head

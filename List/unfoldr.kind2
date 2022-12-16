@@ -1,13 +1,15 @@
+#kdl_name = List_unfldr
 List.unfoldr <a> <b> (f: a -> Maybe (Pair a b)) (x: a) : List b {
   List.unfoldr.go f x List.nil
 }
 
+#kdl_name = List_unfldr0
 List.unfoldr.go <a> <b> (f: a -> Maybe (Pair a b)) (x: a) (bs: List b) : List b {
   let res = (f x)
   match Maybe res {
     none => List.nil
-    some => match Pair res.value {
-      new => List.unfoldr.go f res.value.fst (List.cons res.value.snd bs)
+    some value =>
+      open Pair value
+      List.unfoldr.go f value.fst (List.cons value.snd bs)
     }
-  }
 }

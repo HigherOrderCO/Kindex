@@ -1,3 +1,4 @@
+#kdl_name = List_takebck
 List.take_back <a> (n: Nat) (xs: List a) : List a {
   let ndrop = Nat.sub (List.length xs) n
   List.drop xs ndrop

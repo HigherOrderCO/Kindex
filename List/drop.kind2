@@ -1,5 +1,6 @@
 // Drops n elements of a list
 // Example: (List.drop Nat [1,2,3,4] 2) -> [3,4]
+#kdl_name = List_drop
 List.drop <a> (xs: List a) (n: Nat) : List a
 List.drop a xs                      Nat.zero        = xs
 List.drop a (List.cons t head tail) (Nat.succ pred) = List.drop tail pred

@@ -1,3 +1,4 @@
+#kdl_name = List_seqa
 List.sequenceA <a> (xs: List (List a)) : List (List a)
 List.sequenceA a (List.nil  t1)                            = List.nil
 List.sequenceA a (List.cons t1 x (List.nil  t2))           = List.sequenceA.disjoin (List.cons x List.nil)

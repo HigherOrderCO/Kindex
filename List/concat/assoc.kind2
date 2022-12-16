@@ -1,5 +1,6 @@
 // List concatenation is associative
 // (xs ++ (ys ++ zs)) == ((xs ++ ys) ++ zs)
+#kdl_name = List_cnct_as
 List.concat.assoc <a>
   (xs: List a)
   (ys: List a)

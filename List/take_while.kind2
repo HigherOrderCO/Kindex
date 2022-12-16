@@ -1,3 +1,4 @@
+#kdl_name = List_takewhl
 List.take_while <a> (cond: a -> Bool) (xs: List a) : List a
 List.take_while a cond (List.nil  a_) = List.nil
 List.take_while a cond (List.cons a_ x xs) =

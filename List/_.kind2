@@ -1,2 +1,7 @@
-// Automatically derived from List/_.type
-List (t: Type) : Type
+#derive[match]
+type List (t) {
+  #kdl_name = List_nil
+  nil
+  #kdl_name = List.cons
+  cons (head: t) (tail: List t)
+}

@@ -1,3 +1,4 @@
+#kdl_name = List_binmap
 List.binary_map <a: Type> (xs: List a) (ys: List a) (f: a -> a -> a) : List a
 List.binary_map a (List.nil  x.a)         (List.nil y.a)          f = List.nil
 List.binary_map a (List.cons x.a x.h x.t) (List.nil y.a)          f = List.cons x.h x.t

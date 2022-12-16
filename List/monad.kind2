@@ -1,3 +1,4 @@
+#kdl_name = List_monad
 List.monad : Monad (a => List a) {
   (Monad.new
     (a => List a)

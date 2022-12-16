@@ -1,3 +1,4 @@
+#kdl_name = List_somes
 List.somes <a> (xs: List (Maybe a)) : List a 
 List.somes a (List.nil  ma)                        = List.nil
 List.somes a (List.cons ma (Maybe.none a_)     xs) = List.somes xs

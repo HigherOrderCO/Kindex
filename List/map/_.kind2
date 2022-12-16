@@ -1,5 +1,6 @@
 // Applies a function f to all elements of a list
 // Example: (List.map [1,2,3,4] (Nat.add 1)) -> [2,3,4,5]
+#kdl_name = List_map
 List.map <a> <b> (xs: List a) (f: a -> b) : List b
 List.map a b List.nil              f = List.nil
 List.map a b (List.cons head tail) f = List.cons (f head) (List.map tail f)

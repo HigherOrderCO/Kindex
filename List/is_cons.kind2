@@ -1,3 +1,4 @@
+#kdl_name = List_is_cons
 List.is_cons <a> (xs: List a) : Bool
 List.is_cons a (List.nil  t)           = Bool.false
 List.is_cons a (List.cons t head tail) = Bool.true

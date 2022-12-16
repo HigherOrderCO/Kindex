@@ -1,9 +1,9 @@
+#kdl_name = List_unzip
 List.unzip <a> <b> (xs: List (Pair a b)) : Pair (List a) (List b)
 List.unzip a b (List.nil t) = Pair.new List.nil List.nil
 List.unzip a b (List.cons t x xs) =
   let tail = List.unzip xs
-  match Pair x {
-    new => match Pair tail {
-      new => Pair.new (List.cons x.fst tail.fst) (List.cons x.snd tail.snd)
-    }
-  }
+  open Pair x
+  open Pair tail
+  Pair.new (List.cons x.fst tail.fst) (List.cons x.snd tail.snd)
+  

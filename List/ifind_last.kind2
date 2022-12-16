@@ -1,9 +1,10 @@
 // Return the last element with index, where both match a condition
+#kdl_name = List_ifdlast
 List.ifind_last <a> (xs: List a) (cond: a -> Nat -> Bool) : Maybe (Pair a Nat) {
   List.ifind_last.go xs cond Nat.zero Maybe.none
 }
 
-
+#kdl_name = List_ifdlas0
 List.ifind_last.go <a>
   (xs   : List a)
   (cond : a -> Nat -> Bool)

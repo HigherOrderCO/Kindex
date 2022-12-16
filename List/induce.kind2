@@ -1,3 +1,4 @@
+// TODO change to new syntax
 List.induce <t: Type> (x: List t)
   <p: (List t) -> Type>
   (nil: (p (List.nil t)))

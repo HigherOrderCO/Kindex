@@ -1,10 +1,12 @@
 // Separate elements of t list into two groups, based on t condition, preserving order
 // The first is values that pass the condition, the second is values that don't pass
+#kdl_name = List_partit
 List.partition <t> (cond: t -> Bool) (xs: List t) : Pair (List t) (List t) {
   let id = Function.id (List t)
   List.partition.go cond xs id id
 }
 
+#kdl_name = List_partit0
 List.partition.go <t>
   (cond: t -> Bool)
   (xs: List t)
