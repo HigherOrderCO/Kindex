@@ -1,3 +1,4 @@
+#kdl_name = Nat_sqrt
 Nat.sqrt (x : Nat) : Nat {
   Bits.to_nat (Bits.sqrt (Nat.to_bits x))
 }

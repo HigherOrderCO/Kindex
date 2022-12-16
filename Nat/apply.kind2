@@ -1,3 +1,4 @@
+#kdl_name = Nat_apply
 Nat.apply <a> (n: Nat) (f: a -> a) (x: a) : a
 Nat.apply a  Nat.zero       f x = x
 Nat.apply a (Nat.succ pred) f x = Nat.apply pred f (f x)

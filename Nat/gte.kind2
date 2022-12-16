@@ -1,4 +1,5 @@
 // True if a >= b, false otherwise
+#kdl_name = Nat_gte
 Nat.gte (a: Nat) (b: Nat) : Bool
 Nat.gte  a            Nat.zero    = Bool.true
 Nat.gte  Nat.zero    (Nat.succ b) = Bool.false

@@ -1,5 +1,6 @@
 // Return the smaller of two numbers
 // Example: (Nat.min 5 3) -> 3
+#kdl_name = Nat_min
 Nat.min (a: Nat) (b: Nat) : Nat {
   if (Nat.ltn a b) { a } else { b }
 }

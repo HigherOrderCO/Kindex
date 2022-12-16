@@ -1,3 +1,4 @@
+#kdl_name = Nat_to_strun
 Nat.to_string_unary (n: Nat) : String
 Nat.to_string_unary  Nat.zero    = String.nil
 Nat.to_string_unary (Nat.succ n) = String.cons 49 (Nat.to_string_unary n)

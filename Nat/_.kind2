@@ -1,2 +1,7 @@
-// Automatically derived from Nat/_.type
-Nat : Type
+#derive[match]
+type Nat {
+  #kdl_name = Nat_zero
+  zero
+  #kdl_name = Nat_succ
+  succ (pred: Nat)
+}

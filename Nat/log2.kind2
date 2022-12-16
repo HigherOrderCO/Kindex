@@ -1,3 +1,4 @@
+#kdl_name = Nat_log2
 Nat.log2(n: Nat): Nat {
   Nat.log2.aux n Nat.zero
 }

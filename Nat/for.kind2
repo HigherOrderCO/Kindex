@@ -1,3 +1,4 @@
+#kdl_name = Nat_for
 Nat.for <s: Type> (state: s) (from: Nat) (til: Nat) (func: Nat -> s -> s) : s {
   if Nat.equal from til {
     state

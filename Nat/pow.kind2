@@ -1,4 +1,5 @@
 // Returns x to the power of y
+#kdl_name = Nat_pow
 Nat.pow (x: Nat) (y: Nat) : Nat
 Nat.pow x  Nat.zero    = Nat.one
 Nat.pow x (Nat.succ y) = Nat.mul x (Nat.pow x y)

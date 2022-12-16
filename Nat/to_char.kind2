@@ -2,6 +2,7 @@
 // Max accepted base is 64
 // Anything outside the valid range returns '#'
 
+#kdl_name = Nat_to_char
 Nat.to_char (base: Nat) (n: Nat) : Char
 Nat.to_char  Nat.zero     n = '#'
 Nat.to_char (Nat.succ bp) n =

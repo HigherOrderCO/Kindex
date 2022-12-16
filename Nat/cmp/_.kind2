@@ -1,3 +1,4 @@
+#kdl_name = Nat_cmp
 Nat.cmp (a: Nat) (b: Nat) : Cmp
 Nat.cmp  Nat.zero          Nat.zero         = Cmp.eql
 Nat.cmp  Nat.zero         (Nat.succ pred)   = Cmp.ltn
