@@ -1,3 +1,4 @@
+#kdl_name = U120_mod
 U120.mod (num: U120) (den: U120) : U120 {
   Pair.snd (U120.div_mod num den)
 }

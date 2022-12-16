@@ -1,13 +1,15 @@
 // Returns the quocient and remainder of the integer division num/den
 // Implemented as binary long division
+#kdl_name = U120_div_mod
 U120.div_mod (num: U120) (den: U120) : Pair U120 U120
 U120.div_mod num (U120.new 0 0) = Pair.new (U60.to_u120 (/ 0 0)) (U60.to_u120 (% 0 0))  // cause panic like in U60
 U120.div_mod num den            =
-  match Maybe msb = U120.msb num {
+  let msb = U120.msb num
+  match Maybe msb {
     none => Pair.new (U120.new 0 0) (U120.new 0 0) // numerator is 0
-    some =>
+    some value =>
       let qr  = (Pair.new (U120.new 0 0) (U120.new 0 0))
-      let idx = U120.inc msb.value
+      let idx = U120.inc value
       U120.div_mod.go idx qr num den
   }
 

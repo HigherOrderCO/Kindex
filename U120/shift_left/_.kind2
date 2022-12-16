@@ -1,3 +1,4 @@
+#kdl_name = U120_shf_lft
 U120.shift_left (num: U120) (shf: U120) : U120
 U120.shift_left (U120.new num.hi num.lo) (U120.new shf.hi shf.lo) =
   U60.if shf.hi (

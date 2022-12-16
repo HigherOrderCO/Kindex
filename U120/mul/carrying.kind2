@@ -1,3 +1,4 @@
+#kdl_name = U120_mul_car
 U120.mul.carrying (a: U120) (b: U120) : U240
 U120.mul.carrying (U120.new ahi alo) (U120.new bhi blo) =
   let mul0 = U60.mul.carrying alo blo  // [1 0]

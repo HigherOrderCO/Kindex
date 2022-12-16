@@ -1,3 +1,4 @@
+#kdl_name = U120_num_lte
 U120.num_less_equal (a: U120) (b: U120) : U120
 U120.num_less_equal (U120.new ahi alo) (U120.new bhi blo) =
   U60.if (== ahi bhi) (

@@ -1,3 +1,4 @@
+#kdl_name = U120_not_eq
 U120.not_equal (a: U120) (b: U120) : Bool {
   U120.to_bool (U120.num_not_equal a b)
 }
