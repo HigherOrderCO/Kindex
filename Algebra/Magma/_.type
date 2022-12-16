@@ -1,4 +1,0 @@
-// A set equipped with a binary operation that is closed.
-type Algebra.Magma <t: Type> {
-  new (concat: t -> t -> t)
-}

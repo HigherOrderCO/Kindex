@@ -1,3 +1,0 @@
-// Automatically derived from Algebra/Laws/Identity/_.type
-Algebra.Laws.Identity.match <t: Type> <concat: (_: t) (_: t) t> <empty: t> (x: (Algebra.Laws.Identity t concat empty)) -(p: (x: (Algebra.Laws.Identity t concat empty)) Type) (new: (left_identity: (x: t) (Equal x (concat empty x))) (right_identity: (x: t) (Equal x (concat x empty))) (p (Algebra.Laws.Identity.new t concat empty left_identity right_identity))) : (p x)
-Algebra.Laws.Identity.match t concat empty (Algebra.Laws.Identity.new t_ concat_ empty_ left_identity_ right_identity_) p new = (new left_identity_ right_identity_)

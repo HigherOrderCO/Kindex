@@ -1,2 +1,3 @@
+#kdl_name = Al_Mg_cat
 Algebra.Magma.concat <t> (magma: Algebra.Magma t): t -> t -> t
 Algebra.Magma.concat t (Algebra.Magma.new t_ concat) = concat
