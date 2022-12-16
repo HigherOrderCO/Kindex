@@ -1,2 +1,3 @@
+#kdl_name = Bit_u120
 Bit.to_u120 (bit: Bit): U120
 Bit.to_u120 (bit) = U60.to_u120 (Bit.to_u60 bit)

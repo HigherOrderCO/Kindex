@@ -1,3 +1,4 @@
+#kdl_name = Bit_nand
 Bit.nand (a: Bit) (b: Bit) : Bit 
 Bit.nand Bit.1 Bit.1 = Bit.0
 Bit.nand a b = Bit.1
