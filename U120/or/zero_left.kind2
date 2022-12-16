@@ -1,2 +1,3 @@
 // For every a: (| 0 a) == a
+#kdl_name = U120_or_zlft
 U120.or.zero_left (a: U120) : Equal U120 (U120.bitwise_or (U120.new 0 0) a) a

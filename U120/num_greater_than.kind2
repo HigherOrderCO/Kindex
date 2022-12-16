@@ -1,3 +1,4 @@
+#kdl_name = U120_num_gtn
 U120.num_greater_than (a: U120) (b: U120) : U120
 U120.num_greater_than (U120.new ahi alo) (U120.new bhi blo) =
   U60.if (== ahi bhi) (

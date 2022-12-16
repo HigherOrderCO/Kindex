@@ -1,4 +1,5 @@
 // Sets a bit in a U120
+#kdl_name = U120_set_bit
 U120.set_bit (num: U120) (bit: U120) : U120 {
   let bit = U120.shift_left (U120.new 0 1) bit
   U120.bitwise_or num bit

@@ -1,8 +1,10 @@
+#kdl_name = U120_show
 U120.show (num: U120) : Show
 U120.show (U120.new 0 0) = str => String.cons '0' str
 U120.show num            = str =>
   let ten = (U120.new 0 10)
-  match Pair dm = U120.div_mod num ten { new =>
+  let dm = U120.div_mod num ten 
+  open Pair dm
     let digit = U120.low dm.snd
     let rest = dm.fst
     let next = String.cons (+ '0' digit) str
@@ -13,4 +15,3 @@ U120.show num            = str =>
         (h: String) => (U120.show rest) h
       }) :: String -> String
     func next
-  }

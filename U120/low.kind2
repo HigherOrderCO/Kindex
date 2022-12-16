@@ -1,2 +1,3 @@
+#kdl_name = U120_low
 U120.low (n: U120) : U60
 U120.low (U120.new hi lo) = lo

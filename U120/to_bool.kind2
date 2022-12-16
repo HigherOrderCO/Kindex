@@ -1,3 +1,4 @@
+#kdl_name = U120_to_bool
 U120.to_bool (n: U120) : Bool
 U120.to_bool (U120.new 0 0) = Bool.false
 U120.to_bool n              = Bool.true

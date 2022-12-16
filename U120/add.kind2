@@ -1,4 +1,5 @@
 // U120 addition
+#kdl_name = U120_add
 U120.add (a: U120) (b: U120) : U120
 U120.add (U120.new a.hi a.lo) (U120.new b.hi b.lo) =
   let c.lo = (+ a.lo b.lo)

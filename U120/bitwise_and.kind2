@@ -1,2 +1,3 @@
+#kdl_name = U120_bit_and
 U120.bitwise_and (a: U120) (b: U120) : U120
 U120.bitwise_and (U120.new ahi alo) (U120.new bhi blo) = U120.new (& ahi bhi) (& alo blo)

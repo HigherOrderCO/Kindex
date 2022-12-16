@@ -1,5 +1,6 @@
 // 1 if the bit is set, 0 otherwise
 // 0 if bit >= 120
+#kdl_name = U120_get_bit
 U120.get_bit (num: U120) (bit: U120) : U120 {
   U120.bitwise_and (U120.shift_right num bit) (U120.new 0 1)
 }

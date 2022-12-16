@@ -1,3 +1,0 @@
-// Automatically derived from U120/_.type
-U120.match (x: (U120)) -(p: (x: (U120)) Type) (new: (hi: U60) (lo: U60) (p (U120.new hi lo))) : (p x)
-U120.match (U120.new hi_ lo_) p new = (new hi_ lo_)
