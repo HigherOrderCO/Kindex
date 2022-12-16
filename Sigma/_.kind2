@@ -1,6 +1,6 @@
 #kdl_name = Sigma
 #derive[open]
-record Sigma (a) (b: a -> Type) {
+record Sigma (a: Type) (f: a -> Type) {
   fst : a
-  snd : b fst
+  snd : f fst
 }

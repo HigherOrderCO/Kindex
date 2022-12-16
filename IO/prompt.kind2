@@ -1,6 +1,6 @@
 IO.prompt (question: String) : IO String {
   do IO {
-    ask (IO.output question)
+    IO.output question
     ask answer = IO.input
     return answer
   }
