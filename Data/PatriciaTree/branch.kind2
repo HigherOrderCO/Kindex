@@ -1,2 +1,0 @@
-// Automatically derived from /home/derenash/Wikind/Data.PatriciaTree/_.type
-Data.PatriciaTree.branch <a: Type> (prefix: U60) (branchingbit: U60) (left: (Data.PatriciaTree a)) (right: (Data.PatriciaTree a)) : (Data.PatriciaTree a)

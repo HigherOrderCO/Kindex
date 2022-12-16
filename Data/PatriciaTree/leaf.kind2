@@ -1,2 +1,0 @@
-// Automatically derived from /home/derenash/Wikind/Data.PatriciaTree/_.type
-Data.PatriciaTree.leaf <a: Type> (key: U60) (value: a) : (Data.PatriciaTree a)

@@ -1,3 +1,4 @@
+#kdl_name = PTree_zerobt
 Data.PatriciaTree.zerobit (x: U60) (y: U60): Bool {
-U60.equal (& x y) 0
+  U60.equal (& x y) 0
 }

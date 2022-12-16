@@ -1,2 +1,0 @@
-// Automatically derived from /home/derenash/Wikind/Data.PatriciaTree/_.type
-Data.PatriciaTree.empty <a: Type> : (Data.PatriciaTree a)

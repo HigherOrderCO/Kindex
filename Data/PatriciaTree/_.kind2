@@ -1,2 +1,11 @@
-// Automatically derived from /home/derenash/Wikind/Data.PatriciaTree/_.type
-Data.PatriciaTree (a: Type) : Type
+#derive[match]
+type Data.PatriciaTree (a) {
+  #kdl_name = PTree_empty
+  empty
+
+  #kdl_name = Ptree_leaf
+  leaf (key: U60) (value: a)
+  
+  #kdl_name = Ptree_branch
+  branch (prefix: U60) (branchingbit: U60) (left: (Data.PatriciaTree a)) (right: (Data.PatriciaTree a))
+}
