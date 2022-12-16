@@ -1,3 +1,4 @@
+#kdl_name = Nat_square
 Nat.square (a: Nat) : Nat {
   Nat.mul a a
 }

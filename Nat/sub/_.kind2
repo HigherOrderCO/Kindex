@@ -1,4 +1,5 @@
 // Return the subtraction between two numbers
+#kdl_name = Nat_sub
 Nat.sub (a: Nat) (b: Nat) : Nat
 Nat.sub  a            Nat.zero    = a
 Nat.sub  Nat.zero     b           = Nat.zero

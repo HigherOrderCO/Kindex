@@ -1,3 +1,4 @@
+#kdl_name = Nat_fact
 Nat.fact (x: Nat): Nat 
 Nat.fact Nat.zero = (Nat.succ (Nat.zero))
 Nat.fact (Nat.succ x) = (Nat.mul (Nat.succ x) x)

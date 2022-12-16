@@ -3,6 +3,7 @@
 // Examples:
 //  (Nat.pred 3) -> 2
 //  (Nat.pred 0) -> 0
+#kdl_name = Nat_pred
 Nat.pred (n: Nat) : Nat
 Nat.pred  Nat.zero       = Nat.zero
 Nat.pred (Nat.succ pred) = pred

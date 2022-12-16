@@ -1,3 +1,4 @@
+#kdl_name = Nat_mul
 // Adds a, b times
 // Example: (Nat.mul 3 5) -> 15
 Nat.mul (a: Nat) (b: Nat) : Nat

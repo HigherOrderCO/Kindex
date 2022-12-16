@@ -1,3 +1,4 @@
+#kdl_name = Nat_to_strbs
 Nat.to_string_base (base: Nat) (nat: Nat) : String {
   let fold = List.fold (Nat.to_base base nat)
   let show = (n => str => (String.cons (Nat.to_char base n) str)) :: Nat -> String -> String

@@ -1,4 +1,0 @@
-type Nat {
-  zero
-  succ (pred: Nat)
-}

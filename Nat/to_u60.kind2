@@ -1,5 +1,6 @@
 // Converts a Natural number to a U60
 // Example: (Nat.to_u60 (Nat.succ (Nat.succ Nat.zero))) -> 2
+#kdl_name = Nat_to_u60
 Nat.to_u60 (n: Nat) : U60
 Nat.to_u60  Nat.zero    = 0
 Nat.to_u60 (Nat.succ n) = (+ 1 (Nat.to_u60 n))

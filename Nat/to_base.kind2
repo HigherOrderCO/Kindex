@@ -1,3 +1,4 @@
+#kdl_name = Nat_to_base
 Nat.to_base(base: Nat) (nat: Nat) : List Nat {
   Nat.to_base.go base nat List.nil (Nat.div_mod nat base)
 }

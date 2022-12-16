@@ -1,3 +1,4 @@
+#kdl_name = Nat_bitw_and
 Nat.bitwise_and (a: Nat) (b: Nat) : Nat
 Nat.bitwise_and Nat.zero b        = Nat.zero
 Nat.bitwise_and a        Nat.zero = Nat.zero

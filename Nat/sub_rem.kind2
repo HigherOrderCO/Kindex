@@ -1,3 +1,4 @@
+#kdl_name = Nat_sub_rem
 Nat.sub_rem (n: Nat) (m: Nat) : Either Nat Nat
 Nat.sub_rem  n            Nat.zero    = Either.left  n
 Nat.sub_rem  Nat.zero     m           = Either.right m

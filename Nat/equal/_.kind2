@@ -1,6 +1,7 @@
 // Verifies if Two numbers are equal
 // Example: (Nat.equal Nat.zero            Nat.zero) -> Bool.true
 // Example: (Nat.equal (Nat.succ Nat.zero) Nat.zero) -> Bool.false
+#kdl_name = Nat_equal
 Nat.equal (n: Nat) (m: Nat) : Bool
 Nat.equal Nat.zero     Nat.zero     = Bool.true
 Nat.equal (Nat.succ n) (Nat.succ m) = Nat.equal n m
