@@ -1,4 +1,0 @@
-// Automatically derived from Bits/Map/_.type
-Bits.Map.match <a: Type> (x: (Bits.Map a)) -(p: (x: (Bits.Map a)) Type) (new: (p (Bits.Map.new a))) (tie: (val: (Maybe a)) (left: (Bits.Map a)) (right: (Bits.Map a)) (p (Bits.Map.tie a val left right))) : (p x)
-Bits.Map.match a (Bits.Map.new a_) p new tie = (new)
-Bits.Map.match a (Bits.Map.tie a_ val_ left_ right_) p new tie = (tie val_ left_ right_)

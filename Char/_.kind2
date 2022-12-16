@@ -1,2 +1,1 @@
-Char : Type
-Char = U60
+Char : Type {U60}

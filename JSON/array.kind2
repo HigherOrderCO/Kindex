@@ -1,2 +1,0 @@
-// Automatically derived from JSON/_.type
-JSON.array (arr: (List JSON)) : (JSON)

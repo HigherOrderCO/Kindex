@@ -1,3 +1,4 @@
+#kdl_name = Char_islower
 Char.is_lower (c: Char) : Bool {
   Bool.not (Char.between 65 c 91)
 }

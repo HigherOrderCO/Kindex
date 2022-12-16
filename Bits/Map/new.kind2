@@ -1,2 +1,0 @@
-// Automatically derived from Bits/Map/_.type
-Bits.Map.new <a: Type> : (Bits.Map a)

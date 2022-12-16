@@ -1,7 +1,8 @@
 // Gets in a map a value that corresponds to the Bits
+#kdl_name = Bitsmap_get
 Bits.Map.get <a> 
-  (map : Bits.Map a)
-  (key : Bits)
+  (map: Bits.Map a)
+  (key: Bits)
 : Maybe a
 
 Bits.Map.get a (Bits.Map.new t) key = Maybe.none

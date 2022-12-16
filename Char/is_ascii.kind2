@@ -1,3 +1,4 @@
+#kdl_name = Char_ascii
 Char.is_ascii (c: Char) : Bool {
   Char.less_equal c 255
 }

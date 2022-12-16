@@ -1,3 +1,4 @@
+#kdl_name = Char_repeat
 Char.repeat (c: Char) (n: Nat) : String
 Char.repeat c  Nat.zero    = String.nil
 Char.repeat c (Nat.succ n) = String.cons c (Char.repeat c n)
