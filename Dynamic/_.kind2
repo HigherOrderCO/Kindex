@@ -1,2 +1,6 @@
 // Automatically derived from Dynamic/_.type
-Dynamic : Type
+#derive[match]
+type Dynamic {
+	#kdl_name = Dynamic_new
+	new <a> (value: a)
+}
