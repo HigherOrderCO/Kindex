@@ -1,8 +1,0 @@
-// Automatically derived from JSON/_.type
-JSON.match (x: (JSON)) -(p: (x: (JSON)) Type) (object: (obj: (List (Pair String JSON))) (p (JSON.object obj))) (array: (arr: (List JSON)) (p (JSON.array arr))) (string: (text: String) (p (JSON.string text))) (number: (float: F64) (p (JSON.number float))) (bool: (bool: Bool) (p (JSON.bool bool))) (null: (p (JSON.null))) : (p x)
-JSON.match (JSON.object obj_) p object array string number bool null = (object obj_)
-JSON.match (JSON.array arr_) p object array string number bool null = (array arr_)
-JSON.match (JSON.string text_) p object array string number bool null = (string text_)
-JSON.match (JSON.number float_) p object array string number bool null = (number float_)
-JSON.match (JSON.bool bool_) p object array string number bool null = (bool bool_)
-JSON.match (JSON.null) p object array string number bool null = (null)
