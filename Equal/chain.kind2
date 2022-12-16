@@ -1,2 +1,3 @@
+#kdl_name = Equal_chain
 Equal.chain <t> <a: t> <b: t> <c: t> (e0: Equal t a b) (e1: Equal t b c) : Equal t a c
 Equal.chain t a b c e0 (Equal.refl u x) = e0 :: Equal t a x

@@ -1,3 +1,4 @@
+#kdl_name = Equal
 Equal <t> (a: t) (b: t) : Type
 
 // ??? see User.Taelin.hott_study.kind2
