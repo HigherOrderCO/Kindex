@@ -1,6 +1,7 @@
+#kdl_name = BBT_size
 Data.BBT.size <k> <v> (map: Data.BBT k v): U120 {
   match Data.BBT map {
     tip => U120.0
-    bin => map.size
+    bin size .. => size
   }
 }

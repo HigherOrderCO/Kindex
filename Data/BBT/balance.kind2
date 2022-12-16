@@ -1,12 +1,14 @@
+#kdl_name = BBT.balance
 Data.BBT.balance <key> <value> (k: key) (v: value) (l: Data.BBT key value) (r: Data.BBT key value): Data.BBT key value {
-  let size_l             = (Data.BBT.size l)
-  let size_r             = (Data.BBT.size r)
-  let size_l_plus_size_r = (U120.add size_l size_r)
+  let size               = (x : Data.BBT key value) => Data.BBT.size x
+  let size_l             = (size l)
+  let size_r             = (size r)
+  let sizes_sum          = (U120.add size_l size_r)
   let w_x_size_l         = (U120.mul Data.BBT.w size_l)
   let w_x_size_r         = (U120.mul Data.BBT.w size_r)
-  // size_l_plus_size_r < 2 means that one subtree is empty and the
+  // sizes_sum < 2 means that one subtree is empty and the
   // other contains only one element, hence the tree cannot be balanced 
-  if (U120.less_than size_l_plus_size_r U120.2) { 
+  if (U120.less_than sizes_sum U120.2) { 
     (Data.BBT.node k v l r)
   // size_r > w * size_l means the right subtree is too heavy
   } else { 
@@ -16,27 +18,20 @@ Data.BBT.balance <key> <value> (k: key) (v: value) (l: Data.BBT key value) (r: D
       // the right subtree is too heavy
       // question: how to deal with it?
       tip => (Data.BBT.node k v l r)
-      bin =>  
-        let size_rl = (Data.BBT.size r.left)
-        let size_rr = (Data.BBT.size r.right)
-        // size_rl < size_rr means we should perform a single left rotation
-        if (U120.less_than size_rl size_rr) { 
-          let new_key   = r.key 
-          let new_val   = r.val 
-          let new_left  = (Data.BBT.node k v l r.left)
-          let new_right = r.right 
-          (Data.BBT.node new_key new_val new_left new_right)
+      bin (key = right.key) (val = right.val) (left = right.left) (right = right.right) .. =>  
+        // size rl < size rr means we should perform a single left rotation
+        if (U120.less_than (size right.left) (size right.right)) { 
+          let new_left  = (Data.BBT.node k v l right.left)
+          (Data.BBT.node right.key right.val new_left right.right)
         // size_rl > size_rr means we should perform a double left rotation
         } else {
         // we need to branch on the left subtree of r in order to extract its components 
-        match Data.BBT r.left {
+        match Data.BBT right.left {
           tip => (Data.BBT.node k v l r) // impossible case
-          bin =>  
-          let new_key   = r.left.key
-          let new_val   = r.left.val 
-          let new_left  = (Data.BBT.node k v l r.left.left) 
-          let new_right = (Data.BBT.node r.key r.val r.left.right r.right)
-          (Data.BBT.node new_key new_val new_left new_right)
+          bin (key = rleft.key) (val = rleft.val) (left = rleft.left) (right = rleft.right) .. =>  
+          let new_left  = (Data.BBT.node k v l rleft.left) 
+          let new_right = (Data.BBT.node right.key right.val rleft.right right.right)
+          (Data.BBT.node rleft.key rleft.val new_left new_right)
         }
         }
       }
@@ -48,28 +43,21 @@ Data.BBT.balance <key> <value> (k: key) (v: value) (l: Data.BBT key value) (r: D
         // the left subtree is too heavy
         // question => how to deal with it?
         tip => (Data.BBT.node k v l r)
-        bin =>  
-          let size_ll = (Data.BBT.size l.left)
-          let size_lr = (Data.BBT.size l.right)
+        bin (key = left.key) (val = left.val) (left = left.left) (right = left.right) .. =>  
           // size_lr < size_lln means we should perform a single right rotation
-          if (U120.less_than size_lr size_ll) {
-            let new_key   = l.key 
-            let new_val   = l.val 
-            let new_left  = l.left
-            let new_right = (Data.BBT.node k v l.right r)
-            (Data.BBT.node new_key new_val new_left new_right)
+          if (U120.less_than (size left.right) (size left.left)) {
+            let new_right = (Data.BBT.node k v left.right r)
+            (Data.BBT.node left.key left.val left.left new_right)
           // size_lr > size_ll means we should perform a double right rotation
           } else {
             // we need to branch on the right subtree of l in order to 
             // extract its components and move them to the right
-            match Data.BBT l.right {
+            match Data.BBT left.right {
             tip => (Data.BBT.node k v l r) // impossible case 
-            bin =>  
-              let new_key   = l.right.key
-              let new_val   = l.right.val 
-              let new_left  = (Data.BBT.node l.key l.val l.left l.right.left)
-              let new_right = (Data.BBT.node k v l.right.right r)
-              (Data.BBT.node new_key new_val new_left new_right)
+            bin (key = lright.key) (val = lright.val) (left = lright.left) (right = lright.right) .. =>  
+              let new_left  = (Data.BBT.node lright.key lright.val left.left lright.left)
+              let new_right = (Data.BBT.node k v lright.right r)
+              (Data.BBT.node lright.key lright.val new_left new_right)
             }
           }
         }

@@ -1,12 +1,13 @@
+#kdl_name = BBT_get
 Data.BBT.get <k> <v>(cmp: k -> k -> Cmp) (key: k) (map: Data.BBT k v): Maybe v {
   match Data.BBT map {
     tip => Maybe.none
-    bin => 
+    bin (key = map.key) val left right size => 
       let comp = cmp key map.key
       match Cmp comp {
-        ltn => (Data.BBT.get k v cmp key map.left)
+        ltn => (Data.BBT.get k v cmp key left)
         eql => Maybe.some map.val
-        gtn => (Data.BBT.get k v cmp key map.right)
+        gtn => (Data.BBT.get k v cmp key right)
       }
   }
 }

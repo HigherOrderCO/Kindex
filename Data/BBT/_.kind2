@@ -1,2 +1,8 @@
-// Automatically derived from Data/BBT/_.type
-Data.BBT (k: Type) (v: Type) : Type
+#derive[match]
+type Data.BBT (k: Type) (v: Type) {
+  #kdl_name = BBT_tip
+  tip
+  #kdl_name = BBT_bin
+  bin (size: U120) (key: k) (val: v) (left: Data.BBT k v) (right: Data.BBT k v)
+}
+
