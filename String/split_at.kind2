@@ -1,7 +1,9 @@
+#kdl_name = Str_splitat
 String.split_at (n: Nat) (xs: String) : Pair String String {
   String.split_at.go n xs ""
 }
 
+#kdl_name = Str_splitat0
 String.split_at.go (n: Nat) (xs: String) (fst: String) : Pair String String
 String.split_at.go  n            String.nil        fst = Pair.new fst String.nil
 String.split_at.go  Nat.zero    (String.cons x xs) fst = Pair.new fst xs

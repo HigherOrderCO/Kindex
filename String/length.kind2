@@ -1,3 +1,4 @@
+#kdl_name = Str_length
 String.length (xs: String) : Nat
 String.length  String.nil        = Nat.zero
 String.length (String.cons x xs) = Nat.succ (String.length xs)

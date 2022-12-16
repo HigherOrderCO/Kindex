@@ -1,4 +1,5 @@
 // Check if some condition applies to all characters of the string
+#kdl_name = Str_all
 String.all (cond: Char -> Bool) (xs: String) : Bool {
   String.foldr Bool.true (c => b => Bool.and (cond c) b) xs
 }

@@ -1,3 +1,4 @@
+#kdl_name = Str_is_dec
 String.is_decimal (xs: String) : Bool {
   String.all (c => Char.is_decimal c) xs
 }

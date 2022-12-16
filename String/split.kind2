@@ -1,7 +1,9 @@
+#kdl_name = Str_split
 String.split (str: String) (find: String) : List String {
   String.split.go str find String.nil
 }
 
+#kdl_name = Str_split0
 String.split.go (str: String) (find: String) (last: String) : List String
 String.split.go  String.nil        find last = List.pure last
 String.split.go (String.cons x xs) find last =

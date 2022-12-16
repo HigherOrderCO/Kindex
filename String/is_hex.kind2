@@ -1,4 +1,5 @@
 // checks if all characters in a string are hexadecimal digits
+#kdl_name = Str_ishex
 String.is_hex (xs: String) : Bool {
   String.all (c => Char.is_hex c) xs
 }

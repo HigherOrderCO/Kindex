@@ -1,3 +1,4 @@
+#kdl_name = Str_span
 String.span (f: Char -> Bool) (xs: String) : Pair String String
 String.span f  String.nil        = Pair.new String.nil String.nil
 String.span f (String.cons x xs) =

@@ -1,4 +1,5 @@
 // Concatenate any number of strings
+#kdl_name = Str_conc_var
 String.concat_var (n: Nat) : (Variadic String String n) {
   Variadic.foldr (a => b => String.concat a b) String.nil n
 }

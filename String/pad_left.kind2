@@ -1,3 +1,4 @@
+#kdl_name = Str_pad_left
 String.pad_left (size: Nat) (chr: Char) (str: String) : String {
   String.reverse (String.pad_right size chr (String.reverse str))
 }

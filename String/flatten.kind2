@@ -1,3 +1,4 @@
+#kdl_name = Str_flatten
 String.flatten (xs: List String) : String
 String.flatten (List.nil t)            = String.nil
 String.flatten (List.cons t head tail) = String.concat head (String.flatten tail)

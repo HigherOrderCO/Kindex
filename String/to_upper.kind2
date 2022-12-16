@@ -1,3 +1,4 @@
+#kdl_name = Str_toupper
 String.to_upper (str: String): String {
   String.map (c => Char.to_upper c) str
 }

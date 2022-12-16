@@ -1,4 +1,5 @@
 // Concatenation with empty string preserves the argument
+#kdl_name = Str_cnct_n_r
 String.concat.nil_right (xs: String) : Algebra.Laws.right_identity (x => y => String.concat x y) String.nil xs
 String.concat.nil_right (String.nil) = Equal.refl
 String.concat.nil_right (String.cons x xs) =

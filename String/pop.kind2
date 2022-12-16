@@ -1,3 +1,4 @@
+#kdl_name = Str_pop
 String.pop (s: String) : Pair (Maybe Char) String
 String.pop  String.nil       = Pair.new Maybe.none String.nil
 String.pop (String.cons h t) = Pair.new (Maybe.some h) t

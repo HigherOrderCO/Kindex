@@ -1,3 +1,4 @@
+#kdl_name = Str_iscons
 String.is_cons (xs: String) : Bool
 String.is_cons  String.nil        = Bool.false
 String.is_cons (String.cons x xs) = Bool.true

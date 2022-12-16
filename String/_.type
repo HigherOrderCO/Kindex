@@ -1,4 +1,0 @@
-type String {
-  nil
-  cons (head: Char) (tail: String)
-}

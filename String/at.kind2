@@ -1,3 +1,4 @@
+#kdl_name = Str_at
 String.at (idx: Nat) (str: String) : Maybe Char
 String.at  idx             String.nil             = Maybe.none
 String.at  Nat.zero       (String.cons strh strt) = Maybe.some strh

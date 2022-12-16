@@ -1,3 +1,4 @@
+#kdl_name = Str_reverse
 String.reverse (xs: String) : String {
   String.reverse_over xs String.nil
 }

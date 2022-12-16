@@ -1,4 +1,5 @@
 // Concatenate any number of chars
+#kdl_name = Str_cons_var
 String.cons_var (n: Nat) : Variadic Char String n {
   Variadic.foldr (x => xs => String.cons x xs) String.nil n
 }

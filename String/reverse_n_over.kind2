@@ -1,4 +1,5 @@
 // concats in reverse the first `n` characters of `src` over `dest`
+#kdl_name = Str_revn_ovr
 String.reverse_n_over (src: String) (n: U60) (dest: String) : Pair String String
 String.reverse_n_over  src                      0 dest = Pair.new src dest
 String.reverse_n_over  String.nil               n dest = Pair.new String.nil dest

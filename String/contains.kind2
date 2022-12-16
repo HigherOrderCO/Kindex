@@ -1,4 +1,5 @@
 // True if search is a substring of xs
+#kdl_name = Str_contains
 String.contains (xs: String) (search: String) : Bool
 String.contains  String.nil        search = Bool.false
 String.contains (String.cons x xs) search =

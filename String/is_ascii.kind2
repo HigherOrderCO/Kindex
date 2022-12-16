@@ -1,3 +1,4 @@
+#kdl_name = Str_isascii
 String.is_ascii (xs: String) : Bool {
   String.all (c => Char.is_ascii c) xs
 }

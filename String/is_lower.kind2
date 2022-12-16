@@ -1,4 +1,5 @@
 // True if the string contains only lowercase letters or other non-letter characters
+#kdl_name = Str_islower
 String.is_lower (xs: String) : Bool {
   String.all (c => Bool.not (Char.is_upper c)) xs
 }

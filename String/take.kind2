@@ -1,3 +1,4 @@
+#kdl_name = Str_take
 String.take (n: Nat) (xs: String) : String
 String.take (Nat.succ np) (String.cons h t) = String.cons h (String.take np t)
 String.take  n             xs               = String.nil

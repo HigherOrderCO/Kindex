@@ -1,3 +1,4 @@
+#kdl_name = Str_tolist
 String.to_list (xs: String): List Char
 String.to_list  String.nil       = List.nil
 String.to_list (String.cons x xs) = List.cons x (String.to_list xs)
