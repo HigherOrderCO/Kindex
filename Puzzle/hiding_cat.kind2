@@ -5,18 +5,24 @@ Cat: Type {
   Pos
 }
 
-// A position can be one of 5 boxes
-Pos: Type
-  Box.0: Pos
-  Box.1: Pos
-  Box.2: Pos
-  Box.3: Pos
-  Box.4: Pos
+Pos: Type {
+  Box
+}
 
-// Every turn, the cat can move left or right
-Move: Type
-  Left  : Move
-  Right : Move
+// A position can be one of 5 boxes
+type Box {
+  0
+  1
+  2
+  3
+  4
+}
+
+// Every turn, the cat can move Move.left or Move.right
+type Move {
+  left
+  right
+}
 
 // A cat has a pre-defined (but unknown) infinite list of moves
 Moves: Type
@@ -38,16 +44,16 @@ Pos.equal a     b     = Bool.false
 
 // Moves a cat to the next position
 Move.apply (move: Move) (cat: Cat) : Cat
-Move.apply Left  Box.0 = Box.1
-Move.apply Right Box.0 = Box.1
-Move.apply Left  Box.1 = Box.0
-Move.apply Right Box.1 = Box.2
-Move.apply Left  Box.2 = Box.1
-Move.apply Right Box.2 = Box.3
-Move.apply Left  Box.3 = Box.2
-Move.apply Right Box.3 = Box.4
-Move.apply Left  Box.4 = Box.3
-Move.apply Right Box.4 = Box.3
+Move.apply Move.left  Box.0 = Box.1
+Move.apply Move.right Box.0 = Box.1
+Move.apply Move.left  Box.1 = Box.0
+Move.apply Move.right Box.1 = Box.2
+Move.apply Move.left  Box.2 = Box.1
+Move.apply Move.right Box.2 = Box.3
+Move.apply Move.left  Box.3 = Box.2
+Move.apply Move.right Box.3 = Box.4
+Move.apply Move.left  Box.4 = Box.3
+Move.apply Move.right Box.4 = Box.3
 
 // Every turn, we open a box.
 // If the cat is there, we win, 
@@ -64,7 +70,7 @@ Play cat (Moves.next move moves) (List.cons open strat) =
 
 // Theorem: for every any cat position, and for any possible path
 // that the cat takes, there is a strategy that finds the cat.
-WinningStrategy (cat: Pos) (moves: Moves) : [strat: Strategy] (Equal Bool (Play cat moves strat) Bool.true) {
+WinningStrategy (cat: Pos) (moves: Moves) : [strat: Strategy] -> (Equal Bool (Play cat moves strat) Bool.true) {
   ?
 }
 
