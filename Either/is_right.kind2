@@ -1,3 +1,4 @@
+#kdl_name = Either_isrgt
 Either.is_right <l> <r> (x: Either l r) : Bool
 Either.is_right l r (Either.left  l_ r_ val) = Bool.false
 Either.is_right l r (Either.right l_ r_ val) = Bool.true
