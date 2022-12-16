@@ -1,2 +1,11 @@
 // Automatically derived from Algebra/Semigroup/_.type
-Algebra.Semigroup (t: Type) : Type
+// A semigroup is a magma with the associative property.
+// Let '*' be the the binary operation then:
+//
+// - forall a b c, (a * b) * c = a * (b * c) (Associativity)
+//
+#derive[match]
+type Algebra.Semigroup <t: Type> {
+	#kdl_name = Al_Sg_new
+  new (magma: Algebra.Magma t) (associativity: Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))
+}
