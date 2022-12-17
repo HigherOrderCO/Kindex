@@ -1,0 +1,4 @@
+#kdl_name = Var_foldr
+Variadic.foldr <r> <p> (acc: r -> p -> p) (b: p) (n: Nat) : Variadic r p n {
+  Variadic.foldr.go acc b (p => p) n
+}

@@ -1,4 +1,3 @@
-// TODO Check - Algebra
 #kdl_name = Str_cnct_id
 String.concat.identity : Algebra.Laws.Identity String (x => y => String.concat x y) String.nil
 String.concat.identity =

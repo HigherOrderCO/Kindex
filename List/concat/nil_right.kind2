@@ -1,4 +1,3 @@
-// TODO Check - Algebra
 // Concatenation with empty list preserves the argument
 // xs == xs ++ []
 #kdl_name = List_cnct_nr
