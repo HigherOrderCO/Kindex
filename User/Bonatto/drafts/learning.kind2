@@ -1,0 +1,205 @@
+// Problems.t2 (n: Nat)      : (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+// Problems.t2 Nat.zero      = Equal.refl
+// Problems.t2 (Nat.succ n)  =
+  // let ind = Problems.t2 n
+  // let app = (Equal.rewrite
+// ?
+
+// Problems.t2a (n: Nat)     : (Equal Nat (Nat.add n Nat.zero) n)
+// Problems.t2a Nat.zero     = Equal.refl
+// Problems.t2a (Nat.succ n) =
+  // let ind = Problems.t2a n
+  // let app = (Equal.apply (x => (Nat.succ x)) ind)
+  // app
+  // ?
+
+
+            // (Equal Bool (Bool.not (Bool.not (Nat.is_even (Nat.double n)))) Bool.true)
+// (Equal Bool (Bool.not (Bool.not (Bool.not (Nat.is_even (Nat.double n))))) Bool.false)
+// Problems.t3 (n: Nat) : (Equal Bool (Nat.is_even (Nat.succ (Nat.double n))) Bool.false)
+// Problems.t3 Nat.zero      = Equal.refl
+// Problems.t3 (Nat.succ n)  =
+  // let ind = Problems.t3 n
+  // let app = Equal.apply (x => (Bool.not x)) ind
+  // ?
+  // (Equal Nat (Nat.add (Nat.add (Nat.mul n Nat.zero) Nat.zero) Nat.zero) Nat.zero)
+// Problems.t4a (n: Nat) : (Equal Nat (Nat.add (Nat.mul n Nat.zero) Nat.zero) Nat.zero )
+// Problems.t4a Nat.zero = Equal.refl
+// Problems.t4a (Nat.succ n) =
+  // let new = Equal.rewrite   (x => (Nat.zero (Nat.mul n Nat.zero)))
+  // ?
+  // let f = (Equal.rewrite
+            // (t_set -> Type)
+            // t_prop @x((proposition x) -> Empty)
+            // e @x(x a) _
+        // )
+
+// mult_0_r : (n : Nat) -> n * 0 = 0
+                // (Equal Nat (Nat.add (Nat.mul n Nat.zero) Nat.zero) Nat.zero)
+// Problems.t4 (n: Nat)      : (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+// Problems.t4 Nat.zero      = Equal.refl
+// Problems.t4 (Nat.succ n)  =
+  // let ind = Problems.t4 n
+  // let app = Equal.apply (x => (Nat.add x Nat.zero)) ind
+  // app
+
+
+
+
+// mult_0_r n = ?mult_0_r_rhs
+// plus_n_Sm : (n, m : Nat) ౏> S (n + m) = n + (S m)
+// plus_n_Sm n m = ?plus_n_Sm_rhs
+// plus_comm : (n, m : Nat) ౏> n + m = m + n
+// plus_comm n m = ?plus_comm_rhs
+// plus_assoc : (n, m, p : Nat) ౏> n + (m + p) = (n + m) + p
+// plus_assoc n m p = ?plus_assoc_rhs
+
+
+                          // (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+                // (Equal Nat (Nat.add (Nat.mul n Nat.zero) Nat.zero) Nat.zero)
+                // (Equal Nat (Nat.add (Nat.mul n Nat.zero) Nat.zero) Nat.zero)
+Problems.t4 (n: Nat)      : (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+Problems.t4 Nat.zero      = Equal.refl
+// Problems.t4 (Nat.succ n)  =
+  // let ind = Problems.t4 n
+  // let app = Equal.apply (x => (Nat.add x Nat.zero)) ind
+  // app
+
+
+
+
+
+
+
+
+
+ Plus_id (n: Nat) (m: Nat) (o: Nat) (e_1: Equal Nat n m)(e_2: Equal Nat m o)  : (Equal Nat (Nat.add n m) (Nat.add m o))                                              
+Plus_id n m o e_1 e_2 =
+  let app1 = Equal.apply (x => Nat.add x m) e_1
+  let app2 = Equal.rewrite e_2 (x => (Equal (Nat.add n m ) (Nat.add m x))) app1
+  app2
+// ?
+
+
+
+
+
+
+
+
+// mult_0_r : (n : Nat) -> n * 0 = 0
+// (Equal Nat (Nat.add (Nat.mul n Nat.zero) Nat.zero) Nat.zero)
+Problems.t1 (n: Nat)      : (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+Problems.t1 Nat.zero      = Equal.refl
+Problems.t1 (Nat.succ n)  = 
+  let ind = Problems.t1 n
+  let app = Equal.apply (x => (Nat.add x Nat.zero)) ind
+  app
+
+
+
+// plus_id_exercise : (n, m, o : Nat) →  (n = m) →  (m = o) →  n + m = m + o
+// recebendo-se 3 números e dado que n é igual a m e que m é igual a o, a soma entre n e m é igual a soma de m e o
+
+
+
+// n = m = o
+Problems.t2 (n: Nat) (m: Nat) (o: Nat) (e1: Equal Nat n m) (e2: Equal Nat m o) : (Equal Nat (Nat.add n m) (Nat.add m o))
+Problems.t2 n m o e1 e2 = 
+  let app = Equal.apply (x => (Nat.add x m)) e1
+  let rwt = Equal.rewrite e2 (x => (Equal Nat (Nat.add n m)((Nat.add m x)))) app
+  rwt
+  // ?
+
+
+
+// - Goal: (Equal Nat (Nat.add n m) (Nat.add m o))
+// - app : (Equal Nat (Nat.add n m) (Nat.add m m))
+
+
+
+
+
+// - Goal: (Equal Nat (Nat.add n m) (Nat.add m o))
+
+// Teste1 (a: Nat) (b: Nat) (c: Nat) : Equal (Nat.add a (Nat.add b c)) (Nat.add (Nat.add c a) b)
+// Teste1 a Nat.zero c =
+  // ?
+
+
+// Surjective_pairing  : (n,m : Nat) → (n,m) = (fst (n,m), snd (n,m))
+// surjective_pairing' n m = Refl
+
+
+
+
+Surjective_pairing (p: Pair Nat Nat) : (Equal p (Pair.new (Pair.fst p) (Pair.snd p)))
+Surjective_pairing (Pair.new Nat Nat fst snd) = Equal.refl
+// Surjective_pairing p = Equal.refl
+
+
+// Problems.t3 (xs: List Nat) (ys: List Nat)   : (Equal Nat (Nat.add(List.length Nat (xs)) (List.length Nat(ys))) (List.length Nat    (List.concat Nat (xs) (ys))))
+// Problems.t3 List.nil ys                     = Equal.refl
+// Problems.t3 (List.cons xs.head xs.tail) ys  =
+  // let ind = Problems.t3 xs.tail ys
+  // let app = Equal.apply (x => (Nat.succ x)) ind
+  // app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Problems.t3 (xs: List Nat) (ys: List Nat) : (Equal Nat (Nat.add(List.length Nat (xs)) (List.length Nat(ys))) (List.length Nat (List.concat Nat (xs) (ys))))
+Problems.t3 List.nil ys = Equal.refl
+Problems.t3 (List.cons xs.head xs.tail) ys  =
+  let ind = Problems.t3 ( xs.tail) ys
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  app
+  // ?
+ // (Nat.succ (Nat.add (List.length Nat xs.tail) (List.length Nat ys))) (Nat.succ (List.length Nat (List.concat Nat xs.tail ys))))
+// ((Nat.succ (Nat.add (List.length Nat xs.tail) (List.length Nat ys))) (Nat.succ (List.length Nat (List.concat Nat xs.tail ys))))
+           // (Nat.add (List.length Nat xs.tail) (List.length Nat ys))            (List.length Nat (List.concat Nat xs.tail ys)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 6916210
+
+// 47796281000102
+// munici si mei
+
+
+
+
+
+
+
+
+
+
+
+
+

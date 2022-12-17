@@ -1,0 +1,196 @@
+// Pred (n: Nat)     : Nat
+// Pred Nat.zero     = Nat.zero
+// Pred (Nat.succ n) = n
+//
+//
+// MinusTwo (n: Nat)                 : Nat
+// MinusTwo Nat.zero                 = Nat.zero
+// MinusTwo (Nat.succ Nat.zero)      = Nat.zero
+// MinusTwo (Nat.succ (Nat.succ n))  = n
+//
+
+
+// exercicios do capitulo 2
+// 3.0.1
+// nandb       : (b1 : Bool) → (b2 : Bool) →  Bool
+// nandb b1 b2 = ?nandb_rhs
+Nandb (b1: Bool) (b2: Bool) : Bool
+Nandb Bool.false b2         = Bool.true
+Nandb Bool.true  b2         = Bool.not b2
+
+// test_nandb1 : (nandb True False) = True
+// test_nandb1 = ?test_nandb1_rhs
+Test_nandb1 : (Equal Bool (Nandb Bool.true Bool.false) Bool.true)
+Test_nandb1 = Equal.refl
+
+// test_nandb2 : (nandb False False) = True
+// test_nandb2 = ?test_nandb2_rhs
+Test_nandb2  : (Equal Bool (Nandb Bool.false Bool.false) Bool.true)
+Test_nandb2   = Equal.refl
+
+// test_nandb3 : (nandb False True) = True
+// test_nandb3 = ?test_nandb3_rhs
+Test_nandb3 : (Equal Bool (Nandb Bool.false Bool.true) Bool.true)
+Test_nandb3 = Equal.refl
+
+// test_nandb4 : (nandb True True) = False
+// test_nandb4 = ?test_nandb4_rhs
+Test_nandb4 : (Equal Bool (Nandb Bool.true Bool.true) Bool.false)
+Test_nandb4 = Equal.refl
+
+// 3.0.2
+// andb3 : (b1 : Bool) → (b2 : Bool) → (b3 : Bool) → Bool
+// andb3 b1 b2 b3 = ?andb3_rhs
+Andb3 (b1: Bool) (b2: Bool) (b3: Bool)  : Bool
+Andb3 Bool.true Bool.true Bool.true     = Bool.true
+Andb3 b1 b2 b3                          = Bool.false
+
+// test_andb31 : (andb3 True True True) = True
+// test_andb31 = ?test_andb31_rhs
+Test_andb31 : (Equal Bool (Andb3 Bool.true Bool.true Bool.true) Bool.true)
+Test_andb31 = Equal.refl
+
+// test_andb32 : (andb3 False True True) = False
+// test_andb32 = ?test_andb32_rhs
+Test_andb32 : (Equal Bool (Andb3 Bool.false Bool.true Bool.true) Bool.false)
+Test_andb32 = Equal.refl
+
+// test_andb33 : (andb3 True False True) = False
+// test_andb33 = ?test_andb33_rhs
+Test_andb33 : (Equal Bool (Andb3 Bool.true Bool.false Bool.false) Bool.false)
+Test_andb33 = Equal.refl
+
+// test_andb34 : (andb3 True True False) = False
+// test_andb34 = ?test_andb34_rhs
+Test_andb34 : (Equal Bool (Andb3 Bool.true Bool.true Bool.false) Bool.false)
+Test_andb34 = Equal.refl
+
+// 6.0.1
+// factorial : (n : Nat) → Nat
+// factorial n = ?factorial_rhs
+Factorial (n: Nat)      : Nat
+Factorial Nat.zero      = Nat.succ (Nat.zero)
+Factorial (Nat.succ n)  = Nat.mul (Nat.succ n) (Factorial n)
+
+// testFactorial1 : factorial 3 = 6
+// testFactorial1 = ?testFactorial1_rhs
+TestFactorial1  : Equal (Factorial (U60.to_nat 3)) (U60.to_nat 6)
+TestFactorial1  = Equal.refl
+
+
+// testFactorial2 : factorial 5 = mult 10 12
+// testFactorial2 = ?testFactorial2_rhs
+TestFactorial2  : Equal (Factorial (U60.to_nat 5)) (Nat.mul (U60.to_nat 10) (U60.to_nat 12) )
+TestFactorial2  = Equal.refl
+
+// 6.0.2
+// blt_nat : (n, m : Nat) →  Bool
+// blt_nat n m     = ?blt_nat_rhs
+Blt_nat (n: Nat) (m: Nat) : Bool
+Blt_nat n m               = Nat.lte (Nat.succ n) m
+
+// test_blt_nat_1   : blt_nat 2 2 = False
+// test_blt_nat_1   = ?test_blt_nat_1_rhs
+Test_blt_nat_1  :(Equal Bool (Blt_nat (U60.to_nat 2) (U60.to_nat 2)) Bool.false)
+Test_blt_nat_1  = Equal.refl
+
+// test_blt_nat_2  : blt_nat 2 4 = True
+// test_blt_nat_2  = ?test_blt_nat_2_rhs
+Test_blt_nat_2  : (Equal Bool (Blt_nat (U60.to_nat 2) (U60.to_nat 4)) Bool.true)
+Test_blt_nat_2  = Equal.refl
+
+// test_blt_nat_3  : blt_nat 4 2 = False
+// test_blt_nat_3  = ?test_blt_nat_3_rhs
+Test_blt_nat_3  : (Equal Bool (Blt_nat (U60.to_nat 4) (U60.to_nat 2)) Bool.false)
+Test_blt_nat_3  = Equal.refl
+
+// 8.0.1
+// plus_id_exercise : (n, m, o : Nat) →  (n = m) →  (m = o) →  n + m = m + o
+// plus_id_exercise n m o prf prf1 = ?plus_id_exercise_rhs
+Plus_id (n: Nat) (m: Nat) (o: Nat) (e_1: Equal Nat n m) (e_2: Equal Nat m o)  : (Equal Nat (Nat.add n m) (Nat.add m o))
+Plus_id n m o e_1 e_2 = 
+  let app1 = Equal.apply (x => Nat.add x m) e_1
+  let app2 = Equal.rewrite e_2 (x => (Equal (Nat.add n m ) (Nat.add m x))) app1
+  app2
+
+// 8.0.2
+// mult_S_1 : (n, m : Nat) → (m = S n) →  m * (1 + n) = m * m
+// mult_S_1 n m prf = ?mult_S_1_rhs
+Mult_s1 (n: Nat) (m: Nat) (eq: Equal Nat m (Nat.succ n)) :  (Equal Nat (Nat.mul m (Nat.add (Nat.succ Nat.zero) n)) (Nat.mul m m))
+Mult_s1 n m eq  = 
+  let app = Equal.apply (x => Nat.mul m x) eq
+  Equal.mirror app
+
+// 9.0.1
+// andb_true_elim_2 : (b, c : Bool) →  (b && c = True) →  c = True
+// andb_true_elim_2 b c prf = ?andb_true_elim_2_rhs
+And_true_elim_2 (b: Bool) (c: Bool) (e: Equal Bool (Bool.and b c) Bool.true) : (Equal Bool c Bool.true)
+// And_true_elim_2 Bool.true   c e = ?
+And_true_elim_2 b Bool.true e   = Equal.refl
+// And_true_elim_2 b Bool.false e  = ?
+// And_true_elim_2 b Bool.false e  = ?
+// And_true_elim_2 Bool.false  c e = ?
+
+
+// - Goal: (Equal Bool Bool.false Bool.true)
+
+// True_is_false : Not (Equal Bool Bool.true Bool.false)
+// True_is_false = ?
+
+
+
+// And1 (b: Bool) (c: Bool)      : (Equal Bool (Bool.and b c) (Bool.and c b))
+// And1 Bool.true  Bool.true     = Equal.refl
+// And1 Bool.true  Bool.false    = Equal.refl
+// And1 Bool.false Bool.true     = Equal.refl
+// And1 Bool.false Bool.false    = Equal.refl
+
+And_true_elim_2 Bool.true   Bool.true   e = Equal.refl
+And_true_elim_2 Bool.false  Bool.false  e =
+  let hip2  = Equal.mirror e
+  let hip   = True_is_false
+  let hip3  = hip hip2
+  let hip4  = Empty.absurd hip3
+  hip4
+// ?
+
+True_is_false : Not ( Equal Bool Bool.true Bool.false)
+// True_is_false =
+  // let hip = (x => (Equal.rewrite x (k => if k { Nat } else { Empty  }  ) Nat.zero))
+  // ?
+// 9.0.2
+// zero_nbeq_plus_1 : (n : Nat) →  0 →  (n + 1) = False
+// zero_nbeq_plus_1 n = ?zero_nbeq_plus_1_rh
+Zero_nbeq_plus_1  (n: Nat)      : (Equal Bool (Nat.equal Nat.zero (Nat.add n (Nat.succ Nat.zero))) Bool.false)
+Zero_nbeq_plus_1  Nat.zero      = Equal.refl
+Zero_nbeq_plus_1  (Nat.succ n)  = Equal.refl
+
+// 11.0.1
+// identity_fn_applied_twice : (f : Bool → Bool) →
+// ((x : Bool) → f x = x) →
+// (b : Bool) →  f (f b) = b
+// identity_fn_applied_twice f g b = ?identity_fn_applied_twice_rhs
+Identity_fn_applied_twice (f: Bool -> Bool) (e: (x: Bool) -> Equal (f x) x) (b: Bool) : (Equal (f (f b)) b)
+Identity_fn_applied_twice f e b = 
+  let ind = (e b)
+  let app = Equal.rewrite (Equal.mirror ind) (x => (Equal (f x) b)) ind
+  app
+
+// 11.0.2
+// andb_eq_orb : (b, c : Bool) → (b && c = b || c) → b = c
+// andb_eq_orb b c prf = ?andb_eq_orb_rhs
+Andb_eq_orb (b: Bool) (c: Bool) (e: Equal Bool (Bool.and b c) (Bool.or b c)) : (Equal Bool b c)
+Andb_eq_orb Bool.true b  e = Equal.mirror e
+Andb_eq_orb Bool.false b e = e
+
+
+
+
+
+
+
+
+
+
+
+

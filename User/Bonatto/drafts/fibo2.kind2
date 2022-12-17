@@ -1,0 +1,100 @@
+// Simple recursive Fibonaci
+// =========================
+
+Fibo (x: U60) : U60
+Fibo 0 = 0
+Fibo 1 = 1
+Fibo x = (+ (Fibo (- x 2)) (Fibo (- x 1)))
+
+Main {
+  Fibo 30
+}
+
+// Memoized Fibonacci
+// ==================
+
+// Fibo2_ (recur: U60 -> Memo U60) (x: U60) : (Memo U60)
+// Fibo2_ recur 0 = Memo.pure 0
+// Fibo2_ recur 1 = Memo.pure 1
+// Fibo2_ recur x =
+//   do Memo {
+//     ask b2 = recur (- x 2)
+//     ask b1 = recur (- x 1)
+//     return (+ b2 b1)
+//   }
+//
+// Fibo2 (x: U60): U60 {
+//   Memo.run (r => x => Fibo2_ r x) x
+// }
+//
+// Main {
+//   Fibo2 30
+// }
+//
+// // Memoize implementation
+// // ======================
+// Map.new <t> : Map t {
+//   Bits.Map.new t
+// }
+//
+// Memo (t: Type) : Type
+// Memo t = (Map t) -> U60 -> (Pair t (Map t))
+//
+// Memo.pure <t: Type> (val: t) : (Memo t)
+// Memo.pure t val =
+//   // returns the value and stores  it on the map for the current key
+//   values => curr => (Pair.new val (Map.set values curr val))
+//
+// Memo.bind <t> (memo: Memo t) (then: t -> (Memo t)) : (Memo t)
+// Memo.bind t memo then =
+//   (values: Map t) => (curr: U60) =>
+//     let results = memo values curr
+//     match Pair results {
+//       new =>
+//         let val = results.fst
+//         let new_values = results.snd
+//         let cont = (then val)
+//         (cont new_values curr)
+//     }
+//
+// Curried (t: Type) : Type
+// Curried t = ((x: U60) -> (Memo t)) -> U60 -> Memo t
+//
+// Memo.do_recur <t> (r: U60 -> Memo t) (x: U60) : (Memo t)
+// Memo.do_recur t r x =
+//   values => _ =>
+//     // if the value for x is already cached
+//     let cached = (Map.get values x)
+//     match Maybe cached {
+//       // return the cached value and current cache
+//       some => Pair.new cached.value values
+//       // computes the value
+//       none =>
+//         let next = r x  // match on `x` to proceed
+//         next values x   // `x` is new current input on context
+//     }
+//
+// Memo.entry
+//     <t>
+//     (f: Curried t)
+//     (x: U60)
+//   : Memo t
+// {
+//   let r = (
+//     nx => (f (mx => Memo.entry f mx) nx)
+//   ) :: ((x: U60) -> Memo t)
+//   Memo.do_recur r x
+// }
+//
+// Memo.resolve <t> (memo: Memo t) (x: U60) : t {
+//   let result = memo Map.new x
+//   match Pair result {
+//     new =>
+//       let val = result.fst
+//       val
+//   }
+// }
+//
+// Memo.run <t> (f: ((_: U60) -> (Memo t)) -> U60 -> Memo t) (x: U60) : t {
+//   Memo.resolve t (Memo.entry t f x) x
+// }

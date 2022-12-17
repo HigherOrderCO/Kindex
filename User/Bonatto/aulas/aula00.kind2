@@ -1,0 +1,69 @@
+// Preencha o buraco ?nandb_rhs e complete o
+// seguinte função; em seguida, certifique-se de que as afirmações abaixo possam ser verificadas
+// por Idris. (Preencha cada um dos buracos, seguindo o modelo dos testes orb acima.) O
+// a função deve retornar True se uma ou ambas as entradas forem False
+
+Bool.nand (a: Bool) (b: Bool) : Bool
+Bool.nand Bool.true Bool.true = Bool.false
+Bool.nand a b                 = Bool.true
+
+Problems.nandb (b: Bool)   : (Equal Bool (Bool.nand Bool.false b) Bool.true)
+Problems.nandb Bool.false  = Equal.refl
+Problems.nandb Bool.true   = Equal.refl
+
+Problems.nandbalt (b: Bool)   : (Equal Bool (Bool.nand b Bool.false) Bool.true)
+Problems.nandbalt Bool.true   = Equal.refl
+Problems.nandbalt Bool.false  = Equal.refl
+
+
+// test_nandb1 : (nandb True False) = True
+// test_nandb1 = ?test_nandb1_rhs
+Problems.nandb1   : (Equal Bool (Bool.nand Bool.true Bool.false) Bool.true)
+Problems.nandb1   = Equal.refl
+
+// test_nandb2 : (nandb False False) = True
+// test_nandb2 = ?test_nandb2_rhs
+Problems.nandb2 : (Equal Bool (Bool.nand Bool.false Bool.false) Bool.true)
+Problems.nandb2 = Equal.refl
+
+
+// test_nandb3 : (nandb False True) = True
+// test_nandb3 = ?test_nandb3_rhs
+Problems.nandb3 : (Equal Bool (Bool.nand Bool.false Bool.true) Bool.true)
+Problems.nandb3 = Equal.refl
+
+
+// test_nandb4 : (nandb True True) = False
+// test_nandb4 = ?test_nandb4_rh
+Problems.nandb4 : (Equal Bool (Bool.nand Bool.true Bool.true) Bool.false)
+Problems.nandb4 = Equal.refl
+
+
+
+
+Iseven (n: Nat): (Equal Bool (Nat.is_even  n) Bool.true)
+Iseven Nat.zero     = Equal.refl
+// Iseven (Nat.succ n) =
+  // let ind = Iseven n
+  // let app = Equal.apply (x => (Nat.succ x)) ind
+  // ?
+
+By2isevenprof (n: Nat) (e: Equal Bool (Nat.is_even n) Bool.true) : Equal Nat (Nat.double(Nat.half n) (Nat.half(Nat.double n))
+
+
+
+
+// by2isevenprof (n: Nat) (e: Equal Bool (Nat_is_even n) Bool.true) : Equal Nat (Nat.double(Nat.half n) (Nat.half(Nat.double n))
+// by2isevenprof Nat.zero Bool.true = ?
+// By2iseven (n: Nat) (e: Equal Bool (Nat.is_even (Nat.half n)) Bool.true) : Equal Nat (Nat.double(Nat.half n) (Nat.half(Nat.double n))
+// By2iseven Nat.zero Bool.true = ?
+
+
+
+
+
+
+
+
+
+

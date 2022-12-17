@@ -1,0 +1,4 @@
+Main {
+  let hello = "Hello word"
+  hello
+}

@@ -1,0 +1,18 @@
+Teorema (n: Nat)       : (Equal Nat (Nat.add n n) (Nat.double n))
+Teorema Nat.zero       = Equal.refl
+Teorema (Nat.succ n)   =
+  let ind0 = Teorema n
+  let ind1 = Equal.mirror (Equal.apply (x => (Nat.succ x)) ind0)
+  let ind2 = Teorema.aux n n
+  let chn  = Equal.chain ind1 ind2
+  let app  = Equal.apply (x => (Nat.succ x)) (Equal.mirror chn)
+  app
+// ?
+Teorema.aux (n: Nat) (m: Nat)         : (Equal Nat  (Nat.succ (Nat.add n m)) (Nat.add n (Nat.succ m)))
+Teorema.aux Nat.zero m                = Equal.refl
+Teorema.aux (Nat.succ n) m            =
+ let ind = Teorema.aux n m
+ let app = Equal.apply (x => (Nat.succ x)) ind
+  app
+// ?
+

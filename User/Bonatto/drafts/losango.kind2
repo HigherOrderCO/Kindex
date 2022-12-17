@@ -1,0 +1,31 @@
+Losango (n: Nat)              : String
+Losango Nat.zero              = String.nil
+Losango (Nat.succ Nat.zero)   = " * "
+Losango (Nat.succ n)          =
+  (String.concat (String.repeat " * " n)(
+  String.concat (Char.to_string 10) ( String.concat " " (Losango (n))))) 
+
+
+
+
+Main {
+let a = U60.to_nat 9
+Losango a
+}
+
+//
+// ' *  *  *  *  *  *  *  * \n
+//    *  *  *  *  *  *  * \n
+//     *  *  *  *  *  * \n
+//      *  *  *  *  * \n
+//       *  *  *  * \n
+//        *  *  * \n
+//         *  * \n
+//          * \n
+//          * '
+
+// ' *  *  *  *  *  *  *  * \n
+     // *  *  *  *  *  * \n
+        // *  *  *  * \n
+           // *  * \n
+             // * '

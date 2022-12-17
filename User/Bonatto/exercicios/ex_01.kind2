@@ -1,0 +1,64 @@
+// type MaybeBool
+// It maybe holds a Boolean inside it
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+Bool.eql (a: Bool) (b: Bool)    : Bool
+Bool.eql a Bool.true            = a
+Bool.eql Bool.false Bool.false  = Bool.true
+Bool.eql a b                    = Bool.false
+
+MaybeBool : Type
+MaybeBool.none : MaybeBool
+MaybeBool.some (value: Bool) : MaybeBool
+
+Bool.if <r: Type> (b: Bool) (if_t: r) (if_f: r) : r
+Bool.if r Bool.true  if_t if_f = if_t
+Bool.if r Bool.false if_t if_f = if_f
+
+
+// Returns true if Maybe is none
+Is_none (a: MaybeBool)        : Bool
+Is_none (MaybeBool.none)      = Bool.true
+Is_none (MaybeBool.some a)    = Bool.false
+
+// Returns true if Maybe is some
+Is_some (a: MaybeBool)        : Bool
+Is_some (MaybeBool.none)      = Bool.false
+Is_some (MaybeBool.some a)    = Bool.true
+
+
+// Returns true if both inputs are identical
+// eql(MaybeBool.none,             MaybeBool.none            ) -> true
+// eql(MaybeBool.some(Bool.false), MaybeBool.none            ) -> false
+// eql(MaybeBool.some(Bool.true),  MaybeBool.some(Bool.false)) -> false
+// eql(MaybeBool.some(Bool.false), MaybeBool.some(Bool.false)) -> true
+MaybeBool.eql (a: MaybeBool) (b:MaybeBool)          : Bool
+MaybeBool.eql MaybeBool.none MaybeBool.none         = Bool.true
+MaybeBool.eql (MaybeBool.none) (MaybeBool.some b)   = Bool.false
+MaybeBool.eql (MaybeBool.some a) (MaybeBool.none)   = Bool.false
+MaybeBool.eql (MaybeBool.some a) (MaybeBool.some b) = (Bool.if (Bool.eql a b) Bool.true Bool.false)
+
+// Returns the value inside the MaybeBool.
+// If there is no value contained, returns v instead
+MaybeBool.extract (a: MaybeBool) (v: Bool)  : Bool
+MaybeBool.extract MaybeBool.none v          = v
+MaybeBool.extract (MaybeBool.some a) v      = a
+
+// Create a MaybeBool from a Boolean
+// create(Bool.false) -> MaybeBool(Bool.false)
+MaybeBool.create (a: Bool) : MaybeBool
+MaybeBool.create a         = MaybeBool.some(a)
+
+Main {
+  let a = (MaybeBool.none)
+  let b = (MaybeBool.some(Bool.true))
+  let c = (MaybeBool.some(Bool.false))
+  let d = Bool.true
+  // (Is_none a)
+  // (Is_some b)
+  // (MaybeBool.eql c b)
+  // (MaybeBool.extract c d)
+  (MaybeBool.create d)
+}

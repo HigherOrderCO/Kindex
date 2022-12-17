@@ -1,0 +1,2 @@
+Problems.t36 (a: Nat) (f: Nat -> Type) (p: (f a)) : f (Nat.same a)
+Problems.t36 a f p = ?

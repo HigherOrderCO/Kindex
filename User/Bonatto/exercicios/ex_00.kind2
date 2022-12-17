@@ -1,0 +1,94 @@
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+// Is true
+// Returns true if input is true
+Bool.is_true (a: Bool)  : Bool
+Bool.is_true a          = a
+
+Prova.0 : (Equal Bool Bool.true Bool.true)
+Prova.0 = Equal.refl 
+
+// Is false
+// Returns true if input is false
+Bool.is_false (a: Bool)   : Bool
+Bool.is_false Bool.true   = Bool.false
+Bool.is_false Bool.false  = Bool.true
+
+Prova.1 : (Equal Bool (Bool.is_false Bool.false) Bool.true)
+Prova.1 = Equal.refl
+
+// Negation
+// Returns the opposite of a Bool
+Bool.neg (b: Bool)    : Bool
+Bool.neg Bool.true    = Bool.false
+Bool.neg Bool.false   = Bool.true
+
+Prova.2 : (Equal Bool (Bool.neg Bool.false) Bool.true)
+Prova.2 = Equal.refl
+
+// And
+// Returns true if both inputs are true
+Bool.and (a: Bool) (b: Bool)  : Bool
+Bool.and Bool.true b          = b
+Bool.and a b                  = b
+
+Prova.3 : (Equal Bool (Bool.and Bool.true Bool.true) Bool.true)
+Prova.3 = Equal.refl
+
+// Equal
+// Returs true if both inputs are identical
+Bool.eql (a: Bool) (b: Bool)    : Bool
+Bool.eql a Bool.true            = a
+Bool.eql Bool.false Bool.false  = Bool.true
+Bool.eql a b                    = Bool.false
+
+Prova.4 : (Equal Bool (Bool.eql Bool.true Bool.true) Bool.true)
+Prova.4 = Equal.refl
+
+Prova.5 : (Equal Bool (Bool.eql Bool.false Bool.false) Bool.true)
+Prova.5 = Equal.refl
+
+// Xor
+// Returns true if both inputs are different
+Bool.xor (a: Bool) (b: Bool)    : Bool
+Bool.xor Bool.false Bool.false  = Bool.false
+Bool.xor Bool.true Bool.true    = Bool.false
+Bool.xor a b                    = Bool.true
+
+// Prova.6 : (Equal Bool (Bool.xor Bool.true Bool.true)i
+
+// Nor
+// Returns true if both inputs are false
+Bool.nor (a: Bool) (b: Bool)    : Bool
+Bool.nor Bool.false Bool.false  = Bool.true
+Bool.nor a b                    = Bool.false
+
+// Nand
+// Returns false only if both inputs are true
+Bool.nand (a: Bool) (b: Bool)   : Bool
+Bool.nand Bool.true Bool.true   = Bool.false
+Bool.nand a b                   = Bool.true
+
+// Xnor
+// Returns true if both inputs are identical
+Bool.xnor (a: Bool) (b: Bool)   : Bool
+Bool.xnor a Bool.true           = a
+Bool.xnor Bool.false Bool.false = Bool.true
+Bool.xnor a b                   = Bool.false
+
+  Main {
+    let a = Bool.false
+    let b = Bool.true
+    // (Bool.is_true(a))
+    // (Bool.is_false(a))
+    // (Bool.neg(b))
+    // (Bool.and a b)
+    // (Bool.eql a b)
+    (Bool.xor a b)
+    // (Bool.nor a b)
+    // (Bool.nand a b)
+    // (Bool.xnor a b)
+    // (Prova.0 a b)
+}

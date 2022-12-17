@@ -1,0 +1,55 @@
+Bool: Type
+Bool.true : Bool
+Bool.false: Bool
+
+Problems.t0 : (Equal Bool Bool.true Bool.true)
+Problems.t0 = Equal.refl
+
+Problems.t1 (a: Bool) : (Equal Bool (Bool.and Bool.false a) Bool.false)
+Problems.t1 a         = Equal.refl
+
+Problems.t2 (a: Bool)   : (Equal Bool (Bool.and a Bool.false) Bool.false)
+Problems.t2 Bool.false  = Equal.refl
+Problems.t2 Bool.true   = Equal.refl
+
+Problems.t3 (a: Bool) : (Equal Bool (Bool.or Bool.true a) Bool.true)
+Problems.t3 a         = Equal.refl
+
+Problems.t4 (a: Bool)   : (Equal Bool (Bool.or a Bool.true) Bool.true)
+Problems.t4 Bool.false  = Equal.refl
+Problems.t4 Bool.true   = Equal.refl
+
+Problems.t5 (a: Bool) : (Equal Bool (Bool.or Bool.false a) a)
+Problems.t5 a         = Equal.refl
+
+Problems.t6 (a: Bool)   : (Equal Bool (Bool.or a Bool.false) a)
+Problems.t6 Bool.false  = Equal.refl
+Problems.t6 Bool.true   = Equal.refl
+
+Problems.t7 (a: Bool)   : (Equal Bool (Bool.equal a a) Bool.true)
+Problems.t7 Bool.false  = Equal.refl
+Problems.t7 Bool.true   = Equal.refl
+
+Problems.t8 : (Equal Bool (Bool.not Bool.true) Bool.false)
+Problems.t8 = Equal.refl
+
+Problems.t9 : (Equal Bool (Bool.not (Bool.not Bool.true)) Bool.true)
+Problems.t9 = Equal.refl
+
+Problems.t10 (a: Bool)  : (Equal Bool (Bool.not (Bool.not a)) a)
+Problems.t10 Bool.false = Equal.refl 
+Problems.t10 Bool.true  = Equal.refl
+
+Problems.t11 (a: Bool) (b: Bool)  : (Equal Bool (Bool.not(Bool.and a b)) (Bool.or(Bool.not a) (Bool.not b)))
+Problems.t11 Bool.true b          = Equal.refl
+Problems.t11 Bool.false b         = Equal.refl
+
+Problems.t12 (a: Bool) (b: Bool)  : (Equal Bool (Bool.not(Bool.or a b)) (Bool.and(Bool.not a) (Bool.not b)))
+Problems.t12 Bool.true b          = Equal.refl
+Problems.t12 Bool.false b         = Equal.refl
+
+Problems.t13 (a: Bool) (b: Bool) : (Equal Bool (Bool.not (Bool.and a b)) (Bool.or (Bool.not a) (Bool.not b)))
+Problems.t13 Bool.false a = Equal.refl
+Problems.t13 Bool.true a  = Equal.refl
+
+

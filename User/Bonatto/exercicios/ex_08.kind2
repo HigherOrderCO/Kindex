@@ -1,0 +1,89 @@
+Nat : Type
+Nat.zero : Nat
+Nat.succ(pred: Nat) : Nat
+
+// Basic exercises involving Lists
+List <a: Type> : Type
+List.nil  : (List Nat)
+List.cons (head: Nat) (tail: List Nat) : (List Nat)
+
+Maybe <a: Type> : Type
+Maybe.none <a> : (Maybe a)
+Maybe.some <a> (value: a) : (Maybe a)
+
+List.to_nat (xs : List U60) : List Nat
+List.to_nat xs = List.map xs (x => U60.to_nat x)
+
+// Returns the head of the List
+List_head <a: Type> (xs: (List a))    : (Maybe a)
+List_head List.nil                    = Maybe.none
+List_head (List.cons xs.head xs.tail) = Maybe.some(xs.head)
+
+// // Returns the list without the first element
+List_tail <a: Type> (xs: (List a))    : (List a)
+List_tail List.nil                    = List.nil
+List_tail (List.cons xs.head xs.tail) = xs.tail
+
+// Returns the length of a list
+List_length <a: Type> (xs: (List a))    : Nat
+List_length List.nil                    = Nat.zero
+List_length (List.cons xs.head xs.tail) = Nat.succ (List_length xs.tail)
+
+// Returns the last element of a list
+List_last <a: Type> (xs: (List a))      : Maybe
+List_last List.nil                      = Maybe.none
+List_last (List.cons xs.head List.nil)  = Maybe.some (xs.head) 
+List_last (List.cons xs.head xs.tail)   = List_last xs.tail
+
+// Returns the list without the last element
+List_init <a: Type> (xs: (List a))      : (List a)
+List_init List.nil                      = List.nil
+List_init (List.cons xs.head List.nil)  = List.nil
+List_init (List.cons xs.head xs.tail)   = (List.cons xs.head (List_init xs.tail))
+
+// Concatenates two lists
+List_concat <a: Type> (xs: (List a)) (ys: (List a)) : (List a)
+List_concat xs List.nil                             = xs
+List_concat List.nil ys                             = ys
+List_concat (List.cons xs.head xs.tail) ys          = List.cons xs.head (List_concat xs.tail ys)
+
+// Removes n elements from the start of the list
+List_drop <a: Type> (n: Nat) (xs: (List a))         : (List a)
+List_drop Nat.zero xs                               = xs
+List_drop (Nat.succ n) (List.cons xs.hea xs.tail)   = List_drop n xs.tail
+
+// Creates a new list with the N first elements of the previous list
+// List.take<Nat>(3, [1,2,3,4,5]) -> [1,2,3]
+List_take <a: Type> (n: Nat) (xs: (List a))         : (List a)
+List_take Nat.zero xs                               = List.nil
+List_take (Nat.succ n) (List.cons xs.head xs.tail)  = List_concat [xs.head] (List_take n xs.tail)
+
+// Applies a function to all elements of a list
+List_map <a: Type> <b: Type> (func: a -> b) (xs: (List a))  : (List b)
+List_map func List.nil                                      = List.nil
+List_map func (List.cons xs.head xs.tail)                   = List.cons (func xs.head) (List_map func xs.tail)
+
+// Returns the same list, with the order reversed
+List_reverse <a: Type> (xs: List a)         : (List a)
+List_reverse List.nil                       = List.nil
+List_reverse (List.cons xs.head xs.tail)    = List_concat (List_reverse xs.tail) [xs.head]
+
+Main {
+    let a = [(Nat.succ(Nat.zero)), (Nat.succ(Nat.succ(Nat.zero))), (Nat.succ(Nat.succ(Nat.succ(Nat.zero))))]
+    let b = List.to_nat [1, 2, 3, 4, 5]
+    let c = List.to_nat [6, 7, 8, 9] 
+    let d = List.to_nat [1, 2, 2, 3, 4]
+    let e = []
+    // List_head e
+    // List_tail a
+    // List_length b
+    // List_last e
+    // List_init d
+    // List.map (x => (Nat.inc x)) a 
+    // List.reverse a
+    // List_concat b c
+    // List_drop (U60.to_nat 3) b
+    // List_take (U60.to_nat 3) b
+    // List_map (x => (Nat.add (Nat.succ Nat.zero) x))  b
+    List_reverse b
+}

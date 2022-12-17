@@ -1,0 +1,365 @@
+Bool      : Type
+Bool.true : Bool
+Bool.false: Bool
+
+Bool.and (a: Bool) (b: Bool)  : Bool
+Bool.and Bool.true Bool.true  = Bool.true
+Bool.and a b                  = Bool.false
+
+Bool.if  <r: Type> (b: Bool ) (if_t: r) (if_f: r) : r
+Bool.if r Bool.true   if_t if_f                   = if_t
+Bool.if r Bool.false  if_t if_f                   = if_f
+
+// Bool.match (x: Bool) -(p: (x: Bool) Type) (true: (p Bool.true)) (false:(p Bool.false)) : (p x)
+// Bool.match Bool.true  p true false  = (true)
+// Bool.match Bool.false p true false  = (false)
+
+U60.to_bool (n: U60)  : Bool
+U60.to_bool 0         = Bool.false
+U60.to_bool n         = Bool.true
+
+U60.ltn (a: U60) (b: U60) : Bool
+U60.ltn a b               = U60.to_bool ( < a b )
+
+U60.lte (a: U60) (b: U60) : Bool
+U60.lte a b               = U60.to_bool ( <= a b)
+
+U60.gtn (a: U60) (b: U60) : Bool
+U60.gtn a b               = U60.to_bool ( > a b )
+
+U60.gte (a: U60) (b: U60) : Bool 
+U60.gte a b               = U60.to_bool ( >= a b)
+
+U60.eql (a: U60) (b: U60) : Bool
+U60.eql a b               = U60.to_bool ( == a b)
+
+U60.and (a: U60) (b: U60) : Bool
+U60.and a b               = U60.to_bool ( & a b )
+
+U60.or  (a: U60) (b: U60) : Bool
+U60.or a b                = U60.to_bool ( | a b )
+
+U60.xor (a: U60) (b: U60) : Bool
+U60.xor a b               = U60.to_bool ( ^ a b )
+
+Nat                   : Type
+Nat.zero              : Nat
+Nat.succ (pred: Nat)  : Nat
+
+Bits                : Type
+Bits.e              : Bits
+Bits.o (pred: Bits) : Bits
+Bits.i (pred: Bits) : Bits
+
+Maybe <a: Type>           : Type
+Maybe.none <a>            : (Maybe a)
+Maybe.some <a> (value: a) : (Maybe a)
+
+//  Char and String
+//  Charactere Type
+//  Alias for U60
+Char : Type
+Char = U60
+
+//Syntax sugar for U60
+//      0#16, 1#16, 2#16 ...
+// Syntax sugar for Char 
+//      '0', '1', '2' ...
+
+//Ascii Table from Wikipedia:
+// https://upload.wikimedia.org/wikipedia/commons/1/1b/ASCII-Table-wide.svg
+
+//  _________________________________________
+// | U60 Syntax Sugar   | Char Syntax Sugar  |
+// |--------------------|--------------------|
+// |     72#60          |      'H'           |
+// |    101#60          |      'e'           |
+// |    121#60          |      'y'           |
+//  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+//  Verifies if the character is Upper Case
+//  is_upper('a') -> Bool.false
+//  is_upper('A') -> Bool.true
+//  is_upper('0') -> Bool.false
+Char.is_upper(x: Char): Bool
+Char.is_upper x       =
+  Bool.if (Bool.and (U60.lte 'A' x)(U60.gte 'Z' x)) Bool.true Bool.false
+
+//  Verifies if the character is Lower Case
+//  is_lower('a') -> Bool.true
+//  is_lower('A') -> Bool.false
+//  is_lower('0') -> Bool.false
+Char.is_lower(x: Char): Bool
+Char.is_lower x       =
+  Bool.if (Bool.and (U60.lte 'a' x)(U60.gte 'z' x)) Bool.true Bool.false
+
+//  Verifies if the character is a Number-Digit Value
+//  is_digit('a') -> Bool.false
+//  is_digit('A') -> Bool.false
+//  is_digit('0') -> Bool.true
+Char.is_digit(x: Char): Bool
+Char.is_digit x       =
+  Bool.if (Bool.and (U60.lte '0' x)(U60.gte '9' x)) Bool.true Bool.false
+
+//  Verifies if both of the Characters are the same
+//  is_equal('a'  'A') -> Bool.false
+//  is_equal('A'  '0') -> Bool.false
+//  is_equal('0'  '0') -> Bool.truech
+Char.equal(x: Char) (y: Char) : Bool
+Char.equal x y                =
+  Bool.if (U60.eql x y) Bool.true Bool.false
+
+//  Transforms Characters into Nat digits
+//  to_digit('0') -> Nat.zero
+//  to_digit('1') -> Nat.succ(Nat.zero)
+//  to_digit('4') -> 4
+Char.to_digit(x: Char): U60
+Char.to_digit x       =
+  Bool.if (Char.is_digit x) (- x 48) x
+//  Transforms all Characters into Lower Case Characters
+//  to_lower('A') -> 'a'
+//  to_lower('B') -> 'b'
+//  to_lower('Z') -> 'z'
+Char.to_lower (x: Char) : Char
+Char.to_lower x         =
+  Bool.if (Char.is_upper x) (+ x 32) x
+
+//  Transforms all Characters into Upper Case Characters
+//  to_upper('a') -> 'A'
+//  to_upper('b') -> 'B'
+//  to_upper('z') -> 'Z'
+Char.to_upper (x: Char) : Char
+Char.to_upper x         = 
+  Bool.if (Char.is_lower x) (- x 32) x
+
+//String Type
+String : Type
+String.nil : String
+String.cons (head: Char) (tail: String) : String
+
+Char.to_string (x: Char)  : String
+Char.to_string x          = String.cons x (String.nil)
+
+//Without Syntax Sugar for String
+//a = String.cons('H'  String.cons('I'  String.nil))
+//b = String.cons('H'  String.cons('e'  String.cons('l'  String.cons('l'  String.cons('o'  String.nil)))))
+//c = String.cons('t'  String.cons('e'  String.cons('x'  String.cons('t'  String.nil))))
+
+//Syntax Sugar for String
+//a = "HI"
+//b = "Hello"
+//c = "text"
+
+
+//    Concatenates two Strings into one
+//    concat(a b) -> "HiHello"
+//    concat(b c) -> "Hellotext"
+String.concat (xs: String) (ys: String)          : String
+String.concat String.nil ys                     = ys
+String.concat (String.cons xs.head xs.tail) ys  = 
+  let ind = String.concat xs.tail ys
+  String.cons xs.head ind
+  // ?
+
+//    Applies a Function to all Characters of the String
+//    map(to_lower  a) -> "hi"
+String.map (func: Char -> Char) (xs: String)  : String
+String.map func String.nil                    = String.nil
+String.map func (String.cons xs.head xs.tail) = 
+  let ind = String.map func xs.tail
+  String.cons (func xs.head) ind
+
+//    Converts all Lower Case Caracters in a String to Upper Case
+//    string_to_upper(c) -> "TEXT"
+String.to_upper (xs: String)  : String
+String.to_upper xs            = String.map (x => Char.to_upper x) xs
+
+//    Convers the String into bits
+//    to_bits(a) -> "0000000001001001 0000000001001000"
+//    to_bits(b) -> "0000000001101111 0000000001101100 00000000011011000 000000001100101 0000000001001000"
+//    to_bits(c) -> "0000000001110100 0000000001111000 00000000011001010 000000001110100"
+Char.to_bits (x: Char)  : Bits
+Char.to_bits x          = Nat.to_bits (U60.to_nat( x))
+  
+
+Bits.concat (a: Bits) (b: Bits) : Bits
+Bits.concat Bits.e     b = b
+Bits.concat (Bits.o a) b = Bits.o(Bits.concat a b)
+Bits.concat (Bits.i a) b = Bits.i(Bits.concat a b)
+
+
+
+String.to_bits (xs: String)                   : Bits
+String.to_bits String.nil                     = Bits.e
+String.to_bits (String.cons xs.head xs.tail)  = 
+  Bits.concat (Char.to_bits xs.head) (String.to_bits xs.tail)
+
+
+//    Verifies if two Strings are Equal
+//    stringequal(a  a) -> Bool.true
+//    stringequal(a  b) -> Bool.false
+//    stringequal(b  c) -> Bool.false
+String.equal (xs: String) (ys: String)                                    : Bool
+String.equal String.nil String.nil                                        = Bool.true
+String.equal (String.cons xs.head xs.tail) (String.cons ys.head ys.tail)  = 
+  Bool.if (Char.equal xs.head ys.head) (String.equal xs.tail ys.tail) Bool.false
+
+
+//    Verifies if All String elements are Numbers
+//    is_nat(a)      -> Bool.false
+//    is_nat(b)      -> Bool.false
+//    is_nat("1234") -> Bool.true
+String.is_nat (xs: String): Bool
+String.is_nat String.nil  = Bool.true
+String.is_nat (String.cons xs.head xs.tail) =
+  Bool.if (Char.is_digit xs.head) (String.is_nat xs.tail) Bool.false
+
+//    Takes any elements while the condition is matched.
+//    take_while(is_upper     a) -> "HI"
+//    take_while(is_lower     b) -> ""
+//    take_while(is_equal('t')  c) -> "t"
+String.take_while (func: Char -> Bool) (xs: String)   : String
+String.take_while func String.nil                     = String.nil
+String.take_while func (String.cons xs.head xs.tail)  =
+  let stringX = String.take_while func xs.tail
+  Bool.if (func xs.head) (String.cons xs.head stringX) String.nil
+
+//    Finds the index of the head for the first occurence if any of the Characters are equal
+//    find(a  "H") -> Maybe.some(1)
+//    find(b  "l") -> Maybe.some(2)
+//    find(c  "x") -> Maybe.some(2)
+//    find(c  "z") -> Maybe.none
+Maybe.inc_U60  (a: (Maybe U60)) : (Maybe U60)
+Maybe.inc_U60 Maybe.none        = Maybe.none
+Maybe.inc_U60 (Maybe.some(a))   = Maybe.some (+ 1 a)
+
+String.find (xs: String) (x: Char)          : (Maybe U60)
+String.find String.nil    x                 = Maybe.none
+String.find (String.cons xs.head xs.tail) x =
+  Bool.if (Char.equal xs.head x) (Maybe.some(0)) (Maybe.inc_U60 (String.find xs.tail x))
+
+//    Filters the String and discards all the Chars that doesn't satisfy given condition
+//    filter(is_upper       a) -> "HI"
+//    filter(is_lower       b) -> "ello"
+//    filter(is_equal('t')  c) -> "tt"
+String.filter (func: Char -> Bool) (xs: String) : String
+String.filter func String.nil                   = String.nil
+String.filter func (String.cons xs.head xs.tail)=
+  let stringX = String.filter func xs.tail
+  Bool.if (func xs.head) (String.cons xs.head stringX ) stringX
+
+
+List <a: Type> : Type
+List.nil <a> : (List a)
+List.cons <a> (head: a) (tail: List a) : (List a)
+//    Concatenates all elements of a List of Strings
+//    String.flatten [a b c] -> "HIHellotext"
+String.flatten (lxs: (List String))       : String
+String.flatten List.nil                   = String.nil
+String.flatten (List.cons xs.head xs.tail)= String.concat xs.head (String.flatten xs.tail)
+
+
+//    Drops a n Number of characteres from a String
+//    String.drop 1  a -> "I"
+//    String.drop 2  b -> "llo"
+//    String.drop 3  c -> "t"
+String.drop (n: U60) (xs: String)           : String
+String.drop n String.nil                    = String.nil
+String.drop '0' xs                          = xs
+String.drop n (String.cons xs.head xs.tail) =
+  let nat       = Bool.and (U60.lte '0' n)(U60.gte '9' n)
+  let rec       = String.drop (- n 1) xs.tail
+  let original  = String.cons xs.head xs.tail
+  Bool.if nat rec (original)
+
+//    Takes n elements of a String
+//    String.take 1  a ->  "H"
+//    String.take 2  b ->  "He"
+   // String.take 3  c ->  "tex"
+String.take (n: U60) (xs: String)           : String
+String.take '0' xs                          = String.nil
+String.take n String.nil                    = String.nil
+String.take n (String.cons xs.head xs.tail) =
+  let nat       = Bool.and (U60.lte '0' n) (U60.gte '9' n)
+  let rec       = String.cons xs.head (String.take (- n 1) xs.tail)
+  let original  = String.cons xs.head xs.tail
+  Bool.if nat rec (original)
+
+String.length (xs: String)                  : U60
+String.length String.nil                    = '0'
+String.length (String.cons xs.head xs.tail) = (+ 1 (String.length xs.tail))
+  
+
+
+// Final Boss
+//    Divides the elements of a String into a list  using a match you decide
+//    String.split b  "l"                                    -> ["He" ""   "o"]
+//    String.split "Split example with matching space"  " "  -> ["Split example with matching space]
+//    String.split "You are awesome!"  " "                   -> ["You" "are" "awesome!"]
+String.split (xs: String) (matched: String) : (List String)
+String.split xs matched = String.split.go xs matched "" (String.length matched)
+//
+String.split.go (xs: String) (matched: String) (acum: String) (n: U60) : (List String)
+String.split.go String.nil matched acum n                    = [acum]
+String.split.go xs String.nil acum n                    = [xs]
+String.split.go (String.cons xsh xst) matched acum n    =
+  let num         = (String.length matched)
+  let original    = String.cons xsh xst
+  let str_eql     = String.equal matched (String.take num original)
+  let recursion   = String.split.go (String.drop num original) matched "" num
+  let if_str_eql  = List.cons acum recursion
+  let if_str_dif  = String.split.go xst matched (String.concat acum (Char.to_string xsh)) num
+  Bool.if str_eql if_str_eql if_str_dif
+//
+//
+  // Bool.match str_eql (x => _) if_str_eql if_str_dif
+  // ?
+  // Bool
+
+  // Bool.match (String.equal matched (String.take n original)) (x => _) (List.cons acum (String.split.go (String_drop n original) matched "" n)) (String.split.go xst matched (String.concat acum (Char.to_string xsh)) n)
+// // Final Boss
+// // Divides the elements of a String into a list  using a match you decide
+//String.split b  "l"                                    -> ["He" ""   "o"]
+//String.split "Split example with matching space"  " "  -> ["Split example with matching space]
+//String.split "You are awesome!"  " "                   -> ["You" "are" "awesome!"]
+// String.split (xs: String) (matched: String) : (List String)
+// String.split xs matched = String.split.go xs matched "" (String.length matched)
+
+// String.split.go (xs: String) (ys: String) (acum: String) (n: U60) : (List String)
+// String.split.go String.nil ys         acum n = List.cons acum (List.nil)
+// String.split.go xs         String.nil acum n = List.cons xs (List.nil)
+// String.split.go (String.cons head tail) ys acum n =
+  // Bool.match (String.equal ys (String.take n (String.cons head tail))) (x => _) (List.cons acum (String.split.go (String.drop n (String.cons head tail)) ys "" n)) (String.split.go tail ys (String.concat acum (Char.to_string head)) n)
+
+
+
+Main{
+    let a =(String.cons'H'(String.cons'I'(String.nil)))
+    let b =(String.cons'H'(String.cons'e'(String.cons'l'(String.cons'l'(String.cons'o'(String.nil))))))
+    let c =(String.cons't'(String.cons'e'(String.cons'x'(String.cons't'(String.nil)))))
+    // String.split b  "l"
+    // (String.split "Split example with matching space"  " ")
+    // let d = Char.to_lower 'A'
+    // Char.equal 'a' 'A'
+    // Char.is_digit 'c'
+    // Char.to_digit 'e'
+    // Char.to_lower '#'
+    // Char.to_upper 'z'
+    // Char.to_string (Char.to_upper 'z')
+    // let d = String.concat "ohayo " "pokko"
+    // String.map (x => Char.to_upper x) d
+    // String.to_upper b
+    // Char.to_bits 'a'
+    // String.to_bits ""
+    // String.equal "casa" "caza"
+    // String.is_nat "U60"
+    // String.take_while (x => Char.equal x 't') "teXt"
+    // Maybe.inc_U60 (Maybe.some(1))
+    // String.find "cupuaçu" 't'
+    // String.flatten [a, b, c]
+    // String.drop '4' "casaquistão"
+    // String.take '3' "casaquistão"
+    // String.length "casa"
+    // String.split "a barata diz que tem sete saias de filo" " "
+    // String.split.go "hello" "l" "" 1
+}

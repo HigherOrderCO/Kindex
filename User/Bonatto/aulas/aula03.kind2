@@ -1,0 +1,206 @@
+// 1.0.1
+// mult_0_r : (n : Nat) → n * 0 = 0
+// mult_0_r n = ?mult_0_r_rhs
+Mult_0_r (n: Nat)     : (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+Mult_0_r Nat.zero     = Equal.refl
+Mult_0_r (Nat.succ n) = 
+  let ind = Mult_0_r n
+  let app = Equal.apply (x => (Nat.add x Nat.zero)) ind
+  app
+
+// plus_n_Sm : (n, m : Nat) → S (n + m) = n + (S m)
+// plus_n_Sm n m = ?plus_n_Sm_rhs
+Plus_n_sm (n: Nat) (m: Nat) : (Equal Nat (Nat.succ (Nat.add n m)) (Nat.add n (Nat.succ m)))
+Plus_n_sm Nat.zero m        = Equal.refl
+Plus_n_sm (Nat.succ n) m    = 
+  let ind = Plus_n_sm n m
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  app
+
+// plus_comm : (n, m : Nat) → n + m = m + n
+// plus_comm n m = ?plus_comm_rhs
+Plus_comm (n: Nat) (m: Nat) : (Equal Nat (Nat.add n m) (Nat.add m n))
+Plus_comm Nat.zero m        = Equal.mirror (Add_0_r m)
+Plus_comm (Nat.succ n) m    =
+  let ind = Plus_comm n m
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  let fim = Equal.chain app (Plus_n_sm m n)
+  fim
+
+
+Add_0_r (n: Nat)      : (Equal Nat (Nat.add n Nat.zero) n)
+Add_0_r Nat.zero      = Equal.refl
+Add_0_r (Nat.succ n)  = 
+  let ind = Add_0_r n
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  app
+
+// plus_assoc : (n, m, p : Nat) →  n + (m + p) = (n + m) + p
+// plus_assoc n m p = ?plus_assoc_rhs
+Plus_assoc (n: Nat) (m: Nat) (p: Nat) : (Equal Nat (Nat.add n (Nat.add m p)) (Nat.add (Nat.add n m) p))
+Plus_assoc Nat.zero m p               = Equal.refl 
+Plus_assoc (Nat.succ n) m p           = 
+  let ind = Plus_assoc n m p
+  let app = Equal.apply (x => Nat.succ x) ind
+  app
+
+// 1.0.2
+// double_plus : (n : Nat) → double n = n + n
+// double_plus n = ?double_plus_rhs
+Double_plus (n: Nat)      : (Equal Nat (Nat.double n) (Nat.add n n))
+Double_plus Nat.zero      = Equal.refl
+Double_plus (Nat.succ n)  = 
+  let ind = Double_plus n
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  let fim = Equal.chain app (Plus_n_sm n n)
+  Equal.apply (x => Nat.succ x) fim
+
+// evenb_S : (n : Nat) → evenb (S n) = not (evenb n)
+// evenb_S n = ?evenb_S_rhs
+Evenb_s (n: Nat)      : (Equal Bool (Nat.is_even (Nat.succ n)) (Bool.not (Nat.is_even n)))
+Evenb_s n  = Equal.refl
+
+// 3.0.1
+// plus_swap : (n, m, p : Nat) →  n + (m + p) = m + (n + p)
+// plus_swap n m p = ?plus_swap_rhs
+Plus_swap (n: Nat) (m: Nat) (p: Nat)  : (Equal Nat (Nat.add n (Nat.add m p)) (Nat.add m (Nat.add n p)))
+Plus_swap Nat.zero m p                =  Equal.refl
+Plus_swap (Nat.succ n) m p            =
+  let ind1  = Plus_swap n m p
+  let ind2  = Plus_n_sm m (Nat.add n p)
+  let ind3  = Equal.apply (x => (Nat.succ x)) ind1
+  let app   = Equal.chain ind3 ind2
+  app
+
+// - app : (Equal Nat (Nat.succ (Nat.add n (Nat.add m p))) (Nat.succ (Nat.add m (Nat.add n p))))
+// - Goal: (Equal Nat (Nat.succ (Nat.add n (Nat.add m p))) (Nat.add m (Nat.succ (Nat.add n p))))
+// - ind : (Equal Nat           (Nat.add n (Nat.add m p))           (Nat.add m (Nat.add n p)))
+
+
+// FIXME: Terminar aqui TODO:
+// mult_comm : (m, n : Nat) → m * n = n * m
+// mult_comm m n = ?mult_comm_rhs
+Mult_comm (n: Nat) (m: Nat)   : (Equal Nat (Nat.mul m n) (Nat.mul n m))
+Mult_comm n Nat.zero          = Equal.mirror (Mult_0_r n)
+// Mult_comm n (Nat.succ m.pred)      =
+  // let ind = Mult_comm n m.pred
+  // let app = Equal.apply (x => (Nat.add x n)) ind
+  // ?
+
+
+// Mu
+// - app    : (Equal Nat (Nat.add (Nat.mul m.pred n) n) (Nat.add (Nat.mul n m.pred) n))
+// - Goal: (Equal Nat (Nat.add (Nat.mul m.pred n) n) (Nat.mul n (Nat.succ m.pred)))
+
+  // let ind   = Mult_comm n m
+  // let ind1  = Equal.apply (x => (Nat.add x m)) ind
+  // ?
+
+// - Goal:  (Equal Nat (Nat.mul m (Nat.succ n))   (Nat.add (Nat.mul n m) m))
+// - ind1 : (Equal Nat (Nat.add (Nat.mul m n) m)  (Nat.add (Nat.mul n m) m))
+
+Mult_succ_n (n: Nat) (m: Nat)   :  (Equal Nat (Nat.add (Nat.mul m n) m) (Nat.mul m (Nat.succ n)))
+// Mult_succ_n Nat.zero m          =
+//   let ind0 = Equal.apply (x => (Nat.mul m (Nat.succ Nat.zero))) (Mult_succ_n Nat.zero m)
+//   let ind1 = Mult_0_r m
+//   let ind2 = Mult_succ_n (Nat.succ Nat.zero) m
+//   let rwt1 = Equal.rewrite ind1 (x => (Equal Nat (Nat.add x m) (Nat.mul m (Nat.succ Nat.zero)))) (Mult_succ_n Nat.zero m)
+//   ?
+//
+// - ind0 : (Equal Nat (Nat.mul m (Nat.succ Nat.zero)) (Nat.mul m (Nat.succ Nat.zero)))
+// - Goal : (Equal Nat (Nat.add (Nat.mul m Nat.zero) m) (Nat.mul m (Nat.succ Nat.zero)))
+// - ind2 : (Equal Nat (Nat.add (Nat.mul m (Nat.succ Nat.zero)) m) (Nat.mul m (Nat.succ (Nat.succ Nat.zero))))
+// - ind1 : (Equal Nat          (Nat.mul m Nat.zero) Nat.zero)
+
+Mult_m_one (m: Nat)     : (Equal Nat m (Nat.mul m (Nat.succ Nat.zero)))
+Mult_m_one Nat.zero     = Equal.refl
+Mult_m_one (Nat.succ m) =
+  let ind   = Mult_m_one m
+  // let app   = Equal.apply (x => (Nat.succ x)) ind
+  // let rwt   = Equal.rewrite _ (x =>(Equal Nat (Nat.add m (x Nat.zero)) (Nat.add (Nat.mul m (Nat.succ Nat.zero))(x Nat.zero)))) ind
+  // let app2  = Equal.apply (x => (Nat.add x (Nat.succ Nat.zero))) ind
+
+  ?
+// - app  : (Equal Nat (Nat.succ m)                     (Nat.succ (Nat.mul m (Nat.succ Nat.zero))))
+// - app2 : (Equal Nat (Nat.add m (Nat.succ Nat.zero))  (Nat.add (Nat.mul m (Nat.succ Nat.zero)) (Nat.succ Nat.zero)))
+// - Goal : (Equal Nat (Nat.succ m)                     (Nat.add  (Nat.mul m (Nat.succ Nat.zero)) (Nat.succ Nat.zero)))
+// Mult_succ_n (Nat.succ n) m   = ?
+
+
+// escolhendo qual parece ser melhor
+// Trabalhando com o n (n = 0)
+// - Goal: (Equal Nat (Nat.add (Nat.mul m Nat.zero) m) (Nat.mul m (Nat.succ Nat.zero)))
+// objetivo: ((m * 0) + m) == (m * 1)
+
+//  Trabalhando com o m (m = 0)
+// - Goal: (Equal Nat (Nat.add (Nat.add (Nat.mul m n) n) (Nat.succ m)) (Nat.add (Nat.mul m (Nat.succ n)) (Nat.succ n)))
+// objetivo: (((n * m) = n) + (m + 1)) == ((m * (n + 1))  + (n + 1) )
+
+
+// - Goal: (Equal Nat (Nat.succ m) (Nat.add (Nat.mul m (Nat.succ Nat.zero)) (Nat.succ Nat.zero)))
+// objetivo: (m + 1) == ((m * 1) + 1 )
+
+// 3.0.2
+// lte_refl : (n : Nat) → True = lte n n
+// lte_refl n = ?lte_refl_rhs
+Lte_refl (n: Nat)     : (Equal Bool Bool.true (Nat.lte n n))
+Lte_refl  Nat.zero    = Equal.refl
+Lte_refl (Nat.succ n) = 
+  let ind = Lte_refl n
+  ind
+
+// zero_nbeq_S : (n : Nat) → 0 == (S n) = False
+// zero_nbeq_S n = ?zero_nbeq_S_rhs
+Zero_nbeq_s (n: Nat)  : (Equal Bool (Nat.equal (Nat.zero) (Nat.succ n)) Bool.false)
+Zero_nbeq_s n         = Equal.refl
+
+// andb_false_r : (b : Bool) → b && False = False
+// andb_false_r b = ?andb_false_r_rhs
+Andb_false_r (b: Bool)    : (Equal Bool (Bool.and b Bool.false) Bool.false)
+Andb_false_r Bool.true    = Equal.refl
+Andb_false_r Bool.false   = Equal.refl
+
+// plus_ble_compat_l : (n, m, p : Nat) →
+// lte n m = True → lte (p + n) (p + m) = True
+// plus_ble_compat_l n m p prf = ?plus_ble_compat_l_rhs
+Plus_ble_compat_l (n: Nat) (m: Nat) (p: Nat) (e: (Equal Bool (Nat.lte n m) Bool.true )) : (Equal Bool (Nat.lte (Nat.add p n) (Nat.add p m) ) Bool.true)
+Plus_ble_compat_l n m Nat.zero e      = e
+Plus_ble_compat_l n m (Nat.succ p) e  =  
+  let ind = Plus_ble_compat_l n m p e
+  ind
+  // ?
+// S_nbeq_0 : (n : Nat) → (S n) == 0 = False
+// S_nbeq_0 n = ?S_nbeq_0_rhs
+S_nbeq_0 (n: Nat) : (Equal Bool (Nat.equal (Nat.succ n) Nat.zero) Bool.false)
+S_nbeq_0 n        = Equal.refl
+
+// mult_1_l : (n : Nat) → 1 * n = n
+// mult_1_l n = ?mult_1_l_rhs
+Mult_1_l  (n: Nat)  : (Equal Nat (Nat.mul (Nat.succ Nat.zero) n) n)
+Mult_1_l n          = Equal.refl 
+
+// all3_spec : (b, c : Bool) →
+// (b && c) || ((not b) || (not c)) = True
+// all3_spec b c = ?all3_spec_rhs
+All3_spec (b: Bool) (c: Bool)     : (Equal Bool (Bool.or (Bool.or (Bool.and b c) (Bool.not b)) (Bool.not c)) Bool.true)
+All3_spec Bool.false c            = Equal.refl
+All3_spec Bool.true  Bool.false   = Equal.refl
+All3_spec Bool.true  Bool.true    = Equal.refl
+
+// mult_plus_distr_r : (n, m, p : Nat) → (n + m) * p = (n * p) + (m * p)
+// mult_plus_distr_r n m p = ?mult_plus_distr_r_rhs
+
+
+// mult_assoc : (n, m, p : Nat) → n * (m * p) = (n * m) * p
+// mult_assoc n m p = ?mult_assoc_rhs
+
+
+
+
+
+
+
+
+
+
+

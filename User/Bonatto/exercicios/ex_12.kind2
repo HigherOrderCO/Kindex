@@ -1,0 +1,271 @@
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+Nat : Type
+Nat.zero : Nat
+Nat.succ (pred: Nat) : Nat
+
+Bool.and (a: Bool) (b: Bool) : Bool
+Bool.and Bool.true  Bool.true  = Bool.true
+Bool.and a b  = Bool.false
+
+Bool.if <r: Type> (b: Bool) (if_t: r) (if_f: r) : r
+Bool.if r Bool.true  if_t if_f = if_t
+Bool.if r Bool.false if_t if_f = if_f
+
+Bool.match (x: (Bool)) -(p: (x: (Bool)) Type) (true: (p (Bool.true))) (false: (p (Bool.false))) : (p x)
+Bool.match (Bool.true) p true false = (true)
+Bool.match (Bool.false) p true false = (false)
+
+U60.to_bool (n: U60) : Bool
+U60.to_bool 0 = Bool.false
+U60.to_bool n = Bool.true
+
+String.reverse (xs: String) : String
+String.reverse xs = String.reverse.go String.nil xs
+
+String.reverse.go (new_list: String) (old_list: String) : (String)
+String.reverse.go new_list (String.nil) = new_list
+String.reverse.go new_list (String.cons head tail) = String.reverse.go (String.cons head new_list) tail
+
+U60.show (n: U60) : String
+U60.show n = String.reverse(U60.show.go n)
+
+String : Type
+String.nil : String
+String.cons (head: Char) (tail: String) : String
+
+
+U60.show.go (n: U60) : String
+U60.show.go 0 = String.cons '0' String.nil
+U60.show.go 1 = String.cons '1' String.nil
+U60.show.go 2 = String.cons '2' String.nil
+U60.show.go 3 = String.cons '3' String.nil
+U60.show.go 4 = String.cons '4' String.nil
+U60.show.go 5 = String.cons '5' String.nil
+U60.show.go 6 = String.cons '6' String.nil
+U60.show.go 7 = String.cons '7' String.nil
+U60.show.go 8 = String.cons '8' String.nil
+U60.show.go 9 = String.cons '9' String.nil
+U60.show.go n =
+  if (U60.to_bool(< n 10)) {(U60.show.go n)}
+  else {String.cons (+ 48 (% n 10)) (U60.show.go (/ n 10)) }
+  // let str = String.concat (+ 48 (% n 10)) x
+  // let up = if (U60.to_bool(< n 10)) {(h: U60)  => h} else {(y: String)=> y (U60.show.go (/ n 10)) }
+  // up str
+
+U60.if <r: Type> (n: U60) (t: r) (f: r) : r
+U60.if r 0 t f = f
+U60.if r x t f = t
+
+U60.to_nat (x: U60) : Nat
+U60.to_nat 0 = Nat.zero
+U60.to_nat n = Nat.succ (U60.to_nat (- n 1))
+
+Maybe <a: Type> : Type
+Maybe.none <a> : (Maybe a)
+Maybe.some <a> (value: a) : (Maybe a)
+
+Maybe.show <a: Type> (f: a -> String) (m: Maybe a) : String
+Maybe.show a f (Maybe.none t) = "Maybe.none"
+Maybe.show a f (Maybe.some t value) = (String.concat (String.concat "(Maybe.some " (f value)) ")")
+
+List (a: Type) : Type
+List.nil <a> : (List a)
+List.cons <a> (x: a) (xs: (List a)) : (List a)
+
+Bits  : Type
+Bits.e  : Bits
+Bits.o  (pred: Bits) : Bits
+Bits.i  (pred: Bits) : Bits
+
+Char : Type
+Char = U60
+
+// String.concat (xs: String) (ys: String) : String
+// String.concat String.nil ys = ys
+// String.concat xs String.nil = xs
+// String.concat (String.cons head tail) ys = String.cons head (String.concat tail ys)
+
+String.concat (xs: String) (ys: String)          : String
+String.concat String.nil ys                     = ys
+String.concat xs String.nil                     = xs
+String.concat (String.cons xs.head xs.tail) ys  =
+  let ind = String.concat xs.tail ys
+  String.cons xs.head ind
+
+String.repeat (x: String) (count: Nat) : String
+String.repeat x Nat.zero = String.nil
+String.repeat x (Nat.succ count) = String.concat x (String.repeat x count)
+
+Pair <a: Type> <b: Type> : Type
+Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b)
+
+BitsMap <a: Type> : Type
+BitsMap.new <a> : (BitsMap a)
+BitsMap.tie <a> (val: (Maybe a)) (lft: (BitsMap a)) (rgt: (BitsMap a)) : (BitsMap a)
+
+// Given a Key and a Value, sets the given value to that key in the tree
+// Creates new keys if they don't already exist in the map
+// // If there already is a value for the given key, updates it.
+BitsMap.set <a: Type> (key: Bits) (val: a) (bitsmap: BitsMap a) : (BitsMap a)
+BitsMap.set  Bits.e       val (BitsMap.new)                     = BitsMap.tie (Maybe.some val) BitsMap.new BitsMap.new
+BitsMap.set  Bits.e       val (BitsMap.tie (Maybe.some v) l r)  = BitsMap.tie (Maybe.some val) l r
+BitsMap.set (Bits.o pred) val (BitsMap.new)                     = BitsMap.tie (Maybe.none) (BitsMap.set pred val BitsMap.new) BitsMap.new
+BitsMap.set (Bits.o pred) val (BitsMap.tie (Maybe.some v) l r)  = BitsMap.tie (Maybe.some v) (BitsMap.set pred val l) r
+BitsMap.set (Bits.i pred) val (BitsMap.new)                     = BitsMap.tie (Maybe.none) BitsMap.new  (BitsMap.set pred val BitsMap.new)
+BitsMap.set (Bits.i pred) val (BitsMap.tie (Maybe.some v) l r)  = BitsMap.tie (Maybe.some v) l (BitsMap.set pred val r)
+
+// Given a key, gets the value that correspond to the given key,
+// If there it is no value for the key, returns Maybe.none<A>
+BitsMap.get <a: Type> (key: Bits) (bitsmap: BitsMap a)  : (Maybe a)
+BitsMap.get key BitsMap.new                             = Maybe.none
+BitsMap.get Bits.e  (BitsMap.tie v l r)                 = v
+BitsMap.get (Bits.o pred) (BitsMap.tie v l r)           = BitsMap.get pred l
+BitsMap.get (Bits.i pred) (BitsMap.tie v l r)           = BitsMap.get pred r
+
+
+//Applies a function to a Value of the specific key and returns the same map but
+//with the specific value applied to the function
+//If the value isn't found, this function doesn't change the map
+BitsMap.mut <a: Type> (key: Bits) (func: a -> a) (bitsmap: BitsMap a) : (BitsMap a)
+BitsMap.mut key func BitsMap.new                                      = BitsMap.new
+BitsMap.mut Bits.e func (BitsMap.tie (Maybe.some v) l r)              = (BitsMap.tie (Maybe.some (func v)) l r)
+BitsMap.mut (Bits.o pred) func (BitsMap.tie v l r)                    = (BitsMap.tie (v) (BitsMap.mut pred func l) r)
+BitsMap.mut (Bits.i pred) func (BitsMap.tie v l r)                    = (BitsMap.tie (v) l (BitsMap.mut pred func r))
+
+
+//Deletes a Value of the map within the given key
+//Returns the same map if no value is found for that key
+//Receives:
+//  key of the type Bits
+//  map of the type BitsMap<A>
+//  returns the modified BitsMap<A>
+BitsMap.del <a: Type> (key: Bits) (bitsmap: BitsMap a)  : (BitsMap a)
+BitsMap.del key BitsMap.new                             = BitsMap.new
+BitsMap.del Bits.e  (BitsMap.tie v l r)                 = BitsMap.tie Maybe.none l r
+BitsMap.del (Bits.o pred) (BitsMap.tie v l r)           = BitsMap.tie v (BitsMap.del pred l) r
+BitsMap.del (Bits.i pred) (BitsMap.tie v l r)           = BitsMap.tie v l (BitsMap.del pred r)
+
+//Returns whether or not the map has a value for a given key
+//When there is a value, returns true
+//When there is no value or the key is not in the map, returns false
+//Receives:
+//  key of the type Bits
+//  map of the type BitsMap<A>
+//  returns a Bool
+BitsMap.has <a: Type> (key: Bits) (bitsmap: BitsMap a)  : Bool
+BitsMap.has Bits.e bitsmap                              = Bool.true
+BitsMap.has key BitsMap.new                             = Bool.false
+BitsMap.has (Bits.o pred) (BitsMap.tie v l r)           = BitsMap.has pred l 
+BitsMap.has (Bits.i pred) (BitsMap.tie v l r)           = BitsMap.has pred r
+
+
+
+BitsMap.show <a: Type> (show: a -> String)  (bitsmap: BitsMap a) : String
+BitsMap.show a show bitsmap = BitsMap.show.go a (U60.to_nat 1) show bitsmap
+
+BitsMap.show.go <a: Type> (depth: Nat)  (show: a -> String)  (bitsmap: BitsMap a) : String
+BitsMap.show.go depth show BitsMap.new                                            = "Empty"
+BitsMap.show.go depth show (BitsMap.tie v l r)                                    =
+  let num = (String.repeat "*" depth)
+  (String.concat "{ Tie: " 
+  (String.concat (Maybe.show show v)
+  (String.concat "\n "
+  (String.concat num 
+  (String.concat "Lft: "
+  (String.concat (BitsMap.show.go (Nat.succ depth) show l)
+  (String.concat "\n "
+  (String.concat num
+  (String.concat "Rgt: "
+  (String.concat (BitsMap.show.go (Nat.succ depth) show r)
+  (String.concat "}" String.nil)))))))))))
+
+
+//Verifies all values of the map and if they don't match the condition gets
+//removed, if the condition is matched, the value and the key are kept
+BitsMap.filter <a: Type> (cond: a -> Bool) (bitsmap: BitsMap a) : (BitsMap a)
+BitsMap.filter cond BitsMap.new                                 = BitsMap.new
+BitsMap.filter cond (BitsMap.tie (Maybe.none) l r)              = 
+  let rec_l = BitsMap.filter cond l
+  let rec_r = BitsMap.filter cond r
+  BitsMap.tie Maybe.none rec_l rec_r
+BitsMap.filter cond (BitsMap.tie (Maybe.some v) l r)            =
+  let rec_l = BitsMap.filter cond l
+  let rec_r = BitsMap.filter cond r
+  Bool.if (cond v)(BitsMap.tie (Maybe.some v) rec_l rec_r) (BitsMap.tie (Maybe.none) rec_l rec_r) 
+
+//Applies a function to  all values of the map and returns the map modified
+BitsMap.map <a: Type> <b: Type> (func: a -> b) (bitsmap: BitsMap a) : (BitsMap b)
+BitsMap.map func BitsMap.new                                        = BitsMap.new
+BitsMap.map func (BitsMap.tie Maybe.none l r)                       =
+  let rec_l = BitsMap.map func l
+  let rec_r = BitsMap.map func r
+  BitsMap.tie Maybe.none rec_l rec_r
+BitsMap.map func (BitsMap.tie (Maybe.some v) l r)                   =
+  let rec_l = BitsMap.map func l
+  let rec_r = BitsMap.map func r
+  BitsMap.tie (Maybe.some (func v)) rec_l rec_r
+
+// Returns a list of keys with all Keys of the map
+BitsMap.key <a: Type> (bitsmap: BitsMap a) : (List Bits)
+BitsMap.key a bitsmap = BitsMap.key.go bitsmap Bits.e (List.nil Bits)
+
+BitsMap.key.go <a: Type> (bitsmap: BitsMap a) (key: Bits) (list: (List Bits)) : (List Bits)
+
+
+// Unites two different maps into one, keeping its structure
+// When both maps have values for the same key, keeps the one from a
+BitsMap.union <a: Type> (bitsmapa: BitsMap a) (bitsmapb: BitsMap a) : (BitsMap a) 
+
+Main {
+  let a = Bits.i(Bits.i(Bits.i(Bits.i(Bits.i(Bits.i(Bits.e))))))
+  let b = Bits.o(Bits.o(Bits.o(Bits.o(Bits.o(Bits.o(Bits.e))))))
+  let c = BitsMap.set a 11 BitsMap.new 
+  let d = BitsMap.set b 11 c
+  // let f = BitsMap.map (s => (+ 1 s)) d
+  // let g = BitsMap.union c d
+  // let h = BitsMap.show (s => U60.show s) g
+  // let i = BitsMap.key g
+  // let d = Maybe.show (s => U60.show s) (Maybe.some 11)
+  // BitsMap.get a c
+  // Bits.Map.set Bits.Map.new a "casa"
+  // Bits.Map.set Bits.Map.new (Nat.to_bits (Nat.succ (Nat.succ (Nat.succ Nat.zero))) ) a
+  // BitsMap.mut a (x => (String.to_upper x)) c
+  // BitsMap.del a c
+  // BitsMap.has b c
+  // BitsMap.show (x => (U60.show x)) (d)
+   let e = (BitsMap.filter (x => (U60.is_zero x)) c)
+   let f = ( Bits.e)
+   let g = BitsMap.set f "casa" BitsMap.new 
+   let h = BitsMap.set (Bits.inc f) "sapo" g
+   let i = BitsMap.set (Bits.inc (Bits.inc f)) "amarelo" h
+   let bit = Bits.i (Bits.o Bits.e)
+   let j = BitsMap.set (Bits.inc bit) "gatanojenta" i
+   BitsMap.show (x => x) j
+   // BitsMap.show (x => (U60.show x)) c
+   // j
+   // BitsMap.map (x => (String.show x)) j
+}
+
+
+//
+//            new                     new
+//           /   \                   /   \
+//          0     1                 
+//         / \   / \        
+//        0   1 0   1       
+//
+
+//
+// (BitsMap.tie _ (Maybe.some _ 'CASA') (BitsMap.map _ _
+// (x => (String.map
+//   (c => (Bool.if _ (Bool.not (U60.to_bool (& (<= 65 c) (< c 91)))) (- c 32) c)) x)) (BitsMap.set _ (Bits.i Bits.e) 'gatanojenta' (BitsMap.tie _ (Maybe.none _) (BitsMap.new _) (BitsMap.tie _ (Maybe.some _ 'amarelo') (BitsMap.new _) (BitsMap.new _))))) (BitsMap.tie _ (Maybe.some _ 'SAPO') (BitsMap.new _) (BitsMap.new _)))
+//
+//
+
+// (String.concat
+  // '{ Tie: '
+    // (String.concat '(Maybe.some casa)' (String.concat '\n ' (String.concat '*' (String.concat 'Lft: ' (String.concat (BitsMap.show.go _ (Nat.succ (Nat.succ Nat.zero)) (x => x) (BitsMap.set _ (Bits.i Bits.e) 'gatanojenta' (BitsMap.tie _ (Maybe.none _) (BitsMap.new _) (BitsMap.tie _ (Maybe.some _ 'amarelo') (BitsMap.new _) (BitsMap.new _))))) '\n *Rgt: { Tie: (Maybe.some sapo)\n **Lft: Empty\n **Rgt: Empty}}'))))))
+

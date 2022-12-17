@@ -1,0 +1,219 @@
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+// Bool.if <r: Type> (b: Bool) (if_t: r) (if_f: r) : r
+// Bool.if r Bool.true  if_t if_f = if_t
+// Bool.if r Bool.false if_t if_f = if_f
+
+// Integers
+Inte : Type
+Inte.neg(num: Neg) : Inte 
+Inte.pos(num: Pos) : Inte 
+
+// Positive Numbers
+Pos : Type 
+Pos.zero : Pos
+Pos.succ (pred: Pos) : Pos 
+
+// Negative Numbers
+Neg : Type
+Neg.one : Neg
+Neg.pred (succ: Neg) : Neg
+
+// Exercises:
+
+// Increments an Integer
+// int(false, 1)     = +0
+// int(false, 2)     = -1
+// int(true,  2)     = +3
+Inte.inc (a: Inte)                : Inte
+Inte.inc (Inte.pos Pos.zero)      = Inte.pos (Pos.succ Pos.zero)
+Inte.inc (Inte.neg Neg.one)       = Inte.pos Pos.zero
+Inte.inc (Inte.neg (Neg.pred a))  = Inte.neg a
+Inte.inc (Inte.pos a)             = Inte.pos (Pos.succ a)
+
+// Decrements an Integer
+// int(false, 1) = -2
+// int(true,  2) = +1
+// int(true,  0) = -1
+Inte.dec (a: Inte)                : Inte
+Inte.dec (Inte.pos Pos.zero)      = Inte.neg Neg.one
+Inte.dec (Inte.neg Neg.one)       = Inte.neg (Neg.pred Neg.one)
+Inte.dec (Inte.neg a)             = Inte.neg (Neg.pred a)
+Inte.dec (Inte.pos (Pos.succ a))  = Inte.pos a
+
+// Doubles an Integer
+// int(false, 4) = -8
+// int(false, 1) = -2
+// int(true,  2) = +4
+Inte.dbl (a: Inte)                  : Inte
+Inte.dbl (Inte.pos Pos.zero)        = Inte.pos Pos.zero
+Inte.dbl (Inte.neg Neg.one)         = Inte.neg (Neg.pred Neg.one)
+Inte.dbl (Inte.pos (Pos.succ a))    = Inte.inc (Inte.inc (Inte.dbl (Inte.pos a)))
+Inte.dbl (Inte.neg (Neg.pred a))    = Inte.dec (Inte.dec (Inte.dbl (Inte.neg a)))
+
+// Adds two Integers
+// int(false, 4) + int(false, 2) = -6
+// int(false, 4) + int(true,  2) = -2
+Inte.add (a: Inte) (b: Inte)        : Inte
+Inte.add (Inte.pos Pos.zero) b      = b
+Inte.add (Inte.pos (Pos.succ a)) b  = Inte.add (Inte.pos a) (Inte.inc b)
+Inte.add (Inte.neg Neg.one) b       = Inte.dec b
+Inte.add (Inte.neg (Neg.pred a)) b  = Inte.add (Inte.neg a) (Inte.dec b)
+
+// Subtracts two Integers
+// int(false, 6) - int(false, 6) = +0
+// int(false, 4) - int(false, 6) = +2
+Inte.sub (a: Inte) (b: Inte)                          : Inte
+Inte.sub a (Inte.pos Pos.zero)                        = a
+Inte.sub (Inte.pos Pos.zero) (Inte.pos (Pos.succ b))  = Inte.dec (Inte.sub (Inte.pos Pos.zero ) (Inte.pos b)) 
+Inte.sub (Inte.pos Pos.zero) (Inte.neg b)             = Inte.neg b
+Inte.sub (Inte.pos (Pos.succ a)) b                    = Inte.sub (Inte.pos a) (Inte.dec b)
+Inte.sub a (Inte.neg Neg.one)                         = Inte.inc a
+Inte.sub a (Inte.neg (Neg.pred b))                    = Inte.sub (Inte.inc a) (Inte.neg b)
+
+// Multiplies two Integers
+// int(false, 2) * int(true, 3)  = -6
+// int(false, 4) * int(false, 5) = +20
+//-1 * -10 = 10
+Inte.mul (a: Inte) (b: Inte)                          : Inte
+Inte.mul (Inte.pos Pos.zero) b                        = Inte.pos Pos.zero
+Inte.mul a (Inte.pos Pos.zero)                        = Inte.pos Pos.zero
+Inte.mul (Inte.neg Neg.one) b                         = Inte.invert b //Inte.sub (Inte.pos Pos.zero) b
+Inte.mul a (Inte.neg Neg.one)                         = Inte.sub (Inte.pos Pos.zero) a
+Inte.mul a (Inte.pos (Pos.succ b))                    = Inte.add (Inte.mul a (Inte.pos b)) (Inte.pos b)
+Inte.mul a (Inte.neg (Neg.pred b))                    = Inte.sub (Inte.mul a (Inte.neg b)) (Inte.neg b)
+
+// Equal
+// Given two Integers, returns true if both are the same and false otherwise.
+Inte.eql (a: Inte) (b: Inte)                              : Bool 
+Inte.eql (Inte.pos Pos.zero) (Inte.pos Pos.zero)          = Bool.true
+Inte.eql (Inte.neg Neg.one) (Inte.neg Neg.one)            = Bool.true
+Inte.eql (Inte.pos (Pos.succ a)) (Inte.pos (Pos.succ b))  = Inte.eql (Inte.pos a) (Inte.pos b)
+Inte.eql (Inte.neg (Neg.pred a)) (Inte.neg (Neg.pred b))  = Inte.eql (Inte.neg a) (Inte.neg b)
+Inte.eql a b                                              = Bool.false
+
+
+// Greater than
+// int(false, 2) > int(false, 5) = True
+// int(false, 5) > int(false, 1) = False
+// int(false, 2) > int(true,  0) = False
+// int(true,  0) > int(false, 2) = True
+Inte.gtn (a: Inte) (b: Inte)                              : Bool // if A > B then True else false
+Inte.gtn (Inte.pos a) (Inte.neg b)                        = Bool.true
+// Inte.gtn (Inte.neg a) (Inte.pos b)                        = Bool.false
+// Inte.gtn (Inte.pos Pos.zero) (Inte.pos (Pos.succ b))      = Bool.false
+Inte.gtn (Inte.neg Neg.one)  (Inte.neg (Neg.pred b))      = Bool.true
+Inte.gtn (Inte.pos (Pos.succ a)) (Inte.pos Pos.zero)      = Bool.true
+// Inte.gtn (Inte.neg (Neg.pred a)) (Inte.neg Neg.one)       = Bool.false
+Inte.gtn (Inte.pos (Pos.succ a)) (Inte.pos (Pos.succ b))  = Inte.gtn (Inte.pos a) (Inte.pos b)
+Inte.gtn (Inte.neg (Neg.pred a)) (Inte.neg (Neg.pred b))  = Inte.gtn (Inte.neg a) (Inte.neg b)
+Inte.gtn a b                                              = Bool.false
+
+// Lower than
+// int(false, 1) < int(true,  0) = True
+// int(true,  0) < int(false, 1) = False
+Inte.ltn (a: Inte) (b: Inte)                              : Bool // if A > B then False else true
+Inte.ltn (Inte.neg a) (Inte.pos b)                        = Bool.true
+Inte.ltn (Inte.pos Pos.zero) (Inte.pos (Pos.succ b))      = Bool.true
+Inte.ltn (Inte.neg (Neg.pred a)) (Inte.neg Neg.one)       = Bool.true
+Inte.ltn (Inte.pos (Pos.succ a)) (Inte.pos (Pos.succ b))  = Inte.ltn (Inte.pos a) (Inte.pos b)
+Inte.ltn (Inte.neg (Neg.pred a)) (Inte.neg (Neg.pred b))  = Inte.ltn (Inte.neg a) (Inte.neg b)
+Inte.ltn a b                                              = Bool.false
+
+// Minimum
+// min(int(false, 1), int(true,  0)  = -1
+// min(int(false, 1), int(false, 3)) = -3
+Inte.min (a: Inte) (b: Inte)  : Inte // if A < B then A else 
+Inte.min a b                  = Bool.if (Inte.ltn a b) a b
+
+// Maximum
+// max(int(false, 1), int(true,  0)) = +0
+// max(int(false, 1), int(false, 3)) = -1
+Inte.max(a: Inte) (b: Inte) : Inte // if A > B then A else B
+Inte.max a b                = Bool.if (Inte.gtn a b) a b
+
+// Greater than equal
+// Retorna true se for maior ou igual, sem paciencia pra exemplo!
+Inte.gte (a: Inte) (b: Inte)                              : Bool
+Inte.gte (Inte.neg a) (Inte.pos b)                        = Bool.false
+Inte.gte (Inte.pos a) (Inte.neg b)                        = Bool.true
+Inte.gte (Inte.pos Pos.zero) (Inte.pos b)                 = Bool.false
+Inte.gte (Inte.neg Neg.one)  (Inte.neg b)                 = Bool.true
+Inte.gte (Inte.pos (Pos.succ a)) (Inte.pos (Pos.succ b))  = Inte.gte (Inte.pos a) (Inte.pos b)
+Inte.gte (Inte.neg (Neg.pred a)) (Inte.neg (Neg.pred b))  = Inte.gte (Inte.neg a) (Inte.neg b)
+
+// Half
+// Divides an Integer by two
+// int(false, 4) = -2
+// int(false, 1) = +0
+// int(true,  6) = +3
+Inte.hlf (a: Inte)                            : Inte
+Inte.hlf (Inte.neg Neg.one)                   = Inte.pos Pos.zero
+Inte.hlf (Inte.pos Pos.zero)                  = Inte.pos Pos.zero
+Inte.hlf (Inte.neg (Neg.pred a))              = Inte.dec (Inte.hlf (Inte.neg a))
+Inte.hlf (Inte.pos (Pos.succ Pos.zero))       = Inte.pos Pos.zero
+Inte.hlf (Inte.pos (Pos.succ (Pos.succ a)))   = Inte.inc (Inte.hlf (Inte.pos a))
+
+
+Inte.invert (a: Inte) : Inte
+Inte.invert (Inte.pos Pos.zero)     = Inte.pos Pos.zero
+Inte.invert (Inte.neg Neg.one)      = Inte.pos (Pos.succ Pos.zero)
+Inte.invert (Inte.neg (Neg.pred a)) = Inte.inc (Inte.invert (Inte.neg a))
+Inte.invert (Inte.pos (Pos.succ a)) = Inte.dec (Inte.invert (Inte.pos a))
+
+// Division
+// int(true,  2)  / int(true,  2)  = +1
+// int(false, 8)  / int(true,  4)  = -2
+// int(false, 11) / int(false, 5)  = +2
+// int(true,  10) / int(false, 12) = +0
+Inte.div (a: Inte) (b: Inte)                              : Inte
+Inte.div (Inte.pos Pos.zero)  b                           = Inte.pos Pos.zero
+Inte.div (Inte.neg Neg.one)   b                           = Inte.invert b
+Inte.div a  (Inte.neg Neg.one)                            = Inte.invert a
+Inte.div a  (Inte.pos Pos.zero)                           = Inte.pos Pos.zero
+Inte.div a  (Inte.pos (Pos.succ Pos.zero))                = a
+Inte.div (Inte.pos a) (Inte.pos b)                        =
+  let gtn = (Inte.gtn (Inte.pos a) (Inte.pos b))
+  let eq  = (Inte.eql (Inte.pos a) (Inte.pos b))
+  let sub = (Inte.sub (Inte.pos a) (Inte.pos b))
+  Bool.if eq (Inte.pos (Pos.succ Pos.zero)) (Bool.if gtn (Inte.inc (Inte.div sub (Inte.pos b))) (Inte.pos Pos.zero))
+Inte.div (Inte.neg a) (Inte.neg b)  = 
+  let ltn = (Inte.ltn (Inte.neg a) (Inte.neg b))
+  let eq  = (Inte.eql (Inte.neg a) (Inte.neg b))
+  let add = (Inte.sub (Inte.neg a) (Inte.neg b))
+  Bool.if eq (Inte.pos (Pos.succ (Pos.zero))) (Bool.if ltn (Inte.dec (Inte.div add (Inte.neg b))) (Inte.pos Pos.zero))
+Inte.div (Inte.neg a) (Inte.pos b) =
+  let mul = Inte.mul (Inte.neg Neg.one) (Inte.pos b)
+  Inte.mul (Inte.div (Inte.neg a) mul) (Inte.neg Neg.one)
+Inte.div (Inte.pos a) (Inte.neg b) =
+  // let mul2 =  Inte.mul (Inte.neg Neg.one) (Inte.neg b)
+  let mul2 =  Inte.invert (Inte.neg b) //(Inte.neg Neg.one)
+  Inte.invert (Inte.div (Inte.pos a) mul2) 
+
+
+Main {
+  let a = Inte.pos Pos.zero
+  let b = Inte.pos (Pos.succ (Pos.succ (Pos.succ (Pos.succ (Pos.succ Pos.zero)))))
+  let c = Inte.neg Neg.one
+  let d = Inte.neg (Neg.pred (Neg.pred (Neg.pred Neg.one)))
+  let e = Inte.pos (Pos.succ (Pos.succ Pos.zero))
+  let f = Inte.neg (Neg.pred (Neg.pred Neg.one))
+  let g = Inte.add b b
+  // (Inte.inc d)
+  // (Inte.dec d)
+  // (Inte.dbl d)
+  // (Inte.add e b)
+  // (Inte.sub a e)
+  (Inte.mul c f)
+  // (Inte.eql c e)
+  // (Inte.gtn c d)
+  // (Inte.ltn d f)
+  // (Inte.min a a)
+  // (Inte.max f d)
+  // (Inte.hlf b )
+  // (Inte.invert f)
+  // (Inte.div b f)
+  // (Inte.gte c f)
+}

@@ -1,0 +1,57 @@
+// tl_length_pred : (l : NatList) → pred (length l) = length (tl l)
+// tl_length_pred [] = Refl
+// tl_length_pred (n:: l') = Refl
+
+Tl_length_pred (xs: List Nat)               : (Equal Nat (Nat.pred (List.length xs)) (List.length (List.tail xs)))
+Tl_length_pred List.nil                     = Equal.refl 
+Tl_length_pred (List.cons xs.head xs.tail)  = Equal.refl
+
+
+
+App_assoc <t> (xs : List t) (ys : List t) (zs : List t) : Equal (List.concat (List.concat xs ys) zs) (List.concat xs (List.concat ys zs))
+App_assoc List.nil ys  zs                               = Equal.refl
+App_assoc (List.cons xs.head xs.tail) ys zs             =
+  let ind = App_assoc xs.tail ys zs
+  let app = Equal.apply (x => (List.cons xs.head x)) ind
+  app
+  // ?
+//
+// rev_length_firsttry : (l : NatList) → length (rev l) = length l
+// rev_length_firsttry Nil = Refl
+// rev_length_firsttry (n :: l') =
+// -- Now we seem to be stuck: the goal is an equality involving `++`, but we don't
+// -- have any useful equations in either the immediate context or in the global
+// -- environment! We can make a little progress by using the IH to rewrite the
+// -- goal...
+// let inductiveHypothesis = rev_length_firsttry l' in
+// rewrite inductiveHypothesis in
+// -- ... but now we can't go any further.
+// Refl
+
+Rev <a> (xs: List a)              : List a
+Rev List.nil                    = List.nil 
+Rev (List.cons xs.head xs.tail) = List.concat (Rev xs.tail) [xs.head]
+
+
+Rev_length_firsttry (xs: List Nat)              : (Equal Nat (List.length (Rev xs)) (List.length xs))
+Rev_length_firsttry List.nil                    = Equal.refl
+Rev_length_firsttry (List.cons xs.head xs.tail) =
+  let ind = Rev_length_firsttry xs.tail
+  ?
+
+
+
+
+// - Goal: (Equal Nat (List.length (List.concat (Rev xs.tail) (List.cons xs.head (List.nil)))) (Nat.succ (List.length xs.tail)))
+
+// - ind : (Equal Nat (List.length              (Rev xs.tail))                                            (List.length xs.tail))
+
+
+
+
+
+
+
+
+
+

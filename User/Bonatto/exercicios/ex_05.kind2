@@ -1,0 +1,61 @@
+
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+Bool.eql (a: Bool) (b: Bool) : Bool
+Bool.eql Bool.true Bool.true = Bool.true
+Bool.eql Bool.true Bool.false = Bool.false
+Bool.eql Bool.false Bool.true = Bool.false
+Bool.eql Bool.false Bool.false = Bool.true
+
+Bool.not (a: Bool) : Bool
+Bool.not Bool.true  = Bool.false
+Bool.not Bool.false = Bool.true
+
+Bool.if <r: Type> (b: Bool) (if_t: r) (if_f: r) : r
+Bool.if r Bool.true  if_t if_f = if_t
+Bool.if r Bool.false if_t if_f = if_f
+
+// Basic Exercises involving Pairs
+Pair (a: Type) (b: Type) : Type
+Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b)
+
+// Example:
+// Swaps the elements of a pair
+Pair.swap <a: Type> <b: Type> (pair: (Pair a b)) : (Pair b a)
+Pair.swap a b (Pair.new pair.a pair.b fst snd) = (Pair.new pair.b pair.a snd fst)
+
+// Returns the first element of a pair
+Pair.first <a: Type> <b: Type> (pair: (Pair a b)) : a
+Pair.first a b (Pair.new pair.a pair.b fst snd)   = fst
+
+
+// Returns the second element of a pair
+Pair.second <a: Type> <b: Type> (pair: (Pair a b)) : b
+Pair.second a b (Pair.new pair.a pair.b fst snd)   = snd
+
+
+// Creates a Pair from 2 element
+Pair.create <a: Type> <b: Type> (x: a) (y: b): (Pair a b)
+Pair.create a b x y = (Pair.new x y)
+
+// Applies a function to both elements of a Pair
+Pair.map <a: Type> <b: Type> (func: a -> b) (pair: (Pair a a)) : (Pair b b)
+Pair.map a b func (Pair.new pair.a pair.b fst snd) = (Pair.new (func fst) (func snd))
+
+Nat.double (n: Nat)     : Nat
+Nat.double Nat.zero     = Nat.zero
+Nat.double (Nat.succ n) = Nat.succ(Nat.succ( Nat.double n))
+
+Main {
+  let a = Nat.succ(Nat.succ(Nat.zero))
+  let b = Nat.succ(Nat.zero)
+  let c = Pair.new a b
+  // (Pair.swap (Pair.new Bool.true Bool.false))
+  // (Pair.first (Pair.new Bool.true Bool.false))
+  // (Pair.second (Pair.new Bool.true Bool.false))
+  // (Pair.create Bool.true Bool.false)
+  (Pair.map (Nat) (Nat) (a => (Nat.double a ))  (c))
+                    // Nat.double (n: Nat)     : Nat
+}

@@ -1,0 +1,277 @@
+U60.show (n: U60) : String
+U60.show n = String.reverse(U60.show.go n)
+
+U60.show.go (n: U60) : String
+U60.show.go 0 = String.cons '0' String.nil
+U60.show.go 1 = String.cons '1' String.nil
+U60.show.go 2 = String.cons '2' String.nil
+U60.show.go 3 = String.cons '3' String.nil
+U60.show.go 4 = String.cons '4' String.nil
+U60.show.go 5 = String.cons '5' String.nil
+U60.show.go 6 = String.cons '6' String.nil
+U60.show.go 7 = String.cons '7' String.nil
+U60.show.go 8 = String.cons '8' String.nil  
+U60.show.go 9 = String.cons '9' String.nil  
+U60.show.go n = 
+  if (U60.to_bool(< n 10)) {(U60.show.go n)} 
+    else {String.cons (+ 48 (% n 10)) (U60.show.go (/ n 10)) }
+
+// Exemplo: (List.repeat 3 Bool.true) -> [True, True, True]
+
+List.repeat (xs: _) (count: Nat) : List _
+List.repeat xs Nat.zero          = List.nil 
+List.repeat xs (Nat.succ pred)   = List.cons xs (List.repeat xs pred)
+
+App_implicito (xs: List _) (x: _)       : List _ 
+App_implicito [] x                      = []
+App_implicito (List.cons xs.h xs.t) x   = 
+  List.cons xs.h (App_implicito xs.t x)
+
+// App_explicito <a: Type> (ys: List a) (y: a) : List a
+// App_explicito ys y                          = ?
+
+List.to_nat (xs : List U60) : List Nat
+List.to_nat xs = List.map xs (x => U60.to_nat x)
+
+// rev : (l : List x) -> List x
+// rev [] = []
+// rev (h::t) = app (rev t) (h::Nil)
+
+
+Rev <a> (xs: List a)      : List a
+Rev []                    = []
+Rev (List.cons xs.h xs.t) = (List.concat (Rev xs.t) [xs.h])
+
+// length : (l : List x) -> Nat
+// length [] = Z
+// length (_::l') = S (length l')
+
+Length <a> (xs: List a)       : Nat
+Length []                     = Nat.zero
+Length (List.cons xs.h xs.t)  = Nat.succ (Length xs.t)
+
+// test_rev1 : rev (1::2::[]) = 2::1::[]
+// test_rev1 = Refl
+
+// test_rev2 : rev (True::[]) = True::[]
+// test_rev2 = Refl
+
+// test_length1 : length (1::2::3::[]) = 3
+// test_length1 = Refl
+
+Test_rev1 : Equal (Rev [1, 2, 3]) [3, 2, 1]
+Test_rev1 = Equal.refl
+
+Test_rev2 : Equal (Rev [Bool.true]) (List.cons Bool.true List.nil)
+Test_rev2 = Equal.refl
+
+Test_length1 : Equal (Length [1, 2, 3]) (U60.to_nat 3)
+Test_length1 = Equal.refl
+
+// app_nil_r : (l : List x) -> l ++ [] = l
+// app_nil_r l = ?app_nil_r_rhs
+
+App_nil_r <a> (xs: List a) : Equal (List.concat xs List.nil) xs
+App_nil_r List.nil = Equal.refl 
+App_nil_r (List.cons xs.h xs.t) = 
+  let ind = App_nil_r xs.t
+  let app = Equal.apply (x => List.cons xs.h x) ind
+  app
+  // ?
+
+// app_assoc : (l, m, n : List a) -> l ++ m ++ n = (l ++ m) ++ n
+// app_assoc l m n = ?app_assoc_rhs
+App_assoc <a> (xs: List a) (ys: List a) (zs: List a) : Equal (List.concat xs (List.concat ys zs)) (List.concat (List.concat xs ys) zs)  
+App_assoc List.nil ys zs = Equal.refl
+App_assoc (List.cons xs.h xs.t) ys zs = 
+  let ind = App_assoc xs.t ys zs
+  let app = Equal.apply (x => List.cons xs.h x) ind
+  app
+// ?
+
+// app_length : (l1, l2 : List x) -> length (l1 ++ l2) = length l1 + length l2
+// app_length l1 l2 = ?app_length_rhs
+App_length <a> (xs: List a) (ys: List a) : Equal (List.length (List.concat xs ys)) (Nat.add (List.length xs) (List.length ys))
+App_length List.nil ys = Equal.refl
+App_length (List.cons xs.h xs.t) ys = 
+  let ind = App_length xs.t ys
+  let app = Equal.apply (x => Nat.succ x) ind
+  app
+  // ?
+
+// rev_app_distr : (l1, l2 : List x) -> rev (l1 ++ l2) = rev l2 ++ rev l1
+// rev_app_distr l1 l2 = ?rev_app_distr_rhs
+Rev_app_distr <a> (xs: List a) (ys: List a) : Equal (Rev (List.concat xs ys)) (List.concat (Rev ys) (Rev xs)) 
+// Rev_app_distr xs List.nil = ?
+
+// rev_involutive : (l : List x) -> rev (rev l) = l
+// rev_involutive l = ?rev_involutive_rhs
+Rev_involutive <a> (xs: List a) : Equal (Rev (Rev xs)) xs
+// Rev_involutive List.nil = Equal.refl
+// Rev_involutive (List.cons xs.h xs.t) =
+  // let ind = Rev_involutive xs.t
+  // let app = Equal.apply (x => List.cons xs.h x) ind
+  // app
+  // ?
+
+Pair_first (pair: Pair Nat Nat) : Nat
+Pair_first (Pair.new Nat Nat fst snd) = fst
+
+Pair.show (p: Pair U60 U60) : String
+Pair.show (Pair.new fst snd) = 
+  (String.concat "{ " 
+  (String.concat (U60.show fst)
+  (String.concat " , "
+  (String.concat (U60.show snd)
+  " }"))))
+
+Lista (Nat: Type) : Type
+Lista.nil : Lista Nat
+Lista.cons (head: Nat) (tail: Lista Nat): Lista Nat
+
+// Pair_fst
+Pair.fst <a> <b> (pair: Pair a b) : a
+Pair.fst (Pair.new fst snd) = fst
+
+Pair.snd <a> <b>(pair: Pair a b) : b
+Pair.snd (Pair.new  fst snd) = snd
+
+Zip <a> <b> (xs: List a) (ys: List b)           : (List (Pair a b))
+Zip List.nil ys                                 = List.nil
+Zip xs List.nil                                 = List.nil
+Zip (List.cons xs.h xs.t) (List.cons ys.h ys.t) = (List.cons (Pair.new xs.h ys.h) (Zip xs.t ys.t))
+
+// split : (l : List (x*y)) -> (List x) * (List y)
+// split l = ?split_rhs
+Split <a> <b> (xs: List (Pair a b)) : Pair (List a) (List b)
+// Split xs = ?
+
+// test_split : split [(1,False),(2,False)] = ([1,2],[False,False])
+// test_split = ?test_split_rhs
+
+// Test_split : Equal (Split [(Pair.new 1 Bool.false), (Pair.new 2 Bool.false)]) (Pair.new ([1, 2]) ([Bool.false, Bool.false]))
+// Test_split = ?
+
+Nth_error <a> (n: Nat)(xs: List a)                    : Maybe a
+Nth_error n List.nil                                = Maybe.none
+Nth_error Nat.zero xs                               = List.head xs
+Nth_error (Nat.succ n) (List.cons xs.head xs.tail)  =
+  let ind = Nth_error n xs.tail
+  Bool.if (Nat.equal (Nat.succ n) Nat.zero) (Maybe.some(xs.head)) (ind)
+
+//
+// Test_nth_error1 : (Equal (Nth_error (U60.to_nat 0)(["s","o","7","c"]))(Maybe.some(("s"))))
+// Test_nth_error1 = Equal.refl
+//
+// Test_nth_error2 : (Equal (Nth_error (U60.to_nat 3)([4,5,6,7]))(Maybe.some(( 7))))
+// Test_nth_error2 = Equal.refl
+//
+// Test_nth_error3 : (Equal (Nth_error (U60.to_nat 9)([4,5,6,7]))(Maybe.none))
+// Test_nth_error3 = Equal.refl
+
+
+// test_nth_error1 : nth_error [4,5,6,7] 0 = Some 4
+// test_nth_error1 = Refl
+Test1 : Equal (Nth_error Nat.zero [4, 5, 5, 7]) (Maybe.some 4)
+Test1 = Equal.refl
+// test_nth_error2 : nth_error [[1],[2]] 1 = Some [2]
+// test_nth_error2 = Refl
+Test2 : Equal (Nth_error (Nat.succ (Nat.succ Nat.zero)) [Bool.true]) Maybe.none
+Test2 = Equal.refl
+
+// test_nth_error3 : nth_error [True] 2 = None
+// test_nth_error3 = Refl
+
+Test3 : Equal (Nth_error (Nat.succ Nat.zero) [[1], [2]]) (Maybe.some [2])
+Test3 = Equal.refl
+
+// hd_error : (l : List x) -> Option x
+// hd_error l = ?hd_error_rhs
+Hd_error <a> (xs: Lista a) : Maybe a
+// Hd_error xd = ?
+
+// test_hd_error1 : hd_error [1,2] = Some 1
+// test_hd_error1 = ?test_hd_error1_rhs
+// test_hd_error2 : hd_error [[1],[2]] = Some [1]
+// test_hd_error2 = ?test_hd_error2_rhs
+
+
+// doit3times : (f: x -> x) -> (n : x) -> x
+// doit3times f n = f (f (f n))
+
+Doit3times <x> (f: x -> x) (n: x) : x
+Doit3times f n = (f (f (f n)))
+
+Test_do : Equal (Doit3times (x => Nat.sub x (Nat.succ (Nat.succ Nat.zero))) (U60.to_nat 9)) (U60.to_nat 3)
+Test_do = Equal.refl
+
+
+Test_do2 : Equal (Doit3times (x => Nat.sub x (Nat.succ (Nat.succ Nat.zero))) (U60.to_nat 9)) (U60.to_nat 3)
+Test_do2 = Equal.refl
+
+
+// filter : (test : x -> Bool) -> (l: List x) -> List x
+// filter test [] = []
+// filter test (h::t) = if test h
+  // then h :: (filter test t)
+  // else filter test t
+
+Filter <x> (test : x -> Bool) (xs: List x)  : List x
+Filter test List.nil                        = List.nil
+Filter test (List.cons xs.h xs.t)           =
+  Bool.if (test xs.h) (List.cons xs.h (Filter test xs.t)) (Filter test xs.t)
+
+
+Length_is_one <x> (xs: List x)  : Bool
+Length_is_one xs                = Nat.equal (List.length xs) (Nat.succ Nat.zero)
+
+// countoddmembers' : (l: List Nat) -> Nat
+// countoddmembers' l = length (filter Numbers.oddb l)
+CountOddMembers (xs: List Nat) : Nat
+CountOddMembers xs = List.length (Filter (x => Nat.is_odd x) xs )
+
+// test_countoddmembers'1 : countoddmembers' [1,0,3,1,4,5] = 4
+// test_countoddmembers'1 = Refl
+Test_countoddmembers1 : Equal (CountOddMembers (List.to_nat ([1, 0, 3, 1, 4, 5]))) (U60.to_nat 4)
+Test_countoddmembers1 = Equal.refl
+
+
+Test_countoddmembers : Equal (CountOddMembers (List.nil)) (Nat.zero)
+Test_countoddmembers = Equal.refl
+
+// test_countoddmembers'2 : countoddmembers' [0,2,4] = 0
+// test_countoddmembers'2 = Refl
+// test_countoddmembers'3 : countoddmembers' Nil = 0
+// test_countoddmembers'3 = Refl
+
+Minus_diag (n: Nat)     : Equal (Nat.sub n n) Nat.zero
+Minus_diag Nat.zero     = Equal.refl
+Minus_diag (Nat.succ n) = Minus_diag n
+
+
+
+
+Main{
+  let a = List.to_nat( [1, 2, 3, 4, 5])
+  let b = Lista.cons (U60.to_nat 6) (Lista.cons (U60.to_nat 2) Lista.nil)
+  let c = Pair.new (30) (4)
+  let d = [[1], [1,2], [3], [1,2,3], [21]]
+  // Filter (x => Nat.is_even x) a
+  // Filter (x => Length_is_one x) d
+  CountOddMembers a
+  // let c = Lista.cons 4 (Lista.cons 2 Lista.nil)
+  // List.repeat Bool.true (U60.to_nat 5)
+  // Rev a
+  // let par = Pair.new Nat Nat (U60.to_nat 4) (U60.to_nat 9)
+  // Pair_first par
+  // Length a
+  // b
+  // Pair.show (x => U60.show x) c
+  // Pair.show c
+  // Pair.snd c
+  // Zip a d
+  // Doit3times (x => Nat.sub x (Nat.succ (Nat.succ Nat.zero))) (U60.to_nat 9)
+  // Doit3times (x => Bool.not x) Bool.true
+  // c
+}
+//

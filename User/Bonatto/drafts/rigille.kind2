@@ -1,0 +1,19 @@
+// def f(a: Bool, b: Bool) -> (Bool, Bool):
+//   a = a ^ b
+//   b = a ^ b
+//   a = a ^ b
+//   return (a, b)
+
+FuncRigille (a: Bool) (b: Bool) : (Pair Bool Bool)
+FuncRigille a b = 
+  let a = Bool.xor a b
+  let b = Bool.xor a b
+  let a = Bool.xor a b
+  Pair.new a b
+
+   
+Main {
+  FuncRigille Bool.true Bool.true
+
+
+}

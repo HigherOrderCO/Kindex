@@ -1,0 +1,46 @@
+List.sum (n: List Nat) : Nat
+List.sum (List.nil t)       = Nat.zero
+List.sum (List.cons t x xs) = Nat.add x (List.sum xs)
+
+List.count_true (xs: List Bool) : Nat
+List.count_true (List.nil t)               = Nat.zero
+List.count_true (List.cons t Bool.true x)  = Nat.succ (List.count_true x)
+List.count_true (List.cons t Bool.false x) = List.count_true x
+
+// O que eu quero que o cara implemente
+BoolBool.requisito.type : Type 
+BoolBool.requisito.type = ((x: Nat) -> (List Bool))
+
+// As restrições que eu estou impondo na função que ele vai implementar
+BoolBool.requisito.spec : (f: BoolBool.requisito.type) -> Type
+BoolBool.requisito.spec = f => (input: Nat) ->
+  // Aplica a função no input
+  let list = f input
+
+  // Primeiro requisito: o tamanho da lista é igual a input
+  let req_0 = Equal Nat (List.length Bool list) (Nat.double input)
+
+  // Segundo requisito: o somatório dos números da lista é igual a input
+  let req_1 = Equal Nat (List.count_true list) input
+  
+  (Pair req_0 req_1)
+
+BoolBool.requisito : Type
+BoolBool.requisito = Sigma BoolBool.requisito.type BoolBool.requisito.spec
+
+// -------------------------------------------------------------------
+
+Sipher.blastoise.fun : BoolBool.requisito.type
+// -------------------- função aqui -----------------------
+Sipher.blastoise.proof : ((BoolBool.requisito.spec) Sipher.blastoise.fun)
+// ---------------------- prova aqui -----------------------
+Sipher.blastoise : BoolBool.requisito {
+  (Sigma.new
+    BoolBool.requisito.type // o tipo do programa que o victor pediu
+    BoolBool.requisito.spec // as restrições adicionais que o victor pediu
+    Sipher.blastoise.fun    // o programa que ele implementou
+    Sipher.blastoise.proof  // a prova que a função satisfaz o requisito
+  )
+}
+
+

@@ -1,0 +1,76 @@
+Find_and_replace (to_remove: String) (to_add: String) (str: String) : String
+Find_and_replace String.nil to_add str                              = str
+Find_and_replace to_remove to_add String.nil                        = to_add
+Find_and_replace to_remove String.nil str                           = List.flat [to_remove, " ", str]
+Find_and_replace to_remove to_add str                               =
+  let remove      = String.split str to_remove
+  let extract     = Maybe.extract (List.last remove) String.nil
+  let map_concat  = List.map remove ( x => (Bool.if (String.equal x extract) (String.concat x String.nil)(String.concat x to_add)))
+  let to_flat     = List.flat map_concat
+  to_flat
+
+Main {
+  let str       = "In this test, the word test should be replaced by the word example."
+  let to_remove = "test"
+  let to_add    = "example"
+  Find_and_replace to_remove to_add str
+}
+
+
+// ====================================================
+// ================ Funções auxiliares ================
+// ====================================================
+
+U60.lte (a: U60) (b: U60) : Bool
+U60.lte a b               = U60.to_bool ( <= a b)
+
+U60.gtn (a: U60) (b: U60) : Bool
+U60.gtn a b               = U60.to_bool ( > a b )
+
+U60.gte (a: U60) (b: U60) : Bool 
+U60.gte a b               = U60.to_bool ( >= a b)
+
+String.length (xs: String)                  : U60
+String.length String.nil                    = '0'
+String.length (String.cons xs.head xs.tail) = (+ 1 (String.length xs.tail))
+  
+String.drop (n: U60) (xs: String)           : String
+String.drop n String.nil                    = String.nil
+String.drop '0' xs                          = xs
+String.drop n (String.cons xs.head xs.tail) =
+  let nat       = Bool.and (U60.lte '0' n)(U60.gte '9' n)
+  let rec       = String.drop (- n 1) xs.tail
+  let original  = String.cons xs.head xs.tail
+  Bool.if nat rec (original)
+
+String.take (n: U60) (xs: String)           : String
+String.take '0' xs                          = String.nil
+String.take n String.nil                    = String.nil
+String.take n (String.cons xs.head xs.tail) =
+  let nat       = Bool.and (U60.lte '0' n) (U60.gte '9' n)
+  let rec       = String.cons xs.head (String.take (- n 1) xs.tail)
+  let original  = String.cons xs.head xs.tail
+  Bool.if nat rec (original)
+
+String.split (xs: String) (matched: String) : (List String)
+String.split xs matched = String.split.go xs matched "" (String.length matched)
+
+String.split.go (xs: String) (matched: String) (acum: String) (n: U60) : (List String)
+String.split.go String.nil matched acum n                    = [acum]
+String.split.go xs String.nil acum n                    = [xs]
+String.split.go (String.cons xsh xst) matched acum n    =
+  let num         = (String.length matched)
+  let original    = String.cons xsh xst
+  let str_eql     = String.equal matched (String.take num original)
+  let recursion   = String.split.go (String.drop num original) matched "" num
+  let if_str_eql  = List.cons acum recursion
+  let if_str_dif  = String.split.go xst matched (String.concat acum (Char.to_string xsh)) num
+  Bool.if str_eql if_str_eql if_str_dif
+
+List.flat (xs: List String)           : String
+List.flat List.nil                    = String.nil
+List.flat (List.cons xs.head xs.tail) = String.concat xs.head (List.flat xs.tail)
+
+Maybe.extract (a: Maybe String) (v: String)  : String
+Maybe.extract Maybe.none v          = v
+Maybe.extract (Maybe.some a) v      = a

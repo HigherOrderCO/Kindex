@@ -1,0 +1,184 @@
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+Bool.and (a: Bool) (b: Bool) : Bool
+Bool.and Bool.true  Bool.true  = Bool.true
+Bool.and a b  = Bool.false
+
+Bool.if <r: Type> (b: Bool) (if_t: r) (if_f: r) : r
+Bool.if r Bool.true  if_t if_f = if_t
+Bool.if r Bool.false if_t if_f = if_f
+
+Bool.match (x: (Bool)) -(p: (x: (Bool)) Type) (true: (p (Bool.true))) (false: (p (Bool.false))) : (p x)
+Bool.match (Bool.true) p true false = (true)
+Bool.match (Bool.false) p true false = (false)
+
+U60.to_bool (n: U60) : Bool
+U60.to_bool 0 = Bool.false
+U60.to_bool n = Bool.true
+
+String.reverse (xs: String) : String 
+String.reverse xs = String.reverse.go String.nil xs
+
+String.reverse.go (new_list: String) (old_list: String) : (String)
+String.reverse.go new_list (String.nil) = new_list
+String.reverse.go new_list (String.cons head tail) = String.reverse.go (String.cons head new_list) tail
+
+U60.show (n: U60) : String
+U60.show n = String.reverse(U60.show.go n)
+
+U60.show.go (n: U60) : String
+U60.show.go 0 = String.cons '0' String.nil
+U60.show.go 1 = String.cons '1' String.nil
+U60.show.go 2 = String.cons '2' String.nil
+U60.show.go 3 = String.cons '3' String.nil
+U60.show.go 4 = String.cons '4' String.nil
+U60.show.go 5 = String.cons '5' String.nil
+U60.show.go 6 = String.cons '6' String.nil
+U60.show.go 7 = String.cons '7' String.nil
+U60.show.go 8 = String.cons '8' String.nil  
+U60.show.go 9 = String.cons '9' String.nil  
+U60.show.go n = 
+  if (U60.to_bool(< n 10)) {(U60.show.go n)} 
+    else {String.cons (+ 48 (% n 10)) (U60.show.go (/ n 10)) }
+  // let str = String.concat (+ 48 (% n 10)) x
+  // let up = if (U60.to_bool(< n 10)) {(h: U60)  => h} else {(y: String)=> y (U60.show.go (/ n 10)) }
+  // up str
+
+U60.if <r: Type> (n: U60) (t: r) (f: r) : r
+U60.if r 0 t f = f
+U60.if r x t f = t
+
+Maybe <a: Type> : Type
+Maybe.none <a> : (Maybe a)
+Maybe.some <a> (value: a) : (Maybe a)
+
+Char : Type
+Char = U60
+
+String : Type
+String.nil : String 
+String.cons (head: Char) (tail: String) : String 
+
+String.concat (xs: String) (ys: String) : String
+String.concat String.nil ys = ys 
+String.concat xs String.nil = xs 
+String.concat (String.cons head tail) ys = String.cons head (String.concat tail ys)
+
+Pair <a: Type> <b: Type> : Type
+Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b) 
+
+// ListMap Exercises
+ListMap <a: Type> : Type 
+ListMap.empty <a> : (ListMap a)
+ListMap.cons <a> (head: (Pair U60 a)) (tail: (ListMap a)) : (ListMap a)
+
+// Inserts a value
+// If the key is already present, its value is updated
+// If the key is not present, the value is added to the map
+ListMap.set <a: Type> (key: U60) (value: a) (lm: (ListMap a)) : (ListMap a)
+ListMap.set key value ListMap.empty                           = ListMap.cons (Pair.new key value) ListMap.empty
+ListMap.set key value (ListMap.cons (Pair.new k v) tail)      = 
+  let rec = ListMap.set key value tail
+  Bool.if (U60.equal key k) (ListMap.cons (Pair.new key value) tail) (ListMap.cons (Pair.new k v) (rec))
+
+// Returns a Value from a Key
+// If the key is not present, returns None
+ListMap.get <a: Type> (key: U60) (lm: (ListMap a))  : (Maybe a)
+ListMap.get key ListMap.empty                       = Maybe.none
+ListMap.get key (ListMap.cons (Pair.new k v) tail)  =
+  let rec = ListMap.get key tail
+  Bool.if (U60.equal key k) (Maybe.some(v)) rec
+
+// Applies a function to a Value from a Key
+// Returns the same ListMap if the key is not present
+ListMap.mut <a: Type> (key: U60) (func: a -> a) (lm: (ListMap a)) : (ListMap a)
+ListMap.mut key func ListMap.empty                                = ListMap.empty
+ListMap.mut key func (ListMap.cons (Pair.new k v) tail)           = 
+  let rec = ListMap.mut key func tail
+  Bool.if (U60.equal key k) (ListMap.cons (Pair.new k (func v)) tail) (ListMap.cons (Pair.new k v) rec)
+
+// Converts the ListMap to a String
+// ListMap.show <a: Type> (func: a -> String) (lm: (ListMap a)) : String
+//     empty: "[]"
+//     cons: "[" | Pair.show<Nat, A>(Nat.show, fn, (lm.head)) | show<A>(fn, lm.tail)
+//   }
+ListMap.show <a: Type> (func: a -> String) (lm: (ListMap a))  : String
+ListMap.show func ListMap.empty                               = "{}"
+ListMap.show func (ListMap.cons (Pair.new k v) tail)          =
+  let rec = ListMap.show func tail
+  String.concat "{" (String.concat (U60.show k)
+                    (String.concat ":"
+                    (String.concat (func v)
+                    (String.concat "}"
+                    (String.concat "," rec)))))
+
+// Checks if the ListMap has a key
+// Returns true if the key is present, false otherwise
+ListMap.has <a:Type> (key: U60) (lm: ListMap a)     : Bool
+ListMap.has key ListMap.empty                       = Bool.false
+ListMap.has '' lm                                   = Bool.false
+ListMap.has key (ListMap.cons (Pair.new k v) tail)  =
+  let rec = ListMap.has key tail
+  Bool.if (U60.equal key k) (Bool.true) (rec)
+
+// Removes all Elements that doesn't satisfy a condition
+ListMap.filter <a: Type> (func: a -> Bool) (lm: (ListMap a))  : (ListMap a)
+ListMap.filter func ListMap.empty                             = ListMap.empty
+ListMap.filter func (ListMap.cons (Pair.new k v) tail)        =
+  let rec = ListMap.filter func tail
+  Bool.if (func v) (ListMap.cons (Pair.new k v) rec) rec
+
+// Applies a function to all Values
+ListMap.map <a: Type> <b: Type> (func: a -> b) (lm: (ListMap a)): (ListMap b)
+ListMap.map func ListMap.empty                                  = ListMap.empty
+ListMap.map func (ListMap.cons (Pair.new k v) tail)             =
+  let rec = ListMap.map func tail
+  ListMap.cons (Pair.new k (func v)) rec
+
+TestMapSucc : (ListMap U60)
+TestMapSucc = (ListMap.cons (Pair.new 0 6)
+              (ListMap.cons (Pair.new 1 7)
+              (ListMap.cons (Pair.new 2 8)
+              (ListMap.cons (Pair.new 3 9)
+              (ListMap.cons (Pair.new 4 10)
+              (ListMap.cons (Pair.new 5 11)
+              (ListMap.empty)))))))
+
+TestMapSucc2 :  (ListMap String)
+TestMapSucc2 =  (ListMap.cons (Pair.new 0 "seis")
+                (ListMap.cons (Pair.new 1 "sete")
+                (ListMap.cons (Pair.new 2 "oito")
+                (ListMap.cons (Pair.new 3 "nove")
+                (ListMap.cons (Pair.new 4 "dez")
+                (ListMap.cons (Pair.new 5 "onzer")
+                (ListMap.empty)))))))
+
+
+Main {
+  let c = ListMap.show (r => U60.show r) TestMapSucc
+  let d = 125556
+  // ListMap.set 6 1  TestMapSucc2
+  // ListMap.get 8 TestMapSucc2
+  // ListMap.mut 3 (x => (+ 20 x)) TestMapSucc
+  // ListMap.show (x => U60.show x) TestMapSucc
+  // ListMap.has '' TestMapSucc
+  // ListMap.filter (x => (U60.is_odd x)) TestMapSucc
+  ListMap.map (x => (+ 30 x)) TestMapSucc
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

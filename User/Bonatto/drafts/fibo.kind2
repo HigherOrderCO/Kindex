@@ -1,0 +1,16 @@
+Fib (n: Nat)            : Nat
+Fib Nat.zero            = Nat.zero 
+Fib (Nat.succ Nat.zero) = (Nat.succ Nat.zero)
+Fib (Nat.succ n)        = Nat.add  (Fib n) (Fib (Nat.sub n (U60.to_nat 1)))
+
+// Aur (n: Nat)            : Nat
+// Aur Nat.zero            = Nat.zero
+// Aur (Nat.succ n)        = Nat.div (Fib (Nat.succ n)) (Fib n)
+
+
+Main {
+  let a = (U60.to_nat 4)
+  Nat.to_u60 (Fib a)
+}
+
+

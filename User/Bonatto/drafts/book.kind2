@@ -1,0 +1,285 @@
+
+Nat.show (n: Nat) : String {
+  (Nat.to_string_base (U60.to_nat 10) n )
+}
+
+Plus (n: Nat) (m: Nat)  : Nat
+Plus Nat.zero m         = m
+Plus (Nat.succ n) m     = Nat.succ (Plus n m)
+
+Example_apply (n: Nat) (m: Nat) (e: Equal m n) : Equal (Nat.succ m) (Nat.succ n)
+Example_apply n m e = 
+  let e_apply = Equal.apply (x => Nat.succ x) e
+  e_apply
+
+Example_case_analysis (b1: Bool)  : Equal (Bool.and b1 Bool.false) Bool.false
+Example_case_analysis Bool.true   = Equal.refl
+Example_case_analysis Bool.false  = Equal.refl
+
+Plus_id_example (n: Nat) (m: Nat) (e: Equal n m) : Equal (Plus n n) (Plus m m)
+Plus_id_example n m e = 
+  // let app = Equal (Plus n n) (Plus n m)
+  let app = Equal.apply (x => Plus x n) e
+  Equal.rewrite e (x => Equal (Plus n n) (Plus m x)) app 
+  // ?
+
+Problems.t0 (n: Nat) : Equal Nat (Nat.add Nat.zero n) n
+Problems.t0 n = Equal.refl
+
+Problems.t1 (n: Nat)      : (Equal Nat (Nat.add n Nat.zero) n)
+Problems.t1 Nat.zero      = Equal.refl
+Problems.t1 (Nat.succ n)  = 
+  let ind = Problems.t1 n  
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  app
+
+
+Problems.t2 (n: Nat) (m: Nat) : Equal Nat (Nat.add n (Nat.succ m)) (Nat.succ (Nat.add n m))
+Problems.t2 Nat.zero m        = Equal.refl
+Problems.t2 (Nat.succ n) m    = 
+  let ind = Problems.t2 n m
+  let app = Equal.apply (x => (Nat.succ x)) ind
+  app
+  // ?
+
+Problems.t3 (n: Nat) (m: Nat) : Equal Nat (Nat.add n m ) (Nat.add m n)
+Problems.t3 Nat.zero Nat.zero = Equal.refl
+Problems.t3 (Nat.succ n) m    = 
+  let ind_a = Equal.apply (x => (Nat.succ x)) (Problems.t3 n m)
+  let ind_b = Problems.t2 m n
+  let ind_c = Equal.chain ind_b (Equal.mirror ind_a)
+  let app   = Equal.mirror ind_c
+  app
+  // ?
+  
+// doit3times : (f: x -> x) -> (n : x) -> x
+// doit3times f n = f (f (f n))
+Doit3times <x> (f: x -> x) (n: x) : x
+Doit3times f n = (f (f ( f n )))
+
+Test_anon_fun : Equal (Doit3times (x => (Nat.mul x x)) (U60.to_nat 2)) (U60.to_nat 256)
+Test_anon_fun = Equal.refl
+
+Filter <x> (test: x -> Bool) (xs: List x) : List x
+Filter test List.nil  = List.nil
+Filter test (List.cons xs.h xs.t) =
+  Bool.if (test xs.h) (List.cons xs.h (Filter test xs.t)) (Filter test xs.t)
+
+Length_is_one <x> (xs: List x)  : Bool
+Length_is_one xs                = Nat.equal (List.length xs) (Nat.succ Nat.zero)
+
+Test_filter : Equal (Filter (x => (Length_is_one x))([[1], [1, 2], [2], [1, 2, 3], [21]])) ([[1], [2], [21]])
+Test_filter = Equal.refl // teste
+
+// Num_equal : Equal 4n 10n
+// Num_equal = Equal.refl
+
+Filter_even_gt7 (xs: List Nat) : List Nat
+// Filter_even_gt7  xs = Filter (x => Nat.gtn x 7n) (Filter (y => Nat.is_even y) xs)
+// Filter_even_gt7  xs = Filter (x => Bool.and (Nat.gtn x 7n) (Nat.is_even x)) xs
+Filter_even_gt7  xs = Filter (x => Nat.gtn x 7n) (Filter (y => Nat.is_even y) xs)
+
+
+Test_filter_even_gt7: Equal (Filter_even_gt7 [1n, 2n, 3n, 4n, 5n, 6n, 7n, 8n, 9n, 10n, 11n, 12n]) ([8n, 10n, 12n]) 
+Test_filter_even_gt7 = Equal.refl
+
+Test_filter_even_gt7a: Equal (Filter_even_gt7 [5n, 2n, 6n, 19n, 129n]) ([]) 
+Test_filter_even_gt7a = Equal.refl
+
+// Partition <x> (test: x -> Bool) (xs: List x) : Pair (List x) (List x)
+// Partition test xs = ?
+
+Flat_map <x> <y> (f: x -> List y) (xs: List x)  : List y
+Flat_map f List.nil                             = List.nil
+Flat_map f (List.cons xs.h xs.t)                = List.concat (f xs.h) (Flat_map f xs.t)
+
+
+// Flat_equal :  Equal (Flat_map (x => [x, (Nat.add x 1n), (Nat.add x 2n)]) [1n, 5n, 10n]) [1n, 2n, 3n, 5n, 6n, 7n, 10n, 11n, 12n]
+// Flat_equal = Equal.refl
+
+
+// Flat_equal1 :  Equal (Flat_map (x => [x, x, x]) [1n, 5n, 10n]) [1n, 1n, 1n, 5n, 5n, 5n, 10n, 10n, 10n]
+// Flat_equal1 = Equal.refl
+
+
+// option_map : (f : x -> y) -> (xo : Option x) -> Option y
+// option_map f None = None
+// option_map f (Some x) = Some (f x)
+
+Maybe_map <x> <y> (f: x -> y) (a: Maybe x)  : Maybe y
+Maybe_map f Maybe.none                      = Maybe.none
+Maybe_map f (Maybe.some x)                  = (Maybe.some (f x))
+
+// fold : (f : x -> y -> y) -> (l : List x) -> (b : y) -> y
+// fold f [] b = b
+// fold f (h::t) b = f h (fold f t b)
+
+Fold <x> <y> (f: x -> y -> y) (xs: List x) (a: y) : y
+Fold f List.nil a                                 = a
+Fold f (List.cons xs.h xs.t) a                    = f xs.h (Fold f xs.t a)
+
+// Constfun <y> (x: y) : Nat -> y
+// Constfun x = y => x
+
+// Ftrue : Nat -> Bool
+// Ftrue = Constfun Bool.true
+
+// Constfun_example1 : Equal ((Ftrue) 0n) Bool.true
+// Constfun_example1 = Equal.refl
+
+// Constfun_example2 : Equal ((Constfun 5n) 99n) 5n
+// Constfun_example2 = Equal.refl
+
+// constfun : (x : x_ty) -> Nat -> x_ty
+// constfun x = \k ౬> x
+// ftrue : Nat -> Bool
+// ftrue = constfun True
+// constfun_example1 : ftrue 0 = True
+// constfun_example1 = Refl
+// constfun_example2 : (constfun 5) 99 = 5
+// constfun_example2 = Ref
+
+Constfun <y> (x: y) : Nat -> y
+Constfun x = y => x 
+
+Ftrue : Nat -> Bool
+Ftrue = Constfun Bool.true
+
+Constfun_example1 : Equal ((Ftrue) 0n) Bool.true
+Constfun_example1 = Equal.refl
+
+Constfun_example2 : Equal ((Constfun 5n) 99n) 5n
+Constfun_example2 = Equal.refl
+
+
+
+Plus3 (n: Nat) : Nat
+Plus3 n = Plus 3n n
+
+Test_plus3_1 : Equal (Plus3 4n) 7n
+Test_plus3_1 = Equal.refl
+
+Test_plus3_2 : Equal (Doit3times (x => Plus3 x) 0n) 9n
+Test_plus3_2 = Equal.refl
+
+Test_plus3_3 : Equal (Doit3times (x => Plus 3n x) 0n)9n
+Test_plus3_3 = Equal.refl
+
+
+
+
+Fold_length <x> (xs : List x) : Nat
+Fold_length xs = Fold  (x => y => Nat.succ y) xs 0n
+
+Test_fold_length1 : Equal (Fold_length [4, 7, 0]) 3n
+Test_fold_length1 = Equal.refl
+
+Fold_length_correct <x> (xs: List x): Equal (Fold_length xs) (List.length xs)
+Fold_length_correct List.nil = Equal.refl
+Fold_length_correct (List.cons xs.h xs.t) = 
+  let ind = Fold_length_correct xs.t
+  let app = Equal.apply (x => Nat.succ x) ind
+  app
+
+Fold_map <a> <b> (f: a -> b) (xs: List a) : List b
+Fold_map f List.nil               = List.nil
+Fold_map f (List.cons xs.h xs.t)  = List.cons (Fold (x => y => f x) (List.cons xs.h xs.t) (f xs.h)) (Fold_map f xs.t )
+
+Test_fm1 : Equal (Fold_map (x => Nat.add x 3n) [1n, 2n, 3n]) ([4n, 5n, 6n])
+Test_fm1 = Equal.refl
+
+Test_fm2 <x> <y> (f: x -> y) (xs: List x) : Equal (Fold_map f xs) (List.map xs f)
+Test_fm2 f List.nil               = Equal.refl
+Test_fm2 f (List.cons xs.h xs.t)  =
+  let ind = Test_fm2 f xs.t
+  let app = Equal.apply ( x => (List.cons (f xs.h) x)) ind
+  app
+  // ?
+
+
+// Fold <x> <y> (f: x -> y -> y) (xs: List x) (a: y) : y
+// Fold f List.nil a                                 = a
+// Fold f (List.cons xs.h xs.t) a                    = f xs.h (Fold f xs.t a)
+
+
+// prod_curry : (f : (x * y) -> z) -> (x_val : x) -> (y_val : y) -> z
+// prod_curry f x_val y_val = f (x_val, y_val)
+
+Pair_curry <x> <y> <z> (f: (Pair x y) -> z) (x.val: x) (y.val: y) : z
+Pair_curry f  x.val y.val = f (Pair.new x.val y.val)
+
+
+
+// prod_uncurry : (f : x -> y -> z) -> (p : x * y) -> z
+// prod_uncurry f p = ?prod_uncurry_rhs
+Pair_uncurry <x> <y> <z> (f: x -> y -> z) (p: Pair x y) :  z
+Pair_uncurry f (Pair.new x.val y.val)                   = f x.val y.val
+
+// test_map2' : map (\x -> plus 3 x) [2,0,2] = [5,3,5]
+// test_map2' = Refl
+Test_map2_1 : Equal (Fold_map (x => Plus 3n x) [2n, 0n, 2n]) [5n, 3n, 5n]
+Test_map2_1 = Equal.refl
+
+
+
+// uncurry_curry : (f : x -> y -> z) -> (x_val : x) -> (y_val : y) -> prod_curry (prod_uncurry f) x_val y_val = f x_val y_val
+// uncurry_curry f x_val y_val = ?uncurry_curry_rhs
+Uncurry_curry <x> <y> <z> (f: x -> y -> z) (x.val: x) (y.val: y) : Equal (Pair_curry (p => Pair_uncurry f p) x.val y.val) (f x.val y.val)
+Uncurry_curry f x y = Equal.refl
+
+// curry_uncurry : (f : (x * y) -> z) -> (p : x * y) -> prod_uncurry (prod_curry f) p = f p
+// curry_uncurry f p = ?curry_uncurry_rhs
+
+// Curry_uncurry <x> <y> <z> (f: (Pair x y) -> z) (p: Pair x y) : Equal (Pair_uncurry (x => y => Pair_curry f x y) p) (f p)
+// Curry_uncurry f p = ?
+
+// • Expected: (Equal (Pair_uncurry (x => (y => (f (Pair.new x y)))) p) (f p))
+
+
+Num (x: Type) : Type
+Num (x) = (x -> x) -> x  -> x
+
+// One : Num
+// One f x =
+
+
+
+Main {
+  let a = Doit3times (x => Nat.mul x x) (2n)
+  // a
+  let b = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15]
+  // let c = Filter_even_gt7 b
+  let d = [1n, 2n, 3n, 4n]
+  let e = Maybe.some (3n)
+  // Maybe_map (x => Nat.add 2n x) e
+  let f = Fold (x => y => (+ y x))  b 1
+  f
+  // Fold (x => y => (Bool.and y x)) [Bool.true, Bool.false, Bool.true] Bool.true
+  // List.nat_show (Fold (x => y => (List.concat x y)) [[1n], [], [2n, 3n], [], [4n]] [5n, 6n, 7n, 8n])
+  // List.nat_show d
+  // (x => Nat.show x) c
+
+  // Nat.show (Plus3 3n)
+  // List.nat_show (Fold_map (x => Nat.add 3n x) d)
+  // Pair_curry (x => (y) => (Pair.new y y))  1n 2n
+  
+}
+
+
+
+
+
+
+
+
+
+
+List.nat_show (xs: List Nat)        : String
+List.nat_show List.nil              = String.nil
+List.nat_show (List.cons xs.h xs.t) = 
+  (String.concat "[" 
+  (String.concat (Nat.show xs.h) 
+  (String.concat "," 
+  (String.concat (List.nat_show xs.t) "]"))))
+
+

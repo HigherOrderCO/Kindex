@@ -1,0 +1,132 @@
+// Nat advanced  
+Nat : Type
+Nat.zero : Nat
+Nat.succ (pred: Nat) : Nat
+ 
+// Double
+// 0 -> 0
+// 1 -> 2
+// 2 -> 4
+Nat.double (n: Nat)     : Nat
+Nat.double Nat.zero     = Nat.zero
+Nat.double (Nat.succ n) = Nat.succ(Nat.succ( Nat.double n))
+
+// Add
+// 0 + 0 = 0
+// 0 + 1 = 1
+// 1 + 1 = 2
+Nat.add (a: Nat) (b: Nat) : Nat
+Nat.add Nat.zero b        = b
+Nat.add (Nat.succ a) b    = Nat.succ (Nat.add a b)
+
+// Sub
+// 0 - 0 = 0
+// 1 - 1 = 0
+// 1 - 2 = 0
+// 2 - 1 = 1
+Nat.sub (a: Nat) (b: Nat)             : Nat
+Nat.sub Nat.zero b                    = Nat.zero
+Nat.sub a Nat.zero                    = a
+Nat.sub (Nat.succ a) (Nat.succ b)     = Nat.sub a b
+
+// Mul 
+Nat.mul (a: Nat) (b: Nat)         : Nat
+Nat.mul a Nat.zero                = Nat.zero
+Nat.mul Nat.zero b                = Nat.zero
+Nat.mul (Nat.succ a) b            = Nat.add (Nat.mul a b) b
+
+// Fac
+// 0! = 1
+// 1! = 1
+// 5! = 120
+Nat.fac (a: Nat)      : Nat
+Nat.fac Nat.zero      = Nat.succ(Nat.zero)
+Nat.fac (Nat.succ a)  = Nat.mul (Nat.succ a) (Nat.fac a)
+
+// Equal
+Nat.eql (a: Nat) (b: Nat)         : Bool
+Nat.eql Nat.zero Nat.zero         = Bool.true
+Nat.eql a Nat.zero                = Bool.false
+Nat.eql Nat.zero b                = Bool.false
+Nat.eql (Nat.succ a) (Nat.succ b) = Bool.if (Nat.eql a b) Bool.true Bool.false 
+
+
+// Greater than
+// 2 > 1 = True
+// 3 > 3 = False
+// if A > B == True else false
+Nat.gtn (a: Nat) (b: Nat)         : Bool
+Nat.gtn Nat.zero Nat.zero         = Bool.false
+Nat.gtn a Nat.zero                = Bool.true
+Nat.gtn Nat.zero b                = Bool.false
+Nat.gtn (Nat.succ a) (Nat.succ b) = Bool.if (Nat.gtn a b) Bool.true Bool.false
+
+
+// Lower than
+// 1 < 2 = True
+// 3 < 3 = False
+// if A > B == False else true 
+Nat.ltn (a: Nat) (b: Nat)         : Bool 
+Nat.ltn Nat.zero Nat.zero         = Bool.false
+Nat.ltn Nat.zero b                = Bool.true
+Nat.ltn b Nat.zero                = Bool.false
+Nat.ltn (Nat.succ a) (Nat.succ b) = Bool.if (Nat.ltn a b) Bool.true Bool.false
+
+// Divides a number by two
+// 2 / 2 = 1
+// 5 / 2 = 2
+// 1 / 2 = 0
+Nat.hlf (a: Nat)                : Nat
+Nat.hlf Nat.zero                = Nat.zero
+Nat.hlf (Nat.succ Nat.zero)     = Nat.zero
+Nat.hlf (Nat.succ (Nat.succ a)) = Nat.succ(Nat.hlf a)
+
+// min
+// If a < b -> a else b
+Nat.min (a: Nat) (b: Nat) : Nat
+Nat.min a b               = Bool.if (Nat.ltn a b) a b
+
+// max
+// if a > b -> a else b
+Nat.max (a: Nat) (b: Nat) : Nat
+Nat.max a b               = Bool.if (Nat.gtn a b) a b
+
+// div
+// 0 div 2 = 0
+// 1 div 2 = 0
+// 2 div 1 = 2
+Nat.div (a: Nat) (b: Nat) : Nat
+Nat.div a b = 
+  Bool.if (Nat.ltn a b) Nat.zero (Bool.if (Nat.eql (Nat.min a b) Nat.zero) Nat.zero  (Nat.succ(Nat.div(Nat.sub a b) b)))
+
+
+Main {
+  let a = Nat.zero
+  let b = (Nat.succ(Nat.succ(Nat.zero)))
+  let c = Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.zero)))))
+  // (Nat.double(b))
+  // (Nat.add c b)
+  // (Nat.sub c b)
+  // (Nat.mul b c)
+  // (Nat.fac c)
+  // (Nat.eql a b)
+  // (Nat.gtn a c)
+  // (Nat.ltn b c)
+  // (Nat.hlf b)
+  // (Nat.min c a)
+  // (Nat.max c b)
+  (Nat.div c b)
+}
+
+
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+Bool.is_true (a: Bool) : Bool
+Bool.is_true Bool.true = Bool.true
+Bool.is_true Bool.false = Bool.false
+
+Bool.if <a: Type> (b: Bool) (t: a) (f: a) : a
+Bool.if a Bool.true  t f = t
+Bool.if a Bool.false t f = f

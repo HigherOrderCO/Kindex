@@ -1,0 +1,23 @@
+Cemsort.Board.get_line_aux(
+    board: Cemsort.Board, 
+    row_idx: Nat, 
+    col_idx: Nat, 
+    row: List<Cemsort.Tile> -> List<Cemsort.Tile>
+): List<Cemsort.Tile> -> List<Cemsort.Tile>
+    (rr: List<Cemsort.Tile>) row(
+        List.cons<Cemsort.Tile>(
+            Cemsort.Board.get(board, Pair.new<Nat, Nat>(col_idx, row_idx)),
+            rr
+        )
+    )
+
+Cemsort.board.get_line_aux 
+    (board: Cemsort.Board) 
+    (row_idx: Nat) 
+    (col_idx: Nat) 
+    (row: List <Cemsort.Tile> -> List<Cemsort.Tile>) 
+        : (List<Cemsort.Tile> -> List<Cemsort.Tile>)
+
+
+Cemsort.Board.get (board, Pair.new Nat Nat col_idx, row_idx)
+

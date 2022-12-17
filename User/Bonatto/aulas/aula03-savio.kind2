@@ -1,0 +1,86 @@
+// 1.0.1
+// mult_0_r : (n : Nat) → n * 0 = 0
+// mult_0_r n = ?mult_0_r_rhs
+Mult_0_r (n: Nat)     : (Equal Nat (Nat.mul n Nat.zero) Nat.zero)
+
+// plus_n_Sm : (n, m : Nat) → S (n + m) = n + (S m)
+// plus_n_Sm n m = ?plus_n_Sm_rhs
+Plus_n_sm (n: Nat) (m: Nat) : (Equal Nat (Nat.succ (Nat.add n m)) (Nat.add n (Nat.succ m)))
+
+// plus_comm : (n, m : Nat) → n + m = m + n
+// plus_comm n m = ?plus_comm_rhs
+Plus_comm (n: Nat) (m: Nat) : (Equal Nat (Nat.add n m) (Nat.add m n))
+
+Add_0_r (n: Nat)      : (Equal Nat (Nat.add n Nat.zero) n)
+
+// plus_assoc : (n, m, p : Nat) →  n + (m + p) = (n + m) + p
+// plus_assoc n m p = ?plus_assoc_rhs
+Plus_assoc (n: Nat) (m: Nat) (p: Nat) : (Equal Nat (Nat.add n (Nat.add m p)) (Nat.add (Nat.add n m) p))
+
+// 1.0.2
+// double_plus : (n : Nat) → double n = n + n
+// double_plus n = ?double_plus_rhs
+Double_plus (n: Nat)      : (Equal Nat (Nat.double n) (Nat.add n n))
+
+// evenb_S : (n : Nat) → evenb (S n) = not (evenb n)
+// evenb_S n = ?evenb_S_rhs
+Evenb_s (n: Nat)      : (Equal Bool (Nat.is_even (Nat.succ n)) (Bool.not (Nat.is_even n)))
+
+// 3.0.1
+// plus_swap : (n, m, p : Nat) →  n + (m + p) = m + (n + p)
+// plus_swap n m p = ?plus_swap_rhs
+Plus_swap (n: Nat) (m: Nat) (p: Nat)  : (Equal Nat (Nat.add n (Nat.add m p)) (Nat.add m (Nat.add n p)))
+
+// mult_comm : (m, n : Nat) → m * n = n * m
+// mult_comm m n = ?mult_comm_rhs
+Mult_comm (n: Nat) (m: Nat)   : (Equal Nat (Nat.mul m n) (Nat.mul n m))
+
+Mult_succ_n (n: Nat) (m: Nat)   :  (Equal Nat (Nat.add (Nat.mul m n) m) (Nat.mul m (Nat.succ n)))
+
+Mult_m_one (m: Nat)     : (Equal Nat m (Nat.mul m (Nat.succ Nat.zero)))
+  
+// 3.0.2
+// lte_refl : (n : Nat) → True = lte n n
+// lte_refl n = ?lte_refl_rhs
+Lte_refl (n: Nat)     : (Equal Bool Bool.true (Nat.lte n n))
+
+// zero_nbeq_S : (n : Nat) → 0 == (S n) = False
+// zero_nbeq_S n = ?zero_nbeq_S_rhs
+// Zero_nbeq_s (n: Nat) : (Equal Bool (Equal Nat Nat.zero (Nat.succ n)) Bool.false)
+
+// andb_false_r : (b : Bool) → b && False = False
+// andb_false_r b = ?andb_false_r_rhs
+Andb_false_r (b: Bool) : (Equal (Bool.and b Bool.false) Bool.false)
+
+// plus_ble_compat_l : (n, m, p : Nat) →
+// lte n m = True → lte (p + n) (p + m) = True
+// plus_ble_compat_l n m p prf = ?plus_ble_compat_l_rhs
+
+// S_nbeq_0 : (n : Nat) → (S n) == 0 = False
+// S_nbeq_0 n = ?S_nbeq_0_rhs
+// S_nbeq_0  (n: Nat) : (Equal Bool (Equal Nat (Nat.succ n) Nat.zero ) Bool.false )
+
+// mult_1_l : (n : Nat) → 1 * n = n
+// mult_1_l n = ?mult_1_l_rhs
+Mult_1_l (n: Nat) : (Equal Nat (Nat.mul (Nat.succ Nat.zero) n) n)
+
+// all3_spec : (b, c : Bool) →
+// (b && c) || ((not b) || (not c)) = True
+// all3_spec b c = ?all3_spec_rhs
+
+// mult_plus_distr_r : (n, m, p : Nat) → (n + m) * p = (n * p) + (m * p)
+// mult_plus_distr_r n m p = ?mult_plus_distr_r_rhs
+
+// mult_assoc : (n, m, p : Nat) → n * (m * p) = (n * m) * p
+// mult_assoc n m p = ?mult_assoc_rhs
+
+
+
+
+
+
+
+
+
+
+

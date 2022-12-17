@@ -1,0 +1,139 @@
+List <a: Type> : Type
+List.nil <a> : (List a)
+List.cons <a> (head: a) (tail: List a) : (List a)
+
+Maybe <a: Type> : Type
+Maybe.none <a> : (Maybe a)
+Maybe.some <a> (value: a) : (Maybe a)
+
+Pair (a: Type) (b: Type) : Type
+Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b) 
+
+Nat : Type
+Nat.zero : Nat
+Nat.succ(pred: Nat) : Nat
+
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+Bool.if <a: Type> (b: Bool) (t: a) (f: a) : a
+Bool.if a Bool.true  t f = t
+Bool.if a Bool.false t f = f
+
+Bool.match (x: (Bool)) -(p: (x: (Bool)) Type) (true: (p (Bool.true))) (false: (p (Bool.false))) : (p x)
+Bool.match (Bool.true) p true false = (true)
+Bool.match (Bool.false) p true false = (false)
+
+Nat.ltn (a: Nat) (b: Nat): Bool
+Nat.ltn Nat.zero Nat.zero = Bool.false
+Nat.ltn a        Nat.zero = Bool.false
+Nat.ltn Nat.zero b        = Bool.true
+Nat.ltn (Nat.succ a) (Nat.succ b) = (Nat.ltn a b)
+
+Nat.eql (a: Nat) (b: Nat): Bool
+Nat.eql Nat.zero Nat.zero = Bool.true
+Nat.eql a        Nat.zero = Bool.false
+Nat.eql Nat.zero b        = Bool.false
+Nat.eql (Nat.succ a) (Nat.succ b) = (Nat.eql a b)
+
+Nat.min (a: Nat) (b: Nat): Nat
+Nat.min a b = if (Nat.ltn a b) { a } else { b }
+
+// Returns pairs of the elements of the 2 input lists on the same index
+// Ex: zip!!([1,2], ["a","b","c"]) == [{1, "a"}, {2 , "b"}]
+// Ex: zip!!(["a", "b"], [3, 5])   == [{"a", 3}, {2 , "b"}]
+List_zip <a: Type> <b: Type> (xs: List a) (ys: List b)          : (List (Pair a b))
+List_zip List.nil ys                                            = List.nil
+List_zip xs List.nil                                            = List.nil
+List_zip (List.cons xs.head xs.tail)(List.cons ys.head ys.tail) = (List.cons (Pair.new xs.head ys.head) (List_zip xs.tail ys.tail))
+
+// Returns the smallest element of a List
+List_smallest (xs: (List Nat))                                  : (Maybe Nat)
+List_smallest List.nil                                          = Maybe.none
+List_smallest (List.cons xs.head List.nil)                      = Maybe.some(xs.head)
+List_smallest (List.cons xs.head (List.cons tail.head tail))    = 
+    Bool.if (Nat.ltn xs.head tail.head) (List_smallest (List.cons xs.head tail)) (List_smallest (List.cons tail.head tail))
+
+// Returns the value inside the Maybe.
+// If there is no value contained, returns v instead
+Maybe_extract <a: Type> (m: Maybe a) (v: a) : a
+Maybe_extract Maybe.none v                  = v
+Maybe_extract (Maybe.some(t)) v             = t  
+
+// Returns the same list without the smallest element
+List_delete_smallest (xs: (List Nat))               : (List Nat)
+List_delete_smallest List.nil                       = List.nil
+List_delete_smallest (List.cons xs.head xs.tail)    =
+    Bool.if (Nat.ltn xs.head (Maybe_extract (List_smallest xs.tail) Nat.zero)) (xs.tail) (List.cons xs.head (List_delete_smallest xs.tail))
+
+
+// Returns the same list, in descending order
+List_sort_descending (xs: (List Nat))            : (List Nat)
+List_sort_descending List.nil                    = List.nil
+List_sort_descending (List.cons xs.head xs.tail) = 
+    Bool.if (Nat.ltn xs.head (Maybe_extract (List_smallest xs.tail) Nat.zero)) (List.concat (List_sort_descending xs.tail)[xs.head]) (List.cons xs.head (List_sort_descending xs.tail))
+
+
+// Returns the same list, in ascending order
+List_sort_ascending (xs: (List Nat))            : (List Nat)
+List_sort_ascending List.nil                    = List.nil
+List_sort_ascending (List.cons xs.head xs.tail) =
+    Bool.if (Nat.ltn xs.head (Maybe_extract (List_smallest xs.tail) Nat.zero)) (List.concat [xs.head] (List_sort_ascending xs.tail)) (List.concat (List_sort_ascending xs.tail) [xs.head] )
+
+// Returns an element at an index from the list
+// if there is an element at that index
+//   returns Maybe.some!(element)
+// else
+//   returns Maybe.none!
+List_get <a: Type> (idx: Nat) (xs: (List a))        : (Maybe a)
+List_get a List.nil                                 = Maybe.none
+List_get Nat.zero (List.cons xs.head xs.tail)       = Maybe.some(xs.head)
+List_get (Nat.succ a) (List.cons xs.head xs.tail)   = List_get a xs.tail
+
+// Removes all elements that does not match a condition
+// List.filter<Nat>(Nat.odd, [1, 2, 3, 4, 5]) = [1, 3, 5]
+List_filter <a: Type> (func: a -> Bool) (xs: (List a))  : (List a)
+List_filter func List.nil                               = List.nil
+List_filter func (List.cons xs.head xs.tail)            =
+    Bool.if (func xs.head) (List.cons xs.head (List_filter func xs.tail)) (List_filter func xs.tail)
+
+Main {
+    let a = [(Nat.succ(Nat.zero)),
+             (Nat.succ(Nat.succ(Nat.zero))),
+             (Nat.succ(Nat.succ(Nat.succ(Nat.zero)))),
+             (Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.zero))))),
+             (Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.succ(Nat.zero))))))]
+    let b = List.nil
+    let c = ["a", "b", "c" ]
+    // List_zip a c
+    // List_smallest a
+    // List_get Nat.zero a
+    // Maybe_extract (Maybe.none) (U60.to_nat 4)
+    // List_delete_smallest a
+    // List_sort_descending a
+    // List_sort_ascending (List_sort_descending a)
+    // List_get (Nat.zero) List.nil
+    List_filter (x => Nat.is_odd x) a 
+}
+//
+// (List.cons _ (Pair.new _ _ (Nat.succ Nat.zero) 'a')
+// (List.cons _ (Pair.new _ _ (Nat.succ (Nat.succ Nat.zero)) 'b')
+// (List.cons _ (Pair.new _ _ (Nat.succ (Nat.succ (Nat.succ Nat.zero))) 'c')
+// (List_zip _ _ (List.cons _ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero))))
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero))))) (List.nil _))) (List.nil _)))))
+
+// (List.cons _ (Pair.new _ _ (Nat.succ Nat.zero) 'a')
+// (List.cons _ (Pair.new _ _ (Nat.succ (Nat.succ Nat.zero)) 'b')
+// (List.cons _ (Pair.new _ _ (Nat.succ (Nat.succ (Nat.succ Nat.zero))) 'c') (List.nil _))))
+
+// (List.cons _ (Nat.succ (Nat.succ Nat.zero))
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ Nat.zero)))
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero))))
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero))))) (List.nil _)))))
+
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero))))
+// (List.cons _ (Nat.succ (Nat.succ (Nat.succ Nat.zero)))
+// (List.cons _ (Nat.succ (Nat.succ Nat.zero))
+// (List.cons _ (Nat.succ Nat.zero) (List.nil _))))))

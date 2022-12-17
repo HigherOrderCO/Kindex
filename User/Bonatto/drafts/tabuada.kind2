@@ -1,0 +1,44 @@
+// Teste para ver se aprendi curry
+// Objetivo: Criar uma tabuada em kind
+
+
+Tabuada.aux1 (n: Nat) (m: Nat)      : String 
+Tabuada.aux1 n Nat.zero        = (String.concat ((Nat.show n) "") " x 0 = 0")
+Tabuada.aux1 (n) (Nat.succ m)  = 
+  (String.concat ((Nat.show n)"")
+  (String.concat (" x ") 
+  (String.concat ((Nat.show (Nat.succ m)) "")
+  (String.concat " = "
+  (String.concat ((Nat.show (Nat.mul n (Nat.succ m))) "\n") 
+  (Tabuada.aux1 n m))))))
+
+Tabuada.aux (n: Nat) : String
+Tabuada.aux n = (Tabuada.aux1 n 10n)
+
+Tabuada.aux2 (n: Nat)     : String
+Tabuada.aux2 Nat.zero     = String.concat "\n" (String.concat "\n" (Tabuada.aux 0n))
+Tabuada.aux2 (Nat.succ n) = String.concat "\n" (String.concat "\n" (String.concat (String.concat (Tabuada.aux1 (Nat.succ n) 10n) (Tabuada.aux2 n)) ""))
+
+Tabuada: String
+Tabuada = Tabuada.aux2 10n
+
+// Tabuada -> f -> n -> m -> String
+
+Main {
+  Tabuada
+}
+
+
+List.nat_show (xs: List Nat)        : String
+List.nat_show List.nil              = String.nil
+List.nat_show (List.cons xs.h xs.t) =
+  (String.concat "["
+  (String.concat ((Nat.show xs.h) "")
+  (String.concat (List.nat_show xs.t)
+  (String.concat "]" String.nil))))
+
+List.list_show (xs: List (List Nat)) : String
+List.list_show List.nil  = String.nil
+List.list_show (List.cons xs.h xs.t) = String.concat (List.nat_show xs.h) (List.list_show xs.t)
+
+
