@@ -1,4 +1,3 @@
-// TODO Check - Algebra
 #kdl_name = Str_cnct_smg
 String.concat.semigroup : Algebra.Semigroup String
 String.concat.semigroup =

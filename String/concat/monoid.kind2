@@ -1,4 +1,3 @@
-// TODO Check - Algebra
 #kdl_name = Str_cnct_mnd
 String.concat.monoid : Algebra.Monoid String
 String.concat.monoid =

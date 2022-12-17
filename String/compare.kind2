@@ -1,4 +1,3 @@
-// TODO Check - Cmp
 #kdl_name = Str_compare
 String.compare (a: String) (b: String) : Cmp
 String.compare  String.nil          String.nil         = Cmp.eql

@@ -1,4 +1,3 @@
-// TODO update syntax
 // Proof that if all x in set do not fulfill proposition, then there exists at most one x in set that does.
 Quantifier.unique_all_not.helper 
   <set: Type> 
