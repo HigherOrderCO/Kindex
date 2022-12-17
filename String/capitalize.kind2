@@ -4,7 +4,7 @@ String.capitalize (s: String) : String
 String.capitalize (String.cons ' ' t) =
   match String t {
     nil  => String.cons ' '  String.nil
-    cons => String.cons ' ' (String.cons (Char.to_upper t.head) (String.capitalize t.tail))
+    cons head tail => String.cons ' ' (String.cons (Char.to_upper head) (String.capitalize tail))
   }
 String.capitalize (String.cons h t) = String.cons (Char.to_lower h) (String.capitalize t)
 String.capitalize  String.nil       = String.nil
