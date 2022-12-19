@@ -1,7 +1,7 @@
 // Automatically derived from Pair/_.type
 #kdl_name  = T2
 #kdl_erase
-#derive[open]
+#derive[match]
 record Pair (a) (b) {
   fst : a
   snd : b
