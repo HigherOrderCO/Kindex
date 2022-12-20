@@ -283,7 +283,7 @@ IC.Term.rule.dup r a b (IC.Term.lam x body) cont = do Run {
 //   b <- #S{b0,b1} 
 //   let #R{a0,a1} = fst in
 //   let #R{b0,b1} = snd in
-//   contEnv.fresh
+//   cont
 IC.Term.rule.dup r a b (IC.Term.sup s fst snd) cont =
   ((Bool.match (U60.equal r s) (self => (fst: IC.Term) -> (snd: IC.Term) -> (cont: IC.Term) -> Run IC.Term)
     // if #R == #S:
