@@ -201,29 +201,29 @@ Env.take (Env.new vars size) name =
 Env.fresh (env: Env) : Pair Env U60
 Env.fresh (Env.new vars size) = Pair.new (Env.new vars (+ size 1)) size
 
-IC.Term.reduce.var (name: U60) : Run IC.Term
-IC.Term.reduce.var name = do Run {
+IC.Term.rule.var (name: U60) : Run IC.Term
+IC.Term.rule.var name = do Run {
   ask got = Run.take name
-  IC.Term.reduce.var.got got name
+  IC.Term.rule.var.got got name
 }
 
-IC.Term.reduce.var.got (got: Maybe IC.Term) (name: U60) : Run IC.Term
-IC.Term.reduce.var.got Maybe.none name = do Run {
+IC.Term.rule.var.got (got: Maybe IC.Term) (name: U60) : Run IC.Term
+IC.Term.rule.var.got Maybe.none name = do Run {
   return IC.Term.var name
 }
-IC.Term.reduce.var.got (Maybe.some var) name = do Run {
+IC.Term.rule.var.got (Maybe.some var) name = do Run {
   IC.Term.reduce var
 }
 
 // ### Application Interactions
 
-IC.Term.reduce.app (func: IC.Term) (argm: IC.Term) : Run IC.Term
+IC.Term.rule.app (func: IC.Term) (argm: IC.Term) : Run IC.Term
 
 // (λx. body) arg
 // -------------- APP-LAM interaction
 // x <- arg
 // body
-IC.Term.reduce.app (IC.Term.lam x body) arg = do Run {
+IC.Term.rule.app (IC.Term.lam x body) arg = do Run {
   Run.subst x arg
   IC.Term.reduce body
 }
@@ -232,7 +232,7 @@ IC.Term.reduce.app (IC.Term.lam x body) arg = do Run {
 // ----------------- APP-SUP interaction
 // dup #A{a,b} = arg
 // {(fst a) (snd b)}
-IC.Term.reduce.app (IC.Term.sup r fst snd) arg = do Run {
+IC.Term.rule.app (IC.Term.sup r fst snd) arg = do Run {
   ask a = Run.fresh
   ask b = Run.fresh
   IC.Term.reduce (IC.Term.dup r a b (IC.Term.app fst (IC.Term.var a)) (IC.Term.app snd (IC.Term.var b)))
@@ -241,18 +241,18 @@ IC.Term.reduce.app (IC.Term.sup r fst snd) arg = do Run {
 // ((dup #R{a,b} = expr in cont) arg)
 // ---------------------------------- APP-DUP permutation
 // (dup #R{a,b} = expr in (cont arg))
-IC.Term.reduce.app (IC.Term.dup r a b expr cont) arg = do Run {
+IC.Term.rule.app (IC.Term.dup r a b expr cont) arg = do Run {
   IC.Term.reduce (IC.Term.dup r a b expr (IC.Term.app cont arg))
 }
 
 // Stuck
-IC.Term.reduce.app func argm = do Run {
+IC.Term.rule.app func argm = do Run {
   return IC.Term.app func argm
 }
 
 // ### Duplication Interactions
 
-IC.Term.reduce.dup (r: U60) (a: U60) (b: U60) (expr: IC.Term) (cont: IC.Term) : Run IC.Term
+IC.Term.rule.dup (r: U60) (a: U60) (b: U60) (expr: IC.Term) (cont: IC.Term) : Run IC.Term
 
 // dup #R{a,b} = (λx. f) in cont
 // ----------------------------- DUP-LAM interaction
@@ -261,7 +261,7 @@ IC.Term.reduce.dup (r: U60) (a: U60) (b: U60) (expr: IC.Term) (cont: IC.Term) : 
 //  x <- {x0,x1}
 //  dup #R{b0,b1} = body in
 //  cont                   
-IC.Term.reduce.dup r a b (IC.Term.lam x body) cont = do Run {
+IC.Term.rule.dup r a b (IC.Term.lam x body) cont = do Run {
   ask x0 = Run.fresh
   ask x1 = Run.fresh
   ask b0 = Run.fresh
@@ -284,7 +284,7 @@ IC.Term.reduce.dup r a b (IC.Term.lam x body) cont = do Run {
 //   let #R{a0,a1} = fst in
 //   let #R{b0,b1} = snd in
 //   cont
-IC.Term.reduce.dup r a b (IC.Term.sup s fst snd) cont =
+IC.Term.rule.dup r a b (IC.Term.sup s fst snd) cont =
   ((Bool.match (U60.equal r s) (self => (fst: IC.Term) -> (snd: IC.Term) -> (cont: IC.Term) -> Run IC.Term)
     // if #R == #S:
     (fst => snd => cont => do Run {
@@ -307,45 +307,45 @@ IC.Term.reduce.dup r a b (IC.Term.sup s fst snd) cont =
 // let #R{a,b} = (dup #S{c,d} = expr_a in cont_a) in cont_b
 // -------------------------------------------------------- DUP-DUP permutation
 // dup #S{c,d} = cont_a in (dup #R{a,b} = cont_b in cont_b)
-IC.Term.reduce.dup r a b (IC.Term.dup s c d expr_a cont_a) cont_b = do Run {
+IC.Term.rule.dup r a b (IC.Term.dup s c d expr_a cont_a) cont_b = do Run {
   IC.Term.reduce (IC.Term.dup s c d expr_a (IC.Term.dup r a b cont_a cont_b))
 }
 
 // Stuck
-IC.Term.reduce.dup r a b expr cont = do Run {
+IC.Term.rule.dup r a b expr cont = do Run {
   return IC.Term.dup r a b expr cont
 }
 
 // ### Operation Interactions 
 
-IC.Term.reduce.nop (op: U60) (n: IC.Term) (m: IC.Term) : Run IC.Term
+IC.Term.rule.nop (op: U60) (n: IC.Term) (m: IC.Term) : Run IC.Term
 
 // TODO: other operations
 // (OP a b)
 // -------- OP2-U60 interaction
 // a `OP` b
-IC.Term.reduce.nop  0 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (+  n m) }
-IC.Term.reduce.nop  1 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (-  n m) }
-IC.Term.reduce.nop  2 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (*  n m) }
-IC.Term.reduce.nop  3 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (/  n m) }
-IC.Term.reduce.nop  4 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (^  n m) }
-IC.Term.reduce.nop  5 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (&  n m) }
-IC.Term.reduce.nop  6 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (|  n m) }
-IC.Term.reduce.nop  7 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (^  n m) }
-IC.Term.reduce.nop  8 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (<< n m) }
-IC.Term.reduce.nop  9 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (>> n m) }
-IC.Term.reduce.nop 10 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (== n m) }
-IC.Term.reduce.nop 11 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (<  n m) }
-IC.Term.reduce.nop 12 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (<= n m) }
-IC.Term.reduce.nop 13 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (== n m) }
-IC.Term.reduce.nop 14 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (>  n m) }
-IC.Term.reduce.nop 15 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (>= n m) }
+IC.Term.rule.nop  0 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (+  n m) }
+IC.Term.rule.nop  1 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (-  n m) }
+IC.Term.rule.nop  2 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (*  n m) }
+IC.Term.rule.nop  3 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (/  n m) }
+IC.Term.rule.nop  4 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (^  n m) }
+IC.Term.rule.nop  5 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (&  n m) }
+IC.Term.rule.nop  6 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (|  n m) }
+IC.Term.rule.nop  7 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (^  n m) }
+IC.Term.rule.nop  8 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (<< n m) }
+IC.Term.rule.nop  9 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (>> n m) }
+IC.Term.rule.nop 10 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (== n m) }
+IC.Term.rule.nop 11 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (<  n m) }
+IC.Term.rule.nop 12 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (<= n m) }
+IC.Term.rule.nop 13 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (== n m) }
+IC.Term.rule.nop 14 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (>  n m) }
+IC.Term.rule.nop 15 (IC.Term.u60 n) (IC.Term.u60 m) = do Run { return IC.Term.u60 (>= n m) }
 
 // (+ #R{a0,a1} b)
 // --------------------- OP2-SUP-0 interaction
 // dup #R{b0,b1} = b in
 // #R{(+ a0 b0),(+ a1 b1)}
-IC.Term.reduce.nop op (IC.Term.sup r a0 a1) b = do Run {
+IC.Term.rule.nop op (IC.Term.sup r a0 a1) b = do Run {
   ask b0 = Run.fresh
   ask b1 = Run.fresh
   return IC.Term.dup r b0 b1 b (IC.Term.sup r
@@ -357,7 +357,7 @@ IC.Term.reduce.nop op (IC.Term.sup r a0 a1) b = do Run {
 // --------------------- OP2-SUP-1 interaction
 // dup #R{a0,a1} = a in
 // #R{(+ a0 b0),(+ a1 b1)}
-IC.Term.reduce.nop op a (IC.Term.sup r b0 b1) = do Run {
+IC.Term.rule.nop op a (IC.Term.sup r b0 b1) = do Run {
   ask a0 = Run.fresh
   ask a1 = Run.fresh
   return IC.Term.dup r a0 a1 a (IC.Term.sup r
@@ -368,19 +368,19 @@ IC.Term.reduce.nop op a (IC.Term.sup r b0 b1) = do Run {
 // (+ (dup #R{a0,a1} = expr in cont) b)
 // ------------------------------------ OP2-DUP-0 permutation
 // (dup #R{a0,a1} = expr in (+ cont b))
-IC.Term.reduce.nop op (IC.Term.dup r a0 a1 expr cont) b = do Run {
+IC.Term.rule.nop op (IC.Term.dup r a0 a1 expr cont) b = do Run {
   return IC.Term.dup r a0 a1 expr (IC.Term.nop op cont b)
 }
 
 // (+ a (dup #R{b0,b1} = expr in cont))
 // ------------------------------------ OP2-DUP-1 permutation
 // (dup #R{b0,b1} = expr in (+ a cont))
-IC.Term.reduce.nop op a (IC.Term.dup r b0 b1 expr cont) = do Run {
+IC.Term.rule.nop op a (IC.Term.dup r b0 b1 expr cont) = do Run {
   return IC.Term.dup r b0 b1 expr (IC.Term.nop op a cont)
 }
 
 // Stuck
-IC.Term.reduce.nop op n m = do Run {
+IC.Term.rule.nop op n m = do Run {
   return IC.Term.nop op n m
 }
 
@@ -423,21 +423,21 @@ Run.exec a run = Pair.snd (run Env.empty)
 
 IC.Term.reduce (term: IC.Term) : Run IC.Term
 IC.Term.reduce (IC.Term.var name) = do Run {
-  IC.Term.reduce.var name
+  IC.Term.rule.var name
 }
 IC.Term.reduce (IC.Term.lam x body) = do Run {
   return IC.Term.lam x body
 }
 IC.Term.reduce (IC.Term.app fun arg) = do Run {
   ask fun = IC.Term.reduce fun
-  IC.Term.reduce.app fun arg
+  IC.Term.rule.app fun arg
 }
 IC.Term.reduce (IC.Term.sup r fst snd) = do Run {
   return IC.Term.sup r fst snd
 }
 IC.Term.reduce (IC.Term.dup r a b expr cont) = do Run {
   ask expr = IC.Term.reduce expr
-  IC.Term.reduce.dup r a b expr cont
+  IC.Term.rule.dup r a b expr cont
 }
 IC.Term.reduce (IC.Term.u60 val) = do Run {
   return IC.Term.u60 val
@@ -445,7 +445,7 @@ IC.Term.reduce (IC.Term.u60 val) = do Run {
 IC.Term.reduce (IC.Term.nop op n m) = do Run {
   ask n = IC.Term.reduce n
   ask m = IC.Term.reduce m
-  IC.Term.reduce.nop op n m
+  IC.Term.rule.nop op n m
 }
 
 // Normalizer
