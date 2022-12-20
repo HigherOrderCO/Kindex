@@ -33,9 +33,9 @@ Parser.lambda_term.var : Parser LambdaTerm {
 // "@" var "." term
 Parser.lambda_term.abs : Parser LambdaTerm {
   do Parser {
-    ask Parser.string "@"
+    Parser.string "@"
     ask lam  = Parser.lambda_var
-    ask Parser.string "."
+    Parser.string "."
     ask body = Parser.lambda_term
     return LambdaTerm.abs lam body
   }
@@ -45,11 +45,11 @@ Parser.lambda_term.abs : Parser LambdaTerm {
 // "(" term " " term ")"
 Parser.lambda_term.app : Parser LambdaTerm {
   do Parser {
-    ask Parser.string "("
+    Parser.string "("
     ask head = Parser.lambda_term
-    ask Parser.string " "
+    Parser.string " "
     ask body = Parser.lambda_term
-    ask Parser.string ")"
+    Parser.string ")"
     return LambdaTerm.app head body
   }
 }

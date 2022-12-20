@@ -1,2 +1,6 @@
-// Automatically derived from Parser/State/_.type
-Parser.State : Type
+#derive[match]
+record Parser.State {
+  left: String
+  back: String
+  index: U60
+}

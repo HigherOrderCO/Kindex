@@ -1,3 +1,0 @@
-// Automatically derived from Parser/Error/_.type
-Parser.Error.match (x: (Parser.Error)) -(p: (x: (Parser.Error)) Type) (new: (msg: String) (init: U60) (last: U60) (p (Parser.Error.new msg init last))) : (p x)
-Parser.Error.match (Parser.Error.new msg_ init_ last_) p new = (new msg_ init_ last_)

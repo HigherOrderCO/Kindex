@@ -1,3 +1,0 @@
-// Automatically derived from Parser/State/_.type
-Parser.State.match (x: (Parser.State)) -(p: (x: (Parser.State)) Type) (new: (left: String) (back: String) (index: U60) (p (Parser.State.new left back index))) : (p x)
-Parser.State.match (Parser.State.new left_ back_ index_) p new = (new left_ back_ index_)

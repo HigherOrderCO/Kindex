@@ -1,3 +1,0 @@
-type Parser.Error {
-  new (msg: String) (init: U60) (last: U60)
-}

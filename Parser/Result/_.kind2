@@ -1,2 +1,5 @@
-// Automatically derived from Parser/Result/_.type
-Parser.Result (r: Type) : Type
+#derive[match]
+type Parser.Result <r> {
+  done (state: Parser.State) (result: r)
+  fail (state: Parser.State) (error: Parser.Error)
+}

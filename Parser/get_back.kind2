@@ -1,8 +1,6 @@
 Parser.get_back : Parser String {
   state =>
-    match Parser.State state {
-      new =>
-        let state = Parser.State.new state.left state.back state.index
-        Parser.Result.done state (String.reverse state.back)
-    }
+    open Parser.State state
+    let state = Parser.State.new state.left state.back state.index
+    Parser.Result.done state (String.reverse state.back)
 }
