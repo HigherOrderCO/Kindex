@@ -493,6 +493,26 @@ IC.Term.normal.go (IC.Term.nop op n m) = do Run {
 // Parser
 // ------
 
+// Syntax:
+// term :=
+//  | dup
+//  | sup
+//  | lam
+//  | nop
+//  | app
+//  | u60
+//  | var
+// dup := "let" "#" name "{" name name "}" "=" term ";" term
+// sup := "#" name "{" term term "}"
+// lam :=
+//  | [@λ] name term
+//  | "(" [@λ] name term ")"
+// nop := "(" [+ - * ...] term term ")"
+// app := "(" term term ")"
+// u60 := "#" [0-9]+
+// var := name
+// name := [0-9]+
+
 IC.parser : Parser Env IC.Term
 IC.parser = do Parser {
   Parser.skip_whitespace
