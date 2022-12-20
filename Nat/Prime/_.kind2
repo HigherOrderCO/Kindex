@@ -4,7 +4,7 @@
 // either d == p
 // p mod d != 0
 
-#derive[open]
+#derive[match]
 record Nat.Prime {
 	value: Nat
 	proof: 
