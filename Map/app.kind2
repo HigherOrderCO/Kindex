@@ -1,0 +1,3 @@
+#inline
+Map.app <a> (map : Bits.Map a) (key : U60) (fun : a -> a) : Bits.Map a
+Map.app a map key fun = Bits.Map.app a map (U60.to_bits key) fun
