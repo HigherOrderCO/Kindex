@@ -1,27 +1,26 @@
 // Returns the result of a parser without modifying the state
-Parser.look_ahead <a> (prs: Parser a) : Parser a {
-  state => 
+Parser.look_ahead <a> <t> (prs: Parser t a) : Parser t a {
+  state =>
     open Parser.State state
+    let state = Parser.State.new state.custom state.left state.back state.index
     // save initial index
     let init  = state.index
-    let state = Parser.State.new state.left state.back state.index
+    // Apply parser
     match Parser.Result res = (prs state) {
       // on success, backtrack and return result
-      done (state = res.state) result =>
-        let new_state = res.state
-        open Parser.State new_state 
-        let last   = new_state.index
+      done (state = new_state) result =>
+        open Parser.State new_state
+        let new_state = Parser.State.new new_state.custom new_state.left new_state.back new_state.index
+        let last      = new_state.index
         let back_n    = (- last init)  // TODO: prove that no parser moves back
-        let new_state = Parser.State.new new_state.left new_state.back new_state.index
         let old_state = Parser.State.backtrack back_n new_state
         Parser.Result.done old_state result
       // on fail, backtrack and propagate fail
-      fail (state = res.state) error => 
-        let new_state = res.state
+      fail (state = new_state) error =>
         open Parser.State new_state
+        let new_state = Parser.State.new new_state.custom new_state.left new_state.back new_state.index
         let last      = new_state.index
         let back_n    = (- last init)
-        let new_state = Parser.State.new new_state.left new_state.back new_state.index
         let old_state = Parser.State.backtrack back_n new_state
         Parser.Result.fail old_state error
     }

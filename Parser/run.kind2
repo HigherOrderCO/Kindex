@@ -1,7 +1,7 @@
 // Runs a parser and returns the result, or none
 // FIXME: for some reason, renaming prs to parser makes the type checker loop; investigate
-Parser.run <r: Type> (prs: Parser r) (code: String) : Either r Parser.Error {
-  let state = Parser.State.new code String.nil 0
+Parser.run <r: Type> <t> (custom: t) (prs: Parser t r) (code: String) : Either r Parser.Error {
+  let state = Parser.State.new custom code String.nil 0
   match Parser.Result res = (prs state) {
     done => Either.left  res.result
     fail => Either.right res.error

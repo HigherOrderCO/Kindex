@@ -1,7 +1,7 @@
 // If the given parser fails, replace its error by "Expected `name`", where name is the given value.
 // Marks the initial error index as the one before running the given parser,
 // and the last error index as the one in the error coming from the given parser.
-Parser.expecting <a> (prs: Parser a) (name: String) : Parser a {
+Parser.expecting <a> <t> (prs: Parser t a) (name: String) : Parser t a {
   state =>
     open Parser.State state
     let state = Parser.State.new state.left state.back state.index

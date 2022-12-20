@@ -1,8 +1,8 @@
 // Runs a parser, returning whether it succeeds or not
 // Never fails
-Parser.to_bool <a> (prs: Parser a) : Parser Bool {
+Parser.to_bool <a> <t> (prs: Parser t a) : Parser t Bool {
   state => match Parser.Result r = (prs state) {
-    done => Parser.Result.done r.state Bool.true
-    fail => Parser.Result.done r.state Bool.false
+    done state .. => Parser.Result.done state Bool.true
+    fail state .. => Parser.Result.done state Bool.false
   }
 }
