@@ -201,6 +201,8 @@ Env.take (Env.new vars size) name =
 Env.fresh (env: Env) : Pair Env U60
 Env.fresh (Env.new vars size) = Pair.new (Env.new vars (+ size 1)) size
 
+// ### Variable Substitutions
+
 IC.Term.rule.var (name: U60) : Run IC.Term
 IC.Term.rule.var name = do Run {
   ask got = Run.take name
