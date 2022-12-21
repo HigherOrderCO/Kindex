@@ -515,274 +515,274 @@ IC.Term.normal.go (IC.Term.nop op n m) = do Run {
 // var := name
 // name := [0-9]+
 
-//IC.parser : Parser Env IC.Term
-//IC.parser = do Parser {
-  //Parser.skip_whitespace
-  //IC.parser.term
-//}
+IC.parser : Parser Env IC.Term
+IC.parser = do Parser {
+  Parser.skip_whitespace
+  IC.parser.term
+}
 
-//IC.parser.term : Parser Env IC.Term
-//IC.parser.term =
-  //let parsers = [
-    //IC.parser.dup
-    //IC.parser.sup
-    //IC.parser.lam
-    //IC.parser.nop
-    //IC.parser.app
-    //IC.parser.u60
-    //IC.parser.var
-  //]
-  //Parser.first_of parsers
+IC.parser.term : Parser Env IC.Term
+IC.parser.term =
+  let parsers = [
+    IC.parser.dup
+    IC.parser.sup
+    IC.parser.lam
+    IC.parser.nop
+    IC.parser.app
+    IC.parser.u60
+    IC.parser.var
+  ]
+  Parser.first_of parsers
 
-//IC.parser.dup : Parser Env IC.Term
-//IC.parser.dup = do Parser {
-  //Parser.string "let"
-  //Parser.skip_whitespace
-  //Parser.char '#'
-  //ask lab = IC.parser.name
-  //Parser.skip_whitespace
-  //Parser.char '{'
-  //Parser.skip_whitespace
-  //ask a = IC.parser.name
-  //Parser.whitespace
-  //ask b = IC.parser.name
-  //Parser.skip_whitespace
-  //Parser.char '}'
-  //Parser.skip_whitespace
-  //Parser.char '='
-  //Parser.skip_whitespace
-  //ask expr = IC.parser.term
-  //Parser.skip_whitespace
-  //Parser.char ';'
-  //Parser.skip_whitespace
-  //ask cont = IC.parser.term
+IC.parser.dup : Parser Env IC.Term
+IC.parser.dup = do Parser {
+  Parser.string "let"
+  Parser.skip_whitespace
+  Parser.char '#'
+  ask lab = IC.parser.name
+  Parser.skip_whitespace
+  Parser.char '{'
+  Parser.skip_whitespace
+  ask a = IC.parser.name
+  Parser.whitespace
+  ask b = IC.parser.name
+  Parser.skip_whitespace
+  Parser.char '}'
+  Parser.skip_whitespace
+  Parser.char '='
+  Parser.skip_whitespace
+  ask expr = IC.parser.term
+  Parser.skip_whitespace
+  Parser.char ';'
+  Parser.skip_whitespace
+  ask cont = IC.parser.term
 
-  //ask env = Parser.take_custom Env.empty
-  //// TODO: I'm assuming that the input string uses variables correctly
-  //// (using numbers starting from zero, without skipping, no free variables)
-  //// TODO: Accept Strings as var name, do a propper string to u60 mapping
-  //let env = Pair.fst (Env.fresh env)  // Add the two new variables to the context
-  //let env = Pair.fst (Env.fresh env)
-  //Parser.set_custom env
+  ask env = Parser.take_custom Env.empty
+  // TODO: I'm assuming that the input string uses variables correctly
+  // (using numbers starting from zero, without skipping, no free variables)
+  // TODO: Accept Strings as var name, do a propper string to u60 mapping
+  let env = Pair.fst (Env.fresh env)  // Add the two new variables to the context
+  let env = Pair.fst (Env.fresh env)
+  Parser.set_custom env
 
-  //return IC.Term.dup lab a b expr cont
-//}
+  return IC.Term.dup lab a b expr cont
+}
 
-//IC.parser.sup : Parser Env IC.Term
-//IC.parser.sup = do Parser {
-  //Parser.char '#'
-  //ask lab = IC.parser.name
-  //Parser.skip_whitespace
-  //Parser.char '{'
-  //Parser.skip_whitespace
-  //ask fst = IC.parser.term
-  //Parser.whitespace
-  //ask snd = IC.parser.term
-  //Parser.skip_whitespace
-  //Parser.char '}'
+IC.parser.sup : Parser Env IC.Term
+IC.parser.sup = do Parser {
+  Parser.char '#'
+  ask lab = IC.parser.name
+  Parser.skip_whitespace
+  Parser.char '{'
+  Parser.skip_whitespace
+  ask fst = IC.parser.term
+  Parser.whitespace
+  ask snd = IC.parser.term
+  Parser.skip_whitespace
+  Parser.char '}'
   
-  //return IC.Term.sup lab fst snd
-//}
+  return IC.Term.sup lab fst snd
+}
 
-//IC.parser.lam : Parser Env IC.Term
-//IC.parser.lam = do Parser {
-  //ask has_parens = Parser.to_bool (Parser.char '(')
-  //Parser.skip_whitespace
-  //Parser.char_any_of "@λ"
-  //ask x = IC.parser.name
-  //Parser.skip_whitespace
-  //ask body = IC.parser.term
-  //Parser.skip_whitespace
-  //if has_parens {
-    //Parser.char ')'
-  //} else {
-    //Parser.pure Unit.new
-  //}
+IC.parser.lam : Parser Env IC.Term
+IC.parser.lam = do Parser {
+  ask has_parens = Parser.to_bool (Parser.char '(')
+  Parser.skip_whitespace
+  Parser.char_any_of "@λ"
+  ask x = IC.parser.name
+  Parser.skip_whitespace
+  ask body = IC.parser.term
+  Parser.skip_whitespace
+  if has_parens {
+    Parser.char ')'
+  } else {
+    Parser.pure Unit.new
+  }
 
-  //ask env = Parser.take_custom Env.empty
-  //let env = Pair.fst (Env.fresh env) // Adding x to the env
-  //Parser.set_custom env
+  ask env = Parser.take_custom Env.empty
+  let env = Pair.fst (Env.fresh env) // Adding x to the env
+  Parser.set_custom env
 
-  //return IC.Term.lam x body
-//}
+  return IC.Term.lam x body
+}
 
-//IC.parser.app : Parser Env IC.Term
-//IC.parser.app = do Parser {
-  //Parser.char '('
-  //Parser.skip_whitespace
-  //ask fun = IC.parser.term
-  //Parser.skip_whitespace
-  //ask arg = IC.parser.term
-  //Parser.skip_whitespace
-  //Parser.char ')'
+IC.parser.app : Parser Env IC.Term
+IC.parser.app = do Parser {
+  Parser.char '('
+  Parser.skip_whitespace
+  ask fun = IC.parser.term
+  Parser.skip_whitespace
+  ask arg = IC.parser.term
+  Parser.skip_whitespace
+  Parser.char ')'
 
-  //return IC.Term.app fun arg
-//}
+  return IC.Term.app fun arg
+}
 
-//IC.parser.u60 : Parser Env IC.Term
-//IC.parser.u60 = do Parser {
-  //Parser.char '#'
-  //ask val = Parser.u60_decimal
-  //return IC.Term.u60 val
-//}
+IC.parser.u60 : Parser Env IC.Term
+IC.parser.u60 = do Parser {
+  Parser.char '#'
+  ask val = Parser.u60_decimal
+  return IC.Term.u60 val
+}
 
-//IC.parser.nop : Parser Env IC.Term
-//IC.parser.nop = do Parser {
-  //Parser.char '('
-  //Parser.skip_whitespace
-  //ask op = IC.parser.oper
-  //Parser.whitespace
-  //ask n = IC.parser.term
-  //Parser.skip_whitespace
-  //ask m = IC.parser.term
-  //Parser.skip_whitespace
-  //Parser.char ')'
+IC.parser.nop : Parser Env IC.Term
+IC.parser.nop = do Parser {
+  Parser.char '('
+  Parser.skip_whitespace
+  ask op = IC.parser.oper
+  Parser.whitespace
+  ask n = IC.parser.term
+  Parser.skip_whitespace
+  ask m = IC.parser.term
+  Parser.skip_whitespace
+  Parser.char ')'
 
-  //let term = IC.Term.nop op n m
-  //return term
-//}
+  let term = IC.Term.nop op n m
+  return term
+}
 
-//IC.parser.var : Parser Env IC.Term
-//IC.parser.var = do Parser {
-  //ask name = IC.parser.name
-  //return IC.Term.var name
-//}
+IC.parser.var : Parser Env IC.Term
+IC.parser.var = do Parser {
+  ask name = IC.parser.name
+  return IC.Term.var name
+}
 
-//IC.parser.name : Parser Env U60
-//IC.parser.name = Parser.u60_decimal
+IC.parser.name : Parser Env U60
+IC.parser.name = Parser.u60_decimal
 
-//IC.parser.oper : Parser Env U60
-//IC.parser.oper =
-  //Parser.first_of [
-    //IC.parser.oper.add
-    //IC.parser.oper.sub
-    //IC.parser.oper.mul
-    //IC.parser.oper.div
-    //IC.parser.oper.mod
-    //IC.parser.oper.and
-    //IC.parser.oper.or
-    //IC.parser.oper.xor
-    //IC.parser.oper.shl
-    //IC.parser.oper.shr
-    //IC.parser.oper.eql
-    //IC.parser.oper.ltn
-    //IC.parser.oper.lte
-    //IC.parser.oper.neq
-    //IC.parser.oper.gtn
-    //IC.parser.oper.gte
-  //]
+IC.parser.oper : Parser Env U60
+IC.parser.oper =
+  Parser.first_of [
+    IC.parser.oper.add
+    IC.parser.oper.sub
+    IC.parser.oper.mul
+    IC.parser.oper.div
+    IC.parser.oper.mod
+    IC.parser.oper.and
+    IC.parser.oper.or
+    IC.parser.oper.xor
+    IC.parser.oper.shl
+    IC.parser.oper.shr
+    IC.parser.oper.eql
+    IC.parser.oper.ltn
+    IC.parser.oper.lte
+    IC.parser.oper.neq
+    IC.parser.oper.gtn
+    IC.parser.oper.gte
+  ]
 
-//IC.parser.oper.add : Parser Env U60
-//IC.parser.oper.add = do Parser {
-  //Parser.string "+"
-  //return 0
-//}
-//IC.parser.oper.sub : Parser Env U60
-//IC.parser.oper.sub = do Parser {
-  //Parser.string "-"
-  //return 1
-//}
-//IC.parser.oper.mul : Parser Env U60
-//IC.parser.oper.mul = do Parser {
-  //Parser.string "*"
-  //return 2
-//}
-//IC.parser.oper.div : Parser Env U60
-//IC.parser.oper.div = do Parser {
-  //Parser.string "/"
-  //return 3
-//}
-//IC.parser.oper.mod : Parser Env U60
-//IC.parser.oper.mod = do Parser {
-  //Parser.string "%"
-  //return 4
-//}
-//IC.parser.oper.and : Parser Env U60
-//IC.parser.oper.and = do Parser {
-  //Parser.string "&"
-  //return 5
-//}
-//IC.parser.oper.or : Parser Env U60
-//IC.parser.oper.or = do Parser {
-  //Parser.string "|"
-  //return 6
-//}
-//IC.parser.oper.xor : Parser Env U60
-//IC.parser.oper.xor = do Parser {
-  //Parser.string "^"
-  //return 7
-//}
-//IC.parser.oper.shl : Parser Env U60
-//IC.parser.oper.shl = do Parser {
-  //Parser.string "<<"
-  //return 8
-//}
-//IC.parser.oper.shr : Parser Env U60
-//IC.parser.oper.shr = do Parser {
-  //Parser.string ">>"
-  //return 9
-//}
-//IC.parser.oper.eql : Parser Env U60
-//IC.parser.oper.eql = do Parser {
-  //Parser.string "=="
-  //return 10
-//}
-//IC.parser.oper.ltn : Parser Env U60
-//IC.parser.oper.ltn = do Parser {
-  //Parser.string "<"
-  //return 11
-//}
-//IC.parser.oper.lte : Parser Env U60
-//IC.parser.oper.lte = do Parser {
-  //Parser.string "<="
-  //return 12
-//}
-//IC.parser.oper.neq : Parser Env U60
-//IC.parser.oper.neq = do Parser {
-  //Parser.string "!="
-  //return 13
-//}
-//IC.parser.oper.gtn : Parser Env U60
-//IC.parser.oper.gtn = do Parser {
-  //Parser.string ">"
-  //return 14
-//}
-//IC.parser.oper.gte : Parser Env U60
-//IC.parser.oper.gte = do Parser {
-  //Parser.string ">="
-  //return 15
-//}
+IC.parser.oper.add : Parser Env U60
+IC.parser.oper.add = do Parser {
+  Parser.string "+"
+  return 0
+}
+IC.parser.oper.sub : Parser Env U60
+IC.parser.oper.sub = do Parser {
+  Parser.string "-"
+  return 1
+}
+IC.parser.oper.mul : Parser Env U60
+IC.parser.oper.mul = do Parser {
+  Parser.string "*"
+  return 2
+}
+IC.parser.oper.div : Parser Env U60
+IC.parser.oper.div = do Parser {
+  Parser.string "/"
+  return 3
+}
+IC.parser.oper.mod : Parser Env U60
+IC.parser.oper.mod = do Parser {
+  Parser.string "%"
+  return 4
+}
+IC.parser.oper.and : Parser Env U60
+IC.parser.oper.and = do Parser {
+  Parser.string "&"
+  return 5
+}
+IC.parser.oper.or : Parser Env U60
+IC.parser.oper.or = do Parser {
+  Parser.string "|"
+  return 6
+}
+IC.parser.oper.xor : Parser Env U60
+IC.parser.oper.xor = do Parser {
+  Parser.string "^"
+  return 7
+}
+IC.parser.oper.shl : Parser Env U60
+IC.parser.oper.shl = do Parser {
+  Parser.string "<<"
+  return 8
+}
+IC.parser.oper.shr : Parser Env U60
+IC.parser.oper.shr = do Parser {
+  Parser.string ">>"
+  return 9
+}
+IC.parser.oper.eql : Parser Env U60
+IC.parser.oper.eql = do Parser {
+  Parser.string "=="
+  return 10
+}
+IC.parser.oper.ltn : Parser Env U60
+IC.parser.oper.ltn = do Parser {
+  Parser.string "<"
+  return 11
+}
+IC.parser.oper.lte : Parser Env U60
+IC.parser.oper.lte = do Parser {
+  Parser.string "<="
+  return 12
+}
+IC.parser.oper.neq : Parser Env U60
+IC.parser.oper.neq = do Parser {
+  Parser.string "!="
+  return 13
+}
+IC.parser.oper.gtn : Parser Env U60
+IC.parser.oper.gtn = do Parser {
+  Parser.string ">"
+  return 14
+}
+IC.parser.oper.gte : Parser Env U60
+IC.parser.oper.gte = do Parser {
+  Parser.string ">="
+  return 15
+}
 
 // Main
 // ----
 
-Main : _ {
-  // term = ((λx. dup x0 x1 = x; sup x0 x1) (λy. y))
-  Run.exec (do Run {
-    ask x  = Run.fresh
-    ask x0 = Run.fresh
-    ask x1 = Run.fresh
-    //  fn = (λx. dup x0 x1 = x; sup x0 x1)
-    let fn = IC.Term.lam x (IC.Term.dup 0 x0 x1 (IC.Term.var x) (IC.Term.sup 0 (IC.Term.var x0) (IC.Term.var x1)))
-    ask y  = Run.fresh
-    //  ar = (λy. y)
-    let ar = IC.Term.lam y (IC.Term.var y)
-    //  tr = (fn ar)
-    let tr = IC.Term.app fn ar
-    IC.Term.normal tr
-  })
-}
+// Main : _ {
+//   // term = ((λx. dup x0 x1 = x; sup x0 x1) (λy. y))
+//   Run.exec (do Run {
+//     ask x  = Run.fresh
+//     ask x0 = Run.fresh
+//     ask x1 = Run.fresh
+//     //  fn = (λx. dup x0 x1 = x; sup x0 x1)
+//     let fn = IC.Term.lam x (IC.Term.dup 0 x0 x1 (IC.Term.var x) (IC.Term.sup 0 (IC.Term.var x0) (IC.Term.var x1)))
+//     ask y  = Run.fresh
+//     //  ar = (λy. y)
+//     let ar = IC.Term.lam y (IC.Term.var y)
+//     //  tr = (fn ar)
+//     let tr = IC.Term.app fn ar
+//     IC.Term.normal tr
+//   })
+// }
 
 // Same term as above
-//Main : _ {
-  //// term = ((λx let #0{x0 x1} = x; #0{x0 x1}) (λy. y))
-  //// normal = #0{(λx4. x4) (λx5. x5)}
-  //let input = "((λ2 let #0{0 1} = 2; #0{0 1}) (λ3 3))"
-  //let init = Parser.State.new Env.empty input "" 0
-  //match Parser.Result r = ((IC.parser) init) {
-    //done state result =>
-      //let env = Pair.fst (Parser.State.take_custom state)
-      //Either.left (Pair.snd ((IC.Term.normal result) env))
-    //fail state error => Either.right error
-  //}
-//}
+Main : _ {
+  // term = ((λx let #0{x0 x1} = x; #0{x0 x1}) (λy. y))
+  // normal = #0{(λx4. x4) (λx5. x5)}
+  let input = "((λ2 let #0{0 1} = 2; #0{0 1}) (λ3 3))"
+  let init = Parser.State.new Env.empty input "" 0
+  match Parser.Result r = ((IC.parser) init) {
+    done state result =>
+      let env = Pair.fst (Parser.State.take_custom state)
+      Either.left (Pair.snd ((IC.Term.normal result) env))
+    fail state error => Either.right error
+  }
+}
