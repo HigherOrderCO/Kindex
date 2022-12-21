@@ -1,6 +1,6 @@
 // Fails when the given parser succeeds and succeeds when it fails
 // Erases any result
-Parser.not <a> (prs: Parser a) : Parser Unit {
+Parser.not <a> <t> (prs: Parser t a) : Parser t Unit {
   do Parser {
     ask success = Parser.to_bool prs
     if success {

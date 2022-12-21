@@ -1,5 +1,5 @@
 // A parser that always fails with empty error
-Parser.empty <a> : Parser a {
+Parser.empty <a> <t> : Parser t a {
   do Parser {
     ask index = Parser.get_index
     (Parser.fail "" index index)

@@ -1,5 +1,5 @@
 // Skips any sequence of ascii whitespace
 // Returns true if anything was skipped
-Parser.skip_whitespace : Parser Bool {
+Parser.skip_whitespace <t> : Parser t Bool {
   Parser.skip_while (c => Char.is_whitespace c)
 }

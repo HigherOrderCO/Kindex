@@ -1,5 +1,5 @@
 // Skips everything up to the line end
 // Returns true if anything was skipped
-Parser.skip_line : Parser Bool {
+Parser.skip_line <t> : Parser t Bool {
   Parser.skip_while (c => Bool.not (Char.equal Char.newline c))
 }

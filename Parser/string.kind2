@@ -1,9 +1,9 @@
 // Succeeds if the text starts with the given string
-Parser.string (str: String) : Parser Unit {
+Parser.string <t> (str: String) : Parser t Unit {
   Parser.expecting (Parser.string.go str) str
 }
 
-Parser.string.go (str: String) : Parser Unit
+Parser.string.go <t> (str: String) : Parser t Unit
 Parser.string.go  String.nil       = Parser.pure Unit.new
 Parser.string.go (String.cons h t) = do Parser {
   Parser.char h

@@ -1,0 +1,3 @@
+Parser.State.set_custom <old> <new> (custom: new) (state: Parser.State old) : Parser.State new
+Parser.State.set_custom custom (Parser.State.new _ left back index) =
+    Parser.State.new custom left back index

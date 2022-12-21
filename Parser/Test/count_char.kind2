@@ -1,9 +1,9 @@
 Parser.Test.count_char {
   let p = Parser.count_char 'a'
-  Parser.run p "aaaaasd"
+  Parser.run Unit.new p "aaaaasd"
 }
 
-Parser.count_char (chr: Char) : Parser U60 {
+Parser.count_char <t> (chr: Char) : Parser t U60 {
   do Parser {
     ask found_char = Parser.to_bool (Parser.char chr)
     if found_char {

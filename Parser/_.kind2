@@ -1,3 +1,3 @@
-Parser (r: Type) : Type {
-  Parser.State -> (Parser.Result r)
+Parser (t: Type) (r: Type) : Type {
+  (Parser.State t) -> (Parser.Result t r)
 }
