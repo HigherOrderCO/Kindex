@@ -4,7 +4,7 @@
 Parser.expecting <a> <t> (prs: Parser t a) (name: String) : Parser t a {
   state =>
     open Parser.State state
-    let state = Parser.State.new state.left state.back state.index
+    let state = Parser.State.new state.custom state.left state.back state.index
     // init from the state index before running parser
     let init  = state.index
     match Parser.Result r = (prs state) {
