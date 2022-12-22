@@ -1,5 +1,5 @@
 #kdl_name = Sigma
-#derive[open]
+#derive[match]
 record Sigma (a: Type) (f: a -> Type) {
   fst : a
   snd : f fst

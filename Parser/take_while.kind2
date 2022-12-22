@@ -1,5 +1,5 @@
 // Take characters from the code while a condition passes
-Parser.take_while (cond: Char -> Bool) : Parser String {
+Parser.take_while <t> (cond: Char -> Bool) : Parser t String {
   do Parser {
     ask mh = Parser.try (Parser.satisfy cond)
     match Maybe mh {

@@ -1,0 +1,12 @@
+// Gets in a map a value that corresponds to the Bits
+Bits.Map.got <a> (map : Bits.Map a) (key : Bits) : Pair (Bits.Map a) (Maybe a)
+Bits.Map.got Bits.Map.new key                         = Pair.new Bits.Map.new Maybe.none
+Bits.Map.got (Bits.Map.tie val lft rgt) Bits.e        = Pair.new (Bits.Map.tie val lft rgt) val
+Bits.Map.got (Bits.Map.tie val lft rgt) (Bits.o pred) = Bits.Map.got.lft val (Bits.Map.got lft pred) rgt
+Bits.Map.got (Bits.Map.tie val lft rgt) (Bits.i pred) = Bits.Map.got.rgt val lft (Bits.Map.got rgt pred)
+
+Bits.Map.got.lft <a> (val: Maybe a) (lft: Pair (Bits.Map a) (Maybe a)) (rgt: Bits.Map a) : Pair (Bits.Map a) (Maybe a)
+Bits.Map.got.lft val (Pair.new lft res) rgt = Pair.new (Bits.Map.tie val lft rgt) res
+
+Bits.Map.got.rgt <a> (val: Maybe a) (lft: Bits.Map a) (rgt: Pair (Bits.Map a) (Maybe a)) : Pair (Bits.Map a) (Maybe a)
+Bits.Map.got.rgt val lft (Pair.new rgt res) = Pair.new (Bits.Map.tie val lft rgt) res

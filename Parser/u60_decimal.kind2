@@ -1,5 +1,5 @@
 // A parser that matches an integer decimal number like 32867
-Parser.u60_decimal : Parser U60 {
+Parser.u60_decimal <t> : Parser t U60 {
   let f   = (str: String) => U60.read_decimal str
   let prs = Parser.take_while1 (c => Char.is_decimal c)
   let prs = Parser.fail_on_none (Parser.map f prs)

@@ -1,32 +1,32 @@
 // Succeeds if the head character satisfies a condition.
 // This is implemented as the only code-taking primitive of the library.
 // All other functions that consume characters are based on `satisfy`
-Parser.satisfy (cond: Char -> Bool) : Parser Char {
+Parser.satisfy <t> (cond: Char -> Bool) : Parser t Char {
   state => Parser.satisfy.go cond state
 }
 
 
-Parser.satisfy.go (cond: Char -> Bool) (state: Parser.State) : Parser.Result Char
+Parser.satisfy.go <t> (cond: Char -> Bool) (state: Parser.State t) : Parser.Result t Char
 
 // If no more text to parse, fail
-Parser.satisfy.go cond (Parser.State.new  String.nil             back index) =
-  let state = Parser.State.new String.nil back index
+Parser.satisfy.go cond (Parser.State.new custom "" back index) =
+  let state = Parser.State.new custom String.nil back index
   let error = Parser.Error.new "Unexpected EOF" index index
   Parser.Result.fail state error
 
 // Else, move state forward and check if the condition is satisfied
-Parser.satisfy.go cond (Parser.State.new (String.cons head tail) back index) =
-  let state = Parser.State.new (String.cons head tail) back index
+Parser.satisfy.go cond (Parser.State.new custom (String.cons head tail) back index) =
+  let state = Parser.State.new custom (String.cons head tail) back index
   let state = Parser.State.forward 1 state
   Parser.satisfy.cond (cond head) state head
 
 
-Parser.satisfy.cond (cond: Bool) (state: Parser.State) (head: Char) : Parser.Result Char
+Parser.satisfy.cond <t> (cond: Bool) (state: Parser.State t) (head: Char) : Parser.Result t Char
 
 // If cond is satisfied, return what used to be the head of the text left to parse
 Parser.satisfy.cond Bool.true state head = Parser.Result.done state head
 // Else, fail indicating which character didn't satisfy the condition
-Parser.satisfy.cond Bool.false (Parser.State.new left back index) head =
-  let state = Parser.State.new left back index
+Parser.satisfy.cond Bool.false (Parser.State.new custom left back index) head =
+  let state = Parser.State.new custom left back index
   let error = Parser.Error.new "" (- index 1) index
   Parser.Result.fail state error

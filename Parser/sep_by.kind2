@@ -2,7 +2,7 @@
 // Example: To match "1,2,3,4,5,6,70", use
 //          `(Parser.sep_by (Parser.char ',') Parser.u60_decimal)`
 //          The result will be a list with the parsed numbers.
-Parser.sep_by <s> <e> (p_sep: Parser s) (p_elem: Parser e) : Parser (List e) {
+Parser.sep_by <s> <e> <t> (p_sep: Parser t s) (p_elem: Parser t e) : Parser t (List e) {
   do Parser {
     ask me = Parser.try p_elem
     match Maybe me {

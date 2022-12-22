@@ -1,11 +1,11 @@
 // Parses a body enclosed with an opener and closer
 // Example: to parse "(asdf)"
 //         Parser.between (Parser.char '(') (Parser.char ')') (Parser.take_while (c => Char.is_alpha))
-Parser.between <o> <c> <b> (open: Parser o) (close: Parser c) (body: Parser b) : Parser b {
+Parser.between <o> <c> <b> <t> (open_: Parser t o) (close: Parser t c) (body: Parser t b) : Parser t b {
   do Parser {
-    ask open
+    open_
     ask res = body
-    ask close
+    close
     return res
   }
 }

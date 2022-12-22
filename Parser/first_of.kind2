@@ -1,9 +1,9 @@
 // Returns the first parser that succeeds
 // Backtracks after each failed parser
 // Fails if no parsers succeed
-Parser.first_of <a> (parsers: List (Parser a)) : Parser a
-Parser.first_of a (List.nil  la)           = Parser.empty
-Parser.first_of a (List.cons la head tail) = 
+Parser.first_of <a> <t> (parsers: List (Parser t a)) : Parser t a
+Parser.first_of (List.nil  la)           = Parser.empty
+Parser.first_of (List.cons la head tail) = 
   do Parser {
     ask ma = Parser.try head
     match Maybe ma {

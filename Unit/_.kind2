@@ -1,4 +1,4 @@
 #kdl_name = T0
 #kdl_erase
-#derive[open]
+#derive[match]
 record Unit {}

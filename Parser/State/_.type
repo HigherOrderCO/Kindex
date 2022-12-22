@@ -1,3 +1,0 @@
-type Parser.State {
-  new (left: String) (back: String) (index: U60)
-}

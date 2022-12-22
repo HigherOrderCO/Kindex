@@ -1,7 +1,7 @@
 // Applies a parser repeatedly until it fails, at least once
 // Returns a list of all results
 // Fails if the first try fails
-Parser.many1 <a> (prs: Parser a) : Parser (List a) {
+Parser.many1 <t> <a> (prs: Parser t a) : Parser t (List a) {
   do Parser {
     ask head = prs
     ask tail = Parser.many prs

@@ -1,2 +1,0 @@
-// Automatically derived from Parser/Result/_.type
-Parser.Result.done <r: Type> (state: Parser.State) (result: r) : (Parser.Result r)
