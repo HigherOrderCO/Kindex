@@ -5,7 +5,7 @@
 // computation obtained by "completing" the affine Lambda Calculus in a way that
 // matches perfectly Lamping's optimal reduction algorithm. It can also be seen
 // as a textual syntax for Interaction Combinators: both views are equivalent.
-// As a model of computation, the IC has compeling characteristics:
+// As a model of computation, the IC has compelling characteristics:
 // 
 // 1. It features higher-order functions, just like the Lambda Calculus.
 // 
@@ -149,7 +149,7 @@
 
 // IC.Terms are Interaction Calculus expressions, which include:
 // - variables
-// - 2 contructors: lambda and superposition
+// - 2 constructors: lambda and superposition
 // - 2 eliminators: application and duplication
 // - u60 numbers: included for convenience, but not necessary
 
@@ -560,7 +560,7 @@ IC.parser.dup = do Parser {
   ask env = Parser.take_custom Env.empty
   // TODO: I'm assuming that the input string uses variables correctly
   // (using numbers starting from zero, without skipping, no free variables)
-  // TODO: Accept Strings as var name, do a propper string to u60 mapping
+  // TODO: Accept Strings as var name, do a proper string to u60 mapping
   let env = Pair.fst (Env.fresh env)  // Add the two new variables to the context
   let env = Pair.fst (Env.fresh env)
   Parser.set_custom env
