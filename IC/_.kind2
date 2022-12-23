@@ -87,10 +87,10 @@
 //  let  \#/            /_\  /_\         app  \ /            /#\  /#\  
 //        |      ==>    |  \/  |               |      ==>    |  \/  |  
 //        |             |_ /\ _|               |             |_ /\ _|  
-//  lam  /_\            \#/  \#/        pair  /_\            \ /  \ /  
+//  lam  /_\            \#/  \#/        pair  /#\            \ /  \ /  
 //      |   |            |    |              |   |            |    |   
 //      |   |            |    |              |   |            |    |   
-//      x  body          x   body           var body         var  body 
+//      x  body          x   body           fst snd          fst  snd 
 // 
 //  "The projection of a lambda         "The application of a pair is a pair
 //  substitutes the projected vars      of the first element and the second
