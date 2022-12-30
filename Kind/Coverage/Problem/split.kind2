@@ -1,0 +1,16 @@
+Kind.Coverage.Problem.split (problem: Kind.Coverage.Problem) : Kind.Checker Kind.Coverage.CaseTree
+Kind.Coverage.Problem.split (Kind.Coverage.Problem.new type rows) =
+    (Maybe.default
+        (do Maybe {
+            ask head = List.head rows
+            ask Pair.new (fst = constraint) (snd = zipper) = Kind.Coverage.Row.find_splittable head
+            ask family = Kind.Coverage.get_name (Kind.Coverage.Constraint.ty.get constraint)
+            let cons   = Kind.Axiom.Family.Constructors family
+            let names  = List.map cons (x => Kind.Axiom.NameOf x)
+            return do Kind.Checker {
+                ask branches = Kind.Checker.sequence (List.map cons (x => Kind.Coverage.Problem.split_on_constructor (Kind.Coverage.Problem.new type rows) family x constraint))
+                let cases    = List.zip names branches
+                return Kind.Coverage.CaseTree.case cases
+            }
+        })
+        (Kind.Checker.pure Kind.Coverage.CaseTree.uncovered))

@@ -1,0 +1,19 @@
+Kind.Coverage.Constraint.is_cons (constraint: Kind.Coverage.Constraint) : Maybe U60
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct0 name _) ty)                              = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct1 name _ _) ty)                            = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct2 name _ _ _) ty)                          = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct3 name _ _ _ _) ty)                        = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct4 name _ _ _ _ _) ty)                      = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct5 name _ _ _ _ _ _) ty)                    = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct6 name _ _ _ _ _ _ _) ty)                  = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct8 name _ _ _ _ _ _ _ _ _) ty)              = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct7 name _ _ _ _ _ _ _ _) ty)                = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct9 name _ _ _ _ _ _ _ _ _ _) ty)            = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct10 name _ _ _ _ _ _ _ _ _ _ _) ty)         = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct11 name _ _ _ _ _ _ _ _ _ _ _ _) ty)       = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct12 name _ _ _ _ _ _ _ _ _ _ _ _ _) ty)     = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct13 name _ _ _ _ _ _ _ _ _ _ _ _ _ _) ty)   = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct14 name _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ty) = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct15 name _ _) ty)                           = Maybe.some name
+Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct16 name _ _) ty)                           = Maybe.some name
+Kind.Coverage.Constraint.is_cons _ = Maybe.none

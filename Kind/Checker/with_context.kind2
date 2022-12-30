@@ -3,6 +3,6 @@ Kind.Checker.with_context a checker new_context =
   do Kind.Checker {
     ask old_context = Kind.Checker.set_context new_context
     ask got = checker
-    ask Kind.Checker.set_context old_context
+    Kind.Checker.set_context old_context
     return got
   }

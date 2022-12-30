@@ -1,0 +1,6 @@
+#derive[getters]
+record Kind.Coverage.Constraint {
+    left  : Kind.Term
+    right : Kind.Term
+    ty    : Kind.Term
+}

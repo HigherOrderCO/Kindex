@@ -1,0 +1,17 @@
+Kind.Coverage.Problem.intro (problem: Kind.Coverage.Problem) : Kind.Checker Kind.Coverage.CaseTree
+Kind.Coverage.Problem.intro (Kind.Coverage.Problem.new type rows) =
+    (Kind.Term.if_all type
+        (orig => name => typ => body =>
+            do Kind.Checker {
+                ask depth = Kind.Checker.get_depth
+                Kind.Checker.extend name typ []
+                let var = Kind.Term.var orig name depth
+                let problem = (Kind.Coverage.Problem.new (body var) (List.map rows (x => Kind.Coverage.Problem.intro_row typ var x)))
+                ask tree = Kind.Coverage.Problem.split (HVM.log (Kind.Coverage.Problem.show problem) problem)
+                return Kind.Coverage.CaseTree.intro name tree
+            })
+        (Kind.Coverage.Problem.split (Kind.Coverage.Problem.new type rows)))
+
+    Kind.Coverage.Problem.intro_row (typ: Kind.Term) (var: Kind.Term) (row: Kind.Coverage.Row) : Kind.Coverage.Row
+    Kind.Coverage.Problem.intro_row typ var (Kind.Coverage.Row.new (Kind.Rule.lhs arg rule) constraints) =
+        (Kind.Coverage.Row.new rule (List.cons (Kind.Coverage.Constraint.new var arg typ) constraints))

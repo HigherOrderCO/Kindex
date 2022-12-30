@@ -1,0 +1,4 @@
+record Kind.Coverage.Problem {
+    type : Kind.Term
+    rows : List Kind.Coverage.Row
+}

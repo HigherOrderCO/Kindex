@@ -1,0 +1,350 @@
+use Kind.Coverage as Cover
+
+#derive[match]
+type Result (a: Type) {
+    ok (value: a)
+    none
+    bottom
+}
+
+#derive[getters]
+record Cover/Constraint {
+    left: Kind.Term
+    right: Kind.Term
+    ty: Kind.Term
+}
+
+record Cover/Problem {
+    type: Kind.Term
+    rows: List Cover/Row
+}
+
+#derive[getters]
+record Cover/Row {
+    rule: Kind.Rule
+    constraints: List Cover/Constraint
+}
+
+type Cover/CaseTree {
+    case (clauses: List (Pair String Cover/CaseTree))
+    intro (name: U60) (rest: Cover/CaseTree)
+    done
+    uncovered
+}
+
+Cover/CaseTree.show (ident: String) (tree: Cover/CaseTree) : String
+
+Cover/CaseTree.show ident Cover/CaseTree.done =
+    String.concat ident "done\n"
+
+Cover/CaseTree.show ident Cover/CaseTree.uncovered =
+    String.concat ident "uncovered\n"
+
+Cover/CaseTree.show ident (Cover/CaseTree.intro encoded rest) =
+    Kind.Printer.text [ ident "intro " (Kind.Name.show encoded) "\n" (Cover/CaseTree.show (String.concat " " ident) rest) ]
+
+Cover/CaseTree.show ident (Cover/CaseTree.case clauses)  =
+    Kind.Printer.text [ ident "case\n" (Kind.Printer.text (List.map clauses (x =>
+        let Pair.new fst snd = x
+        Kind.Printer.text [" " ident fst " => \n" (Cover/CaseTree.show (String.concat "  " ident) snd)]))) ]
+
+Cover/Constraint.show (constraint: Cover/Constraint) : String
+Cover/Constraint.show (Cover/Constraint.new left right ty) =
+    (Kind.Printer.text
+        [ "[" (Kind.Term.show (Kind.Term.eval left)) " /? " (Kind.Term.show right) " : "  (Kind.Term.show ty) "] " ])
+
+Kind.Rule.show_no_rhs (term: Kind.Rule) : String
+Kind.Rule.show_no_rhs (Kind.Rule.rhs res)     = ""
+Kind.Rule.show_no_rhs (Kind.Rule.lhs arg res) =
+  (Kind.Printer.text
+    [(Kind.Term.show arg)
+    " "
+    (Kind.Rule.show_no_rhs res)])
+
+Cover/Row.show (row: Cover/Row) : String
+Cover/Row.show (Cover/Row.new rule constraints) =
+    (Kind.Printer.text
+        [ "  | "
+         (Kind.Printer.text (List.map constraints (x => Cover/Constraint.show x)))
+         (Kind.Rule.show_no_rhs rule)
+         "\n"
+         ])
+
+Cover/Problem.show (problem: Cover/Problem) : String
+Cover/Problem.show (Cover/Problem.new type rows) =
+    (Kind.Printer.text
+        [ (Kind.Printer.text
+            [ "⊢ "
+             (Kind.Term.show type)
+             "\n"
+            ])
+        (Kind.Printer.text (List.map rows (x => Cover/Row.show x)))
+
+        ])
+
+Cover/Problem.intro (problem: Cover/Problem) : Kind.Checker Cover/CaseTree
+Cover/Problem.intro (Cover/Problem.new type rows) =
+    (Kind.Term.if_all type
+        (orig => name => typ => body =>
+            do Kind.Checker {
+                ask depth = Kind.Checker.get_depth
+                Kind.Checker.extend name typ []
+                let var = Kind.Term.var orig name depth
+                let problem = (Cover/Problem.new (body var) (List.map rows (x => Cover/Problem.intro_row typ var x)))
+                ask tree = Cover/Problem.split (HVM.log (Cover/Problem.show problem) problem)
+                return Cover/CaseTree.intro name tree
+            })
+        (Cover/Problem.split (Cover/Problem.new type rows)))
+
+    Cover/Problem.intro_row (typ: Kind.Term) (var: Kind.Term) (row: Cover/Row) : Cover/Row
+    Cover/Problem.intro_row typ var (Cover/Row.new (Kind.Rule.lhs arg rule) constraints) =
+        (Cover/Row.new rule (List.cons (Cover/Constraint.new var arg typ) constraints))
+
+Cover/Constraint.is_solved (constraint: Cover/Constraint) : Bool
+Cover/Constraint.is_solved (Cover/Constraint.new l (Kind.Term.var _ _ _) t) = Bool.true
+Cover/Constraint.is_solved (Cover/Constraint.new l r t)                     = Bool.false
+
+Cover/Constraint.is_rhs (rule: Kind.Rule) : Bool
+Cover/Constraint.is_rhs (Kind.Rule.rhs _) = Bool.true
+Cover/Constraint.is_rhs _                 = Bool.false
+
+Cover/Problem.is_solved (problem: Cover/Problem) : Bool
+Cover/Problem.is_solved (Cover/Problem.new _ rows) =
+    match Maybe head = (List.head rows) {
+        some (value = row) =>
+            (Bool.and
+                (Cover/Constraint.is_rhs (Cover/Row.rule.get row))
+                (List.all (Cover/Row.constraints.get row) (x => Cover/Constraint.is_solved x)))
+        none => Bool.false
+    }
+
+Cover/Constraint.is_cons (constraint: Cover/Constraint) : Maybe Kind.Name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct0 name _) ty)                              = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct1 name _ _) ty)                            = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct2 name _ _ _) ty)                          = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct3 name _ _ _ _) ty)                        = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct4 name _ _ _ _ _) ty)                      = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct5 name _ _ _ _ _ _) ty)                    = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct6 name _ _ _ _ _ _ _) ty)                  = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct8 name _ _ _ _ _ _ _ _ _) ty)              = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct7 name _ _ _ _ _ _ _ _) ty)                = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct9 name _ _ _ _ _ _ _ _ _ _) ty)            = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct10 name _ _ _ _ _ _ _ _ _ _ _) ty)         = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct11 name _ _ _ _ _ _ _ _ _ _ _ _) ty)       = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct12 name _ _ _ _ _ _ _ _ _ _ _ _ _) ty)     = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct13 name _ _ _ _ _ _ _ _ _ _ _ _ _ _) ty)   = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct14 name _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) ty) = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct15 name _ _) ty)                           = Maybe.some name
+Cover/Constraint.is_cons (Cover/Constraint.new left (Kind.Term.ct16 name _ _) ty)                           = Maybe.some name
+Cover/Constraint.is_cons _ = Maybe.none
+
+Result.from_maybe <a> (m: Maybe a) : Result a
+Result.from_maybe (Maybe.some x) = Result.ok x
+Result.from_maybe Maybe.none = Result.bottom
+
+record Zipper (a : Type) {
+    start : List a
+    end   : List a
+}
+
+Zipper.from_list <a> (b: List a) : Zipper a
+Zipper.from_list ls = Zipper.new List.nil ls
+
+Zipper.to_list <a> (b: Zipper a) : List a
+Zipper.to_list a (Zipper.new start end) = List.concat (List.reverse start) end
+
+Zipper.move <a> (b: Zipper a) : Zipper a
+Zipper.move (Zipper.new start (List.cons x xs)) = Zipper.new (List.cons x start) xs
+Zipper.move (Zipper.new start List.nil) = Zipper.new start List.nil
+
+Zipper.delete <a> (b: Zipper a) : Zipper a
+Zipper.delete (Zipper.new start (List.cons x xs)) = Zipper.new start xs
+Zipper.delete (Zipper.new start List.nil) = Zipper.new start List.nil
+
+Zipper.current <a> (b: Zipper a) : Maybe a
+Zipper.current (Zipper.new start (List.cons x xs)) = Maybe.some x
+Zipper.current (Zipper.new start List.nil)         = Maybe.none
+
+Zipper.add <a> (zipper: Zipper a) (elem: a) : Zipper a
+Zipper.add (Zipper.new start end) elem = Zipper.new start (List.cons elem end)
+
+Zipper.remove <a> (b: Zipper a) : Maybe (Pair a (Zipper a))
+Zipper.remove a (Zipper.new fst snd) =
+    do Maybe {
+        ask head = List.head snd
+        Maybe.some (Pair.new head (Zipper.new fst (List.tail snd)))
+    }
+
+Zipper.add_mass <a> (zipper: Zipper a) (elems: List a) : Zipper a
+Zipper.add_mass (Zipper.new start end) elems = Zipper.new start (List.concat elems end)
+
+Zipper.is_at_the_end <a> (b: Zipper a) : Bool
+Zipper.is_at_the_end a (Zipper.new _ end) = List.is_nil end
+
+Cover/Row.find_splittable.go (zipper: Zipper Cover/Constraint) : Maybe (Pair Cover/Constraint (Zipper Cover/Constraint))
+Cover/Row.find_splittable.go zipper =
+    do Maybe {
+        ask current = Zipper.current zipper
+        if Maybe.is_some (Cover/Constraint.is_cons current) {
+            Zipper.remove zipper
+        } else {
+            Cover/Row.find_splittable.go (Zipper.move zipper)
+        }
+    }
+
+Cover/Row.find_splittable (row: Cover/Row) : Maybe (Pair Cover/Constraint (Zipper Cover/Constraint))
+Cover/Row.find_splittable (Cover/Row.new _ constraints) = Cover/Row.find_splittable.go (Zipper.from_list constraints)
+
+#inline
+Unsafe.coerce (n: _) : _
+Unsafe.coerce n = n
+
+Maybe.unsafe <t> (n : Maybe t) : t
+Maybe.unsafe (Maybe.some n) = n
+
+Cover/Maker : Type
+Kind.Creator.cons (n: U60) (ty: Kind.Term) (body: Kind.Term -> Cover/Maker) : Cover/Maker
+Kind.Axiom.Constructor.Mk (constructor_id: Kind.Name) (orig: U60) (ty: Kind.Term) : Maybe Cover/Maker
+
+Cover/Maker.make (maker: Cover/Maker) : Kind.Checker Kind.Term
+Cover/Maker.make (Kind.Creator.cons name typ body) =
+    do Kind.Checker {
+        ask depth = Kind.Checker.get_depth
+        Kind.Checker.extend name typ []
+        let var = Kind.Term.var 0 name depth
+        Cover/Maker.make (body var)
+    }
+
+Cover/Maker.make other = Kind.Checker.pure (Unsafe.coerce other)
+
+List.cat_maybes <a> (l: List (Maybe a)) : List a
+List.cat_maybes (List.cons x xs) =
+    match Maybe x {
+        some value => List.cons value (List.cat_maybes xs)
+        none => List.cat_maybes xs
+    }
+
+List.cat_maybes List.nil = List.nil
+
+
+
+Cover/Row.simplify.go2 (row: Zipper Cover/Constraint) (maybe: Maybe (Pair Cover/Constraint (Zipper Cover/Constraint))) : Kind.Checker (Maybe (Zipper Cover/Constraint))
+Cover/Row.simplify.go2 row (Maybe.some pair) =
+    do Kind.Checker {
+        let Pair.new (fst = constraint) (snd = zipper) = pair
+        ask res = (Cover/Constraint.simplify constraint)
+        match Result res {
+            ok value => Cover/Row.simplify.go (Zipper.add_mass zipper value)
+            none     => Cover/Row.simplify.go (Zipper.move row)
+            bottom   => Kind.Checker.pure Maybe.none
+        }
+    }
+
+Cover/Row.simplify.go2 row Maybe.none = Kind.Checker.pure (Maybe.pure row)
+
+Cover/Row.simplify.go (row: Zipper Cover/Constraint) : Kind.Checker (Maybe (Zipper Cover/Constraint))
+Cover/Row.simplify.go row =
+    if Zipper.is_at_the_end row {
+        Kind.Checker.pure (Maybe.pure row)
+    } else {
+        Cover/Row.simplify.go2 row (Zipper.remove row)
+    }
+
+Cover/Row.simplify (row: Cover/Row) : Kind.Checker (Maybe Cover/Row)
+Cover/Row.simplify (Cover/Row.new ty rows) =
+    do Kind.Checker {
+        ask res = Cover/Row.simplify.go (Zipper.from_list rows)
+        return Maybe.map (rows => Cover/Row.new ty (Zipper.to_list rows)) res
+    }
+
+Cover/Problem.simplify (problem: Cover/Problem) : Kind.Checker Cover/Problem
+Cover/Problem.simplify (Cover/Problem.new types rows) =
+    do Kind.Checker {
+        ask rows = Kind.Checker.sequence (List.map rows (x => Cover/Row.simplify x))
+        return Cover/Problem.new types (List.cat_maybes rows)
+    }
+
+Cover/Problem.split_on_constructor (problem: Cover/Problem) (family: Kind.Name) (cons: Kind.Name) (constraint: Cover/Constraint) : Kind.Checker Cover/CaseTree
+Cover/Problem.split_on_constructor (Cover/Problem.new type rows) family cons (Cover/Constraint.new left right ty) =
+    Kind.Checker.local (
+        do Kind.Checker {
+            match Maybe res = (Kind.Axiom.Constructor.Mk cons 0 ty) {
+                some (value = maker) =>
+                    do Kind.Checker {
+                        ask term = Cover/Maker.make maker
+                        Kind.Checker.set_right_hand_side Bool.false
+                        Kind.Checker.equal term left
+                        ask ctx = Kind.Checker.get_context
+                        ask res = Cover/Problem.simplify (Cover/Problem.new type rows)
+                        Cover/check.problem (HVM.log (Cover/Problem.show res) res)
+                    }
+                none =>
+                    do Kind.Checker {
+                        Kind.Checker.check left ty
+                        return Cover/CaseTree.uncovered
+                    }
+            }
+        })
+
+
+Kind.Checker.sequence <a> (ls: List (Kind.Checker a)) : Kind.Checker (List a)
+Kind.Checker.sequence List.nil         = Kind.Checker.pure List.nil
+Kind.Checker.sequence (List.cons x xs) =
+    do Kind.Checker {
+        ask head = x
+        ask tail = Kind.Checker.sequence xs
+        return (List.cons head tail)
+    }
+
+Kind.Checker.void <a> (n : Kind.Checker a) : Kind.Checker Unit
+Kind.Checker.void action =
+    do Kind.Checker {
+        ask res = action
+        return Unit.new
+    }
+
+Cover/Problem.split (problem: Cover/Problem) : Kind.Checker Cover/CaseTree
+Cover/Problem.split (Cover/Problem.new type rows) =
+    (Maybe.default
+        (do Maybe {
+            ask head = List.head rows
+            ask Pair.new (fst = constraint) (snd = zipper) = Cover/Row.find_splittable head
+            ask family = Kind.Coverage.get_name (Cover/Constraint.ty.get constraint)
+            let cons   = Kind.Axiom.Family.Constructors family
+            let names  = List.map cons (x => Kind.Axiom.NameOf x)
+            return do Kind.Checker {
+                ask branches = Kind.Checker.sequence (List.map cons (x => Cover/Problem.split_on_constructor (Cover/Problem.new type rows) family x constraint))
+                let cases    = List.zip names branches
+                return Cover/CaseTree.case cases
+            }
+        })
+        (Kind.Checker.pure Cover/CaseTree.uncovered))
+
+Cover/Problem.is_empty (problem: Cover/Problem) : Bool
+Cover/Problem.is_empty (Cover/Problem.new _ List.nil) = Bool.true
+Cover/Problem.is_empty (Cover/Problem.new _ _)        = Bool.false
+
+Cover/check.problem (problem: Cover/Problem) : Kind.Checker Cover/CaseTree
+Cover/check.problem problem =
+    do Kind.Checker {
+        if Cover/Problem.is_empty problem {
+            Kind.Checker.pure Cover/CaseTree.uncovered
+        } else {
+            if Cover/Problem.is_solved problem {
+                Kind.Checker.pure Cover/CaseTree.done
+            } else {
+                Cover/Problem.intro problem
+            }
+        }
+    }
+
+Cover/check (function_id: Kind.Name): Kind.Checker String
+Cover/check fnid =
+    do Kind.Checker {
+        let rules   = Kind.Axiom.RuleOf fnid
+        let type    = Kind.Axiom.TypeOf fnid
+        let problem = Cover/Problem.new type (rows = List.map rules (x => Cover/Row.new x []))
+        ask tree = Cover/check.problem problem
+        let str = (Cover/CaseTree.show "" tree)
+        return str
+    }

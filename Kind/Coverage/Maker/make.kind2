@@ -1,0 +1,2 @@
+
+Kind.Coverage.Maker.make other = Kind.Checker.pure (Unsafe.coerce other)

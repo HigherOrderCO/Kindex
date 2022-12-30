@@ -1,0 +1,15 @@
+Kind.Axiom.TypeOf (u: Kind.Name): Kind.Term
+
+Kind.Axiom.HashOf (u: Kind.Name): U60
+
+Kind.Axiom.RuleOf (fnid: Kind.Name): List Kind.Rule
+
+Kind.Axiom.Null <a> : a
+
+Kind.Axiom.Compare (n: Kind.Name) (m: Kind.Name) : Bool
+
+Kind.Axiom.NameOf (name: Kind.Name): String
+
+Kind.Axiom.Functions : List Kind.Name
+
+Kind.Axiom.Family.Constructors (fnid: Kind.Name) : List Kind.Name

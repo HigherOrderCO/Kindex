@@ -1,0 +1,3 @@
+Kind.Coverage.Problem.is_empty (problem: Kind.Coverage.Problem) : Bool
+Kind.Coverage.Problem.is_empty (Kind.Coverage.Problem.new _ List.nil) = Bool.true
+Kind.Coverage.Problem.is_empty (Kind.Coverage.Problem.new _ _)        = Bool.false

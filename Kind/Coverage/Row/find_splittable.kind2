@@ -1,0 +1,13 @@
+Kind.Coverage.Row.find_splittable.go (zipper: Zipper Kind.Coverage.Constraint) : Maybe (Pair Kind.Coverage.Constraint (Zipper Kind.Coverage.Constraint))
+Kind.Coverage.Row.find_splittable.go zipper =
+    do Maybe {
+        ask current = Zipper.current zipper
+        if Maybe.is_some (Kind.Coverage.Constraint.is_cons current) {
+            Zipper.remove zipper
+        } else {
+            Kind.Coverage.Row.find_splittable.go (Zipper.move zipper)
+        }
+    }
+
+Kind.Coverage.Row.find_splittable (row: Kind.Coverage.Row) : Maybe (Pair Kind.Coverage.Constraint (Zipper Kind.Coverage.Constraint))
+Kind.Coverage.Row.find_splittable (Kind.Coverage.Row.new _ constraints) = Kind.Coverage.Row.find_splittable.go (Zipper.from_list constraints)

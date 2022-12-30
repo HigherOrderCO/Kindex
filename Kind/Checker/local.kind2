@@ -1,0 +1,6 @@
+Kind.Checker.local <a> (checker: Kind.Checker a) : Kind.Checker a
+Kind.Checker.local checker = old_context => depth => rhs => subst => eqts => errs =>
+  match Kind.Result res = checker old_context depth rhs subst eqts errs {
+      errored => Kind.Result.errored res.ctx res.sub res.errors
+      checked => Kind.Result.checked old_context depth rhs subst eqts errs res.ret
+  }

@@ -12,7 +12,7 @@ Kind.Checker.check (Kind.Term.lam orig name body) type =
       )
       ((orig: U60) => (name: U60) => (body: Kind.Term -> Kind.Term) =>
         Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.cant_infer_lambda ctx orig)))
-    ) :: U60 -> U60 -> ((_:Kind.Term) -> Kind.Term) -> Kind.Checker Unit
+    ) :: U60 -> U60 -> (Kind.Term -> Kind.Term) -> Kind.Checker Unit
     fun orig name body
   )
 
@@ -27,7 +27,7 @@ Kind.Checker.check (Kind.Term.let orig name expr body) type =
 Kind.Checker.check (Kind.Term.hlp orig) type =
   do Kind.Checker {
     ask ctx = Kind.Checker.get_context
-    ask Kind.Checker.error (Kind.Error.inspection ctx orig type) Unit.new
+    Kind.Checker.error (Kind.Error.inspection ctx orig type) Unit.new
     // TODO: Check why it returns a type in the original version
     return Unit.new
   }
@@ -53,10 +53,10 @@ Kind.Checker.check term type =
 
 Kind.Checker.compare (rhs: Bool) (term: Kind.Term) (type: Kind.Term): Kind.Checker Unit
 Kind.Checker.compare rhs term type =
-  Kind.Term.get_origin term orig => term =>
-    Kind.Checker.bind (Kind.Checker.infer term) term_typ =>
+  Kind.Term.get_origin term (orig => term =>
+    Kind.Checker.bind (Kind.Checker.infer term) (term_typ =>
       let fun =
-        if rhs {
+        ((if rhs {
           (term_typ: Kind.Term) => (type: Kind.Term) =>
             Kind.Checker.new_equation orig type term_typ
         } else {
@@ -72,6 +72,5 @@ Kind.Checker.compare rhs term type =
                 }
               }
             }
-        } :: Kind.Term -> Kind.Term -> Kind.Checker Unit
-      fun term_typ type
-
+        }) :: Kind.Term -> Kind.Term -> Kind.Checker Unit)
+      fun term_typ type))

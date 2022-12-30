@@ -1,0 +1,6 @@
+#derive[match]
+type Kind.Coverage.Result (a: Type) {
+    ok (value: a)
+    none
+    bottom
+}

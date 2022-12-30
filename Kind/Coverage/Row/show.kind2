@@ -1,0 +1,8 @@
+Kind.Coverage.Row.show (row: Kind.Coverage.Row) : String
+Kind.Coverage.Row.show (Kind.Coverage.Row.new rule constraints) =
+    (Kind.Printer.text
+        [ "  | "
+         (Kind.Printer.text (List.map constraints (x => Kind.Coverage.Constraint.show x)))
+         (Kind.Rule.show_no_rhs rule)
+         "\n"
+         ])
