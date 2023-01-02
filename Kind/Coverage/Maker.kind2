@@ -1,3 +1,0 @@
-Kind.Coverage.Maker : Type
-
-Kind.Coverage.Maker.Mk (id: U60) (orig: U60) (ty: Kind.Term) : Maybe Kind.Coverage.Maker

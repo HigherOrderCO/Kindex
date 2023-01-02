@@ -1,0 +1,8 @@
+List.cat_maybes <a> (l: List (Maybe a)) : List a
+List.cat_maybes (List.cons x xs) =
+    match Maybe x {
+        some value => List.cons value (List.cat_maybes xs)
+        none => List.cat_maybes xs
+    }
+
+List.cat_maybes List.nil = List.nil

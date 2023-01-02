@@ -1,0 +1,3 @@
+Kind.Context.Quoted : Type
+Kind.Context.Quoted = (List (Pair U60 (Pair (Kind.Term.Quoted) (List (Kind.Term.Quoted)))))
+

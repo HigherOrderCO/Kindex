@@ -1,4 +1,4 @@
-Main. : Kind.Name
+Main. : U60
 
 Kind.API.eval_main : String
 Kind.API.eval_main =

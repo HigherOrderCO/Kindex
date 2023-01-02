@@ -10,8 +10,8 @@ Kind.Term.fill (Kind.Term.ann orig expr typ)               sub = Kind.Term.eval_
 Kind.Term.fill (Kind.Term.sub orig name indx redx expr)    sub = Kind.Term.eval_sub orig name indx redx (Kind.Term.fill expr sub)
 Kind.Term.fill (Kind.Term.app orig expr typ)               sub = Kind.Term.eval_app orig (Kind.Term.fill expr sub) (Kind.Term.fill typ sub)
 Kind.Term.fill (Kind.Term.hlp orig)                        sub = Kind.Term.hlp orig
-Kind.Term.fill (Kind.Term.u60 orig)                        sub = Kind.Term.u60 orig
-Kind.Term.fill (Kind.Term.num orig num)                    sub = Kind.Term.num orig num
+Kind.Term.fill (Kind.Term.U60 orig)                        sub = Kind.Term.U60 orig
+Kind.Term.fill (Kind.Term.u60 orig num)                    sub = Kind.Term.u60 orig num
 Kind.Term.fill (Kind.Term.op2 orig op left right)          sub = Kind.Term.op2 orig op (Kind.Term.fill left sub) (Kind.Term.fill right sub)
 
 Kind.Term.fill (Kind.Term.ct0 ctid orig)                                                sub = Kind.Term.ct0 ctid orig
@@ -57,5 +57,5 @@ Kind.Term.fill (Kind.Term.hol orig numb) sub =
   let substRes = Kind.Subst.look sub numb
   match Maybe substRes {
     none => Kind.Term.hol orig numb
-    some => Kind.Term.fill substRes.value sub
+    some value => Kind.Term.fill value sub
   }

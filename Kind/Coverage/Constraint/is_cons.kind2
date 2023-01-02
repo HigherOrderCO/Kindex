@@ -1,4 +1,4 @@
-Kind.Coverage.Constraint.is_cons (constraint: Kind.Coverage.Constraint) : Maybe U60
+Kind.Coverage.Constraint.is_cons (constraint: Kind.Coverage.Constraint) : Maybe Kind.Name
 Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct0 name _) ty)                              = Maybe.some name
 Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct1 name _ _) ty)                            = Maybe.some name
 Kind.Coverage.Constraint.is_cons (Kind.Coverage.Constraint.new left (Kind.Term.ct2 name _ _ _) ty)                          = Maybe.some name

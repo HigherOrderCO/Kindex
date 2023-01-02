@@ -65,6 +65,6 @@ Kind.Term.show.go (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x1
 Kind.Term.show.go (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15)    = Kind.Printer.text [(Kind.Term.show x0) " " (Kind.Term.show x1) " " (Kind.Term.show x2) " " (Kind.Term.show x3) " " (Kind.Term.show x4) " " (Kind.Term.show x5) " " (Kind.Term.show x6) " " (Kind.Term.show x7) " " (Kind.Term.show x8) " " (Kind.Term.show x9) " " (Kind.Term.show x10) " " (Kind.Term.show x11) " " (Kind.Term.show x12) " " (Kind.Term.show x13) " " (Kind.Term.show x14) " " (Kind.Term.show x15)]
 
 Kind.Term.show.go (Kind.Term.hlp orig)                        = "?"
-Kind.Term.show.go (Kind.Term.u60 orig)                        = "U60"
-Kind.Term.show.go (Kind.Term.num orig numb)                   = Show.to_string (U60.show numb)
+Kind.Term.show.go (Kind.Term.U60 orig)                        = "U60"
+Kind.Term.show.go (Kind.Term.u60 orig numb)                   = Show.to_string (U60.show numb)
 Kind.Term.show.go (Kind.Term.op2 orig operator left right)    = Kind.Printer.text ["(" (Kind.Operator.show operator) " " (Kind.Term.show left) " " (Kind.Term.show right) ")"]

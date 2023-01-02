@@ -2,7 +2,7 @@ Kind.Coverage.Problem.split_on_constructor (problem: Kind.Coverage.Problem) (fam
 Kind.Coverage.Problem.split_on_constructor (Kind.Coverage.Problem.new type rows) family cons (Kind.Coverage.Constraint.new left right ty) =
     Kind.Checker.local (
         do Kind.Checker {
-            match Maybe val = (Kind.Axiom.Constructor.Mk cons 0 ty) {
+            match Maybe val = (Kind.Coverage.Maker.Mk cons 0 ty) {
                 some (value = maker) =>
                     do Kind.Checker {
                         ask term = Kind.Coverage.Maker.make maker

@@ -1,2 +1,10 @@
+Kind.Coverage.Maker.make (maker: Kind.Coverage.Maker) : Kind.Checker Kind.Term
+Kind.Coverage.Maker.make (Kind.Coverage.Maker.Cons name typ body) =
+    do Kind.Checker {
+        ask depth = Kind.Checker.get_depth
+        Kind.Checker.extend name typ []
+        let var = Kind.Term.var 0 name depth
+        Kind.Coverage.Maker.make (body var)
+    }
 
-Kind.Coverage.Maker.make other = Kind.Checker.pure (Unsafe.coerce other)
+Kind.Coverage.Maker.make (Kind.Coverage.Maker.End other) = Kind.Checker.pure other

@@ -1,8 +1,16 @@
+Kind.Coverage.Row.show.rule (term: Kind.Rule) : String
+Kind.Coverage.Row.show.rule (Kind.Rule.rhs res)     = ""
+Kind.Coverage.Row.show.rule (Kind.Rule.lhs arg res) =
+  (Kind.Printer.text
+    [(Kind.Term.show arg)
+    " "
+    (Kind.Coverage.Row.show.rule res)])
+
 Kind.Coverage.Row.show (row: Kind.Coverage.Row) : String
 Kind.Coverage.Row.show (Kind.Coverage.Row.new rule constraints) =
     (Kind.Printer.text
         [ "  | "
          (Kind.Printer.text (List.map constraints (x => Kind.Coverage.Constraint.show x)))
-         (Kind.Rule.show_no_rhs rule)
+         (Kind.Coverage.Row.show.rule rule)
          "\n"
          ])

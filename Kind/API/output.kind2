@@ -1,12 +1,12 @@
-Kind.API.output (res: List (Pair Kind.Name (List (Kind.Result Unit)))): String
-Kind.API.output (List.nil t)            = String.nil
+Kind.API.output (res: List (Pair U60 (List (Kind.Result Unit)))): List (Kind.Error.Quoted)
+Kind.API.output (List.nil t)            = List.nil
 Kind.API.output (List.cons t pair rest) =
   // TODO: Check why i cant simply type check on the pair
-  open Pair pair
-  Kind.Printer.text [ (Kind.API.output.function pair.fst pair.snd) (Kind.API.output rest) ]
+  let Pair.new fst snd = pair
+  List.concat (Kind.API.output.function fst snd) (Kind.API.output rest)
 
-Kind.API.output.function (fnid: Kind.Name) (ls: List (Kind.Result Unit)): String
-Kind.API.output.function fnid (List.nil t) = String.nil
+Kind.API.output.function (fnid: U60) (ls: List (Kind.Result Unit)): List (Kind.Error.Quoted)
+Kind.API.output.function fnid (List.nil t) = List.nil
 
 Kind.API.output.function fnid (List.cons t (Kind.Result.checked a ctx dep rhs sub eqt err val) checks) =
   Kind.API.output.function.show_errors err sub fnid checks
@@ -14,64 +14,13 @@ Kind.API.output.function fnid (List.cons t (Kind.Result.checked a ctx dep rhs su
 Kind.API.output.function fnid (List.cons t (Kind.Result.errored a ctx sub err) checks) =
   Kind.API.output.function.show_errors err sub fnid checks
 
-Kind.API.output.function.show_errors (ls: List Kind.Error) (sub: Kind.Subst) (fnid: Kind.Name) (res: List (Kind.Result Unit)): String
+Kind.API.output.function.show_errors (ls: List Kind.Error) (sub: Kind.Subst) (fnid: U60) (res: List (Kind.Result Unit)): List (Kind.Error.Quoted)
 Kind.API.output.function.show_errors (List.nil t) sub fnid checks = Kind.API.output.function fnid checks
+
 Kind.API.output.function.show_errors (List.cons t err errs) sub fnid checks =
-  Kind.Printer.text [ (Kind.API.output.error fnid err sub) String.new_line
-                      (Kind.API.output.function.show_errors errs sub fnid checks)
-                    ]
-
-Kind.API.output.error (fnid: Kind.Name) (err: Kind.Error) (sub: Kind.Subst): String
-Kind.API.output.error fnid (Kind.Error.unbound_variable ctx orig) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Unbound Variable." (Kind.Printer.color "0") String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.cant_infer_lambda ctx orig) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Can't infer lambda." (Kind.Printer.color "0") String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.cant_infer_hole ctx orig) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Can't infer hole." (Kind.Printer.color "0") String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.too_many_arguments ctx orig) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Too many arguments." (Kind.Printer.color "0") String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.invalid_call ctx orig) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Invalid call." (Kind.Printer.color "0") String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.type_mismatch ctx orig expected detected) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Type mismatch" (Kind.Printer.color "0") String.new_line
-                      "- Expected: " (String.cut (Kind.Term.show (Kind.Term.fill expected sub))) String.new_line
-                      "- Detected: " (String.cut (Kind.Term.show (Kind.Term.fill detected sub))) String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.impossible_case ctx orig expected detected) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Impossible case. You can remove it." (Kind.Printer.color "0") String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error fnid (Kind.Error.inspection ctx orig expected) sub =
-  Kind.Printer.text [ (Kind.Printer.color "4") "Inspection." (Kind.Printer.color "0") String.new_line
-                      "- Goal: " (String.cut (Kind.Term.show (Kind.Term.fill expected sub))) String.new_line
-                      (Kind.API.output.error.details fnid ctx sub orig)
-                    ]
-
-Kind.API.output.error.details (fnid: Kind.Name) (ctx: Kind.Context) (sub: Kind.Subst) (origin: U60): String
-Kind.API.output.error.details fnid ctx sub orig =
-  Kind.Printer.text [ (Bool.if (Kind.Context.is_empty ctx)
-                               ""
-                               (Kind.Printer.text [(Kind.Printer.color "4") "Kind.Context:" (Kind.Printer.color "0")
-                                                   String.new_line
-                                                   (Kind.Context.show ctx sub)]))
-                      (Kind.Printer.color "4") "On '{{#F" (Show.to_string (U60.show (>> orig 48))) "F#}}':" (Kind.Printer.color "0") String.new_line
-                      "{{#R" (Show.to_string (U60.show (>> orig 48))) ":" (Show.to_string (U60.show (& orig 16777215))) ":" (Show.to_string (U60.show (& (>> orig 24) 16777215))) "R#}}" String.new_line
-                    ]
+  (List.cons 
+    (Kind.API.output.error fnid err sub)
+    (Kind.API.output.function.show_errors errs sub fnid checks))
+                    
+Kind.API.output.error (fnid: U60) (err: (Kind.Error)) (sub: (Kind.Subst)) : Kind.Error.Quoted
+Kind.API.output.error fnid err sub = Kind.Error.quote err sub

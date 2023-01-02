@@ -1,4 +1,3 @@
-#derive[match]
 type Kind.Error {
   unbound_variable (ctx: Kind.Context) (orig: U60)
   cant_infer_hole (ctx: Kind.Context) (orig: U60)

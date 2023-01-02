@@ -10,8 +10,8 @@ Kind.Term.eval (Kind.Term.ann orig expr typ)               = Kind.Term.eval_ann 
 Kind.Term.eval (Kind.Term.sub orig name indx redx expr)    = Kind.Term.eval_sub orig name indx redx (Kind.Term.eval expr)
 Kind.Term.eval (Kind.Term.app orig expr typ)               = Kind.Term.eval_app orig (Kind.Term.eval expr) (Kind.Term.eval typ)
 Kind.Term.eval (Kind.Term.hlp orig)                        = Kind.Term.hlp orig
-Kind.Term.eval (Kind.Term.u60 orig)                        = Kind.Term.u60 orig
-Kind.Term.eval (Kind.Term.num orig num)                    = Kind.Term.num orig num
+Kind.Term.eval (Kind.Term.U60 orig)                        = Kind.Term.U60 orig
+Kind.Term.eval (Kind.Term.u60 orig num)                    = Kind.Term.u60 orig num
 Kind.Term.eval (Kind.Term.op2 orig op left right)          = Kind.Term.eval_op orig op (Kind.Term.eval left) (Kind.Term.eval right)
 
 Kind.Term.eval (Kind.Term.ct0 ctid orig)                                                = Kind.Term.ct0 ctid orig

@@ -1,15 +1,26 @@
-Kind.Axiom.TypeOf (u: Kind.Name): Kind.Term
-
-Kind.Axiom.HashOf (u: Kind.Name): U60
-
-Kind.Axiom.RuleOf (fnid: Kind.Name): List Kind.Rule
-
-Kind.Axiom.Null <a> : a
-
-Kind.Axiom.Compare (n: Kind.Name) (m: Kind.Name) : Bool
-
-Kind.Axiom.NameOf (name: Kind.Name): String
-
+//! All the functions for type checking
 Kind.Axiom.Functions : List Kind.Name
 
+//! Type of a constructor/function
+Kind.Axiom.TypeOf (u: Kind.Name): Kind.Term
+
+//! The 60 bits hash of a constructor/function
+Kind.Axiom.HashOf (u: Kind.Name): U60
+
+//! String version of the constructor
+Kind.Axiom.NameOf (name: Kind.Name): String
+
+//! Rules of a function
+Kind.Axiom.RuleOf (fnid: Kind.Name): List Kind.Rule
+
+//! Just a "unsafe" constructor to fill some space
+//! It can be used like the 'undefined' in Haskell
+//! but it can cause some damage and undefined just
+//! throws an error when evaluated in Haskell.
+Kind.Axiom.Null <a> : a
+
 Kind.Axiom.Family.Constructors (fnid: Kind.Name) : List Kind.Name
+
+Kind.Axiom.Compare (fst: Kind.Name) (snd: Kind.Name) : Bool
+
+Kind.Axiom.CoverCheck (name: Kind.Name) : Bool

@@ -1,9 +1,9 @@
-String.nil.  : Kind.Name
-String.cons. : Kind.Name
+String.nil.  : U60
+String.cons. : U60
 
 Kind.Term.show.sugar.string.go (term: Kind.Term): Maybe String
 Kind.Term.show.sugar.string.go (Kind.Term.ct0 String.nil.  orig) = Maybe.some String.nil
-Kind.Term.show.sugar.string.go (Kind.Term.ct2 String.cons. orig (Kind.Term.num orig1 x0) x1) =
+Kind.Term.show.sugar.string.go (Kind.Term.ct2 String.cons. orig (Kind.Term.u60 orig1 x0) x1) =
   do Maybe {
     ask tail = Kind.Term.show.sugar.string.go x1
     return String.cons x0 tail

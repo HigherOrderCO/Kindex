@@ -9,8 +9,8 @@ Kind.Term.set_origin new_origin (Kind.Term.ann old_orig expr typ)               
 Kind.Term.set_origin new_origin (Kind.Term.sub old_orig name indx redx expr)    = Kind.Term.sub new_origin name indx redx expr
 Kind.Term.set_origin new_origin (Kind.Term.app old_orig func arg)               = Kind.Term.app new_origin func arg
 Kind.Term.set_origin new_origin (Kind.Term.hlp old_orig)                        = Kind.Term.hlp new_origin
-Kind.Term.set_origin new_origin (Kind.Term.u60 old_orig)                        = Kind.Term.u60 new_origin
-Kind.Term.set_origin new_origin (Kind.Term.num old_orig num)                    = Kind.Term.num new_origin num
+Kind.Term.set_origin new_origin (Kind.Term.U60 old_orig)                        = Kind.Term.U60 new_origin
+Kind.Term.set_origin new_origin (Kind.Term.u60 old_orig num)                    = Kind.Term.u60 new_origin num
 Kind.Term.set_origin new_origin (Kind.Term.op2 old_orig op left right)          = Kind.Term.op2 new_origin op left right
 
 Kind.Term.set_origin new_origin (Kind.Term.ct0 ctid old_orig)                                                = Kind.Term.ct0 ctid new_origin

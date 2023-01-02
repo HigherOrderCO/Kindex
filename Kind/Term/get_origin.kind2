@@ -12,8 +12,8 @@ Kind.Term.get_origin r (Kind.Term.ann orig expr typ)               got = got ori
 Kind.Term.get_origin r (Kind.Term.sub orig name indx redx expr)    got = got orig (Kind.Term.sub orig name indx redx expr)
 Kind.Term.get_origin r (Kind.Term.app orig func arg)               got = got orig (Kind.Term.app orig func arg)
 Kind.Term.get_origin r (Kind.Term.hlp orig)                        got = got orig (Kind.Term.hlp orig)
-Kind.Term.get_origin r (Kind.Term.u60 orig)                        got = got orig (Kind.Term.u60 orig)
-Kind.Term.get_origin r (Kind.Term.num orig num)                    got = got orig (Kind.Term.num orig num)
+Kind.Term.get_origin r (Kind.Term.U60 orig)                        got = got orig (Kind.Term.U60 orig)
+Kind.Term.get_origin r (Kind.Term.u60 orig num)                    got = got orig (Kind.Term.u60 orig num)
 Kind.Term.get_origin r (Kind.Term.op2 orig op left right)          got = got orig (Kind.Term.op2 orig op left right)
 
 Kind.Term.get_origin r (Kind.Term.ct0 ctid orig )                                               got = got orig (Kind.Term.ct0 ctid orig )
