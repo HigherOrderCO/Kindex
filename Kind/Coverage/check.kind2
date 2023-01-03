@@ -22,7 +22,7 @@ Cover/check.problem (problem: Cover/Problem) : Kind.Checker Cover/CaseTree
 Cover/check.problem problem =
     do Kind.Checker {
         if Cover/Problem.is_empty problem {
-            Kind.Checker.pure Cover/CaseTree.uncovered
+            Kind.Checker.pure (Cover/CaseTree.uncovered)
         } else {
             if Cover/Problem.is_solved problem {
                 Kind.Checker.pure Cover/CaseTree.done
@@ -32,13 +32,12 @@ Cover/check.problem problem =
         }
     }
 
-Cover/check (function_id: Kind.Name): Kind.Checker String
+Cover/check (function_id: Kind.Name): Kind.Checker Unit
 Cover/check fnid =
     do Kind.Checker {
         let rules   = Kind.Axiom.RuleOf fnid
         let type    = Kind.Axiom.TypeOf fnid
         let problem = Cover/Problem.new type (rows = List.map rules (x => Cover/Row.new x []))
         ask tree    = Cover/check.problem problem
-        let str     = (Cover/CaseTree.show "" tree)
-        return str
+        return Unit.new
     }

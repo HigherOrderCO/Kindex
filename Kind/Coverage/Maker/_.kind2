@@ -1,7 +1,7 @@
 Kind.Coverage.Maker : Type
 
 //! Creates the constructor using the parameters of @ty@
-Kind.Coverage.Maker.Mk (id: Kind.Name) (orig: U60) (ty: Kind.Term) : Kind.Coverage.Maker
+Kind.Coverage.Maker.Mk (id: Kind.Name) (orig: U60) (ty: Kind.Term) : Maybe Kind.Coverage.Maker
 
 Kind.Coverage.Maker.Cons (name: U60) (ty: Kind.Term) (body: Kind.Term -> Kind.Coverage.Maker) : Kind.Coverage.Maker
 Kind.Coverage.Maker.End (body: Kind.Term) : Kind.Coverage.Maker

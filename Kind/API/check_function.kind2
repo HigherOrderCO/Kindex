@@ -1,4 +1,4 @@
-Kind.API.check_function (fnid: U60): List (Kind.Result (Unit))
+Kind.API.check_function (fnid: Kind.Name): List (Kind.Result (Unit))
 Kind.API.check_function fnid =
   let rules       = Kind.Axiom.RuleOf fnid
   let type        = Kind.Axiom.TypeOf fnid
@@ -7,7 +7,7 @@ Kind.API.check_function fnid =
   let res         = List.cons type_check rule_check
   if (Kind.Axiom.CoverCheck fnid) {
     let cover_check = Kind.Checker.run (Kind.Coverage.check fnid) Bool.true
-    List.cons (HVM.log cover_check cover_check) res
+    List.cons cover_check res
   } else {
     res
   }

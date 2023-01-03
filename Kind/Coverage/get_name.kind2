@@ -17,4 +17,4 @@ Kind.Coverage.get_name (Kind.Term.ct13 name _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Maybe
 Kind.Coverage.get_name (Kind.Term.ct14 name _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Maybe.some name
 Kind.Coverage.get_name (Kind.Term.ct15 name _ _) = Maybe.some name
 Kind.Coverage.get_name (Kind.Term.ct16 name _ _) = Maybe.some name
-Kind.Coverage.get_name _ = Maybe.none
+Kind.Coverage.get_name t = Maybe.none

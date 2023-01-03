@@ -9,8 +9,8 @@ type Kind.Term.Quoted {
     ann (orig: U60) (expr: Kind.Term.Quoted) (typ: Kind.Term.Quoted) 
     sub (orig: U60) (name: U60) (indx: U60) (redx: U60) (expr: Kind.Term.Quoted) 
 
-    ctr (ctid: U60) (orig: U60) (x0: List Kind.Term.Quoted) 
-    fun  (fnid: U60) (orig: U60) (x0: List Kind.Term.Quoted) 
+    ctr (ctid: Kind.Name) (orig: U60) (x0: List Kind.Term.Quoted) 
+    fun  (fnid: Kind.Name) (orig: U60) (x0: List Kind.Term.Quoted) 
 
     hlp (orig: U60) 
     u60 (orig: U60) 

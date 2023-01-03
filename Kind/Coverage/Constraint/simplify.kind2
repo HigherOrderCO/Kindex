@@ -1,34 +1,41 @@
 
 Kind.Coverage.Constraint.simplify.go (ls: (List (Pair Kind.Term Kind.Term))) (constr_ty: Kind.Term) (constraint_ty: Kind.Term) : List Kind.Coverage.Constraint
-Kind.Coverage.Constraint.simplify.go List.nil other constraint_ty = (HVM.log "R" List.nil)
+Kind.Coverage.Constraint.simplify.go List.nil other constraint_ty = List.nil
 
 Kind.Coverage.Constraint.simplify.go (List.cons arg xs) (Kind.Term.all orig name typ body) constraint_ty =
-    let x = (Kind.Coverage.Constraint.new (Pair.fst arg) (Pair.snd arg) typ)
+    let x = Kind.Coverage.Constraint.new (Pair.fst arg) (Pair.snd arg) typ
     List.cons x (Kind.Coverage.Constraint.simplify.go xs (body (Pair.fst arg)) constraint_ty)
 
-Kind.Coverage.Constraint.simplify.go (List.cons arg xs) _ _ = (HVM.log "Oh no!!!" List.nil)
+Kind.Coverage.Constraint.simplify.go (List.cons arg xs) _ _ = List.nil
 
 // Need to implement indices as equality constraints TwT
 Kind.Coverage.Constraint.simplify (kd: Kind.Coverage.Constraint) : Kind.Checker (Result (List Kind.Coverage.Constraint))
+Kind.Coverage.Constraint.simplify (Kind.Coverage.Constraint.new left (Kind.Term.var orig name idx) ty) =
+    Kind.Checker.pure (Result.ok List.nil)
+
 Kind.Coverage.Constraint.simplify (Kind.Coverage.Constraint.new (Kind.Term.var orig name idx) right ty) =
     do Kind.Checker {
         ask values = Kind.Checker.find (List Kind.Term) idx List.nil (n => t => v => v)
         let head = List.head values
-        return (if List.is_nil values {
-            Result.none
-        } else {
-            let res = (do Maybe {
-                ask left   = head
-                ask name   = Kind.Coverage.get_name right
-                ask ls     = Kind.Coverage.get_pairs left right
-                let ctr_ty = Kind.Axiom.TypeOf name
-                return Kind.Coverage.Constraint.simplify.go ls ctr_ty ty
-            })
-            match Maybe res {
-                some value => Result.ok value
-                none => Result.bottom
+        if List.is_nil values {
+            do Kind.Checker {
+                Kind.Checker.pure (Result.ok List.nil)
             }
-        })
+        } else {
+            do Kind.Checker {
+                let res = (do Maybe {
+                    ask left   = head
+                    ask name   = Kind.Coverage.get_name right
+                    ask ls     = Kind.Coverage.get_pairs left right
+                    let ctr_ty = Kind.Axiom.TypeOf name
+                    return Kind.Coverage.Constraint.simplify.go ls ctr_ty ty
+                })
+                return (match Maybe res {
+                    some value => Result.ok value
+                    none       => Result.bottom
+                })
+            }
+        }
     }
 
 Kind.Coverage.Constraint.simplify _ = Kind.Checker.pure Result.none

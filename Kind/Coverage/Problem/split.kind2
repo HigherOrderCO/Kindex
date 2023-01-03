@@ -13,4 +13,4 @@ Kind.Coverage.Problem.split (Kind.Coverage.Problem.new type rows) =
                 return Kind.Coverage.CaseTree.case cases
             }
         })
-        (Kind.Checker.pure Kind.Coverage.CaseTree.uncovered))
+        (Kind.Checker.pure Kind.Coverage.CaseTree.done))

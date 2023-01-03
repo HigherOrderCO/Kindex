@@ -1,3 +1,6 @@
+
+Kind.Coverage.Problem.split_on_literal (problem: Kind.Coverage.Problem) (family: Kind.Name) (cons: Kind.Name) (constraint: Kind.Coverage.Constraint) : Kind.Checker Kind.Coverage.CaseTree
+
 Kind.Coverage.Problem.split_on_constructor (problem: Kind.Coverage.Problem) (family: Kind.Name) (cons: Kind.Name) (constraint: Kind.Coverage.Constraint) : Kind.Checker Kind.Coverage.CaseTree
 Kind.Coverage.Problem.split_on_constructor (Kind.Coverage.Problem.new type rows) family cons (Kind.Coverage.Constraint.new left right ty) =
     Kind.Checker.local (
@@ -10,12 +13,12 @@ Kind.Coverage.Problem.split_on_constructor (Kind.Coverage.Problem.new type rows)
                         Kind.Checker.equal term left
                         ask ctx = Kind.Checker.get_context
                         ask res = Kind.Coverage.Problem.simplify (Kind.Coverage.Problem.new type rows)
-                        Kind.Coverage.check.problem (HVM.log (Kind.Coverage.Problem.show res) res)
+                        Kind.Coverage.check.problem res
                     }
                 none =>
                     do Kind.Checker {
                         Kind.Checker.check left ty
-                        return Kind.Coverage.CaseTree.uncovered
+                        return Kind.Coverage.CaseTree.done
                     }
             }
         })

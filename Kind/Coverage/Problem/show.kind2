@@ -6,6 +6,5 @@ Kind.Coverage.Problem.show (Kind.Coverage.Problem.new type rows) =
              (Kind.Term.show type)
              "\n"
             ])
-        (Kind.Printer.text (List.map rows (x => Kind.Coverage.Row.show x)))
-
+            (Kind.Printer.text (List.map rows (x => Kind.Coverage.Row.show x)))
         ])

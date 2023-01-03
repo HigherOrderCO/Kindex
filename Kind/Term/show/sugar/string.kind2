@@ -1,5 +1,5 @@
-String.nil.  : U60
-String.cons. : U60
+String.nil.  : Kind.Name
+String.cons. : Kind.Name
 
 Kind.Term.show.sugar.string.go (term: Kind.Term): Maybe String
 Kind.Term.show.sugar.string.go (Kind.Term.ct0 String.nil.  orig) = Maybe.some String.nil

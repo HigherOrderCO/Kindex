@@ -1,11 +1,11 @@
-Kind.API.output (res: List (Pair U60 (List (Kind.Result Unit)))): List (Kind.Error.Quoted)
+Kind.API.output (res: List (Pair Kind.Name (List (Kind.Result Unit)))): List (Kind.Error.Quoted)
 Kind.API.output (List.nil t)            = List.nil
 Kind.API.output (List.cons t pair rest) =
   // TODO: Check why i cant simply type check on the pair
   let Pair.new fst snd = pair
   List.concat (Kind.API.output.function fst snd) (Kind.API.output rest)
 
-Kind.API.output.function (fnid: U60) (ls: List (Kind.Result Unit)): List (Kind.Error.Quoted)
+Kind.API.output.function (fnid: Kind.Name) (ls: List (Kind.Result Unit)): List (Kind.Error.Quoted)
 Kind.API.output.function fnid (List.nil t) = List.nil
 
 Kind.API.output.function fnid (List.cons t (Kind.Result.checked a ctx dep rhs sub eqt err val) checks) =
@@ -14,13 +14,13 @@ Kind.API.output.function fnid (List.cons t (Kind.Result.checked a ctx dep rhs su
 Kind.API.output.function fnid (List.cons t (Kind.Result.errored a ctx sub err) checks) =
   Kind.API.output.function.show_errors err sub fnid checks
 
-Kind.API.output.function.show_errors (ls: List Kind.Error) (sub: Kind.Subst) (fnid: U60) (res: List (Kind.Result Unit)): List (Kind.Error.Quoted)
+Kind.API.output.function.show_errors (ls: List Kind.Error) (sub: Kind.Subst) (fnid: Kind.Name) (res: List (Kind.Result Unit)): List (Kind.Error.Quoted)
 Kind.API.output.function.show_errors (List.nil t) sub fnid checks = Kind.API.output.function fnid checks
 
 Kind.API.output.function.show_errors (List.cons t err errs) sub fnid checks =
-  (List.cons 
+  (List.cons
     (Kind.API.output.error fnid err sub)
     (Kind.API.output.function.show_errors errs sub fnid checks))
-                    
-Kind.API.output.error (fnid: U60) (err: (Kind.Error)) (sub: (Kind.Subst)) : Kind.Error.Quoted
+
+Kind.API.output.error (fnid: Kind.Name) (err: (Kind.Error)) (sub: (Kind.Subst)) : Kind.Error.Quoted
 Kind.API.output.error fnid err sub = Kind.Error.quote err sub
