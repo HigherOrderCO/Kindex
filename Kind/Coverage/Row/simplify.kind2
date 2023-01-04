@@ -1,23 +1,28 @@
-Kind.Coverage.Row.simplify.go_2 (row: Zipper Kind.Coverage.Constraint) (maybe: Maybe (Pair Kind.Coverage.Constraint (Zipper Kind.Coverage.Constraint))) : Kind.Checker (Maybe (Zipper Kind.Coverage.Constraint))
-Kind.Coverage.Row.simplify.go_2 row (Maybe.some pair) =
-    do Kind.Checker {
-        let Pair.new (fst = constraint) (snd = zipper) = pair
-        ask res = Kind.Coverage.Constraint.simplify constraint
-        match Result res {
-            ok value => Kind.Coverage.Row.simplify.go (Zipper.add_mass zipper value)
-            none     => Kind.Coverage.Row.simplify.go (Zipper.move row)
-            bottom   => Kind.Checker.pure Maybe.none
-        }
-    }
+Kind.Coverage.Row.simplify.go_finish
+    (row: Zipper Kind.Coverage.Constraint)
+    (zipper: Zipper Kind.Coverage.Constraint)
+    (res: Result (List Kind.Coverage.Constraint))
+    : Kind.Checker (Maybe (Zipper Kind.Coverage.Constraint))
 
-Kind.Coverage.Row.simplify.go_2 row Maybe.none = Kind.Checker.pure (Maybe.pure row)
+Kind.Coverage.Row.simplify.go_finish row zipper (Result.ok value) = Kind.Coverage.Row.simplify.go (HVM.log "!" (Zipper.add_mass zipper value))
+Kind.Coverage.Row.simplify.go_finish row zipper Result.none       = Kind.Coverage.Row.simplify.go (Zipper.move row)
+Kind.Coverage.Row.simplify.go_finish row zipper Result.bottom     = Kind.Checker.pure Maybe.none
 
 Kind.Coverage.Row.simplify.go (row: Zipper Kind.Coverage.Constraint) : Kind.Checker (Maybe (Zipper Kind.Coverage.Constraint))
 Kind.Coverage.Row.simplify.go row =
     if Zipper.is_at_the_end row {
         Kind.Checker.pure (Maybe.pure row)
     } else {
-        Kind.Coverage.Row.simplify.go_2 row (Zipper.remove row)
+        match Maybe res = (Zipper.remove row) {
+            some =>
+                do Kind.Checker {
+                    let Pair.new (fst = constraint) (snd = zipper) = res.value
+                    ask res = Kind.Coverage.Constraint.simplify constraint
+                    Kind.Coverage.Row.simplify.go_finish row zipper res
+                }
+            none =>
+                Kind.Checker.pure (Maybe.pure row)
+        }
     }
 
 Kind.Coverage.Row.simplify (row: Kind.Coverage.Row) : Kind.Checker (Maybe Kind.Coverage.Row)

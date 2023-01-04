@@ -8,15 +8,16 @@ Kind.Coverage.Constraint.simplify.go (List.cons arg xs) (Kind.Term.all orig name
 
 Kind.Coverage.Constraint.simplify.go (List.cons arg xs) _ _ = List.nil
 
-// Need to implement indices as equality constraints TwT
 Kind.Coverage.Constraint.simplify (kd: Kind.Coverage.Constraint) : Kind.Checker (Result (List Kind.Coverage.Constraint))
 Kind.Coverage.Constraint.simplify (Kind.Coverage.Constraint.new left (Kind.Term.var orig name idx) ty) =
-    Kind.Checker.pure (Result.ok List.nil)
+    do Kind.Checker {
+        ask is_equal = Kind.Checker.local (Kind.Checker.equal left (Kind.Term.var orig name idx))
+        Kind.Checker.pure (Result.ok List.nil)
+    }
 
 Kind.Coverage.Constraint.simplify (Kind.Coverage.Constraint.new (Kind.Term.var orig name idx) right ty) =
     do Kind.Checker {
         ask values = Kind.Checker.find (List Kind.Term) idx List.nil (n => t => v => v)
-        let head = List.head values
         if List.is_nil values {
             do Kind.Checker {
                 Kind.Checker.pure (Result.ok List.nil)
@@ -24,18 +25,29 @@ Kind.Coverage.Constraint.simplify (Kind.Coverage.Constraint.new (Kind.Term.var o
         } else {
             do Kind.Checker {
                 let res = (do Maybe {
-                    ask left   = head
+                    ask value  = List.head values
                     ask name   = Kind.Coverage.get_name right
-                    ask ls     = Kind.Coverage.get_pairs left right
+                    ask pairs  = Kind.Coverage.get_pairs value right
                     let ctr_ty = Kind.Axiom.TypeOf name
-                    return Kind.Coverage.Constraint.simplify.go ls ctr_ty ty
+                    return Kind.Coverage.Constraint.simplify.go pairs ctr_ty ty
                 })
-                return (match Maybe res {
-                    some value => Result.ok value
-                    none       => Result.bottom
-                })
+                match Maybe res {
+                    some => do Kind.Checker {
+                        ask typ = Kind.Checker.infer (Kind.Term.var orig name idx)
+                        return Result.ok res.value
+                    }
+                    none => Kind.Checker.pure Result.bottom
+                }
             }
         }
     }
 
-Kind.Coverage.Constraint.simplify _ = Kind.Checker.pure Result.none
+Kind.Coverage.Constraint.simplify (Kind.Coverage.Constraint.new left right ty) =
+    do Kind.Checker {
+        ask is_equal = Kind.Checker.equal left right
+        if is_equal {
+            Kind.Checker.pure Result.none
+        } else {
+            Kind.Checker.pure Result.bottom
+        }
+    }

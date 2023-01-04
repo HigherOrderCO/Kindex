@@ -10,7 +10,7 @@ Kind.Coverage.Problem.intro (Kind.Coverage.Problem.new type rows) =
                 ask tree       = Kind.Coverage.Problem.split problem
                 return Kind.Coverage.CaseTree.intro name tree
             })
-        (Kind.Checker.pure Kind.Coverage.CaseTree.done))
+        (Kind.Coverage.Problem.split (Kind.Coverage.Problem.new type rows)))
 
     Kind.Coverage.Problem.intro_row (typ: Kind.Term) (var: Kind.Term) (row: Kind.Coverage.Row) : Kind.Coverage.Row
     Kind.Coverage.Problem.intro_row typ var (Kind.Coverage.Row.new (Kind.Rule.lhs arg rule) constraints) =

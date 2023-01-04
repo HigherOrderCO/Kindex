@@ -5,3 +5,14 @@ Kind.Coverage.Maker.Mk (id: Kind.Name) (orig: U60) (ty: Kind.Term) : Maybe Kind.
 
 Kind.Coverage.Maker.Cons (name: U60) (ty: Kind.Term) (body: Kind.Term -> Kind.Coverage.Maker) : Kind.Coverage.Maker
 Kind.Coverage.Maker.End (body: Kind.Term) : Kind.Coverage.Maker
+
+Kind.Coverage.Maker.make (maker: Kind.Coverage.Maker) : Kind.Checker Kind.Term
+Kind.Coverage.Maker.make (Kind.Coverage.Maker.Cons name typ body) =
+    do Kind.Checker {
+        ask depth = Kind.Checker.get_depth
+        Kind.Checker.extend name typ []
+        let var = Kind.Term.var 0 name depth
+        Kind.Coverage.Maker.make (body var)
+    }
+
+Kind.Coverage.Maker.make (Kind.Coverage.Maker.End other) = Kind.Checker.pure other

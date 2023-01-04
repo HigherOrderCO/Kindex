@@ -5,6 +5,7 @@ type Result (a: Type) {
     ok (value: a)
     none
     bottom
+    empty
 }
 
 Result.from_maybe <a> (m: Maybe a) : Result a
@@ -27,7 +28,7 @@ Cover/check.problem problem =
             if Cover/Problem.is_solved problem {
                 Kind.Checker.pure Cover/CaseTree.done
             } else {
-                Cover/Problem.intro problem
+                Cover/Problem.intro (HVM.log (Cover/Problem.show problem) problem)
             }
         }
     }
@@ -39,5 +40,6 @@ Cover/check fnid =
         let type    = Kind.Axiom.TypeOf fnid
         let problem = Cover/Problem.new type (rows = List.map rules (x => Cover/Row.new x []))
         ask tree    = Cover/check.problem problem
+        Kind.Checker.fail (Kind.Error.case_tree (Cover/CaseTree.show "" tree))
         return Unit.new
     }

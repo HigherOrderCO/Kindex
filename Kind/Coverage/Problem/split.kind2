@@ -3,6 +3,7 @@ Kind.Coverage.Problem.split (Kind.Coverage.Problem.new type rows) =
     (Maybe.default
         (do Maybe {
             ask head = List.head rows
+            let r    = Kind.Coverage.Row.find_splittable head
             ask Pair.new (fst = constraint) (snd = zipper) = Kind.Coverage.Row.find_splittable head
             ask family = Kind.Coverage.get_name (Kind.Coverage.Constraint.ty.get constraint)
             let cons   = Kind.Axiom.Family.Constructors family
@@ -13,4 +14,4 @@ Kind.Coverage.Problem.split (Kind.Coverage.Problem.new type rows) =
                 return Kind.Coverage.CaseTree.case cases
             }
         })
-        (Kind.Checker.pure Kind.Coverage.CaseTree.done))
+        (Kind.Coverage.check.problem (Kind.Coverage.Problem.new type rows)))
