@@ -1,2 +1,0 @@
-Bool.true_neq_false: true != false
- (absurd => Equal.rewrite (x => if x {Empty} else {Unit}) absurd) 
