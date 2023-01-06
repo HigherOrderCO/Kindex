@@ -1,4 +1,0 @@
-Kind.Coverage.Constraint.show (constraint: Kind.Coverage.Constraint) : String
-Kind.Coverage.Constraint.show (Kind.Coverage.Constraint.new left right ty) =
-    (Kind.Printer.text
-        [ "[" (Kind.Term.show (Kind.Term.eval left)) " /? " (Kind.Term.show right) " : "  (Kind.Term.show ty) "] " ])

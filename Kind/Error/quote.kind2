@@ -7,3 +7,4 @@ Kind.Error.quote (Kind.Error.impossible_case ctx orig typ term) sub = (Kind.Erro
 Kind.Error.quote (Kind.Error.inspection ctx orig term) sub = (Kind.Error.Quoted.inspection (Kind.Context.quote ctx sub) orig (Kind.Term.quote term sub))
 Kind.Error.quote (Kind.Error.too_many_arguments ctx orig) sub = (Kind.Error.Quoted.too_many_arguments (Kind.Context.quote ctx sub) orig)
 Kind.Error.quote (Kind.Error.type_mismatch ctx orig expected detected) sub = (Kind.Error.Quoted.type_mismatch (Kind.Context.quote ctx sub) orig (Kind.Term.quote expected sub) (Kind.Term.quote detected sub))
+Kind.Error.quote (Kind.Error.uncovered_pattern ctx orig res) sub = (Kind.Error.Quoted.uncovered_pattern (Kind.Context.quote ctx sub) orig res)

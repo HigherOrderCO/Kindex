@@ -1,3 +1,0 @@
-Kind.Coverage.Constraint.is_rhs (rule: Kind.Rule) : Bool
-Kind.Coverage.Constraint.is_rhs (Kind.Rule.rhs _) = Bool.true
-Kind.Coverage.Constraint.is_rhs _                 = Bool.false

@@ -1,6 +1,0 @@
-Kind.Coverage.Problem.simplify (problem: Kind.Coverage.Problem) : Kind.Checker Kind.Coverage.Problem
-Kind.Coverage.Problem.simplify (Kind.Coverage.Problem.new types rows) =
-    do Kind.Checker {
-        ask rows = Kind.Checker.sequence (List.map rows (x => Kind.Coverage.Row.simplify x))
-        return Kind.Coverage.Problem.new types (List.cat_maybes rows)
-    }

@@ -1,5 +1,0 @@
-#derive[getters]
-record Kind.Coverage.Row {
-    rule        : Kind.Rule
-    constraints : List Kind.Coverage.Constraint
-}

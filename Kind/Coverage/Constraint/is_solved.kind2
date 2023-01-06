@@ -1,3 +1,0 @@
-Kind.Coverage.Constraint.is_solved (constraint: Kind.Coverage.Constraint) : Bool
-Kind.Coverage.Constraint.is_solved (Kind.Coverage.Constraint.new l (Kind.Term.var _ _ _) t) = Bool.true
-Kind.Coverage.Constraint.is_solved (Kind.Coverage.Constraint.new l r t)                     = Bool.false

@@ -1,45 +1,228 @@
-use Kind.Coverage as Cover
-
-#derive[match]
-type Result (a: Type) {
-    ok (value: a)
-    none
-    bottom
-    empty
+#derive[getters]
+record Kind.Coverage.Problem {
+    type  : Kind.Term
+    rows  : List Kind.Rule
+    count : U60
 }
 
-Result.from_maybe <a> (m: Maybe a) : Result a
-Result.from_maybe (Maybe.some x) = Result.ok x
-Result.from_maybe Maybe.none = Result.bottom
+#derive[match]
+type Kind.Coverage.Choice {
+    on_cons (name: Kind.Name)
+    on_U60
+    none
+}
 
-#inline
-Unsafe.coerce (n: _) : _
-Unsafe.coerce n = n
+type Kind.Coverage.Maker {
+    Cons (name: U60) (ty: Kind.Term) (body: Kind.Term -> Kind.Coverage.Maker)
+    End (body: Kind.Term)
+}
 
-Maybe.unsafe <t> (n : Maybe t) : t
-Maybe.unsafe (Maybe.some n) = n
+Kind.Coverage.Maker.Mk (id: Kind.Name) (orig: U60) (ty: Kind.Term) : Maybe Kind.Coverage.Maker
 
-Cover/check.problem (problem: Cover/Problem) : Kind.Checker Cover/CaseTree
-Cover/check.problem problem =
+Kind.Coverage.Maker.make (maker: Kind.Coverage.Maker) (and_then: Kind.Term -> Kind.Term) : Kind.Term
+Kind.Coverage.Maker.make (Kind.Coverage.Maker.Cons name typ body) and_then =
+    Kind.Term.all 0 97 typ (arg => Kind.Coverage.Maker.make (body arg) and_then)
+
+Kind.Coverage.Maker.make (Kind.Coverage.Maker.End other) and_then = and_then other
+
+Kind.Coverage.Rule.size (rule: Kind.Rule) : U60
+Kind.Coverage.Rule.size (Kind.Rule.lhs x xs) = (+ 1 (Kind.Coverage.Rule.size xs))
+Kind.Coverage.Rule.size _                    = 0
+
+Kind.Coverage.Maker.size (maker: Kind.Coverage.Maker) : U60
+Kind.Coverage.Maker.size (Kind.Coverage.Maker.Cons _ _ body) = (+ 1 (Kind.Coverage.Maker.size (body (Kind.Term.var 0 0 0))))
+Kind.Coverage.Maker.size (Kind.Coverage.Maker.End _)         = 0
+
+Kind.Coverage.get_name (name: Kind.Term) : Kind.Coverage.Choice
+Kind.Coverage.get_name (Kind.Term.ct0 name _)                              = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct1 name _ _)                            = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct2 name _ _ _)                          = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct3 name _ _ _ _)                        = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct4 name _ _ _ _ _)                      = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct5 name _ _ _ _ _ _)                    = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct6 name _ _ _ _ _ _ _)                  = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct8 name _ _ _ _ _ _ _ _ _)              = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct7 name _ _ _ _ _ _ _ _)                = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct9 name _ _ _ _ _ _ _ _ _ _)            = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct10 name _ _ _ _ _ _ _ _ _ _ _)         = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct11 name _ _ _ _ _ _ _ _ _ _ _ _)       = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct12 name _ _ _ _ _ _ _ _ _ _ _ _ _)     = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct13 name _ _ _ _ _ _ _ _ _ _ _ _ _ _)   = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct14 name _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct15 name _ _)                           = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct16 name _ _)                           = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.ct16 name _ _)                           = Kind.Coverage.Choice.on_cons name
+Kind.Coverage.get_name (Kind.Term.U60 _)                                   = Kind.Coverage.Choice.on_U60
+Kind.Coverage.get_name _                                                   = Kind.Coverage.Choice.none
+
+Kind.Coverage.craft (n: U60) (rest: Kind.Rule) : Kind.Rule
+Kind.Coverage.craft 0 rule = rule
+Kind.Coverage.craft n rule = Kind.Coverage.craft (- n 1) (Kind.Rule.lhs (Kind.Term.var 0 65 0) rule)
+
+Kind.Coverage.specialize_rule (name: Kind.Name) (expr: Kind.Term) (rest: Kind.Rule) : Maybe Kind.Rule
+Kind.Coverage.specialize_rule n (Kind.Term.ct0 name orig)                                                rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some rule) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct1 name orig x0)                                             rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 rule)) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct2 name orig x0 x1)                                          rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 rule))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct3 name orig x0 x1 x2)                                       rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 rule)))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct4 name orig x0 x1 x2 x3)                                    rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 rule))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct5 name orig x0 x1 x2 x3 x4)                                 rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 rule)))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct6 name orig x0 x1 x2 x3 x4 x5)                              rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 rule))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct7 name orig x0 x1 x2 x3 x4 x5 x6)                           rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 rule)))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct8 name orig x0 x1 x2 x3 x4 x5 x6 x7)                        rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 rule))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct9 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 rule)))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct10 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 rule))))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct11 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 (Kind.Rule.lhs x10 rule)))))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct12 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 (Kind.Rule.lhs x10 (Kind.Rule.lhs x11 rule))))))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct13 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 (Kind.Rule.lhs x10 (Kind.Rule.lhs x11 (Kind.Rule.lhs x12 rule)))))))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct14 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) rule = Bool.if (Kind.Axiom.Compare n name) (Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 (Kind.Rule.lhs x10 (Kind.Rule.lhs x11 (Kind.Rule.lhs x12 (Kind.Rule.lhs x13 rule))))))))))))))) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct15 name orig x0)                                            rule = Bool.if (Kind.Axiom.Compare n name) (Kind.Coverage.specialize_rule n x0 rule) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.ct16 name orig x0)                                            rule = Bool.if (Kind.Axiom.Compare n name) (Kind.Coverage.specialize_rule n x0 rule) Maybe.none
+Kind.Coverage.specialize_rule n (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     rule = Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 (Kind.Rule.lhs x10 (Kind.Rule.lhs x11 (Kind.Rule.lhs x12 (Kind.Rule.lhs x13 (Kind.Rule.lhs x14 rule)))))))))))))))
+Kind.Coverage.specialize_rule n (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) rule = Maybe.some (Kind.Rule.lhs x0 (Kind.Rule.lhs x1 (Kind.Rule.lhs x2 (Kind.Rule.lhs x3 (Kind.Rule.lhs x4 (Kind.Rule.lhs x5 (Kind.Rule.lhs x6 (Kind.Rule.lhs x7 (Kind.Rule.lhs x8 (Kind.Rule.lhs x9 (Kind.Rule.lhs x10 (Kind.Rule.lhs x11 (Kind.Rule.lhs x12 (Kind.Rule.lhs x13 (Kind.Rule.lhs x14 (Kind.Rule.lhs x15 rule))))))))))))))))
+Kind.Coverage.specialize_rule n (Kind.Term.var orig name index)                                          rule = Maybe.some (Kind.Coverage.craft (Kind.Axiom.ArgsCount n) rule)
+Kind.Coverage.specialize_rule n _                                                                        rule = Maybe.none
+
+Kind.Coverage.split_rule (rule: Kind.Rule) : Maybe (Pair Kind.Term Kind.Rule)
+Kind.Coverage.split_rule (Kind.Rule.lhs term rest) = Maybe.some (Pair.new term rest)
+Kind.Coverage.split_rule _ = Maybe.none
+
+Kind.Coverage.drop_rule (n: U60) (rule: Kind.Rule) : Kind.Rule
+Kind.Coverage.drop_rule 0                   rule = rule
+Kind.Coverage.drop_rule n (Kind.Rule.lhs _ rule) = Kind.Coverage.drop_rule (- n 1) rule
+
+Kind.Coverage.specialize_rules (type_name: Kind.Name) (name: Kind.Name) (rules: List Kind.Rule) : Kind.Checker (List Kind.Rule)
+Kind.Coverage.specialize_rules type_name name (List.cons rule rules) =
     do Kind.Checker {
-        if Cover/Problem.is_empty problem {
-            Kind.Checker.pure (Cover/CaseTree.uncovered)
-        } else {
-            if Cover/Problem.is_solved problem {
-                Kind.Checker.pure Cover/CaseTree.done
-            } else {
-                Cover/Problem.intro (HVM.log (Cover/Problem.show problem) problem)
-            }
+        let splitted = Kind.Coverage.split_rule rule
+        match Maybe splitted {
+            some value =>
+                do Kind.Checker {
+                    let params = Kind.Axiom.Family.Params type_name
+                    let row    = Kind.Coverage.specialize_rule name (Pair.fst value) (Pair.snd value)
+                    ask next   = Kind.Coverage.specialize_rules type_name name rules
+                    return Maybe.match row (name_ => _) next (value => List.cons (Kind.Coverage.drop_rule params value) next)
+                }
+            none => Kind.Coverage.specialize_rules type_name name rules
         }
     }
 
-Cover/check (function_id: Kind.Name): Kind.Checker Unit
-Cover/check fnid =
+Kind.Coverage.specialize_rules type_name name List.nil = Kind.Checker.pure List.nil
+
+Kind.Coverage.specialize_on (type_name: Kind.Name) (constructor_name: Kind.Name) (type: Kind.Term) (body: Kind.Term -> Kind.Term) (problem: Kind.Coverage.Problem) : Kind.Checker (Maybe (List Kind.Term.Quoted))
+Kind.Coverage.specialize_on type_name constructor_name type body (Kind.Coverage.Problem.new current_problem_type rows count) =
+    match Maybe maker = Kind.Coverage.Maker.Mk constructor_name 0 type {
+        some (value = constructor_maker) =>
+            do Kind.Checker {
+                let new_type    = Kind.Coverage.Maker.make constructor_maker body
+                let params      = Kind.Axiom.Family.Params type_name
+                let args        = Kind.Axiom.ArgsCount constructor_name
+                ask new_rows    = Kind.Coverage.specialize_rules type_name constructor_name rows
+                let new_problem = Kind.Coverage.Problem.new new_type new_rows (+ (- count 1) (- args params))
+                ask term_result = Kind.Coverage.solve new_problem
+                match Maybe term_result {
+                    none => Kind.Checker.pure Maybe.none
+                    some (value = scrutinee) =>
+                        let size = Kind.Coverage.Maker.size constructor_maker
+                        let took = List.take scrutinee (U60.to_nat size)
+                        let rest = List.drop scrutinee (U60.to_nat size)
+                        let pat  = Kind.Term.Quoted.ctr constructor_name 0 took
+                        Kind.Checker.pure (Maybe.some (List.cons pat rest))
+                }
+            }
+        none => Kind.Checker.pure (Maybe.some List.nil)
+    }
+
+Kind.Coverage.specialize_list (type_name: Kind.Name) (constructors: List Kind.Name) (type: Kind.Term) (body: Kind.Term -> Kind.Term) (problem: Kind.Coverage.Problem) : Kind.Checker (Maybe (List Kind.Term.Quoted))
+Kind.Coverage.specialize_list type_name List.nil              type body problem = Kind.Checker.pure Maybe.none
+Kind.Coverage.specialize_list type_name (List.cons name rest) type body problem =
+    do Kind.Checker {
+        ask result = Kind.Coverage.specialize_on type_name name type body problem
+        match Maybe result {
+            some => Kind.Checker.pure (Maybe.some result.value)
+            none => Kind.Coverage.specialize_list type_name rest type body problem
+        }
+    }
+
+Kind.Coverage.specialize (type: Kind.Term) (body: Kind.Term -> Kind.Term) (problem: Kind.Coverage.Problem) : Kind.Checker (Maybe (List Kind.Term.Quoted))
+Kind.Coverage.specialize type body problem =
+    match Kind.Coverage.Choice choice = Kind.Coverage.get_name type {
+        on_cons (name = type_name) => do Kind.Checker {
+            match Maybe res = Kind.Axiom.Family.Constructors type_name {
+                some (value = constructors) => Kind.Coverage.specialize_list type_name constructors type body problem
+                none => Kind.Checker.pure (Maybe.some [(Kind.Term.Quoted.var 0 63 0)])
+            }
+        }
+        on_U60  =>
+            if List.any (Kind.Coverage.Problem.rows.get problem) (x => Kind.Coverage.Row.catches x) {
+                Kind.Coverage.intro_all type body problem
+            } else {
+                Kind.Checker.pure (Maybe.some [(Kind.Term.Quoted.var 0 63 0)])
+            }
+        none    => Kind.Checker.pure (Maybe.some List.nil)
+    }
+
+Kind.Coverage.count_forall (type: Kind.Term) (acc: Nat) : Nat
+Kind.Coverage.count_forall (Kind.Term.all _ _ _ body) acc = Kind.Coverage.count_forall (body (Kind.Term.var 0 63 0)) (Nat.succ acc)
+Kind.Coverage.count_forall _                          acc = acc
+
+Kind.Coverage.done (problem: Kind.Coverage.Problem) (or_else: Kind.Checker (Maybe (List Kind.Term.Quoted))) : Kind.Checker (Maybe (List Kind.Term.Quoted))
+Kind.Coverage.done (Kind.Coverage.Problem.new type rows count) or_else =
+    if Bool.or (List.is_nil rows) (U60.to_bool (== count 0)) {
+        if List.is_nil rows {
+            Kind.Checker.pure (Maybe.some (List.repeat (Kind.Coverage.count_forall type Nat.zero) (Kind.Term.Quoted.var 0 63 0)))
+        } else {
+            Kind.Checker.pure Maybe.none
+        }
+    } else {
+        or_else
+    }
+
+Kind.Coverage.Row.catches (row: Kind.Rule) : Bool
+Kind.Coverage.Row.catches (Kind.Rule.lhs (Kind.Term.var _ _ _) _) = Bool.true
+Kind.Coverage.Row.catches _                                       = Bool.false
+
+Kind.Coverage.catches (problem: Kind.Coverage.Problem) : Bool
+Kind.Coverage.catches (Kind.Coverage.Problem.new type rows count) = List.all rows (x => Kind.Coverage.Row.catches x)
+
+Kind.Coverage.Row.intro_all (row: Kind.Rule) : Kind.Rule
+Kind.Coverage.Row.intro_all (Kind.Rule.lhs term rule) = rule
+Kind.Coverage.Row.intro_all rule                      = rule
+
+Kind.Coverage.intro_all (type: Kind.Term) (body: Kind.Term -> Kind.Term) (problem: Kind.Coverage.Problem) : Kind.Checker (Maybe (List Kind.Term.Quoted))
+Kind.Coverage.intro_all type body (Kind.Coverage.Problem.new _ rows count) =
+    do Kind.Checker {
+        ask depth = Kind.Checker.get_depth
+        Kind.Checker.extend 63 type []
+        let var         = Kind.Term.var 0 63 depth
+        let new_type    = body var
+        let new_rows    = List.map rows (x => Kind.Coverage.Row.intro_all x)
+        ask term_result = Kind.Coverage.solve (Kind.Coverage.Problem.new new_type new_rows (- count 1))
+        return Maybe.map (scrutinee => List.cons (Kind.Term.Quoted.var 0 63 depth) scrutinee) term_result
+    }
+
+Kind.Coverage.solve (problem: Kind.Coverage.Problem) : Kind.Checker (Maybe (List Kind.Term.Quoted))
+Kind.Coverage.solve problem =
+    (Kind.Coverage.done problem
+        (Kind.Term.if_all
+            (Kind.Coverage.Problem.type.get problem)
+            (orig_ => name_ => type => body =>
+                (Bool.if
+                    (Kind.Coverage.catches problem)
+                    (Kind.Coverage.intro_all type body problem)
+                    (Kind.Coverage.specialize (Kind.Term.eval type) body problem)))
+            (Kind.Checker.pure Maybe.none)))
+
+Kind.Coverage.check (function_id: Kind.Name): Kind.Checker Unit
+Kind.Coverage.check fnid =
     do Kind.Checker {
         let rules   = Kind.Axiom.RuleOf fnid
         let type    = Kind.Axiom.TypeOf fnid
-        let problem = Cover/Problem.new type (rows = List.map rules (x => Cover/Row.new x []))
-        ask tree    = Cover/check.problem problem
-        Kind.Checker.fail (Kind.Error.case_tree (Cover/CaseTree.show "" tree))
+        let problem = Kind.Coverage.Problem.new type rules (Maybe.default (Maybe.map (x => Kind.Coverage.Rule.size x) (List.head rules)) 0)
+        ask result  = Kind.Coverage.solve problem
+        ask ctx     = Kind.Checker.get_context
+        match Maybe result {
+            some => Kind.Checker.fail (Kind.Error.uncovered_pattern ctx (Kind.Axiom.OrigOf fnid) result.value)
+            none => Kind.Checker.pure Unit.new
+        }
         return Unit.new
     }

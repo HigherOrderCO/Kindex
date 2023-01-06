@@ -13,14 +13,21 @@ Kind.Axiom.NameOf (name: Kind.Name): String
 //! Rules of a function
 Kind.Axiom.RuleOf (fnid: Kind.Name): List Kind.Rule
 
+//! Orig of a function
+Kind.Axiom.OrigOf (fnid: Kind.Name): U60
+
 //! Just a "unsafe" constructor to fill some space
 //! It can be used like the 'undefined' in Haskell
 //! but it can cause some damage and undefined just
 //! throws an error when evaluated in Haskell.
 Kind.Axiom.Null <a> : a
 
-Kind.Axiom.Family.Constructors (fnid: Kind.Name) : List Kind.Name
+Kind.Axiom.Family.Constructors (fnid: Kind.Name) : Maybe (List Kind.Name)
 
 Kind.Axiom.Compare (fst: Kind.Name) (snd: Kind.Name) : Bool
 
 Kind.Axiom.CoverCheck (name: Kind.Name) : Bool
+
+Kind.Axiom.Family.Params (fnid: Kind.Name) : U60
+
+Kind.Axiom.ArgsCount (fnid: Kind.Name) : U60

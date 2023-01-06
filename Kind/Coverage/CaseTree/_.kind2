@@ -1,6 +1,0 @@
-type Kind.Coverage.CaseTree {
-    case (clauses: List (Pair String Kind.Coverage.CaseTree))
-    intro (name: U60) (rest: Kind.Coverage.CaseTree)
-    done
-    uncovered
-}
