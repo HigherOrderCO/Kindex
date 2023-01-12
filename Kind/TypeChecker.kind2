@@ -5,6 +5,5 @@ Main =
     (Dynamic.new ((a:_) => (b:_) => Kind.Term.set_origin a b))
     (Dynamic.new Kind.API.check_all)
     (Dynamic.new Kind.API.eval_main)
-    (Dynamic.new (((a:_) => Kind.Coverage.check a)))
   ]
   Kind.API.check_all

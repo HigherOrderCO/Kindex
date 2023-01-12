@@ -1,2 +1,5 @@
-// Automatically derived from Kind/Subst/_.type
-Kind.Subst : Type
+type Kind.Subst {
+  end
+  unfilled (rest: Kind.Subst)
+  sub (term: Kind.Term) (rest: Kind.Subst)
+}

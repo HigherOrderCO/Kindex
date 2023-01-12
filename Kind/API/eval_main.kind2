@@ -1,3 +1,4 @@
+#axiom
 Main. : Kind.Name
 
 Kind.API.eval_main : String

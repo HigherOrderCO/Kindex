@@ -1,4 +1,7 @@
+#axiom
 String.nil.  : Kind.Name
+
+#axiom
 String.cons. : Kind.Name
 
 Kind.Term.show.sugar.string.go (term: Kind.Term): Maybe String

@@ -4,13 +4,7 @@ Kind.API.check_function fnid =
   let type        = Kind.Axiom.TypeOf fnid
   let type_check  = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.check type (Kind.Term.typ 0))) Bool.true
   let rule_check  = Kind.API.check_function.rules rules (Kind.Term.eval type)
-  let res         = List.cons type_check rule_check
-  if (Kind.Axiom.CoverCheck fnid) {
-    let cover_check = Kind.Checker.run (Kind.Coverage.check fnid) Bool.true
-    List.cons cover_check res
-  } else {
-    res
-  }
+  List.cons type_check rule_check
 
 Kind.API.check_function.rules (rules: List Kind.Rule) (type: Kind.Term): List (Kind.Result Unit)
 Kind.API.check_function.rules (List.nil t)             type = List.nil

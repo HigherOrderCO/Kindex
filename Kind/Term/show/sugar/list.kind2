@@ -1,4 +1,7 @@
+#axiom
 List.nil.  : Kind.Name
+
+#axiom
 List.cons. : Kind.Name
 
 Kind.Term.show.sugar.list.go (term: Kind.Term): Maybe (List String)

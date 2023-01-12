@@ -1,33 +1,48 @@
 //! All the functions for type checking
+#axiom
 Kind.Axiom.Functions : List Kind.Name
 
 //! Type of a constructor/function
+#axiom
 Kind.Axiom.TypeOf (u: Kind.Name): Kind.Term
 
 //! The 60 bits hash of a constructor/function
+#axiom
 Kind.Axiom.HashOf (u: Kind.Name): U60
 
 //! String version of the constructor
+#axiom
 Kind.Axiom.NameOf (name: Kind.Name): String
 
 //! Rules of a function
+#axiom
 Kind.Axiom.RuleOf (fnid: Kind.Name): List Kind.Rule
 
 //! Orig of a function
+#axiom
 Kind.Axiom.OrigOf (fnid: Kind.Name): U60
 
 //! Just a "unsafe" constructor to fill some space
 //! It can be used like the 'undefined' in Haskell
 //! but it can cause some damage and undefined just
 //! throws an error when evaluated in Haskell.
+#axiom
 Kind.Axiom.Null <a> : a
 
+#axiom
 Kind.Axiom.Family.Constructors (fnid: Kind.Name) : Maybe (List Kind.Name)
 
+#axiom
 Kind.Axiom.Compare (fst: Kind.Name) (snd: Kind.Name) : Bool
 
+#axiom
 Kind.Axiom.CoverCheck (name: Kind.Name) : Bool
 
+#axiom
 Kind.Axiom.Family.Params (fnid: Kind.Name) : U60
 
+#axiom
+Kind.Axiom.Family.Indices (fnid: Kind.Name) : U60
+
+#axiom
 Kind.Axiom.ArgsCount (fnid: Kind.Name) : U60

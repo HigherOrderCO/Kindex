@@ -1,2 +1,0 @@
-// Automatically derived from Kind/Rule/_.type
-Kind.Rule.rhs (arg: Kind.Term) : (Kind.Rule)

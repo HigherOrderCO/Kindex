@@ -1,4 +1,3 @@
 #kdl_name = Hvm_log
-HVM.log <a: Type> <r: Type> (logged: a) (result: r) {
-  result
-}
+#axiom
+HVM.log <a: Type> <r: Type> (logged: a) (result: r) : r

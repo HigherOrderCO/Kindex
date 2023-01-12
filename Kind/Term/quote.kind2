@@ -4,6 +4,7 @@ Kind.Term.quote term sub = (Kind.Term.quote.go (Kind.Term.fill term sub))
 Kind.Term.quote.args (term: (Kind.Term)) : (List Kind.Term.Quoted)
 Kind.Term.quote.args (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14) = (List.cons (Kind.Term.quote.go x0) (List.cons (Kind.Term.quote.go x1) (List.cons (Kind.Term.quote.go x2) (List.cons (Kind.Term.quote.go x3) (List.cons (Kind.Term.quote.go x4) (List.cons (Kind.Term.quote.go x5) (List.cons (Kind.Term.quote.go x6) (List.cons (Kind.Term.quote.go x7) (List.cons (Kind.Term.quote.go x8) (List.cons (Kind.Term.quote.go x9) (List.cons (Kind.Term.quote.go x10) (List.cons (Kind.Term.quote.go x11) (List.cons (Kind.Term.quote.go x12) (List.cons (Kind.Term.quote.go x13) (List.cons (Kind.Term.quote.go x14) (List.nil))))))))))))))))
 Kind.Term.quote.args (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = (List.cons (Kind.Term.quote.go x0) (List.cons (Kind.Term.quote.go x1) (List.cons (Kind.Term.quote.go x2) (List.cons (Kind.Term.quote.go x3) (List.cons (Kind.Term.quote.go x4) (List.cons (Kind.Term.quote.go x5) (List.cons (Kind.Term.quote.go x6) (List.cons (Kind.Term.quote.go x7) (List.cons (Kind.Term.quote.go x8) (List.cons (Kind.Term.quote.go x9) (List.cons (Kind.Term.quote.go x10) (List.cons (Kind.Term.quote.go x11) (List.cons (Kind.Term.quote.go x12) (List.cons (Kind.Term.quote.go x13) (List.cons (Kind.Term.quote.go x14) (List.cons (Kind.Term.quote.go x15) (List.nil)))))))))))))))))
+Kind.Term.quote.args _ = Kind.Axiom.Null
 
 Kind.Term.quote.go (term: (Kind.Term)) : Kind.Term.Quoted
 Kind.Term.quote.go (Kind.Term.typ orig) = (Kind.Term.Quoted.typ orig)
@@ -52,4 +53,9 @@ Kind.Term.quote.go (Kind.Term.fn16 fnid orig x0) = (Kind.Term.Quoted.fun fnid or
 Kind.Term.quote.go (Kind.Term.hlp orig) = (Kind.Term.Quoted.hlp orig)
 Kind.Term.quote.go (Kind.Term.U60 orig) = (Kind.Term.Quoted.u60 orig)
 Kind.Term.quote.go (Kind.Term.u60 orig numb) = (Kind.Term.Quoted.num orig numb)
+Kind.Term.quote.go (Kind.Term.F60 orig) = (Kind.Term.Quoted.f60 orig)
+Kind.Term.quote.go (Kind.Term.f60 orig numb) = (Kind.Term.Quoted.numf60 orig numb)
 Kind.Term.quote.go (Kind.Term.op2 orig operator left right) = (Kind.Term.Quoted.op2 orig operator (Kind.Term.quote.go left) (Kind.Term.quote.go right))
+
+Kind.Term.quote.go (Kind.Term.args15 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _)   = Kind.Axiom.Null
+Kind.Term.quote.go (Kind.Term.args16 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Kind.Axiom.Null

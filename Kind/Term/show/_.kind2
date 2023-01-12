@@ -67,4 +67,6 @@ Kind.Term.show.go (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x1
 Kind.Term.show.go (Kind.Term.hlp orig)                        = "?"
 Kind.Term.show.go (Kind.Term.U60 orig)                        = "U60"
 Kind.Term.show.go (Kind.Term.u60 orig numb)                   = Show.to_string (U60.show numb)
+Kind.Term.show.go (Kind.Term.F60 orig)                        = "F60"
+Kind.Term.show.go (Kind.Term.f60 orig numb)                   = Show.to_string (U60.show numb)
 Kind.Term.show.go (Kind.Term.op2 orig operator left right)    = Kind.Printer.text ["(" (Kind.Operator.show operator) " " (Kind.Term.show left) " " (Kind.Term.show right) ")"]

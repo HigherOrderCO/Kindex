@@ -1,3 +1,4 @@
+#axiom
 Sigma.  : Kind.Name
 
 Kind.Term.show.sugar.sigma (term: Kind.Term): Maybe String
