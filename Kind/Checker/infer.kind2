@@ -1,5 +1,3 @@
-TypeOf (u: U60): Kind.Term
-
 // Function that helps the compiler to bootstrap itself.
 // It's required by the limitation of arity of each constructor
 // and function that would lead the type checker to not be able
@@ -12,6 +10,8 @@ Kind.Checker.infer_args (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 
 
 Kind.Checker.infer_args (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = term => orig =>
   Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig (Kind.Term.app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13) x14) x15
+
+Kind.Checker.infer_args term = x_ => orig => term
 
 // Tries to discover a type for a term.
 Kind.Checker.infer (term: Kind.Term): Kind.Checker Kind.Term
@@ -36,8 +36,8 @@ Kind.Checker.infer (Kind.Term.typ orig) =
 Kind.Checker.infer (Kind.Term.all orig name type body) =
   do Kind.Checker {
     ask depth = Kind.Checker.get_depth
-    ask Kind.Checker.check type (Kind.Term.typ orig)
-    ask Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name depth)) (Kind.Term.typ orig)) name (Kind.Term.eval type) []
+    Kind.Checker.check type (Kind.Term.typ orig)
+    Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name depth)) (Kind.Term.typ orig)) name (Kind.Term.eval type) []
     return (Kind.Term.typ orig)
   }
 
@@ -52,7 +52,7 @@ Kind.Checker.infer (Kind.Term.app orig func argm) =
     ask fn_infer = Kind.Checker.infer func
     ask ap_infer = (Kind.Checker.infer.forall fn_infer
       (fn_orig => fn_name => fn_type => fn_body => do Kind.Checker {
-        ask Kind.Checker.check argm fn_type
+        Kind.Checker.check argm fn_type
         return (fn_body (Kind.Term.eval argm))
       })
       (do Kind.Checker {
@@ -73,7 +73,7 @@ Kind.Checker.infer (Kind.Term.let orig name expr body) =
 Kind.Checker.infer (Kind.Term.ann orig expr type) =
   do Kind.Checker {
     let type = Kind.Term.eval type
-    ask Kind.Checker.check expr type
+    Kind.Checker.check expr type
     return type
   }
 
@@ -83,8 +83,9 @@ Kind.Checker.infer (Kind.Term.sub orig name indx redx expr) =
     ask got = Kind.Checker.find indx Maybe.none (n => t => v => Maybe.some (Pair.new t v))
     match Maybe got {
       none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
-      some => match Pair got.value {
-        new => do Kind.Checker {
+      some =>
+        open Pair got.value
+        do Kind.Checker {
           match Maybe reduction = List.at.u60 got.value.snd redx {
             none => Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.unbound_variable ctx orig))
             some => do Kind.Checker {
@@ -93,12 +94,11 @@ Kind.Checker.infer (Kind.Term.sub orig name indx redx expr) =
             }
           }
         }
-      }
     }
   }
 
 Kind.Checker.infer (Kind.Term.ct0 ctid orig) =
-  Kind.Checker.pure (Kind.Term.eval (TypeOf ctid))
+  Kind.Checker.pure (Kind.Term.eval (Kind.Axiom.TypeOf ctid))
 
 Kind.Checker.infer (Kind.Term.ct1 ctid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.ct0 ctid orig) x0)
@@ -151,7 +151,7 @@ Kind.Checker.infer (Kind.Term.ct16 ctid orig x0) =
   Kind.Checker.infer (expr (Kind.Term.ct0 ctid orig) orig)
 
 Kind.Checker.infer (Kind.Term.fn0 fnid orig) =
-  Kind.Checker.pure (Kind.Term.eval (TypeOf fnid))
+  Kind.Checker.pure (Kind.Term.eval (Kind.Axiom.TypeOf fnid))
 
 Kind.Checker.infer (Kind.Term.fn1 fnid orig x0) =
   Kind.Checker.infer (Kind.Term.app orig (Kind.Term.fn0 fnid orig) x0)
@@ -209,18 +209,27 @@ Kind.Checker.infer (Kind.Term.hlp orig) =
     (Kind.Checker.fail (Kind.Error.inspection ctx orig (Kind.Term.hlp 0)))
   }
 
-Kind.Checker.infer (Kind.Term.u60 orig) =
+Kind.Checker.infer (Kind.Term.U60 orig) =
   Kind.Checker.pure (Kind.Term.typ 0)
 
-Kind.Checker.infer (Kind.Term.num orig numb) =
-  Kind.Checker.pure (Kind.Term.u60 0)
+Kind.Checker.infer (Kind.Term.u60 orig numb) =
+  Kind.Checker.pure (Kind.Term.U60 0)
+
+Kind.Checker.infer (Kind.Term.F60 orig) =
+  Kind.Checker.pure (Kind.Term.typ 0)
+
+Kind.Checker.infer (Kind.Term.f60 orig numb) =
+  Kind.Checker.pure (Kind.Term.F60 0)
 
 Kind.Checker.infer (Kind.Term.op2 orig oper left right) =
   do Kind.Checker {
-    ask Kind.Checker.check left  (Kind.Term.u60 0)
-    ask Kind.Checker.check right (Kind.Term.u60 0)
-    return Kind.Term.u60 0
+    Kind.Checker.check left  (Kind.Term.U60 0)
+    Kind.Checker.check right (Kind.Term.U60 0)
+    return Kind.Term.U60 0
   }
+
+Kind.Checker.infer (Kind.Term.args15 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Kind.Axiom.Null
+Kind.Checker.infer (Kind.Term.args16 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Kind.Axiom.Null 
 
 Kind.Checker.infer.forall <r> (term: Kind.Term) (then_fn: U60 -> U60 -> Kind.Term -> ((Kind.Term) -> Kind.Term) -> Kind.Checker r) (else_val: Kind.Checker r) : Kind.Checker r
 Kind.Checker.infer.forall r (Kind.Term.all orig name type body) then_fn else_val = then_fn orig name type body

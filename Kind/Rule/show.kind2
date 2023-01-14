@@ -1,0 +1,3 @@
+Kind.Rule.show (rule: Kind.Rule) : String
+Kind.Rule.show (Kind.Rule.lhs term rest) = String.concat (Kind.Term.show term) (String.concat " " (Kind.Rule.show rest))
+Kind.Rule.show (Kind.Rule.rhs term)      = String.concat " => " (Kind.Term.show term)

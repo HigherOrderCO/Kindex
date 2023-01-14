@@ -2,7 +2,7 @@
 Kind.Checker.unify (checker: Kind.Checker Unit): Kind.Checker Unit
 Kind.Checker.unify checker =
   do Kind.Checker {
-    ask checker
+    checker
     ask equations = Kind.Checker.get_equations
     (Kind.Checker.unify.go equations List.nil Bool.false)
   }
@@ -30,6 +30,6 @@ Kind.Checker.unify.go.fail (equations: List Kind.Equation): Kind.Checker Unit
 Kind.Checker.unify.go.fail (List.nil t) = Kind.Checker.pure Unit.new
 Kind.Checker.unify.go.fail (List.cons t (Kind.Equation.new ctx orig left right) eqts) =
   do Kind.Checker {
-    ask Kind.Checker.error (Kind.Error.type_mismatch ctx orig left right) Unit.new
+    Kind.Checker.error (Kind.Error.type_mismatch ctx orig left right) Unit.new
     (Kind.Checker.unify.go.fail eqts)
   }

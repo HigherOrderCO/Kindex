@@ -1,4 +1,5 @@
-Main. : U60
+#axiom
+Main. : Kind.Name
 
 Kind.API.eval_main : String
 Kind.API.eval_main =

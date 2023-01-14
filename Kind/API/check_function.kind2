@@ -1,12 +1,9 @@
-RuleOf (fnid: U60): List Kind.Rule
-TypeOf (fnid: U60): Kind.Term
-
-Kind.API.check_function (fnid: U60): List (Kind.Result Unit)
+Kind.API.check_function (fnid: Kind.Name): List (Kind.Result (Unit))
 Kind.API.check_function fnid =
-  let rules = RuleOf fnid
-  let type  = TypeOf fnid
-  let type_check = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.check type (Kind.Term.typ 0))) Bool.true
-  let rule_check = Kind.API.check_function.rules rules (Kind.Term.eval type)
+  let rules       = Kind.Axiom.RuleOf fnid
+  let type        = Kind.Axiom.TypeOf fnid
+  let type_check  = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.check type (Kind.Term.typ 0))) Bool.true
+  let rule_check  = Kind.API.check_function.rules rules (Kind.Term.eval type)
   List.cons type_check rule_check
 
 Kind.API.check_function.rules (rules: List Kind.Rule) (type: Kind.Term): List (Kind.Result Unit)

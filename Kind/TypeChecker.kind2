@@ -1,4 +1,4 @@
-Main : String
+Main : List Kind.Error.Quoted
 Main =
   // FIXME: we need a way to include of non-refered defs on the compiled ouput
   let imports = [

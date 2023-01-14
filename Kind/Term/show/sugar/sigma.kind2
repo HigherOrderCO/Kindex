@@ -1,4 +1,5 @@
-Sigma.  : U60
+#axiom
+Sigma.  : Kind.Name
 
 Kind.Term.show.sugar.sigma (term: Kind.Term): Maybe String
 Kind.Term.show.sugar.sigma (Kind.Term.ct2 Sigma. orig typ (Kind.Term.lam orig_ name body)) =

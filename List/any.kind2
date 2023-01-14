@@ -3,4 +3,4 @@
 #kdl_name = List_any
 List.any <a> (xs: List a) (cond: a -> Bool) : Bool
 List.any a (List.nil t)            cond = Bool.false
-List.any a (List.cons t head tail) cond = Bool.if (cond head) Bool.true (List.all a tail cond)
+List.any a (List.cons t head tail) cond = Bool.if (cond head) Bool.true (List.any a tail cond)

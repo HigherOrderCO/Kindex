@@ -2,8 +2,8 @@
 Kind.Checker.extended <a> (checker: Kind.Checker a) (name: U60) (type: Kind.Term) (vals: List Kind.Term) : Kind.Checker a
 Kind.Checker.extended a checker name type vals =
   do Kind.Checker {
-    ask Kind.Checker.extend name type vals
+    Kind.Checker.extend name type vals
     ask got = checker
-    ask Kind.Checker.shrink
+    Kind.Checker.shrink
     return got
   }

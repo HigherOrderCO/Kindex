@@ -1,0 +1,4 @@
+Kind.Context.quote (context: (Kind.Context)) (sub: (Kind.Subst)) : (List (Pair U60 (Pair (Kind.Term.Quoted) (List (Kind.Term.Quoted)))))
+Kind.Context.quote (Kind.Context.empty) sub                     = []
+Kind.Context.quote (Kind.Context.entry name type vals rest) sub = 
+    (List.cons (Pair.new name (Pair.new (Kind.Term.quote type sub) (List.map vals (x => (Kind.Term.quote x sub))))) (Kind.Context.quote rest sub))

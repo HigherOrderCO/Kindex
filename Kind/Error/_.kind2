@@ -1,2 +1,11 @@
-// Automatically derived from Kind/Error/_.type
-Kind.Error : Type
+type Kind.Error {
+  unbound_variable (ctx: Kind.Context) (orig: U60)
+  cant_infer_hole (ctx: Kind.Context) (orig: U60)
+  cant_infer_lambda (ctx: Kind.Context) (orig: U60)
+  invalid_call (ctx: Kind.Context) (orig: U60)
+  impossible_case (ctx: Kind.Context) (orig: U60) (typ: Kind.Term) (term: Kind.Term)
+  inspection (ctx: Kind.Context) (orig: U60) (term: Kind.Term)
+  too_many_arguments (ctx: Kind.Context) (orig: U60)
+  type_mismatch (ctx: Kind.Context) (orig: U60) (expected: Kind.Term) (detected: Kind.Term)
+  uncovered_pattern (ctx: Kind.Context) (orig: U60) (tree: List Kind.Term.Quoted)
+}

@@ -1,2 +1,0 @@
-// Automatically derived from Kind/Subst/_.type
-Kind.Subst.unfilled (rest: Kind.Subst) : (Kind.Subst)
