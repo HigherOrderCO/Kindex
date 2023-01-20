@@ -237,7 +237,11 @@ IC.Term.rule.app (IC.Term.lam x body) arg = do Run {
 IC.Term.rule.app (IC.Term.sup r fst snd) arg = do Run {
   ask a = Run.fresh
   ask b = Run.fresh
-  IC.Term.reduce (IC.Term.dup r a b (IC.Term.app fst (IC.Term.var a)) (IC.Term.app snd (IC.Term.var b)))
+  (IC.Term.reduce
+    (IC.Term.dup r a b arg
+      (IC.Term.sup r
+        (IC.Term.app fst (IC.Term.var a))
+        (IC.Term.app snd (IC.Term.var b)))))
 }
 
 // ((dup #R{a,b} = expr in cont) arg)
