@@ -1,3 +1,4 @@
+#derive[match]
 type Equal <t> (a: t) ~ (b: t) {
   refl : Equal t a a
 }

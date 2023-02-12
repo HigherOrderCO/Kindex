@@ -1,0 +1,3 @@
+Stream.at <a> (xs: Stream a) (idx: Nat) : a
+Stream.at a (Stream.cons head tail) Nat.zero        = head
+Stream.at a (Stream.cons head tail) (Nat.succ pred) = Stream.at a tail pred
