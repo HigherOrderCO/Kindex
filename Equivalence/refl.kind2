@@ -1,0 +1,2 @@
+Equivalence.refl <p> : Equivalence p p
+Equivalence.refl p = (Equivalence.new p p (p => p) (p => p))

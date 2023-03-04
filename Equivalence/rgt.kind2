@@ -1,0 +1,3 @@
+#axiom
+Equivalence.rgt <p> <q> (e: Equivalence p q) : q 
+// Equivalence.rgt (Equivalence.new p q l r)    = l (Equivalence.lft (Equivalence.new p q l r))
