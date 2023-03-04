@@ -1,0 +1,7 @@
+// OR with complement x | ~y
+// Example: (Bool.orc Bool.false Bool.true)  -> Bool.false
+// Example: (Bool.orc Bool.false Bool.false) -> Bool.true
+#kdl_name = Bool_orc
+Bool.orc (a: Bool) (b: Bool) : Bool
+Bool.orc Bool.false Bool.true = Bool.false
+Bool.orc a  				b				  = Bool.true
