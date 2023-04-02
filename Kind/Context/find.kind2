@@ -1,7 +1,9 @@
+use Kind.Context as Context
+
 // Tries to find an index inside the @Kind.Context@ and then
 // applies the function 'fun' to it or returns the alt if there
 // is not an element at the given index.
-Kind.Context.find <res> (ctx: Kind.Context) (name: U60) (alt: res) (fun: U60 -> Kind.Term -> (List Kind.Term) -> res): res
-Kind.Context.find res (Kind.Context.entry name type vals rest) 0 alt fun = fun name type vals
-Kind.Context.find res (Kind.Context.entry name type vals rest) n alt fun = Kind.Context.find rest (- n 1) alt fun
-Kind.Context.find res Kind.Context.empty                       n alt fun = alt
+Context/find <res> (ctx: Kind.Context) (name: U60) (alt: res) (fun: U60 -> Kind.Term -> (List Kind.Term) -> res): res
+Context/find res (Context/entry name type vals rest) 0 alt fun = fun name type vals
+Context/find res (Context/entry name type vals rest) n alt fun = Context/find rest (- n 1) alt fun
+Context/find res Context/empty                       n alt fun = alt
