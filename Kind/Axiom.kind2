@@ -1,4 +1,4 @@
-use Kind.Term as Term
+use Kind.Axiom as Axiom
 
 //! All the functions for type checking
 #axiom
