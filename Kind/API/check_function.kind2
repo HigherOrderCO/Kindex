@@ -1,15 +1,20 @@
-Kind.API.check_function (fnid: Kind.Name): List (Kind.Result (Unit))
-Kind.API.check_function fnid =
-  let rules       = Kind.Axiom.RuleOf fnid
-  let type        = Kind.Axiom.TypeOf fnid
-  let type_check  = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.check type (Kind.Term.typ 0))) Bool.true
-  let rule_check  = Kind.API.check_function.rules rules (Kind.Term.eval type)
+use Kind.API as API
+use Kind.Checker as Checker
+use Kind.Axiom as Axiom
+use Kind.Term as Term
+
+API/check_function (fnid: Kind.Name): List (Kind.Result (Unit))
+API/check_function fnid =
+  let rules       = Axiom/RuleOf fnid
+  let type        = Axiom/TypeOf fnid
+  let type_check  = Checker/run (Checker/unify (Checker/check type (Term/typ 0))) Bool.true
+  let rule_check  = API/check_functions.rules rules (Term/eval type)
   List.cons type_check rule_check
 
-Kind.API.check_function.rules (rules: List Kind.Rule) (type: Kind.Term): List (Kind.Result Unit)
-Kind.API.check_function.rules (List.nil t)             type = List.nil
-Kind.API.check_function.rules (List.cons t rule rules) type =
-  let head = Kind.Checker.run (Kind.Checker.unify (Kind.Checker.rule rule type)) Bool.false
-  let tail = Kind.API.check_function.rules rules type
+API/check_function.rules (rules: List Kind.Rule) (type: Kind.Term): List (Kind.Result Unit)
+API/check_function.rules (List.nil t)             type = List.nil
+API/check_function.rules (List.cons t rule rules) type =
+  let head = Checker/run (Checker/unify (Checker/rule rule type)) Bool.false
+  let tail = API/check_functions.rules rules type
   (List.cons head tail)
 

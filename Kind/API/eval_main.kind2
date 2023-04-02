@@ -1,6 +1,10 @@
+use Kind.API as API
+use Kind.Printer as Printer
+use Kind.Term as Term
+
 #axiom
 Main. : Kind.Name
 
-Kind.API.eval_main : String
-Kind.API.eval_main =
-  Kind.Printer.text [(Kind.Term.show (Kind.Term.FN0 Main. 0)) String.new_line String.new_line]
+API/eval_main : String
+API/eval_main =
+  Printer/text [(Term/show (Term/FN0 Main. 0)) String.new_line String.new_line]
