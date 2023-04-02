@@ -1,16 +1,18 @@
-type Kind.Term.Quoted {
+use Kind.Term as Term
+
+type Term/Quoted {
     typ (orig: U60)
     hol (orig: U60) (number: U60)
     var (orig: U60) (name: U60) (index: U60)
-    all (orig: U60) (name: U60) (typ: Kind.Term.Quoted) (body: Kind.Term.Quoted)
-    lam (orig: U60) (name: U60) (body: Kind.Term.Quoted)
-    app (orig: U60) (func: Kind.Term.Quoted) (arg: Kind.Term.Quoted)
-    let (orig: U60) (name: U60) (expr: Kind.Term.Quoted) (body: Kind.Term.Quoted)
-    ann (orig: U60) (expr: Kind.Term.Quoted) (typ: Kind.Term.Quoted)
-    sub (orig: U60) (name: U60) (indx: U60) (redx: U60) (expr: Kind.Term.Quoted)
+    all (orig: U60) (name: U60) (typ: Term/Quoted) (body: Term/Quoted)
+    lam (orig: U60) (name: U60) (body: Term/Quoted)
+    app (orig: U60) (func: Term/Quoted) (arg: Term/Quoted)
+    let (orig: U60) (name: U60) (expr: Term/Quoted) (body: Term/Quoted)
+    ann (orig: U60) (expr: Term/Quoted) (typ: Term/Quoted)
+    sub (orig: U60) (name: U60) (indx: U60) (redx: U60) (expr: Term/Quoted)
 
-    ctr (ctid: Kind.Name) (orig: U60) (x0: List Kind.Term.Quoted)
-    fun  (fnid: Kind.Name) (orig: U60) (x0: List Kind.Term.Quoted)
+    ctr (ctid: Kind.Name) (orig: U60) (x0: List Term/Quoted)
+    fun  (fnid: Kind.Name) (orig: U60) (x0: List Term/Quoted)
 
     hlp (orig: U60)
     u60 (orig: U60)
@@ -19,8 +21,8 @@ type Kind.Term.Quoted {
     f60    (orig: U60)
     numf60 (orig: U60) (num: U60)
 
-    op2 (orig: U60) (operator: Kind.Operator) (left: Kind.Term.Quoted) (right: Kind.Term.Quoted)
+    op2 (orig: U60) (operator: Kind.Operator) (left: Term/Quoted) (right: Term/Quoted)
 
-    args15 (x0: Kind.Term.Quoted) (x1: Kind.Term.Quoted) (x2: Kind.Term.Quoted) (x3: Kind.Term.Quoted) (x4: Kind.Term.Quoted) (x5: Kind.Term.Quoted) (x6: Kind.Term.Quoted) (x7: Kind.Term.Quoted) (x8: Kind.Term.Quoted) (x9: Kind.Term.Quoted) (x10: Kind.Term.Quoted) (x11: Kind.Term.Quoted) (x12: Kind.Term.Quoted) (x13: Kind.Term.Quoted) (x14: Kind.Term.Quoted) 
-    args16 (x0: Kind.Term.Quoted) (x1: Kind.Term.Quoted) (x2: Kind.Term.Quoted) (x3: Kind.Term.Quoted) (x4: Kind.Term.Quoted) (x5: Kind.Term.Quoted) (x6: Kind.Term.Quoted) (x7: Kind.Term.Quoted) (x8: Kind.Term.Quoted) (x9: Kind.Term.Quoted) (x10: Kind.Term.Quoted) (x11: Kind.Term.Quoted) (x12: Kind.Term.Quoted) (x13: Kind.Term.Quoted) (x14: Kind.Term.Quoted) (x15: Kind.Term.Quoted) 
+    args15 (x0: Term/Quoted) (x1: Term/Quoted) (x2: Term/Quoted) (x3: Term/Quoted) (x4: Term/Quoted) (x5: Term/Quoted) (x6: Term/Quoted) (x7: Term/Quoted) (x8: Term/Quoted) (x9: Term/Quoted) (x10: Term/Quoted) (x11: Term/Quoted) (x12: Term/Quoted) (x13: Term/Quoted) (x14: Term/Quoted) 
+    args16 (x0: Term/Quoted) (x1: Term/Quoted) (x2: Term/Quoted) (x3: Term/Quoted) (x4: Term/Quoted) (x5: Term/Quoted) (x6: Term/Quoted) (x7: Term/Quoted) (x8: Term/Quoted) (x9: Term/Quoted) (x10: Term/Quoted) (x11: Term/Quoted) (x12: Term/Quoted) (x13: Term/Quoted) (x14: Term/Quoted) (x15: Term/Quoted) 
 }

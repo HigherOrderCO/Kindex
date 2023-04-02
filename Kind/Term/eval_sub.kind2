@@ -1,3 +1,5 @@
+use Kind.Term as Term
+
 // Evaluates an annotation term.
-Kind.Term.eval_sub (orig: U60) (name: U60) (indx: U60) (redx: U60) (expr: Kind.Term) : Kind.Term
-Kind.Term.eval_sub orig name indx redx expr = expr
+Term/eval_sub (orig: U60) (name: U60) (indx: U60) (redx: U60) (expr: Kind.Term) : Kind.Term
+Term/eval_sub orig name indx redx expr = expr

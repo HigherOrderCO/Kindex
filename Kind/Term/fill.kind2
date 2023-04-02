@@ -1,63 +1,66 @@
+use Kind.Term as Term
+use Kind.Subst as Subst
+
 // Tries to substitute all of the holes to terms using a @Kind.Subst@.
-Kind.Term.fill (term: Kind.Term) (subst: Kind.Subst): Kind.Term
-Kind.Term.fill term                             Kind.Subst.end = term
-Kind.Term.fill (Kind.Term.typ orig)                        sub = Kind.Term.typ orig
-Kind.Term.fill (Kind.Term.var orig name index)             sub = Kind.Term.var orig name index
-Kind.Term.fill (Kind.Term.all orig name typ body)          sub = Kind.Term.all orig name (Kind.Term.fill typ sub) (x => Kind.Term.fill (body x) sub)
-Kind.Term.fill (Kind.Term.lam orig name body)              sub = Kind.Term.lam orig name (x => Kind.Term.fill (body x) sub)
-Kind.Term.fill (Kind.Term.let orig name expr body)         sub = Kind.Term.eval_let orig name (Kind.Term.fill expr sub) (x => Kind.Term.fill (body x) sub)
-Kind.Term.fill (Kind.Term.ann orig expr typ)               sub = Kind.Term.eval_ann orig (Kind.Term.fill expr sub) (Kind.Term.fill typ sub)
-Kind.Term.fill (Kind.Term.sub orig name indx redx expr)    sub = Kind.Term.eval_sub orig name indx redx (Kind.Term.fill expr sub)
-Kind.Term.fill (Kind.Term.app orig expr typ)               sub = Kind.Term.eval_app orig (Kind.Term.fill expr sub) (Kind.Term.fill typ sub)
-Kind.Term.fill (Kind.Term.hlp orig)                        sub = Kind.Term.hlp orig
-Kind.Term.fill (Kind.Term.U60 orig)                        sub = Kind.Term.U60 orig
-Kind.Term.fill (Kind.Term.F60 orig)                        sub = Kind.Term.F60 orig
-Kind.Term.fill (Kind.Term.f60 orig num)                    sub = Kind.Term.f60 orig num
-Kind.Term.fill (Kind.Term.u60 orig num)                    sub = Kind.Term.u60 orig num
-Kind.Term.fill (Kind.Term.op2 orig op left right)          sub = Kind.Term.op2 orig op (Kind.Term.fill left sub) (Kind.Term.fill right sub)
+Term/fill (term: Kind.Term) (subst: Kind.Subst): Kind.Term
+Term/fill term                             Subst/end = term
+Term/fill (Term/typ orig)                        sub = Term/typ orig
+Term/fill (Term/var orig name index)             sub = Term/var orig name index
+Term/fill (Term/all orig name typ body)          sub = Term/all orig name (Term/fill typ sub) (x => Term/fill (body x) sub)
+Term/fill (Term/lam orig name body)              sub = Term/lam orig name (x => Term/fill (body x) sub)
+Term/fill (Term/let orig name expr body)         sub = Term/eval_let orig name (Term/fill expr sub) (x => Term/fill (body x) sub)
+Term/fill (Term/ann orig expr typ)               sub = Term/eval_ann orig (Term/fill expr sub) (Term/fill typ sub)
+Term/fill (Term/sub orig name indx redx expr)    sub = Term/eval_sub orig name indx redx (Term/fill expr sub)
+Term/fill (Term/app orig expr typ)               sub = Term/eval_app orig (Term/fill expr sub) (Term/fill typ sub)
+Term/fill (Term/hlp orig)                        sub = Term/hlp orig
+Term/fill (Term/U60 orig)                        sub = Term/U60 orig
+Term/fill (Term/F60 orig)                        sub = Term/F60 orig
+Term/fill (Term/f60 orig num)                    sub = Term/f60 orig num
+Term/fill (Term/u60 orig num)                    sub = Term/u60 orig num
+Term/fill (Term/op2 orig op left right)          sub = Term/op2 orig op (Term/fill left sub) (Term/fill right sub)
 
-Kind.Term.fill (Kind.Term.ct0 ctid orig)                                                sub = Kind.Term.ct0 ctid orig
-Kind.Term.fill (Kind.Term.ct1 ctid orig x0)                                             sub = Kind.Term.ct1 ctid orig (Kind.Term.fill x0 sub)
-Kind.Term.fill (Kind.Term.ct2 ctid orig x0 x1)                                          sub = Kind.Term.ct2 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub)
-Kind.Term.fill (Kind.Term.ct3 ctid orig x0 x1 x2)                                       sub = Kind.Term.ct3 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub)
-Kind.Term.fill (Kind.Term.ct4 ctid orig x0 x1 x2 x3)                                    sub = Kind.Term.ct4 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub)
-Kind.Term.fill (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)                                 sub = Kind.Term.ct5 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub)
-Kind.Term.fill (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)                              sub = Kind.Term.ct6 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub)
-Kind.Term.fill (Kind.Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)                           sub = Kind.Term.ct7 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub)
-Kind.Term.fill (Kind.Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)                        sub = Kind.Term.ct8 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub)
-Kind.Term.fill (Kind.Term.ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     sub = Kind.Term.ct9 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub)
-Kind.Term.fill (Kind.Term.ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 sub = Kind.Term.ct10 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub)
-Kind.Term.fill (Kind.Term.ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             sub = Kind.Term.ct11 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub)
-Kind.Term.fill (Kind.Term.ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         sub = Kind.Term.ct12 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub)
-Kind.Term.fill (Kind.Term.ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     sub = Kind.Term.ct13 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub) (Kind.Term.fill x12 sub)
-Kind.Term.fill (Kind.Term.ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) sub = Kind.Term.ct14 ctid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub) (Kind.Term.fill x12 sub) (Kind.Term.fill x13 sub)
-Kind.Term.fill (Kind.Term.ct15 ctid orig x0)                                            sub = Kind.Term.ct15 ctid orig (Kind.Term.fill x0 sub)
-Kind.Term.fill (Kind.Term.ct16 ctid orig x0)                                            sub = Kind.Term.ct16 ctid orig (Kind.Term.fill x0 sub)
+Term/fill (Term/ct0 ctid orig)                                                sub = Term/ct0 ctid orig
+Term/fill (Term/ct1 ctid orig x0)                                             sub = Term/ct1 ctid orig (Term/fill x0 sub)
+Term/fill (Term/ct2 ctid orig x0 x1)                                          sub = Term/ct2 ctid orig (Term/fill x0 sub) (Term/fill x1 sub)
+Term/fill (Term/ct3 ctid orig x0 x1 x2)                                       sub = Term/ct3 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub)
+Term/fill (Term/ct4 ctid orig x0 x1 x2 x3)                                    sub = Term/ct4 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub)
+Term/fill (Term/ct5 ctid orig x0 x1 x2 x3 x4)                                 sub = Term/ct5 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub)
+Term/fill (Term/ct6 ctid orig x0 x1 x2 x3 x4 x5)                              sub = Term/ct6 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub)
+Term/fill (Term/ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)                           sub = Term/ct7 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub)
+Term/fill (Term/ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)                        sub = Term/ct8 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub)
+Term/fill (Term/ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     sub = Term/ct9 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub)
+Term/fill (Term/ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 sub = Term/ct10 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub)
+Term/fill (Term/ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             sub = Term/ct11 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub)
+Term/fill (Term/ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         sub = Term/ct12 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub)
+Term/fill (Term/ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     sub = Term/ct13 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub) (Term/fill x12 sub)
+Term/fill (Term/ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) sub = Term/ct14 ctid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub) (Term/fill x12 sub) (Term/fill x13 sub)
+Term/fill (Term/ct15 ctid orig x0)                                            sub = Term/ct15 ctid orig (Term/fill x0 sub)
+Term/fill (Term/ct16 ctid orig x0)                                            sub = Term/ct16 ctid orig (Term/fill x0 sub)
 
-Kind.Term.fill (Kind.Term.fn0 fnid orig)                                                sub = Kind.Term.FN0 fnid orig
-Kind.Term.fill (Kind.Term.fn1 fnid orig x0)                                             sub = Kind.Term.FN1 fnid orig (Kind.Term.fill x0 sub)
-Kind.Term.fill (Kind.Term.fn2 fnid orig x0 x1)                                          sub = Kind.Term.FN2 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub)
-Kind.Term.fill (Kind.Term.fn3 fnid orig x0 x1 x2)                                       sub = Kind.Term.FN3 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub)
-Kind.Term.fill (Kind.Term.fn4 fnid orig x0 x1 x2 x3)                                    sub = Kind.Term.FN4 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub)
-Kind.Term.fill (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)                                 sub = Kind.Term.FN5 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub)
-Kind.Term.fill (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)                              sub = Kind.Term.FN6 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub)
-Kind.Term.fill (Kind.Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)                           sub = Kind.Term.FN7 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub)
-Kind.Term.fill (Kind.Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7)                        sub = Kind.Term.FN8 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub)
-Kind.Term.fill (Kind.Term.fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     sub = Kind.Term.FN9 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub)
-Kind.Term.fill (Kind.Term.fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 sub = Kind.Term.FN10 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub)
-Kind.Term.fill (Kind.Term.fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             sub = Kind.Term.FN11 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub)
-Kind.Term.fill (Kind.Term.fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         sub = Kind.Term.FN12 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub)
-Kind.Term.fill (Kind.Term.fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     sub = Kind.Term.FN13 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub) (Kind.Term.fill x12 sub)
-Kind.Term.fill (Kind.Term.fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) sub = Kind.Term.FN14 fnid orig (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub) (Kind.Term.fill x12 sub) (Kind.Term.fill x13 sub)
-Kind.Term.fill (Kind.Term.fn15 ctid orig x0)                                            sub = Kind.Term.FN15 ctid orig (Kind.Term.fill x0 sub)
-Kind.Term.fill (Kind.Term.fn16 ctid orig x0)                                            sub = Kind.Term.FN16 ctid orig (Kind.Term.fill x0 sub)
+Term/fill (Term/fn0 fnid orig)                                                sub = Term/FN0 fnid orig
+Term/fill (Term/fn1 fnid orig x0)                                             sub = Term/FN1 fnid orig (Term/fill x0 sub)
+Term/fill (Term/fn2 fnid orig x0 x1)                                          sub = Term/FN2 fnid orig (Term/fill x0 sub) (Term/fill x1 sub)
+Term/fill (Term/fn3 fnid orig x0 x1 x2)                                       sub = Term/FN3 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub)
+Term/fill (Term/fn4 fnid orig x0 x1 x2 x3)                                    sub = Term/FN4 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub)
+Term/fill (Term/fn5 fnid orig x0 x1 x2 x3 x4)                                 sub = Term/FN5 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub)
+Term/fill (Term/fn6 fnid orig x0 x1 x2 x3 x4 x5)                              sub = Term/FN6 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub)
+Term/fill (Term/fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)                           sub = Term/FN7 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub)
+Term/fill (Term/fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7)                        sub = Term/FN8 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub)
+Term/fill (Term/fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     sub = Term/FN9 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub)
+Term/fill (Term/fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 sub = Term/FN10 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub)
+Term/fill (Term/fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             sub = Term/FN11 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub)
+Term/fill (Term/fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         sub = Term/FN12 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub)
+Term/fill (Term/fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     sub = Term/FN13 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub) (Term/fill x12 sub)
+Term/fill (Term/fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) sub = Term/FN14 fnid orig (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub) (Term/fill x12 sub) (Term/fill x13 sub)
+Term/fill (Term/fn15 ctid orig x0)                                            sub = Term/FN15 ctid orig (Term/fill x0 sub)
+Term/fill (Term/fn16 ctid orig x0)                                            sub = Term/FN16 ctid orig (Term/fill x0 sub)
 
-Kind.Term.fill (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     sub = Kind.Term.args15 (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub) (Kind.Term.fill x12 sub) (Kind.Term.fill x13 sub) (Kind.Term.fill x14 sub)
-Kind.Term.fill (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) sub = Kind.Term.args16 (Kind.Term.fill x0 sub) (Kind.Term.fill x1 sub) (Kind.Term.fill x2 sub) (Kind.Term.fill x3 sub) (Kind.Term.fill x4 sub) (Kind.Term.fill x5 sub) (Kind.Term.fill x6 sub) (Kind.Term.fill x7 sub) (Kind.Term.fill x8 sub) (Kind.Term.fill x9 sub) (Kind.Term.fill x10 sub) (Kind.Term.fill x11 sub) (Kind.Term.fill x12 sub) (Kind.Term.fill x13 sub) (Kind.Term.fill x14 sub) (Kind.Term.fill x15 sub)
+Term/fill (Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     sub = Term/args15 (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub) (Term/fill x12 sub) (Term/fill x13 sub) (Term/fill x14 sub)
+Term/fill (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) sub = Term/args16 (Term/fill x0 sub) (Term/fill x1 sub) (Term/fill x2 sub) (Term/fill x3 sub) (Term/fill x4 sub) (Term/fill x5 sub) (Term/fill x6 sub) (Term/fill x7 sub) (Term/fill x8 sub) (Term/fill x9 sub) (Term/fill x10 sub) (Term/fill x11 sub) (Term/fill x12 sub) (Term/fill x13 sub) (Term/fill x14 sub) (Term/fill x15 sub)
 
-Kind.Term.fill (Kind.Term.hol orig numb) sub =
-  let substRes = Kind.Subst.look sub numb
+Term/fill (Term/hol orig numb) sub =
+  let substRes = Subst/look sub numb
   match Maybe substRes {
-    none => Kind.Term.hol orig numb
-    some value => Kind.Term.fill value sub
+    none => Term/hol orig numb
+    some value => Term/fill value sub
   }

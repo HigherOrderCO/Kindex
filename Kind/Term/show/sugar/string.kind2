@@ -1,22 +1,25 @@
+use Kind.Term as Term
+use Kind.Printer as Printer
+
 #axiom
 String.nil.  : Kind.Name
 
 #axiom
 String.cons. : Kind.Name
 
-Kind.Term.show.sugar.string.go (term: Kind.Term): Maybe String
-Kind.Term.show.sugar.string.go (Kind.Term.ct0 String.nil.  orig) = Maybe.some String.nil
-Kind.Term.show.sugar.string.go (Kind.Term.ct2 String.cons. orig (Kind.Term.u60 orig1 x0) x1) =
+Term/show.sugar.string.go (term: Kind.Term): Maybe String
+Term/show.sugar.string.go (Term/ct0 String.nil.  orig) = Maybe.some String.nil
+Term/show.sugar.string.go (Term/ct2 String.cons. orig (Term/u60 orig1 x0) x1) =
   do Maybe {
-    ask tail = Kind.Term.show.sugar.string.go x1
+    ask tail = Term/show.sugar.string.go x1
     return String.cons x0 tail
   }
-Kind.Term.show.sugar.string.go other = Maybe.none
+Term/show.sugar.string.go other = Maybe.none
 
-Kind.Term.show.sugar.string (term: Kind.Term): Maybe String
-Kind.Term.show.sugar.string term =
+Term/show.sugar.string (term: Kind.Term): Maybe String
+Term/show.sugar.string term =
   do Maybe {
-    ask res  = Kind.Term.show.sugar.string.go term
+    ask res  = Term/show.sugar.string.go term
     let quot = "'"
-    return (Kind.Printer.text [quot res quot])
+    return (Printer/text [quot res quot])
   }

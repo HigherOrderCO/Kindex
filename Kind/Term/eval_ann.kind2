@@ -1,3 +1,5 @@
+use Kind.Term as Term
+
 // Evaluates an annotation term.
-Kind.Term.eval_ann (orig: U60) (expr: Kind.Term) (type: Kind.Term): Kind.Term
-Kind.Term.eval_ann orig expr type = expr
+Term/eval_ann (orig: U60) (expr: Kind.Term) (type: Kind.Term): Kind.Term
+Term/eval_ann orig expr type = expr
