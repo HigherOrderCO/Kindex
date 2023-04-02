@@ -1,11 +1,15 @@
-type Kind.Error.Quoted {
-  unbound_variable (ctx: Kind.Context.Quoted) (orig: U60)
-  cant_infer_hole (ctx: Kind.Context.Quoted) (orig: U60)
-  cant_infer_lambda (ctx: Kind.Context.Quoted) (orig: U60)
-  invalid_call (ctx: Kind.Context.Quoted) (orig: U60)
-  impossible_case (ctx: Kind.Context.Quoted) (orig: U60) (typ: Kind.Term.Quoted) (term: Kind.Term.Quoted)
-  inspection (ctx: Kind.Context.Quoted) (orig: U60) (term: Kind.Term.Quoted)
-  too_many_arguments (ctx: Kind.Context.Quoted) (orig: U60)
-  type_mismatch (ctx: Kind.Context.Quoted) (orig: U60) (expected: Kind.Term.Quoted) (detected: Kind.Term.Quoted)
-  uncovered_pattern (ctx: Kind.Context.Quoted) (orig: U60) (errors: List Kind.Term.Quoted)
+use Kind.Error as Error
+use Kind.Context as Context
+use Kind.Term as Term
+
+type Error/Quoted {
+  unbound_variable (ctx: Context/Quoted) (orig: U60)
+  cant_infer_hole (ctx: Context/Quoted) (orig: U60)
+  cant_infer_lambda (ctx: Context/Quoted) (orig: U60)
+  invalid_call (ctx: Context/Quoted) (orig: U60)
+  impossible_case (ctx: Context/Quoted) (orig: U60) (typ: Term/Quoted) (term: Term/Quoted)
+  inspection (ctx: Context/Quoted) (orig: U60) (term: Term/Quoted)
+  too_many_arguments (ctx: Context/Quoted) (orig: U60)
+  type_mismatch (ctx: Context/Quoted) (orig: U60) (expected: Term/Quoted) (detected: Term/Quoted)
+  uncovered_pattern (ctx: Context/Quoted) (orig: U60) (errors: List Term/Quoted)
 }
