@@ -1,3 +1,8 @@
+use Kind.Checker as Checker
+use Kind.Rule as Rule
+use Kind.Term as Term
+use Kind.Error as Error
+
 //! Checks a @Kind.Rule@ against a term.
 //! Example:
 //!
@@ -10,25 +15,24 @@
 //! left hand side part ((S n)) that will have to check
 //! against the pi type that `pred` declarated in order to
 //! succeded.
+Checker/rule (rule: Kind.Rule) (term: Kind.Term): Kind.Checker Unit
 
-Kind.Checker.rule (rule: Kind.Rule) (term: Kind.Term): Kind.Checker Unit
-
-Kind.Checker.rule (Kind.Rule.lhs arg args) (Kind.Term.all orig name type body) =
+Checker/rule (Rule/lhs arg args) (Term/all orig name type body) =
   do Kind.Checker {
-    Kind.Checker.check arg type
-    Kind.Checker.rule args (body arg)
+    Checker/check arg type
+    Checker/rule args (body arg)
     return Unit.new
   }
 
-Kind.Checker.rule (Kind.Rule.lhs arg args) other =
+Checker/rule (Rule/lhs arg args) other =
   do Kind.Checker {
-    ask ctx = Kind.Checker.get_context
-    (Kind.Checker.fail (Kind.Error.too_many_arguments ctx (Kind.Term.get_origin arg (orig => term => orig))))
+    ask ctx = Checker/get_context
+    (Checker/fail (Error/too_many_arguments ctx (Term/get_origin arg (orig => term => orig))))
   }
 
-Kind.Checker.rule (Kind.Rule.rhs expr) type =
+Checker/rule (Kind.Rule.rhs expr) type =
   do Kind.Checker {
-    Kind.Checker.set_right_hand_side Bool.true
-    Kind.Checker.check expr type
+    Checker/set_right_hand_side Bool.true
+    Checker/check expr type
     return Unit.new
   }

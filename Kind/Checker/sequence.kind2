@@ -1,8 +1,10 @@
-Kind.Checker.sequence <a> (ls: List (Kind.Checker a)) : Kind.Checker (List a)
-Kind.Checker.sequence List.nil         = Kind.Checker.pure List.nil
-Kind.Checker.sequence (List.cons x xs) =
+use Kind.Checker as Checker
+
+Checker/sequence <a> (ls: List (Kind.Checker a)) : Kind.Checker (List a)
+Checker/sequence List.nil         = Checker/pure List.nil
+Checker/sequence (List.cons x xs) =
     do Kind.Checker {
         ask head = x
-        ask tail = Kind.Checker.sequence xs
+        ask tail = Checker/sequence xs
         return (List.cons head tail)
     }

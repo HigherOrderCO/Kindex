@@ -1,4 +1,8 @@
+use Kind.Checker as Checker
+use Kind.Context as Context
+use Kind.Result as Result
+
 // Shrinks the context inside of the @Kind.Checker@.
-Kind.Checker.shrink : Kind.Checker Unit
-Kind.Checker.shrink = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked (Kind.Context.shrink context) (- depth 1) rhs subst eqts errs Unit.new
+Checker/shrink : Kind.Checker Unit
+Checker/shrink = context => depth => rhs => subst => eqts => errs =>
+  Result/checked (Context/shrink context) (- depth 1) rhs subst eqts errs Unit.new

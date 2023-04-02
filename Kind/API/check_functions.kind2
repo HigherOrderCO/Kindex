@@ -3,6 +3,6 @@ use Kind.API as API
 API/check_functions (fnid: List Kind.Name): List (Pair Kind.Name (List (Kind.Result (Unit))))
 API/check_functions (List.nil t)       = List.nil
 API/check_functions (List.cons t f fs) =
-  let head = Pair.new f (API.check_function f)
+  let head = Pair.new f (API/check_function f)
   let tail = API/check_functions fs
   List.cons head tail

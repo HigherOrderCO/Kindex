@@ -8,13 +8,13 @@ API/check_function fnid =
   let rules       = Axiom/RuleOf fnid
   let type        = Axiom/TypeOf fnid
   let type_check  = Checker/run (Checker/unify (Checker/check type (Term/typ 0))) Bool.true
-  let rule_check  = API/check_functions.rules rules (Term/eval type)
+  let rule_check  = API/check_function.rules rules (Term/eval type)
   List.cons type_check rule_check
 
 API/check_function.rules (rules: List Kind.Rule) (type: Kind.Term): List (Kind.Result Unit)
 API/check_function.rules (List.nil t)             type = List.nil
 API/check_function.rules (List.cons t rule rules) type =
   let head = Checker/run (Checker/unify (Checker/rule rule type)) Bool.false
-  let tail = API/check_functions.rules rules type
+  let tail = API/check_function.rules rules type
   (List.cons head tail)
 

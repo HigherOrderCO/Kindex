@@ -1,5 +1,7 @@
-Kind.Checker.void <a> (n : Kind.Checker a) : Kind.Checker Unit
-Kind.Checker.void action =
+use Kind.Checker as Checker
+
+Checker/void <a> (n : Kind.Checker a) : Kind.Checker Unit
+Checker/void action =
     do Kind.Checker {
         ask res = action
         return (Unit.new)
