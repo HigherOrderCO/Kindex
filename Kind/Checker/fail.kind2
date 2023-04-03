@@ -1,4 +1,7 @@
+use Kind.Checker as Checker
+use Kind.Result as Result
+
 // Creates a @Kind.Checker@ that results in a failure.
-Kind.Checker.fail <t> (err: Kind.Error): Kind.Checker t
-Kind.Checker.fail t err = context => depth => rhs => subst => eqts => errs =>
-  (Kind.Result.errored context subst (List.cons err errs))
+Checker/fail <t> (err: Kind.Error): Kind.Checker t
+Checker/fail t err = context => depth => rhs => subst => eqts => errs =>
+  (Result/errored context subst (List.cons err errs))

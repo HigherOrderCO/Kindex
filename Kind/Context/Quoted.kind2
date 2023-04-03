@@ -1,3 +1,6 @@
-Kind.Context.Quoted : Type
-Kind.Context.Quoted = (List (Pair U60 (Pair (Kind.Term.Quoted) (List (Kind.Term.Quoted)))))
+use Kind.Context as Context
+use Kind.Term as Term
+
+Context/Quoted : Type
+Context/Quoted = (List (Pair U60 (Pair (Term/Quoted) (List (Term/Quoted)))))
 

@@ -1,6 +1,10 @@
+use Kind.Checker as Checker
+use Kind.Result as Result
+use Kind.Equation as Equation
+
 // Creates a new @Kind.Equation@ that express a constraint
 // of equality between terms and is used in the unification phase.
-Kind.Checker.new_equation (orig: U60) (left: Kind.Term) (right: Kind.Term) : Kind.Checker Unit
-Kind.Checker.new_equation orig left right = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked context depth rhs subst (List.append eqts (Kind.Equation.new context orig left right)) errs Unit.new
+Checker/new_equation (orig: U60) (left: Kind.Term) (right: Kind.Term) : Kind.Checker Unit
+Checker/new_equation orig left right = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst (List.append eqts (Equation/new context orig left right)) errs Unit.new
 

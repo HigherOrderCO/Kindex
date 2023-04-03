@@ -1,4 +1,7 @@
+use Kind.Checker as Checker
+use Kind.Result as Result
+
 // Returns the substitution stores inside the @Kind.Checker@.
-Kind.Checker.get_subst : Kind.Checker Kind.Subst
-Kind.Checker.get_subst = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked context depth rhs subst eqts errs subst
+Checker/get_subst : Kind.Checker Kind.Subst
+Checker/get_subst = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs subst

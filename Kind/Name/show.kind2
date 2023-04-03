@@ -1,5 +1,7 @@
-Kind.Name.show.go (name: U60) (chrs: String): String
-Kind.Name.show.go name chrs =
+use Kind.Name as Name
+
+Name/show.go (name: U60) (chrs: String): String
+Name/show.go name chrs =
   U60.if (== name 0) chrs (
     let val = (% name 64)
     let chr =
@@ -8,9 +10,9 @@ Kind.Name.show.go name chrs =
       (U60.if (& (<= 11 val) (<= val 36)) (+ (- val 11) 'A')
       (U60.if (& (<= 37 val) (<= val 62)) (+ (- val 37) 'a')
       (U60.if (== val 63) '_' '?')))))
-    (Kind.Name.show.go (/ name 64) (String.cons chr chrs))
+    (Name/show.go (/ name 64) (String.cons chr chrs))
   )
 
 // Transforms a name that was condensed into a U60 back to a String.
-Kind.Name.show (name: U60): String
-Kind.Name.show name = Kind.Name.show.go name String.nil
+Name/show (name: U60): String
+Name/show name = Name/show.go name String.nil

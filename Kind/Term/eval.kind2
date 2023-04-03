@@ -1,56 +1,58 @@
+use Kind.Term as Term
+
 // Evaluate a quoted term.
-Kind.Term.eval (term: Kind.Term): Kind.Term
-Kind.Term.eval (Kind.Term.typ orig)                        = Kind.Term.typ orig
-Kind.Term.eval (Kind.Term.var orig name index)             = Kind.Term.var orig name index
-Kind.Term.eval (Kind.Term.hol orig numb)                   = Kind.Term.hol orig numb
-Kind.Term.eval (Kind.Term.all orig name typ body)          = Kind.Term.all orig name (Kind.Term.eval typ) (x => Kind.Term.eval (body x))
-Kind.Term.eval (Kind.Term.lam orig name body)              = Kind.Term.lam orig name (x => Kind.Term.eval (body x))
-Kind.Term.eval (Kind.Term.let orig name expr body)         = Kind.Term.eval_let orig name (Kind.Term.eval expr) (x => Kind.Term.eval (body x))
-Kind.Term.eval (Kind.Term.ann orig expr typ)               = Kind.Term.eval_ann orig (Kind.Term.eval expr) (Kind.Term.eval typ)
-Kind.Term.eval (Kind.Term.sub orig name indx redx expr)    = Kind.Term.eval_sub orig name indx redx (Kind.Term.eval expr)
-Kind.Term.eval (Kind.Term.app orig expr typ)               = Kind.Term.eval_app orig (Kind.Term.eval expr) (Kind.Term.eval typ)
-Kind.Term.eval (Kind.Term.hlp orig)                        = Kind.Term.hlp orig
-Kind.Term.eval (Kind.Term.U60 orig)                        = Kind.Term.U60 orig
-Kind.Term.eval (Kind.Term.u60 orig num)                    = Kind.Term.u60 orig num
-Kind.Term.eval (Kind.Term.F60 orig)                        = Kind.Term.F60 orig
-Kind.Term.eval (Kind.Term.f60 orig num)                    = Kind.Term.f60 orig num
-Kind.Term.eval (Kind.Term.op2 orig op left right)          = Kind.Term.eval_op orig op (Kind.Term.eval left) (Kind.Term.eval right)
+Term/eval (term: Kind.Term): Kind.Term
+Term/eval (Term/typ orig)                        = Term/typ orig
+Term/eval (Term/var orig name index)             = Term/var orig name index
+Term/eval (Term/hol orig numb)                   = Term/hol orig numb
+Term/eval (Term/all orig name typ body)          = Term/all orig name (Term/eval typ) (x => Term/eval (body x))
+Term/eval (Term/lam orig name body)              = Term/lam orig name (x => Term/eval (body x))
+Term/eval (Term/let orig name expr body)         = Term/eval_let orig name (Term/eval expr) (x => Term/eval (body x))
+Term/eval (Term/ann orig expr typ)               = Term/eval_ann orig (Term/eval expr) (Term/eval typ)
+Term/eval (Term/sub orig name indx redx expr)    = Term/eval_sub orig name indx redx (Term/eval expr)
+Term/eval (Term/app orig expr typ)               = Term/eval_app orig (Term/eval expr) (Term/eval typ)
+Term/eval (Term/hlp orig)                        = Term/hlp orig
+Term/eval (Term/U60 orig)                        = Term/U60 orig
+Term/eval (Term/u60 orig num)                    = Term/u60 orig num
+Term/eval (Term/F60 orig)                        = Term/F60 orig
+Term/eval (Term/f60 orig num)                    = Term/f60 orig num
+Term/eval (Term/op2 orig op left right)          = Term/eval_op orig op (Term/eval left) (Term/eval right)
 
-Kind.Term.eval (Kind.Term.ct0 ctid orig)                                                = Kind.Term.ct0 ctid orig
-Kind.Term.eval (Kind.Term.ct1 ctid orig x0)                                             = Kind.Term.ct1 ctid orig (Kind.Term.eval x0)
-Kind.Term.eval (Kind.Term.ct2 ctid orig x0 x1)                                          = Kind.Term.ct2 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1)
-Kind.Term.eval (Kind.Term.ct3 ctid orig x0 x1 x2)                                       = Kind.Term.ct3 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2)
-Kind.Term.eval (Kind.Term.ct4 ctid orig x0 x1 x2 x3)                                    = Kind.Term.ct4 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3)
-Kind.Term.eval (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)                                 = Kind.Term.ct5 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4)
-Kind.Term.eval (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)                              = Kind.Term.ct6 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5)
-Kind.Term.eval (Kind.Term.ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)                           = Kind.Term.ct7 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6)
-Kind.Term.eval (Kind.Term.ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Kind.Term.ct8 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7)
-Kind.Term.eval (Kind.Term.ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Kind.Term.ct9 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8)
-Kind.Term.eval (Kind.Term.ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Kind.Term.ct10 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9)
-Kind.Term.eval (Kind.Term.ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Kind.Term.ct11 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10)
-Kind.Term.eval (Kind.Term.ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Kind.Term.ct12 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11)
-Kind.Term.eval (Kind.Term.ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Kind.Term.ct13 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11) (Kind.Term.eval x12)
-Kind.Term.eval (Kind.Term.ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Kind.Term.ct14 ctid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11) (Kind.Term.eval x12) (Kind.Term.eval x13)
-Kind.Term.eval (Kind.Term.ct15 fnid orig x0)                                            = Kind.Term.ct15 fnid orig (Kind.Term.eval x0)
-Kind.Term.eval (Kind.Term.ct16 fnid orig x0)                                            = Kind.Term.ct16 fnid orig (Kind.Term.eval x0)
+Term/eval (Term/ct0 ctid orig)                                                = Term/ct0 ctid orig
+Term/eval (Term/ct1 ctid orig x0)                                             = Term/ct1 ctid orig (Term/eval x0)
+Term/eval (Term/ct2 ctid orig x0 x1)                                          = Term/ct2 ctid orig (Term/eval x0) (Term/eval x1)
+Term/eval (Term/ct3 ctid orig x0 x1 x2)                                       = Term/ct3 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2)
+Term/eval (Term/ct4 ctid orig x0 x1 x2 x3)                                    = Term/ct4 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3)
+Term/eval (Term/ct5 ctid orig x0 x1 x2 x3 x4)                                 = Term/ct5 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4)
+Term/eval (Term/ct6 ctid orig x0 x1 x2 x3 x4 x5)                              = Term/ct6 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5)
+Term/eval (Term/ct7 ctid orig x0 x1 x2 x3 x4 x5 x6)                           = Term/ct7 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6)
+Term/eval (Term/ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Term/ct8 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7)
+Term/eval (Term/ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Term/ct9 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8)
+Term/eval (Term/ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Term/ct10 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9)
+Term/eval (Term/ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Term/ct11 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10)
+Term/eval (Term/ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Term/ct12 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11)
+Term/eval (Term/ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Term/ct13 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11) (Term/eval x12)
+Term/eval (Term/ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Term/ct14 ctid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11) (Term/eval x12) (Term/eval x13)
+Term/eval (Term/ct15 fnid orig x0)                                            = Term/ct15 fnid orig (Term/eval x0)
+Term/eval (Term/ct16 fnid orig x0)                                            = Term/ct16 fnid orig (Term/eval x0)
 
-Kind.Term.eval (Kind.Term.fn0 fnid orig)                                                = Kind.Term.FN0 fnid orig
-Kind.Term.eval (Kind.Term.fn1 fnid orig x0)                                             = Kind.Term.FN1 fnid orig (Kind.Term.eval x0)
-Kind.Term.eval (Kind.Term.fn2 fnid orig x0 x1)                                          = Kind.Term.FN2 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1)
-Kind.Term.eval (Kind.Term.fn3 fnid orig x0 x1 x2)                                       = Kind.Term.FN3 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2)
-Kind.Term.eval (Kind.Term.fn4 fnid orig x0 x1 x2 x3)                                    = Kind.Term.FN4 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3)
-Kind.Term.eval (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)                                 = Kind.Term.FN5 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4)
-Kind.Term.eval (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)                              = Kind.Term.FN6 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5)
-Kind.Term.eval (Kind.Term.fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)                           = Kind.Term.FN7 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6)
-Kind.Term.eval (Kind.Term.fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Kind.Term.FN8 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7)
-Kind.Term.eval (Kind.Term.fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Kind.Term.FN9 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8)
-Kind.Term.eval (Kind.Term.fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Kind.Term.FN10 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9)
-Kind.Term.eval (Kind.Term.fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Kind.Term.FN11 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10)
-Kind.Term.eval (Kind.Term.fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Kind.Term.FN12 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11)
-Kind.Term.eval (Kind.Term.fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Kind.Term.FN13 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11) (Kind.Term.eval x12)
-Kind.Term.eval (Kind.Term.fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Kind.Term.FN14 fnid orig (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11) (Kind.Term.eval x12) (Kind.Term.eval x13)
-Kind.Term.eval (Kind.Term.fn15 fnid orig x0)                                            = Kind.Term.FN15 fnid orig (Kind.Term.eval x0)
-Kind.Term.eval (Kind.Term.fn16 fnid orig x0)                                            = Kind.Term.FN16 fnid orig (Kind.Term.eval x0)
+Term/eval (Term/fn0 fnid orig)                                                = Term/FN0 fnid orig
+Term/eval (Term/fn1 fnid orig x0)                                             = Term/FN1 fnid orig (Term/eval x0)
+Term/eval (Term/fn2 fnid orig x0 x1)                                          = Term/FN2 fnid orig (Term/eval x0) (Term/eval x1)
+Term/eval (Term/fn3 fnid orig x0 x1 x2)                                       = Term/FN3 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2)
+Term/eval (Term/fn4 fnid orig x0 x1 x2 x3)                                    = Term/FN4 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3)
+Term/eval (Term/fn5 fnid orig x0 x1 x2 x3 x4)                                 = Term/FN5 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4)
+Term/eval (Term/fn6 fnid orig x0 x1 x2 x3 x4 x5)                              = Term/FN6 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5)
+Term/eval (Term/fn7 fnid orig x0 x1 x2 x3 x4 x5 x6)                           = Term/FN7 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6)
+Term/eval (Term/fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Term/FN8 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7)
+Term/eval (Term/fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Term/FN9 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8)
+Term/eval (Term/fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Term/FN10 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9)
+Term/eval (Term/fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Term/FN11 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10)
+Term/eval (Term/fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Term/FN12 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11)
+Term/eval (Term/fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Term/FN13 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11) (Term/eval x12)
+Term/eval (Term/fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Term/FN14 fnid orig (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11) (Term/eval x12) (Term/eval x13)
+Term/eval (Term/fn15 fnid orig x0)                                            = Term/FN15 fnid orig (Term/eval x0)
+Term/eval (Term/fn16 fnid orig x0)                                            = Term/FN16 fnid orig (Term/eval x0)
 
-Kind.Term.eval (Kind.Term.args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     = Kind.Term.args15 (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11) (Kind.Term.eval x12) (Kind.Term.eval x13) (Kind.Term.eval x14)
-Kind.Term.eval (Kind.Term.args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = Kind.Term.args16 (Kind.Term.eval x0) (Kind.Term.eval x1) (Kind.Term.eval x2) (Kind.Term.eval x3) (Kind.Term.eval x4) (Kind.Term.eval x5) (Kind.Term.eval x6) (Kind.Term.eval x7) (Kind.Term.eval x8) (Kind.Term.eval x9) (Kind.Term.eval x10) (Kind.Term.eval x11) (Kind.Term.eval x12) (Kind.Term.eval x13) (Kind.Term.eval x14) (Kind.Term.eval x15)
+Term/eval (Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     = Term/args15 (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11) (Term/eval x12) (Term/eval x13) (Term/eval x14)
+Term/eval (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = Term/args16 (Term/eval x0) (Term/eval x1) (Term/eval x2) (Term/eval x3) (Term/eval x4) (Term/eval x5) (Term/eval x6) (Term/eval x7) (Term/eval x8) (Term/eval x9) (Term/eval x10) (Term/eval x11) (Term/eval x12) (Term/eval x13) (Term/eval x14) (Term/eval x15)

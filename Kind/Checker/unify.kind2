@@ -1,35 +1,39 @@
+use Kind.Checker as Checker
+use Kind.Equation as Equation
+use Kind.Term as Term
+
 // Runs the @Kind.Checker@ and then attempts to unify all equations produced.
-Kind.Checker.unify (checker: Kind.Checker Unit): Kind.Checker Unit
-Kind.Checker.unify checker =
+Checker/unify (checker: Kind.Checker Unit): Kind.Checker Unit
+Checker/unify checker =
   do Kind.Checker {
     checker
-    ask equations = Kind.Checker.get_equations
-    (Kind.Checker.unify.go equations List.nil Bool.false)
+    ask equations = Checker/get_equations
+    (Checker/unify.go equations List.nil Bool.false)
   }
 
-Kind.Checker.unify.go (equations: List Kind.Equation) (unsolved: List Kind.Equation) (changed: Bool): Kind.Checker Unit
-Kind.Checker.unify.go (List.nil t) (List.nil t1) changed = Kind.Checker.pure Unit.new
-Kind.Checker.unify.go (List.nil t) unsolved Bool.true    = Kind.Checker.unify.go unsolved List.nil Bool.false
-Kind.Checker.unify.go (List.nil t) unsolved Bool.false   = Kind.Checker.unify.go.fail unsolved
-Kind.Checker.unify.go (List.cons t (Kind.Equation.new ctx orig left right) equations) unsolved changed =
+Checker/unify.go (equations: List Kind.Equation) (unsolved: List Kind.Equation) (changed: Bool): Kind.Checker Unit
+Checker/unify.go (List.nil t) (List.nil t1) changed = Checker/pure Unit.new
+Checker/unify.go (List.nil t) unsolved Bool.true    = Checker/unify.go unsolved List.nil Bool.false
+Checker/unify.go (List.nil t) unsolved Bool.false   = Checker/unify.go.fail unsolved
+Checker/unify.go (List.cons t (Equation/new ctx orig left right) equations) unsolved changed =
   do Kind.Checker {
-    ask is_equal = Kind.Checker.with_context (Kind.Checker.equal (Kind.Term.eval left) (Kind.Term.eval right)) ctx
+    ask is_equal = Checker/with_context (Checker/equal (Term/eval left) (Term/eval right)) ctx
     let unify =
       (if is_equal {
         (equations: List Kind.Equation) => (unsolved: List Kind.Equation) =>
-          Kind.Checker.unify.go equations unsolved Bool.true
+          Checker/unify.go equations unsolved Bool.true
       } else {
         (equations: List Kind.Equation) => (unsolved: List Kind.Equation) =>
-          let eqt = Kind.Equation.new ctx orig left right
-          Kind.Checker.unify.go equations (List.cons eqt unsolved) changed
+          let eqt = Equation/new ctx orig left right
+          Checker/unify.go equations (List.cons eqt unsolved) changed
       }) :: (List Kind.Equation) -> (List Kind.Equation) -> Kind.Checker Unit
     (unify equations unsolved)
   }
 
-Kind.Checker.unify.go.fail (equations: List Kind.Equation): Kind.Checker Unit
-Kind.Checker.unify.go.fail (List.nil t) = Kind.Checker.pure Unit.new
-Kind.Checker.unify.go.fail (List.cons t (Kind.Equation.new ctx orig left right) eqts) =
+Checker/unify.go.fail (equations: List Kind.Equation): Kind.Checker Unit
+Checker/unify.go.fail (List.nil t) = Checker/pure Unit.new
+Checker/unify.go.fail (List.cons t (Equation/new ctx orig left right) eqts) =
   do Kind.Checker {
-    Kind.Checker.error (Kind.Error.type_mismatch ctx orig left right) Unit.new
-    (Kind.Checker.unify.go.fail eqts)
+    Checker/error (Kind.Error.type_mismatch ctx orig left right) Unit.new
+    (Checker/unify.go.fail eqts)
   }

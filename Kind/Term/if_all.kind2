@@ -1,5 +1,7 @@
-// Checks if a term is a Kind.Term.all and then applies the function 'if' to it
+use Kind.Term as Term
+
+// Checks if a term is a Term/all and then applies the function 'if' to it
 // otherwise it returns 'else'.
-Kind.Term.if_all <res> (term: Kind.Term) (if: U60 -> U60 -> Kind.Term -> (Kind.Term -> Kind.Term) -> res) (else: res) : res
-Kind.Term.if_all res (Kind.Term.all orig name typ body) func_if else = func_if orig name typ body
-Kind.Term.if_all res other                              func_if else = else
+Term/if_all <res> (term: Kind.Term) (if: U60 -> U60 -> Kind.Term -> (Kind.Term -> Kind.Term) -> res) (else: res) : res
+Term/if_all res (Term/all orig name typ body) func_if else = func_if orig name typ body
+Term/if_all res other                              func_if else = else
