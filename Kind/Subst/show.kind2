@@ -1,4 +1,8 @@
-Kind.Subst.show (subst: Kind.Subst): String
-Kind.Subst.show Kind.Subst.end             = "|"
-Kind.Subst.show (Kind.Subst.unfilled rest) = Kind.Printer.text ["~ ?" String.new_line (Kind.Subst.show rest)]
-Kind.Subst.show (Kind.Subst.sub expr rest) = Kind.Printer.text ["~ " (Kind.Term.show expr) String.new_line (Kind.Subst.show rest)]
+use Kind.Subst as Subst
+use Kind.Term as Term
+use Kind.Printer as Printer
+
+Subst/show (subst: Kind.Subst): String
+Subst/show Subst/end             = "|"
+Subst/show (Subst/unfilled rest) = Printer/text ["~ ?" String.new_line (Subst/show rest)]
+Subst/show (Subst/sub expr rest) = Printer/text ["~ " (Term/show expr) String.new_line (Subst/show rest)]

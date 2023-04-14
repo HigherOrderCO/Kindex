@@ -1,8 +1,10 @@
-Kind.Checker.with_context <a> (checker: Kind.Checker a) (context: Kind.Context) : Kind.Checker a
-Kind.Checker.with_context a checker new_context =
+use Kind.Checker as Checker
+
+Checker/with_context <a> (checker: Kind.Checker a) (context: Kind.Context) : Kind.Checker a
+Checker/with_context a checker new_context =
   do Kind.Checker {
-    ask old_context = Kind.Checker.set_context new_context
+    ask old_context = Checker/set_context new_context
     ask got = checker
-    Kind.Checker.set_context old_context
+    Checker/set_context old_context
     return got
   }

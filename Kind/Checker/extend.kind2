@@ -1,4 +1,8 @@
+use Kind.Checker as Checker
+use Kind.Result as Result
+use Kind.Context as Context
+
 // Extends the context inside the @Kind.Checker@.
-Kind.Checker.extend (name: U60) (type: Kind.Term) (vals: List Kind.Term) : Kind.Checker Unit
-Kind.Checker.extend name type vals = context => depth => rhs => subst => eqts => errs =>
-  (Kind.Result.checked (Kind.Context.extend context name type vals) (+ depth 1) rhs subst eqts errs Unit.new)
+Checker/extend (name: U60) (type: Kind.Term) (vals: List Kind.Term) : Kind.Checker Unit
+Checker/extend name type vals = context => depth => rhs => subst => eqts => errs =>
+  (Result/checked (Context/extend context name type vals) (+ depth 1) rhs subst eqts errs Unit.new)

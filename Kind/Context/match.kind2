@@ -1,4 +1,0 @@
-// Automatically derived from Kind/Context/_.type
-Kind.Context.match (x: (Kind.Context)) -(p: (x: (Kind.Context)) Type) (empty: (p (Kind.Context.empty))) (entry: (name: U60) (type: Kind.Term) (vals: (List Kind.Term)) (rest: Kind.Context) (p (Kind.Context.entry name type vals rest))) : (p x)
-Kind.Context.match (Kind.Context.empty) p empty entry = (empty)
-Kind.Context.match (Kind.Context.entry name_ type_ vals_ rest_) p empty entry = (entry name_ type_ vals_ rest_)

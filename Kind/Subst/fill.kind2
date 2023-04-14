@@ -1,8 +1,10 @@
+use Kind.Subst as Subst
+
 // Adds a new term to the substitution at the given depth.
-Kind.Subst.fill (subst: Kind.Subst) (depth: U60) (term: Kind.Term): Kind.Subst
-Kind.Subst.fill Kind.Subst.end             0 term = Kind.Subst.sub term Kind.Subst.end
-Kind.Subst.fill (Kind.Subst.unfilled rest) 0 term = Kind.Subst.sub term rest
-Kind.Subst.fill (Kind.Subst.sub lost rest) 0 term = Kind.Subst.sub term rest
-Kind.Subst.fill Kind.Subst.end             n term = Kind.Subst.unfilled (Kind.Subst.fill Kind.Subst.end (- n 1) term)
-Kind.Subst.fill (Kind.Subst.unfilled rest) n term = Kind.Subst.unfilled (Kind.Subst.fill rest (- n 1) term)
-Kind.Subst.fill (Kind.Subst.sub keep rest) n term = Kind.Subst.sub keep (Kind.Subst.fill rest (- n 1) term)
+Subst/fill (subst: Kind.Subst) (depth: U60) (term: Kind.Term): Kind.Subst
+Subst/fill Subst/end             0 term = Subst/sub term Subst/end
+Subst/fill (Subst/unfilled rest) 0 term = Subst/sub term rest
+Subst/fill (Subst/sub lost rest) 0 term = Subst/sub term rest
+Subst/fill Subst/end             n term = Subst/unfilled (Subst/fill Subst/end (- n 1) term)
+Subst/fill (Subst/unfilled rest) n term = Subst/unfilled (Subst/fill rest (- n 1) term)
+Subst/fill (Subst/sub keep rest) n term = Subst/sub keep (Subst/fill rest (- n 1) term)

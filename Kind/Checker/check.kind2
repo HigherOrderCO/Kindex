@@ -1,74 +1,78 @@
+use Kind.Checker as Checker
+use Kind.Term as Term
+use Kind.Error as Error
+
 // Functions that succedes if a term checks agaisnt a type.
-Kind.Checker.check (term: Kind.Term) (type: Kind.Term): Kind.Checker Unit
-Kind.Checker.check (Kind.Term.lam orig name body) type =
-  Kind.Checker.bind Kind.Checker.get_subst (subst =>
-    let fun = (Kind.Term.if_all type
+Checker/check (term: Kind.Term) (type: Kind.Term): Kind.Checker Unit
+Checker/check (Term/lam orig name body) type =
+  Checker/bind Checker/get_subst (subst =>
+    let fun = (Term/if_all type
       (t_orig => t_name => t_type => t_body => (orig: U60) => (name: U60) => (body: Kind.Term -> Kind.Term) =>
         do Kind.Checker {
-          ask dep = Kind.Checker.get_depth
-          ask chk = Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name dep)) (t_body (Kind.Term.var t_orig t_name dep))) name t_type []
+          ask dep = Checker/get_depth
+          ask chk = Checker/extended (Checker/check (body (Term/var orig name dep)) (t_body (Term/var t_orig t_name dep))) name t_type []
           return Unit.new
         }
       )
       ((orig: U60) => (name: U60) => (body: Kind.Term -> Kind.Term) =>
-        Kind.Checker.bind Kind.Checker.get_context (ctx => Kind.Checker.fail (Kind.Error.cant_infer_lambda ctx orig)))
+        Checker/bind Checker/get_context (ctx => Checker/fail (Error/cant_infer_lambda ctx orig)))
     ) :: U60 -> U60 -> (Kind.Term -> Kind.Term) -> Kind.Checker Unit
     fun orig name body
   )
 
-Kind.Checker.check (Kind.Term.let orig name expr body) type =
+Checker/check (Term/let orig name expr body) type =
   do Kind.Checker {
-    ask dep      = Kind.Checker.get_depth
-    ask expr_typ = Kind.Checker.infer expr
-    ask body_chk = Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name dep)) type) name expr_typ [(Kind.Term.eval expr)]
+    ask dep      = Checker/get_depth
+    ask expr_typ = Checker/infer expr
+    ask body_chk = Checker/extended (Checker/check (body (Term/var orig name dep)) type) name expr_typ [(Term/eval expr)]
     return Unit.new
   }
 
-Kind.Checker.check (Kind.Term.hlp orig) type =
+Checker/check (Term/hlp orig) type =
   do Kind.Checker {
-    ask ctx = Kind.Checker.get_context
-    Kind.Checker.error (Kind.Error.inspection ctx orig type) Unit.new
+    ask ctx = Checker/get_context
+    Checker/error (Error/inspection ctx orig type) Unit.new
     // TODO: Check why it returns a type in the original version
     return Unit.new
   }
 
-Kind.Checker.check (Kind.Term.var orig name idx) type =
+Checker/check (Term/var orig name idx) type =
   do Kind.Checker {
-    ask rhs = Kind.Checker.get_right_hand_side
+    ask rhs = Checker/get_right_hand_side
     if rhs {
-      Kind.Checker.compare rhs (Kind.Term.var orig name idx) type
+      Checker/compare rhs (Term/var orig name idx) type
     } else {
-      Kind.Checker.extend name type List.nil
+      Checker/extend name type List.nil
     }
   }
 
-Kind.Checker.check (Kind.Term.hol orig numb) type =
-  Kind.Checker.pure Unit.new
+Checker/check (Term/hol orig numb) type =
+  Checker/pure Unit.new
 
-Kind.Checker.check term type =
+Checker/check term type =
   do Kind.Checker {
-    ask rhs = Kind.Checker.get_right_hand_side
-    (Kind.Checker.compare rhs term type)
+    ask rhs = Checker/get_right_hand_side
+    (Checker/compare rhs term type)
   }
 
-Kind.Checker.compare (rhs: Bool) (term: Kind.Term) (type: Kind.Term): Kind.Checker Unit
-Kind.Checker.compare rhs term type =
-  Kind.Term.get_origin term (orig => term =>
-    Kind.Checker.bind (Kind.Checker.infer term) (term_typ =>
+Checker/compare (rhs: Bool) (term: Kind.Term) (type: Kind.Term): Kind.Checker Unit
+Checker/compare rhs term type =
+  Term/get_origin term (orig => term =>
+    Checker/bind (Checker/infer term) (term_typ =>
       let fun =
         ((if rhs {
           (term_typ: Kind.Term) => (type: Kind.Term) =>
-            Kind.Checker.new_equation orig type term_typ
+            Checker/new_equation orig type term_typ
         } else {
           (term_typ: Kind.Term) => (type: Kind.Term) =>
             do Kind.Checker {
-              ask is_equal = Kind.Checker.equal (Kind.Term.eval term_typ) (Kind.Term.eval type)
+              ask is_equal = Checker/equal (Term/eval term_typ) (Term/eval type)
               if is_equal {
-                Kind.Checker.pure Unit.new
+                Checker/pure Unit.new
               } else {
                 do Kind.Checker {
-                  ask ctx =  Kind.Checker.get_context
-                  (Kind.Checker.fail (Kind.Error.impossible_case ctx orig type term_typ))
+                  ask ctx =  Checker/get_context
+                  (Checker/fail (Error/impossible_case ctx orig type term_typ))
                 }
               }
             }

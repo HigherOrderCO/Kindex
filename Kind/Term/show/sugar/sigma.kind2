@@ -1,17 +1,21 @@
+use Kind.Term as Term
+use Kind.Name as Name
+use Kind.Printer as Printer
+
 #axiom
 Sigma.  : Kind.Name
 
-Kind.Term.show.sugar.sigma (term: Kind.Term): Maybe String
-Kind.Term.show.sugar.sigma (Kind.Term.ct2 Sigma. orig typ (Kind.Term.lam orig_ name body)) =
+Term/show.sugar.sigma (term: Kind.Term): Maybe String
+Term/show.sugar.sigma (Term/ct2 Sigma. orig typ (Term/lam orig_ name body)) =
   Maybe.some (
-    Kind.Printer.text
+    Printer/text
       [ "(["
-        (Kind.Name.show name)
+        (Name/show name)
         ": "
-        (Kind.Term.show typ)
+        (Term/show typ)
         "] -> "
-        (Kind.Term.show (body (Kind.Term.var orig_ name 0)))
+        (Term/show (body (Term/var orig_ name 0)))
         ")"
       ])
 
-Kind.Term.show.sugar.sigma term = Maybe.none
+Term/show.sugar.sigma term = Maybe.none
