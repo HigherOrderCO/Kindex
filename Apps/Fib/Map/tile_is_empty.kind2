@@ -1,5 +1,0 @@
-#kdl_name = Fib_map_tlem
-Apps.Fib.Map.tile_is_empty (tile: U120): Bool {
-  U120.is_zero tile
-}
-

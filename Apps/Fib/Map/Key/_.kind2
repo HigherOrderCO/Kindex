@@ -1,3 +1,0 @@
-Apps.Fib.Map.Key : Type {
-  Data.BaseTree.Key Apps.Fib.Map.Bases
-}

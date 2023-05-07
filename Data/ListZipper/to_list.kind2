@@ -1,2 +1,0 @@
-ListZipper.to_list <a: Type> (z: (ListZipper a)) : (List a)
-ListZipper.to_list a (ListZipper.new t ls rs) = (List.concat (List.reverse ls) rs)

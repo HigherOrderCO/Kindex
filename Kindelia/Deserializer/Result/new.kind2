@@ -1,2 +1,0 @@
-// Automatically derived from Kindelia/Deserializer/Result/_.type
-Kindelia.Deserializer.Result.new <t: Type> (result: t) (names: (Data.BBT U120 U120)) (names_size: U120) : (Kindelia.Deserializer.Result t)

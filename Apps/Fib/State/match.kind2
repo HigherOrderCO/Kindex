@@ -1,3 +1,0 @@
-// Automatically derived from state.type
-Apps.Fib.State.match (x: (Apps.Fib.State)) -(p: (x: (Apps.Fib.State)) Type) (new: (map: Apps.Fib.Map) (tab: Apps.Fib.Table) (p (Apps.Fib.State.new map tab))) : (p x)
-Apps.Fib.State.match (Apps.Fib.State.new map_ tab_) p new = (new map_ tab_)

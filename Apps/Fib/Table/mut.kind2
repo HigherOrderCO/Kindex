@@ -1,4 +1,0 @@
-#kdl_name = Fib_tbl_mut
-Apps.Fib.Table.mut (table: Apps.Fib.Table) (func: Apps.Fib.Entity -> Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.Table {
-  Data.BaseTree.mut Apps.Fib.Entity Apps.Fib.Table.Bases table (Apps.Fib.Table.Key.from_id id) func
-}

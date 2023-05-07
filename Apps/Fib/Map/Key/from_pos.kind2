@@ -1,8 +1,0 @@
-#kdl_name = Fib_map_kfps
-Apps.Fib.Map.Key.from_pos (pos: Apps.Fib.Pos): Pair Apps.Fib.Map.Key U120 {
-  let x = Apps.Fib.Pos.get_x pos
-  let y = Apps.Fib.Pos.get_y pos
-  let key = U120.low (U120.add (U120.div x (U120.new 0 10)) (U120.mul y (U120.new 0 16)))
-  Pair.new (Data.BaseTree.Key.from_u60 Apps.Fib.Map.Bases 2560 (% key 2560)) (U120.mod x (U120.new 0 10))
-}
-

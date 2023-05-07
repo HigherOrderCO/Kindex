@@ -1,8 +1,0 @@
-// A U120 value is a valid position if each coordinate is less than 160.
-#kdl_name = Fib_pos_viv
-Apps.Fib.Pos.Value.IsValid (value: U120) : Type
-//Apps.Fib.Pos.Value.IsValid (U120.new 0 0) = Unit
-Apps.Fib.Pos.Value.IsValid value =
-  let x.chk = Apps.Fib.Pos.Coord.IsValid (Apps.Fib.Pos.Value.get_x value)
-  let y.chk = Apps.Fib.Pos.Coord.IsValid (Apps.Fib.Pos.Value.get_y value)
-  Pair x.chk y.chk

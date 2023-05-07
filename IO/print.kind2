@@ -1,0 +1,6 @@
+IO.print (str: String) : IO Unit {
+  do IO {
+    IO.output str
+    return Unit.new
+  }
+}

@@ -1,4 +1,0 @@
-#kdl_name = Fib_pos_g_x
-Apps.Fib.Pos.get_x (pos: Apps.Fib.Pos) : U120 {
-  U120.bitwise_and (Sigma.fst pos) (U120.new 0 255)
-}

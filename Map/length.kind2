@@ -1,0 +1,2 @@
+Map.length <a> (map: Map a) : Nat
+Map.length map = Bits.Map.length map

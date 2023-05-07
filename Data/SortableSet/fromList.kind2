@@ -1,5 +1,0 @@
-Data.SortableSet.fromList <a: Type> (xs: (List a)) (comp: a -> a -> Bool) : Data.SortableSet a
-
-Data.SortableSet.fromList a (List.nil  t     ) comp = Data.SortableSet.empty comp
-Data.SortableSet.fromList a (List.cons t x xs) comp =
-  (Data.SortableSet.add x (Data.SortableSet.fromList xs comp))

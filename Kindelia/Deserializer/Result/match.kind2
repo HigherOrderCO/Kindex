@@ -1,3 +1,0 @@
-// Automatically derived from Kindelia/Deserializer/Result/_.type
-Kindelia.Deserializer.Result.match <t: Type> (x: (Kindelia.Deserializer.Result t)) -(p: (x: (Kindelia.Deserializer.Result t)) Type) (new: (result: t) (names: (Data.BBT U120 U120)) (names_size: U120) (p (Kindelia.Deserializer.Result.new t result names names_size))) : (p x)
-Kindelia.Deserializer.Result.match t (Kindelia.Deserializer.Result.new t_ result_ names_ names_size_) p new = (new result_ names_ names_size_)

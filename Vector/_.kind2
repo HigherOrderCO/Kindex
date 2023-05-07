@@ -1,0 +1,4 @@
+type Vector <a: Type> ~ (len: Nat) {
+  nil  : Vector a Nat.zero
+  cons (len: Nat) (head: a) (tail: Vector a len) : Vector a (Nat.succ len)
+}

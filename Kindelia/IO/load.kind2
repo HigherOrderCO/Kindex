@@ -1,9 +1,0 @@
-#kdl_name = KIOLoad
-Kindelia.IO.load <s: Type> : Kindelia.IO s {
-  do Kindelia.IO {
-    ask val = Kindelia.IO.take s
-    ask (Kindelia.IO.save val)
-    return val
-  }
-}
-

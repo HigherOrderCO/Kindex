@@ -1,4 +1,0 @@
-#kdl_name = Fib_tbl_allc
-Apps.Fib.Table.alloc : Apps.Fib.Table {
-  Data.BaseTree.alloc Apps.Fib.Entity Apps.Fib.Table.Bases (U120.new 0 0)
-}

@@ -1,5 +1,0 @@
-// Automatically derived from response.type
-KDL.KGT.Response.match (x: (KDL.KGT.Response)) -(p: (x: (KDL.KGT.Response)) Type) (mint: (success: Bool) (p (KDL.KGT.Response.mint success))) (send: (success: Bool) (p (KDL.KGT.Response.send success))) (get: (mint_balance: (Pair U120 U120)) (p (KDL.KGT.Response.get mint_balance))) : (p x)
-KDL.KGT.Response.match (KDL.KGT.Response.mint success_) p mint send get = (mint success_)
-KDL.KGT.Response.match (KDL.KGT.Response.send success_) p mint send get = (send success_)
-KDL.KGT.Response.match (KDL.KGT.Response.get mint_balance_) p mint send get = (get mint_balance_)

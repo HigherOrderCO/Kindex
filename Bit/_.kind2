@@ -1,8 +1,0 @@
-// Automatically derived from Bit/_.kind2
-// #derive[match]
-type Bit {
-  #kdl_name = Bit_0
-  0
-  #kdl_name = Bit_1
-  1
-}

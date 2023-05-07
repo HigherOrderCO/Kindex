@@ -1,3 +1,0 @@
-ListZipper.delete <a: Type> (z: (ListZipper a)) : (ListZipper a)
-ListZipper.delete a (ListZipper.new b lft (List.nil  t      )) = (ListZipper.new b lft (List.nil t))
-ListZipper.delete a (ListZipper.new b lft (List.cons t x rgt)) = (ListZipper.new b lft rgt)

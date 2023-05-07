@@ -1,5 +1,0 @@
-// Gets the x component of a U120 position value.
-#kdl_name =  Fib_pos_v_gx
-Apps.Fib.Pos.Value.get_x (val: U120) : U120 {
-  U120.bitwise_and val (U120.new 0 255)
-}

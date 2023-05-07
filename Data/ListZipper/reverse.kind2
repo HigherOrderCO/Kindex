@@ -1,2 +1,0 @@
-ListZipper.reverse <a: Type> (z: (ListZipper a)) : (ListZipper a)
-ListZipper.reverse a (ListZipper.new t lft rgt) = (ListZipper.new t rgt lft)

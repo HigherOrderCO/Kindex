@@ -1,3 +1,0 @@
-// Automatically derived from patricia.type
-#kdl_name = PLeaf
-User.Sipher.PatriciaTree.leaf (key: U120) (value: U120) : (User.Sipher.PatriciaTree)

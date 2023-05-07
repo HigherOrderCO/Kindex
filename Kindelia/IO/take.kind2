@@ -1,3 +1,0 @@
-#kdl_name = KIOTake
-Kindelia.IO.take <s: Type> : Kindelia.IO s
-Kindelia.IO.take s = Kindelia.IO.do_take s s (x => Kindelia.IO.done s x)

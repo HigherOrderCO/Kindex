@@ -1,3 +1,0 @@
-// Automatically derived from response.type
-#kdl_name = KgtRGetter
-KDL.KGT.Response.get (mint_balance: (Pair U120 U120)) : (KDL.KGT.Response)

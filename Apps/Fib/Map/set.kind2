@@ -1,9 +1,0 @@
-#kdl_name = Fib_map_set
-Apps.Fib.Map.set (map: Apps.Fib.Map) (id: Apps.Fib.Id) (pos: Apps.Fib.Pos) : Apps.Fib.Map {
-  let keys = Apps.Fib.Map.Key.from_pos pos
-  let key  = Pair.fst keys 
-  let idx  = Pair.snd keys
-  let func = (chunk: U120) => Apps.Fib.set_in_u120 (U120.mul idx (U120.new 0 12)) id chunk
-  Data.BaseTree.mut U120 Apps.Fib.Map.Bases map key func
-}
-

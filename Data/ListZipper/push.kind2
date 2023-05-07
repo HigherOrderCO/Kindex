@@ -1,2 +1,0 @@
-ListZipper.push <a: Type> (x: a) (z: (ListZipper a)) : (ListZipper a)
-ListZipper.push a x (ListZipper.new b lft rgt) = (ListZipper.new (List.cons x lft) rgt)

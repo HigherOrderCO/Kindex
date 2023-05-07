@@ -1,3 +1,0 @@
-// Automatically derived from /home/derenash/Wikind/Apps/Fib/Map/Bin/_.type
-Data.BaseTree.Bin.match <r: Type> (x: (Data.BaseTree.Bin r)) -(p: (x: (Data.BaseTree.Bin r)) Type) (tie: (b0: r) (b1: r) (p (Data.BaseTree.Bin.tie r b0 b1))) : (p x)
-Data.BaseTree.Bin.match r (Data.BaseTree.Bin.tie r_ b0_ b1_) p tie = (tie b0_ b1_)

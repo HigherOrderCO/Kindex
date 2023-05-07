@@ -1,0 +1,4 @@
+// A parser that matches an alphanumeric string
+Parser.alphanumeric <t> : Parser t String {
+  Parser.take_while1 (c => Char.is_alphanumeric c)
+}

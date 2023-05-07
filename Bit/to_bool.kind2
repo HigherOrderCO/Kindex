@@ -1,4 +1,0 @@
-#kdl_name = Bit_bool
-Bit.to_bool (b: Bit) : Bool
-Bit.to_bool Bit.0 = Bool.false
-Bit.to_bool Bit.1 = Bool.true

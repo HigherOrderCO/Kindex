@@ -1,3 +1,0 @@
-Data.BinomialHeap.match (x: (Data.BinomialHeap)) -(p: (x: (Data.BinomialHeap)) Type) (nil: (p (Data.BinomialHeap.nil))) (cons: (x: Data.BinomialHeap.Node) (xs: Data.BinomialHeap) (p (Data.BinomialHeap.cons x xs))) : (p x)
-Data.BinomialHeap.match (List.nil  t       ) p nil cons = (nil)
-Data.BinomialHeap.match (List.cons t x_ xs_) p nil cons = (cons x_ xs_)

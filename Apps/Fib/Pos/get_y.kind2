@@ -1,4 +1,0 @@
-#kdl_name = Fib_pos_g_y
-Apps.Fib.Pos.get_y (pos: Apps.Fib.Pos) : U120 {
-  U120.shift_right (Sigma.fst pos) (U120.new 0 8)
-}

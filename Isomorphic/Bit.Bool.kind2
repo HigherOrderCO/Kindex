@@ -1,7 +1,0 @@
-Isomorphic.Bit.Bool : Isomorphic Bit Bool
-Isomorphic.Bit.Bool =
-  $ ((x: Bit)   => Bit.to_bool x)
-  ($ ((x: Bool) => Bool.to_bit x)
-  ($ ((x: Bit)  => Bool.to_bit.inverse x)
-  ($ ((x: Bool) => Bit.to_bool.inverse x)
-  Unit.new)))

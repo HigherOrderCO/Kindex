@@ -1,4 +1,0 @@
-#kdl_name = Fib_map_del
-Apps.Fib.Map.del (map: Apps.Fib.Map) (pos: Apps.Fib.Pos) : Apps.Fib.Map {
-  Apps.Fib.Map.set map (U120.new 0 0) pos
-}

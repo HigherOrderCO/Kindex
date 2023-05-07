@@ -1,4 +1,0 @@
-#kdl_name = KIOTime
-Kindelia.IO.time : Kindelia.IO U120 {
-  Kindelia.IO.do_time U120 (x => Kindelia.IO.done U120 x)
-}

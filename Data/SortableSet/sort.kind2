@@ -1,3 +1,0 @@
-// Sorts the elements of the Set
-Data.SortableSet.sort <a: Type> (set: Data.SortableSet a) : (List a)
-Data.SortableSet.sort t1 (Data.SortableSet.new t2 count segs comp) = List.foldl List.nil (x => y => (List.merge_sort.merge comp x y)) segs

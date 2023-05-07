@@ -1,4 +1,0 @@
-#kdl_name = Fib_pos_vnew
-Apps.Fib.Pos.Value.new (x: U120) (y: U120) {
-  U120.bitwise_or (U120.shift_left y (U120.new 0 8)) x
-}

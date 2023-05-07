@@ -1,4 +1,0 @@
-Kindelia.Deserializer.get_names_size: Kindelia.Deserializer U120 {
-  (bits: Bits) => (names: Kindelia.Deserializer.Names) => (names_size: U120) =>
-    Maybe.some (Pair.new (Kindelia.Deserializer.Result.new _ names_size names names_size) bits)
-}

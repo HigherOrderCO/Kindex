@@ -1,4 +1,0 @@
-#kdl_name = Fib_plr_p_gx
-Apps.Fib.Player.pos.get_x (player: Apps.Fib.Player) : U120 {
-  Apps.Fib.get_in_u120 player (U120.new 0 0) (U120.new 0 8)
-}

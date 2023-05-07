@@ -1,4 +1,0 @@
-#kdl_name = Fib_id_empty
-Apps.Fib.Id.empty : U120 {
-  U120.new 0 0
-}

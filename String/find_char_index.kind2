@@ -1,0 +1,11 @@
+String.find_char_index (xs: String) (chr: Char) : Maybe Nat
+String.find_char_index xs chr = String.find_char_index.go xs chr Nat.zero
+
+String.find_char_index.go (xs: String) (chr: Char) (idx: Nat) : Maybe Nat
+String.find_char_index.go String.nil              chr idx = Maybe.none
+String.find_char_index.go (String.cons head tail) chr idx =
+  if Char.equal chr head {
+    Maybe.some idx
+  } else {
+    String.find_char_index.go tail chr (Nat.succ idx)
+  }

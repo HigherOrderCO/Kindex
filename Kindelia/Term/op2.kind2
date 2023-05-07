@@ -1,2 +1,0 @@
-// Automatically derived from Kindelia/Term/_.type
-Kindelia.Term.op2 (oper: U120) (val0: Kindelia.Term) (val1: Kindelia.Term) : (Kindelia.Term)

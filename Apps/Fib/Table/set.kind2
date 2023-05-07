@@ -1,4 +1,0 @@
-#kdl_name = Fib_tbl_set
-Apps.Fib.Table.set (map: Apps.Fib.Table) (entity: Apps.Fib.Entity) (id: Apps.Fib.Id) : Apps.Fib.Table {
-  Data.BaseTree.set Apps.Fib.Entity Apps.Fib.Table.Bases (Apps.Fib.Table.Key.from_id id) map entity
-}

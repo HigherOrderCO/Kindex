@@ -1,4 +1,0 @@
-#kdl_name = KIOCall
-Kindelia.IO.call <r: Type> <t: Type> (name: U120) (argm: t) : Kindelia.IO r {
-  Kindelia.IO.do_call r r t name argm (x => Kindelia.IO.done r x)
-}

@@ -1,4 +1,0 @@
-#kdl_name = Bit_and
-Bit.and (a: Bit) (b: Bit) : Bit 
-Bit.and Bit.0 b = Bit.0
-Bit.and Bit.1 b = b

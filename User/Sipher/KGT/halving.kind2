@@ -1,7 +1,0 @@
-// Function to verify which halving we are right now
-User.Sipher.KGT.halving
-  (last_mint: U120)
-: U120 {
-  let halving = U120.new 0 125000000
-  U120.div last_mint halving
-}

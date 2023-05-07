@@ -1,3 +1,0 @@
-// Automatically derived from User.Franchu.ConcLang/ProgramState/ProgramState.type
-User.Franchu.ConcLang.ProgramState.match (x: (User.Franchu.ConcLang.ProgramState)) <p: (x: (User.Franchu.ConcLang.ProgramState)) Type> (new: (stack: (List (User.Franchu.ConcLang.Value))) (queue: (List (User.Franchu.ConcLang.Value))) (p (User.Franchu.ConcLang.ProgramState.new stack queue))) : (p x)
-User.Franchu.ConcLang.ProgramState.match (User.Franchu.ConcLang.ProgramState.new stack queue) p new = (new stack queue)

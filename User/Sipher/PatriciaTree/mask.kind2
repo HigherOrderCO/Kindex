@@ -1,4 +1,0 @@
-#kdl_name = PMask
-User.Sipher.PatriciaTree.mask (k: U120) (m: U120): U120 {
-  (U120.bitwise_and k (U120.sub m U120.1))
-}

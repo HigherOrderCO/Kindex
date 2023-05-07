@@ -1,2 +1,0 @@
-// Automatically derived from Data/RedBlackTree/_.type
-Data.RedBlackTree.tip <k: Type> <v: Type> (comp: (_: k) (_: k) Cmp) : (Data.RedBlackTree k v)

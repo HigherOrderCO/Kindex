@@ -1,5 +1,0 @@
-// Automatically derived from action.type
-KDL.KGT.Action.match (x: (KDL.KGT.Action)) -(p: (x: (KDL.KGT.Action)) Type) (mint: (user: U120)  (p (KDL.KGT.Action.mint user))) (send: (from: U120) (to: U120) (value: U120) (p (KDL.KGT.Action.send from to value))) (get: (user: U120) (p (KDL.KGT.Action.get user))) : (p x)
-KDL.KGT.Action.match (KDL.KGT.Action.mint user_) p mint send get = (mint user_ )
-KDL.KGT.Action.match (KDL.KGT.Action.send from_ to_ value_) p mint send get = (send from_ to_ value_)
-KDL.KGT.Action.match (KDL.KGT.Action.get user_) p mint send get = (get user_)

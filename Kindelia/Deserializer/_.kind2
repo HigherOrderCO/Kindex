@@ -1,6 +1,0 @@
-Kindelia.Deserializer (t: Type) : Type {
-  (bits: Bits) 
-  (names: Data.BBT U120 U120) 
-  (names_size: U120) 
-    -> Maybe (Pair (Kindelia.Deserializer.Result t) Bits)
-}

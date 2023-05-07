@@ -1,4 +1,0 @@
-#kdl_name = KIOFrom
-Kindelia.IO.from : Kindelia.IO U120 {
-  Kindelia.IO.do_from U120 (x => Kindelia.IO.done U120 x)
-}

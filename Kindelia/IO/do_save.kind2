@@ -1,3 +1,0 @@
-#kdl_name = SAVE
-#kdl_erase
-Kindelia.IO.do_save <c: Type> <t: Type> (expr: t) (cont: (_: Unit) (Kindelia.IO c)) : (Kindelia.IO c)

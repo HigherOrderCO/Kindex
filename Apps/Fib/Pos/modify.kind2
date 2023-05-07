@@ -1,8 +1,0 @@
-#kdl_name = Fib_pos_mod
-Apps.Fib.Pos.modify (pos: Apps.Fib.Pos) (delta: Pair U120 U120) : Maybe Apps.Fib.Pos {
-  let list = Apps.Fib.Pos.range pos [delta]
-  match List list {
-    nil  => Maybe.none
-    cons => Maybe.some list.head
-  }
-}

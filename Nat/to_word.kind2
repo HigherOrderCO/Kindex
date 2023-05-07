@@ -1,4 +1,0 @@
-#kdl_name = Nat_to_word
-Nat.to_word (size: Nat) (n: Nat) : Word size
-Nat.to_word size  Nat.zero    = Word.zero
-Nat.to_word size (Nat.succ n) = Word.inc (Nat.to_word size n)

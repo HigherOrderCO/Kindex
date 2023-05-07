@@ -1,3 +1,0 @@
-Apps.Fib.Map : Type {
-  Data.BaseTree Apps.Fib.Map.Bases U120
-}

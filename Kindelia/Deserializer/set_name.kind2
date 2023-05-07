@@ -1,6 +1,0 @@
-Kindelia.Deserializer.set_name (name: U120): Kindelia.Deserializer Unit {
-  (bits: Bits) => (names: Kindelia.Deserializer.Names) => (names_size: U120) =>
-    let f = (x: U120) => (y: U120) => U120.compare x y
-    let names = Data.BBT.set f names_size name names
-    Maybe.some (Pair.new (Kindelia.Deserializer.Result.new _ Unit.new names (U120.add names_size U120.1)) bits)
-}

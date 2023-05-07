@@ -1,8 +1,0 @@
-Kindelia.Deserializer.get_name (id: U120): Kindelia.Deserializer U120 {
-  (bits: Bits) => (names: Kindelia.Deserializer.Names) => (names_size: U120) =>
-    do Maybe {
-      let f = (x: U120) => (y: U120) => U120.compare x y
-      ask name = Data.BBT.get f id names
-      return (Pair.new (Kindelia.Deserializer.Result.new _ name names names_size) bits)
-    }
-}

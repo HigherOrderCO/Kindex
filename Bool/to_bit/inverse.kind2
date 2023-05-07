@@ -1,3 +1,0 @@
-Bool.to_bit.inverse (x: Bit) : Equal Bit (Bool.to_bit (Bit.to_bool x)) x
-Bool.to_bit.inverse Bit.0 = Equal.refl
-Bool.to_bit.inverse Bit.1 = Equal.refl

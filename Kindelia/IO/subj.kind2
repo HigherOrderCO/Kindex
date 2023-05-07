@@ -1,4 +1,0 @@
-#kdl_name = KIOSubj
-Kindelia.IO.subj : Kindelia.IO U120 {
-  Kindelia.IO.do_subj U120 (x => Kindelia.IO.done U120 x)
-}

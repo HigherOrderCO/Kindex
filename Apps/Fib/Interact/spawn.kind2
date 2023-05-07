@@ -1,4 +1,0 @@
-#kdl_name = Fib_it_sp
-Apps.Fib.Interact.spawn (id: Apps.Fib.Id) (town: U120) : U120 {
-  Apps.Fib.Action.spawn_code id town
-}

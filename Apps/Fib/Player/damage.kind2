@@ -1,4 +1,0 @@
-#kdl_name = Fib_plr_dmg
-Apps.Fib.Player.damage (player: Apps.Fib.Player) (dmg: U120) : Apps.Fib.Player {
-  Apps.Fib.Player.hp.change player ((x : U120) => U120.sub x dmg)
-}

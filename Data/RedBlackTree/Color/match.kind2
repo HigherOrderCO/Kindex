@@ -1,4 +1,0 @@
-// Automatically derived from Data/RedBlackTree/Color/_.type
-Data.RedBlackTree.Color.match (x: (Data.RedBlackTree.Color)) -(p: (x: (Data.RedBlackTree.Color)) Type) (red: (p (Data.RedBlackTree.Color.red))) (black: (p (Data.RedBlackTree.Color.black))) : (p x)
-Data.RedBlackTree.Color.match (Data.RedBlackTree.Color.red) p red black = (red)
-Data.RedBlackTree.Color.match (Data.RedBlackTree.Color.black) p red black = (black)

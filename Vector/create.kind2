@@ -1,0 +1,3 @@
+Vector.create <a> (len: Nat) (f: Nat -> a) : Vector a len
+Vector.create Nat.zero     f = Vector.nil
+Vector.create (Nat.succ p) f = Vector.cons p (f Nat.zero) (Vector.create p (x => f (Nat.succ x)))

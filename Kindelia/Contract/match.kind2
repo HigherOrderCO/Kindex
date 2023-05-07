@@ -1,3 +1,0 @@
-// Automatically derived from Kindelia/Contract/_.type
-Kindelia.Contract.match <state: Type> <action: Type> <response: Type> (x: (Kindelia.Contract state action response)) -(p: (x: (Kindelia.Contract state action response)) Type) (new: (main: (_: action) (Kindelia.IO response)) (init: state) (p (Kindelia.Contract.new state action response main init))) : (p x)
-Kindelia.Contract.match state action response (Kindelia.Contract.new state_ action_ response_ main_ init_) p new = (new main_ init_)

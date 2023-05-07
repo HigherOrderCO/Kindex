@@ -1,7 +1,0 @@
-#kdl_name = Bt_base_qmat
-Data.BaseTree.Base.Qui.match <r: Type> (x: (Data.BaseTree.Base.Qui r)) -(p: (x: (Data.BaseTree.Base.Qui r)) Type) (0: (pred: r) (p (Data.BaseTree.Base.Qui.0 r pred))) (1: (pred: r) (p (Data.BaseTree.Base.Qui.1 r pred))) (2: (pred: r) (p (Data.BaseTree.Base.Qui.2 r pred))) (3: (pred: r) (p (Data.BaseTree.Base.Qui.3 r pred))) (4: (pred: r) (p (Data.BaseTree.Base.Qui.4 r pred))) : (p x)
-Data.BaseTree.Base.Qui.match r (Data.BaseTree.Base.Qui.0 r_ pred_) p 0 1 2 3 4 = (0 pred_)
-Data.BaseTree.Base.Qui.match r (Data.BaseTree.Base.Qui.1 r_ pred_) p 0 1 2 3 4 = (1 pred_)
-Data.BaseTree.Base.Qui.match r (Data.BaseTree.Base.Qui.2 r_ pred_) p 0 1 2 3 4 = (2 pred_)
-Data.BaseTree.Base.Qui.match r (Data.BaseTree.Base.Qui.3 r_ pred_) p 0 1 2 3 4 = (3 pred_)
-Data.BaseTree.Base.Qui.match r (Data.BaseTree.Base.Qui.4 r_ pred_) p 0 1 2 3 4 = (4 pred_)

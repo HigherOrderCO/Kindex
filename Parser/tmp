@@ -1,0 +1,360 @@
+Parser (t: Type) (r: Type) : Type {
+  (Parser.State t) -> (Parser.Result t r)
+}// Runs the first parser. If it fails, runs the second one
+Parser.alternative <t> <a> (x : Parser t a) (y : Parser t a) : (Parser t a) {
+  Parser.first_of [x y]
+}// Consumes and returns the head
+// Fail on empty input
+Parser.any_char <t> : Parser t Char {
+  Parser.satisfy ((t: Char) => Bool.true)
+}Parser.applicative <a> <b> <t> (p : Parser t (a -> b)) (p1 : Parser t a) : (Parser t b) {
+  do Parser {
+    ask f = p
+    let f = f :: a -> b
+    ask r = p1
+    return (f r)
+  }
+}// Parses a body enclosed with an opener and closer
+// Example: to parse "(asdf)"
+//         Parser.between (Parser.char '(') (Parser.char ')') (Parser.take_while (c => Char.is_alpha))
+Parser.between <o> <c> <b> <t> (open_: Parser t o) (close: Parser t c) (body: Parser t b) : Parser t b {
+  do Parser {
+    open_
+    ask res = body
+    close
+    return res
+  }
+}Parser.bind <a> <b> <t> (pa: Parser t a) (pb: a -> Parser t b) : Parser t b {
+  state =>
+    let ra = (pa state)
+    match Parser.Result ra {
+      done result state => pb result state
+      fail state  error => Parser.Result.fail state error 
+    }
+}// Succeeds if the first char left to parse is equal to the given one
+Parser.char <t> (c: Char) : Parser t Unit {
+  Parser.expecting (Parser.skip (Parser.satisfy (h => Char.equal c h))) (String.pure c)
+}// Succeeds if the next char is one of a list of characters
+// Consumes and returns the character
+Parser.char_any_of <t> (options: String) : Parser t Char {
+  Parser.satisfy (c => String.contains_char c options)
+}// A parser that always fails with empty error
+Parser.empty <a> <t> : Parser t a {
+  do Parser {
+    ask index = Parser.get_index
+    (Parser.fail "" index index)
+  }
+}// A parser that succeeds only if there's nothing more to parse
+// Doesn't consume anything
+Parser.eof <t> : Parser t Unit {
+  Parser.not (Parser.look_ahead Parser.any_char)
+}// If the given parser fails, replace its error by "Expected `name`", where name is the given value.
+// Marks the initial error index as the one before running the given parser,
+// and the last error index as the one in the error coming from the given parser.
+Parser.expecting <a> <t> (prs: Parser t a) (name: String) : Parser t a {
+  state =>
+    open Parser.State state
+    let state = Parser.State.new state.custom state.left state.back state.index
+    // init from the state index before running parser
+    let init  = state.index
+    match Parser.Result r = (prs state) {
+      done =>
+        // If parser succeeds, just return the result without changing anything
+        Parser.Result.done r.state r.result
+      fail =>
+        // On fail, insert err msg and mark the err range
+        let msg  = String.concat "Expected " name
+        open Parser.Error r.error
+        // last from the incoming error
+        let last  = r.error.last
+        let error = Parser.Error.new msg init last
+        Parser.Result.fail r.state error
+    }
+}// A parser that always fail, with custom error
+Parser.fail <a> <t> (msg: String) (init: U60) (last: U60) : Parser t a {
+  state =>
+    let error = (Parser.Error.new msg init last)
+    Parser.Result.fail state error
+}// Runs a parser that returns a maybe and try to extract the value
+// Succeeds on some and fails on none
+// The inverse of Parser.to_maybe
+Parser.fail_on_none <a> <t> (prs: Parser t (Maybe a)) : Parser t a {
+  do Parser {
+    ask ma = prs
+    match Maybe ma {
+      none => Parser.empty
+      some => Parser.pure ma.value
+    }
+  }
+}// Returns the first parser that succeeds
+// Backtracks after each failed parser
+// Fails if no parsers succeed
+Parser.first_of <a> <t> (parsers: List (Parser t a)) : Parser t a
+Parser.first_of (List.nil  la)           = Parser.empty
+Parser.first_of (List.cons la head tail) = 
+  do Parser {
+    ask ma = Parser.try head
+    match Maybe ma {
+      none => Parser.first_of tail
+      some => Parser.pure ma.value
+    }
+  }
+Parser.get_index <t> : Parser t U60 {
+  state =>
+    open Parser.State state
+    let state = Parser.State.new state.custom state.left state.back state.index
+    Parser.Result.done state state.index
+}// Takes a parser of a Maybe, returns true if the result is some, false if none.
+// This can be used to convert the result of a `try` into a boolean,
+// or to convert a `to_maybe` into a `to_bool`.
+Parser.is_some <a> <t> (prs: Parser t (Maybe a)) : Parser t Bool {
+  Parser.map ((r: Maybe a) => Maybe.is_some r) prs
+}// Returns the result of a parser without modifying the state
+Parser.look_ahead <a> <t> (prs: Parser t a) : Parser t a {
+  state =>
+    open Parser.State state
+    let state = Parser.State.new state.custom state.left state.back state.index
+    // save initial index
+    let init  = state.index
+    // Apply parser
+    match Parser.Result res = (prs state) {
+      // on success, backtrack and return result
+      done (state = new_state) result =>
+        open Parser.State new_state
+        let new_state = Parser.State.new new_state.custom new_state.left new_state.back new_state.index
+        let last      = new_state.index
+        let back_n    = (- last init)  // TODO: prove that no parser moves back
+        let old_state = Parser.State.backtrack back_n new_state
+        Parser.Result.done old_state result
+      // on fail, backtrack and propagate fail
+      fail (state = new_state) error =>
+        open Parser.State new_state
+        let new_state = Parser.State.new new_state.custom new_state.left new_state.back new_state.index
+        let last      = new_state.index
+        let back_n    = (- last init)
+        let old_state = Parser.State.backtrack back_n new_state
+        Parser.Result.fail old_state error
+    }
+}
+// Applies a parser repeatedly until it fails
+// Returns a list of all results
+Parser.many <a> <t> (prs: Parser t a) : Parser t (List a) {
+  do Parser {
+    ask mh = Parser.try prs
+    match Maybe mh {
+      none => Parser.pure []
+      some value => do Parser {
+        ask tail = Parser.many prs
+        return List.cons value tail
+      }
+    }
+  }
+}// Applies a parser repeatedly until it fails, at least once
+// Returns a list of all results
+// Fails if the first try fails
+Parser.many1 <t> <a> (prs: Parser t a) : Parser t (List a) {
+  do Parser {
+    ask head = prs
+    ask tail = Parser.many prs
+    return (List.cons head tail) 
+  }
+}// Run parser and modify the result on success
+Parser.map <a> <b> <t> (f : a -> b) (prs: Parser t a) : Parser t b {
+  do Parser {
+    ask r = prs
+    return (f r)
+  }
+}// Fails when the given parser succeeds and succeeds when it fails
+// Erases any result
+Parser.not <a> <t> (prs: Parser t a) : Parser t Unit {
+  do Parser {
+    ask success = Parser.to_bool prs
+    if success {
+      Parser.empty
+    } else {
+      Parser.pure Unit.new
+    }
+  }
+}Parser.pure <t> <r> (value: r) : Parser t r {
+  state => Parser.Result.done state value 
+}/// Evaluates a parser until a condition parser succeeds. Returns an array of results.
+Parser.repeat_until <a> <b> <t> (cond: Parser t a) (prs: Parser t b) : Parser t (List b) {
+  do Parser {
+    ask done = Parser.is_some (Parser.try cond)
+    if done {
+      Parser.pure []
+    } else {
+      do Parser {
+        ask head = prs
+        ask tail = Parser.repeat_until cond prs
+        return List.cons head tail
+      }
+    }
+  }
+}/// Evaluates a parser while a condition parser succeeds. Returns an array of results.
+Parser.repeat_while <a> <b> <t> (cond: Parser t a) (prs: Parser t b) : Parser t (List b) {
+  do Parser {
+    ask cont = Parser.is_some (Parser.try cond)
+    if cont {
+      do Parser {
+        ask head = prs
+        ask tail = Parser.repeat_while cond prs
+        return List.cons head tail
+      }
+    } else {
+      Parser.pure []
+    }
+  }
+}// Runs a parser and returns the result, or none
+// FIXME: for some reason, renaming prs to parser makes the type checker loop; investigate
+Parser.run <r: Type> <t> (custom: t) (prs: Parser t r) (code: String) : Either r Parser.Error {
+  let state = Parser.State.new custom code String.nil 0
+  match Parser.Result res = (prs state) {
+    done => Either.left  res.result
+    fail => Either.right res.error
+  }
+}// Succeeds if the head character satisfies a condition.
+// This is implemented as the only code-taking primitive of the library.
+// All other functions that consume characters are based on `satisfy`
+Parser.satisfy <t> (cond: Char -> Bool) : Parser t Char {
+  state => Parser.satisfy.go cond state
+}
+
+
+Parser.satisfy.go <t> (cond: Char -> Bool) (state: Parser.State t) : Parser.Result t Char
+
+// If no more text to parse, fail
+Parser.satisfy.go cond (Parser.State.new custom "" back index) =
+  let state = Parser.State.new custom String.nil back index
+  let error = Parser.Error.new "Unexpected EOF" index index
+  Parser.Result.fail state error
+
+// Else, move state forward and check if the condition is satisfied
+Parser.satisfy.go cond (Parser.State.new custom (String.cons head tail) back index) =
+  let state = Parser.State.new custom (String.cons head tail) back index
+  let state = Parser.State.forward 1 state
+  Parser.satisfy.cond (cond head) state head
+
+
+Parser.satisfy.cond <t> (cond: Bool) (state: Parser.State t) (head: Char) : Parser.Result t Char
+
+// If cond is satisfied, return what used to be the head of the text left to parse
+Parser.satisfy.cond Bool.true state head = Parser.Result.done state head
+// Else, fail indicating which character didn't satisfy the condition
+Parser.satisfy.cond Bool.false (Parser.State.new custom left back index) head =
+  let state = Parser.State.new custom left back index
+  let error = Parser.Error.new "" (- index 1) index
+  Parser.Result.fail state error// Parses a sequence of elements separated by some criteria
+// Example: To match "1,2,3,4,5,6,70", use
+//          `(Parser.sep_by (Parser.char ',') Parser.u60_decimal)`
+//          The result will be a list with the parsed numbers.
+Parser.sep_by <s> <e> <t> (p_sep: Parser t s) (p_elem: Parser t e) : Parser t (List e) {
+  do Parser {
+    ask me = Parser.try p_elem
+    match Maybe me {
+      none => Parser.pure []
+      some =>
+        do Parser {
+          ask tail = Parser.repeat_while p_sep p_elem
+          return List.cons me.value tail 
+        }
+    }
+  }
+}Parser.set_custom <old> <new> (custom: new) : Parser new Unit
+Parser.set_custom custom = state =>
+    let state = Parser.State.set_custom custom state
+    Parser.Result.done state Unit.new// Discard the result of a parser
+Parser.skip <a> <t> (prs: Parser t a) : Parser t Unit {
+  do Parser {
+    prs
+    return Unit.new
+  }
+}// Skips everything up to the line end
+// Returns true if anything was skipped
+Parser.skip_line <t> : Parser t Bool {
+  Parser.skip_while (c => Bool.not (Char.equal Char.newline c))
+}// Skips characters while they fulfill some condition
+// Returns true if anything was skipped
+Parser.skip_while <t> (cond: Char -> Bool) : Parser t Bool {
+  Parser.to_bool (Parser.take_while1 cond)
+}// Skips any sequence of ascii whitespace
+// Returns true if anything was skipped
+Parser.skip_whitespace <t> : Parser t Bool {
+  Parser.skip_while (c => Char.is_whitespace c)
+}// Succeeds if the text starts with the given string
+Parser.string <t> (str: String) : Parser t Unit {
+  Parser.expecting (Parser.string.go str) str
+}
+
+Parser.string.go <t> (str: String) : Parser t Unit
+Parser.string.go  String.nil       = Parser.pure Unit.new
+Parser.string.go (String.cons h t) = do Parser {
+  Parser.char h
+  (Parser.string.go t)
+}Parser.take_custom <t> (empty: t): Parser t t
+Parser.take_custom empty = state =>
+    let Pair.new (fst = custom) (snd = state) = Parser.State.take_custom state
+    let state = Parser.State.set_custom empty state
+    Parser.Result.done state custom// Take characters from the code while a condition passes
+Parser.take_while <t> (cond: Char -> Bool) : Parser t String {
+  do Parser {
+    ask mh = Parser.try (Parser.satisfy cond)
+    match Maybe mh {
+      none => Parser.pure String.nil
+      some =>
+        do Parser {
+          ask tail = Parser.take_while cond
+          return (String.cons mh.value tail)
+        }
+    }
+  }
+}// Take at least 1 character from the code while a condition passes
+// Fails if no characters are taken
+Parser.take_while1 <t> (cond: Char -> Bool) : Parser t String {
+  do Parser {
+    ask r = Parser.take_while cond
+    match String r {
+      nil  => Parser.empty
+      cons => Parser.pure (String.cons r.head r.tail)
+    }
+  }
+}// Runs a parser, returning whether it succeeds or not
+// Never fails
+Parser.to_bool <a> <t> (prs: Parser t a) : Parser t Bool {
+  state => match Parser.Result r = (prs state) {
+    done state .. => Parser.Result.done state Bool.true
+    fail state .. => Parser.Result.done state Bool.false
+  }
+}// Runs a parser, returning the result on success and none on failure
+// Never fails
+Parser.to_maybe <a> <t> (prs: Parser t a) : Parser t (Maybe a) {
+  state =>
+    match Parser.Result r = (prs state) {
+      done state result => Parser.Result.done state (Maybe.some result)
+      fail state ..     => Parser.Result.done state  Maybe.none
+    }
+}// On success, return the result
+// On failure, backtrack and return none
+// Never fails
+Parser.try <a> <t> (prs: Parser t a) : Parser t (Maybe a) {
+  state =>
+    open Parser.State state
+    let init_idx = state.index
+    let state = Parser.State.new state.custom state.left state.back state.index
+    match Parser.Result r = (prs state) {
+      done state result => Parser.Result.done state (Maybe.some result)
+      fail state .. =>
+        open Parser.State state
+        let n_back    = (- state.index init_idx)
+        let new_state = Parser.State.new state.custom state.left state.back state.index
+        let old_state = Parser.State.backtrack n_back new_state
+        Parser.Result.done old_state Maybe.none
+    }
+}// A parser that matches an integer decimal number like 32867
+Parser.u60_decimal <t> : Parser t U60 {
+  let f   = (str: String) => U60.read_decimal str
+  let prs = Parser.take_while1 (c => Char.is_decimal c)
+  let prs = Parser.fail_on_none (Parser.map f prs)
+  Parser.expecting prs "decimal number"
+}Parser.whitespace <t> : Parser t Unit
+Parser.whitespace = Parser.skip (Parser.take_while1 (c => Char.is_whitespace c))

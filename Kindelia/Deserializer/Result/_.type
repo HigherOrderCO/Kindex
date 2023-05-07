@@ -1,6 +1,0 @@
-type Kindelia.Deserializer.Result <t: Type> {
-  new
-    (result: t)
-    (names: Data.BBT U120 U120)
-    (names_size: U120)
-}

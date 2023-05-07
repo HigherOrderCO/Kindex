@@ -1,3 +1,0 @@
-#kdl_name = HAX0
-#kdl_erase
-Kindelia.IO.do_hax0 <c: Type> (cont: (_: U120) (Kindelia.IO c)) : (Kindelia.IO c)

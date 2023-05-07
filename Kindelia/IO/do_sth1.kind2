@@ -1,3 +1,0 @@
-#kdl_name = STH1
-#kdl_erase
-Kindelia.IO.do_sth1 <c: Type> (idx: U120) (cont: (_: U120) (Kindelia.IO c)) : (Kindelia.IO c)

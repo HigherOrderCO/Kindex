@@ -1,3 +1,0 @@
-#kdl_name = DONE
-#kdl_erase
-Kindelia.IO.done <c: Type> (val: c) : (Kindelia.IO c)

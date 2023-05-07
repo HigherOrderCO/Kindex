@@ -1,13 +1,51 @@
+// Proof: a == a + 0
+Nat.add.comm.zero (a: Nat) : Equal Nat a (Nat.add a Nat.zero)
+// goal: 0 == 0
+Nat.add.comm.zero Nat.zero =
+  // 0 == 0
+  let ret = Equal.refl
+  ret
+// goal: S a == S (a + 0)
+Nat.add.comm.zero (Nat.succ a) =
+  // a == a + 0
+  let ind = (Nat.add.comm.zero a)
+  // S a == S (a + 0)
+  let app = Equal.apply (x => Nat.succ x) ind
+  app
+
+// Proof (a + 1) + b = a + (b + 1)
+Nat.add.comm.succ (a: Nat) (b: Nat) : Equal Nat (Nat.add a (Nat.succ b)) (Nat.succ (Nat.add a b))
+// goal: S b == S b
+Nat.add.comm.succ Nat.zero b =
+  // S b == S b
+  let ret = Equal.refl
+  ret
+// goal: S (a + S b) == S (S (a + b))
+Nat.add.comm.succ (Nat.succ a) b =
+  // a + S b == S (a + b)
+  let ind = Nat.add.comm.succ a b
+  // S (a + S b) == S (S (a + b))
+  let app = Equal.apply (x => Nat.succ x) ind
+  app
+
+// Proof: a + b == b + a
 Nat.add.comm (a: Nat) (b: Nat) : Equal Nat (Nat.add a b) (Nat.add b a)
-Nat.add.comm Nat.zero     b = Nat.add.comm.zero b
+// goal: b == (b + 0)
+Nat.add.comm Nat.zero b =
+  // b == (b + 0)
+  let aux = Nat.add.comm.zero b
+  aux
+// goal: S (a + b) == b + (S a)
 Nat.add.comm (Nat.succ a) b =
-  // Goal: (b + a) + 1 == (a + (b + 1))
-  // We know that a + b == b + a because of induction
-  let induction = (Nat.add.comm a b)
-  // (a + b) + 1 = (b + a) + 1
-  let induction = Equal.apply (x => Nat.succ x) induction
-  // (a + b) + 1 = (a + (b + 1))
-  let induction_tool = Equal.mirror (Nat.add.comm.succ b a)
-  // We can get our goal with this
-  Equal.chain induction induction_tool
+  // a + b == b + a
+  let ind = (Nat.add.comm a b)
+  // S (a + b) == S (b + a)
+  let app = (Equal.apply (x => Nat.succ x) ind)
+  // b + (S a) == S (b + a)
+  let aux = (Nat.add.comm.succ b a)
+  // S (b + a) == b + (S a)
+  let mir = (Equal.mirror aux)
+  // S (a + b) == S (b + a)
+  let ret = (Equal.chain app mir)
+  ret
 

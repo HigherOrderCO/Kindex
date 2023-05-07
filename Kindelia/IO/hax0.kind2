@@ -1,4 +1,0 @@
-#kdl_name = KIOHax0
-Kindelia.IO.hax0 : Kindelia.IO U120 {
-  Kindelia.IO.do_hax0 U120 (x => Kindelia.IO.done U120 x)
-}

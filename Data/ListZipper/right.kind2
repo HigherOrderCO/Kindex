@@ -1,3 +1,0 @@
-ListZipper.right <a: Type> (z: (ListZipper a)) : (ListZipper a)
-ListZipper.right a (ListZipper.new b lft (List.nil  t      )) = (ListZipper.new lft List.nil)
-ListZipper.right a (ListZipper.new b lft (List.cons t x rgt)) = (ListZipper.new (List.cons x lft) rgt)

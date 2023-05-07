@@ -1,5 +1,0 @@
-type Kindelia.Contract <state: Type> <action: Type> <response: Type> {
-  new
-    (main: action -> Kindelia.IO response)
-    (init: state)
-}

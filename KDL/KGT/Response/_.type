@@ -1,5 +1,0 @@
-type KDL.KGT.Response {
-  mint (success: Bool)
-  send (success: Bool)
-  get (mint_balance: (Pair U120 U120))
-}

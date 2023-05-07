@@ -1,6 +1,0 @@
-#kdl_name = Cmp_eq_absd
-Cmp.equal.absurd (x : Cmp) (y : Cmp) (h: Equal x y) (h2 : Equal (Cmp.equal x y) Bool.false) : Empty {
-  let p1 = Equal.rewrite h (a => Equal (Cmp.equal a y) Bool.false) h2
-  let p2 = Equal.rewrite (Cmp.equal.same y) (a => Equal a Bool.false) p1
-  Bool.true_not_false p2
-}''

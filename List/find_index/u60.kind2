@@ -1,0 +1,12 @@
+List.find_index.u60 <a> (xs: List a) (cond: a -> Bool) : Maybe U60
+List.find_index.u60 a xs cond = List.find_index.u60.go xs cond 0
+
+// Auxiliary function for find_index
+List.find_index.u60.go <a> (xs: List a) (cond: a -> Bool) (idx: U60) : Maybe U60
+List.find_index.u60.go a (List.nil  t)           cond idx = Maybe.none
+List.find_index.u60.go a (List.cons t head tail) cond idx =
+  if cond head {
+    Maybe.some idx
+  } else {
+    List.find_index.u60.go tail cond (+ idx 1)
+  }
