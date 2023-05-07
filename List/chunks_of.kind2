@@ -1,9 +1,7 @@
-#kdl_name = List_chnkof
 List.chunks_of <a> (len: Nat) (xs: List a): List (List a) {
   List.chunks_of.go len xs len List.nil
 }
 
-#kdl_name = List_chnkof0
 List.chunks_of.go <a>
   (len   : Nat)    // length of each chunk
   (list  : List a) // list to be split

@@ -1,5 +1,4 @@
 // Auxiliar Function
-#kdl_name = List_revers0
 List.reverse.go <a> (xs: List a) (ys: List a) : List a
 List.reverse.go a (List.nil  a_)           ys = ys
 List.reverse.go a (List.cons a_ x xs) ys = List.reverse.go xs (List.cons x ys)

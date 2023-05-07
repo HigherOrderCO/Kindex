@@ -1,4 +1,3 @@
-#kdl_name = List_span
 List.span <a> (cond: a -> Bool) (xs: List a) : Pair (List a) (List a)
 List.span a cond (List.nil  a_)      = Pair.new List.nil List.nil
 List.span a cond (List.cons a_ x xs) =

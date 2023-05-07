@@ -1,4 +1,3 @@
-#kdl_name = Nat_bitlen
 Nat.bitlen (n: Nat) : Nat
 Nat.bitlen Nat.zero = Nat.zero
 Nat.bitlen n        = Nat.succ (Nat.bitlen (Nat.half n))

@@ -1,5 +1,4 @@
 // for every a b c, (a | b) >> c = (a >> c) | (b >> c)
-#kdl_name = U120_sr_psor
 U120.shift_right.pass_or (a: U120) (b: U120) (c: U120)
 : let x = U120.shift_right (U120.bitwise_or a b) c
   let y = U120.bitwise_or (U120.shift_right a c) (U120.shift_right b c)

@@ -1,6 +1,5 @@
 // Returns the greatest common denominator between n and m
 // Example: Nat.gcd 18 12 -> 6
-#kdl_name = Nat_gcd
 Nat.gcd (n: Nat) (m: Nat) : Nat
 Nat.gcd  Nat.zero        m = m
 Nat.gcd (Nat.succ np) m =

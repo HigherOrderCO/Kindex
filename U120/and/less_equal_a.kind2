@@ -1,3 +1,2 @@
 // For every a b: (& a b) <= a
-#kdl_name = U120_and_lta
 U120.and.less_equal_a (a: U120) (b: U120) : U120.IsLessEqual (U120.bitwise_and a b) a

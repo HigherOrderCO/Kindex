@@ -1,3 +1,2 @@
-#kdl_name = U120_bit_or
 U120.bitwise_or (a: U120) (b: U120) : U120
 U120.bitwise_or (U120.new ahi alo) (U120.new bhi blo) = U120.new (| ahi bhi) (| alo blo)

@@ -1,7 +1,5 @@
 #derive[match]
 type Nat {
-  #kdl_name = Nat_zero
   zero
-  #kdl_name = Nat_succ
   succ (pred: Nat)
 }

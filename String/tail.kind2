@@ -1,4 +1,3 @@
-#kdl_name = Str_tail
 String.tail (xs: String) : String
 String.tail  String.nil        = String.nil
 String.tail (String.cons x xs) = xs

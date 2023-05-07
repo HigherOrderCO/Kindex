@@ -6,6 +6,5 @@
 //
 #derive[match]
 type Algebra.Semigroup <t: Type> {
-	#kdl_name = Al_Sg_new
   new (magma: Algebra.Magma t) (associativity: Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))
 }

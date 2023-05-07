@@ -1,4 +1,3 @@
-#kdl_name = Str_cont_chr
 String.contains_char (chr: Char) (str: String) : Bool
 String.contains_char chr String.nil = Bool.false
 String.contains_char chr (String.cons head tail) =

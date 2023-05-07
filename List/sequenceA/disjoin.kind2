@@ -1,4 +1,3 @@
-#kdl_name = List_seqa_dj
 List.sequenceA.disjoin <a> (xs: List (List a)) : (List (List a)) {
   let nil  = List.nil
   let cons = (y => ys => List.concat (List.map y (x => List.cons x List.nil)) ys) :: (List a) -> (List (List a)) -> (List (List a))

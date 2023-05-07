@@ -1,4 +1,3 @@
-#kdl_name = List_is_nil
 List.is_nil <a> (xs: List a) : Bool
 List.is_nil a (List.nil  t)           = Bool.true
 List.is_nil a (List.cons t head tail) = Bool.false

@@ -1,6 +1,5 @@
 // List.concat preserves length
 // (len xs) + (len ys) == len (xs ++ ys)
-#kdl_name = List_cnct_ln
 List.concat.length <a>
   (xs: List a)
   (ys: List a)

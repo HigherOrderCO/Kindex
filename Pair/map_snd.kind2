@@ -1,6 +1,5 @@
 // Applies a function to the second element of the pair
 // Example: (Pair.map_snd (Pair 3 2) (Nat.add 2)) -> 4
-#kdl_name = Pair_map_fst
 Pair.map_snd <a> <b> <c> (pair: Pair a b) (func: b -> c) : Pair a c
 Pair.map_snd a b c (Pair.new t.a t.b p.fst p.snd) func =
   Pair.new t.a c p.fst (func p.snd)

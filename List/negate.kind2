@@ -1,6 +1,5 @@
 // Negates all elements of a Boolean List
 // Example : (List.negate [Bool.false, Bool.false]) -> [Bool.true, Bool.true]
-#kdl_name = List_negate
 List.negate (xs: List Bool) : List Bool
 List.negate (List.nil Bool)            = List.nil
 List.negate (List.cons Bool head tail) = List.cons Bool (Bool.not head) (List.negate tail)

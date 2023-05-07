@@ -1,4 +1,3 @@
-#kdl_name = U120_cmp
 U120.compare (a: U120) (b: U120) : Cmp {
   (Bool.if (U120.less_than a b)
     Cmp.ltn

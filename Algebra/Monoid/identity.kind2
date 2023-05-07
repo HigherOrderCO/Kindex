@@ -1,3 +1,2 @@
-#kdl_name = Al_Mo_ident
 Algebra.Monoid.identity <t> (monoid: Algebra.Monoid t): Algebra.Laws.Identity t (Algebra.Monoid.concat monoid) (Algebra.Monoid.empty monoid)
 Algebra.Monoid.identity t (Algebra.Monoid.new t_ sg empty id) = id

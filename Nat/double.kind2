@@ -1,6 +1,5 @@
 // Doubles a Number
 // Example: (Nat.double 5) -> 10
-#kdl_name = Nat_double
 Nat.double (x: Nat) : Nat
 Nat.double (Nat.succ x) = Nat.succ (Nat.succ (Nat.double x))
 Nat.double (Nat.zero)   = Nat.zero

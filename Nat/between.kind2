@@ -1,5 +1,4 @@
 // Returns true if `min <= value < max`
-#kdl_name = Nat_between
 Nat.between (min: Nat) (val: Nat) (max: Nat) : Bool {
   Bool.and (Nat.lte min val) (Nat.ltn val max)
 }

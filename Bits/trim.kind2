@@ -1,6 +1,5 @@
 // Increases the bit structure size by n
 // Example: (Bits.trim 2 (Bits.i Bits.e)) -> (Bits.o (Bits.o (Bits.i Bits.e)))
-#kdl_name = Bits_trim
 Bits.trim (n: Nat) (b: Bits) : Bits
 Bits.trim (Nat.zero)        (b)             = (Bits.e)
 Bits.trim (Nat.succ n.pred) (Bits.e)        = (Bits.o (Bits.trim n.pred Bits.e))

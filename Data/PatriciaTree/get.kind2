@@ -1,4 +1,3 @@
-#kdl_name = PTree_get
 Data.PatriciaTree.get <a: Type> (map: Data.PatriciaTree a) (key: U60): Maybe a
 Data.PatriciaTree.get a (Data.PatriciaTree.leaf t j x) key =
   Data.PatriciaTree.getAux0 a (U60.equal j key) x
@@ -7,19 +6,16 @@ Data.PatriciaTree.get a (Data.PatriciaTree.branch t p m t0 t1) key =
 Data.PatriciaTree.get a (Data.PatriciaTree.empty) key =
   Maybe.none
 
-#kdl_name = PTree_get0
 Data.PatriciaTree.getAux0 <a: Type> (b: Bool) (val: a):  Maybe a
 Data.PatriciaTree.getAux0 a Bool.true  val = Maybe.some val
 Data.PatriciaTree.getAux0 a Bool.false val = Maybe.none
 
-#kdl_name = PTree_get1
 Data.PatriciaTree.getAux1 <a: Type> (b: Bool) (key: U60) (m: U60) (t0: Data.PatriciaTree a) (t1: Data.PatriciaTree a): Maybe a
 Data.PatriciaTree.getAux1 a Bool.false k m t0 t1 =
   Maybe.none
 Data.PatriciaTree.getAux1 a Bool.true  k m t0 t1 =
   Data.PatriciaTree.getAux2 (Data.PatriciaTree.zerobit k m) k t0 t1
 
-#kdl_name = PTree_get2
 Data.PatriciaTree.getAux2 <a: Type> (b: Bool) (key: U60) (t0: Data.PatriciaTree a) (t1: Data.PatriciaTree a): Maybe a
 Data.PatriciaTree.getAux2 a Bool.true  k t0 t1 =
   Data.PatriciaTree.get t0 k

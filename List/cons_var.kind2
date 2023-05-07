@@ -1,5 +1,4 @@
 // Concatenate any number of elements
-#kdl_name = List_consvar
 List.cons_var <a> (n: Nat) (xs: List a) : Variadic a (List a) n {
   let acc = (x => xs => List.cons x xs) :: a -> (List a) -> (List a)
   Variadic.foldr a (List a) acc xs n

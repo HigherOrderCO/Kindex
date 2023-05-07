@@ -1,8 +1,6 @@
-#kdl_name = Bt_get
 Data.BaseTree.get <val: Type> (bases: List Data.BaseTree.Base) (key: Data.BaseTree.Key bases) (map: Data.BaseTree bases val): val
 Data.BaseTree.get val (List.cons r h t) key map = Data.BaseTree.get.aux val h t key map
 
-#kdl_name = Bt_get0
 Data.BaseTree.get.aux <val: Type> (head: Data.BaseTree.Base) (tail: List Data.BaseTree.Base) (key: Data.BaseTree.Key (List.cons head tail)) (map: Data.BaseTree (List.cons head tail) val): val
 Data.BaseTree.get.aux val Data.BaseTree.Base.2 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Bin.0 x y) (Data.BaseTree.Bin.tie z b0 b1) = b0
 Data.BaseTree.get.aux val Data.BaseTree.Base.2 (List.nil Data.BaseTree.Base) (Data.BaseTree.Base.Bin.1 x y) (Data.BaseTree.Bin.tie z b0 b1) = b1

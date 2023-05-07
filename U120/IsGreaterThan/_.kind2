@@ -1,5 +1,4 @@
 // Propositional `a > b`
-#kdl_name = U120_is_gtn
 U120.IsGreaterThan (a: U120) (b: U120) : Type {
   Equal Bool (U120.greater_than a b) Bool.true
 }

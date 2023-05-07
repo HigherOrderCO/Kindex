@@ -1,4 +1,3 @@
-#kdl_name = Str_intrsprs
 String.intersperse (sep: Char) (xs: String) : String
 String.intersperse sep  String.nil                = String.nil
 String.intersperse sep (String.cons x String.nil) = String.pure x

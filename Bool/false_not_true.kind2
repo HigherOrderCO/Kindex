@@ -1,6 +1,5 @@
 // Bool.false_neq_true: false != true
 // (absurd => Equal.rewrite (x => if x {Empty} else {Unit}) absurd)
- #kdl_name = Bool_f_n_t
 Bool.false_not_true (e: (Equal Bool Bool.false Bool.true)) : Empty
 Bool.false_not_true e =
   // How this works: Equal.rewrite takes a predicate that changes a value into a

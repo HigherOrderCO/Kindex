@@ -1,3 +1,2 @@
-#kdl_name = Equal_rewrit
 Equal.rewrite <t> <a: t> <b: t> (e: Equal t a b) -(p: t -> Type) (x: p a) : p b
 Equal.rewrite _ _ _ (Equal.refl _ k) p x = x :: p k

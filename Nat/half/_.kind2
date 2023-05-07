@@ -1,5 +1,4 @@
 // Divides a number by two
-#kdl_name = Nat_half
 Nat.half (n: Nat) : Nat
 Nat.half  Nat.zero                  = Nat.zero
 Nat.half (Nat.succ  Nat.zero)       = Nat.zero

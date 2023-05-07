@@ -1,4 +1,3 @@
-#kdl_name = List_induce
 List.induce <t: Type> (x: List t)
   <p: (List t) -> Type>
   (nil: (p (List.nil t)))

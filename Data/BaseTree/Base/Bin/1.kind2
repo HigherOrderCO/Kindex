@@ -1,2 +1,1 @@
-#kdl_name = Bt_base_b1
 Data.BaseTree.Base.Bin.1 <r: Type> (pred: r) : (Data.BaseTree.Base.Bin r)

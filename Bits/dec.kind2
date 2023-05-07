@@ -1,4 +1,3 @@
-#kdl_name = Bits_dec
 Bits.dec (b: Bits) : Bits
 Bits.dec Bits.e = Bits.e 
 Bits.dec (Bits.o (Bits.e)) = Bits.e

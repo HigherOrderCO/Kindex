@@ -1,3 +1,2 @@
-#kdl_name = Char_string
 Char.to_string (chr: Char) : String
 Char.to_string chr = String.cons chr String.nil

@@ -1,4 +1,3 @@
-#kdl_name = Bits_not
 Bits.notb (b: Bits) : Bits
 Bits.notb Bits.e = Bits.e
 Bits.notb (Bits.o b) = Bits.i (Bits.notb b)

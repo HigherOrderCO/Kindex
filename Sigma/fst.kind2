@@ -1,3 +1,2 @@
-#kdl_name = Sigma_fst
 Sigma.fst <a: Type> <b: a -> Type> (s: Sigma a b) : a
 Sigma.fst a b (Sigma.new a_ b_ x y) = x

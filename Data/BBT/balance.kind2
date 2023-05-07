@@ -1,4 +1,3 @@
-#kdl_name = BBT.balance
 Data.BBT.balance <key> <value> (k: key) (v: value) (l: Data.BBT key value) (r: Data.BBT key value): Data.BBT key value {
   let size               = (x : Data.BBT key value) => Data.BBT.size x
   let size_l             = (size l)

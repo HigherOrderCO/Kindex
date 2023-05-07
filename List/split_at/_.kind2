@@ -3,7 +3,6 @@
 //   List.split [1 2 3] 2 -> ([1 2] [3])
 //   List.split xs n -> ((List.take xs n) (List.drop xs n))
 
-#kdl_name = List_splitat
 List.split_at <a> (xs : List a) (n : Nat) : Pair (List a) (List a)
 List.split_at a  xs                  Nat.zero    = Pair.new List.nil xs
 List.split_at a (List.nil  a_)      (Nat.succ n) = Pair.new List.nil List.nil

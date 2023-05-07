@@ -1,4 +1,3 @@
-#kdl_name = List_meso_mp
 List.merge_sort.merge_pair <a> (cmp: a -> a -> Bool) (xs: List (List a)) : List (List a)
 List.merge_sort.merge_pair a cmp (List.cons xa1 xh1 (List.cons xa2 xh2 xt2)) =
   (List.cons

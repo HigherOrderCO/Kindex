@@ -1,4 +1,3 @@
-#kdl_name = Bool_bits
 Bool.to_bits (b: Bool) : Bits
 Bool.to_bits Bool.false = Bits.o Bits.e
 Bool.to_bits Bool.true  = Bits.i Bits.e

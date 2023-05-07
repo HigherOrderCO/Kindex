@@ -1,6 +1,5 @@
 // Transforms a Bit structure to a String
 // Example: (Bits.to_string (Bits.i (Bits.o Bits.e))) -> "10"
-#kdl_name = Bits_string
 Bits.to_string (b : Bits) : String
 Bits.to_string  Bits.e         = String.nil
 Bits.to_string (Bits.o b.pred) = String.concat "0" (Bits.to_string b.pred)

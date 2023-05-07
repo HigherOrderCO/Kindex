@@ -1,7 +1,6 @@
 // Given a condition, verifies if all elements of that list matches that
 //condition
 // Example: (List.all Nat [1,2,3,4] (Nat.equal 3)) -> Bool.false
-#kdl_name = List_all
 List.all <a> (xs: List a) (cond: a -> Bool) : Bool
 List.all a (List.nil t)            cond = Bool.true
 List.all a (List.cons t head tail) cond = Bool.if (cond head) (List.all tail cond) Bool.false

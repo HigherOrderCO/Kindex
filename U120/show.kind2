@@ -1,4 +1,3 @@
-#kdl_name = U120_show
 U120.show (num: U120) : Show
 U120.show (U120.new 0 0) = str => String.cons '0' str
 U120.show num            = str =>

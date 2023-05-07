@@ -1,10 +1,8 @@
 // rev (rev xs) == xs
-#kdl_name = List_rev_inv
 List.reverse.involutive <a> (xs: List a) : Equal (List.reverse (List.reverse xs)) xs
 List.reverse.involutive a xs = List.reverse.involutive.aux xs []
 
 
-#kdl_name = List_rev_in0
 // (rev.go (rev.go xs ys) []) == (rev.go ys xs)
 List.reverse.involutive.aux <a> (xs: List a) (ys: List a) : Equal (List.reverse.go (List.reverse.go xs ys) []) (List.reverse.go ys xs)
 

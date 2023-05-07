@@ -1,6 +1,5 @@
 // Concatenation with empty list preserves the argument
 // xs == xs ++ []
-#kdl_name = List_cnct_nr
 List.concat.nil_right <a> (xs: List a) : Algebra.Laws.right_identity (x => y => List.concat x y) List.nil xs
 List.concat.nil_right a (List.nil a_) = Equal.refl
 List.concat.nil_right a (List.cons a_ x xs) =

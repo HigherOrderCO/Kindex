@@ -1,3 +1,2 @@
-#kdl_name = Str_show
 String.show (str: String) : Show
 String.show text = h => String.concat text h

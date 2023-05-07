@@ -1,4 +1,3 @@
-#kdl_name = Str_init
 String.init (xs: String) : String
 String.init  String.nil                = String.nil
 String.init (String.cons x String.nil) = String.nil

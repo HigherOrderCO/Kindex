@@ -1,4 +1,3 @@
-#kdl_name = Str_any
 String.any (cond: Char -> Bool) (xs: String) : Bool
 String.any cond String.nil = Bool.false
 String.any cond (String.cons x xs) =

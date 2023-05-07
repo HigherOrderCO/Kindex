@@ -1,4 +1,3 @@
-#kdl_name = Bitsmap_fil
 Bits.Map.filter <a> 
 	(cond: a -> Bool) 
 	(map: Bits.Map a) 

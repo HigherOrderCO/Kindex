@@ -1,4 +1,3 @@
-#kdl_name = Cmp_inv_inv
 Cmp.inv.involutive (c: Cmp) : Equal c (Cmp.inv (Cmp.inv c))
 Cmp.inv.involutive Cmp.ltn = Equal.refl
 Cmp.inv.involutive Cmp.eql = Equal.refl

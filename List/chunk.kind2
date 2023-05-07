@@ -1,4 +1,3 @@
-#kdl_name = List_chunk
 List.chunk <a> (n: Nat) (xs: List a) : Maybe (List a) {
   if (Nat.gte (List.length xs) n) {
     Maybe.some (List.take xs n)

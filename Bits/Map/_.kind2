@@ -4,8 +4,6 @@
 // Bits.Map.tie <a: Type> (val: (Maybe a)) (left: (Bits.Map a)) (right: (Bits.Map a)) : (Bits.Map a)
 #derive[match]
 type Bits.Map <a> {
-	#kdl_name = Bitsmap_new
   new
-	#kdl_name = Bitsmap_tie
   tie (val: Maybe a) (left: Bits.Map a) (right: Bits.Map a)
 }

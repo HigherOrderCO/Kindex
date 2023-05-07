@@ -1,4 +1,3 @@
-#kdl_name = Nat_from_bs
 Nat.from_base (base: Nat) (ds: List Nat) : Nat {
   Nat.from_base.go base (List.reverse ds) Nat.one Nat.zero
 }

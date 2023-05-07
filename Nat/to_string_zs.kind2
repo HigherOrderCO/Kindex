@@ -1,4 +1,3 @@
-#kdl_name = Nat_to_strzs
 Nat.to_string_zs (n: Nat) : String
 Nat.to_string_zs  Nat.zero    = String.cons 122 String.nil
 Nat.to_string_zs (Nat.succ n) = String.cons 115 (Nat.to_string_zs n)

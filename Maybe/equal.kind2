@@ -1,4 +1,3 @@
-#kdl_name = Maybe_equal
 Maybe.equal <t> (cmp: t -> t -> Bool) (a: Maybe t) (b: Maybe t) : Bool
 Maybe.equal t cmp (Maybe.none ta)    (Maybe.none tb)    = Bool.true
 Maybe.equal t cmp (Maybe.some ta va) (Maybe.some tb vb) = (cmp va vb)

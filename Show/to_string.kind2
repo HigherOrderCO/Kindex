@@ -1,3 +1,2 @@
-#kdl_name = Show_to_str
 Show.to_string (show: Show) : String
 Show.to_string show = show String.nil

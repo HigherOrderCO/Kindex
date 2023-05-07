@@ -1,4 +1,3 @@
-#kdl_name = Str_trim
 String.trim (xs: String) : String {
   String.trim_right (String.trim_left xs)
 }

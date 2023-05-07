@@ -1,4 +1,3 @@
 // Fixme implement without using Nat
-#kdl_name = Bits_mul
 Bits.mul (a: Bits) (b: Bits) : Bits
 Bits.mul a b = Bits.mul.go a b Bits.e

@@ -1,6 +1,5 @@
 // Verifies if a Given Condition returns t if true f if false
 // Example: (Bool.if Nat Bool.true (Nat.succ Nat.zero) (Nat.zero)) = (Nat.succ Nat.zero)
-#kdl_name = Bool_if
 Bool.if <a> (b: Bool) (t: a) (f: a) : a
 Bool.if a Bool.true  t f = t
 Bool.if a Bool.false t f = f

@@ -1,4 +1,3 @@
-#kdl_name = U120_for
 U120.for <s: Type> (state: s) (from: U120) (til: U120) (func: U120 -> s -> s) : s {
   if U120.equal from til {
     state

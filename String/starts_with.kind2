@@ -1,4 +1,3 @@
-#kdl_name = Str_strtswth
 String.starts_with (str: String) (pre: String) : Bool
 String.starts_with str                             String.nil                      = Bool.true
 String.starts_with String.nil                      (String.cons pre.head pre.tail) = Bool.false

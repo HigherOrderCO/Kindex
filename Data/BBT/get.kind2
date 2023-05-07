@@ -1,4 +1,3 @@
-#kdl_name = BBT_get
 Data.BBT.get <k> <v> (cmp: k -> k -> Cmp) (key: k) (map: Data.BBT k v): Maybe v {
   match Data.BBT map {
     tip => Maybe.none

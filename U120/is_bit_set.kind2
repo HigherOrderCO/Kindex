@@ -1,6 +1,5 @@
 // True if the bit is set
 // Undefined if bit >= 120
-#kdl_name = U120_is_bset
 U120.is_bit_set (num: U120) (bit: U120) : Bool {
   U120.to_bool (U120.get_bit num bit)
 }

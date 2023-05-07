@@ -1,4 +1,3 @@
-#kdl_name = U120_equal
 U120.equal (a: U120) (b: U120) : Bool {
   U120.to_bool (U120.num_equal a b)
 }

@@ -2,6 +2,5 @@
 // A set equipped with a binary operation that is closed.
 #derive[match]
 type Algebra.Magma <t: Type> {
-	#kdl_name = Al_Mg_new
   new (concat: t -> t -> t)
 }

@@ -1,5 +1,4 @@
 // Given a Bit, deletes the correspondent value in the map
-#kdl_name = Bitsmap_del
 Bits.Map.del <a> 
   (map: Bits.Map a)
   (key: Bits)

@@ -1,4 +1,3 @@
-#kdl_name = Maybe_filter
 Maybe.filter <t: Type> (f: t -> Bool) (a: Maybe t) : Maybe t
 Maybe.filter t f (Maybe.none t_)     = Maybe.none
 Maybe.filter t f (Maybe.some t_ val) = if (f val) { Maybe.some val } else { Maybe.none }

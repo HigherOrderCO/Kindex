@@ -1,5 +1,4 @@
 // Automatically derived from Pair/_.type
-#kdl_name  = T2
 #kdl_erase
 #derive[match]
 record Pair (a) (b) {

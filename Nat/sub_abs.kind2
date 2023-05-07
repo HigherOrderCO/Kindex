@@ -1,4 +1,3 @@
-#kdl_name = Nat_sub_abs
 Nat.sub_abs (a: Nat) (b: Nat) : Nat
 Nat.sub_abs  Nat.zero      b            = b
 Nat.sub_abs  a             Nat.zero     = a

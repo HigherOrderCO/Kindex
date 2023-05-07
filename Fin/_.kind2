@@ -1,8 +1,6 @@
 // The type of natural numbers smaller than `lim`
 #derive[match]
 type Fin ~(lim: Nat) {
-	#kdl_name = Fin_zero
 	zero <n: Nat> : Fin (Nat.succ n)
-	#kdl_name = Fin_succ
 	succ <n: Nat> (pred: Fin n) : Fin (Nat.succ n) 	 
 }

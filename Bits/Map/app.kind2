@@ -1,5 +1,4 @@
 // Applies a function to an entry. If it isn't present, do nothing.
-#kdl_name = Bitsmap_app
 Bits.Map.app <a> (map: Bits.Map a) (key: Bits) (fun: a -> a) : Bits.Map a
 Bits.Map.app a Bits.Map.new                            Bits.e        fun = Bits.Map.new
 Bits.Map.app a (Bits.Map.tie Maybe.none       lft rgt) Bits.e        fun = Bits.Map.tie Maybe.none lft rgt

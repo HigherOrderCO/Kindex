@@ -1,4 +1,3 @@
-#kdl_name = BBT_set
 Data.BBT.set <k> <v>
   (cmp: k -> k -> Cmp)
   (key: k) 

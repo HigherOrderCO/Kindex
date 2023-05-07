@@ -1,8 +1,6 @@
 // Automatically derived from Bool/_.type
 #derive[match]
 type Bool {
-  #kdl_name = Bool_true
   true
-  #kdl_name = Bool_false
   false
 }

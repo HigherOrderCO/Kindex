@@ -1,3 +1,2 @@
-#kdl_name = Al_Gr_inves
 Algebra.Group.inverse <t> (group: Algebra.Group t): Algebra.Laws.Inverse t (Algebra.Group.concat group) (Algebra.Group.invert group) (Algebra.Group.empty group)
 Algebra.Group.inverse  t (Algebra.Group.new t_ monoid invert inverse) = inverse

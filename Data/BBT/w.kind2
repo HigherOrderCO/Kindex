@@ -1,4 +1,3 @@
-#kdl_name = BBT_w
 Data.BBT.w : U120 {
   U120.new 0 3
 }

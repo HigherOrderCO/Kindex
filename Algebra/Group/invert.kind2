@@ -1,3 +1,2 @@
-#kdl_name = Al_Gr_inver
 Algebra.Group.invert <t> (group: Algebra.Group t): t -> t
 Algebra.Group.invert t (Algebra.Group.new t_ monoid invert inverse_proof) = invert

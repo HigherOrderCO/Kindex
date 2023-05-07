@@ -1,4 +1,3 @@
-#kdl_name = Str_ends_wth
 String.ends_with (xs: String) (match: String) : Bool {
   let xs    = String.reverse xs
   let match = String.reverse match

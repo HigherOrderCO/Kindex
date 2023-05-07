@@ -12,6 +12,5 @@
 // Or just a monoid with inverse.
 #derive[match]
 type Algebra.Group <t> {
-	#kdl_name = Al_Gr_new
   new (monoid: Algebra.Monoid t) (invert: t -> t) (inverse: Algebra.Laws.Inverse t (Algebra.Monoid.concat monoid) invert (Algebra.Monoid.empty monoid))
 }

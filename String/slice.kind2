@@ -1,4 +1,3 @@
-#kdl_name = Str_slice
 String.slice (start: Nat) (stop: Nat) (xs: String) : String {
   let len = Nat.sub stop start
   String.take len (String.drop start xs)

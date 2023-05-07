@@ -1,6 +1,5 @@
 // Given a condition, verifies how many times that condition occurs
 // Example: (List.count Nat [1,2,1,3,1,4] (Nat.equal 1)) -> 3
-#kdl_name = List_count
 List.count <a> (xs: List a) (cond: a -> Bool) : Nat
 List.count a (List.nil t)            cond = Nat.zero
 List.count a (List.cons t head tail) cond = 

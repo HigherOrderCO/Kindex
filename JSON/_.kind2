@@ -1,16 +1,10 @@
 // Automatically derived from JSON/_.kind2
 #derive[match]
 type JSON {
-	#kdl_name = JSON_object
   object (obj: List (Pair String JSON))
-	#kdl_name = JSON_array
   array (arr: List JSON)
-	#kdl_name = JSON_string
   string (text: String)
-	#kdl_name = JSON_number
   number (float: F64)
-	#kdl_name = JSON_bool
   bool (bool: Bool)
-	#kdl_name = JSON_null
   null
 }

@@ -1,7 +1,6 @@
 // Given an index and a value, sets the value in that index in a list and returns
 // a modified list
 // Example: (List.set [1,2,3] 4 2) -> [1,2,4]
-#kdl_name = List_set
 List.set <a> (xs: List a) (val: a) (idx: Nat) : List a
 List.set a (List.nil t)            val idx             = List.nil
 List.set a (List.cons t head tail) val Nat.zero        = List.cons val tail

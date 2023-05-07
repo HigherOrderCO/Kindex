@@ -1,4 +1,3 @@
-#kdl_name = Nat_same
 Nat.same (n: Nat) : Nat
 Nat.same  Nat.zero    = Nat.zero
 Nat.same (Nat.succ n) = Nat.succ (Nat.same n)

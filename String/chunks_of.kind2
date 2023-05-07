@@ -1,9 +1,7 @@
-#kdl_name = Str_chunksof
 String.chunks_of (len: Nat) (str: String) : List String {
   String.chunks_of.go len str len ""
 }
 
-#kdl_name = Str_chnkg
 String.chunks_of.go
   (len : Nat)       // length of each chunk
   (str : String)    // string to be split

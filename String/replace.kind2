@@ -1,4 +1,3 @@
-#kdl_name = Str_replace
 String.replace (xs: String) (find: String) (new_val: String) : String
 String.replace  String.nil        find new_val = String.nil
 String.replace (String.cons x xs) find new_val =

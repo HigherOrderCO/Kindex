@@ -1,5 +1,4 @@
 // True if the number is odd
-#kdl_name = Nat_is_odd
 Nat.is_odd (a: Nat) : Bool 
 Nat.is_odd  Nat.zero               = Bool.false 
 Nat.is_odd (Nat.succ  Nat.zero)    = Bool.true

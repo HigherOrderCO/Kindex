@@ -1,4 +1,3 @@
-#kdl_name = Bt_set
 Data.BaseTree.set <v: Type> (bases: List Data.BaseTree.Base) (key: Data.BaseTree.Key bases) (map: Data.BaseTree bases v) (val: v): Data.BaseTree bases v
 // tip
 Data.BaseTree.set v (List.nil t) Unit.new end val = val

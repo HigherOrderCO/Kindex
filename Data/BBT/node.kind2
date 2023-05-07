@@ -1,4 +1,3 @@
-#kdl_name = BBT_node
 Data.BBT.node <k> <v> (key: k) (val: v) (left: Data.BBT k v) (right: Data.BBT k v): Data.BBT k v {
   let size_left  = (Data.BBT.size left)
   let size_right = (Data.BBT.size right)

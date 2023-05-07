@@ -1,4 +1,3 @@
-#kdl_name = U120_ltn
 U120.less_than (a: U120) (b: U120) : Bool {
   U120.to_bool (U120.num_less_than a b)
 }

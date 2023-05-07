@@ -1,6 +1,5 @@
 // Concatenates all elements from List of Lists into a List
 // Example: (List.flatten [[Nat.zero], [Nat.zero]]) -> [Nat.zero, Nat.zero]
-#kdl_name = List_flatten
 List.flatten <a> (xs: List (List a)) : List a
 List.flatten a (List.nil t)            = List.nil
 List.flatten a (List.cons t head tail) = List.concat head (List.flatten tail)

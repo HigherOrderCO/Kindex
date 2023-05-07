@@ -1,4 +1,3 @@
-#kdl_name = Maybe_t_issm
 Maybe.Theorems.is_some <a: Type>
   (maybe: Maybe a)
 : Type

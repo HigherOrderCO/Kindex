@@ -1,4 +1,3 @@
-#kdl_name = Maybe_try
 Maybe.try <a> (ls: List (Maybe a)) (alt: a) : a
 Maybe.try a (List.nil  t)          alt = alt
 Maybe.try a (List.cons t maybe xs) alt =

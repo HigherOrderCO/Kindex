@@ -1,6 +1,5 @@
 // Reverts the entire bit structure
 // Example: (Bits.reverse (Bits.i Bits.e)) -> (Bits.o Bits.e)
-#kdl_name = Bits_rever
 Bits.reverse (b: Bits) : Bits
 Bits.reverse (Bits.e)      = (Bits.e)
 Bits.reverse (Bits.o pred) = (Bits.i (Bits.reverse pred))

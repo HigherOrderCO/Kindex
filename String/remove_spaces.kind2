@@ -1,4 +1,3 @@
-#kdl_name = Str_rmvspace
 String.remove_spaces (str: String) : String {
   String.filter (c => Bool.not (Char.is_whitespace c)) str
 }

@@ -1,4 +1,3 @@
-#kdl_name = Nat_divides
 Nat.divides (a: Nat) (b: Nat) : Bool
 Nat.divides Nat.zero Nat.zero = Bool.false
 Nat.divides a        Nat.zero = Bool.true

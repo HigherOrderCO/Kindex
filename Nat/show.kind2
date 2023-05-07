@@ -1,4 +1,3 @@
-#kdl_name = Nat_show
 Nat.show (n: Nat) : Show {
   h => String.concat (Nat.to_string_base (U60.to_nat 10) n) h
 }

@@ -1,10 +1,7 @@
 // A bit list of known size, lsb first
 #derive[match]
 type Word ~ (size: Nat) {
-	#kdl_name = Word_e
 	e : Word Nat.zero  
-	#kdl_name = Word_i
 	i <size: Nat> (pred: Word size) : Word (Nat.succ size) 
-	#kdl_name = Word_o
 	o <size: Nat> (pred: Word size) : Word (Nat.succ size) 
 }

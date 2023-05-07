@@ -1,7 +1,6 @@
 // Given a boolean checks if it is false
 // Bool.is_false ( Bool.true ) -> Bool.false
 // Bool.is_false ( Bool.false ) -> Bool.true 
-#kdl_name = Bool_isfalse
 Bool.is_false (a: Bool) : Bool 
 Bool.is_false Bool.true = Bool.false 
 Bool.is_false Bool.false = Bool.true

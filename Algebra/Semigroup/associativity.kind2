@@ -1,3 +1,2 @@
-#kdl_name = Al_Sg_assoc
 Algebra.Semigroup.associativity <t: Type> (semigroup: Algebra.Semigroup t) : Algebra.Laws.associativity.eta (Algebra.Semigroup.concat semigroup)
 Algebra.Semigroup.associativity t (Algebra.Semigroup.new t_ magma assoc) = assoc

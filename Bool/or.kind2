@@ -1,7 +1,6 @@
 // Given two different Booleans, returns true if Any of them is true
 // Example: (Bool.or Bool.true Bool.false)  -> Bool.true
 // Example: (Bool.or Bool.false Bool.false) -> Bool.false
-#kdl_name = Bool_or
 Bool.or (a: Bool) (b: Bool) : Bool
 Bool.or Bool.true  b = Bool.true
 Bool.or Bool.false b = b

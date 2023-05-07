@@ -1,3 +1,2 @@
-#kdl_name = Al_Gr_cat 
 Algebra.Group.concat <t> (group: Algebra.Group t): t -> t -> t
 Algebra.Group.concat t (Algebra.Group.new t_ monoid inverse inverse_proof) = Algebra.Monoid.concat monoid

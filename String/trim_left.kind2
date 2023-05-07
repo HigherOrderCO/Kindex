@@ -1,4 +1,3 @@
-#kdl_name = Str_trimleft
 String.trim_left (xs: String) : String
 String.trim_left  String.nil        = String.nil
 String.trim_left (String.cons x xs) =

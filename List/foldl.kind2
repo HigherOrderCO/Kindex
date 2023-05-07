@@ -1,4 +1,3 @@
-#kdl_name = List_foldl
 List.foldl <a> <b> (nil: b) (cons: a -> b -> b) (xs: List a) : b
 List.foldl a b nil cons (List.nil  x.a)         = nil
 List.foldl a b nil cons (List.cons x.a x.h x.t) = List.foldl (cons x.h nil) cons x.t

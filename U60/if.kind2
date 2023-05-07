@@ -1,4 +1,3 @@
-#kdl_name = If
 #kdl_erase
 U60.if <r: Type> (n: U60) (t: r) (f: r) : r
 U60.if 0 t f = f

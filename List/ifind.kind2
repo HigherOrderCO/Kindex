@@ -1,9 +1,7 @@
-#kdl_name = List_ifind
 List.ifind <a> (f: a -> Nat -> Bool) (xs: List a) : Maybe (Pair a Nat) {
   List.ifind.go f xs Nat.zero
 }
 
-#kdl_name = List_ifind0
 List.ifind.go <a> (f: a -> Nat -> Bool) (xs: List a) (idx: Nat) : Maybe (Pair a Nat)
 List.ifind.go a f (List.nil  x.a)         idx = Maybe.none
 List.ifind.go a f (List.cons x.a x.h x.t) idx =

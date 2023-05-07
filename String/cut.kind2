@@ -1,8 +1,6 @@
-#kdl_name = Str_cut
 String.cut (str: String): String
 String.cut str = String.cut.go str "(...)" 2048
 
-#kdl_name = Str_cut0
 String.cut.go (str: String) (df: String) (n: U60): String
 String.cut.go String.nil         df n = String.nil
 String.cut.go (String.cons x xs) df 0 = df

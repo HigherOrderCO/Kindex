@@ -1,4 +1,3 @@
-#kdl_name = Bt_alloc
 Data.BaseTree.alloc <val: Type> (bases: List Data.BaseTree.Base) (default: val): Data.BaseTree bases val 
 Data.BaseTree.alloc val (List.nil b) default =
   default

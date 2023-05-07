@@ -1,6 +1,5 @@
 // Given a boolean, returns true if both inputs are false 
 // Bool.nor ( Bool.true ) ( Bool.true ) -> Bool.false
-#kdl_name = Bool_nor
 Bool.nor (a: Bool) (b: Bool) : Bool 
 Bool.nor Bool.false Bool.false = Bool.true 
 Bool.nor a b = Bool.false

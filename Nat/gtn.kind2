@@ -1,5 +1,4 @@
 // True if a > b, false otherwise
-#kdl_name = Nat_gtn
 Nat.gtn (a: Nat) (b: Nat) : Bool
 Nat.gtn  Nat.zero     b           = Bool.false
 Nat.gtn (Nat.succ a)  Nat.zero    = Bool.true

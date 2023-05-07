@@ -1,6 +1,5 @@
 // Takes n bits from the bit structure
 // Example (Bits.take 2 (Bits.i (Bits.o (Bits.i Bits.e))) -> (Bits.i (Bits.o Bits.e))
-#kdl_name = Bits_take
 Bits.take (n: Nat) (b: Bits): Bits
 Bits.take (Nat.zero)        (b)             = (Bits.e)
 Bits.take (Nat.succ n.pred) (Bits.e)        = (Bits.e)

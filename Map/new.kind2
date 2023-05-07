@@ -1,4 +1,3 @@
-#kdl_name = Map_new
 Map.new <t> : Map t {
   Bits.Map.new t
 }

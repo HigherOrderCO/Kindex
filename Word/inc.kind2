@@ -1,4 +1,3 @@
-#kdl_name = Word_inc
 Word.inc <size: Nat> (word: Word size) : Word size
 Word.inc s  Word.e          = Word.e
 Word.inc s (Word.o s_ pred) = Word.i           pred

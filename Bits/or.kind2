@@ -1,4 +1,3 @@
-#kdl_name = Bits_or
 Bits.or  (a: Bits) (b: Bits) : Bits
 Bits.or  Bits.e b = Bits.e
 Bits.or  a Bits.e = Bits.e

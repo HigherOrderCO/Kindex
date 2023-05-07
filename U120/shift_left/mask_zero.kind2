@@ -1,5 +1,4 @@
 // For every a s: (<< a s) & (- (1 << s) 1) == 0
-#kdl_name = U120_sl_mz
 U120.shift_left.mask_zero (a: U120) (s: U120)
 : let a = U120.bitwise_and (U120.shift_left a s) (U120.sub (U120.shift_left (U120.new 0 1) s) (U120.new 0 1))
   let b = (U120.new 0 0)

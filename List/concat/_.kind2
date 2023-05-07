@@ -1,6 +1,5 @@
 // Concatenates two lists
 // Example: (concat [1,2] [3,4]) = [1, 2, 3, 4]
-#kdl_name = List_concat
 List.concat <a> (xs: List a) (ys: List a) : List a
 List.concat a (List.nil t)            ys = ys
 List.concat a (List.cons t head tail) ys = (List.cons a head (List.concat a tail ys))

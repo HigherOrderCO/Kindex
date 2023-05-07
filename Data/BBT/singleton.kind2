@@ -1,4 +1,3 @@
-#kdl_name = BBT_singletn
 Data.BBT.singleton <k> <v> (key: k) (val: v): Data.BBT k v {
   Data.BBT.bin U120.1 key val Data.BBT.tip Data.BBT.tip
 }

@@ -1,5 +1,4 @@
 // Make Each Word Have An Uppercase Head And Lowercase Tail, Just Like In This Comment
-#kdl_name = Str_captalze
 String.capitalize (s: String) : String
 String.capitalize (String.cons ' ' t) =
   match String t {

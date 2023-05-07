@@ -1,12 +1,10 @@
 // Given an index, removes that value from the list, returning the value and the
 // list without it, if any
 // Example: (List.pop.at [1,2,3] 1) -> (Pair (Maybe.some 2) ([1,3]))
-#kdl_name = List_popat
 List.pop_at <a> (xs: List a) (idx: Nat) : Pair (Maybe a) (List a)
 List.pop_at a xs idx = List.pop_at.go xs List.nil idx
 
 // Auxiliar Function
-#kdl_name = List_popat0 
 List.pop_at.go <a> (xs: List a) (ys: List a) (idx: Nat) : Pair (Maybe a) (List a)
 List.pop_at.go a (List.nil t)            ys idx             = Pair.new Maybe.none ys
 List.pop_at.go a (List.cons t head tail) ys Nat.zero        = Pair.new (Maybe.some head) (List.concat ys tail)

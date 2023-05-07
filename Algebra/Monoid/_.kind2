@@ -7,6 +7,5 @@
 
 #derive[match]
 type Algebra.Monoid <t: Type> {
-  #kdl_name = Al_Mo_new
 	new (sg: Algebra.Semigroup t) (empty: t) (identity: Algebra.Laws.Identity t (Algebra.Semigroup.concat sg) empty)
 }

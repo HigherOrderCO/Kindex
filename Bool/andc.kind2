@@ -1,6 +1,5 @@
 // And with complement x & ~y
 // Example: (Bool.andc Bool.true Bool.false) -> Bool.true
-#kdl_name = Bool_andc
 Bool.andc (a: Bool) (b: Bool) : Bool
 Bool.andc Bool.true Bool.false = Bool.true
 Bool.andc a   			b 				 = Bool.false

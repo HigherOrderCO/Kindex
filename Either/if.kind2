@@ -1,4 +1,3 @@
-#kdl_name = Either_if
 Either.if <l> <r> <t> (e: Either l r) (on_left: t) (on_right: t) : t
 Either.if l r t (Either.left  l_ r_ val) on_left on_right = on_left
 Either.if l r t (Either.right l_ r_ val) on_left on_right = on_right

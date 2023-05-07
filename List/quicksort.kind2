@@ -1,4 +1,3 @@
-#kdl_name = List_qcksort
 List.quicksort <a> (cmp: a -> a -> Bool) (xs: List a) : List a
 List.quicksort a cmp (List.nil  a_) = List.nil
 List.quicksort a cmp (List.cons a_ x xs) =

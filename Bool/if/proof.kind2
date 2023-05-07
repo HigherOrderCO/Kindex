@@ -1,5 +1,4 @@
 // Similar to Bool.if but each case also gets a proof that it is true
-#kdl_name = Bool_t_if
 Bool.if.proof <a> (b: Bool) (t: (Equal b Bool.true) -> a) (f: (Equal b Bool.false) -> a) : a
 Bool.if.proof a Bool.true  t f = t Equal.refl
 Bool.if.proof a Bool.false t f = f Equal.refl

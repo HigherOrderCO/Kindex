@@ -1,4 +1,3 @@
-#kdl_name = Show_many
 Show.many (views: List Show) : Show
 Show.many (List.nil t) = h => h
 Show.many (List.cons t v vs) =

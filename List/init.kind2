@@ -1,5 +1,4 @@
 // Return the list without the last element
-#kdl_name = List_init
 List.init <a> (xs: List a): List a
 List.init a (List.nil  a1)                 = List.nil
 List.init a (List.cons a1 x (List.nil a2)) = List.nil

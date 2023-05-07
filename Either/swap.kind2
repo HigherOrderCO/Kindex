@@ -1,4 +1,3 @@
-#kdl_name = Either_swap
 Either.swap <l> <r> (e: Either l r) : Either r l
 Either.swap l r (Either.left  l_ r_ val) = Either.right r l val
 Either.swap l r (Either.right l_ r_ val) = Either.left  r l val

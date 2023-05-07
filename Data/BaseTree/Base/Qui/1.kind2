@@ -1,2 +1,1 @@
-#kdl_name = Bt_base_q1
 Data.BaseTree.Base.Qui.1 <r: Type> (pred: r) : (Data.BaseTree.Base.Qui r)

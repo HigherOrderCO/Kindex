@@ -1,4 +1,3 @@
-#kdl_name = List_foldzip
 List.fold_zip <a> <b> <c> (as: List a) (bs: List b) (func: a -> b -> c) (nil: c) (cons: c -> c -> c): c 
 List.fold_zip (List.cons a as) (List.cons b bs) func nil cons =
   let res = func a   b

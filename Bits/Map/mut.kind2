@@ -1,5 +1,4 @@
 // Given a Bit, applies a function to the correspodent value in the map.
-#kdl_name = Bitsmap_mut
 Bits.Map.mut <a> 
   (map: Bits.Map a)
   (key: Bits)

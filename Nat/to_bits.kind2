@@ -1,4 +1,3 @@
-#kdl_name = Nat_to_bits
 Nat.to_bits (n: Nat) : Bits
 Nat.to_bits  Nat.zero    = Bits.o Bits.e
 Nat.to_bits (Nat.succ n) = Bits.inc (Nat.to_bits n)

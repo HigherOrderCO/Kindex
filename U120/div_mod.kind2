@@ -1,6 +1,5 @@
 // Returns the quocient and remainder of the integer division num/den
 // Implemented as binary long division
-#kdl_name = U120_div_mod
 U120.div_mod (num: U120) (den: U120) : Pair U120 U120
 U120.div_mod num (U120.new 0 0) = Pair.new (U60.to_u120 (/ 0 0)) (U60.to_u120 (% 0 0))  // cause panic like in U60
 U120.div_mod num den            =
@@ -13,7 +12,6 @@ U120.div_mod num den            =
       U120.div_mod.go idx qr num den
   }
 
-#kdl_name = U120_dm_go
 U120.div_mod.go
   (idx : U120)
   (qr  : Pair U120 U120)

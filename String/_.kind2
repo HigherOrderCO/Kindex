@@ -1,8 +1,6 @@
 // Automatically derived from String/_.type
 #derive[match]
 type String {
-  #kdl_name = Str_nil
   nil
-  #kdl_name = Str_cons
   cons (head: Char) (tail: String)
 }

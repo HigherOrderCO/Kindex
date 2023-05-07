@@ -1,3 +1,2 @@
-#kdl_name = List_bind
 List.bind <a: Type> <b: Type> (xs: List a) (f: a -> List b) : List b
 List.bind a b xs f = List.flatten b (List.map xs f)

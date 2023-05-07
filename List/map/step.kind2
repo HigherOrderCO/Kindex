@@ -1,4 +1,3 @@
-#kdl_name = List_map_stp
 List.map.step <a> <b>
   (x  : a)
   (xs : List a)
