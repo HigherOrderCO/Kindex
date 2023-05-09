@@ -1,2 +1,0 @@
-Main (a: Data.Nat) (b: Data.Nat) (c: Data.Nat) : Data.Nat
-Main a b c = Data.Nat.add (Data.Nat.add a b) c
