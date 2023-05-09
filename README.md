@@ -12,7 +12,7 @@ Datatypes and structures, such as Integers, Strings and Lists. It includes
 everything that is usually handled and manipuled as data, as well as their
 associated algorithms. As such, it is the central hub of shared libraries
 related to programming and software engineering. It also includes types such as
-Function and IO, which, are handled as data in a functional language like Kind.
+Function and IO, which are handled as data in a functional language like Kind.
 
 ### Trait
 
