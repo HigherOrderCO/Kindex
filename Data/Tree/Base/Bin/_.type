@@ -1,0 +1,3 @@
+type Data.Tree.Base.Bin <r: Type> {
+  tie (b0: r) (b1: r) : Data.Tree.Base.Bin r
+}

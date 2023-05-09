@@ -1,3 +1,0 @@
-type ListZipper <a: Type> {
-  new (lft: (List a)) (rgt: (List a))
-}

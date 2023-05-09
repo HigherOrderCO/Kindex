@@ -1,2 +1,0 @@
-// Automatically derived from Data/RedBlackTree/_.type
-Data.RedBlackTree (k: Type) (v: Type) : Type

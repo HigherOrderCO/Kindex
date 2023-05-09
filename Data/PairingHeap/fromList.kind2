@@ -1,4 +1,0 @@
-// Constructs a pairing heap from a list
-Data.PairingHeap.fromList (xs: (List U60)) : Data.PairingHeap
-Data.PairingHeap.fromList (List.nil  t     ) = Data.PairingHeap.empty
-Data.PairingHeap.fromList (List.cons t x xs) = Data.PairingHeap.insert x (Data.PairingHeap.fromList xs)

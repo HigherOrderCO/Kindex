@@ -1,0 +1,2 @@
+Data.Heap.Binomial.nil : (Data.Heap.Binomial)
+Data.Heap.Binomial.nil = (List.nil  Data.Heap.Binomial.Node)

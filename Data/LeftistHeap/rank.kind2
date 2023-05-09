@@ -1,4 +1,0 @@
-// Gets the rank
-Data.LeftistHeap.rank (h: Data.LeftistHeap) : U60
-Data.LeftistHeap.rank Data.LeftistHeap.empty = 0
-Data.LeftistHeap.rank (Data.LeftistHeap.tree r x lft rgt) = r

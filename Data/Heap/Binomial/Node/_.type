@@ -1,0 +1,3 @@
+type Data.Heap.Binomial.Node {
+    new (rank: U60) (root: U60) (children: Data.Heap.Binomial)
+}

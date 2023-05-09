@@ -1,3 +1,0 @@
-type Data.BinomialHeap.Node {
-    new (rank: U60) (root: U60) (children: Data.BinomialHeap)
-}

@@ -1,0 +1,8 @@
+#derive[match]
+type Data.Tree.Patricia (a) {
+  empty
+
+  leaf (key: U60) (value: a)
+  
+  branch (prefix: U60) (branchingbit: U60) (left: (Data.Tree.Patricia a)) (right: (Data.Tree.Patricia a))
+}

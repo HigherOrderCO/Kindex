@@ -1,4 +1,0 @@
-// Find minimum element
-Data.PairingHeap.findMin (pq: Data.PairingHeap) : (Maybe U60)
-Data.PairingHeap.findMin  Data.PairingHeap.empty      = (Maybe.none U60)
-Data.PairingHeap.findMin (Data.PairingHeap.tree x hs) = (Maybe.some U60 x)

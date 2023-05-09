@@ -1,0 +1,4 @@
+Data.Tree.Base (k: List Data.Tree.Base.Base) (v: Type) : Type
+Data.Tree.Base (List.nil k)            v = v
+Data.Tree.Base (List.cons k Data.Tree.Base.Base.2 bs) v = Data.Tree.Base.Bin (Data.Tree.Base bs v)
+Data.Tree.Base (List.cons k Data.Tree.Base.Base.5 bs) v = Data.Tree.Base.Qui (Data.Tree.Base bs v)

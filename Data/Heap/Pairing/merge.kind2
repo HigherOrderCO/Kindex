@@ -1,0 +1,10 @@
+// Merge
+Data.Heap.Pairing.merge (pq1: Data.Heap.Pairing) (pq2: Data.Heap.Pairing) : Data.Heap.Pairing
+Data.Heap.Pairing.merge Data.Heap.Pairing.empty pq = pq
+Data.Heap.Pairing.merge pq Data.Heap.Pairing.empty = pq
+Data.Heap.Pairing.merge (Data.Heap.Pairing.tree x pqs1) (Data.Heap.Pairing.tree y pqs2) =
+  (U60.if
+    (> y x)
+    (Data.Heap.Pairing.tree x (List.cons (Data.Heap.Pairing.tree y pqs2) pqs1))
+    (Data.Heap.Pairing.tree y (List.cons (Data.Heap.Pairing.tree x pqs1) pqs2))
+  )

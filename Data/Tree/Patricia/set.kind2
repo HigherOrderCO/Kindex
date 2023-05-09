@@ -1,0 +1,26 @@
+Data.Tree.Patricia.set <a: Type> (tree: (Data.Tree.Patricia a)) (key: U60) (value: a): Data.Tree.Patricia a
+Data.Tree.Patricia.set a (Data.Tree.Patricia.empty t) key value =
+  Data.Tree.Patricia.leaf key value
+Data.Tree.Patricia.set a (Data.Tree.Patricia.leaf t j y) key value =
+  Data.Tree.Patricia.set.leaf (U60.equal j key) value y j key
+Data.Tree.Patricia.set a (Data.Tree.Patricia.branch t p m t0 t1) key value =
+  Data.Tree.Patricia.set.branch0 (Data.Tree.Patricia.matchprefix key p m) p m t0 t1 key value
+
+Data.Tree.Patricia.set.branch0 <a: Type> (b: Bool) (p: U60) (m: U60) (t0: (Data.Tree.Patricia a)) (t1: (Data.Tree.Patricia a)) (key: U60) (value: a): Data.Tree.Patricia a
+Data.Tree.Patricia.set.branch0 a Bool.false p m t0 t1 key value =
+  Data.Tree.Patricia.join key (Data.Tree.Patricia.leaf key value) p (Data.Tree.Patricia.branch p m t0 t1)
+Data.Tree.Patricia.set.branch0 a Bool.true p m t0 t1 key value =
+  Data.Tree.Patricia.set.branch1 (Data.Tree.Patricia.zerobit key m) p m t0 t1 key value
+
+Data.Tree.Patricia.set.branch1 <a: Type> (b: Bool) (p: U60) (m: U60) (t0: (Data.Tree.Patricia a)) (t1: (Data.Tree.Patricia a)) (key: U60) (value: a): Data.Tree.Patricia a
+Data.Tree.Patricia.set.branch1 a Bool.true  p m t0 t1 key value =
+  Data.Tree.Patricia.branch a p m (Data.Tree.Patricia.set t0 key value) t1
+Data.Tree.Patricia.set.branch1 a Bool.false p m t0 t1 key value =
+  Data.Tree.Patricia.branch a p m t0 (Data.Tree.Patricia.set t1 key value)
+
+Data.Tree.Patricia.set.leaf <a: Type> (b: Bool) (value: a) (y: a) (j: U60) (key: U60): Data.Tree.Patricia a
+Data.Tree.Patricia.set.leaf a Bool.true value y j key =
+  Data.Tree.Patricia.leaf key value
+Data.Tree.Patricia.set.leaf a Bool.false value y j key =
+  Data.Tree.Patricia.join key (Data.Tree.Patricia.leaf key value) j (Data.Tree.Patricia.leaf j y)
+

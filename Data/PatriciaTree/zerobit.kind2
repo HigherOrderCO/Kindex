@@ -1,3 +1,0 @@
-Data.PatriciaTree.zerobit (x: U60) (y: U60): Bool {
-  U60.equal (& x y) 0
-}

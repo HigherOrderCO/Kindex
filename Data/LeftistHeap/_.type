@@ -1,4 +1,0 @@
-type Data.LeftistHeap {
-    empty
-    tree (rank: U60) (value: U60) (lft: Data.LeftistHeap) (rgt: Data.LeftistHeap)
-}

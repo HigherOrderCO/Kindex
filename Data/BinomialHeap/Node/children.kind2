@@ -1,2 +1,0 @@
-Data.BinomialHeap.Node.children (n: Data.BinomialHeap.Node) : Data.BinomialHeap
-Data.BinomialHeap.Node.children (Data.BinomialHeap.Node.new rank root children) = children

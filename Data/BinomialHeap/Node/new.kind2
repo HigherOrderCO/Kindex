@@ -1,2 +1,0 @@
-// Automatically derived from Data/BinomialHeap/Node/_.type
-Data.BinomialHeap.Node.new (rank: U60) (root: U60) (children: Data.BinomialHeap) : (Data.BinomialHeap.Node)

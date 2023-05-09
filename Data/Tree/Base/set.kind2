@@ -1,0 +1,19 @@
+Data.Tree.Base.set <v: Type> (bases: List Data.Tree.Base.Base) (key: Data.Tree.Base.Key bases) (map: Data.Tree.Base bases v) (val: v): Data.Tree.Base bases v
+// tip
+Data.Tree.Base.set v (List.nil t) Unit.new end val = val
+// Base 2
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.2 bs) (Data.Tree.Base.Base.Bin.0 k.t ks) (Data.Tree.Base.Bin.tie m.t b0 b1) val =
+  Data.Tree.Base.Bin.tie m.t (Data.Tree.Base.set v bs ks b0 val) b1
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.2 bs) (Data.Tree.Base.Base.Bin.1 k.t ks) (Data.Tree.Base.Bin.tie m.t b0 b1) val =
+  Data.Tree.Base.Bin.tie m.t b0 (Data.Tree.Base.set v bs ks b1 val)
+// Base 5
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.0 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) val =
+  Data.Tree.Base.Qui.tie m.t (Data.Tree.Base.set v bs ks b0 val) b1 b2 b3 b4
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.1 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) val =
+  Data.Tree.Base.Qui.tie m.t b0 (Data.Tree.Base.set v bs ks b1 val) b2 b3 b4
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.2 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) val =
+  Data.Tree.Base.Qui.tie m.t b0 b1 (Data.Tree.Base.set v bs ks b2 val) b3 b4
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.3 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) val =
+  Data.Tree.Base.Qui.tie m.t b0 b1 b2 (Data.Tree.Base.set v bs ks b3 val) b4
+Data.Tree.Base.set v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.4 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) val =
+  Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 (Data.Tree.Base.set v bs ks b4 val)

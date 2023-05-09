@@ -1,3 +1,0 @@
-type Data.BaseTree.Bin <r: Type> {
-  tie (b0: r) (b1: r) : Data.BaseTree.Bin r
-}

@@ -1,0 +1,4 @@
+// Find minimum element
+Data.Heap.Pairing.findMin (pq: Data.Heap.Pairing) : (Maybe U60)
+Data.Heap.Pairing.findMin  Data.Heap.Pairing.empty      = (Maybe.none U60)
+Data.Heap.Pairing.findMin (Data.Heap.Pairing.tree x hs) = (Maybe.some U60 x)

@@ -1,4 +1,0 @@
-Data.BaseTree (k: List Data.BaseTree.Base) (v: Type) : Type
-Data.BaseTree (List.nil k)            v = v
-Data.BaseTree (List.cons k Data.BaseTree.Base.2 bs) v = Data.BaseTree.Bin (Data.BaseTree bs v)
-Data.BaseTree (List.cons k Data.BaseTree.Base.5 bs) v = Data.BaseTree.Qui (Data.BaseTree bs v)

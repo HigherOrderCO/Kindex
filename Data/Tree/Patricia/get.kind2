@@ -1,0 +1,25 @@
+Data.Tree.Patricia.get <a: Type> (map: Data.Tree.Patricia a) (key: U60): Maybe a
+Data.Tree.Patricia.get a (Data.Tree.Patricia.leaf t j x) key =
+  Data.Tree.Patricia.getAux0 a (U60.equal j key) x
+Data.Tree.Patricia.get a (Data.Tree.Patricia.branch t p m t0 t1) key = 
+  Data.Tree.Patricia.getAux1 a (Data.Tree.Patricia.matchprefix key p m) key m t0 t1
+Data.Tree.Patricia.get a (Data.Tree.Patricia.empty) key =
+  Maybe.none
+
+Data.Tree.Patricia.getAux0 <a: Type> (b: Bool) (val: a):  Maybe a
+Data.Tree.Patricia.getAux0 a Bool.true  val = Maybe.some val
+Data.Tree.Patricia.getAux0 a Bool.false val = Maybe.none
+
+Data.Tree.Patricia.getAux1 <a: Type> (b: Bool) (key: U60) (m: U60) (t0: Data.Tree.Patricia a) (t1: Data.Tree.Patricia a): Maybe a
+Data.Tree.Patricia.getAux1 a Bool.false k m t0 t1 =
+  Maybe.none
+Data.Tree.Patricia.getAux1 a Bool.true  k m t0 t1 =
+  Data.Tree.Patricia.getAux2 (Data.Tree.Patricia.zerobit k m) k t0 t1
+
+Data.Tree.Patricia.getAux2 <a: Type> (b: Bool) (key: U60) (t0: Data.Tree.Patricia a) (t1: Data.Tree.Patricia a): Maybe a
+Data.Tree.Patricia.getAux2 a Bool.true  k t0 t1 =
+  Data.Tree.Patricia.get t0 k
+Data.Tree.Patricia.getAux2 a Bool.false k t0 t1 =
+  Data.Tree.Patricia.get t1 k
+
+

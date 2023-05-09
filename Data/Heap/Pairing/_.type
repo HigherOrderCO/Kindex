@@ -1,0 +1,4 @@
+type Data.Heap.Pairing {
+  empty
+  tree (elem: U60) (children: (List Data.Heap.Pairing))
+}

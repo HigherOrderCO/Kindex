@@ -1,0 +1,30 @@
+Data.Tree.Base.got <v: Type> (bases: List Data.Tree.Base.Base) (key: Data.Tree.Base.Key bases) (map: Data.Tree.Base bases v): Pair (Data.Tree.Base bases v) v
+Data.Tree.Base.got v (List.nil t) Unit.new val = Pair.new val val
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.2 bs) (Data.Tree.Base.Base.Bin.0 k.t ks) (Data.Tree.Base.Bin.tie m.t b0 b1) =
+  match Pair res = Data.Tree.Base.got v bs ks b0 {
+    new => Pair.new (Data.Tree.Base.Bin.tie m.t res.fst b1) res.snd
+  }
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.2 bs) (Data.Tree.Base.Base.Bin.1 k.t ks) (Data.Tree.Base.Bin.tie m.t b0 b1) =
+  match Pair res = Data.Tree.Base.got v bs ks b1 {
+    new => Pair.new (Data.Tree.Base.Bin.tie m.t b0 res.fst) res.snd
+  }
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.0 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.Tree.Base.got v bs ks b0 {
+    new => Pair.new (Data.Tree.Base.Qui.tie m.t res.fst b1 b2 b3 b4) res.snd
+  }
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.1 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.Tree.Base.got v bs ks b1 {
+    new => Pair.new (Data.Tree.Base.Qui.tie m.t b0 res.fst b2 b3 b4) res.snd
+  }
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.2 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.Tree.Base.got v bs ks b2 {
+    new => Pair.new (Data.Tree.Base.Qui.tie m.t b0 b1 res.fst b3 b4) res.snd
+  }
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.3 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.Tree.Base.got v bs ks b3 {
+    new => Pair.new (Data.Tree.Base.Qui.tie m.t b0 b1 b2 res.fst b4) res.snd
+  }
+Data.Tree.Base.got v (List.cons b.t Data.Tree.Base.Base.5 bs) (Data.Tree.Base.Base.Qui.4 k.t ks) (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 b4) =
+  match Pair res = Data.Tree.Base.got v bs ks b4 {
+    new => Pair.new (Data.Tree.Base.Qui.tie m.t b0 b1 b2 b3 res.fst) res.snd
+  }

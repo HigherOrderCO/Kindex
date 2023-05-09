@@ -1,0 +1,2 @@
+Main (a: Nat) (b: Nat) (c: Nat) : Nat
+Main a b c = Nat.add (Nat.add a b) c

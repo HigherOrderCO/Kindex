@@ -1,0 +1,21 @@
+Data.Tree.Base.mut <val: Type> (bases : List Data.Tree.Base.Base) (map : Data.Tree.Base bases val) (key : Data.Tree.Base.Key bases) (func : val -> val) : Data.Tree.Base bases val
+  // Last Branch
+Data.Tree.Base.mut val (List.nil Data.Tree.Base.Base) end unit func =
+  func end
+  // Base 2 Branch
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.2 tail) (Data.Tree.Base.Bin.tie v2 b0 b1) (Data.Tree.Base.Base.Bin.0 r key) func =
+  Data.Tree.Base.Bin.tie _ (Data.Tree.Base.mut val tail b0 key func) b1
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.2 tail) (Data.Tree.Base.Bin.tie v2 b0 b1) (Data.Tree.Base.Base.Bin.1 r key) func =
+  Data.Tree.Base.Bin.tie _ b0 (Data.Tree.Base.mut val tail b1 key func)
+  // Base 5 Branch
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.5 tail) (Data.Tree.Base.Qui.tie v2 b0 b1 b2 b3 b4) (Data.Tree.Base.Base.Qui.0 r key) func =
+  Data.Tree.Base.Qui.tie _ (Data.Tree.Base.mut val tail b0 key func) b1 b2 b3 b4
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.5 tail) (Data.Tree.Base.Qui.tie v2 b0 b1 b2 b3 b4) (Data.Tree.Base.Base.Qui.1 r key) func =
+  Data.Tree.Base.Qui.tie _ b0 (Data.Tree.Base.mut val tail b1 key func) b2 b3 b4
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.5 tail) (Data.Tree.Base.Qui.tie v2 b0 b1 b2 b3 b4) (Data.Tree.Base.Base.Qui.2 r key) func =
+  Data.Tree.Base.Qui.tie _ b0 b1 (Data.Tree.Base.mut val tail b2 key func) b3 b4
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.5 tail) (Data.Tree.Base.Qui.tie v2 b0 b1 b2 b3 b4) (Data.Tree.Base.Base.Qui.3 r key) func =
+  Data.Tree.Base.Qui.tie _ b0 b1 b2 (Data.Tree.Base.mut val tail b3 key func) b4
+Data.Tree.Base.mut val (List.cons Data.Tree.Base.Base Data.Tree.Base.Base.5 tail) (Data.Tree.Base.Qui.tie v2 b0 b1 b2 b3 b4) (Data.Tree.Base.Base.Qui.4 r key) func =
+  Data.Tree.Base.Qui.tie _ b0 b1 b2 b3 (Data.Tree.Base.mut val tail b4 key func)
+
