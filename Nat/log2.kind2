@@ -1,7 +1,0 @@
-Nat.log2(n: Nat): Nat {
-  Nat.log2.aux n Nat.zero
-}
-
-Nat.log2.aux (n: Nat) (r: Nat) : Nat
-Nat.log2.aux  Nat.zero     r = Nat.pred r
-Nat.log2.aux (Nat.succ np) r = Nat.log2.aux (Nat.half (Nat.succ np)) (Nat.succ r)

@@ -1,0 +1,3 @@
+Data.Maybe.flatten <a: Type> (m: Data.Maybe (Data.Maybe a)) : Data.Maybe a
+Data.Maybe.flatten a (Data.Maybe.none t)   = Data.Maybe.none
+Data.Maybe.flatten a (Data.Maybe.some t v) = v

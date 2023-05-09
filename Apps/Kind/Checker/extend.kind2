@@ -1,0 +1,8 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+use Apps.Kind.Context as Context
+
+// Extends the context inside the @Apps.Kind.Checker@.
+Checker/extend (name: Data.U60) (type: Apps.Kind.Term) (vals: Data.List Apps.Kind.Term) : Apps.Kind.Checker Data.Unit
+Checker/extend name type vals = context => depth => rhs => subst => eqts => errs =>
+  (Result/checked (Context/extend context name type vals) (+ depth 1) rhs subst eqts errs Data.Unit.new)

@@ -1,0 +1,8 @@
+Data.U60.compare (a: Data.U60) (b: Data.U60) : Data.Cmp {
+  (Data.U60.if (< a b)
+    Data.Cmp.ltn
+  (Data.U60.if (== a b)
+    Data.Cmp.eql
+    Data.Cmp.gtn
+  ))
+}

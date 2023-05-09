@@ -1,0 +1,2 @@
+Data.String.Parser.whitespace <t> : Data.String.Parser t Data.Unit
+Data.String.Parser.whitespace = Data.String.Parser.skip (Data.String.Parser.take_while1 (c => Data.Char.is_whitespace c))

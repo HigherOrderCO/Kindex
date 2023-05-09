@@ -1,0 +1,2 @@
+String.Build.concat (as: String.Build) (bs: String.Build) : String.Build
+String.Build.concat as bs = h => as (bs h)

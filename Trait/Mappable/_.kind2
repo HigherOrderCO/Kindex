@@ -1,0 +1,4 @@
+#derive[match]
+record Functor (f: Type -> Type) {
+  map : ~(a: Type) -> ~(b: Type) -> (func: a -> b) -> (x: f a) -> (f b)
+}

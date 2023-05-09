@@ -1,0 +1,5 @@
+Data.String.Parser.take_custom <t> (empty: t): Data.String.Parser t t
+Data.String.Parser.take_custom empty = state =>
+    let Data.Pair.new (fst = custom) (snd = state) = Data.String.Parser.State.take_custom state
+    let state = Data.String.Parser.State.set_custom empty state
+    Data.String.Parser.Result.done state custom

@@ -1,0 +1,6 @@
+// Drops n elements of a list
+// Example: (Data.List.drop Data.Nat [1,2,3,4] 2) -> [3,4]
+Data.List.drop <a> (xs: Data.List a) (n: Data.Nat) : Data.List a
+Data.List.drop a xs                      Data.Nat.zero        = xs
+Data.List.drop a (Data.List.cons t head tail) (Data.Nat.succ pred) = Data.List.drop tail pred
+Data.List.drop a xs                      _               = xs

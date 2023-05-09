@@ -1,0 +1,3 @@
+// Principle of explosion: we can derive anything from the existence of an Data.Empty value
+Data.Empty.absurd <proposition: Type> (empty: Data.Empty): proposition
+// This is correct because we've covered all cases for Data.Empty

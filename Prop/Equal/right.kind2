@@ -1,0 +1,3 @@
+Prop.Equal.right <t> <x: t> <a: t> <b: t> (e0: Prop.Equal x a) (e1: Prop.Equal x b) : Prop.Equal a b {
+  Prop.Equal.chain (Prop.Equal.mirror e0) e1
+}

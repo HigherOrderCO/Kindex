@@ -1,0 +1,7 @@
+Data.Char.to_lower (char: Data.Char) : Data.Char {
+  if Data.Char.is_upper char {
+    (+ char 32)
+  } else {
+    char
+  }
+}

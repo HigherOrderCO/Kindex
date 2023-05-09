@@ -1,6 +1,0 @@
-// Return a list without the first n values
-// Example: (List.get [1,2,3,4] 2) -> [1,2]
-List.take <a> (xs: List a) (n: Nat) : List a
-List.take a (List.cons t head tail) (Nat.succ pred) = List.cons head (List.take tail pred)
-List.take a (List.nil t)            (Nat.succ pred) = List.nil
-List.take a xs                      Nat.zero        = List.nil

@@ -1,0 +1,3 @@
+Data.String.append (as: Data.String) (a: Data.Char) : Data.String
+Data.String.append  Data.String.nil       a = Data.String.pure a
+Data.String.append (Data.String.cons h t) a = Data.String.cons h (Data.String.append t a)

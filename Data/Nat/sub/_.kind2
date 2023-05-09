@@ -1,0 +1,5 @@
+// Return the subtraction between two numbers
+Data.Nat.sub (a: Data.Nat) (b: Data.Nat) : Data.Nat
+Data.Nat.sub  a            Data.Nat.zero    = a
+Data.Nat.sub  Data.Nat.zero     b           = Data.Nat.zero
+Data.Nat.sub (Data.Nat.succ a) (Data.Nat.succ b) = Data.Nat.sub a b

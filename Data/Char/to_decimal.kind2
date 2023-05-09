@@ -1,0 +1,7 @@
+Data.Char.to_decimal (c: Data.Char) : Data.Maybe Data.U60 {
+  if Data.Char.is_decimal c {
+    Data.Maybe.some (- c '0')
+  } else {
+    Data.Maybe.none
+  }
+}

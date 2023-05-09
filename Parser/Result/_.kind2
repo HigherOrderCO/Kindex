@@ -1,5 +1,0 @@
-#derive[match]
-type Parser.Result (t) (r) {
-  done (state: Parser.State t) (result: r)
-  fail (state: Parser.State t) (error: Parser.Error)
-}

@@ -1,5 +1,0 @@
-// Return the smaller of two numbers
-// Example: (Nat.min 5 3) -> 3
-Nat.min (a: Nat) (b: Nat) : Nat {
-  if (Nat.ltn a b) { a } else { b }
-}

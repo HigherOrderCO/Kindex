@@ -1,3 +1,0 @@
-Bool.theorem.or_first (b: Bool) : Equal Bool (Bool.or b Bool.true) Bool.true
-Bool.theorem.or_first Bool.true = Equal.refl
-Bool.theorem.or_first Bool.false = Equal.refl

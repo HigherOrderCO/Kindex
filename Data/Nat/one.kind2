@@ -1,0 +1,3 @@
+#inline
+Data.Nat.one : Data.Nat
+Data.Nat.one = Data.Nat.succ Data.Nat.zero

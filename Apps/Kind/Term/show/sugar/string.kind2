@@ -1,0 +1,25 @@
+use Apps.Kind.Term as Term
+use Apps.Kind.Printer as Printer
+
+#axiom
+Data.String.nil.  : Apps.Kind.Name
+
+#axiom
+Data.String.cons. : Apps.Kind.Name
+
+Term/show.sugar.string.go (term: Apps.Kind.Term): Data.Maybe Data.String
+Term/show.sugar.string.go (Term/ct0 Data.String.nil.  orig) = Data.Maybe.some Data.String.nil
+Term/show.sugar.string.go (Term/ct2 Data.String.cons. orig (Term/u60 orig1 x0) x1) =
+  do Data.Maybe {
+    ask tail = Term/show.sugar.string.go x1
+    return Data.String.cons x0 tail
+  }
+Term/show.sugar.string.go other = Data.Maybe.none
+
+Term/show.sugar.string (term: Apps.Kind.Term): Data.Maybe Data.String
+Term/show.sugar.string term =
+  do Data.Maybe {
+    ask res  = Term/show.sugar.string.go term
+    let quot = "'"
+    return (Printer/text [quot res quot])
+  }

@@ -1,0 +1,5 @@
+Data.String.concat.semigroup : Algebra.Semigroup Data.String
+Data.String.concat.semigroup =
+  (Algebra.Semigroup.new
+    Data.String.concat.magma
+    (a => b => c => Prop.Equal.mirror (Data.String.concat.assoc a b c)))

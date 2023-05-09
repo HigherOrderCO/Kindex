@@ -1,0 +1,5 @@
+// Given a condition, verifies if any element of that list matches that condition
+// Example: (Data.List.any Data.Nat [1,2,3,4,5] (Data.Nat.equal 4)) -> Data.Bool.true
+Data.List.any <a> (xs: Data.List a) (cond: a -> Data.Bool) : Data.Bool
+Data.List.any a (Data.List.nil t)            cond = Data.Bool.false
+Data.List.any a (Data.List.cons t head tail) cond = Data.Bool.if (cond head) Data.Bool.true (Data.List.any a tail cond)

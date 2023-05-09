@@ -1,0 +1,4 @@
+Data.String.drop (n: Data.Nat) (xs: Data.String) : Data.String
+Data.String.drop  Data.Nat.zero      xs               = xs
+Data.String.drop (Data.Nat.succ np)  Data.String.nil       = Data.String.nil
+Data.String.drop (Data.Nat.succ np) (Data.String.cons h t) = Data.String.drop np t

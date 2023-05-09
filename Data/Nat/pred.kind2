@@ -1,0 +1,8 @@
+// Returns the predecessor of a number
+// On 0, return 0
+// Examples:
+//  (Data.Nat.pred 3) -> 2
+//  (Data.Nat.pred 0) -> 0
+Data.Nat.pred (n: Data.Nat) : Data.Nat
+Data.Nat.pred  Data.Nat.zero       = Data.Nat.zero
+Data.Nat.pred (Data.Nat.succ pred) = pred

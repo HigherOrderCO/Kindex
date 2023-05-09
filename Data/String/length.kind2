@@ -1,0 +1,3 @@
+Data.String.length (xs: Data.String) : Data.Nat
+Data.String.length  Data.String.nil        = Data.Nat.zero
+Data.String.length (Data.String.cons x xs) = Data.Nat.succ (Data.String.length xs)

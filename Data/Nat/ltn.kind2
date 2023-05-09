@@ -1,0 +1,5 @@
+// Lesser Than
+// True if a < b
+Data.Nat.ltn (a: Data.Nat) (b: Data.Nat) : Data.Bool {
+  Data.Nat.lte (Data.Nat.succ a) b
+}

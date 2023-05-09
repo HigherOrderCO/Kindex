@@ -1,4 +1,0 @@
-#inline
-U60.mul (a: U60) (b: U60) : U60 {
-  (* a b)
-}

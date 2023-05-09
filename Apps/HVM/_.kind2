@@ -1,0 +1,38 @@
+Apps.HVM.Name : Type
+Apps.HVM.Name = Data.String
+
+type Apps.HVM.Oper {
+  add
+  sub
+}
+
+type Apps.HVM.Term {
+  var (name: Apps.HVM.Name)
+  dup (nam0: Apps.HVM.Name) (nam1: Apps.HVM.Name) (expr: Apps.HVM.Term) (body: Apps.HVM.Term)
+  lam (name: Apps.HVM.Name) (body: Apps.HVM.Term)
+  app (func: Apps.HVM.Term) (argm: Apps.HVM.Term)
+  ctr (name: Apps.HVM.Name) (args: Data.List Apps.HVM.Term)
+  fun (name: Apps.HVM.Name) (args: Data.List Apps.HVM.Term)
+  num (numb: Data.U60)
+  op2 (oper: Apps.HVM.Oper) (val0: Apps.HVM.Term) (val1: Apps.HVM.Term)
+}
+
+type Apps.HVM.Rule {
+  new (lhs: Apps.HVM.Term) (rhs: Apps.HVM.Term)
+}
+
+Apps.HVM.Func : Type
+Apps.HVM.Func = Data.List Apps.HVM.Rule
+
+Apps.HVM.Term.eval (term: Apps.HVM.Term) : Apps.HVM.Term
+Apps.HVM.Term.eval (Apps.HVM.Term.var name)           = Apps.HVM.Term.var name
+Apps.HVM.Term.eval (Apps.HVM.Term.lam name body)      = Apps.HVM.Term.lam name body
+Apps.HVM.Term.eval (Apps.HVM.Term.app func argm)      = Apps.HVM.Term.app func argm
+Apps.HVM.Term.eval (Apps.HVM.Term.num numb)           = Apps.HVM.Term.num numb
+Apps.HVM.Term.eval (Apps.HVM.Term.op2 oper val0 val1) = Apps.HVM.Term.eval.op2 oper val0 val1
+
+Apps.HVM.Term.eval.op2 (oper: Apps.HVM.Oper) (val0: Apps.HVM.Term) (val1: Apps.HVM.Term) : Apps.HVM.Term
+Apps.HVM.Term.eval.op2 Apps.HVM.Oper.add (Apps.HVM.Term.num val0) (Apps.HVM.Term.num val1) = Apps.HVM.Term.num (+ val0 val1)
+Apps.HVM.Term.eval.op2 oper         val0                val1                = Apps.HVM.Term.num 0
+
+

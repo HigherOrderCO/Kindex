@@ -1,0 +1,3 @@
+Data.Either.swap <l> <r> (e: Data.Either l r) : Data.Either r l
+Data.Either.swap l r (Data.Either.left  l_ r_ val) = Data.Either.right r l val
+Data.Either.swap l r (Data.Either.right l_ r_ val) = Data.Either.left  r l val

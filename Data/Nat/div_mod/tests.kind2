@@ -1,0 +1,4 @@
+Data.Nat.div_mod.tests.1: (Prop.Equal (Data.Nat.div_mod (Data.U60.to_nat 8) (Data.U60.to_nat 2)) (Data.Pair.new (Data.U60.to_nat 4) (Data.U60.to_nat 0)))
+Data.Nat.div_mod.tests.1 = Prop.Equal.refl
+Data.Nat.div_mod.tests.2: (Prop.Equal (Data.Nat.div_mod (Data.U60.to_nat 9) (Data.U60.to_nat 4)) (Data.Pair.new (Data.U60.to_nat 2) (Data.U60.to_nat 1)))
+Data.Nat.div_mod.tests.2 = Prop.Equal.refl

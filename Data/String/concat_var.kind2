@@ -1,0 +1,4 @@
+// Concatenate any number of strings
+Data.String.concat_var (n: Data.Nat) : (Function.Variadic Data.String Data.String n) {
+  Function.Variadic.foldr (a => b => Data.String.concat a b) Data.String.nil n
+}

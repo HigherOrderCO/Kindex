@@ -1,0 +1,3 @@
+Data.Char.is_ascii (c: Data.Char) : Data.Bool {
+  Data.Char.less_equal c 255
+}

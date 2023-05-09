@@ -1,0 +1,7 @@
+// Verifies if Two numbers are equal
+// Example: (Data.Nat.equal Data.Nat.zero            Data.Nat.zero) -> Data.Bool.true
+// Example: (Data.Nat.equal (Data.Nat.succ Data.Nat.zero) Data.Nat.zero) -> Data.Bool.false
+Data.Nat.equal (n: Data.Nat) (m: Data.Nat) : Data.Bool
+Data.Nat.equal Data.Nat.zero     Data.Nat.zero     = Data.Bool.true
+Data.Nat.equal (Data.Nat.succ n) (Data.Nat.succ m) = Data.Nat.equal n m
+Data.Nat.equal n            m            = Data.Bool.false

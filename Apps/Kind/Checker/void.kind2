@@ -1,0 +1,8 @@
+use Apps.Kind.Checker as Checker
+
+Checker/void <a> (n : Apps.Kind.Checker a) : Apps.Kind.Checker Data.Unit
+Checker/void action =
+    do Apps.Kind.Checker {
+        ask res = action
+        return (Data.Unit.new)
+    }

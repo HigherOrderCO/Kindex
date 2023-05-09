@@ -1,0 +1,19 @@
+Data.Nat.mul.comm (a: Data.Nat) (b: Data.Nat) : Prop.Equal (Data.Nat.mul a b) (Data.Nat.mul b a)
+Data.Nat.mul.comm Data.Nat.zero b            = Prop.Equal.mirror (Data.Nat.mul.comm.zero b)
+Data.Nat.mul.comm a        Data.Nat.zero     = Data.Nat.mul.comm.zero a
+Data.Nat.mul.comm a        (Data.Nat.succ b) = 
+  // Our goal is: a * (b + 1) = (b + 1) * a
+  // This gets reduced to a * (b + 1) = b * a + a
+  // a * (b + 1) = a + ab
+  let distr_succ = Data.Nat.mul.distr.succ a b
+  // ab = ba
+  let comm_1 = Data.Nat.mul.comm a b
+  // ab + a = ba + a
+  let comm_1 = Prop.Equal.apply (x => Data.Nat.add x a) comm_1
+  // ab + a = a + ab
+  let comm_2 = Data.Nat.add.comm (Data.Nat.mul a b) a
+  // a * (b + 1) = a + ab = ab + a = ba + a
+  // a * (b + 1) = ba + a
+  let chained = Prop.Equal.chain distr_succ (Prop.Equal.chain (Prop.Equal.mirror comm_2) comm_1)
+  // This is our goal!
+  chained

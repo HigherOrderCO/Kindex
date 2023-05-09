@@ -1,0 +1,4 @@
+#inline
+Data.String.pure (x : Data.Char) : Data.String {
+  Data.String.cons x Data.String.nil
+}

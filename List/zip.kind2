@@ -1,8 +1,0 @@
-List.zip <a> <b> (as: List a) (bs: List b) : List (Pair a b)
-
-List.zip a b (List.cons a_ ah at) (List.cons b_ bh bt) =
-  let head = Pair.new ah bh
-  let tail = List.zip at bt
-  List.cons head tail
-
-List.zip a b as bs = List.nil

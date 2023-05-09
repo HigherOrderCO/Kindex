@@ -1,0 +1,3 @@
+Data.String.concat (xs: Data.String) (ys: Data.String) : Data.String
+Data.String.concat (Data.String.cons x xs) ys = Data.String.cons x (Data.String.concat xs ys)
+Data.String.concat Data.String.nil         ys = ys

@@ -1,0 +1,7 @@
+Data.IO.prompt (question: Data.String) : Data.IO Data.String {
+  do Data.IO {
+    Data.IO.output question
+    ask answer = Data.IO.input
+    return answer
+  }
+}

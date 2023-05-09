@@ -1,3 +1,0 @@
-#inline
-String.new_line : String
-String.new_line = String.pure Char.newline

@@ -1,0 +1,3 @@
+Data.String.pop (s: Data.String) : Data.Pair (Data.Maybe Data.Char) Data.String
+Data.String.pop  Data.String.nil       = Data.Pair.new Data.Maybe.none Data.String.nil
+Data.String.pop (Data.String.cons h t) = Data.Pair.new (Data.Maybe.some h) t

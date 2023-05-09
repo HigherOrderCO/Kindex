@@ -1,0 +1,8 @@
+Data.String.take_while (f: Data.Char -> Data.Bool) (xs: Data.String) : Data.String
+Data.String.take_while f Data.String.nil = Data.String.nil
+Data.String.take_while f (Data.String.cons h t) =
+  if (f h) {
+    Data.String.cons h (Data.String.take_while f t)
+  } else {
+    Data.String.nil
+  }

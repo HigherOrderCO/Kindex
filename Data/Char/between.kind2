@@ -1,0 +1,4 @@
+#inline
+Data.Char.between (a: Data.Char) (b: Data.Char) (c: Data.Char) : Data.Bool {
+  Data.U60.between a b c
+}

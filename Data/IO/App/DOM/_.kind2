@@ -1,0 +1,7 @@
+// Automatically derived from Data.IO.App/DOM/_.kind2
+#derive[match]
+type Data.IO.App.DOM {
+  node (tag: Data.String) (props: Data.List (Data.Pair Data.String Data.String)) (style: Data.List (Data.Pair Data.String Data.String)) (children: Data.List Data.IO.App.DOM)
+  text (value: Data.String)
+  many (children: Data.List Data.IO.App.DOM)
+}

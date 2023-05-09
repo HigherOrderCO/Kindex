@@ -1,0 +1,3 @@
+Data.Bool.to_u60 (b: Data.Bool) : Data.U60
+Data.Bool.to_u60 Data.Bool.false = 0
+Data.Bool.to_u60 Data.Bool.true  = 1

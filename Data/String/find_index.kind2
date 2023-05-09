@@ -1,0 +1,11 @@
+Data.String.find_index (xs: Data.String) (cond: Data.Char -> Data.Bool) : Data.Maybe (Data.Pair Data.Char Data.Nat)
+Data.String.find_index xs cond = Data.String.find_index.go xs cond Data.Nat.zero
+
+Data.String.find_index.go (xs: Data.String) (cond: Data.Char -> Data.Bool) (idx: Data.Nat) : Data.Maybe (Data.Pair Data.Char Data.Nat)
+Data.String.find_index.go (Data.String.nil )           cond idx = Data.Maybe.none
+Data.String.find_index.go (Data.String.cons head tail) cond idx =
+  if cond head {
+    Data.Maybe.some (Data.Pair.new head idx)
+  } else {
+    Data.String.find_index.go tail cond (Data.Nat.succ idx)
+  }

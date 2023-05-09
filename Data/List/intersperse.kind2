@@ -1,0 +1,4 @@
+Data.List.intersperse <a> (sep: a) (xs: Data.List a) : Data.List a
+Data.List.intersperse a sep (Data.List.nil xa) = Data.List.nil
+Data.List.intersperse a sep (Data.List.cons xa xh (Data.List.nil xa_)) = Data.List.pure xh
+Data.List.intersperse a sep (Data.List.cons xa xh xt) = Data.List.cons xh (Data.List.cons sep (Data.List.intersperse sep xt))

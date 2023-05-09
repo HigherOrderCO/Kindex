@@ -1,0 +1,5 @@
+// Skips any sequence of ascii whitespace
+// Returns true if anything was skipped
+Data.String.Parser.skip_whitespace <t> : Data.String.Parser t Data.Bool {
+  Data.String.Parser.skip_while (c => Data.Char.is_whitespace c)
+}

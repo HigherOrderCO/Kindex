@@ -1,4 +1,0 @@
-Maybe.choice <t: Type> (list: List (Maybe t)) : Maybe t
-Maybe.choice t (List.nil  lt)                                 = Maybe.none
-Maybe.choice t (List.cons lt         (Maybe.none mt)    tail) = Maybe.choice tail
-Maybe.choice t (List.cons (Maybe lt) (Maybe.some mt mv) tail) = Maybe.some mv

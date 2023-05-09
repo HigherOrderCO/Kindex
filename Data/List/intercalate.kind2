@@ -1,0 +1,3 @@
+Data.List.intercalate <a> (sep: Data.List a) (xs: Data.List (Data.List a)) : Data.List a {
+  Data.List.flatten (Data.List.intersperse sep xs)
+}

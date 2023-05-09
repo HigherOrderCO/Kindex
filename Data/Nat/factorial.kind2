@@ -1,0 +1,4 @@
+// n!
+Data.Nat.factorial (n: Data.Nat): Data.Nat 
+Data.Nat.factorial  Data.Nat.zero    = Data.Nat.one
+Data.Nat.factorial (Data.Nat.succ n) = Data.Nat.mul (Data.Nat.succ n) (Data.Nat.factorial n)

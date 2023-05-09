@@ -1,3 +1,0 @@
-List.intercalate <a> (sep: List a) (xs: List (List a)) : List a {
-  List.flatten (List.intersperse sep xs)
-}

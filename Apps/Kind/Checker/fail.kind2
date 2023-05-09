@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Creates a @Apps.Kind.Checker@ that results in a failure.
+Checker/fail <t> (err: Apps.Kind.Error): Apps.Kind.Checker t
+Checker/fail t err = context => depth => rhs => subst => eqts => errs =>
+  (Result/errored context subst (Data.List.cons err errs))

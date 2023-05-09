@@ -1,0 +1,7 @@
+Data.String.cut (str: Data.String): Data.String
+Data.String.cut str = Data.String.cut.go str "(...)" 2048
+
+Data.String.cut.go (str: Data.String) (df: Data.String) (n: Data.U60): Data.String
+Data.String.cut.go Data.String.nil         df n = Data.String.nil
+Data.String.cut.go (Data.String.cons x xs) df 0 = df
+Data.String.cut.go (Data.String.cons x xs) df n = Data.String.cons x (Data.String.cut.go xs df (- n 1))

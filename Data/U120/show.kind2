@@ -1,0 +1,16 @@
+Data.U120.show (num: Data.U120) : String.Build
+Data.U120.show (Data.U120.new 0 0) = str => Data.String.cons '0' str
+Data.U120.show num            = str =>
+  let ten = (Data.U120.new 0 10)
+  let dm = Data.U120.div_mod num ten 
+  open Data.Pair dm
+    let digit = Data.U120.low dm.snd
+    let rest = dm.fst
+    let next = Data.String.cons (+ '0' digit) str
+    let func = 
+      (if Data.U120.less_than num ten {
+        (h: Data.String) => h
+      } else {
+        (h: Data.String) => (Data.U120.show rest) h
+      }) :: Data.String -> Data.String
+    func next

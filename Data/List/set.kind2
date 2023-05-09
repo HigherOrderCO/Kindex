@@ -1,0 +1,7 @@
+// Given an index and a value, sets the value in that index in a list and returns
+// a modified list
+// Example: (Data.List.set [1,2,3] 4 2) -> [1,2,4]
+Data.List.set <a> (xs: Data.List a) (val: a) (idx: Data.Nat) : Data.List a
+Data.List.set a (Data.List.nil t)            val idx             = Data.List.nil
+Data.List.set a (Data.List.cons t head tail) val Data.Nat.zero        = Data.List.cons val tail
+Data.List.set a (Data.List.cons t head tail) val (Data.Nat.succ pred) = Data.List.cons head (Data.List.set tail val pred)

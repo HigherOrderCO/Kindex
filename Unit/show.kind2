@@ -1,2 +1,0 @@
-Unit.show (u: Unit) : Show
-Unit.show u = h => String.concat "Unit.new" h

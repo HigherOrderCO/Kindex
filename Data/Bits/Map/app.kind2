@@ -1,0 +1,9 @@
+// Applies a function to an entry. If it isn't present, do nothing.
+Data.Bits.Data.Map.app <a> (map: Data.Bits.Data.Map a) (key: Data.Bits) (fun: a -> a) : Data.Bits.Data.Map a
+Data.Bits.Data.Map.app a Data.Bits.Data.Map.new                            Data.Bits.e        fun = Data.Bits.Data.Map.new
+Data.Bits.Data.Map.app a (Data.Bits.Data.Map.tie Data.Maybe.none       lft rgt) Data.Bits.e        fun = Data.Bits.Data.Map.tie Data.Maybe.none lft rgt
+Data.Bits.Data.Map.app a (Data.Bits.Data.Map.tie (Data.Maybe.some val) lft rgt) Data.Bits.e        fun = Data.Bits.Data.Map.tie (Data.Maybe.some (fun val)) lft rgt
+Data.Bits.Data.Map.app a Data.Bits.Data.Map.new                            (Data.Bits.o pred) fun = Data.Bits.Data.Map.new
+Data.Bits.Data.Map.app a (Data.Bits.Data.Map.tie val lft rgt)              (Data.Bits.o pred) fun = Data.Bits.Data.Map.tie val (Data.Bits.Data.Map.app lft pred fun) rgt
+Data.Bits.Data.Map.app a Data.Bits.Data.Map.new                            (Data.Bits.i pred) fun = Data.Bits.Data.Map.new
+Data.Bits.Data.Map.app a (Data.Bits.Data.Map.tie val lft rgt)              (Data.Bits.i pred) fun = Data.Bits.Data.Map.tie val lft (Data.Bits.Data.Map.app rgt pred fun)

@@ -1,4 +1,0 @@
-#inline
-Char.newline : Char {
-  10
-}

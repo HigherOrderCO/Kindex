@@ -1,0 +1,7 @@
+// Verifies orderly if two lists are equal
+// Example: (Data.List.equal Data.Nat [1,2,3] [1,2,3] Data.Nat.equal) -> Data.Bool.true
+// Example: (Data.List.equal Data.Nat [1,2,3] [3,2,1] Data.Nat.equal) -> Data.Bool.false
+Data.List.equal <a> (xs: Data.List a) (ys: Data.List a) (cond: (x: a) -> (y: a) -> Data.Bool) : Data.Bool
+Data.List.equal a (Data.List.nil t)              (Data.List.nil u)              cond = Data.Bool.true
+Data.List.equal a (Data.List.cons t xhead xtail) (Data.List.cons u yhead ytail) cond = Data.Bool.and (cond xhead yhead) (Data.List.equal xtail ytail cond)
+Data.List.equal a xs                        ys                        cond = Data.Bool.false

@@ -1,0 +1,8 @@
+Data.String.contains_char (chr: Data.Char) (str: Data.String) : Data.Bool
+Data.String.contains_char chr Data.String.nil = Data.Bool.false
+Data.String.contains_char chr (Data.String.cons head tail) =
+  if Data.Char.equal chr head {
+    Data.Bool.true
+  } else {
+    Data.String.contains_char chr tail
+  }

@@ -1,0 +1,4 @@
+Data.List.somes <a> (xs: Data.List (Data.Maybe a)) : Data.List a 
+Data.List.somes a (Data.List.nil  ma)                        = Data.List.nil
+Data.List.somes a (Data.List.cons ma (Data.Maybe.none a_)     xs) = Data.List.somes xs
+Data.List.somes a (Data.List.cons (Data.Maybe a1) (Data.Maybe.some a2 val) xs) = Data.List.cons val (Data.List.somes xs)

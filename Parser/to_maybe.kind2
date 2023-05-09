@@ -1,9 +1,0 @@
-// Runs a parser, returning the result on success and none on failure
-// Never fails
-Parser.to_maybe <a> <t> (prs: Parser t a) : Parser t (Maybe a) {
-  state =>
-    match Parser.Result r = (prs state) {
-      done state result => Parser.Result.done state (Maybe.some result)
-      fail state ..     => Parser.Result.done state  Maybe.none
-    }
-}

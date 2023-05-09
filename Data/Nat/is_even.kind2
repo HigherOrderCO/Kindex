@@ -1,0 +1,5 @@
+// True if the number is even
+#inline
+Data.Nat.is_even (n: Data.Nat) : Data.Bool {
+  Data.Bool.not (Data.Nat.is_odd n)
+}

@@ -1,8 +1,0 @@
-String.take_while (f: Char -> Bool) (xs: String) : String
-String.take_while f String.nil = String.nil
-String.take_while f (String.cons h t) =
-  if (f h) {
-    String.cons h (String.take_while f t)
-  } else {
-    String.nil
-  }

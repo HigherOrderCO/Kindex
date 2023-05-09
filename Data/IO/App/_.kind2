@@ -1,0 +1,5 @@
+// Automatically derived from Data.IO.App/_.kind2
+#derive[match]
+type Data.IO.App <s> {
+  new (init: s) (draw: s -> Data.IO.App.DOM) (when: (event: Data.IO.App.Event) -> (state: s) -> Data.IO s)
+}

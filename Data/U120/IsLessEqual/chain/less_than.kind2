@@ -1,0 +1,5 @@
+// For every a b c, if a <= b and b < c: a < c
+Data.U120.IsLessEqual.chain.less_than (a: Data.U120) (b: Data.U120) (c: Data.U120)
+  (e0: Data.U120.IsLessEqual a b)
+  (e1: Data.U120.IsLessThan b c)
+: Data.U120.IsLessThan a c

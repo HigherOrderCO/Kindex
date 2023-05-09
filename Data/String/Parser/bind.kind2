@@ -1,0 +1,8 @@
+Data.String.Parser.bind <a> <b> <t> (pa: Data.String.Parser t a) (pb: a -> Data.String.Parser t b) : Data.String.Parser t b {
+  state =>
+    let ra = (pa state)
+    match Data.String.Parser.Result ra {
+      done result state => pb result state
+      fail state  error => Data.String.Parser.Result.fail state error 
+    }
+}

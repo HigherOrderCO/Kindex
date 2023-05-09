@@ -1,0 +1,4 @@
+type Apps.Kind.Context {
+  empty
+  entry (name: Data.U60) (type: Apps.Kind.Term) (vals: Data.List Apps.Kind.Term) (rest: Apps.Kind.Context)
+}

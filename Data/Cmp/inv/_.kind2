@@ -1,0 +1,4 @@
+Data.Cmp.inv (cmp: Data.Cmp) : Data.Cmp
+Data.Cmp.inv Data.Cmp.ltn = Data.Cmp.gtn
+Data.Cmp.inv Data.Cmp.eql = Data.Cmp.eql
+Data.Cmp.inv Data.Cmp.gtn = Data.Cmp.ltn

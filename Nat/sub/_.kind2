@@ -1,5 +1,0 @@
-// Return the subtraction between two numbers
-Nat.sub (a: Nat) (b: Nat) : Nat
-Nat.sub  a            Nat.zero    = a
-Nat.sub  Nat.zero     b           = Nat.zero
-Nat.sub (Nat.succ a) (Nat.succ b) = Nat.sub a b

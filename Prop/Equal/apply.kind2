@@ -1,0 +1,2 @@
+Prop.Equal.apply <t> <u> <a: t> <b: t> (f: t -> u) (e: Prop.Equal t a b) : Prop.Equal u (f a) (f b)
+Prop.Equal.apply t_t u a b f (Prop.Equal.refl t x) = Prop.Equal.refl u (f x)

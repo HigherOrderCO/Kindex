@@ -1,0 +1,3 @@
+#inline
+Data.String.new_line : Data.String
+Data.String.new_line = Data.String.pure Data.Char.newline

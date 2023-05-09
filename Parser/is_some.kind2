@@ -1,6 +1,0 @@
-// Takes a parser of a Maybe, returns true if the result is some, false if none.
-// This can be used to convert the result of a `try` into a boolean,
-// or to convert a `to_maybe` into a `to_bool`.
-Parser.is_some <a> <t> (prs: Parser t (Maybe a)) : Parser t Bool {
-  Parser.map ((r: Maybe a) => Maybe.is_some r) prs
-}

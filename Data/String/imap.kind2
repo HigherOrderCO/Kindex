@@ -1,0 +1,3 @@
+Data.String.imap (f: Data.Nat -> Data.Char -> Data.Char) (xs: Data.String) : Data.String
+Data.String.imap f Data.String.nil = Data.String.nil
+Data.String.imap f (Data.String.cons x xs) = Data.String.cons (f Data.Nat.zero x) (Data.String.imap (n => f (Data.Nat.succ n)) xs)

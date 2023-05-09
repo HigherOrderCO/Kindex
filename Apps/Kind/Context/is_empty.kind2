@@ -1,0 +1,6 @@
+use Apps.Kind.Context as Context
+
+// Checks if the context is empty.
+Context/is_empty (ctx: Apps.Kind.Context): Data.Bool
+Context/is_empty Context/empty                       = Data.Bool.true
+Context/is_empty (Context/entry name type vals rest) = Data.Bool.false

@@ -1,0 +1,3 @@
+Data.String.is_ascii (xs: Data.String) : Data.Bool {
+  Data.String.all (c => Data.Char.is_ascii c) xs
+}

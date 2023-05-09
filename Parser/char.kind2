@@ -1,4 +1,0 @@
-// Succeeds if the first char left to parse is equal to the given one
-Parser.char <t> (c: Char) : Parser t Unit {
-  Parser.expecting (Parser.skip (Parser.satisfy (h => Char.equal c h))) (String.pure c)
-}

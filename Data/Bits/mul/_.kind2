@@ -1,0 +1,3 @@
+// Fixme implement without using Data.Nat
+Data.Bits.mul (a: Data.Bits) (b: Data.Bits) : Data.Bits
+Data.Bits.mul a b = Data.Bits.mul.go a b Data.Bits.e

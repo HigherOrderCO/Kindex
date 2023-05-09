@@ -1,0 +1,3 @@
+Data.Maybe.to_bool <a: Type> (cond: a -> Data.Bool) (x: Data.Maybe a) : Data.Bool
+Data.Maybe.to_bool a cond (Data.Maybe.none t)     = Data.Bool.false
+Data.Maybe.to_bool a cond (Data.Maybe.some t val) = (cond val)

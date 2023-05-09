@@ -1,0 +1,4 @@
+// Doubles a number
+Data.Nat.dbl (x: Data.Nat): Data.Nat 
+Data.Nat.dbl Data.Nat.zero = Data.Nat.zero 
+Data.Nat.dbl (Data.Nat.succ x) = (Data.Nat.succ (Data.Nat.succ(Data.Nat.dbl x)))

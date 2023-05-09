@@ -1,0 +1,6 @@
+#derive[match]
+record Data.String.Parser.Error {
+  msg: Data.String
+  init: Data.U60
+  last: Data.U60
+}

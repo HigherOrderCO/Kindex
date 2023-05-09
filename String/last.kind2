@@ -1,4 +1,0 @@
-String.last (xs: String) : Maybe Char
-String.last  String.nil                = Maybe.none
-String.last (String.cons x String.nil) = Maybe.some x
-String.last (String.cons x xs)         = String.last xs

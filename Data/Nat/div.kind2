@@ -1,0 +1,5 @@
+// Return the division num/den, rounding down
+// Division by zero returns zero
+Data.Nat.div (num: Data.Nat) (den: Data.Nat) : Data.Nat
+Data.Nat.div num Data.Nat.zero = Data.Nat.zero 
+Data.Nat.div num den      = Data.Pair.fst (Data.Nat.div_mod num den)

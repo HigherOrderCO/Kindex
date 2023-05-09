@@ -1,0 +1,3 @@
+Data.Nat.to_bits (n: Data.Nat) : Data.Bits
+Data.Nat.to_bits  Data.Nat.zero    = Data.Bits.o Data.Bits.e
+Data.Nat.to_bits (Data.Nat.succ n) = Data.Bits.inc (Data.Nat.to_bits n)

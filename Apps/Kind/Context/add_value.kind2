@@ -1,0 +1,9 @@
+use Apps.Kind.Context as Context
+
+// Attachs a value to an index in the @Apps.Kind.Context@, if it already exists
+// then it adds it to the index list otherwise it adds at the end of
+// the context.
+Context/add_value (prev: Apps.Kind.Context) (name: Data.U60) (term: Apps.Kind.Term): Apps.Kind.Context
+Context/add_value (Context/entry name type vals rest) 0 val = Context/entry name type (Data.List.cons val vals) rest
+Context/add_value (Context/entry name type vals rest) n val = Context/entry name type vals (Context/add_value rest (- n 1) val)
+Context/add_value Context/empty n val                       = Context/empty

@@ -1,8 +1,0 @@
-U120.compare (a: U120) (b: U120) : Cmp {
-  (Bool.if (U120.less_than a b)
-    Cmp.ltn
-  (Bool.if (U120.equal a b)
-    Cmp.eql
-    Cmp.gtn
-  ))
-}

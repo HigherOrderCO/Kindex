@@ -1,0 +1,57 @@
+use Apps.Kind.Term as Term
+
+Term/set_origin (new_origin: Data.U60) (term: Apps.Kind.Term): Apps.Kind.Term
+Term/set_origin new_origin (Term/typ old_orig)                        = Term/typ new_origin
+Term/set_origin new_origin (Term/var old_orig name idx)               = Term/var new_origin name idx
+Term/set_origin new_origin (Term/hol old_orig numb)                   = Term/hol new_origin numb
+Term/set_origin new_origin (Term/all old_orig name typ body)          = Term/all new_origin name typ body
+Term/set_origin new_origin (Term/lam old_orig name body)              = Term/lam new_origin name body
+Term/set_origin new_origin (Term/let old_orig name expr body)         = Term/let new_origin name expr body
+Term/set_origin new_origin (Term/ann old_orig expr typ)               = Term/ann new_origin expr typ
+Term/set_origin new_origin (Term/sub old_orig name indx redx expr)    = Term/sub new_origin name indx redx expr
+Term/set_origin new_origin (Term/app old_orig func arg)               = Term/app new_origin func arg
+Term/set_origin new_origin (Term/hlp old_orig)                        = Term/hlp new_origin
+Term/set_origin new_origin (Term/Data.U60 old_orig)                        = Term/Data.U60 new_origin
+Term/set_origin new_origin (Term/u60 old_orig num)                    = Term/u60 new_origin num
+Term/set_origin new_origin (Term/F60 old_orig)                        = Term/F60 new_origin
+Term/set_origin new_origin (Term/f60 old_orig num)                    = Term/f60 new_origin num
+Term/set_origin new_origin (Term/op2 old_orig op left right)          = Term/op2 new_origin op left right
+
+Term/set_origin new_origin (Term/ct0 ctid old_orig)                                                = Term/ct0 ctid new_origin
+Term/set_origin new_origin (Term/ct1 ctid old_orig x0)                                             = Term/ct1 ctid new_origin x0
+Term/set_origin new_origin (Term/ct2 ctid old_orig x0 x1)                                          = Term/ct2 ctid new_origin x0 x1
+Term/set_origin new_origin (Term/ct3 ctid old_orig x0 x1 x2)                                       = Term/ct3 ctid new_origin x0 x1 x2
+Term/set_origin new_origin (Term/ct4 ctid old_orig x0 x1 x2 x3)                                    = Term/ct4 ctid new_origin x0 x1 x2 x3
+Term/set_origin new_origin (Term/ct5 ctid old_orig x0 x1 x2 x3 x4)                                 = Term/ct5 ctid new_origin x0 x1 x2 x3 x4
+Term/set_origin new_origin (Term/ct6 ctid old_orig x0 x1 x2 x3 x4 x5)                              = Term/ct6 ctid new_origin x0 x1 x2 x3 x4 x5
+Term/set_origin new_origin (Term/ct7 ctid old_orig x0 x1 x2 x3 x4 x5 x6)                           = Term/ct7 ctid new_origin x0 x1 x2 x3 x4 x5 x6
+Term/set_origin new_origin (Term/ct8 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Term/ct8 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7
+Term/set_origin new_origin (Term/ct9 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Term/ct9 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8
+Term/set_origin new_origin (Term/ct10 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Term/ct10 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
+Term/set_origin new_origin (Term/ct11 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Term/ct11 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10
+Term/set_origin new_origin (Term/ct12 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Term/ct12 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11
+Term/set_origin new_origin (Term/ct13 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Term/ct13 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12
+Term/set_origin new_origin (Term/ct14 ctid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Term/ct14 ctid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13
+Term/set_origin new_origin (Term/ct15 ctid old_orig args)                                          = Term/ct15 ctid new_origin args
+Term/set_origin new_origin (Term/ct16 ctid old_orig args)                                          = Term/ct16 ctid new_origin args
+
+Term/set_origin new_origin (Term/fn0 fnid old_orig)                                                = Term/fn0 fnid new_origin
+Term/set_origin new_origin (Term/fn1 fnid old_orig x0)                                             = Term/fn1 fnid new_origin x0
+Term/set_origin new_origin (Term/fn2 fnid old_orig x0 x1)                                          = Term/fn2 fnid new_origin x0 x1
+Term/set_origin new_origin (Term/fn3 fnid old_orig x0 x1 x2)                                       = Term/fn3 fnid new_origin x0 x1 x2
+Term/set_origin new_origin (Term/fn4 fnid old_orig x0 x1 x2 x3)                                    = Term/fn4 fnid new_origin x0 x1 x2 x3
+Term/set_origin new_origin (Term/fn5 fnid old_orig x0 x1 x2 x3 x4)                                 = Term/fn5 fnid new_origin x0 x1 x2 x3 x4
+Term/set_origin new_origin (Term/fn6 fnid old_orig x0 x1 x2 x3 x4 x5)                              = Term/fn6 fnid new_origin x0 x1 x2 x3 x4 x5
+Term/set_origin new_origin (Term/fn7 fnid old_orig x0 x1 x2 x3 x4 x5 x6)                           = Term/fn7 fnid new_origin x0 x1 x2 x3 x4 x5 x6
+Term/set_origin new_origin (Term/fn8 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7)                        = Term/fn8 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7
+Term/set_origin new_origin (Term/fn9 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     = Term/fn9 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8
+Term/set_origin new_origin (Term/fn10 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 = Term/fn10 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9
+Term/set_origin new_origin (Term/fn11 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             = Term/fn11 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10
+Term/set_origin new_origin (Term/fn12 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         = Term/fn12 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11
+Term/set_origin new_origin (Term/fn13 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     = Term/fn13 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12
+Term/set_origin new_origin (Term/fn14 fnid old_orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) = Term/fn14 fnid new_origin x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13
+Term/set_origin new_origin (Term/fn15 ctid old_orig args)                                          = Term/fn15 ctid new_origin args
+Term/set_origin new_origin (Term/fn16 ctid old_orig args)                                          = Term/fn16 ctid new_origin args
+
+Term/set_origin new_origin (Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)         = Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14
+Term/set_origin new_origin (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15)     = Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15

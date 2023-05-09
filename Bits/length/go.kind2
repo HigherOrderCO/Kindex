@@ -1,4 +1,0 @@
-Bits.length.go  (bs: Bits)  (acum: Nat) : Nat
-Bits.length.go Bits.e      acum = acum
-Bits.length.go (Bits.o bs) acum = Bits.length.go bs (Nat.succ acum)
-Bits.length.go (Bits.i bs) acum = Bits.length.go bs (Nat.succ acum)

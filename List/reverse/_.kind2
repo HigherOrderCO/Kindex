@@ -1,4 +1,0 @@
-// Reverts a List
-// Example: (List.reverse [1,2,3]) -> [3,2,1]
-List.reverse <a> (xs: List a) : List a
-List.reverse a xs = List.reverse.go xs List.nil

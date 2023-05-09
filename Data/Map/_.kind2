@@ -1,0 +1,3 @@
+Data.Map (t) : Type {
+  Data.Bits.Data.Map t
+}

@@ -1,8 +1,0 @@
-Nat.mod.equal_zero (a: Nat): (Equal Nat.zero (Nat.mod a a))
-Nat.mod.equal_zero Nat.zero = Equal.refl
-Nat.mod.equal_zero (Nat.succ a.pred) = 
-	// a.pred /% a.pred = (1 0) 
-	let e = Nat.div_mod.equal_one_zero a.pred (Nat.succ a.pred) Nat.zero
-	// therefore a.pred % a.pred = 0
-	let e = Equal.apply (x => (Pair.snd x)) e
-	e

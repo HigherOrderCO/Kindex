@@ -1,0 +1,13 @@
+// Split a list in two at index n
+// Examples:
+//   Data.List.split [1 2 3] 2 -> ([1 2] [3])
+//   Data.List.split xs n -> ((Data.List.take xs n) (Data.List.drop xs n))
+
+Data.List.split_at <a> (xs : Data.List a) (n : Data.Nat) : Data.Pair (Data.List a) (Data.List a)
+Data.List.split_at a  xs                  Data.Nat.zero    = Data.Pair.new Data.List.nil xs
+Data.List.split_at a (Data.List.nil  a_)      (Data.Nat.succ n) = Data.Pair.new Data.List.nil Data.List.nil
+Data.List.split_at a (Data.List.cons a_ x xs) (Data.Nat.succ n) =
+  let tail = Data.List.split_at xs n
+  let fst  = Data.Pair.fst tail
+  let snd  = Data.Pair.snd tail
+  Data.Pair.new (Data.List.cons x fst) snd

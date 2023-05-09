@@ -1,5 +1,0 @@
-// True if the number is even
-#inline
-Nat.is_even (n: Nat) : Bool {
-  Bool.not (Nat.is_odd n)
-}

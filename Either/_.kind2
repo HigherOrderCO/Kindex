@@ -1,5 +1,0 @@
-#derive[match]
-type Either (l: Type) (r: Type) {
-  left  (val: l)
-  right (val: r)
-}

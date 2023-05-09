@@ -1,0 +1,8 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Context as Context
+use Apps.Kind.Result as Result
+
+// Shrinks the context inside of the @Apps.Kind.Checker@.
+Checker/shrink : Apps.Kind.Checker Data.Unit
+Checker/shrink = context => depth => rhs => subst => eqts => errs =>
+  Result/checked (Context/shrink context) (- depth 1) rhs subst eqts errs Data.Unit.new

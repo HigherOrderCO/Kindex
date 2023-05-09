@@ -1,34 +1,34 @@
 // Removes the minimal element of the heap
 // Returns an empty heap if the heap is already empty
-Data.Heap.Binomial.deleteMin (pq: Data.Heap.Binomial) : Data.Heap.Binomial
-// Data.Heap.Binomial.deleteMin (List.nil t) = Data.Heap.Binomial.nil
-Data.Heap.Binomial.deleteMin pq = Data.Heap.Binomial.deleteMin.aux (Data.Heap.Binomial.findMinNode pq) pq
+Data.Data.Heap.Binomial.deleteMin (pq: Data.Data.Heap.Binomial) : Data.Data.Heap.Binomial
+// Data.Data.Heap.Binomial.deleteMin (Data.List.nil t) = Data.Data.Heap.Binomial.nil
+Data.Data.Heap.Binomial.deleteMin pq = Data.Data.Heap.Binomial.deleteMin.aux (Data.Data.Heap.Binomial.findMinNode pq) pq
 
-Data.Heap.Binomial.deleteMin.aux (maybe: Maybe (Pair U60 U60)) (pq: Data.Heap.Binomial): Data.Heap.Binomial
-Data.Heap.Binomial.deleteMin.aux maybe (List.nil t) =
-  Data.Heap.Binomial.nil
-Data.Heap.Binomial.deleteMin.aux (Maybe.none t) pq =
-  Data.Heap.Binomial.nil
+Data.Data.Heap.Binomial.deleteMin.aux (maybe: Data.Maybe (Data.Pair Data.U60 Data.U60)) (pq: Data.Data.Heap.Binomial): Data.Data.Heap.Binomial
+Data.Data.Heap.Binomial.deleteMin.aux maybe (Data.List.nil t) =
+  Data.Data.Heap.Binomial.nil
+Data.Data.Heap.Binomial.deleteMin.aux (Data.Maybe.none t) pq =
+  Data.Data.Heap.Binomial.nil
 
-Data.Heap.Binomial.deleteMin.aux (Maybe.some t val) pq =
-    let get_min = (Data.Heap.Binomial.removeRank pq (Pair.fst val))
-    (Pair.get get_min (removed_node => new_pq =>
-    (Data.Heap.Binomial.merge (List.reverse (Data.Heap.Binomial.Node.children removed_node)) new_pq)))
+Data.Data.Heap.Binomial.deleteMin.aux (Data.Maybe.some t val) pq =
+    let get_min = (Data.Data.Heap.Binomial.removeRank pq (Data.Pair.fst val))
+    (Data.Pair.get get_min (removed_node => new_pq =>
+    (Data.Data.Heap.Binomial.merge (Data.List.reverse (Data.Data.Heap.Binomial.Node.children removed_node)) new_pq)))
 
-// Finds the node with a specific rank
+// Data.Finds the node with a specific rank
 // Returns that node and the heap without it
-Data.Heap.Binomial.removeRank (pq: Data.Heap.Binomial) (rank: U60) : (Pair Data.Heap.Binomial.Node Data.Heap.Binomial)
-Data.Heap.Binomial.removeRank (List.cons t (Data.Heap.Binomial.Node.new x_rank x_root x_child) xs) rank =
-  (Data.Heap.Binomial.removeRank.aux
-    (U60.equal x_rank rank)
-    (Data.Heap.Binomial.cons (Data.Heap.Binomial.Node.new x_rank x_root x_child) xs)
+Data.Data.Heap.Binomial.removeRank (pq: Data.Data.Heap.Binomial) (rank: Data.U60) : (Data.Pair Data.Data.Heap.Binomial.Node Data.Data.Heap.Binomial)
+Data.Data.Heap.Binomial.removeRank (Data.List.cons t (Data.Data.Heap.Binomial.Node.new x_rank x_root x_child) xs) rank =
+  (Data.Data.Heap.Binomial.removeRank.aux
+    (Data.U60.equal x_rank rank)
+    (Data.Data.Heap.Binomial.cons (Data.Data.Heap.Binomial.Node.new x_rank x_root x_child) xs)
     rank
   )
 
-Data.Heap.Binomial.removeRank.aux (b: Bool) (pq: Data.Heap.Binomial) (rank: U60) : (Pair Data.Heap.Binomial.Node Data.Heap.Binomial)
-Data.Heap.Binomial.removeRank.aux Bool.true  (List.cons t x xs) rank = (Pair.new x xs)
-Data.Heap.Binomial.removeRank.aux Bool.false (List.cons t x xs) rank =
-  let rec = (Data.Heap.Binomial.removeRank xs rank)
-  (Pair.get rec (node => pq =>
-  (Pair.new node (Data.Heap.Binomial.cons x pq))))
+Data.Data.Heap.Binomial.removeRank.aux (b: Data.Bool) (pq: Data.Data.Heap.Binomial) (rank: Data.U60) : (Data.Pair Data.Data.Heap.Binomial.Node Data.Data.Heap.Binomial)
+Data.Data.Heap.Binomial.removeRank.aux Data.Bool.true  (Data.List.cons t x xs) rank = (Data.Pair.new x xs)
+Data.Data.Heap.Binomial.removeRank.aux Data.Bool.false (Data.List.cons t x xs) rank =
+  let rec = (Data.Data.Heap.Binomial.removeRank xs rank)
+  (Data.Pair.get rec (node => pq =>
+  (Data.Pair.new node (Data.Data.Heap.Binomial.cons x pq))))
 

@@ -1,0 +1,7 @@
+// Discard the result of a parser
+Data.String.Parser.skip <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t Data.Unit {
+  do Data.String.Parser {
+    prs
+    return Data.Unit.new
+  }
+}

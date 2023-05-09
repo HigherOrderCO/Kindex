@@ -1,0 +1,5 @@
+// Applies a function to the first element of the pair
+// Example: (Data.Pair.map_fst (Data.Pair 3 2) (Data.Nat.add 2)) -> 4
+Data.Pair.map_fst <a> <b> <c> (pair: Data.Pair a b) (func: a -> c) : Data.Pair c b
+Data.Pair.map_fst a b c (Data.Pair.new t.a t.b p.fst p.snd) func =
+  Data.Pair.new c t.b (func p.fst) p.snd

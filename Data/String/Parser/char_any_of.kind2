@@ -1,0 +1,5 @@
+// Succeeds if the next char is one of a list of characters
+// Consumes and returns the character
+Data.String.Parser.char_any_of <t> (options: Data.String) : Data.String.Parser t Data.Char {
+  Data.String.Parser.satisfy (c => Data.String.contains_char c options)
+}

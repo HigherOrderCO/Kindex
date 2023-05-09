@@ -1,7 +1,7 @@
-Data.Tree.Patricia.lowestbit (x: U60): U60 {
+Data.Tree.Patricia.lowestbit (x: Data.U60): Data.U60 {
   Data.Tree.Patricia.lowestbitAux0 (% x 2) x
 }
 
-Data.Tree.Patricia.lowestbitAux0 (b: U60) (x: U60): U60
+Data.Tree.Patricia.lowestbitAux0 (b: Data.U60) (x: Data.U60): Data.U60
 Data.Tree.Patricia.lowestbitAux0 0 x = (* 2 (Data.Tree.Patricia.lowestbit (/ x 2)))
 Data.Tree.Patricia.lowestbitAux0 1 x = 1

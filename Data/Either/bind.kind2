@@ -1,0 +1,3 @@
+Data.Either.bind <l> <ra> <rb> (e: Data.Either l ra) (f: ra -> (Data.Either l rb)) : Data.Either l rb
+Data.Either.bind l ra rb (Data.Either.left  l_ ra_ val) f = Data.Either.left val
+Data.Either.bind l ra rb (Data.Either.right l_ ra_ val) f = f val

@@ -1,2 +1,0 @@
-Algebra.Laws.associativity.eta <t> (concat: t -> t -> t): Type
-Algebra.Laws.associativity.eta t concat = (a: t) -> (b: t) -> (c: t) -> Equal (concat (concat a b) c) (concat a (concat b c))

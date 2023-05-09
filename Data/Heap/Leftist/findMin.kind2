@@ -1,4 +1,4 @@
-// Finds the minimum element. Returns Maybe.None if called on an empty heap.
-Data.Heap.Leftist.findMin (h: Data.Heap.Leftist) : (Maybe U60)
-Data.Heap.Leftist.findMin Data.Heap.Leftist.empty = Maybe.none
-Data.Heap.Leftist.findMin (Data.Heap.Leftist.tree r x a b) = (Maybe.some x)
+// Data.Finds the minimum element. Returns Data.Maybe.None if called on an empty heap.
+Data.Data.Heap.Leftist.findMin (h: Data.Data.Heap.Leftist) : (Data.Maybe Data.U60)
+Data.Data.Heap.Leftist.findMin Data.Data.Heap.Leftist.empty = Data.Maybe.none
+Data.Data.Heap.Leftist.findMin (Data.Data.Heap.Leftist.tree r x a b) = (Data.Maybe.some x)

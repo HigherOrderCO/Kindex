@@ -1,0 +1,8 @@
+// Converts all 0 and 1 from a string in a Bit structure
+// Example : (Data.Bits.read ("1101")) -> (Data.Bits.i (Data.Bits.i (Data.Bits.o (Data.Bits.i Data.Bits.e))))
+Data.Bits.read (text: Data.String) : Data.Bits
+Data.Bits.read Data.String.nil              = Data.Bits.e
+Data.Bits.read (Data.String.cons head tail) = 
+  (Data.Bool.if (Data.Char.equal head '1') (Data.Bits.i (Data.Bits.read tail)) 
+  (Data.Bool.if (Data.Char.equal head '0') (Data.Bits.o (Data.Bits.read tail)) 
+  (Data.Bits.read tail)))

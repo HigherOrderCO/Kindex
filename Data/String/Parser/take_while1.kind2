@@ -1,0 +1,11 @@
+// Take at least 1 character from the code while a condition passes
+// Fails if no characters are taken
+Data.String.Parser.take_while1 <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.String {
+  do Data.String.Parser {
+    ask r = Data.String.Parser.take_while cond
+    match Data.String r {
+      nil  => Data.String.Parser.empty
+      cons => Data.String.Parser.pure (Data.String.cons r.head r.tail)
+    }
+  }
+}

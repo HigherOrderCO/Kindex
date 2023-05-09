@@ -1,3 +1,0 @@
-String.concat.magma : Algebra.Magma String
-String.concat.magma =
-  (Algebra.Magma.new (x => y => String.concat x y))

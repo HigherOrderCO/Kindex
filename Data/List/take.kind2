@@ -1,0 +1,6 @@
+// Return a list without the first n values
+// Example: (Data.List.get [1,2,3,4] 2) -> [1,2]
+Data.List.take <a> (xs: Data.List a) (n: Data.Nat) : Data.List a
+Data.List.take a (Data.List.cons t head tail) (Data.Nat.succ pred) = Data.List.cons head (Data.List.take tail pred)
+Data.List.take a (Data.List.nil t)            (Data.Nat.succ pred) = Data.List.nil
+Data.List.take a xs                      Data.Nat.zero        = Data.List.nil

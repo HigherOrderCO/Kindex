@@ -1,0 +1,6 @@
+Data.List.zip_with <a> <b> <c> (f: a -> b -> c) (as: Data.List a) (bs: Data.List b) : Data.List c
+
+Data.List.zip_with a b c f (Data.List.cons a_ ah at) (Data.List.cons b_ bh bt) =
+  Data.List.cons (f ah bh) (Data.List.zip_with f at bt)
+
+Data.List.zip_with a b c f as bs = Data.List.nil

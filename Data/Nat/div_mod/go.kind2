@@ -1,0 +1,12 @@
+// `n` should start as the numerator, counting down to zero
+// `cnt` counts from the denominator, down to zero and resets back to the denominator.
+//     We use cnt to count both the quocient (how many times it hit zero), and the remainder (whatever is left at the end)
+// `den` is the denominator
+// `quo` accumulates the quocient
+Data.Nat.div_mod.go (n: Data.Nat) (cnt: Data.Nat) (den: Data.Nat) (quo: Data.Nat) : (Data.Pair Data.Nat Data.Nat)
+
+Data.Nat.div_mod.go  Data.Nat.zero          Data.Nat.zero     den quo = Data.Pair.new (Data.Nat.succ quo) Data.Nat.zero
+Data.Nat.div_mod.go  Data.Nat.zero          cnt          den quo = Data.Pair.new           quo (Data.Nat.sub den cnt)
+
+Data.Nat.div_mod.go  n                 Data.Nat.zero     den quo = Data.Nat.div_mod.go n   den   den (Data.Nat.succ quo)
+Data.Nat.div_mod.go (Data.Nat.succ n.p) (Data.Nat.succ cnt.p) den quo = Data.Nat.div_mod.go n.p cnt.p den quo

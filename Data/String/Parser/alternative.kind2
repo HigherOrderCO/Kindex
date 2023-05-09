@@ -1,0 +1,4 @@
+// Runs the first parser. If it fails, runs the second one
+Data.String.Parser.alternative <t> <a> (x : Data.String.Parser t a) (y : Data.String.Parser t a) : (Data.String.Parser t a) {
+  Data.String.Parser.first_of [x y]
+}

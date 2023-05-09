@@ -1,0 +1,8 @@
+// Runs a parser, returning whether it succeeds or not
+// Never fails
+Data.String.Parser.to_bool <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t Data.Bool {
+  state => match Data.String.Parser.Result r = (prs state) {
+    done state .. => Data.String.Parser.Result.done state Data.Bool.true
+    fail state .. => Data.String.Parser.Result.done state Data.Bool.false
+  }
+}

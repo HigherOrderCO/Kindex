@@ -1,0 +1,7 @@
+// Run parser and modify the result on success
+Data.String.Parser.map <a> <b> <t> (f : a -> b) (prs: Data.String.Parser t a) : Data.String.Parser t b {
+  do Data.String.Parser {
+    ask r = prs
+    return (f r)
+  }
+}

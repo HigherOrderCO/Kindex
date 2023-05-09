@@ -1,0 +1,7 @@
+Data.List.chunk <a> (n: Data.Nat) (xs: Data.List a) : Data.Maybe (Data.List a) {
+  if (Data.Nat.gte (Data.List.length xs) n) {
+    Data.Maybe.some (Data.List.take xs n)
+  } else {
+    Data.Maybe.none
+  }
+}

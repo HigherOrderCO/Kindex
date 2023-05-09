@@ -1,0 +1,3 @@
+Data.Maybe.extract <a: Type> <b: Type> (m: Data.Maybe a) (dflt: b) (f: a -> b) : b
+Data.Maybe.extract a b (Data.Maybe.none t)     dflt f = dflt
+Data.Maybe.extract a b (Data.Maybe.some t val) dflt f = f val

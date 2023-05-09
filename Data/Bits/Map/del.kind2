@@ -1,0 +1,24 @@
+// Given a Bit, deletes the correspondent value in the map
+Data.Bits.Data.Map.del <a> 
+  (map: Data.Bits.Data.Map a)
+  (key: Data.Bits)
+: Data.Bits.Data.Map a
+
+Data.Bits.Data.Map.del a (Data.Bits.Data.Map.new t) key =
+  Data.Bits.Data.Map.new
+
+Data.Bits.Data.Map.del a (Data.Bits.Data.Map.tie t value left right) Data.Bits.e =
+  let value = Data.Maybe.none t
+  Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.del a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.o pred) =
+  let left = Data.Bits.Data.Map.del a left pred
+  Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.del a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.i pred)=
+  let right = Data.Bits.Data.Map.del a right pred
+  Data.Bits.Data.Map.tie value left right
+
+
+// Warning: This function wasnt tested, if you test it, remove this comment and
+//make the necessary changes and make us a PR, thanks!

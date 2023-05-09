@@ -1,5 +1,0 @@
-// A number is always equal to itself
-
-Nat.equal.refl (a: Nat): (Equal (Nat.equal a a) Bool.true)
-Nat.equal.refl Nat.zero = Equal.refl
-Nat.equal.refl (Nat.succ a) = (Nat.equal.refl a)

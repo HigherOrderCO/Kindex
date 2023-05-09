@@ -1,0 +1,7 @@
+Data.U120.for <s: Type> (state: s) (from: Data.U120) (til: Data.U120) (func: Data.U120 -> s -> s) : s {
+  if Data.U120.equal from til {
+    state
+  } else {
+    Data.U120.for (func from state) (Data.U120.inc from) til func
+  }
+}

@@ -1,0 +1,4 @@
+Data.Bits.mul.go (a: Data.Bits) (b: Data.Bits) (acum: Data.Bits) : Data.Bits
+Data.Bits.mul.go  a Data.Bits.e acum = acum
+Data.Bits.mul.go  a (Data.Bits.o b.pred) acum = Data.Bits.mul.go (Data.Bits.o a) b.pred acum
+Data.Bits.mul.go  a (Data.Bits.i b.pred) acum = Data.Bits.mul.go (Data.Bits.o a) b.pred (Data.Bits.add a acum)

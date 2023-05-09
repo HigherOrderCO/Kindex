@@ -1,0 +1,5 @@
+// True if a > b, false otherwise
+Data.Nat.gtn (a: Data.Nat) (b: Data.Nat) : Data.Bool
+Data.Nat.gtn  Data.Nat.zero     b           = Data.Bool.false
+Data.Nat.gtn (Data.Nat.succ a)  Data.Nat.zero    = Data.Bool.true
+Data.Nat.gtn (Data.Nat.succ a) (Data.Nat.succ b) = Data.Nat.gtn a b

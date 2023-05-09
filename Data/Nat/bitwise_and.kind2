@@ -1,0 +1,7 @@
+Data.Nat.bitwise_and (a: Data.Nat) (b: Data.Nat) : Data.Nat
+Data.Nat.bitwise_and Data.Nat.zero b        = Data.Nat.zero
+Data.Nat.bitwise_and a        Data.Nat.zero = Data.Nat.zero
+Data.Nat.bitwise_and a        b        =
+  let bit = Data.Bool.and (Data.Nat.is_odd a) (Data.Nat.is_odd b)
+  let rst = Data.Nat.double (Data.Nat.bitwise_and (Data.Nat.half a) (Data.Nat.half b))
+  if bit { Data.Nat.succ rst } else { rst }

@@ -1,0 +1,4 @@
+// Auxiliar Function
+Data.List.reverse.go <a> (xs: Data.List a) (ys: Data.List a) : Data.List a
+Data.List.reverse.go a (Data.List.nil  a_)           ys = ys
+Data.List.reverse.go a (Data.List.cons a_ x xs) ys = Data.List.reverse.go xs (Data.List.cons x ys)

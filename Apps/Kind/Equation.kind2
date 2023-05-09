@@ -1,0 +1,5 @@
+// Express a relation of equivalence between two terms that is used in
+// the unification process.
+type Apps.Kind.Equation {
+  new (ctx: Apps.Kind.Context) (orig: Data.U60) (left: Apps.Kind.Term) (right: Apps.Kind.Term)
+}

@@ -1,0 +1,4 @@
+Data.Nat.absurd.zero_not_succ (n: Data.Nat) : Prop.Not (Prop.Equal Data.Nat Data.Nat.zero (Data.Nat.succ n))
+Data.Nat.absurd.zero_not_succ n = absurd => 
+  let to_bool = Prop.Equal.apply (n => (Data.Nat.to_bool n)) absurd
+  Data.Bool.true_not_false (Prop.Equal.mirror to_bool)

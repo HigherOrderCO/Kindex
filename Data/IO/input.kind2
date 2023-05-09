@@ -1,0 +1,2 @@
+Data.IO.input : Data.IO Data.String
+Data.IO.input = Data.IO.do_input Data.String (x => Data.IO.done x)

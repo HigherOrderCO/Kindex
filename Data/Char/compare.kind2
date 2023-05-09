@@ -1,0 +1,4 @@
+#inline
+Data.Char.compare (a: Data.Char) (b: Data.Char) : Data.Cmp {
+  Data.U60.compare a b
+}

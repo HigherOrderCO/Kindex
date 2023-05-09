@@ -1,7 +1,0 @@
-// Automatically derived from Pair/_.type
-#kdl_erase
-#derive[match]
-record Pair (a) (b) {
-  fst : a
-  snd : b
-}

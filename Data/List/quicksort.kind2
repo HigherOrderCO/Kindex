@@ -1,0 +1,8 @@
+Data.List.quicksort <a> (cmp: a -> a -> Data.Bool) (xs: Data.List a) : Data.List a
+Data.List.quicksort a cmp (Data.List.nil  a_) = Data.List.nil
+Data.List.quicksort a cmp (Data.List.cons a_ x xs) =
+  let cmpx  = (y => cmp y x) :: a -> Data.Bool
+  let part  = Data.List.partition cmpx xs
+  let after = Data.List.quicksort cmp (Data.Pair.fst part)
+  let befor = Data.List.quicksort cmp (Data.Pair.snd part)
+  Data.List.concat befor (Data.List.cons x after)

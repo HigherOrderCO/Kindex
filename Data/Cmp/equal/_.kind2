@@ -1,0 +1,5 @@
+Data.Cmp.equal (x : Data.Cmp) (y : Data.Cmp) : Data.Bool
+Data.Cmp.equal Data.Cmp.ltn Data.Cmp.ltn = Data.Bool.true
+Data.Cmp.equal Data.Cmp.eql Data.Cmp.eql = Data.Bool.true
+Data.Cmp.equal Data.Cmp.gtn Data.Cmp.gtn = Data.Bool.true
+Data.Cmp.equal x       y       = Data.Bool.false

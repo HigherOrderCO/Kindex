@@ -1,0 +1,12 @@
+// Gets in a map a value that corresponds to the Data.Bits
+Data.Bits.Data.Map.got <a> (map : Data.Bits.Data.Map a) (key : Data.Bits) : Data.Pair (Data.Bits.Data.Map a) (Data.Maybe a)
+Data.Bits.Data.Map.got Data.Bits.Data.Map.new key                         = Data.Pair.new Data.Bits.Data.Map.new Data.Maybe.none
+Data.Bits.Data.Map.got (Data.Bits.Data.Map.tie val lft rgt) Data.Bits.e        = Data.Pair.new (Data.Bits.Data.Map.tie val lft rgt) val
+Data.Bits.Data.Map.got (Data.Bits.Data.Map.tie val lft rgt) (Data.Bits.o pred) = Data.Bits.Data.Map.got.lft val (Data.Bits.Data.Map.got lft pred) rgt
+Data.Bits.Data.Map.got (Data.Bits.Data.Map.tie val lft rgt) (Data.Bits.i pred) = Data.Bits.Data.Map.got.rgt val lft (Data.Bits.Data.Map.got rgt pred)
+
+Data.Bits.Data.Map.got.lft <a> (val: Data.Maybe a) (lft: Data.Pair (Data.Bits.Data.Map a) (Data.Maybe a)) (rgt: Data.Bits.Data.Map a) : Data.Pair (Data.Bits.Data.Map a) (Data.Maybe a)
+Data.Bits.Data.Map.got.lft val (Data.Pair.new lft res) rgt = Data.Pair.new (Data.Bits.Data.Map.tie val lft rgt) res
+
+Data.Bits.Data.Map.got.rgt <a> (val: Data.Maybe a) (lft: Data.Bits.Data.Map a) (rgt: Data.Pair (Data.Bits.Data.Map a) (Data.Maybe a)) : Data.Pair (Data.Bits.Data.Map a) (Data.Maybe a)
+Data.Bits.Data.Map.got.rgt val lft (Data.Pair.new rgt res) = Data.Pair.new (Data.Bits.Data.Map.tie val lft rgt) res

@@ -1,0 +1,3 @@
+Data.U120.to_bool (n: Data.U120) : Data.Bool
+Data.U120.to_bool (Data.U120.new 0 0) = Data.Bool.false
+Data.U120.to_bool n              = Data.Bool.true

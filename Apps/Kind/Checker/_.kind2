@@ -1,0 +1,8 @@
+///The @Apps.Kind.Checker@ function is just a type synonym to
+// a function that acts like the *State Monad*. It takes
+// a context, the de bruijin level/depth, a right hand side
+// flag, a list of substitutions, a list of equations to unify,
+// a list of errors and returns if the checking process failed
+// or succeeded.
+Apps.Kind.Checker (a: Type) : Type
+Apps.Kind.Checker a = Apps.Kind.Context -> Data.U60 -> Data.Bool -> Apps.Kind.Subst -> (Data.List Apps.Kind.Equation) -> (Data.List Apps.Kind.Error) -> Apps.Kind.Result a

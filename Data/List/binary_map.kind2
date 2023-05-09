@@ -1,0 +1,5 @@
+Data.List.binary_map <a: Type> (xs: Data.List a) (ys: Data.List a) (f: a -> a -> a) : Data.List a
+Data.List.binary_map a (Data.List.nil  x.a)         (Data.List.nil y.a)          f = Data.List.nil
+Data.List.binary_map a (Data.List.cons x.a x.h x.t) (Data.List.nil y.a)          f = Data.List.cons x.h x.t
+Data.List.binary_map a (Data.List.nil  x.a)         (Data.List.cons y.a y.h y.t) f = Data.List.cons y.h y.t
+Data.List.binary_map a (Data.List.cons x.a x.h x.t) (Data.List.cons y.a y.h y.t) f = Data.List.cons (f x.h y.h) (Data.List.binary_map x.t y.t f)

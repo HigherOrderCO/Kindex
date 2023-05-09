@@ -1,0 +1,12 @@
+// Fails when the given parser succeeds and succeeds when it fails
+// Erases any result
+Data.String.Parser.not <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t Data.Unit {
+  do Data.String.Parser {
+    ask success = Data.String.Parser.to_bool prs
+    if success {
+      Data.String.Parser.empty
+    } else {
+      Data.String.Parser.pure Data.Unit.new
+    }
+  }
+}

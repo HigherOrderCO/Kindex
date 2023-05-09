@@ -1,5 +1,0 @@
-// Runs the entire list applying a function to the head and an accumulator
-// Example: (List.for [1,2,3] 0 Nat.add) -> 6
-List.for <a> <b> (xs: List a) (acum: b) (f: (x: a) -> (ac: b) -> b) : b
-List.for a b (List.nil t)            acum f = acum
-List.for a b (List.cons t head tail) acum f = List.for tail (f head acum) f

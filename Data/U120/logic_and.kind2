@@ -1,0 +1,4 @@
+Data.U120.logic_and (a: Data.U120) (b: Data.U120) : Data.U120
+Data.U120.logic_and (Data.U120.new 0 0) b              = (Data.U120.new 0 0)
+Data.U120.logic_and a              (Data.U120.new 0 0) = (Data.U120.new 0 0)
+Data.U120.logic_and a              b              = (Data.U120.new 0 1)

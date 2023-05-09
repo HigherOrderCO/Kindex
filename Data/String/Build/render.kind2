@@ -1,0 +1,3 @@
+String.Build.render (views: Data.List String.Build) : Data.String {
+  String.Build.to_string (String.Build.many views)
+}

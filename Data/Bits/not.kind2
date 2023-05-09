@@ -1,0 +1,4 @@
+Data.Bits.notb (b: Data.Bits) : Data.Bits
+Data.Bits.notb Data.Bits.e = Data.Bits.e
+Data.Bits.notb (Data.Bits.o b) = Data.Bits.i (Data.Bits.notb b)
+Data.Bits.notb (Data.Bits.i b) = Data.Bits.o (Data.Bits.notb b)

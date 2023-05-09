@@ -1,0 +1,7 @@
+Data.Nat.from_base (base: Data.Nat) (ds: Data.List Data.Nat) : Data.Nat {
+  Data.Nat.from_base.go base (Data.List.reverse ds) Data.Nat.one Data.Nat.zero
+}
+
+Data.Nat.from_base.go (b: Data.Nat) (ds: Data.List Data.Nat) (p: Data.Nat) (res: Data.Nat) : Data.Nat
+Data.Nat.from_base.go b (Data.List.nil  Data.Nat)           p res = res
+Data.Nat.from_base.go b (Data.List.cons Data.Nat head tail) p res = Data.Nat.from_base.go b tail (Data.Nat.mul b p) (Data.Nat.add (Data.Nat.mul head p) res)

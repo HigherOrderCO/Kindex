@@ -1,5 +1,0 @@
-// Automatically derived from App/_.kind2
-#derive[match]
-type App <s> {
-  new (init: s) (draw: s -> App.DOM) (when: (event: App.Event) -> (state: s) -> IO s)
-}

@@ -1,7 +1,0 @@
-// Discard the result of a parser
-Parser.skip <a> <t> (prs: Parser t a) : Parser t Unit {
-  do Parser {
-    prs
-    return Unit.new
-  }
-}

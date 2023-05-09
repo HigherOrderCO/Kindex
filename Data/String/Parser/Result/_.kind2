@@ -1,0 +1,5 @@
+#derive[match]
+type Data.String.Parser.Result (t) (r) {
+  done (state: Data.String.Parser.State t) (result: r)
+  fail (state: Data.String.Parser.State t) (error: Data.String.Parser.Error)
+}

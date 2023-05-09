@@ -1,0 +1,2 @@
+Data.Map.length <a> (map: Data.Map a) : Data.Nat
+Data.Map.length map = Data.Bits.Data.Map.length map

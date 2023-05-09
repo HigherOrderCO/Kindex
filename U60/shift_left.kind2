@@ -1,4 +1,0 @@
-#inline
-U60.shift_left (a: U60) (b: U60) : U60 {
-  (<< a b)
-}

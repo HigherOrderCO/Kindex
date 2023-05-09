@@ -1,0 +1,8 @@
+Data.Nat.ind
+  (n: Data.Nat)
+  (p: Data.Nat -> Type)
+  (z: p Data.Nat.zero)
+  (s: (pred: Data.Nat) -> (ind: p pred) -> p (Data.Nat.succ pred))
+: p n
+Data.Nat.ind Data.Nat.zero        p z s = z
+Data.Nat.ind (Data.Nat.succ pred) p z s = s pred (Data.Nat.ind pred p z s)

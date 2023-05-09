@@ -1,5 +1,0 @@
-type Kind.Subst {
-  end
-  unfilled (rest: Kind.Subst)
-  sub (term: Kind.Term) (rest: Kind.Subst)
-}

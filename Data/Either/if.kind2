@@ -1,0 +1,3 @@
+Data.Either.if <l> <r> <t> (e: Data.Either l r) (on_left: t) (on_right: t) : t
+Data.Either.if l r t (Data.Either.left  l_ r_ val) on_left on_right = on_left
+Data.Either.if l r t (Data.Either.right l_ r_ val) on_left on_right = on_right

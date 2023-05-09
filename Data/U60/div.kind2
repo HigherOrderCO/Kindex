@@ -1,0 +1,4 @@
+#inline
+Data.U60.div (a: Data.U60) (b: Data.U60) : Data.U60 {
+  (/ a b)
+}

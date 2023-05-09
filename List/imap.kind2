@@ -1,3 +1,0 @@
-List.imap <a> <b> (f: a -> Nat -> b) (xs: List a) : List b
-List.imap a b f (List.nil  x.a)         = List.nil
-List.imap a b f (List.cons x.a x.h x.t) = List.cons (f x.h Nat.zero) (List.imap (x => n => f x n) x.t)

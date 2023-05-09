@@ -1,0 +1,4 @@
+#inline
+Data.Char.newline : Data.Char {
+  10
+}

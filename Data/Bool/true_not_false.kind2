@@ -1,0 +1,12 @@
+// Proof that Data.Bool.true != Data.Bool.false
+// This can be used to build more complex proofs by a
+Data.Bool.true_not_false (e: (Prop.Equal Data.Bool Data.Bool.true Data.Bool.false)) : Data.Empty
+Data.Bool.true_not_false e = 
+  // How this works: Prop.Equal.rewrite takes a predicate that changes a value into a
+  // type. It returns the result of applying the predicate on the RHS but takes
+  // in a value of the type of applying the predicate on the LHS This works on
+  // the type-level because both types are meant to be equal, but when the
+  // values are different (such as Data.Bool.true and Data.Bool.false) Prop.Equal.rewrite
+  // returns inconstructible types at the type level, which we chose to be Data.Empty
+  // in this case.
+	Prop.Equal.rewrite e (x => Data.Bool.if Type x Data.Unit Data.Empty) Data.Unit.new

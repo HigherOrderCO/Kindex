@@ -1,0 +1,12 @@
+Data.Char.dec_value (chr: Data.Char) : Data.Nat
+Data.Char.dec_value 48 = Data.U60.to_nat 0
+Data.Char.dec_value 49 = Data.U60.to_nat 1
+Data.Char.dec_value 50 = Data.U60.to_nat 2
+Data.Char.dec_value 51 = Data.U60.to_nat 3
+Data.Char.dec_value 52 = Data.U60.to_nat 4
+Data.Char.dec_value 53 = Data.U60.to_nat 5
+Data.Char.dec_value 54 = Data.U60.to_nat 6
+Data.Char.dec_value 55 = Data.U60.to_nat 7
+Data.Char.dec_value 56 = Data.U60.to_nat 8
+Data.Char.dec_value 57 = Data.U60.to_nat 9
+Data.Char.dec_value a  = Data.U60.to_nat 0

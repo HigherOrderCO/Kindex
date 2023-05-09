@@ -1,0 +1,4 @@
+#inline
+Data.Char.between_inclusive (a: Data.U60) (b: Data.U60) (c: Data.U60) : Data.Bool {
+  Data.U60.between_inclusive a b c
+}

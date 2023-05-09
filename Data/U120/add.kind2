@@ -1,0 +1,8 @@
+// Data.U120 addition
+Data.U120.add (a: Data.U120) (b: Data.U120) : Data.U120
+Data.U120.add (Data.U120.new a.hi a.lo) (Data.U120.new b.hi b.lo) =
+  let c.lo = (+ a.lo b.lo)
+  let c.hi = (+ a.hi b.hi)
+  let over = (Data.Bool.or (Data.U60.less_than c.lo a.lo) (Data.U60.less_than c.lo b.lo))
+  let c.hi = if over { (+ c.hi 1) } else { c.hi }
+  Data.U120.new c.hi c.lo

@@ -1,0 +1,18 @@
+Data.Bits.Data.Map.has <a> 
+	(key: Data.Bits) 
+	(map: Data.Bits.Data.Map a)
+: Data.Bool
+
+Data.Bits.Data.Map.has a (Data.Bits.e) (Data.Bits.Data.Map.new) = Data.Bool.false
+
+Data.Bits.Data.Map.has a (Data.Bits.o pred) (Data.Bits.Data.Map.new) = Data.Bool.false
+
+Data.Bits.Data.Map.has a (Data.Bits.i pred) (Data.Bits.Data.Map.new) = Data.Bool.false
+
+Data.Bits.Data.Map.has a (Data.Bits.e) (Data.Bits.Data.Map.tie (Data.Maybe.none) left right) = Data.Bool.false
+
+Data.Bits.Data.Map.has a (Data.Bits.e) (Data.Bits.Data.Map.tie (Data.Maybe.some value) left right) = Data.Bool.true
+
+Data.Bits.Data.Map.has a (Data.Bits.o pred) (Data.Bits.Data.Map.tie value left right) = (Data.Bits.Data.Map.has pred left) 
+
+Data.Bits.Data.Map.has a (Data.Bits.i pred) (Data.Bits.Data.Map.tie value left right) = (Data.Bits.Data.Map.has pred right)

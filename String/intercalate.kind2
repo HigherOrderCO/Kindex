@@ -1,3 +1,0 @@
-String.intercalate (sep: String) (xs: List String) : String {
-  String.flatten (List.intersperse sep xs)
-}

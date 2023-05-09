@@ -1,0 +1,4 @@
+Data.List.last <a> (xs: Data.List a) : Data.Maybe a
+Data.List.last a (Data.List.nil  xa)                   = Data.Maybe.none
+Data.List.last a (Data.List.cons xa xh (Data.List.nil xa_)) = Data.Maybe.some xh
+Data.List.last a (Data.List.cons xa xh xt)             = Data.List.last xt

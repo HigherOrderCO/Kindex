@@ -1,0 +1,4 @@
+#inline
+Data.U60.to_u120 (num: Data.U60) : Data.U120 {
+  Data.U120.new 0 num
+}

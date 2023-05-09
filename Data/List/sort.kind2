@@ -1,0 +1,4 @@
+#inline
+Data.List.sort <a> (cmp: a -> a -> Data.Bool) (xs: Data.List a) : Data.List a {
+  Data.List.quicksort cmp xs
+}

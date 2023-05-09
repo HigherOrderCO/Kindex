@@ -1,0 +1,2 @@
+Data.List.bind <a: Type> <b: Type> (xs: Data.List a) (f: a -> Data.List b) : Data.List b
+Data.List.bind a b xs f = Data.List.flatten b (Data.List.map xs f)

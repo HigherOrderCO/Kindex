@@ -1,0 +1,3 @@
+Data.String.Parser (t: Type) (r: Type) : Type {
+  (Data.String.Parser.State t) -> (Data.String.Parser.Result t r)
+}

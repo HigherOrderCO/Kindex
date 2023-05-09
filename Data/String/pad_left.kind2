@@ -1,0 +1,3 @@
+Data.String.pad_left (size: Data.Nat) (chr: Data.Char) (str: Data.String) : Data.String {
+  Data.String.reverse (Data.String.pad_right size chr (Data.String.reverse str))
+}

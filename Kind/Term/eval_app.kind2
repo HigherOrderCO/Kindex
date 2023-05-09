@@ -1,5 +1,0 @@
-use Kind.Term as Term
-
-Term/eval_app (orig: U60) (left: Kind.Term) (right: Kind.Term): Kind.Term
-Term/eval_app orig (Term/lam orig1 name body) arg = body arg
-Term/eval_app orig func                       arg = (Term/app orig func arg)

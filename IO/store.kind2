@@ -1,3 +1,0 @@
-IO.store (key: String) (val: String) : IO U60 {
-  IO.do_store key val (x => IO.done x)
-}

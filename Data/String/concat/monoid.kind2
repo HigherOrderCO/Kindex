@@ -1,0 +1,6 @@
+Data.String.concat.monoid : Algebra.Monoid Data.String
+Data.String.concat.monoid =
+  (Algebra.Monoid.new
+    Data.String.concat.semigroup
+    Data.String.nil
+    Data.String.concat.identity)

@@ -1,6 +1,0 @@
-// Concatenation with empty string preserves the argument
-String.concat.nil_right (xs: String) : Algebra.Laws.right_identity (x => y => String.concat x y) String.nil xs
-String.concat.nil_right (String.nil) = Equal.refl
-String.concat.nil_right (String.cons x xs) =
-  let ind = String.concat.nil_right xs
-  Equal.apply (xs => String.cons x xs) ind

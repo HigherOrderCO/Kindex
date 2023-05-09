@@ -1,0 +1,7 @@
+// Returns the greatest common denominator between n and m
+// Example: Data.Nat.gcd 18 12 -> 6
+Data.Nat.gcd (n: Data.Nat) (m: Data.Nat) : Data.Nat
+Data.Nat.gcd  Data.Nat.zero        m = m
+Data.Nat.gcd (Data.Nat.succ np) m =
+  let n = (Data.Nat.succ np)
+  Data.Nat.gcd (Data.Nat.mod m n) n

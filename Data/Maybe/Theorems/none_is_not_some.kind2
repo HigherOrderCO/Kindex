@@ -1,0 +1,4 @@
+Data.Maybe.Theorems.none_is_not_some <a: Type> (x: a): Prop.Not (Prop.Equal (Data.Maybe.none a) (Data.Maybe.some a x)) { 
+  absurd => Prop.Equal.rewrite absurd (l => if (Data.Maybe.is_some l) {Data.Empty} else {Data.Unit}) Data.Unit.new
+}
+

@@ -1,0 +1,4 @@
+// A parser that matches an alphanumeric string
+Data.String.Parser.alphanumeric <t> : Data.String.Parser t Data.String {
+  Data.String.Parser.take_while1 (c => Data.Char.is_alphanumeric c)
+}

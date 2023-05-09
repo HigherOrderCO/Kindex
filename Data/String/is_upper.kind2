@@ -1,0 +1,4 @@
+// True if the string contains only uppercase letters or other non-letter characters
+Data.String.is_upper (xs: Data.String) : Data.Bool {
+  Data.String.all (c => Data.Bool.not (Data.Char.is_lower c)) xs
+}

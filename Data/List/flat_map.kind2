@@ -1,0 +1,3 @@
+Data.List.flat_map <a> <b> (xs: Data.List a) (f: a -> Data.List b) : Data.List b {
+  Data.List.flatten (Data.List.map xs f)
+}

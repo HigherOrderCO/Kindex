@@ -1,6 +1,0 @@
-// Automatically derived from String/_.type
-#derive[match]
-type String {
-  nil
-  cons (head: Char) (tail: String)
-}

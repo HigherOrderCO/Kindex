@@ -1,0 +1,5 @@
+// A number is always equal to itself
+
+Data.Nat.equal.refl (a: Data.Nat): (Prop.Equal (Data.Nat.equal a a) Data.Bool.true)
+Data.Nat.equal.refl Data.Nat.zero = Prop.Equal.refl
+Data.Nat.equal.refl (Data.Nat.succ a) = (Data.Nat.equal.refl a)

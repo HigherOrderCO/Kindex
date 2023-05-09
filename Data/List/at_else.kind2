@@ -1,0 +1,4 @@
+Data.List.at_else <a> (xs: Data.List a) (idx: Data.Nat) (x: a) : a
+Data.List.at_else a (Data.List.nil t)            idx             x = x
+Data.List.at_else a (Data.List.cons t head tail) Data.Nat.zero        x = head
+Data.List.at_else a (Data.List.cons t head tail) (Data.Nat.succ pred) x = Data.List.at_else tail pred x

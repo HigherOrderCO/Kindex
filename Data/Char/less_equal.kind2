@@ -1,0 +1,4 @@
+#inline
+Data.Char.less_equal (a: Data.Char) (b: Data.Char) : Data.Bool {
+  Data.U60.less_equal a b
+}

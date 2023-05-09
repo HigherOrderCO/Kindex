@@ -1,3 +1,0 @@
-Maybe.is_none <a: Type> (m: Maybe a) : Bool
-Maybe.is_none a (Maybe.none t)   = Bool.true
-Maybe.is_none a (Maybe.some t v) = Bool.false

@@ -1,0 +1,4 @@
+#inline
+Data.U60.bitwise_complement (n: Data.U60) : Data.U60 {
+  (^ n Data.U60.max_val)
+}

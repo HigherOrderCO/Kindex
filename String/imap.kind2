@@ -1,3 +1,0 @@
-String.imap (f: Nat -> Char -> Char) (xs: String) : String
-String.imap f String.nil = String.nil
-String.imap f (String.cons x xs) = String.cons (f Nat.zero x) (String.imap (n => f (Nat.succ n)) xs)

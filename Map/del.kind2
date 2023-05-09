@@ -1,3 +1,0 @@
-#inline
-Map.del <a> (map: Bits.Map a) (key: U60) : Bits.Map a
-Map.del a map key = Bits.Map.del map (U60.to_bits key)

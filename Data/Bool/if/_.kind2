@@ -1,0 +1,5 @@
+// Verifies if a Given Condition returns t if true f if false
+// Example: (Data.Bool.if Data.Nat Data.Bool.true (Data.Nat.succ Data.Nat.zero) (Data.Nat.zero)) = (Data.Nat.succ Data.Nat.zero)
+Data.Bool.if <a> (b: Data.Bool) (t: a) (f: a) : a
+Data.Bool.if a Data.Bool.true  t f = t
+Data.Bool.if a Data.Bool.false t f = f

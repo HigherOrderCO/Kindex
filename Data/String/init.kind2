@@ -1,0 +1,4 @@
+Data.String.init (xs: Data.String) : Data.String
+Data.String.init  Data.String.nil                = Data.String.nil
+Data.String.init (Data.String.cons x Data.String.nil) = Data.String.nil
+Data.String.init (Data.String.cons x xs)         = Data.String.cons x (Data.String.init xs)

@@ -1,0 +1,4 @@
+// Sum from 0 to n
+Data.Nat.sum(n: Data.Nat) : Data.Nat
+Data.Nat.sum (Data.Nat.succ np) = Data.Nat.add (Data.Nat.succ np) (Data.Nat.sum np)
+Data.Nat.sum  Data.Nat.zero     = Data.Nat.zero

@@ -1,4 +1,0 @@
-Cmp.as_eql (cmp: Cmp) : Bool
-Cmp.as_eql Cmp.ltn = Bool.false
-Cmp.as_eql Cmp.eql = Bool.true
-Cmp.as_eql Cmp.gtn = Bool.false

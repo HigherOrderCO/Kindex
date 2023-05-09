@@ -1,0 +1,4 @@
+// Data.Finds the remainder of the division of n by m
+Data.Nat.mod (num: Data.Nat) (mod: Data.Nat) : Data.Nat {
+  Data.Pair.snd (Data.Nat.div_mod num mod)
+}

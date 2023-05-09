@@ -1,0 +1,2 @@
+Data.IO.output (text: Data.String) : Data.IO Data.U60
+Data.IO.output text = Data.IO.do_output Data.U60 text (x => Data.IO.done x)

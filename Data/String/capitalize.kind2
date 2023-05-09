@@ -1,0 +1,9 @@
+// Make Each Data.Word Have An Uppercase Head And Lowercase Tail, Just Like In This Comment
+Data.String.capitalize (s: Data.String) : Data.String
+Data.String.capitalize (Data.String.cons ' ' t) =
+  match Data.String t {
+    nil  => Data.String.cons ' '  Data.String.nil
+    cons head tail => Data.String.cons ' ' (Data.String.cons (Data.Char.to_upper head) (Data.String.capitalize tail))
+  }
+Data.String.capitalize (Data.String.cons h t) = Data.String.cons (Data.Char.to_lower h) (Data.String.capitalize t)
+Data.String.capitalize  Data.String.nil       = Data.String.nil

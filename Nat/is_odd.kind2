@@ -1,5 +1,0 @@
-// True if the number is odd
-Nat.is_odd (a: Nat) : Bool 
-Nat.is_odd  Nat.zero               = Bool.false 
-Nat.is_odd (Nat.succ  Nat.zero)    = Bool.true
-Nat.is_odd (Nat.succ (Nat.succ a)) = Nat.is_odd a

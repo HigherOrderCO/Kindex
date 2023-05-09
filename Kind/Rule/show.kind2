@@ -1,6 +1,0 @@
-use Kind.Rule as Rule
-use Kind.Term as Term
-
-Rule/show (rule: Kind.Rule) : String
-Rule/show (Rule/lhs term rest) = String.concat (Term/show term) (String.concat " " (Rule/show rest))
-Rule/show (Rule/rhs term)      = String.concat " => " (Term/show term)

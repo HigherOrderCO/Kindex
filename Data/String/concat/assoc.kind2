@@ -1,0 +1,5 @@
+Data.String.concat.assoc (xs: Data.String) (ys: Data.String) (zs: Data.String) : Prop.Equal (Data.String.concat xs (Data.String.concat ys zs)) (Data.String.concat (Data.String.concat xs ys) zs)
+Data.String.concat.assoc (Data.String.nil) ys zs       = Prop.Equal.refl
+Data.String.concat.assoc (Data.String.cons x xs) ys zs =
+  let ind = Data.String.concat.assoc xs ys zs
+  Prop.Equal.apply (xs => Data.String.cons x xs) ind

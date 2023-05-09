@@ -1,0 +1,3 @@
+Data.Nat.mul_var (n: Data.Nat) : (Function.Variadic Data.Nat Data.Nat n) {
+  Function.Variadic.foldr (a => b => Data.Nat.mul a b) Data.Nat.one n
+}

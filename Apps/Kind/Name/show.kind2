@@ -1,0 +1,18 @@
+use Apps.Kind.Name as Name
+
+Name/show.go (name: Data.U60) (chrs: Data.String): Data.String
+Name/show.go name chrs =
+  Data.U60.if (== name 0) chrs (
+    let val = (% name 64)
+    let chr =
+      (Data.U60.if (== val 0) '.'
+      (Data.U60.if (& (<=  1 val) (<= val 10)) (+ (- val  1) '0')
+      (Data.U60.if (& (<= 11 val) (<= val 36)) (+ (- val 11) 'A')
+      (Data.U60.if (& (<= 37 val) (<= val 62)) (+ (- val 37) 'a')
+      (Data.U60.if (== val 63) '_' '?')))))
+    (Name/show.go (/ name 64) (Data.String.cons chr chrs))
+  )
+
+// Transforms a name that was condensed into a Data.U60 back to a Data.String.
+Name/show (name: Data.U60): Data.String
+Name/show name = Name/show.go name Data.String.nil

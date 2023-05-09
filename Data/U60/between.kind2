@@ -1,0 +1,4 @@
+// a <= b < c
+Data.U60.between (small: Data.U60) (val: Data.U60) (big: Data.U60) : Data.Bool {
+  Data.U60.to_bool (& (<= small val) (< val big))
+}

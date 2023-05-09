@@ -1,0 +1,2 @@
+Data.U120.bitwise_or (a: Data.U120) (b: Data.U120) : Data.U120
+Data.U120.bitwise_or (Data.U120.new ahi alo) (Data.U120.new bhi blo) = Data.U120.new (| ahi bhi) (| alo blo)

@@ -1,0 +1,28 @@
+use Apps.Kind.Term as Term
+
+type Term/Quoted {
+    typ (orig: Data.U60)
+    hol (orig: Data.U60) (number: Data.U60)
+    var (orig: Data.U60) (name: Data.U60) (index: Data.U60)
+    all (orig: Data.U60) (name: Data.U60) (typ: Term/Quoted) (body: Term/Quoted)
+    lam (orig: Data.U60) (name: Data.U60) (body: Term/Quoted)
+    app (orig: Data.U60) (func: Term/Quoted) (arg: Term/Quoted)
+    let (orig: Data.U60) (name: Data.U60) (expr: Term/Quoted) (body: Term/Quoted)
+    ann (orig: Data.U60) (expr: Term/Quoted) (typ: Term/Quoted)
+    sub (orig: Data.U60) (name: Data.U60) (indx: Data.U60) (redx: Data.U60) (expr: Term/Quoted)
+
+    ctr (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Data.List Term/Quoted)
+    fun  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Data.List Term/Quoted)
+
+    hlp (orig: Data.U60)
+    u60 (orig: Data.U60)
+    num (orig: Data.U60) (num: Data.U60)
+
+    f60    (orig: Data.U60)
+    numf60 (orig: Data.U60) (num: Data.U60)
+
+    op2 (orig: Data.U60) (operator: Apps.Kind.Operator) (left: Term/Quoted) (right: Term/Quoted)
+
+    args15 (x0: Term/Quoted) (x1: Term/Quoted) (x2: Term/Quoted) (x3: Term/Quoted) (x4: Term/Quoted) (x5: Term/Quoted) (x6: Term/Quoted) (x7: Term/Quoted) (x8: Term/Quoted) (x9: Term/Quoted) (x10: Term/Quoted) (x11: Term/Quoted) (x12: Term/Quoted) (x13: Term/Quoted) (x14: Term/Quoted) 
+    args16 (x0: Term/Quoted) (x1: Term/Quoted) (x2: Term/Quoted) (x3: Term/Quoted) (x4: Term/Quoted) (x5: Term/Quoted) (x6: Term/Quoted) (x7: Term/Quoted) (x8: Term/Quoted) (x9: Term/Quoted) (x10: Term/Quoted) (x11: Term/Quoted) (x12: Term/Quoted) (x13: Term/Quoted) (x14: Term/Quoted) (x15: Term/Quoted) 
+}

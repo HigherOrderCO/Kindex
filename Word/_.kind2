@@ -1,7 +1,0 @@
-// A bit list of known size, lsb first
-#derive[match]
-type Word ~ (size: Nat) {
-	e : Word Nat.zero  
-	i <size: Nat> (pred: Word size) : Word (Nat.succ size) 
-	o <size: Nat> (pred: Word size) : Word (Nat.succ size) 
-}

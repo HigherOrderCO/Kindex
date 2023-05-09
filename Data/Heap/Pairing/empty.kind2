@@ -1,2 +1,2 @@
-// Automatically derived from Data.Heap.Pairing/_.type
-Data.Heap.Pairing.empty : (Data.Heap.Pairing)
+// Automatically derived from Data.Data.Heap.Data.Pairing/_.type
+Data.Data.Heap.Data.Pairing.empty : (Data.Data.Heap.Data.Pairing)

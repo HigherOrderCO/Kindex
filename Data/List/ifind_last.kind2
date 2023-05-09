@@ -1,0 +1,20 @@
+// Return the last element with index, where both match a condition
+Data.List.ifind_last <a> (xs: Data.List a) (cond: a -> Data.Nat -> Data.Bool) : Data.Maybe (Data.Pair a Data.Nat) {
+  Data.List.ifind_last.go xs cond Data.Nat.zero Data.Maybe.none
+}
+
+Data.List.ifind_last.go <a>
+  (xs   : Data.List a)
+  (cond : a -> Data.Nat -> Data.Bool)
+  (idx  : Data.Nat)
+  (res  : Data.Maybe (Data.Pair a Data.Nat))
+: Data.Maybe (Data.Pair a Data.Nat)
+
+Data.List.ifind_last.go a (Data.List.nil  x.a)         cond idx res = res
+Data.List.ifind_last.go a (Data.List.cons x.a x.h x.t) cond idx res =
+  let res = if (cond x.h idx) {
+    Data.Maybe.some (Data.Pair.new x.h idx)
+  } else {
+    res
+  }
+  Data.List.ifind_last.go x.t cond (Data.Nat.succ idx) res

@@ -1,0 +1,3 @@
+Data.List.foldr <a> <b> (nil: b) (cons: a -> b -> b) (xs: Data.List a) : b
+Data.List.foldr a b nil cons (Data.List.nil  x.a)         = nil
+Data.List.foldr a b nil cons (Data.List.cons x.a x.h x.t) = cons x.h (Data.List.foldr nil cons x.t)

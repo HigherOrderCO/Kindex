@@ -1,0 +1,4 @@
+// Similar to Data.Bool.if but each case also gets a proof that it is true
+Data.Bool.if.proof <a> (b: Data.Bool) (t: (Prop.Equal b Data.Bool.true) -> a) (f: (Prop.Equal b Data.Bool.false) -> a) : a
+Data.Bool.if.proof a Data.Bool.true  t f = t Prop.Equal.refl
+Data.Bool.if.proof a Data.Bool.false t f = f Prop.Equal.refl

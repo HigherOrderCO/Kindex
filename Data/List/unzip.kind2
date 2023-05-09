@@ -1,0 +1,8 @@
+Data.List.unzip <a> <b> (xs: Data.List (Data.Pair a b)) : Data.Pair (Data.List a) (Data.List b)
+Data.List.unzip a b (Data.List.nil t) = Data.Pair.new Data.List.nil Data.List.nil
+Data.List.unzip a b (Data.List.cons t x xs) =
+  let tail = Data.List.unzip xs
+  open Data.Pair x
+  open Data.Pair tail
+  Data.Pair.new (Data.List.cons x.fst tail.fst) (Data.List.cons x.snd tail.snd)
+  

@@ -1,2 +1,0 @@
-IO.output (text: String) : IO U60
-IO.output text = IO.do_output U60 text (x => IO.done x)

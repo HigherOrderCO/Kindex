@@ -1,0 +1,111 @@
+type Apps.Kind.Term {
+    typ (orig: Data.U60)
+    hol (orig: Data.U60) (number: Data.U60)
+    var (orig: Data.U60) (name: Data.U60) (index: Data.U60)
+    all (orig: Data.U60) (name: Data.U60) (typ: Apps.Kind.Term) (body: Apps.Kind.Term -> Apps.Kind.Term)
+    lam (orig: Data.U60) (name: Data.U60) (body: Apps.Kind.Term -> Apps.Kind.Term)
+    app (orig: Data.U60) (func: Apps.Kind.Term) (arg: Apps.Kind.Term)
+    let (orig: Data.U60) (name: Data.U60) (expr: Apps.Kind.Term) (body: Apps.Kind.Term -> Apps.Kind.Term)
+    ann (orig: Data.U60) (expr: Apps.Kind.Term) (typ: Apps.Kind.Term)
+    sub (orig: Data.U60) (name: Data.U60) (indx: Data.U60) (redx: Data.U60) (expr: Apps.Kind.Term)
+
+    ct0  (ctid: Apps.Kind.Name) (orig: Data.U60)
+    ct1  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term)
+    ct2  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term)
+    ct3  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term)
+    ct4  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term)
+    ct5  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term)
+    ct6  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term)
+    ct7  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term)
+    ct8  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term)
+    ct9  (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term)
+    ct10 (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term)
+    ct11 (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term)
+    ct12 (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term)
+    ct13 (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term)
+    ct14 (ctid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term) (x13: Apps.Kind.Term)
+    ct15 (ctid: Apps.Kind.Name) (orig: Data.U60) (args: Apps.Kind.Term) : Apps.Kind.Term
+    ct16 (ctid: Apps.Kind.Name) (orig: Data.U60) (args: Apps.Kind.Term) : Apps.Kind.Term
+
+    fn0  (fnid: Apps.Kind.Name) (orig: Data.U60)
+    fn1  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term)
+    fn2  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term)
+    fn3  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term)
+    fn4  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term)
+    fn5  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term)
+    fn6  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term)
+    fn7  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term)
+    fn8  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term)
+    fn9  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term)
+    fn10 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term)
+    fn11 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term)
+    fn12 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term)
+    fn13 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term)
+    fn14 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term) (x13: Apps.Kind.Term)
+    fn15 (fnid: Apps.Kind.Name) (orig: Data.U60) (args: Apps.Kind.Term) : Apps.Kind.Term
+    fn16 (fnid: Apps.Kind.Name) (orig: Data.U60) (args: Apps.Kind.Term) : Apps.Kind.Term
+
+    hlp (orig: Data.U60)
+
+    Data.U60 (orig: Data.U60)
+    u60 (orig: Data.U60) (num: Data.U60)
+
+    F60 (orig: Data.U60)
+    f60 (orig: Data.U60) (num: Data.U60)
+
+    op2 (orig: Data.U60) (operator: Apps.Kind.Operator) (left: Apps.Kind.Term) (right: Apps.Kind.Term)
+
+    args15 (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term) (x13: Apps.Kind.Term) (x14: Apps.Kind.Term)
+    args16 (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term) (x13: Apps.Kind.Term) (x14: Apps.Kind.Term) (x15: Apps.Kind.Term)
+}
+
+#axiom
+Apps.Kind.Term.FN0  (fnid: Apps.Kind.Name) (orig: Data.U60) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN1  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN2  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN3  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN4  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN5  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN6  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN7  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN8  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN9  (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN10 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN11 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN12 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN13 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN14 (fnid: Apps.Kind.Name) (orig: Data.U60) (x0: Apps.Kind.Term) (x1: Apps.Kind.Term) (x2: Apps.Kind.Term) (x3: Apps.Kind.Term) (x4: Apps.Kind.Term) (x5: Apps.Kind.Term) (x6: Apps.Kind.Term) (x7: Apps.Kind.Term) (x8: Apps.Kind.Term) (x9: Apps.Kind.Term) (x10: Apps.Kind.Term) (x11: Apps.Kind.Term) (x12: Apps.Kind.Term) (x13: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN15 (fnid: Apps.Kind.Name) (orig: Data.U60) (args: Apps.Kind.Term) : Apps.Kind.Term
+
+#axiom
+Apps.Kind.Term.FN16 (fnid: Apps.Kind.Name) (orig: Data.U60) (args: Apps.Kind.Term) : Apps.Kind.Term

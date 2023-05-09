@@ -1,0 +1,7 @@
+// True if search is a substring of xs
+Data.String.contains (xs: Data.String) (search: Data.String) : Data.Bool
+Data.String.contains  Data.String.nil        search = Data.Bool.false
+Data.String.contains (Data.String.cons x xs) search =
+  let head = Data.String.starts_with (Data.String.cons x xs) search
+  let tail = Data.String.contains xs search
+  Data.Bool.or head tail

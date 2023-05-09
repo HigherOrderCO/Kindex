@@ -1,3 +1,0 @@
-Map.new <t> : Map t {
-  Bits.Map.new t
-}

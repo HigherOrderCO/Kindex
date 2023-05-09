@@ -1,5 +1,0 @@
-U60.add.overflowing (a: U60) (b: U60) : Pair Bool U60 {
-  let res = (+ a b)
-  let ovr = U60.less_than res a
-  Pair.new ovr res
-}

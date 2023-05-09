@@ -1,0 +1,4 @@
+// Returns ((reverse src) ++ dest)
+Data.String.reverse_over (src: Data.String) (dest: Data.String) : Data.String
+Data.String.reverse_over  Data.String.nil               dest = dest
+Data.String.reverse_over (Data.String.cons src.h src.t) dest = Data.String.reverse_over src.t (Data.String.cons src.h dest)

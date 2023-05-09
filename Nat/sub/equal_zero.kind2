@@ -1,3 +1,0 @@
-Nat.sub.equal_zero (a: Nat): (Equal Nat.zero (Nat.sub a a))
-Nat.sub.equal_zero Nat.zero = Equal.refl
-Nat.sub.equal_zero (Nat.succ a.pred) = Nat.sub.equal_zero a.pred

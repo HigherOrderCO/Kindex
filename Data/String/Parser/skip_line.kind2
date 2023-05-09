@@ -1,0 +1,5 @@
+// Skips everything up to the line end
+// Returns true if anything was skipped
+Data.String.Parser.skip_line <t> : Data.String.Parser t Data.Bool {
+  Data.String.Parser.skip_while (c => Data.Bool.not (Data.Char.equal Data.Char.newline c))
+}

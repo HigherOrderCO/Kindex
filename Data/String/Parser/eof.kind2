@@ -1,0 +1,5 @@
+// A parser that succeeds only if there's nothing more to parse
+// Doesn't consume anything
+Data.String.Parser.eof <t> : Data.String.Parser t Data.Unit {
+  Data.String.Parser.not (Data.String.Parser.look_ahead Data.String.Parser.any_char)
+}

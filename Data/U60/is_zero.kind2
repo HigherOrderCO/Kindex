@@ -1,0 +1,3 @@
+Data.U60.is_zero (n: Data.U60) : Data.Bool
+Data.U60.is_zero 0 = Data.Bool.true
+Data.U60.is_zero n = Data.Bool.false

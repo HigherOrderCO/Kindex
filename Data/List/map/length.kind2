@@ -1,0 +1,5 @@
+// Data.List.map preserves length
+// len xs == len (map xs f)
+Data.List.map.length <a> <b> (xs: Data.List a) (f: a -> b) : Prop.Equal (Data.List.length xs) (Data.List.length (Data.List.map xs f))
+Data.List.map.length a b (Data.List.nil  a_)      f = Prop.Equal.refl
+Data.List.map.length a b (Data.List.cons a_ x xs) f = Prop.Equal.apply (n => Data.Nat.succ n) (Data.List.map.length xs f)

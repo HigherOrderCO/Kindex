@@ -1,0 +1,7 @@
+// If some, returns the value, else return the default
+// Examples:
+//   Data.Maybe.default (Data.Maybe.some 3) 5) = 3
+//   Data.Maybe.default Data.Maybe.none 5 = 5
+Data.Maybe.default <a: Type> (m: Data.Maybe a) (dflt: a) : a
+Data.Maybe.default a (Data.Maybe.none a_)     dflt = dflt
+Data.Maybe.default a (Data.Maybe.some a_ val) dflt = val

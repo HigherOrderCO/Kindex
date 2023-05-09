@@ -1,0 +1,3 @@
+Data.List.imap <a> <b> (f: a -> Data.Nat -> b) (xs: Data.List a) : Data.List b
+Data.List.imap a b f (Data.List.nil  x.a)         = Data.List.nil
+Data.List.imap a b f (Data.List.cons x.a x.h x.t) = Data.List.cons (f x.h Data.Nat.zero) (Data.List.imap (x => n => f x n) x.t)

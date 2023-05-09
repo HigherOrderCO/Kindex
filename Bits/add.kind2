@@ -1,9 +1,0 @@
-// Adds a bit structure to another
-// Example: (Bits.add (Bits.i Bits.e) (Bits.i (Bits.o Bits.e))) -> (Bits.i (Bits.i Bits.e))
-Bits.add (a: Bits) (b: Bits) : Bits
-Bits.add (Bits.e)        (b)             = (b)
-Bits.add (a)             (Bits.e)        = (a)
-Bits.add (Bits.o a.pred) (Bits.o b.pred) = (Bits.o (Bits.add a.pred b.pred))
-Bits.add (Bits.o a.pred) (Bits.i b.pred) = (Bits.i (Bits.add a.pred b.pred))
-Bits.add (Bits.i a.pred) (Bits.o b.pred) = (Bits.i (Bits.add a.pred b.pred))
-Bits.add (Bits.i a.pred) (Bits.i b.pred) = (Bits.o (Bits.inc (Bits.add a.pred b.pred)))

@@ -1,0 +1,7 @@
+// Increments a Bit
+// Example: (Data.Bits.inc (Data.Bits.i Data.Bits.e)) -> (Data.Bits.i(Data.Bits.o Data.Bits.e))
+
+Data.Bits.inc (b: Data.Bits) : Data.Bits
+Data.Bits.inc  Data.Bits.e       = Data.Bits.o Data.Bits.e
+Data.Bits.inc (Data.Bits.o pred) = Data.Bits.i pred
+Data.Bits.inc (Data.Bits.i pred) = Data.Bits.o (Data.Bits.inc pred)

@@ -1,4 +1,0 @@
-Parser.set_custom <old> <new> (custom: new) : Parser new Unit
-Parser.set_custom custom = state =>
-    let state = Parser.State.set_custom custom state
-    Parser.Result.done state Unit.new

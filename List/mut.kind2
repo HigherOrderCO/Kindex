@@ -1,6 +1,0 @@
-// Given an index, applies a function to the value on that index in a list
-// Example: (List.mut Nat [1,2,3] (Nat.add 2) 1) -> [1,4,3]
-List.mut <a> (xs: List a) (f: a -> a) (idx: Nat) : List a
-List.mut a (List.nil t)            f idx            = List.nil
-List.mut a (List.cons t head tail) f Nat.zero       = List.cons (f head) tail
-List.mut a (List.cons t head tail) f (Nat.succ idx) = List.cons head     (List.mut a tail f idx)

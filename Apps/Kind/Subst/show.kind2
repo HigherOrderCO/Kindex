@@ -1,0 +1,8 @@
+use Apps.Kind.Subst as Subst
+use Apps.Kind.Term as Term
+use Apps.Kind.Printer as Printer
+
+Subst/show (subst: Apps.Kind.Subst): Data.String
+Subst/show Subst/end             = "|"
+Subst/show (Subst/unfilled rest) = Printer/text ["~ ?" Data.String.new_line (Subst/show rest)]
+Subst/show (Subst/sub expr rest) = Printer/text ["~ " (Term/show expr) Data.String.new_line (Subst/show rest)]

@@ -1,9 +1,0 @@
-// There exists at most one value in `set` such that `(proposition set)` exists
-// a(x)a(y)((p(x) & p(y)) -> x == y))
-// Please notice that this doesn't prove that there exists at least one value that fulfills (proposition set); it's completely possible to prove Quantifier.unique if no values fulfill proposition
-
-Quantifier.Unique <set: Type> <proposition: set -> Type>: Type
-Quantifier.Unique set proposition = 
-  Quantifier.Forall set (x =>
-  Quantifier.Forall set (y =>
-  (Pair (proposition x) (proposition y)) -> Equal set x y))

@@ -1,0 +1,4 @@
+Data.Bits.length.go  (bs: Data.Bits)  (acum: Data.Nat) : Data.Nat
+Data.Bits.length.go Data.Bits.e      acum = acum
+Data.Bits.length.go (Data.Bits.o bs) acum = Data.Bits.length.go bs (Data.Nat.succ acum)
+Data.Bits.length.go (Data.Bits.i bs) acum = Data.Bits.length.go bs (Data.Nat.succ acum)

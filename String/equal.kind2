@@ -1,4 +1,0 @@
-String.equal (xs: String) (ys: String) : Bool
-String.equal (String.cons x xs) (String.cons y ys) = Bool.and (Char.equal x y) (String.equal xs ys)
-String.equal  String.nil         String.nil        = Bool.true
-String.equal  xs                 ys                = Bool.false

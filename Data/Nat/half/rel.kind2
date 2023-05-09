@@ -1,0 +1,20 @@
+// Halves a number. Returns the half, `h`, a proof that either `h*2=n` or `h*2+1=n`.
+Data.Nat.half.rel (n: Data.Nat) : [m: Data.Nat] -> (Data.Either (Prop.Equal Data.Nat n (Data.Nat.double m)) (Prop.Equal Data.Nat n (Data.Nat.succ (Data.Nat.double m))))
+Data.Nat.half.rel Data.Nat.zero = $ Data.Nat.zero (Data.Either.left Prop.Equal.refl)
+Data.Nat.half.rel (Data.Nat.succ n) =
+  let ind = Data.Nat.half.rel n
+  Data.Nat.half.rel.pred n ind
+
+Data.Nat.half.rel.pred
+  (n: Data.Nat)
+  (s: ([m: Data.Nat] -> (Data.Either (Prop.Equal Data.Nat n (Data.Nat.double m)) (Prop.Equal Data.Nat n (Data.Nat.succ (Data.Nat.double m))))))
+: ([m: Data.Nat] -> (Data.Either (Prop.Equal Data.Nat (Data.Nat.succ n) (Data.Nat.double m)) (Prop.Equal Data.Nat (Data.Nat.succ n) (Data.Nat.succ (Data.Nat.double m)))))
+Data.Nat.half.rel.pred n (Data.Sigma.new a b fst snd) = Data.Nat.half.rel.test n fst (specialize b into #0 in snd)
+
+Data.Nat.half.rel.test
+  (n: Data.Nat)
+  (m: Data.Nat)
+  (e: Data.Either (Prop.Equal Data.Nat n (Data.Nat.double m)) (Prop.Equal Data.Nat n (Data.Nat.succ (Data.Nat.double m))))
+: [m: Data.Nat] -> Data.Either (Prop.Equal Data.Nat (Data.Nat.succ n) (Data.Nat.double m)) (Prop.Equal Data.Nat (Data.Nat.succ n) (Data.Nat.succ (Data.Nat.double m)))
+Data.Nat.half.rel.test n m (Data.Either.left  e.a e.b e.value) = $ m            (Data.Either.right (Prop.Equal.apply (x => Data.Nat.succ x) e.value))
+Data.Nat.half.rel.test n m (Data.Either.right e.a e.b e.value) = $ (Data.Nat.succ m) (Data.Either.left  (Prop.Equal.apply (x => Data.Nat.succ x) e.value))

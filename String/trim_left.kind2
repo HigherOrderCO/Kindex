@@ -1,8 +1,0 @@
-String.trim_left (xs: String) : String
-String.trim_left  String.nil        = String.nil
-String.trim_left (String.cons x xs) =
-  if Char.is_whitespace x {
-    String.trim_left xs
-  } else {
-    (String.cons x xs)
-  }

@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Gets all of the errors inside of the @Apps.Kind.Checker@.
+Checker/get_errors : Apps.Kind.Checker (Data.List Apps.Kind.Error)
+Checker/get_errors = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs errs

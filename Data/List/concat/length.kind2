@@ -1,0 +1,11 @@
+// Data.List.concat preserves length
+// (len xs) + (len ys) == len (xs ++ ys)
+Data.List.concat.length <a>
+  (xs: Data.List a)
+  (ys: Data.List a)
+: Prop.Equal Data.Nat (Data.Nat.add (Data.List.length xs) (Data.List.length ys)) (Data.List.length (Data.List.concat xs ys))
+
+Data.List.concat.length a (Data.List.nil  a_)      ys = Prop.Equal.refl
+Data.List.concat.length a (Data.List.cons a_ x xs) ys =
+  let ind = Data.List.concat.length xs ys
+  Prop.Equal.apply (x => Data.Nat.succ x) ind

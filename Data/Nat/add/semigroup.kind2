@@ -1,0 +1,5 @@
+Data.Nat.add.semigroup : Algebra.Semigroup Data.Nat
+Data.Nat.add.semigroup =
+  (Algebra.Semigroup.new
+    Data.Nat.add.magma
+    (a => b => c => Prop.Equal.mirror (Data.Nat.add.assoc a b c)))

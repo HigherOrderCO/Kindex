@@ -1,4 +1,0 @@
-// Proof that 0 mod a == 0
-Nat.mod.zero (a: Nat): (Equal Nat.zero (Nat.mod Nat.zero a))
-Nat.mod.zero Nat.zero = Equal.refl
-Nat.mod.zero (Nat.succ a.pred) = Nat.sub.equal_zero a.pred

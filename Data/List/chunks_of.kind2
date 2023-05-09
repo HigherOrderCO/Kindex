@@ -1,0 +1,22 @@
+Data.List.chunks_of <a> (len: Data.Nat) (xs: Data.List a): Data.List (Data.List a) {
+  Data.List.chunks_of.go len xs len Data.List.nil
+}
+
+Data.List.chunks_of.go <a>
+  (len   : Data.Nat)    // length of each chunk
+  (list  : Data.List a) // list to be split
+  (need  : Data.Nat)    // number of vals to complete chunk
+  (chunk : Data.List a) // current chunk
+: Data.List (Data.List a)
+
+Data.List.chunks_of.go a len (Data.List.nil  l.a) need chunk =
+  Data.List.cons (Data.List.reverse chunk) Data.List.nil
+
+Data.List.chunks_of.go a len (Data.List.cons l.a l.h l.t) Data.Nat.zero chunk =
+  let head = Data.List.reverse chunk
+  let tail = Data.List.chunks_of.go len (Data.List.cons l.h l.t) len Data.List.nil
+  Data.List.cons head tail
+
+Data.List.chunks_of.go a len (Data.List.cons l.a l.h l.t) (Data.Nat.succ n.p) chunk =
+  let chunk = Data.List.cons l.h chunk
+  Data.List.chunks_of.go len l.t n.p chunk

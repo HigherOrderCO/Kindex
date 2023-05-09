@@ -1,0 +1,32 @@
+// Succeeds if the head character satisfies a condition.
+// This is implemented as the only code-taking primitive of the library.
+// All other functions that consume characters are based on `satisfy`
+Data.String.Parser.satisfy <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.Char {
+  state => Data.String.Parser.satisfy.go cond state
+}
+
+
+Data.String.Parser.satisfy.go <t> (cond: Data.Char -> Data.Bool) (state: Data.String.Parser.State t) : Data.String.Parser.Result t Data.Char
+
+// If no more text to parse, fail
+Data.String.Parser.satisfy.go cond (Data.String.Parser.State.new custom "" back index) =
+  let state = Data.String.Parser.State.new custom Data.String.nil back index
+  let error = Data.String.Parser.Error.new "Unexpected EOF" index index
+  Data.String.Parser.Result.fail state error
+
+// Else, move state forward and check if the condition is satisfied
+Data.String.Parser.satisfy.go cond (Data.String.Parser.State.new custom (Data.String.cons head tail) back index) =
+  let state = Data.String.Parser.State.new custom (Data.String.cons head tail) back index
+  let state = Data.String.Parser.State.forward 1 state
+  Data.String.Parser.satisfy.cond (cond head) state head
+
+
+Data.String.Parser.satisfy.cond <t> (cond: Data.Bool) (state: Data.String.Parser.State t) (head: Data.Char) : Data.String.Parser.Result t Data.Char
+
+// If cond is satisfied, return what used to be the head of the text left to parse
+Data.String.Parser.satisfy.cond Data.Bool.true state head = Data.String.Parser.Result.done state head
+// Else, fail indicating which character didn't satisfy the condition
+Data.String.Parser.satisfy.cond Data.Bool.false (Data.String.Parser.State.new custom left back index) head =
+  let state = Data.String.Parser.State.new custom left back index
+  let error = Data.String.Parser.Error.new "" (- index 1) index
+  Data.String.Parser.Result.fail state error

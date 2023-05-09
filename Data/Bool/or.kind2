@@ -1,0 +1,6 @@
+// Given two different Data.Booleans, returns true if Any of them is true
+// Example: (Data.Bool.or Data.Bool.true Data.Bool.false)  -> Data.Bool.true
+// Example: (Data.Bool.or Data.Bool.false Data.Bool.false) -> Data.Bool.false
+Data.Bool.or (a: Data.Bool) (b: Data.Bool) : Data.Bool
+Data.Bool.or Data.Bool.true  b = Data.Bool.true
+Data.Bool.or Data.Bool.false b = b

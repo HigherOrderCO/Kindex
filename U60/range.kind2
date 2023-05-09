@@ -1,7 +1,0 @@
-U60.range (start: U60) (stop: U60) (step: U60) : (List U60)
-U60.range start stop step =
-  if (U60.greater_than start stop) {
-    List.nil
-  } else {
-    List.cons start (U60.range (+ start step) stop step)
-  }

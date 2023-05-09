@@ -1,0 +1,5 @@
+#derive[match]
+type Decidable (p: Type) {
+  yep (proof: p)
+  nop (proof: Prop.Not p)
+}

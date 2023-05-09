@@ -1,0 +1,3 @@
+Data.U120.if <r: Type> (n: Data.U120) (t: r) (f: r) : r
+Data.U120.if r (Data.U120.new 0 0) t f = f
+Data.U120.if r x              t f = t

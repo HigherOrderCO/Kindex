@@ -1,0 +1,5 @@
+Data.Maybe.show <a: Type> (f: a -> Data.String) (m: Data.Maybe a) : String.Build
+Data.Maybe.show a f (Data.Maybe.none t) =
+  h => Data.String.concat "Data.Maybe.none" h
+Data.Maybe.show a f (Data.Maybe.some t val) =
+  h => Data.String.concat (Data.String.concat (Data.String.concat "(Data.Maybe.some" (f val)) ")") h

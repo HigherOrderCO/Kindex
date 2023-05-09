@@ -1,0 +1,4 @@
+Data.String.slice (start: Data.Nat) (stop: Data.Nat) (xs: Data.String) : Data.String {
+  let len = Data.Nat.sub stop start
+  Data.String.take len (Data.String.drop start xs)
+}

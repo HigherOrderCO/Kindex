@@ -1,0 +1,3 @@
+Data.Bool.theorem.or_first (b: Data.Bool) : Prop.Equal Data.Bool (Data.Bool.or b Data.Bool.true) Data.Bool.true
+Data.Bool.theorem.or_first Data.Bool.true = Prop.Equal.refl
+Data.Bool.theorem.or_first Data.Bool.false = Prop.Equal.refl

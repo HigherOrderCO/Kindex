@@ -1,0 +1,4 @@
+// Succeeds if the first char left to parse is equal to the given one
+Data.String.Parser.char <t> (c: Data.Char) : Data.String.Parser t Data.Unit {
+  Data.String.Parser.expecting (Data.String.Parser.skip (Data.String.Parser.satisfy (h => Data.Char.equal c h))) (Data.String.pure c)
+}

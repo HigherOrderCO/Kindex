@@ -1,0 +1,12 @@
+// Data.Bool.false_neq_true: false != true
+// (absurd => Prop.Equal.rewrite (x => if x {Data.Empty} else {Data.Unit}) absurd)
+Data.Bool.false_not_true (e: (Prop.Equal Data.Bool Data.Bool.false Data.Bool.true)) : Data.Empty
+Data.Bool.false_not_true e =
+  // How this works: Prop.Equal.rewrite takes a predicate that changes a value into a
+  // type. It returns the result of applying the predicate on the RHS but takes
+  // in a value of the type of applying the predicate on the LHS This works on
+  // the type-level because both types are meant to be equal, but when the
+  // values are different (such as Data.Bool.false and Data.Bool.true) Prop.Equal.rewrite
+  // returns inconstructible types at the type level, which we chose to be Data.Empty
+  // in this case.
+  Prop.Equal.rewrite e (x => Data.Bool.if Type x Data.Empty Data.Unit) Data.Unit.new

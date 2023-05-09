@@ -1,5 +1,0 @@
-Cmp.equal (x : Cmp) (y : Cmp) : Bool
-Cmp.equal Cmp.ltn Cmp.ltn = Bool.true
-Cmp.equal Cmp.eql Cmp.eql = Bool.true
-Cmp.equal Cmp.gtn Cmp.gtn = Bool.true
-Cmp.equal x       y       = Bool.false

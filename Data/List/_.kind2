@@ -1,0 +1,5 @@
+#derive[match]
+type Data.List (t) {
+  nil
+  cons (head: t) (tail: Data.List t)
+}

@@ -1,3 +1,0 @@
-Nat.div_mod.equal_one_zero (a: Nat) (c: Nat) (z: Nat) : (Equal (Pair.new (Nat.succ z) Nat.zero) (Nat.div_mod.go a a c z))
-Nat.div_mod.equal_one_zero Nat.zero c z = Equal.refl
-Nat.div_mod.equal_one_zero (Nat.succ a.pred) c z = (Nat.div_mod.equal_one_zero a.pred c z)

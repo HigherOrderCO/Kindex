@@ -1,3 +1,0 @@
-U120.logic_not (n: U120) : U120
-U120.logic_not (U120.new 0 0) = (U120.new 0 1)
-U120.logic_not n              = (U120.new 0 0)

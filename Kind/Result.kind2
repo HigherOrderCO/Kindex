@@ -1,5 +1,0 @@
-#derive[match]
-type Kind.Result <a: Type> {
-  checked (ctx: Kind.Context) (depth: U60) (rhs: Bool) (sub: Kind.Subst) (equations: List Kind.Equation) (errors: List Kind.Error) (ret: a)
-  errored (ctx: Kind.Context) (sub: Kind.Subst) (errors: List Kind.Error)
-}

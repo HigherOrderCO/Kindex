@@ -1,0 +1,50 @@
+// Returns the quocient and remainder of the integer division num/den
+// Implemented as binary long division
+Data.U120.div_mod (num: Data.U120) (den: Data.U120) : Data.Pair Data.U120 Data.U120
+Data.U120.div_mod num (Data.U120.new 0 0) = Data.Pair.new (Data.U60.to_u120 (/ 0 0)) (Data.U60.to_u120 (% 0 0))  // cause panic like in Data.U60
+Data.U120.div_mod num den            =
+  let msb = Data.U120.msb num
+  match Data.Maybe msb {
+    none => Data.Pair.new (Data.U120.new 0 0) (Data.U120.new 0 0) // numerator is 0
+    some value =>
+      let qr  = (Data.Pair.new (Data.U120.new 0 0) (Data.U120.new 0 0))
+      let idx = Data.U120.inc value
+      Data.U120.div_mod.go idx qr num den
+  }
+
+Data.U120.div_mod.go
+  (idx : Data.U120)
+  (qr  : Data.Pair Data.U120 Data.U120)
+  (num : Data.U120)
+  (den : Data.U120)
+: Data.Pair Data.U120 Data.U120
+Data.U120.div_mod.go (Data.U120.new 0 0) qr num den = qr
+Data.U120.div_mod.go idx            qr num den =
+  let quo = Data.Pair.fst qr
+  let rem = Data.Pair.snd qr
+  let rem = Data.U120.shift_left rem (Data.U120.new 0 1)
+  // set lsb of rem to `bit` of num
+  let bit = Data.U120.dec idx
+  let rem = Data.U120.add rem (Data.U120.get_bit num bit)
+
+  let qr = if Data.U120.greater_equal rem den {
+    let quo = Data.U120.set_bit quo bit
+    let rem = Data.U120.sub rem den
+    Data.Pair.new quo rem
+  } else {
+    Data.Pair.new quo rem
+  }
+  (Data.U120.div_mod.go (Data.U120.dec idx) qr num den)
+
+// The algorithm, from wikipedia
+// if D = 0 then error(DivisionByZeroException) end
+// Q := 0                  -- Initialize quotient and remainder to zero
+// R := 0                     
+// for i := n − 1 .. 0 do  -- Where n is number of bits in N
+//   R := R << 1           -- Left-shift R by 1 bit
+//   R(0) := N(i)          -- Set the least-significant bit of R equal to bit i of the numerator
+//   if R ≥ D then
+//     R := R − D
+//     Q(i) := 1
+//   end
+// end

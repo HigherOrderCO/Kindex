@@ -1,0 +1,10 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+Checker/bind.result <a> <b> (result: Apps.Kind.Result a) (then: a -> Apps.Kind.Checker b) : Apps.Kind.Result b
+Checker/bind.result a b (Result/checked a1 context depth rhs sub equations errs ret) then = then ret context depth rhs sub equations errs
+Checker/bind.result a b (Result/errored a1 context sub errs)                         then = Result/errored context sub errs
+
+// The monadic bind operation for @Apps.Kind.Checker@
+Checker/bind <a> <b> (checker: Apps.Kind.Checker a) (then: a -> Apps.Kind.Checker b) : Apps.Kind.Checker b
+Checker/bind a b checker then = context => depth => rhs => subst => eqts => errs => (Checker/bind.result (checker context depth rhs subst eqts errs) then)

@@ -1,0 +1,12 @@
+// Data.List concatenation is associative
+// (xs ++ (ys ++ zs)) == ((xs ++ ys) ++ zs)
+Data.List.concat.assoc <a>
+  (xs: Data.List a)
+  (ys: Data.List a)
+  (zs: Data.List a)
+: Prop.Equal (Data.List.concat xs (Data.List.concat ys zs)) (Data.List.concat (Data.List.concat xs ys) zs)
+
+Data.List.concat.assoc a (Data.List.nil  a_) ys zs      = Prop.Equal.refl
+Data.List.concat.assoc a (Data.List.cons a_ x xs) ys zs =
+  let ind = Data.List.concat.assoc xs ys zs
+  Prop.Equal.apply (xs => Data.List.cons x xs) ind

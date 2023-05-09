@@ -1,0 +1,4 @@
+// Takes a part of the bit structure between n and m
+// Example: (Data.Bits.slice 1 2 (Data.Bits.i (Data.Bits.o (Data.Bits.i (Data.Bits.o Data.Bits.e)))) -> (Data.Bits.o (Data.Bits.i Data.Bits.e))
+Data.Bits.slice (n: Data.Nat) (m: Data.Nat) (b: Data.Bits) : Data.Bits
+Data.Bits.slice (n) (m) (b) = (Data.Bits.take m (Data.Bits.drop n b))

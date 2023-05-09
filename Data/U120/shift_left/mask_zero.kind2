@@ -1,0 +1,5 @@
+// For every a s: (<< a s) & (- (1 << s) 1) == 0
+Data.U120.shift_left.mask_zero (a: Data.U120) (s: Data.U120)
+: let a = Data.U120.bitwise_and (Data.U120.shift_left a s) (Data.U120.sub (Data.U120.shift_left (Data.U120.new 0 1) s) (Data.U120.new 0 1))
+  let b = (Data.U120.new 0 0)
+  (Prop.Equal Data.U120 a b)

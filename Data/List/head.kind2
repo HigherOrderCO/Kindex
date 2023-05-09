@@ -1,0 +1,5 @@
+// Gets the head of the list if there is some
+// Example: (Data.List.head Data.Nat [1,2,3]) -> (Data.Maybe.some 1)
+Data.List.head <a> (xs: Data.List a) : Data.Maybe a
+Data.List.head a (Data.List.nil t)            = Data.Maybe.none
+Data.List.head a (Data.List.cons t head tail) = Data.Maybe.some head

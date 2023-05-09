@@ -1,0 +1,3 @@
+Data.Nat.clear (n: Data.Nat) : Data.Nat
+Data.Nat.clear Data.Nat.zero     = Data.Nat.zero
+Data.Nat.clear (Data.Nat.succ n) = Data.Nat.clear n

@@ -1,0 +1,5 @@
+// And with complement x & ~y
+// Example: (Data.Bool.andc Data.Bool.true Data.Bool.false) -> Data.Bool.true
+Data.Bool.andc (a: Data.Bool) (b: Data.Bool) : Data.Bool
+Data.Bool.andc Data.Bool.true Data.Bool.false = Data.Bool.true
+Data.Bool.andc a   			b 				 = Data.Bool.false

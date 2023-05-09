@@ -1,0 +1,7 @@
+Data.Nat.log2(n: Data.Nat): Data.Nat {
+  Data.Nat.log2.aux n Data.Nat.zero
+}
+
+Data.Nat.log2.aux (n: Data.Nat) (r: Data.Nat) : Data.Nat
+Data.Nat.log2.aux  Data.Nat.zero     r = Data.Nat.pred r
+Data.Nat.log2.aux (Data.Nat.succ np) r = Data.Nat.log2.aux (Data.Nat.half (Data.Nat.succ np)) (Data.Nat.succ r)

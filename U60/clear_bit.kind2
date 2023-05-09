@@ -1,7 +1,0 @@
-// Clears a bit in a U60
-// Undefined if bit >= 60
-U60.clear_bit (n: U60) (bit: U60) : U60 {
-  let set = (<< 1 bit)
-  let msk = (^ (- 0 1) set)
-  (& n msk)
-}

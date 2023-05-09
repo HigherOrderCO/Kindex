@@ -1,0 +1,6 @@
+use Apps.Kind.Rule as Rule
+use Apps.Kind.Term as Term
+
+Rule/show (rule: Apps.Kind.Rule) : Data.String
+Rule/show (Rule/lhs term rest) = Data.String.concat (Term/show term) (Data.String.concat " " (Rule/show rest))
+Rule/show (Rule/rhs term)      = Data.String.concat " => " (Term/show term)

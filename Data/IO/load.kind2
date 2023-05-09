@@ -1,0 +1,3 @@
+Data.IO.load (key: Data.String) : Data.IO Data.String {
+  Data.IO.do_load key (x => Data.IO.done x)
+}

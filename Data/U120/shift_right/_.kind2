@@ -1,0 +1,16 @@
+Data.U120.shift_right (num: Data.U120) (shf: Data.U120) : Data.U120
+Data.U120.shift_right (Data.U120.new num.hi num.lo) (Data.U120.new shf.hi shf.lo) =
+  Data.U60.if shf.hi (
+    (Data.U120.new 0 0)
+  ) (
+    Data.U60.if (<= shf.lo 60) (
+      let res.hi = (>> num.hi shf.lo)
+      let res.lo = (>> num.lo shf.lo)
+      let over   = (<< num.hi (- 60 shf.lo))
+      let res.lo = (+ over res.lo)
+      Data.U120.new res.hi res.lo
+    ) (
+      let res.lo = (>> num.hi (- shf.lo 60))
+      Data.U120.new 0 res.lo
+    )
+  )

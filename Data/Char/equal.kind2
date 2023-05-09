@@ -1,0 +1,4 @@
+#inline
+Data.Char.equal (a: Data.Char) (b: Data.Char) : Data.Bool {
+  Data.U60.equal a b
+}

@@ -1,0 +1,5 @@
+// Return the largest of two numbers
+// Example: (Data.Nat.min 5 3) -> 5
+Data.Nat.max (a: Data.Nat) (b: Data.Nat) : Data.Nat {
+  if (Data.Nat.gtn a b) { a } else { b }
+}

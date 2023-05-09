@@ -1,0 +1,19 @@
+// The only way a number "p" is prime is if for all natural numbers "d"
+// either d == 0 (becuase p % d is undefined)
+// either d == 1
+// either d == p
+// p mod d != 0
+
+#derive[match]
+record Data.Nat.Prime {
+	value: Data.Nat
+	proof: 
+		(Quantifier.Forall Data.Nat 
+			(divisor => (Data.Either (Data.Either (Data.Either
+					(Prop.Equal divisor Data.Nat.zero)
+					(Prop.Equal divisor (Data.Nat.succ Data.Nat.zero))) 
+					(Prop.Equal divisor (Data.Nat.succ (Data.Nat.succ Data.Nat.zero))))
+					(Prop.Not (Prop.Equal Data.Nat.zero (Data.Nat.mod value divisor)))
+			))
+		)
+}

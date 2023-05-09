@@ -1,0 +1,10 @@
+use Apps.Kind.Checker as Checker
+
+Checker/sequence <a> (ls: Data.List (Apps.Kind.Checker a)) : Apps.Kind.Checker (Data.List a)
+Checker/sequence Data.List.nil         = Checker/pure Data.List.nil
+Checker/sequence (Data.List.cons x xs) =
+    do Apps.Kind.Checker {
+        ask head = x
+        ask tail = Checker/sequence xs
+        return (Data.List.cons head tail)
+    }

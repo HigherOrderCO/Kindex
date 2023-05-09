@@ -1,3 +1,0 @@
-String.repeat (xs: String) (n: Nat) : String
-String.repeat xs  Nat.zero    = String.nil
-String.repeat xs (Nat.succ n) = String.concat xs (String.repeat xs n)

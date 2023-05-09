@@ -1,0 +1,6 @@
+String.Build.many (views: Data.List String.Build) : String.Build
+String.Build.many (Data.List.nil t) = h => h
+String.Build.many (Data.List.cons t v vs) =
+  let v  = v :: Data.String -> Data.String
+  let vs = String.Build.many vs
+  h => v (vs h)

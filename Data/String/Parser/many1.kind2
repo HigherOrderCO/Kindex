@@ -1,0 +1,10 @@
+// Applies a parser repeatedly until it fails, at least once
+// Returns a list of all results
+// Fails if the first try fails
+Data.String.Parser.many1 <t> <a> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.List a) {
+  do Data.String.Parser {
+    ask head = prs
+    ask tail = Data.String.Parser.many prs
+    return (Data.List.cons head tail) 
+  }
+}

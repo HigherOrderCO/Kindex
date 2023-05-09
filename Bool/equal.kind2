@@ -1,7 +1,0 @@
-// Given two different Boolean values, verifies if they are equal
-// Example: (Bool.equal Bool.false Bool.true)  -> Bool.false
-// Example: (Bool.equal Bool.false Bool.false) -> Bool.true
-Bool.equal (a: Bool) (b: Bool) : Bool
-Bool.equal Bool.true   Bool.true  = Bool.true
-Bool.equal Bool.false  Bool.false = Bool.true
-Bool.equal a           b          = Bool.false

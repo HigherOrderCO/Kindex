@@ -1,0 +1,5 @@
+// 1 if the bit is set, 0 otherwise
+// 0 if bit >= 120
+Data.U120.get_bit (num: Data.U120) (bit: Data.U120) : Data.U120 {
+  Data.U120.bitwise_and (Data.U120.shift_right num bit) (Data.U120.new 0 1)
+}

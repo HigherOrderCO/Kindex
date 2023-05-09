@@ -1,0 +1,25 @@
+Data.String.chunks_of (len: Data.Nat) (str: Data.String) : Data.List Data.String {
+  Data.String.chunks_of.go len str len ""
+}
+
+Data.String.chunks_of.go
+  (len : Data.Nat)       // length of each chunk
+  (str : Data.String)    // string to be split
+  (need : Data.Nat)      // number of vals to complete chunk
+  (chunk: Data.String)   // current chunk
+: Data.List Data.String
+
+// Data.String end
+Data.String.chunks_of.go len Data.String.nil need chunk =
+  Data.List.pure (Data.String.reverse chunk)
+
+// Chunk complete
+Data.String.chunks_of.go len (Data.String.cons x xs) Data.Nat.zero chunk =
+  let head = Data.String.reverse chunk
+  let tail = Data.String.chunks_of.go len (Data.String.cons x xs) len ""
+  Data.List.cons head tail
+
+// Add 1 to chunk
+Data.String.chunks_of.go len (Data.String.cons x xs) (Data.Nat.succ need.pred) chunk =
+  let chunk = Data.String.cons x chunk
+  Data.String.chunks_of.go len xs need.pred chunk

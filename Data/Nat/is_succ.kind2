@@ -1,0 +1,5 @@
+// True if the number is a successor to some other number (aka it's not zero)
+#inline
+Data.Nat.is_succ (n: Data.Nat) : Data.Bool {
+  Data.Bool.not (Data.Nat.is_zero n)
+}

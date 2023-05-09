@@ -1,0 +1,30 @@
+use Apps.Kind.API as API
+use Apps.Kind.Result as Result
+use Apps.Kind.Error as Error
+
+API/output (res: Data.List (Data.Pair Apps.Kind.Name (Data.List (Apps.Kind.Result Data.Unit)))): Data.List (Error/Quoted)
+API/output (Data.List.nil t)            = Data.List.nil
+API/output (Data.List.cons t pair rest) =
+  // TODO: Check why i cant simply type check on the pair
+  let Data.Pair.new fst snd = pair
+  Data.List.concat (API/output.function fst snd) (API/output rest)
+
+API/output.function (fnid: Apps.Kind.Name) (ls: Data.List (Apps.Kind.Result Data.Unit)): Data.List (Error/Quoted)
+API/output.function fnid (Data.List.nil t) = Data.List.nil
+
+API/output.function fnid (Data.List.cons t (Result/checked a ctx dep rhs sub eqt err val) checks) =
+  API/output.function.show_errors err sub fnid checks
+
+API/output.function fnid (Data.List.cons t (Result/errored a ctx sub err) checks) =
+  API/output.function.show_errors err sub fnid checks
+
+API/output.function.show_errors (ls: Data.List Apps.Kind.Error) (sub: Apps.Kind.Subst) (fnid: Apps.Kind.Name) (res: Data.List (Apps.Kind.Result Data.Unit)): Data.List (Error/Quoted)
+API/output.function.show_errors (Data.List.nil t) sub fnid checks = API/output.function fnid checks
+
+API/output.function.show_errors (Data.List.cons t err errs) sub fnid checks =
+  (Data.List.cons
+    (API/output.error fnid err sub)
+    (API/output.function.show_errors errs sub fnid checks))
+
+API/output.error (fnid: Apps.Kind.Name) (err: (Apps.Kind.Error)) (sub: (Apps.Kind.Subst)) : Error/Quoted
+API/output.error fnid err sub = Error/quote err sub

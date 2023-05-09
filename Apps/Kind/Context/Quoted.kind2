@@ -1,0 +1,6 @@
+use Apps.Kind.Context as Context
+use Apps.Kind.Term as Term
+
+Context/Quoted : Type
+Context/Quoted = (Data.List (Data.Pair Data.U60 (Data.Pair (Term/Quoted) (Data.List (Term/Quoted)))))
+

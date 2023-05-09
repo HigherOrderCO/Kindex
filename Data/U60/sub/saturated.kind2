@@ -1,0 +1,8 @@
+Data.U60.sub.saturated (a: Data.U60) (b: Data.U60) : Data.U60 {
+  if (Data.U60.less_than b a) {
+    (- a b)
+  }
+  else {
+    0
+  }
+}

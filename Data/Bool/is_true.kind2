@@ -1,0 +1,5 @@
+// Given a boolean checks if it is true
+// Data.Bool.is_true ( Data.Bool.true ) -> Data.Bool.true
+// Data.Bool.is_true ( Data.Bool.false ) -> Data.Bool.false 
+Data.Bool.is_true (a: Data.Bool) : Data.Bool 
+Data.Bool.is_true a = a

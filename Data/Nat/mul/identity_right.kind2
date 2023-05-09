@@ -1,0 +1,7 @@
+Data.Nat.mul.identity_right (a: Data.Nat) : Algebra.Laws.right_identity (x => y => Data.Nat.mul x y) (Data.Nat.succ Data.Nat.zero) a
+Data.Nat.mul.identity_right Data.Nat.zero            = Prop.Equal.refl
+Data.Nat.mul.identity_right (Data.Nat.succ Data.Nat.zero) = Prop.Equal.refl
+Data.Nat.mul.identity_right (Data.Nat.succ a)        =
+  let f = Prop.Equal.apply (x => Data.Nat.succ x) (Data.Nat.mul.identity_right a)
+  let g = Prop.Equal.mirror (Data.Nat.add.comm (Data.Nat.mul a (Data.Nat.succ Data.Nat.zero)) (Data.Nat.succ Data.Nat.zero))
+  Prop.Equal.chain f g

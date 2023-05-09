@@ -1,7 +1,0 @@
-Nat.from_base (base: Nat) (ds: List Nat) : Nat {
-  Nat.from_base.go base (List.reverse ds) Nat.one Nat.zero
-}
-
-Nat.from_base.go (b: Nat) (ds: List Nat) (p: Nat) (res: Nat) : Nat
-Nat.from_base.go b (List.nil  Nat)           p res = res
-Nat.from_base.go b (List.cons Nat head tail) p res = Nat.from_base.go b tail (Nat.mul b p) (Nat.add (Nat.mul head p) res)

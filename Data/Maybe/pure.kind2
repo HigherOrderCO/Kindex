@@ -1,0 +1,3 @@
+#inline
+Data.Maybe.pure <a: Type> (x: a) : Data.Maybe a
+Data.Maybe.pure a x = Data.Maybe.some x

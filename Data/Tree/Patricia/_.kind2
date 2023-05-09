@@ -2,7 +2,7 @@
 type Data.Tree.Patricia (a) {
   empty
 
-  leaf (key: U60) (value: a)
+  leaf (key: Data.U60) (value: a)
   
-  branch (prefix: U60) (branchingbit: U60) (left: (Data.Tree.Patricia a)) (right: (Data.Tree.Patricia a))
+  branch (prefix: Data.U60) (branchingbit: Data.U60) (left: (Data.Tree.Patricia a)) (right: (Data.Tree.Patricia a))
 }

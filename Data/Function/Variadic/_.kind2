@@ -1,0 +1,3 @@
+Data.Function.Variadic (r: Type) (p: Type) (n: Data.Nat) : Type
+Data.Function.Variadic r p  Data.Nat.zero    = p
+Data.Function.Variadic r p (Data.Nat.succ n) = r -> Data.Function.Variadic r p n

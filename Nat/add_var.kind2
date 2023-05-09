@@ -1,4 +1,0 @@
-Nat.add_var (n: Nat) : (Variadic Nat Nat n) {
-  let acc = (a => b => Nat.add a b) :: Nat -> Nat -> Nat
-  Variadic.foldr acc Nat.zero n
-}

@@ -1,4 +1,0 @@
-String.at (idx: Nat) (str: String) : Maybe Char
-String.at  idx             String.nil             = Maybe.none
-String.at  Nat.zero       (String.cons strh strt) = Maybe.some strh
-String.at (Nat.succ idxp) (String.cons strh strt) = String.at idxp strt

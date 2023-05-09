@@ -1,0 +1,25 @@
+// Separate elements of t list into two groups, based on t condition, preserving order
+// The first is values that pass the condition, the second is values that don't pass
+Data.List.partition <t> (cond: t -> Data.Bool) (xs: Data.List t) : Data.Pair (Data.List t) (Data.List t) {
+  let id = Function.id (Data.List t)
+  Data.List.partition.go cond xs id id
+}
+
+Data.List.partition.go <t>
+  (cond: t -> Data.Bool)
+  (xs: Data.List t)
+  (as: (Data.List t) -> (Data.List t))
+  (bs: (Data.List t) -> (Data.List t))
+: Data.Pair (Data.List t) (Data.List t)
+
+Data.List.partition.go t cond (Data.List.nil t_) as bs =
+  Data.Pair.new (as Data.List.nil) (bs Data.List.nil)
+
+Data.List.partition.go t cond (Data.List.cons t_ x xs) as bs =
+  if (cond x) {
+    let as = (a => Data.List.cons x (as a)) :: (Data.List t) -> (Data.List t)
+    Data.List.partition.go cond xs as bs
+  } else {
+    let bs = (b => Data.List.cons x (bs b)) :: (Data.List t) -> (Data.List t)
+    Data.List.partition.go cond xs as bs
+  }

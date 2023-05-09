@@ -1,0 +1,13 @@
+// Returns the first parser that succeeds
+// Backtracks after each failed parser
+// Fails if no parsers succeed
+Data.String.Parser.first_of <a> <t> (parsers: Data.List (Data.String.Parser t a)) : Data.String.Parser t a
+Data.String.Parser.first_of (Data.List.nil  la)           = Data.String.Parser.empty
+Data.String.Parser.first_of (Data.List.cons la head tail) = 
+  do Data.String.Parser {
+    ask ma = Data.String.Parser.try head
+    match Data.Maybe ma {
+      none => Data.String.Parser.first_of tail
+      some => Data.String.Parser.pure ma.value
+    }
+  }

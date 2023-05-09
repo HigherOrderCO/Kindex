@@ -1,0 +1,9 @@
+use Apps.Kind.Subst as Subst
+
+Subst/look (subst: Apps.Kind.Subst) (depth: Data.U60): Data.Maybe Apps.Kind.Term
+Subst/look Subst/end             0 = Data.Maybe.none
+Subst/look (Subst/unfilled rest) 0 = Data.Maybe.none
+Subst/look (Subst/sub term rest) 0 = Data.Maybe.some term
+Subst/look Subst/end             n = Data.Maybe.none
+Subst/look (Subst/unfilled rest) n = Subst/look rest (- n 1)
+Subst/look (Subst/sub term rest) n = Subst/look rest (- n 1)

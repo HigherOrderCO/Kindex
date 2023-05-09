@@ -1,2 +1,2 @@
-Data.Heap.Binomial.cons (x: Data.Heap.Binomial.Node) (xs: Data.Heap.Binomial) : (Data.Heap.Binomial)
-Data.Heap.Binomial.cons x xs = (List.cons Data.Heap.Binomial.Node x xs)
+Data.Data.Heap.Binomial.cons (x: Data.Data.Heap.Binomial.Node) (xs: Data.Data.Heap.Binomial) : (Data.Data.Heap.Binomial)
+Data.Data.Heap.Binomial.cons x xs = (Data.List.cons Data.Data.Heap.Binomial.Node x xs)

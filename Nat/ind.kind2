@@ -1,8 +1,0 @@
-Nat.ind
-  (n: Nat)
-  (p: Nat -> Type)
-  (z: p Nat.zero)
-  (s: (pred: Nat) -> (ind: p pred) -> p (Nat.succ pred))
-: p n
-Nat.ind Nat.zero        p z s = z
-Nat.ind (Nat.succ pred) p z s = s pred (Nat.ind pred p z s)

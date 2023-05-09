@@ -1,0 +1,4 @@
+// True if the number is zero
+Data.Nat.is_zero (n: Data.Nat) : Data.Bool
+Data.Nat.is_zero  Data.Nat.zero    = Data.Bool.true
+Data.Nat.is_zero (Data.Nat.succ n) = Data.Bool.false

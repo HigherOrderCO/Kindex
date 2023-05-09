@@ -1,0 +1,3 @@
+Data.String.join (sep: Data.String) (list: Data.List Data.String) : Data.String {
+  Data.String.intercalate sep list
+}

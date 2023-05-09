@@ -1,0 +1,6 @@
+// Insert an element at the given index
+// If the index is larger than the length of the list, insert at the back
+Data.List.insert_at <a> (idx: Data.Nat) (val: a) (xs: Data.List a) : Data.List a
+Data.List.insert_at a  Data.Nat.zero     val xs                      = Data.List.cons val xs
+Data.List.insert_at a (Data.Nat.succ ip) val (Data.List.nil  x.a)         = Data.List.pure val
+Data.List.insert_at a (Data.Nat.succ ip) val (Data.List.cons x.a x.h x.t) = Data.List.cons x.h (Data.List.insert_at ip val x.t)

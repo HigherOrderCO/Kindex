@@ -1,3 +1,0 @@
-U120.bitwise_complement (n: U120) : U120 {
-  U120.bitwise_xor n U120.max_val
-}

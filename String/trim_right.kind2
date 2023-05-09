@@ -1,3 +1,0 @@
-String.trim_right (xs: String) : String {
-  String.reverse (String.trim_left (String.reverse xs))
-}

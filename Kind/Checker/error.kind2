@@ -1,7 +1,0 @@
-use Kind.Checker as Checker
-use Kind.Result as Result
-
-// Adds an error to the context error list and returns 'ret'.
-Checker/error <t> (err: Kind.Error) (ret: t): Kind.Checker t
-Checker/error t err ret = context => depth => rhs => subst => eqts => errs =>
-  Result/checked context depth rhs subst eqts (List.cons err errs) ret

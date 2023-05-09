@@ -1,0 +1,3 @@
+Data.List.merge_sort <a> (cmp : a -> a -> Data.Bool) (xs : Data.List a) : Data.List a {
+  Data.List.merge_sort.unpack cmp (Data.List.map xs (x => Data.List.pure x))
+}

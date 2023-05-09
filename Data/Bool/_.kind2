@@ -1,0 +1,6 @@
+// Automatically derived from Data.Bool/_.type
+#derive[match]
+type Data.Bool {
+  true
+  false
+}

@@ -1,3 +1,0 @@
-U120.logic_or (a: U120) (b: U120) : U120
-U120.logic_or (U120.new 0 0) (U120.new 0 0) = (U120.new 0 0)
-U120.logic_or a              b              = (U120.new 0 1)

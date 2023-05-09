@@ -1,0 +1,4 @@
+// Concatenate any number of chars
+Data.String.cons_var (n: Data.Nat) : Function.Variadic Data.Char Data.String n {
+  Function.Variadic.foldr (x => xs => Data.String.cons x xs) Data.String.nil n
+}

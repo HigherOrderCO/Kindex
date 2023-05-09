@@ -1,0 +1,5 @@
+// Given a boolean, returns true if both inputs are identical 
+// Data.Bool.xnor ( Data.Bool.false ) ( Data.Bool.false ) -> Data.Bool.true
+Data.Bool.xnor (a: Data.Bool) (b: Data.Bool) : Data.Bool 
+Data.Bool.xnor Data.Bool.true b = b
+Data.Bool.xnor Data.Bool.false b = (Data.Bool.not b)

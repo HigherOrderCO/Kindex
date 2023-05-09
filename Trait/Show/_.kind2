@@ -1,0 +1,3 @@
+record Show (t: Type) {
+  to_string : t -> Data.String
+}

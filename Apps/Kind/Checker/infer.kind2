@@ -1,0 +1,250 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Term as Term
+use Apps.Kind.Error as Error
+
+// Function that helps the compiler to bootstrap itself.
+// It's required by the limitation of arity of each constructor
+// and function that would lead the type checker to not be able
+// to type check FN8 and FN7 (because they would have 9 and 10
+// parameters respectively).
+Checker/infer_args (args: Apps.Kind.Term): Apps.Kind.Term -> Data.U60 -> Apps.Kind.Term
+
+Checker/infer_args (Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14) = term => orig =>
+  Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13) x14
+
+Checker/infer_args (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) = term => orig =>
+  Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig term x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13) x14) x15
+
+Checker/infer_args term = x_ => orig => term
+
+// Tries to discover a type for a term.
+Checker/infer (term: Apps.Kind.Term): Apps.Kind.Checker Apps.Kind.Term
+Checker/infer (Term/var orig name index) =
+  do Apps.Kind.Checker {
+    ask got_type = Checker/find index Data.Maybe.none (n => t => v => Data.Maybe.some t)
+    match Data.Maybe got_type {
+      none => Checker/bind Checker/get_context (ctx => Checker/fail (Error/unbound_variable ctx orig))
+      some => Checker/pure got_type.value
+    }
+  }
+
+Checker/infer (Term/hol orig numb) =
+  do Apps.Kind.Checker {
+    ask ctx = Checker/get_context
+    (Checker/fail (Error/cant_infer_hole ctx orig))
+  }
+
+Checker/infer (Term/typ orig) =
+  Checker/pure (Term/typ orig)
+
+Checker/infer (Term/all orig name type body) =
+  do Apps.Kind.Checker {
+    ask depth = Checker/get_depth
+    Checker/check type (Term/typ orig)
+    Checker/extended (Checker/check (body (Term/var orig name depth)) (Term/typ orig)) name (Term/eval type) []
+    return (Term/typ orig)
+  }
+
+Checker/infer (Term/lam orig name body) =
+  do Apps.Kind.Checker {
+    ask ctx = Checker/get_context
+    (Checker/fail (Error/cant_infer_lambda ctx orig))
+  }
+
+Checker/infer (Term/app orig func argm) =
+  do Apps.Kind.Checker {
+    ask fn_infer = Checker/infer func
+    ask ap_infer = (Checker/infer.forall fn_infer
+      (fn_orig => fn_name => fn_type => fn_body => do Apps.Kind.Checker {
+        Checker/check argm fn_type
+        return (fn_body (Term/eval argm))
+      })
+      (do Apps.Kind.Checker {
+        ask ctx = Checker/get_context
+        (Checker/fail (Error/invalid_call ctx orig))
+      }))
+    return ap_infer
+  }
+
+Checker/infer (Term/let orig name expr body) =
+  do Apps.Kind.Checker {
+    ask dep      = Checker/get_depth
+    ask expr_typ = Checker/infer expr
+    ask body_typ = Checker/extended (Checker/infer (body (Term/var orig name dep))) name expr_typ [(Term/eval expr)]
+    return body_typ
+  }
+
+Checker/infer (Term/ann orig expr type) =
+  do Apps.Kind.Checker {
+    let type = Term/eval type
+    Checker/check expr type
+    return type
+  }
+
+Checker/infer (Term/sub orig name indx redx expr) =
+  do Apps.Kind.Checker {
+    ask dep = Checker/get_depth
+    ask got = Checker/find indx Data.Maybe.none (n => t => v => Data.Maybe.some (Data.Pair.new t v))
+    match Data.Maybe got {
+      none => Checker/bind Checker/get_context (ctx => Checker/fail (Error/unbound_variable ctx orig))
+      some =>
+        open Data.Pair got.value
+        do Apps.Kind.Checker {
+          match Data.Maybe reduction = Data.List.at.u60 got.value.snd redx {
+            none => Checker/bind Checker/get_context (ctx => Checker/fail (Error/unbound_variable ctx orig))
+            some => do Apps.Kind.Checker {
+              ask expr_typ = Checker/infer expr
+              return Term/eval (Term/replace expr_typ indx reduction.value)
+            }
+          }
+        }
+    }
+  }
+
+Checker/infer (Term/ct0 ctid orig) =
+  Checker/pure (Term/eval (Apps.Kind.Axiom.TypeOf ctid))
+
+Checker/infer (Term/ct1 ctid orig x0) =
+  Checker/infer (Term/app orig (Term/ct0 ctid orig) x0)
+
+Checker/infer (Term/ct2 ctid orig x0 x1) =
+  Checker/infer (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1)
+
+Checker/infer (Term/ct3 ctid orig x0 x1 x2) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2)
+
+Checker/infer (Term/ct4 ctid orig x0 x1 x2 x3) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3)
+
+Checker/infer (Term/ct5 ctid orig x0 x1 x2 x3 x4) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4)
+
+Checker/infer (Term/ct6 ctid orig x0 x1 x2 x3 x4 x5) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5)
+
+Checker/infer (Term/ct7 ctid orig x0 x1 x2 x3 x4 x5 x6) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6)
+
+Checker/infer (Term/ct8 ctid orig x0 x1 x2 x3 x4 x5 x6 x7) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7)
+
+Checker/infer (Term/ct9 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8)
+
+Checker/infer (Term/ct10 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9)
+
+Checker/infer (Term/ct11 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10)
+
+Checker/infer (Term/ct12 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11)
+
+Checker/infer (Term/ct13 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12)
+
+Checker/infer (Term/ct14 ctid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/ct0 ctid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13)
+
+Checker/infer (Term/ct15 ctid orig x0) =
+  let expr = Checker/infer_args x0
+  Checker/infer (expr (Term/ct0 ctid orig) orig)
+
+Checker/infer (Term/ct16 ctid orig x0) =
+  let expr = Checker/infer_args x0
+  Checker/infer (expr (Term/ct0 ctid orig) orig)
+
+Checker/infer (Term/fn0 fnid orig) =
+  Checker/pure (Term/eval (Apps.Kind.Axiom.TypeOf fnid))
+
+Checker/infer (Term/fn1 fnid orig x0) =
+  Checker/infer (Term/app orig (Term/fn0 fnid orig) x0)
+
+Checker/infer (Term/fn2 fnid orig x0 x1) =
+  Checker/infer (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1)
+
+Checker/infer (Term/fn3 fnid orig x0 x1 x2) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2)
+
+Checker/infer (Term/fn4 fnid orig x0 x1 x2 x3) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3)
+
+Checker/infer (Term/fn5 fnid orig x0 x1 x2 x3 x4) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4)
+
+Checker/infer (Term/fn6 fnid orig x0 x1 x2 x3 x4 x5) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5)
+
+Checker/infer (Term/fn7 fnid orig x0 x1 x2 x3 x4 x5 x6) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6)
+
+Checker/infer (Term/fn8 fnid orig x0 x1 x2 x3 x4 x5 x6 x7) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7)
+
+Checker/infer (Term/fn9 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8)
+
+Checker/infer (Term/fn10 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9)
+
+Checker/infer (Term/fn11 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10)
+
+Checker/infer (Term/fn12 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11)
+
+Checker/infer (Term/fn13 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12)
+
+Checker/infer (Term/fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) =
+  Checker/infer (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/app orig (Term/fn0 fnid orig) x0) x1) x2) x3) x4) x5) x6) x7) x8) x9) x10) x11) x12) x13)
+
+Checker/infer (Term/fn15 fnid orig x0) =
+  let expr = Checker/infer_args x0
+  Checker/infer (expr (Term/fn0 fnid orig) orig)
+
+Checker/infer (Term/fn16 fnid orig x0) =
+  let expr = Checker/infer_args x0
+  Checker/infer (expr (Term/fn0 fnid orig) orig)
+
+Checker/infer (Term/hlp orig) =
+  do Apps.Kind.Checker {
+    ask ctx = Checker/get_context
+    (Checker/fail (Error/inspection ctx orig (Term/hlp 0)))
+  }
+
+Checker/infer (Term/Data.U60 orig) =
+  Checker/pure (Term/typ 0)
+
+Checker/infer (Term/u60 orig numb) =
+  Checker/pure (Term/Data.U60 0)
+
+Checker/infer (Term/F60 orig) =
+  Checker/pure (Term/typ 0)
+
+Checker/infer (Term/f60 orig numb) =
+  Checker/pure (Term/F60 0)
+
+Checker/infer (Term/op2 orig oper left right) =
+  do Apps.Kind.Checker {
+    Checker/check left  (Term/Data.U60 0)
+    Checker/check right (Term/Data.U60 0)
+    return Term/Data.U60 0
+  }
+
+Checker/infer (Term/args15 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Apps.Kind.Axiom.Null
+Checker/infer (Term/args16 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Apps.Kind.Axiom.Null 
+
+Checker/infer.forall <r> (term: Apps.Kind.Term) (then_fn: Data.U60 -> Data.U60 -> Apps.Kind.Term -> ((Apps.Kind.Term) -> Apps.Kind.Term) -> Apps.Kind.Checker r) (else_val: Apps.Kind.Checker r) : Apps.Kind.Checker r
+Checker/infer.forall r (Term/all orig name type body) then_fn else_val = then_fn orig name type body
+Checker/infer.forall r (Term/var orig name index) then_fn else_val = do Apps.Kind.Checker {
+  ask reducs = Checker/find index [] (n => t => v => v)
+  ask result = Checker/infer.forall.try_values r reducs then_fn else_val
+  return result
+}
+Checker/infer.forall r other then_fn else_val = else_val
+
+Checker/infer.forall.try_values <r> (terms: Data.List Apps.Kind.Term) (then_fn: Data.U60 -> Data.U60 -> Apps.Kind.Term -> ((Apps.Kind.Term) -> Apps.Kind.Term) -> Apps.Kind.Checker r) (else_val: Apps.Kind.Checker r) : Apps.Kind.Checker r
+Checker/infer.forall.try_values r (Data.List.cons (Term/all orig name type body) terms) then_fn else_val = then_fn orig name type body
+Checker/infer.forall.try_values r (Data.List.cons other                               terms) then_fn else_val = Checker/infer.forall.try_values r terms then_fn else_val
+Checker/infer.forall.try_values r Data.List.nil                                              then_fn else_val = else_val

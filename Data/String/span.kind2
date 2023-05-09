@@ -1,0 +1,11 @@
+Data.String.span (f: Data.Char -> Data.Bool) (xs: Data.String) : Data.Pair Data.String Data.String
+Data.String.span f  Data.String.nil        = Data.Pair.new Data.String.nil Data.String.nil
+Data.String.span f (Data.String.cons x xs) =
+  if (f x) {
+    let span = Data.String.span f xs
+    let fst  = Data.Pair.fst span
+    let snd  = Data.Pair.snd span
+    Data.Pair.new (Data.String.cons x fst) snd
+  } else {
+    Data.Pair.new Data.String.nil (Data.String.cons x xs)
+  }

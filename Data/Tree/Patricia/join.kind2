@@ -1,10 +1,10 @@
-Data.Tree.Patricia.join <a: Type> (p0: U60) (t0: (Data.Tree.Patricia a)) (p1: U60) (t1: (Data.Tree.Patricia a)): Data.Tree.Patricia a
+Data.Tree.Patricia.join <a: Type> (p0: Data.U60) (t0: (Data.Tree.Patricia a)) (p1: Data.U60) (t1: (Data.Tree.Patricia a)): Data.Tree.Patricia a
 Data.Tree.Patricia.join a p0 t0 p1 t1 =
   Data.Tree.Patricia.joinAux0 a (Data.Tree.Patricia.branchingbit p0 p1) p0 t0 t1
 
-Data.Tree.Patricia.joinAux0 <a: Type> (m: U60) (p0: U60) (t0: Data.Tree.Patricia a) (t1: Data.Tree.Patricia a): Data.Tree.Patricia a
+Data.Tree.Patricia.joinAux0 <a: Type> (m: Data.U60) (p0: Data.U60) (t0: Data.Tree.Patricia a) (t1: Data.Tree.Patricia a): Data.Tree.Patricia a
 Data.Tree.Patricia.joinAux0 a m p0 t0 t1 = Data.Tree.Patricia.joinAux1 (Data.Tree.Patricia.zerobit m p0) m p0 t0 t1
 
-Data.Tree.Patricia.joinAux1 <a: Type> (b: Bool) (m: U60) (p0: U60) (t0: Data.Tree.Patricia a) (t1: Data.Tree.Patricia a): Data.Tree.Patricia a
-Data.Tree.Patricia.joinAux1 a Bool.true  m p0 t0 t1 = Data.Tree.Patricia.branch (Data.Tree.Patricia.mask p0 m) m t0 t1
-Data.Tree.Patricia.joinAux1 a Bool.false m p0 t0 t1 = Data.Tree.Patricia.branch (Data.Tree.Patricia.mask p0 m) m t1 t0
+Data.Tree.Patricia.joinAux1 <a: Type> (b: Data.Bool) (m: Data.U60) (p0: Data.U60) (t0: Data.Tree.Patricia a) (t1: Data.Tree.Patricia a): Data.Tree.Patricia a
+Data.Tree.Patricia.joinAux1 a Data.Bool.true  m p0 t0 t1 = Data.Tree.Patricia.branch (Data.Tree.Patricia.mask p0 m) m t0 t1
+Data.Tree.Patricia.joinAux1 a Data.Bool.false m p0 t0 t1 = Data.Tree.Patricia.branch (Data.Tree.Patricia.mask p0 m) m t1 t0

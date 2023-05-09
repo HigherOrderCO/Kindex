@@ -1,0 +1,10 @@
+// Generates a list of numbers from start to stop, adding step at each number
+// Example: Data.Nat.range 5 15 2 -> [5 7 9 11 13]
+Data.Nat.range (start: Data.Nat) (stop: Data.Nat) (step: Data.Nat) : Data.List Data.Nat {
+  if Data.Nat.gte start stop {
+    Data.List.nil
+  } else {
+    let tail = Data.Nat.range (Data.Nat.add start step) stop step
+    Data.List.cons start tail
+  }
+}

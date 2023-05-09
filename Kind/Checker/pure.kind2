@@ -1,7 +1,0 @@
-use Kind.Checker as Checker
-use Kind.Result as Result
-
-// Monadic operation `pure` for @Kind.Checker@
-Checker/pure <t> (a: t): Kind.Checker t
-Checker/pure t res = context => depth => rhs => subst => eqts => errs =>
-  Result/checked context depth rhs subst eqts errs res

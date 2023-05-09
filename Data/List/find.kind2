@@ -1,0 +1,11 @@
+// Given a condition, if any, returns the first value for that given condition
+// Example: (Data.List.find Data.Nat [1,2,3] (Data.Nat.equal 4)) -> Data.Maybe.none
+// Example: (Data.List.find Data.Nat [1,2,3] (Data.Nat.equal 1)) -> (Data.Maybe.some 1)
+Data.List.find <a> (xs: Data.List a) (cond: a -> Data.Bool) : Data.Maybe a
+Data.List.find a (Data.List.nil  t)           cond = Data.Maybe.none
+Data.List.find a (Data.List.cons t head tail) cond =
+  if cond head {
+    Data.Maybe.some head
+  } else {
+    Data.List.find tail cond
+  }

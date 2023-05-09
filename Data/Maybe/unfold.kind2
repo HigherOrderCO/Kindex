@@ -1,0 +1,7 @@
+Data.Maybe.unfold <a> (f: a -> Data.Maybe a) (x: a) : a {
+  Data.Maybe.unfold.aux f x (f x)
+}
+
+Data.Maybe.unfold.aux <a> (f: a -> Data.Maybe a) (x: a) (c: Data.Maybe a) : a
+Data.Maybe.unfold.aux a f x (Data.Maybe.none t)     = x
+Data.Maybe.unfold.aux a f x (Data.Maybe.some t val) = Data.Maybe.unfold f val

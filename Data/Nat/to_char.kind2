@@ -1,0 +1,15 @@
+// Converts a number to a digit in a given base
+// Max accepted base is 64
+// Anything outside the valid range returns '#'
+
+Data.Nat.to_char (base: Data.Nat) (n: Data.Nat) : Data.Char
+Data.Nat.to_char  Data.Nat.zero     n = '#'
+Data.Nat.to_char (Data.Nat.succ bp) n =
+  let base = (Data.Nat.succ bp)
+  let m = Data.Nat.mod n base
+  let base64 = "0123456789abcdefghijklmnopqrtuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/"
+  let n64 = (Data.U60.to_nat 64)
+  if Data.Bool.and (Data.Nat.is_succ base) (Data.Nat.lte base n64) {
+    let mc = Data.String.at m base64
+    Data.Maybe.default mc '#'
+  } else { '#' }

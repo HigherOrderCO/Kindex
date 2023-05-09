@@ -1,0 +1,6 @@
+Data.IO.bind <a: Type> <b: Type> (io: Data.IO a) (cont: a -> Data.IO b) : Data.IO b
+Data.IO.bind (Data.IO.done      val)          next = next val
+Data.IO.bind (Data.IO.do_input          cont) next = Data.IO.do_input          (x => Data.IO.bind (cont x) next)
+Data.IO.bind (Data.IO.do_output text    cont) next = Data.IO.do_output text    (x => Data.IO.bind (cont x) next)
+Data.IO.bind (Data.IO.do_load   key     cont) next = Data.IO.do_load   key     (x => Data.IO.bind (cont x) next)
+Data.IO.bind (Data.IO.do_store  key val cont) next = Data.IO.do_store  key val (x => Data.IO.bind (cont x) next)

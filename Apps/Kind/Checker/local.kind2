@@ -1,0 +1,9 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+Checker/local <a> (checker: Apps.Kind.Checker a) : Apps.Kind.Checker a
+Checker/local checker = old_context => depth => rhs => subst => eqts => errs =>
+  match Apps.Kind.Result res = checker old_context depth rhs subst eqts errs {
+      errored => Result/errored res.ctx res.sub res.errors
+      checked => Result/checked old_context depth rhs subst eqts errs res.ret
+  }

@@ -1,6 +1,0 @@
-#derive[match]
-record Parser.Error {
-  msg: String
-  init: U60
-  last: U60
-}

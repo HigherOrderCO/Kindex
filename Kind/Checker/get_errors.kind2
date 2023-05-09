@@ -1,7 +1,0 @@
-use Kind.Checker as Checker
-use Kind.Result as Result
-
-// Gets all of the errors inside of the @Kind.Checker@.
-Checker/get_errors : Kind.Checker (List Kind.Error)
-Checker/get_errors = context => depth => rhs => subst => eqts => errs =>
-  Result/checked context depth rhs subst eqts errs errs

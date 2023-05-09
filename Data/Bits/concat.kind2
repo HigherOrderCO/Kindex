@@ -1,0 +1,6 @@
+// Concatenate two bit structures into one
+// Example: (Data.Bits.concat (Data.Bits.i Data.Bits.e) (Data.Bits.o Data.Bits.e)) -> (Data.Bits.i (Data.Bits.o Data.Bits.e))
+Data.Bits.concat (a: Data.Bits) (b: Data.Bits) : Data.Bits
+Data.Bits.concat (Data.Bits.e)        (b) = (b)
+Data.Bits.concat (Data.Bits.o a.pred) (b) = (Data.Bits.o (Data.Bits.concat a.pred b))
+Data.Bits.concat (Data.Bits.i a.pred) (b) = (Data.Bits.i (Data.Bits.concat a.pred b))

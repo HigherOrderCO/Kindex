@@ -1,3 +1,0 @@
-Show.render (views: List Show) : String {
-  Show.to_string (Show.many views)
-}

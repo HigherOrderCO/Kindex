@@ -1,0 +1,3 @@
+Data.String.head (xs: Data.String) : Data.Maybe Data.Char
+Data.String.head  Data.String.nil        = Data.Maybe.none
+Data.String.head (Data.String.cons x xs) = Data.Maybe.some x

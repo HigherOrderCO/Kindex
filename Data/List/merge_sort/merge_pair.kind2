@@ -1,0 +1,8 @@
+Data.List.merge_sort.merge_pair <a> (cmp: a -> a -> Data.Bool) (xs: Data.List (Data.List a)) : Data.List (Data.List a)
+Data.List.merge_sort.merge_pair a cmp (Data.List.cons xa1 xh1 (Data.List.cons xa2 xh2 xt2)) =
+  (Data.List.cons
+    (Data.List.merge_sort.merge      cmp xh1 xh2)
+    (Data.List.merge_sort.merge_pair cmp xt2    )
+  )
+
+Data.List.merge_sort.merge_pair a cmp xs = xs

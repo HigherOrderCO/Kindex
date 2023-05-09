@@ -1,0 +1,4 @@
+// Reverts a Data.List
+// Example: (Data.List.reverse [1,2,3]) -> [3,2,1]
+Data.List.reverse <a> (xs: Data.List a) : Data.List a
+Data.List.reverse a xs = Data.List.reverse.go xs Data.List.nil

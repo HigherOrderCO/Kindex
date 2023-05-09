@@ -1,0 +1,7 @@
+Data.String.starts_with (str: Data.String) (pre: Data.String) : Data.Bool
+Data.String.starts_with str                             Data.String.nil                      = Data.Bool.true
+Data.String.starts_with Data.String.nil                      (Data.String.cons pre.head pre.tail) = Data.Bool.false
+Data.String.starts_with (Data.String.cons str.head str.tail) (Data.String.cons pre.head pre.tail) =
+  let head = Data.U60.equal str.head pre.head
+  let tail = Data.String.starts_with str.tail pre.tail
+  Data.Bool.and head tail

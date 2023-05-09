@@ -1,3 +1,0 @@
-String.map (f: Char -> Char) (xs: String) : String
-String.map f  String.nil        = String.nil
-String.map f (String.cons x xs) = String.cons (f x) (String.map f xs)

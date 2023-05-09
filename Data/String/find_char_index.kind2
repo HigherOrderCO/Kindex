@@ -1,0 +1,11 @@
+Data.String.find_char_index (xs: Data.String) (chr: Data.Char) : Data.Maybe Data.Nat
+Data.String.find_char_index xs chr = Data.String.find_char_index.go xs chr Data.Nat.zero
+
+Data.String.find_char_index.go (xs: Data.String) (chr: Data.Char) (idx: Data.Nat) : Data.Maybe Data.Nat
+Data.String.find_char_index.go Data.String.nil              chr idx = Data.Maybe.none
+Data.String.find_char_index.go (Data.String.cons head tail) chr idx =
+  if Data.Char.equal chr head {
+    Data.Maybe.some idx
+  } else {
+    Data.String.find_char_index.go tail chr (Data.Nat.succ idx)
+  }

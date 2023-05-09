@@ -1,0 +1,7 @@
+// A bit list of known size, lsb first
+#derive[match]
+type Data.Word ~ (size: Data.Nat) {
+	e : Data.Word Data.Nat.zero  
+	i <size: Data.Nat> (pred: Data.Word size) : Data.Word (Data.Nat.succ size) 
+	o <size: Data.Nat> (pred: Data.Word size) : Data.Word (Data.Nat.succ size) 
+}

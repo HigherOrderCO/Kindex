@@ -1,0 +1,7 @@
+// Drops n bits from the bit structure
+// Example: (Data.Bits.drop 1 (Data.Bits.o (Data.Bits.i Data.Bits.e))) -> (Data.Bits.i Data.Bits.e)
+Data.Bits.drop (n: Data.Nat) (b: Data.Bits): Data.Bits
+Data.Bits.drop (Data.Nat.zero)        (b)             = (b)
+Data.Bits.drop (Data.Nat.succ n.pred) (Data.Bits.e)        = (Data.Bits.e)
+Data.Bits.drop (Data.Nat.succ n.pred) (Data.Bits.i b.pred) = (Data.Bits.drop n.pred b.pred)
+Data.Bits.drop (Data.Nat.succ n.pred) (Data.Bits.o b.pred) = (Data.Bits.drop n.pred b.pred)

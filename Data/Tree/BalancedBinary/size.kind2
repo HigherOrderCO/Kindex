@@ -1,6 +1,6 @@
-Data.BBT.size <k> <v> (map: Data.BBT k v): U120 {
+Data.BBT.size <k> <v> (map: Data.BBT k v): Data.U120 {
   match Data.BBT map {
-    tip => U120.0
+    tip => Data.U120.0
     bin size .. => size
   }
 }

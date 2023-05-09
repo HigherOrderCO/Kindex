@@ -1,0 +1,8 @@
+use Apps.Kind.API as API
+
+API/check_functions (fnid: Data.List Apps.Kind.Name): Data.List (Data.Pair Apps.Kind.Name (Data.List (Apps.Kind.Result (Data.Unit))))
+API/check_functions (Data.List.nil t)       = Data.List.nil
+API/check_functions (Data.List.cons t f fs) =
+  let head = Data.Pair.new f (API/check_function f)
+  let tail = API/check_functions fs
+  Data.List.cons head tail

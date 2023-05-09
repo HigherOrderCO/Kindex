@@ -1,0 +1,2 @@
+// for every a b, ((a << b) >> b) <= a
+Data.U120.shift_right.shl_less_equal (a: Data.U120) (b: Data.U120): Prop.Equal Data.Bool (Data.U120.less_equal (Data.U120.shift_right (Data.U120.shift_left a b) b) a) Data.Bool.true 

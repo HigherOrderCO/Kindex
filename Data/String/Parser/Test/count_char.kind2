@@ -1,0 +1,24 @@
+Data.String.Parser.Test.count_char {
+  let p = Data.String.Parser.count_char 'a'
+  Data.String.Parser.run Data.Unit.new p "aaaaasd"
+}
+
+Data.String.Parser.count_char <t> (chr: Data.Char) : Data.String.Parser t Data.U60 {
+  do Data.String.Parser {
+    ask found_char = Data.String.Parser.to_bool (Data.String.Parser.char chr)
+    if found_char {
+      do Data.String.Parser {
+        ask count = Data.String.Parser.count_char chr
+        return (+ 1 count)
+      }
+    } else {
+      do Data.String.Parser {
+        return 0
+      }
+    }
+  }
+}
+
+Main {
+  Data.String.Parser.Test.count_char
+}

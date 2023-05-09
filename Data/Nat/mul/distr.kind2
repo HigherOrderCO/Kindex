@@ -1,0 +1,42 @@
+// Proof that a(b+c) = ab + ac
+Data.Nat.mul.distr (a: Data.Nat) (b: Data.Nat) (c: Data.Nat) :
+  Prop.Equal Data.Nat (Data.Nat.mul a (Data.Nat.add b c)) (Data.Nat.add (Data.Nat.mul a b) (Data.Nat.mul a c))
+
+Data.Nat.mul.distr Data.Nat.zero     b c = Prop.Equal.refl
+Data.Nat.mul.distr (Data.Nat.succ a) b c = 
+  // Our goal:
+  // (a + 1)(b + c) = ((a + 1)b)((a + 1)c)
+  // The definition of Data.Nat.mul turns this into
+  // a*(b + c) + (b + c) = (a*b + b) + (ac + c)
+  // Induction tells us that a(b + c) = ab + ac
+  let induction = Data.Nat.mul.distr a b c
+  // If we add b + c on both sides we get 
+  let induction = Prop.Equal.apply (x => Data.Nat.add x (Data.Nat.add b c)) induction
+  // a(b + c) + (b + c) = (ab + ac) + (b + c)
+  // If we use the associative and conmutative property on the RHS we can get our goal
+  // (ab + ac) + (b + c) = (ab + (ac + (b + c))
+  let assoc_1 = Data.Nat.add.assoc (Data.Nat.mul a b) (Data.Nat.mul a c) (Data.Nat.add b c)
+  // ac + (b + c) = (ac + b) + c
+  let assoc_2 = Data.Nat.add.assoc (Data.Nat.mul a c) b c
+  // (ac + b) = (b + ac)
+  let comm_1 = Data.Nat.add.comm (Data.Nat.mul a c) b
+  // Therefore, (ac + b) + c = (b + ac) + c
+  let comm_1 = Prop.Equal.apply (x => Data.Nat.add x c) comm_1
+  // (b + ac) + c = b + (ac + c)
+  let assoc_3 = Prop.Equal.mirror (Data.Nat.add.assoc b (Data.Nat.mul a c) c)
+  // We chain assoc_2, comm_1, and assoc_3 and we get 
+  // (ac + (b + c)) = (b + (ac + c))
+  let chained = Prop.Equal.chain assoc_2 (Prop.Equal.chain comm_1 assoc_3)
+  // We add ab on both sides
+  // ab + (ac + (b + c)) = ab + (b + (ac + c)) 
+  let chained = Prop.Equal.apply (x => Data.Nat.add (Data.Nat.mul a b) x) chained
+  // ab + (b + (ac + c)) = (ab + b) + (ac + c)
+  let assoc_4 = Data.Nat.add.assoc (Data.Nat.mul a b) b (Data.Nat.add (Data.Nat.mul a c) c)
+  // ab + (ac + (b + c)) = (ab + b) + (ac + c)
+  let chained = Prop.Equal.chain chained assoc_4
+  // (ab + ac) + (b + c) = (ab + b) + (ac + c)
+  let chained = Prop.Equal.chain (Prop.Equal.mirror assoc_1) chained
+  // (ab + ac) + (b + c) = a(b + c) + (ac + c)
+  let chained = Prop.Equal.chain induction chained
+  // This is our goal!
+  chained

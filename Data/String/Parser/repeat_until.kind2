@@ -1,0 +1,15 @@
+/// Evaluates a parser until a condition parser succeeds. Returns an array of results.
+Data.String.Parser.repeat_until <a> <b> <t> (cond: Data.String.Parser t a) (prs: Data.String.Parser t b) : Data.String.Parser t (Data.List b) {
+  do Data.String.Parser {
+    ask done = Data.String.Parser.is_some (Data.String.Parser.try cond)
+    if done {
+      Data.String.Parser.pure []
+    } else {
+      do Data.String.Parser {
+        ask head = prs
+        ask tail = Data.String.Parser.repeat_until cond prs
+        return Data.List.cons head tail
+      }
+    }
+  }
+}

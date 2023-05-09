@@ -1,4 +1,4 @@
 // Gets the rank
-Data.Heap.Leftist.rank (h: Data.Heap.Leftist) : U60
-Data.Heap.Leftist.rank Data.Heap.Leftist.empty = 0
-Data.Heap.Leftist.rank (Data.Heap.Leftist.tree r x lft rgt) = r
+Data.Data.Heap.Leftist.rank (h: Data.Data.Heap.Leftist) : Data.U60
+Data.Data.Heap.Leftist.rank Data.Data.Heap.Leftist.empty = 0
+Data.Data.Heap.Leftist.rank (Data.Data.Heap.Leftist.tree r x lft rgt) = r

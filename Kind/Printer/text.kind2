@@ -1,5 +1,0 @@
-use Kind.Printer as Printer
-
-Printer/text (ls: List String) : String
-Printer/text (List.nil t)       = String.nil
-Printer/text (List.cons t x xs) = String.concat x (Printer/text xs)

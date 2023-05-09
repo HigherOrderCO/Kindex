@@ -1,0 +1,4 @@
+Data.U120.num_not_equal (a: Data.U120) (b: Data.U120) : Data.U120
+Data.U120.num_not_equal (Data.U120.new ahi alo) (Data.U120.new bhi blo) = Data.U120.new 0 (| (!= ahi bhi) (!= alo blo))
+
+

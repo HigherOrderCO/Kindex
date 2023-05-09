@@ -1,6 +1,0 @@
-use Kind.Context as Context
-
-// Adds a new entry to the end of the @Kind.Context@
-Context/extend (prev: Kind.Context) (name: U60) (term: Kind.Term) (ls: List Kind.Term): Kind.Context
-Context/extend Context/empty              name type values = Context/entry name type values Context/empty
-Context/extend (Context/entry n t v rest) name type values = Context/entry n t v (Context/extend rest name type values)

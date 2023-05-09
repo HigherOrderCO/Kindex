@@ -1,0 +1,14 @@
+// Take characters from the code while a condition passes
+Data.String.Parser.take_while <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.String {
+  do Data.String.Parser {
+    ask mh = Data.String.Parser.try (Data.String.Parser.satisfy cond)
+    match Data.Maybe mh {
+      none => Data.String.Parser.pure Data.String.nil
+      some =>
+        do Data.String.Parser {
+          ask tail = Data.String.Parser.take_while cond
+          return (Data.String.cons mh.value tail)
+        }
+    }
+  }
+}

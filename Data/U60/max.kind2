@@ -1,0 +1,2 @@
+Data.U60.max (fst: Data.U60) (snd: Data.U60): Data.U60
+Data.U60.max fst snd = Data.U60.if (> fst snd) fst snd

@@ -1,6 +1,0 @@
-#derive[match]
-type Stream <a> {
-  cons
-    (head: a)
-    (tail: Stream a)
-}

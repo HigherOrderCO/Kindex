@@ -1,0 +1,3 @@
+Data.Maybe.filter <t: Type> (f: t -> Data.Bool) (a: Data.Maybe t) : Data.Maybe t
+Data.Maybe.filter t f (Data.Maybe.none t_)     = Data.Maybe.none
+Data.Maybe.filter t f (Data.Maybe.some t_ val) = if (f val) { Data.Maybe.some val } else { Data.Maybe.none }

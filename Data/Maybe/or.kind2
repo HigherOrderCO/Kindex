@@ -1,0 +1,3 @@
+Data.Maybe.or <t: Type> (a: Data.Maybe t) (b: Data.Maybe t) : Data.Maybe t
+Data.Maybe.or t (Data.Maybe.none at) b = b
+Data.Maybe.or t a               b = a

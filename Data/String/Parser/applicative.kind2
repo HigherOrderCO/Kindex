@@ -1,0 +1,8 @@
+Data.String.Parser.applicative <a> <b> <t> (p : Data.String.Parser t (a -> b)) (p1 : Data.String.Parser t a) : (Data.String.Parser t b) {
+  do Data.String.Parser {
+    ask f = p
+    let f = f :: a -> b
+    ask r = p1
+    return (f r)
+  }
+}

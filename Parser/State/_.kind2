@@ -1,7 +1,0 @@
-#derive[match]
-record Parser.State (t) {
-  custom: t
-  left: String
-  back: String
-  index: U60
-}

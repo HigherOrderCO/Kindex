@@ -1,0 +1,4 @@
+#derive[match]
+type Prop.Equal <t> (a: t) ~ (b: t) {
+  refl : Prop.Equal t a a
+}

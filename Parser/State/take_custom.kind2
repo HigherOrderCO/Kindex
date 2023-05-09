@@ -1,3 +1,0 @@
-Parser.State.take_custom <t> (state: Parser.State t) : Pair t (Parser.State Unit)
-Parser.State.take_custom (Parser.State.new custom left back index) =
-    Pair.new custom (Parser.State.new Unit.new left back index)

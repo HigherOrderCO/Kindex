@@ -1,0 +1,4 @@
+type Data.Vector <a: Type> ~ (len: Data.Nat) {
+  nil  : Data.Vector a Data.Nat.zero
+  cons (len: Data.Nat) (head: a) (tail: Data.Vector a len) : Data.Vector a (Data.Nat.succ len)
+}

@@ -1,5 +1,0 @@
-// Skips characters while they fulfill some condition
-// Returns true if anything was skipped
-Parser.skip_while <t> (cond: Char -> Bool) : Parser t Bool {
-  Parser.to_bool (Parser.take_while1 cond)
-}

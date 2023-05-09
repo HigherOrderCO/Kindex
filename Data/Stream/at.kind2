@@ -1,0 +1,3 @@
+Data.Stream.at <a> (xs: Data.Stream a) (idx: Data.Nat) : a
+Data.Stream.at a (Data.Stream.cons head tail) Data.Nat.zero        = head
+Data.Stream.at a (Data.Stream.cons head tail) (Data.Nat.succ pred) = Data.Stream.at a tail pred

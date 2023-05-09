@@ -1,0 +1,6 @@
+// Proof that (a + 1) + b = a + (b + 1)
+// In a way, this is a special case of the commutative/associative property
+
+Data.Nat.add.comm.succ (a: Data.Nat) (b: Data.Nat): Prop.Equal Data.Nat (Data.Nat.add a (Data.Nat.succ b)) (Data.Nat.succ (Data.Nat.add a b))
+Data.Nat.add.comm.succ Data.Nat.zero     b = Prop.Equal.refl
+Data.Nat.add.comm.succ (Data.Nat.succ a) b = Prop.Equal.apply (x => Data.Nat.succ x) (Data.Nat.add.comm.succ a b)

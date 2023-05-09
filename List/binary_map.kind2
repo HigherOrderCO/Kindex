@@ -1,5 +1,0 @@
-List.binary_map <a: Type> (xs: List a) (ys: List a) (f: a -> a -> a) : List a
-List.binary_map a (List.nil  x.a)         (List.nil y.a)          f = List.nil
-List.binary_map a (List.cons x.a x.h x.t) (List.nil y.a)          f = List.cons x.h x.t
-List.binary_map a (List.nil  x.a)         (List.cons y.a y.h y.t) f = List.cons y.h y.t
-List.binary_map a (List.cons x.a x.h x.t) (List.cons y.a y.h y.t) f = List.cons (f x.h y.h) (List.binary_map x.t y.t f)

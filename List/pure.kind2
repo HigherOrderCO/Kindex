@@ -1,5 +1,0 @@
-// Makes a new list with a single element
-// Example: (List.pure Nat 0) -> [0]
-#inline
-List.pure <t: Type> (x: t) : List t
-List.pure t x = List.cons x List.nil

@@ -1,3 +1,0 @@
-Nat.sub.zero (a: Nat): (Equal (Nat.sub a Nat.zero) a)
-Nat.sub.zero Nat.zero = Equal.refl
-Nat.sub.zero (Nat.succ a) = Equal.refl

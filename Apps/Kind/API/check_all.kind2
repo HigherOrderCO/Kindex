@@ -1,0 +1,8 @@
+use Apps.Kind.API as API
+use Apps.Kind.Error as Error
+use Apps.Kind.Axiom as Axiom
+
+API/check_all : Data.List (Error/Quoted)
+API/check_all =
+  let output = API/output (Data.List.reverse (API/check_functions (Axiom/Functions)))
+  output

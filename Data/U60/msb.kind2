@@ -1,0 +1,9 @@
+// Return the index of the most significant set bit
+Data.U60.msb (n: Data.U60) : Data.Maybe Data.U60
+Data.U60.msb 0 = Data.Maybe.none
+Data.U60.msb n = Data.Maybe.some (- (Data.U60.msb.go n) 1)
+
+
+Data.U60.msb.go (n: Data.U60) : Data.U60
+Data.U60.msb.go 0 = 0
+Data.U60.msb.go n = (+ 1 (Data.U60.msb.go (>> n 1)))

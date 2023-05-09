@@ -1,0 +1,7 @@
+Data.Maybe.try <a> (ls: Data.List (Data.Maybe a)) (alt: a) : a
+Data.Maybe.try a (Data.List.nil  t)          alt = alt
+Data.Maybe.try a (Data.List.cons t maybe xs) alt =
+  match Data.Maybe maybe {
+    none => Data.Maybe.try xs alt
+    some value => value
+  }

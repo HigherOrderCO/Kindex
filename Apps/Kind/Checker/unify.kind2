@@ -1,0 +1,39 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Equation as Equation
+use Apps.Kind.Term as Term
+
+// Runs the @Apps.Kind.Checker@ and then attempts to unify all equations produced.
+Checker/unify (checker: Apps.Kind.Checker Data.Unit): Apps.Kind.Checker Data.Unit
+Checker/unify checker =
+  do Apps.Kind.Checker {
+    checker
+    ask equations = Checker/get_equations
+    (Checker/unify.go equations Data.List.nil Data.Bool.false)
+  }
+
+Checker/unify.go (equations: Data.List Apps.Kind.Equation) (unsolved: Data.List Apps.Kind.Equation) (changed: Data.Bool): Apps.Kind.Checker Data.Unit
+Checker/unify.go (Data.List.nil t) (Data.List.nil t1) changed = Checker/pure Data.Unit.new
+Checker/unify.go (Data.List.nil t) unsolved Data.Bool.true    = Checker/unify.go unsolved Data.List.nil Data.Bool.false
+Checker/unify.go (Data.List.nil t) unsolved Data.Bool.false   = Checker/unify.go.fail unsolved
+Checker/unify.go (Data.List.cons t (Equation/new ctx orig left right) equations) unsolved changed =
+  do Apps.Kind.Checker {
+    ask is_equal = Checker/with_context (Checker/equal (Term/eval left) (Term/eval right)) ctx
+    let unify =
+      (if is_equal {
+        (equations: Data.List Apps.Kind.Equation) => (unsolved: Data.List Apps.Kind.Equation) =>
+          Checker/unify.go equations unsolved Data.Bool.true
+      } else {
+        (equations: Data.List Apps.Kind.Equation) => (unsolved: Data.List Apps.Kind.Equation) =>
+          let eqt = Equation/new ctx orig left right
+          Checker/unify.go equations (Data.List.cons eqt unsolved) changed
+      }) :: (Data.List Apps.Kind.Equation) -> (Data.List Apps.Kind.Equation) -> Apps.Kind.Checker Data.Unit
+    (unify equations unsolved)
+  }
+
+Checker/unify.go.fail (equations: Data.List Apps.Kind.Equation): Apps.Kind.Checker Data.Unit
+Checker/unify.go.fail (Data.List.nil t) = Checker/pure Data.Unit.new
+Checker/unify.go.fail (Data.List.cons t (Equation/new ctx orig left right) eqts) =
+  do Apps.Kind.Checker {
+    Checker/error (Apps.Kind.Error.type_mismatch ctx orig left right) Data.Unit.new
+    (Checker/unify.go.fail eqts)
+  }

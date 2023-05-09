@@ -1,4 +1,0 @@
-#inline
-Char.greater_equal (a: Char) (b: Char) : Bool {
-  U60.greater_equal a b
-}

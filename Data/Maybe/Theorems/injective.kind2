@@ -1,0 +1,3 @@
+Data.Maybe.Theorems.some_injective <a: Type> (x: a) (y: a) (eq: Prop.Equal (Data.Maybe.some x) (Data.Maybe.some y)) : Prop.Equal x y {
+  Prop.Equal.apply (m => Data.Maybe.default m x) eq
+}

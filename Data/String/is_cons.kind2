@@ -1,0 +1,3 @@
+Data.String.is_cons (xs: Data.String) : Data.Bool
+Data.String.is_cons  Data.String.nil        = Data.Bool.false
+Data.String.is_cons (Data.String.cons x xs) = Data.Bool.true

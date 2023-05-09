@@ -1,0 +1,10 @@
+use Apps.Kind.Subst as Subst
+
+// Adds a new term to the substitution at the given depth.
+Subst/fill (subst: Apps.Kind.Subst) (depth: Data.U60) (term: Apps.Kind.Term): Apps.Kind.Subst
+Subst/fill Subst/end             0 term = Subst/sub term Subst/end
+Subst/fill (Subst/unfilled rest) 0 term = Subst/sub term rest
+Subst/fill (Subst/sub lost rest) 0 term = Subst/sub term rest
+Subst/fill Subst/end             n term = Subst/unfilled (Subst/fill Subst/end (- n 1) term)
+Subst/fill (Subst/unfilled rest) n term = Subst/unfilled (Subst/fill rest (- n 1) term)
+Subst/fill (Subst/sub keep rest) n term = Subst/sub keep (Subst/fill rest (- n 1) term)

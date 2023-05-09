@@ -1,0 +1,4 @@
+Data.U60.min (a: Data.U60) (b: Data.U60): Data.U60 {
+  if (Data.U60.less_than a b) { a }
+  else       { b }
+}

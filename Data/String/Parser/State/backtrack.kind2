@@ -1,0 +1,8 @@
+// Undoes the last n characters parsed
+Data.String.Parser.State.backtrack <t> (n: Data.U60) (state: Data.String.Parser.State t) : Data.String.Parser.State t
+Data.String.Parser.State.backtrack 0  state                                                       = state
+Data.String.Parser.State.backtrack n (Data.String.Parser.State.new custom left  Data.String.nil             index) = Data.String.Parser.State.new custom left "" index
+Data.String.Parser.State.backtrack n (Data.String.Parser.State.new custom left (Data.String.cons head tail) index) =
+  let n     = (- n 1)
+  let state = Data.String.Parser.State.new custom (Data.String.cons head left) tail (- index 1)
+  Data.String.Parser.State.backtrack n state

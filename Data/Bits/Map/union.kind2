@@ -1,0 +1,19 @@
+Data.Bits.Data.Map.union <a> 
+	(mapa: Data.Bits.Data.Map a) 
+	(mapb: Data.Bits.Data.Map a) 
+: (Data.Bits.Data.Map a) 
+
+Data.Bits.Data.Map.union a Data.Bits.Data.Map.new mapb = mapb
+
+Data.Bits.Data.Map.union a mapa Data.Bits.Data.Map.new = mapa
+
+Data.Bits.Data.Map.union a (Data.Bits.Data.Map.tie t (Data.Maybe.none) t.left t.right) (Data.Bits.Data.Map.tie s s.value s.left s.right) = 
+	let left  = Data.Bits.Data.Map.union t.left s.left
+	let right = Data.Bits.Data.Map.union t.right s.right
+	Data.Bits.Data.Map.tie s.value left right 
+
+Data.Bits.Data.Map.union a (Data.Bits.Data.Map.tie t (Data.Maybe.some x value) t.left t.right) (Data.Bits.Data.Map.tie s s.value s.left s.right) = 
+	let value = Data.Maybe.some value
+	let left  = Data.Bits.Data.Map.union t.left s.left
+	let right = Data.Bits.Data.Map.union t.right s.right
+	Data.Bits.Data.Map.tie value left right

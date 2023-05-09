@@ -1,0 +1,2 @@
+Prop.Equal.rewrite <t> <a: t> <b: t> (e: Prop.Equal t a b) -(p: t -> Type) (x: p a) : p b
+Prop.Equal.rewrite _ _ _ (Prop.Equal.refl _ k) p x = x :: p k

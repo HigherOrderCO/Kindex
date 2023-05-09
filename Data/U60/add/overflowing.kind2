@@ -1,0 +1,5 @@
+Data.U60.add.overflowing (a: Data.U60) (b: Data.U60) : Data.Pair Data.Bool Data.U60 {
+  let res = (+ a b)
+  let ovr = Data.U60.less_than res a
+  Data.Pair.new ovr res
+}

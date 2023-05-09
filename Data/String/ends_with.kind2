@@ -1,0 +1,5 @@
+Data.String.ends_with (xs: Data.String) (match: Data.String) : Data.Bool {
+  let xs    = Data.String.reverse xs
+  let match = Data.String.reverse match
+  Data.String.starts_with xs match
+}

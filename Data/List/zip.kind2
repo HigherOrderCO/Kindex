@@ -1,0 +1,8 @@
+Data.List.zip <a> <b> (as: Data.List a) (bs: Data.List b) : Data.List (Data.Pair a b)
+
+Data.List.zip a b (Data.List.cons a_ ah at) (Data.List.cons b_ bh bt) =
+  let head = Data.Pair.new ah bh
+  let tail = Data.List.zip at bt
+  Data.List.cons head tail
+
+Data.List.zip a b as bs = Data.List.nil

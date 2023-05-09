@@ -1,4 +1,0 @@
-Cmp.equal.same (x: Cmp) : Equal (Cmp.equal x x) Bool.true
-Cmp.equal.same Cmp.ltn = Equal.refl
-Cmp.equal.same Cmp.eql = Equal.refl
-Cmp.equal.same Cmp.gtn = Equal.refl

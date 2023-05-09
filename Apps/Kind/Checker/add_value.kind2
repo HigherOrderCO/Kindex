@@ -1,0 +1,9 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+use Apps.Kind.Context as Context
+
+// Attachs a value to a name inside the context
+// that is inside the checker.
+Checker/add_value (idx: Data.U60) (val: Apps.Kind.Term) : Apps.Kind.Checker Data.Unit
+Checker/add_value idx val = context => depth => rhs => subst => eqts => errs =>
+  Result/checked (Context/add_value context idx val) depth rhs subst eqts errs Data.Unit.new

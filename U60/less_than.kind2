@@ -1,3 +1,0 @@
-U60.less_than (a: U60) (b: U60) : Bool {
-  U60.to_bool (< a b)
-}

@@ -1,0 +1,5 @@
+// for every a b c, (a | b) >> c = (a >> c) | (b >> c)
+Data.U120.shift_right.pass_or (a: Data.U120) (b: Data.U120) (c: Data.U120)
+: let x = Data.U120.shift_right (Data.U120.bitwise_or a b) c
+  let y = Data.U120.bitwise_or (Data.U120.shift_right a c) (Data.U120.shift_right b c)
+  (Prop.Equal Data.U120 x y)

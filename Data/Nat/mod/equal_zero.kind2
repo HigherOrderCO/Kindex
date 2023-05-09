@@ -1,0 +1,8 @@
+Data.Nat.mod.equal_zero (a: Data.Nat): (Prop.Equal Data.Nat.zero (Data.Nat.mod a a))
+Data.Nat.mod.equal_zero Data.Nat.zero = Prop.Equal.refl
+Data.Nat.mod.equal_zero (Data.Nat.succ a.pred) = 
+	// a.pred /% a.pred = (1 0) 
+	let e = Data.Nat.div_mod.equal_one_zero a.pred (Data.Nat.succ a.pred) Data.Nat.zero
+	// therefore a.pred % a.pred = 0
+	let e = Prop.Equal.apply (x => (Data.Pair.snd x)) e
+	e

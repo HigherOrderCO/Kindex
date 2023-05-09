@@ -1,5 +1,0 @@
-// Return the largest of two numbers
-// Example: (Nat.min 5 3) -> 5
-Nat.max (a: Nat) (b: Nat) : Nat {
-  if (Nat.gtn a b) { a } else { b }
-}

@@ -1,0 +1,4 @@
+#kdl_erase
+Data.U60.if <r: Type> (n: Data.U60) (t: r) (f: r) : r
+Data.U60.if 0 t f = f
+Data.U60.if n t f = t

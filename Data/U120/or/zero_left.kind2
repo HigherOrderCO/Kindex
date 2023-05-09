@@ -1,0 +1,2 @@
+// For every a: (| 0 a) == a
+Data.U120.or.zero_left (a: Data.U120) : Prop.Equal Data.U120 (Data.U120.bitwise_or (Data.U120.new 0 0) a) a

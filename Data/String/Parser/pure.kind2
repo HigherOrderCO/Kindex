@@ -1,0 +1,3 @@
+Data.String.Parser.pure <t> <r> (value: r) : Data.String.Parser t r {
+  state => Data.String.Parser.Result.done state value 
+}

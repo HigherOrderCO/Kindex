@@ -1,0 +1,2 @@
+Data.U120.high (n: Data.U120) : Data.U60
+Data.U120.high (Data.U120.new hi lo) = hi

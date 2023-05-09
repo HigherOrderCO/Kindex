@@ -1,0 +1,5 @@
+// Concatenates all elements from Data.List of Data.Lists into a Data.List
+// Example: (Data.List.flatten [[Data.Nat.zero], [Data.Nat.zero]]) -> [Data.Nat.zero, Data.Nat.zero]
+Data.List.flatten <a> (xs: Data.List (Data.List a)) : Data.List a
+Data.List.flatten a (Data.List.nil t)            = Data.List.nil
+Data.List.flatten a (Data.List.cons t head tail) = Data.List.concat head (Data.List.flatten tail)

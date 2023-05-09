@@ -1,4 +1,0 @@
-Nat.absurd.zero_not_succ (n: Nat) : Not (Equal Nat Nat.zero (Nat.succ n))
-Nat.absurd.zero_not_succ n = absurd => 
-  let to_bool = Equal.apply (n => (Nat.to_bool n)) absurd
-  Bool.true_not_false (Equal.mirror to_bool)

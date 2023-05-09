@@ -1,0 +1,11 @@
+// Parses a body enclosed with an opener and closer
+// Example: to parse "(asdf)"
+//         Data.String.Parser.between (Data.String.Parser.char '(') (Data.String.Parser.char ')') (Data.String.Parser.take_while (c => Data.Char.is_alpha))
+Data.String.Parser.between <o> <c> <b> <t> (open_: Data.String.Parser t o) (close: Data.String.Parser t c) (body: Data.String.Parser t b) : Data.String.Parser t b {
+  do Data.String.Parser {
+    open_
+    ask res = body
+    close
+    return res
+  }
+}

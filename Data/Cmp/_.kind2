@@ -1,0 +1,6 @@
+#derive[match]
+type Data.Cmp {
+  ltn
+  eql
+  gtn
+}

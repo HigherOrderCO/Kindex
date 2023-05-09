@@ -1,0 +1,10 @@
+// Automatically derived from Data.JSON/_.kind2
+#derive[match]
+type Data.JSON {
+  object (obj: Data.List (Data.Pair Data.String Data.JSON))
+  array (arr: Data.List Data.JSON)
+  string (text: Data.String)
+  number (float: Data.F64)
+  bool (bool: Data.Bool)
+  null
+}

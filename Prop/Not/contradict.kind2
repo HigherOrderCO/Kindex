@@ -1,0 +1,3 @@
+// Get an Data.Empty out of (Prop.Not p) and p
+Prop.Not.contradict <p: Type> (not: Prop.Not p) (expression: p): Data.Empty
+Prop.Not.contradict p not expression = not expression

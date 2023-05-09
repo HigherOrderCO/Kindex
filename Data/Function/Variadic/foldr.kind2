@@ -1,0 +1,7 @@
+Data.Function.Variadic.foldr <r> <p> (acc: r -> p -> p) (b: p) (n: Data.Nat) : Data.Function.Variadic r p n {
+  Data.Function.Variadic.foldr.go acc b (p => p) n
+}
+
+Data.Function.Variadic.foldr.go <r> <p> (acc: r -> p -> p) (b: p) (k: p -> p) (n: Data.Nat) : Data.Function.Variadic r p n
+Data.Function.Variadic.foldr.go r p acc b k  Data.Nat.zero    = (k b)
+Data.Function.Variadic.foldr.go r p acc b k (Data.Nat.succ n) = a => Data.Function.Variadic.foldr.go acc b (r => acc a r) n

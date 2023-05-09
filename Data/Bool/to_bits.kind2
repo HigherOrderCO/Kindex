@@ -1,0 +1,3 @@
+Data.Bool.to_bits (b: Data.Bool) : Data.Bits
+Data.Bool.to_bits Data.Bool.false = Data.Bits.o Data.Bits.e
+Data.Bool.to_bits Data.Bool.true  = Data.Bits.i Data.Bits.e

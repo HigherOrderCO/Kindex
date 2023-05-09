@@ -1,0 +1,8 @@
+// FIXME: isn't compiling to HVM
+Data.U60.show (n: Data.U60) : String.Build
+Data.U60.show 0 = str =>
+  Data.String.cons '0' str
+Data.U60.show n = str =>
+  let next = Data.String.cons (+ 48 (% n 10)) str
+  let func = Data.U60.if String.Build (< n 10) (h => h) (h => (Data.U60.show (/ n 10)) h)
+  func next

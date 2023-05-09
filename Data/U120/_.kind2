@@ -1,0 +1,8 @@
+// Data.U120 operations based on Data.U60 numbers.
+// - hi is the most significant 60 bits
+// - lo is the least significant 60 bits
+#derive[match]
+record Data.U120 {
+    hi: Data.U60
+    lo: Data.U60
+}

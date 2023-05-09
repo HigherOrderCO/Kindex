@@ -1,0 +1,4 @@
+Data.Nat.to_bool (n: Data.Nat) : Data.Bool
+Data.Nat.to_bool Data.Nat.zero  = Data.Bool.false
+Data.Nat.to_bool n         = Data.Bool.true
+

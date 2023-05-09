@@ -1,0 +1,5 @@
+Data.Nat.divides (a: Data.Nat) (b: Data.Nat) : Data.Bool
+Data.Nat.divides Data.Nat.zero Data.Nat.zero = Data.Bool.false
+Data.Nat.divides a        Data.Nat.zero = Data.Bool.true
+Data.Nat.divides Data.Nat.zero b        = Data.Bool.false
+Data.Nat.divides a        b        = Data.Nat.equal Data.Nat.zero (Data.Nat.mod b a)

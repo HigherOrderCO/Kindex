@@ -1,0 +1,24 @@
+use Apps.Kind.Term as Term
+use Apps.Kind.Printer as Printer
+
+#axiom
+Data.List.nil.  : Apps.Kind.Name
+
+#axiom
+Data.List.cons. : Apps.Kind.Name
+
+Term/show.sugar.list.go (term: Apps.Kind.Term): Data.Maybe (Data.List Data.String)
+Term/show.sugar.list.go (Term/ct0 Data.List.nil.  orig) = Data.Maybe.some Data.List.nil
+Term/show.sugar.list.go (Term/ct2 Data.List.cons. orig x0 x1) =
+  do Data.Maybe {
+    ask tail = Term/show.sugar.list.go x1
+    return Data.List.cons (Term/show x0) tail
+  }
+Term/show.sugar.list.go other = Data.Maybe.none
+
+Term/show.sugar.list (term: Apps.Kind.Term): Data.Maybe Data.String
+Term/show.sugar.list term =
+  do Data.Maybe {
+    ask res  = Term/show.sugar.list.go term
+    return (Printer/text ["[" (Data.String.join " " res) "]"])
+  }

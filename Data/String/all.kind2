@@ -1,0 +1,4 @@
+// Check if some condition applies to all characters of the string
+Data.String.all (cond: Data.Char -> Data.Bool) (xs: Data.String) : Data.Bool {
+  Data.String.foldr Data.Bool.true (c => b => Data.Bool.and (cond c) b) xs
+}

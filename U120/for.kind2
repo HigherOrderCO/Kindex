@@ -1,7 +1,0 @@
-U120.for <s: Type> (state: s) (from: U120) (til: U120) (func: U120 -> s -> s) : s {
-  if U120.equal from til {
-    state
-  } else {
-    U120.for (func from state) (U120.inc from) til func
-  }
-}

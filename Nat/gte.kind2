@@ -1,5 +1,0 @@
-// True if a >= b, false otherwise
-Nat.gte (a: Nat) (b: Nat) : Bool
-Nat.gte  a            Nat.zero    = Bool.true
-Nat.gte  Nat.zero    (Nat.succ b) = Bool.false
-Nat.gte (Nat.succ a) (Nat.succ b) = Nat.gte a b

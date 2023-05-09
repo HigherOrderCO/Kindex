@@ -1,0 +1,6 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+Checker/set_context (new_context: Apps.Kind.Context) : Apps.Kind.Checker Apps.Kind.Context
+Checker/set_context new_context = old_context => depth => rhs => subst => eqts => errs =>
+  Result/checked new_context depth rhs subst eqts errs old_context

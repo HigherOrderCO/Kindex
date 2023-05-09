@@ -1,0 +1,11 @@
+Data.List.span <a> (cond: a -> Data.Bool) (xs: Data.List a) : Data.Pair (Data.List a) (Data.List a)
+Data.List.span a cond (Data.List.nil  a_)      = Data.Pair.new Data.List.nil Data.List.nil
+Data.List.span a cond (Data.List.cons a_ x xs) =
+  if (cond x) {
+    let tail = Data.List.span cond xs
+    let fst  = Data.Pair.fst tail
+    let snd  = Data.Pair.snd tail
+    Data.Pair.new (Data.List.cons x fst) snd
+  } else {
+    Data.Pair.new Data.List.nil (Data.List.cons x xs)
+  }

@@ -1,0 +1,4 @@
+Data.String.last (xs: Data.String) : Data.Maybe Data.Char
+Data.String.last  Data.String.nil                = Data.Maybe.none
+Data.String.last (Data.String.cons x Data.String.nil) = Data.Maybe.some x
+Data.String.last (Data.String.cons x xs)         = Data.String.last xs

@@ -1,0 +1,11 @@
+Data.String.compare (a: Data.String) (b: Data.String) : Data.Cmp
+Data.String.compare  Data.String.nil          Data.String.nil         = Data.Cmp.eql
+Data.String.compare  Data.String.nil         (Data.String.cons bh bt) = Data.Cmp.ltn
+Data.String.compare (Data.String.cons ah at)  Data.String.nil         = Data.Cmp.gtn
+Data.String.compare (Data.String.cons ah at) (Data.String.cons bh bt) =
+  let compare = (Data.Char.compare ah bh)
+  match Data.Cmp compare {
+    ltn => Data.Cmp.ltn
+    eql => Data.String.compare at bt
+    gtn => Data.Cmp.gtn
+  }

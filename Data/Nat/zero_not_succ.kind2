@@ -1,0 +1,11 @@
+// Proof that zero is different to all other natural numbers
+Data.Nat.zero_not_succ <n: Data.Nat> (e: Prop.Equal Data.Nat Data.Nat.zero (Data.Nat.succ n)): Data.Empty
+
+Data.Nat.zero_not_succ n e = 
+
+	// If 0 = n + 1, then (0 == 0) = (n + 1 == 0), right?
+	let e = Prop.Equal.apply (x => Data.Nat.equal x Data.Nat.zero) e
+
+	// Due to the definition of Data.Nat.equal, Kind2 turns this into Data.Bool.true == Data.Bool.false
+	// This is false because of Data.Bool.true_not_false
+	Data.Bool.true_not_false e

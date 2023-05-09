@@ -1,0 +1,3 @@
+Data.String.eql_no_sensitive (a: Data.String) (b: Data.String) : Data.Bool {
+  Data.String.equal (Data.String.to_lower a) (Data.String.to_lower b)
+}

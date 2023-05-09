@@ -1,0 +1,8 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+use Apps.Kind.Subst as Subst
+
+// Fill the checker context @Apps.Kind.Subst@ with an index and value.
+Checker/fill (index: Data.U60) (val: Apps.Kind.Term): Apps.Kind.Checker Data.Unit
+Checker/fill index val = context => depth => rhs => subst => eqts => errs =>
+  (Result/checked context depth rhs (Subst/fill subst index val) eqts errs Data.Unit.new)

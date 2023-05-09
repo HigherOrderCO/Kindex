@@ -1,4 +1,0 @@
-// Adds a value to the end of a list
-List.append <a: Type> (xs: List a) (x: a) : List a
-List.append a (List.nil xs.a)            x = List.pure x
-List.append a (List.cons xs.a xs.h xs.t) x = List.cons xs.h (List.append xs.t x)

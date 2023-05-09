@@ -1,0 +1,4 @@
+#inline
+Data.Char.greater_than (a: Data.Char) (b: Data.Char) : Data.Bool {
+  Data.U60.greater_than a b
+}

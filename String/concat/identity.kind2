@@ -1,5 +1,0 @@
-String.concat.identity : Algebra.Laws.Identity String (x => y => String.concat x y) String.nil
-String.concat.identity =
-  (Algebra.Laws.Identity.new
-    (x => Equal.refl)
-    (x => String.concat.nil_right x))

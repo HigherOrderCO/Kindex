@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Returns the substitution stores inside the @Apps.Kind.Checker@.
+Checker/get_subst : Apps.Kind.Checker Apps.Kind.Subst
+Checker/get_subst = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs subst

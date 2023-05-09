@@ -1,5 +1,0 @@
-#derive[match]
-type Maybe (t) {
-  none 
-  some (value: t)
-}

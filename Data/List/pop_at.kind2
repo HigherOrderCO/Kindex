@@ -1,0 +1,11 @@
+// Given an index, removes that value from the list, returning the value and the
+// list without it, if any
+// Example: (Data.List.pop.at [1,2,3] 1) -> (Data.Pair (Data.Maybe.some 2) ([1,3]))
+Data.List.pop_at <a> (xs: Data.List a) (idx: Data.Nat) : Data.Pair (Data.Maybe a) (Data.List a)
+Data.List.pop_at a xs idx = Data.List.pop_at.go xs Data.List.nil idx
+
+// Auxiliar Function
+Data.List.pop_at.go <a> (xs: Data.List a) (ys: Data.List a) (idx: Data.Nat) : Data.Pair (Data.Maybe a) (Data.List a)
+Data.List.pop_at.go a (Data.List.nil t)            ys idx             = Data.Pair.new Data.Maybe.none ys
+Data.List.pop_at.go a (Data.List.cons t head tail) ys Data.Nat.zero        = Data.Pair.new (Data.Maybe.some head) (Data.List.concat ys tail)
+Data.List.pop_at.go a (Data.List.cons t head tail) ys (Data.Nat.succ pred) = Data.List.pop_at.go tail (Data.List.cons head ys) pred

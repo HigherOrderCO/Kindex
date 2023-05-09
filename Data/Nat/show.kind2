@@ -1,0 +1,3 @@
+Data.Nat.show (n: Data.Nat) : String.Build {
+  h => Data.String.concat (Data.Nat.to_string_base (Data.U60.to_nat 10) n) h
+}

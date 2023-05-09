@@ -1,0 +1,2 @@
+Prop.Not <p: Type>: Type
+Prop.Not p = p -> Data.Empty

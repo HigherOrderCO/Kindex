@@ -1,0 +1,9 @@
+// Returns a list of pairs with all values and their respective indexes
+// Example: (Data.List.enumerate Data.Nat [1,2,3]) -> ([ Data.Pair (0 1), Data.Pair (1,2), Data.Pair (2,3)]
+Data.List.enumerate <a> (xs: Data.List a) : Data.List (Data.Pair Data.Nat a)
+Data.List.enumerate a xs = Data.List.enumerate.go xs Data.Nat.zero
+
+// Auxiliary Function
+Data.List.enumerate.go <a> (xs: Data.List a) (idx: Data.Nat) : Data.List (Data.Pair Data.Nat a)
+Data.List.enumerate.go a (Data.List.nil  t)           idx = Data.List.nil
+Data.List.enumerate.go a (Data.List.cons t head tail) idx = Data.List.cons (Data.Pair.new idx head) (Data.List.enumerate.go tail (Data.Nat.succ idx))

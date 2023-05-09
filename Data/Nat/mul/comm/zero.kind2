@@ -1,0 +1,12 @@
+// Proof that x*0 = 0 (which is = 0x by definition)
+// It is a special case of the commutative property
+Data.Nat.mul.comm.zero (x: Data.Nat): Prop.Equal (Data.Nat.mul x Data.Nat.zero) Data.Nat.zero
+Data.Nat.mul.comm.zero Data.Nat.zero = Prop.Equal.refl
+Data.Nat.mul.comm.zero (Data.Nat.succ x) =
+	// Our goal: (x + 1) * 0 = 0
+	// Kind2 reduces this down to x*0 + 0 = 0
+	// Induction tells us that x * 0 = 0
+	let inductive = Data.Nat.mul.comm.zero x
+	// We add Data.Nat.zero and both sides and we get the goal
+	let inductive = Prop.Equal.apply (y => Data.Nat.add y Data.Nat.zero) inductive
+	inductive

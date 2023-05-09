@@ -1,7 +1,0 @@
-U60.for <s: Type> (state: s) (from: U60) (til: U60) (func: U60 -> s -> s) : s {
-  U60.if (== from til) (
-    state
-   ) (
-    U60.for (func from state) (+ 1 from) til func
-   )
-}

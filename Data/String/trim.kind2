@@ -1,0 +1,3 @@
+Data.String.trim (xs: Data.String) : Data.String {
+  Data.String.trim_right (Data.String.trim_left xs)
+}

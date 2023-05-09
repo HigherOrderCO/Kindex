@@ -1,0 +1,15 @@
+use Apps.Kind.Error as Error
+use Apps.Kind.Context as Context
+use Apps.Kind.Term as Term
+
+type Error/Quoted {
+  unbound_variable (ctx: Context/Quoted) (orig: Data.U60)
+  cant_infer_hole (ctx: Context/Quoted) (orig: Data.U60)
+  cant_infer_lambda (ctx: Context/Quoted) (orig: Data.U60)
+  invalid_call (ctx: Context/Quoted) (orig: Data.U60)
+  impossible_case (ctx: Context/Quoted) (orig: Data.U60) (typ: Term/Quoted) (term: Term/Quoted)
+  inspection (ctx: Context/Quoted) (orig: Data.U60) (term: Term/Quoted)
+  too_many_arguments (ctx: Context/Quoted) (orig: Data.U60)
+  type_mismatch (ctx: Context/Quoted) (orig: Data.U60) (expected: Term/Quoted) (detected: Term/Quoted)
+  uncovered_pattern (ctx: Context/Quoted) (orig: Data.U60) (errors: Data.List Term/Quoted)
+}

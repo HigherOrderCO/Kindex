@@ -1,8 +1,0 @@
-U60.sub.saturated (a: U60) (b: U60) : U60 {
-  if (U60.less_than b a) {
-    (- a b)
-  }
-  else {
-    0
-  }
-}

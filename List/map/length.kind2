@@ -1,5 +1,0 @@
-// List.map preserves length
-// len xs == len (map xs f)
-List.map.length <a> <b> (xs: List a) (f: a -> b) : Equal (List.length xs) (List.length (List.map xs f))
-List.map.length a b (List.nil  a_)      f = Equal.refl
-List.map.length a b (List.cons a_ x xs) f = Equal.apply (n => Nat.succ n) (List.map.length xs f)

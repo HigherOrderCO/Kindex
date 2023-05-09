@@ -1,0 +1,4 @@
+Data.Maybe.choice <t: Type> (list: Data.List (Data.Maybe t)) : Data.Maybe t
+Data.Maybe.choice t (Data.List.nil  lt)                                 = Data.Maybe.none
+Data.Maybe.choice t (Data.List.cons lt         (Data.Maybe.none mt)    tail) = Data.Maybe.choice tail
+Data.Maybe.choice t (Data.List.cons (Data.Maybe lt) (Data.Maybe.some mt mv) tail) = Data.Maybe.some mv

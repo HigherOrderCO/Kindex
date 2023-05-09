@@ -1,5 +1,0 @@
-// Automatically derived from Dynamic/_.type
-#derive[match]
-type Dynamic {
-	new <a> (value: a)
-}

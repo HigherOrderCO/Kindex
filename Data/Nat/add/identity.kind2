@@ -1,0 +1,5 @@
+Data.Nat.add.identity : Algebra.Laws.Identity Data.Nat (x => y => Data.Nat.add x y) Data.Nat.zero
+Data.Nat.add.identity =
+  (Algebra.Laws.Identity.new
+    (x => Prop.Equal.refl)
+    (x => Data.Nat.add.comm.zero x))

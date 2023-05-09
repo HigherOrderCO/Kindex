@@ -1,0 +1,2 @@
+Data.Char.to_string (chr: Data.Char) : Data.String
+Data.Char.to_string chr = Data.String.cons chr Data.String.nil

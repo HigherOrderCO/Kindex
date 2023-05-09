@@ -1,0 +1,4 @@
+Data.Bits.tail (b: Data.Bits) : Data.Bits
+Data.Bits.tail Data.Bits.e = Data.Bits.e
+Data.Bits.tail (Data.Bits.o b) = b
+Data.Bits.tail (Data.Bits.i b) = b

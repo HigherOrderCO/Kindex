@@ -1,3 +1,0 @@
-Bits.is_empty  (b: Bits) : Bool
-Bits.is_empty  Bits.e = Bool.true
-Bits.is_empty  b      = Bool.false

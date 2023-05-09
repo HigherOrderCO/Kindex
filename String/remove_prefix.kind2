@@ -1,7 +1,0 @@
-String.remove_prefix (str: String) (pfx: String) : String {
-  if String.starts_with str pfx {
-    String.drop (String.length pfx) str
-  } else {
-    str
-  }
-}

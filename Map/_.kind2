@@ -1,3 +1,0 @@
-Map (t) : Type {
-  Bits.Map t
-}

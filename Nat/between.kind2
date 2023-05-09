@@ -1,4 +1,0 @@
-// Returns true if `min <= value < max`
-Nat.between (min: Nat) (val: Nat) (max: Nat) : Bool {
-  Bool.and (Nat.lte min val) (Nat.ltn val max)
-}

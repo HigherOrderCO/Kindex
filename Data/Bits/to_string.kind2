@@ -1,0 +1,6 @@
+// Transforms a Bit structure to a Data.String
+// Example: (Data.Bits.to_string (Data.Bits.i (Data.Bits.o Data.Bits.e))) -> "10"
+Data.Bits.to_string (b : Data.Bits) : Data.String
+Data.Bits.to_string  Data.Bits.e         = Data.String.nil
+Data.Bits.to_string (Data.Bits.o b.pred) = Data.String.concat "0" (Data.Bits.to_string b.pred)
+Data.Bits.to_string (Data.Bits.i b.pred) = Data.String.concat "1" (Data.Bits.to_string b.pred)

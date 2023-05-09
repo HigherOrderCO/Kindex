@@ -1,0 +1,50 @@
+use Apps.Kind.Axiom as Axiom
+
+//! All the functions for type checking
+#axiom
+Axiom/Functions : Data.List Apps.Kind.Name
+
+//! Type of a constructor/function
+#axiom
+Axiom/TypeOf (u: Apps.Kind.Name): Apps.Kind.Term
+
+//! The 60 bits hash of a constructor/function
+#axiom
+Axiom/HashOf (u: Apps.Kind.Name): Data.U60
+
+//! Data.String version of the constructor
+#axiom
+Axiom/NameOf (name: Apps.Kind.Name): Data.String
+
+//! Rules of a function
+#axiom
+Axiom/RuleOf (fnid: Apps.Kind.Name): Data.List Apps.Kind.Rule
+
+//! Orig of a function
+#axiom
+Axiom/OrigOf (fnid: Apps.Kind.Name): Data.U60
+
+//! Just a "unsafe" constructor to fill some space
+//! It can be used like the 'undefined' in Haskell
+//! but it can cause some damage and undefined just
+//! throws an error when evaluated in Haskell.
+#axiom
+Axiom/Null <a> : a
+
+#axiom
+Axiom/Family.Constructors (fnid: Apps.Kind.Name) : Data.Maybe (Data.List Apps.Kind.Name)
+
+#axiom
+Axiom/Compare (fst: Apps.Kind.Name) (snd: Apps.Kind.Name) : Data.Bool
+
+#axiom
+Axiom/CoverCheck (name: Apps.Kind.Name) : Data.Bool
+
+#axiom
+Axiom/Family.Params (fnid: Apps.Kind.Name) : Data.U60
+
+#axiom
+Axiom/Family.Indices (fnid: Apps.Kind.Name) : Data.U60
+
+#axiom
+Axiom/ArgsCount (fnid: Apps.Kind.Name) : Data.U60

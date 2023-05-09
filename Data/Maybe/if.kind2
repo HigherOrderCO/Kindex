@@ -1,0 +1,6 @@
+//Verifies if your "Data.Maybe" is none or some, if none returns the first value, if
+//some, returns the second
+//example: (Data.Maybe.if Data.Nat Data.Nat (Data.Maybe.none Data.Nat) (Data.Nat.zero) (Data.Nat.succ Data.Nat.zero)) -> (Data.Nat.zero)
+Data.Maybe.if <a> <b> (m: Data.Maybe a) (none: b) (some: b) : b
+Data.Maybe.if a b (Data.Maybe.none t)       none some = none
+Data.Maybe.if a b (Data.Maybe.some t value) none some = some

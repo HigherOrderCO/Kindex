@@ -1,3 +1,0 @@
-String.to_char (str: String) : Char
-String.to_char  String.nil       = 0
-String.to_char (String.cons h t) = h

@@ -1,7 +1,0 @@
-String.starts_with (str: String) (pre: String) : Bool
-String.starts_with str                             String.nil                      = Bool.true
-String.starts_with String.nil                      (String.cons pre.head pre.tail) = Bool.false
-String.starts_with (String.cons str.head str.tail) (String.cons pre.head pre.tail) =
-  let head = U60.equal str.head pre.head
-  let tail = String.starts_with str.tail pre.tail
-  Bool.and head tail

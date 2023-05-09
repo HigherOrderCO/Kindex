@@ -1,0 +1,4 @@
+Data.String.pad_right (size: Data.Nat) (chr: Data.Char) (str: Data.String) : Data.String
+Data.String.pad_right  Data.Nat.zero     chr  str               = str
+Data.String.pad_right (Data.Nat.succ sp) chr  Data.String.nil        = Data.String.cons chr (Data.String.pad_right sp chr Data.String.nil)
+Data.String.pad_right (Data.Nat.succ sp) chr (Data.String.cons x xs) = Data.String.cons x   (Data.String.pad_right sp chr xs)

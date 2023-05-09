@@ -1,0 +1,6 @@
+// Given a bit structure, return its size
+// Example: (Data.Bits.size (Data.Bits.i (Data.Bits.i Data.Bits.e))) -> 2
+Data.Bits.size (b: Data.Bits) : Data.Nat
+Data.Bits.size (Data.Bits.e)        = (Data.Nat.zero)
+Data.Bits.size (Data.Bits.o b.pred) = (Data.Nat.succ (Data.Bits.size b.pred))
+Data.Bits.size (Data.Bits.i b.pred) = (Data.Nat.succ (Data.Bits.size b.pred))

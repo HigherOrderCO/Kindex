@@ -1,0 +1,5 @@
+// Returns the size of a list
+// Example: (Data.List.length [1,2,3]) -> 3
+Data.List.length <a> (xs: Data.List a) : Data.Nat
+Data.List.length a (Data.List.nil t)            = Data.Nat.zero
+Data.List.length a (Data.List.cons t head tail) = (Data.Nat.succ (Data.List.length a tail))

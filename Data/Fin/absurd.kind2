@@ -1,0 +1,1 @@
+Data.Fin.absurd <a: Type> (n: Data.Fin Data.Nat.zero) : a

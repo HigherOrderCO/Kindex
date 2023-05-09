@@ -1,0 +1,4 @@
+Data.String.at (idx: Data.Nat) (str: Data.String) : Data.Maybe Data.Char
+Data.String.at  idx             Data.String.nil             = Data.Maybe.none
+Data.String.at  Data.Nat.zero       (Data.String.cons strh strt) = Data.Maybe.some strh
+Data.String.at (Data.Nat.succ idxp) (Data.String.cons strh strt) = Data.String.at idxp strt

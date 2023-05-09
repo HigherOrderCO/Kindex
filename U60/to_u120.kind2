@@ -1,4 +1,0 @@
-#inline
-U60.to_u120 (num: U60) : U120 {
-  U120.new 0 num
-}

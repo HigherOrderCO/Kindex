@@ -1,4 +1,0 @@
-#inline
-U120.inc (n: U120) : U120 {
-  U120.add n (U120.new 0 1)
-}

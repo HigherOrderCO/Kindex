@@ -1,2 +1,0 @@
-Bits.length (bs: Bits)  : Nat
-Bits.length bs = Bits.length.go  bs Nat.zero

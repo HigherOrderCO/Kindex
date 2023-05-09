@@ -1,0 +1,5 @@
+#derive[match]
+type Apps.Kind.Result <a: Type> {
+  checked (ctx: Apps.Kind.Context) (depth: Data.U60) (rhs: Data.Bool) (sub: Apps.Kind.Subst) (equations: Data.List Apps.Kind.Equation) (errors: Data.List Apps.Kind.Error) (ret: a)
+  errored (ctx: Apps.Kind.Context) (sub: Apps.Kind.Subst) (errors: Data.List Apps.Kind.Error)
+}

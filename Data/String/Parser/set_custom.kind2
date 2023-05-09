@@ -1,0 +1,4 @@
+Data.String.Parser.set_custom <old> <new> (custom: new) : Data.String.Parser new Data.Unit
+Data.String.Parser.set_custom custom = state =>
+    let state = Data.String.Parser.State.set_custom custom state
+    Data.String.Parser.Result.done state Data.Unit.new

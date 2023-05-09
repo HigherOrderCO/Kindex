@@ -1,0 +1,4 @@
+Data.String.equal (xs: Data.String) (ys: Data.String) : Data.Bool
+Data.String.equal (Data.String.cons x xs) (Data.String.cons y ys) = Data.Bool.and (Data.Char.equal x y) (Data.String.equal xs ys)
+Data.String.equal  Data.String.nil         Data.String.nil        = Data.Bool.true
+Data.String.equal  xs                 ys                = Data.Bool.false

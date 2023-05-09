@@ -1,0 +1,22 @@
+Data.Bits.Data.Map.filter <a> 
+	(cond: a -> Data.Bool) 
+	(map: Data.Bits.Data.Map a) 
+: (Data.Bits.Data.Map a)
+
+Data.Bits.Data.Map.filter a cond Data.Bits.Data.Map.new = Data.Bits.Data.Map.new
+
+Data.Bits.Data.Map.filter a cond (Data.Bits.Data.Map.tie Data.Maybe.none left right) = 
+	let value = Data.Maybe.none
+	let left  = Data.Bits.Data.Map.filter cond left
+	let right = Data.Bits.Data.Map.filter cond right
+	Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.filter a cond (Data.Bits.Data.Map.tie (Data.Maybe.some value) left right) =
+	let left  = Data.Bits.Data.Map.filter cond left
+	let right = Data.Bits.Data.Map.filter cond right
+	let cond  = cond value
+	let value = Data.Maybe.some value
+	match Data.Bool cond {
+    true => Data.Bits.Data.Map.tie value left right
+    false => Data.Bits.Data.Map.tie Data.Maybe.none left right
+	}

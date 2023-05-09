@@ -1,0 +1,5 @@
+// Consumes and returns the head
+// Fail on empty input
+Data.String.Parser.any_char <t> : Data.String.Parser t Data.Char {
+  Data.String.Parser.satisfy ((t: Data.Char) => Data.Bool.true)
+}

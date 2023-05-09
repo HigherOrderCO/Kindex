@@ -1,0 +1,3 @@
+Data.Vector.create <a> (len: Data.Nat) (f: Data.Nat -> a) : Data.Vector a len
+Data.Vector.create Data.Nat.zero     f = Data.Vector.nil
+Data.Vector.create (Data.Nat.succ p) f = Data.Vector.cons p (f Data.Nat.zero) (Data.Vector.create p (x => f (Data.Nat.succ x)))

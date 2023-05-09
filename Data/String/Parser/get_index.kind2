@@ -1,0 +1,6 @@
+Data.String.Parser.get_index <t> : Data.String.Parser t Data.U60 {
+  state =>
+    open Data.String.Parser.State state
+    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    Data.String.Parser.Result.done state state.index
+}

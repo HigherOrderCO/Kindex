@@ -1,0 +1,4 @@
+Data.List.at.u60 <a: Type> (xs: Data.List a) (idx: Data.U60) : Data.Maybe a
+Data.List.at.u60  Data.List.nil             idx = Data.Maybe.none
+Data.List.at.u60 (Data.List.cons head tail) 0   = Data.Maybe.some head
+Data.List.at.u60 (Data.List.cons head tail) idx = Data.List.at.u60 tail (- idx 1)

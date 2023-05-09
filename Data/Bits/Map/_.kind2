@@ -1,0 +1,9 @@
+// Automatically derived from Data.Bits/Data.Map/_.type
+// Data.Bits.Data.Map (a: Type) : Type
+// Data.Bits.Data.Map.new <a: Type> : (Data.Bits.Data.Map a)
+// Data.Bits.Data.Map.tie <a: Type> (val: (Data.Maybe a)) (left: (Data.Bits.Data.Map a)) (right: (Data.Bits.Data.Map a)) : (Data.Bits.Data.Map a)
+#derive[match]
+type Data.Bits.Data.Map <a> {
+  new
+  tie (val: Data.Maybe a) (left: Data.Bits.Data.Map a) (right: Data.Bits.Data.Map a)
+}

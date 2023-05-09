@@ -1,7 +1,0 @@
-use Kind.Checker as Checker
-use Kind.Context as Context
-use Kind.Subst as Subst
-
-// Run the @Kind.Checker@ with all of the arguments setted to a default value.
-Checker/run <t> (checker: Kind.Checker t) (rhs: Bool): Kind.Result t
-Checker/run t checker rhs = checker Context/empty 0 rhs Subst/end List.nil List.nil

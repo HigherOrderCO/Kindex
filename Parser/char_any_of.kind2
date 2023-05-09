@@ -1,5 +1,0 @@
-// Succeeds if the next char is one of a list of characters
-// Consumes and returns the character
-Parser.char_any_of <t> (options: String) : Parser t Char {
-  Parser.satisfy (c => String.contains_char c options)
-}

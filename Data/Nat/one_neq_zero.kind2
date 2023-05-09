@@ -1,0 +1,4 @@
+Data.Nat.one_neq_zero (e: Prop.Equal Data.Nat.one Data.Nat.zero) : Data.Empty {
+  let p = Prop.Equal.apply (x => Data.Nat.is_zero x) e
+  Data.Bool.false_not_true p
+}

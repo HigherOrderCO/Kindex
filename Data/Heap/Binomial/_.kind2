@@ -1,2 +1,2 @@
-Data.Heap.Binomial : Type
-Data.Heap.Binomial = (List Data.Heap.Binomial.Node)
+Data.Data.Heap.Binomial : Type
+Data.Data.Heap.Binomial = (Data.List Data.Data.Heap.Binomial.Node)

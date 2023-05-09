@@ -1,0 +1,20 @@
+use Apps.Kind.API as API
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Axiom as Axiom
+use Apps.Kind.Term as Term
+
+API/check_function (fnid: Apps.Kind.Name): Data.List (Apps.Kind.Result (Data.Unit))
+API/check_function fnid =
+  let rules       = Axiom/RuleOf fnid
+  let type        = Axiom/TypeOf fnid
+  let type_check  = Checker/run (Checker/unify (Checker/check type (Term/typ 0))) Data.Bool.true
+  let rule_check  = API/check_function.rules rules (Term/eval type)
+  Data.List.cons type_check rule_check
+
+API/check_function.rules (rules: Data.List Apps.Kind.Rule) (type: Apps.Kind.Term): Data.List (Apps.Kind.Result Data.Unit)
+API/check_function.rules (Data.List.nil t)             type = Data.List.nil
+API/check_function.rules (Data.List.cons t rule rules) type =
+  let head = Checker/run (Checker/unify (Checker/rule rule type)) Data.Bool.false
+  let tail = API/check_function.rules rules type
+  (Data.List.cons head tail)
+

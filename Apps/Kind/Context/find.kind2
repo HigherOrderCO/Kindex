@@ -1,0 +1,9 @@
+use Apps.Kind.Context as Context
+
+// Tries to find an index inside the @Apps.Kind.Context@ and then
+// applies the function 'fun' to it or returns the alt if there
+// is not an element at the given index.
+Context/find <res> (ctx: Apps.Kind.Context) (name: Data.U60) (alt: res) (fun: Data.U60 -> Apps.Kind.Term -> (Data.List Apps.Kind.Term) -> res): res
+Context/find res (Context/entry name type vals rest) 0 alt fun = fun name type vals
+Context/find res (Context/entry name type vals rest) n alt fun = Context/find rest (- n 1) alt fun
+Context/find res Context/empty                       n alt fun = alt

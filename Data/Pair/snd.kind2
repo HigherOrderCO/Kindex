@@ -1,0 +1,4 @@
+//Gets the second element of a pair
+//example: (Data.Pair.snd Data.Nat (Data.List Data.Nat) (Data.Pair 2 [1,2,3])) -> [1,2,3]
+Data.Pair.snd <a> <b> (pair: Data.Pair a b) : b
+Data.Pair.snd a b (Data.Pair.new p.a p.b fst snd) = snd

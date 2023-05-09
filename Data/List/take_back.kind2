@@ -1,0 +1,4 @@
+Data.List.take_back <a> (n: Data.Nat) (xs: Data.List a) : Data.List a {
+  let ndrop = Data.Nat.sub (Data.List.length xs) n
+  Data.List.drop xs ndrop
+}

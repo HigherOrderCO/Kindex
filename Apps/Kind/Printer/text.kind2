@@ -1,0 +1,5 @@
+use Apps.Kind.Printer as Printer
+
+Printer/text (ls: Data.List Data.String) : Data.String
+Printer/text (Data.List.nil t)       = Data.String.nil
+Printer/text (Data.List.cons t x xs) = Data.String.concat x (Printer/text xs)

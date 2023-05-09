@@ -1,0 +1,6 @@
+// Concatenation with empty string preserves the argument
+Data.String.concat.nil_right (xs: Data.String) : Algebra.Laws.right_identity (x => y => Data.String.concat x y) Data.String.nil xs
+Data.String.concat.nil_right (Data.String.nil) = Prop.Equal.refl
+Data.String.concat.nil_right (Data.String.cons x xs) =
+  let ind = Data.String.concat.nil_right xs
+  Prop.Equal.apply (xs => Data.String.cons x xs) ind

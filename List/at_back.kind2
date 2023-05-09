@@ -1,3 +1,0 @@
-List.at_back <a: Type> (xs: List a) (idx: Nat) : Maybe a {
-  List.at (List.reverse xs) idx
-}

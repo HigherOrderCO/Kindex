@@ -1,0 +1,4 @@
+// Checks if a character is alphanumeric (a-z, A-Z, 0-9)
+Data.Char.is_alphanumeric (c: Data.Char) : Data.Bool {
+  Data.Bool.or (Data.Char.is_alpha c) (Data.Char.is_decimal c)
+}

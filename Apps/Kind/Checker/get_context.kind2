@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Returns the @Apps.Kind.Context@ inside the @Apps.Kind.Checker@.
+Checker/get_context : Apps.Kind.Checker Apps.Kind.Context
+Checker/get_context = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs context

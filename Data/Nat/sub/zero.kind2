@@ -1,0 +1,3 @@
+Data.Nat.sub.zero (a: Data.Nat): (Prop.Equal (Data.Nat.sub a Data.Nat.zero) a)
+Data.Nat.sub.zero Data.Nat.zero = Prop.Equal.refl
+Data.Nat.sub.zero (Data.Nat.succ a) = Prop.Equal.refl

@@ -1,3 +1,0 @@
-U60.greater_equal (a: U60) (b: U60) : Bool {
-  U60.to_bool (>= a b)
-}

@@ -1,0 +1,3 @@
+Data.Char.is_alphanum (c: Data.Char) : Data.Bool {
+  Data.Bool.or (Data.Char.is_alpha c) (Data.Char.is_decimal c)
+}

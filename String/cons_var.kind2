@@ -1,4 +1,0 @@
-// Concatenate any number of chars
-String.cons_var (n: Nat) : Variadic Char String n {
-  Variadic.foldr (x => xs => String.cons x xs) String.nil n
-}

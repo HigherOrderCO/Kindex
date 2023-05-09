@@ -1,0 +1,3 @@
+Data.Nat.to_string_zs (n: Data.Nat) : Data.String
+Data.Nat.to_string_zs  Data.Nat.zero    = Data.String.cons 122 Data.String.nil
+Data.Nat.to_string_zs (Data.Nat.succ n) = Data.String.cons 115 (Data.Nat.to_string_zs n)

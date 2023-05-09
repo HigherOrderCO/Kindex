@@ -1,0 +1,5 @@
+// True if a >= b, false otherwise
+Data.Nat.gte (a: Data.Nat) (b: Data.Nat) : Data.Bool
+Data.Nat.gte  a            Data.Nat.zero    = Data.Bool.true
+Data.Nat.gte  Data.Nat.zero    (Data.Nat.succ b) = Data.Bool.false
+Data.Nat.gte (Data.Nat.succ a) (Data.Nat.succ b) = Data.Nat.gte a b

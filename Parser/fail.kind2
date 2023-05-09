@@ -1,6 +1,0 @@
-// A parser that always fail, with custom error
-Parser.fail <a> <t> (msg: String) (init: U60) (last: U60) : Parser t a {
-  state =>
-    let error = (Parser.Error.new msg init last)
-    Parser.Result.fail state error
-}

@@ -1,3 +1,0 @@
-Nat.id (n: Nat) : Nat
-Nat.id Nat.zero     = Nat.zero
-Nat.id (Nat.succ p) = Nat.succ (Nat.id p)

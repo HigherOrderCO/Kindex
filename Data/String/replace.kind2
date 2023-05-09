@@ -1,0 +1,12 @@
+Data.String.replace (xs: Data.String) (find: Data.String) (new_val: Data.String) : Data.String
+Data.String.replace  Data.String.nil        find new_val = Data.String.nil
+Data.String.replace (Data.String.cons x xs) find new_val =
+  let str = (Data.String.cons x xs)
+  if Data.String.starts_with str find {
+    let len  = Data.String.length find
+    let drop = Data.String.drop len str
+    let tail = Data.String.replace drop find new_val
+    Data.String.concat new_val tail
+  } else {
+    Data.String.replace xs find new_val
+  }

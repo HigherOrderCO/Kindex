@@ -1,0 +1,21 @@
+use Apps.Kind.Term as Term
+use Apps.Kind.Name as Name
+use Apps.Kind.Printer as Printer
+
+#axiom
+Data.Sigma.  : Apps.Kind.Name
+
+Term/show.sugar.sigma (term: Apps.Kind.Term): Data.Maybe Data.String
+Term/show.sugar.sigma (Term/ct2 Data.Sigma. orig typ (Term/lam orig_ name body)) =
+  Data.Maybe.some (
+    Printer/text
+      [ "(["
+        (Name/show name)
+        ": "
+        (Term/show typ)
+        "] -> "
+        (Term/show (body (Term/var orig_ name 0)))
+        ")"
+      ])
+
+Term/show.sugar.sigma term = Data.Maybe.none

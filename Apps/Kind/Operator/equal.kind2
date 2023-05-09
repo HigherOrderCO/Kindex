@@ -1,0 +1,20 @@
+use Apps.Kind.Operator as Operator
+
+Operator/equal (left: Apps.Kind.Operator) (right: Apps.Kind.Operator): Data.Bool
+Operator/equal Operator/and Operator/and = Data.Bool.true
+Operator/equal Operator/sub Operator/sub = Data.Bool.true
+Operator/equal Operator/mul Operator/mul = Data.Bool.true
+Operator/equal Operator/div Operator/div = Data.Bool.true
+Operator/equal Operator/mod Operator/mod = Data.Bool.true
+Operator/equal Operator/and Operator/and = Data.Bool.true
+Operator/equal Operator/or  Operator/or  = Data.Bool.true
+Operator/equal Operator/xor Operator/xor = Data.Bool.true
+Operator/equal Operator/shl Operator/shl = Data.Bool.true
+Operator/equal Operator/shr Operator/shr = Data.Bool.true
+Operator/equal Operator/ltn Operator/ltn = Data.Bool.true
+Operator/equal Operator/lte Operator/lte = Data.Bool.true
+Operator/equal Operator/eql Operator/eql = Data.Bool.true
+Operator/equal Operator/gte Operator/gte = Data.Bool.true
+Operator/equal Operator/gtn Operator/gtn = Data.Bool.true
+Operator/equal Operator/neq Operator/neq = Data.Bool.true
+Operator/equal a            b            = Data.Bool.false

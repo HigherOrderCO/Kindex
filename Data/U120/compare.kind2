@@ -1,0 +1,8 @@
+Data.U120.compare (a: Data.U120) (b: Data.U120) : Data.Cmp {
+  (Data.Bool.if (Data.U120.less_than a b)
+    Data.Cmp.ltn
+  (Data.Bool.if (Data.U120.equal a b)
+    Data.Cmp.eql
+    Data.Cmp.gtn
+  ))
+}

@@ -1,0 +1,43 @@
+// Sets a value to a Data.Map in a given position
+Data.Bits.Data.Map.set <a> 
+  (map: Data.Bits.Data.Map a)
+  (key: Data.Bits)
+  (value: a)
+: Data.Bits.Data.Map a
+
+// Data.Bits.e
+Data.Bits.Data.Map.set a (Data.Bits.Data.Map.new t) Data.Bits.e value  = 
+  let value = Data.Maybe.some value
+  let left  = Data.Bits.Data.Map.new
+  let right = Data.Bits.Data.Map.new
+  Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.set a (Data.Bits.Data.Map.tie t old_value left right) Data.Bits.e value = 
+  let value = Data.Maybe.some value
+  Data.Bits.Data.Map.tie value left right
+
+// Data.Bits.o
+Data.Bits.Data.Map.set a (Data.Bits.Data.Map.new t) (Data.Bits.o pred) new_value = 
+  let value = Data.Maybe.none t
+  let left  = Data.Bits.Data.Map.set a (Data.Bits.Data.Map.new t) pred new_value
+  let right = Data.Bits.Data.Map.new
+  Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.set a (Data.Bits.Data.Map.tie t old_value left right) (Data.Bits.o pred) new_value =
+  let left = Data.Bits.Data.Map.set a left pred new_value 
+  Data.Bits.Data.Map.tie old_value left right
+
+// Data.Bits.i
+Data.Bits.Data.Map.set a (Data.Bits.Data.Map.new t) (Data.Bits.i pred) new_value =
+  let value = Data.Maybe.none
+  let left  = Data.Bits.Data.Map.new
+  let right = Data.Bits.Data.Map.set a (Data.Bits.Data.Map.new t) pred new_value
+  Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.set a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.i pred) new_value =
+  let right = Data.Bits.Data.Map.set right pred new_value
+  Data.Bits.Data.Map.tie value left right
+
+
+//Warning: This function wasnt tested, if you test it, remove this comment and
+//make the necessary changes and make us a PR, thanks!

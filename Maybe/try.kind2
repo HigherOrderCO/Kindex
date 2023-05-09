@@ -1,7 +1,0 @@
-Maybe.try <a> (ls: List (Maybe a)) (alt: a) : a
-Maybe.try a (List.nil  t)          alt = alt
-Maybe.try a (List.cons t maybe xs) alt =
-  match Maybe maybe {
-    none => Maybe.try xs alt
-    some value => value
-  }

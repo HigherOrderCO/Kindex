@@ -1,0 +1,7 @@
+// Automatically derived from Data.Pair/_.type
+#kdl_erase
+#derive[match]
+record Data.Pair (a) (b) {
+  fst : a
+  snd : b
+}

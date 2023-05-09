@@ -1,0 +1,5 @@
+Data.List.sequenceA.disjoin <a> (xs: Data.List (Data.List a)) : (Data.List (Data.List a)) {
+  let nil  = Data.List.nil
+  let cons = (y => ys => Data.List.concat (Data.List.map y (x => Data.List.cons x Data.List.nil)) ys) :: (Data.List a) -> (Data.List (Data.List a)) -> (Data.List (Data.List a))
+  Data.List.foldr nil cons xs
+}

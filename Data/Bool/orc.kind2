@@ -1,0 +1,6 @@
+// OR with complement x | ~y
+// Example: (Data.Bool.orc Data.Bool.false Data.Bool.true)  -> Data.Bool.false
+// Example: (Data.Bool.orc Data.Bool.false Data.Bool.false) -> Data.Bool.true
+Data.Bool.orc (a: Data.Bool) (b: Data.Bool) : Data.Bool
+Data.Bool.orc Data.Bool.false Data.Bool.true = Data.Bool.false
+Data.Bool.orc a  				b				  = Data.Bool.true

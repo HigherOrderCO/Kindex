@@ -1,0 +1,7 @@
+Isomorphic (a: Type) (b: Type) : Type
+Isomorphic a b =
+  [f  : a -> b] ->
+  [g  : b -> a] ->
+  [gf : (x: a) -> (Prop.Equal a (g (f x)) x)] ->
+  [fg : (x: b) -> (Prop.Equal b (f (g x)) x)] ->
+  Data.Unit

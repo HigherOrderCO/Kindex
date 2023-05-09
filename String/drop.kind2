@@ -1,4 +1,0 @@
-String.drop (n: Nat) (xs: String) : String
-String.drop  Nat.zero      xs               = xs
-String.drop (Nat.succ np)  String.nil       = String.nil
-String.drop (Nat.succ np) (String.cons h t) = String.drop np t

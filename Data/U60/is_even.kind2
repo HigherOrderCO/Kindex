@@ -1,0 +1,4 @@
+#inline
+Data.U60.is_even (n: Data.U60) : Data.Bool {
+  Data.Bool.not (Data.U60.is_odd n)
+}

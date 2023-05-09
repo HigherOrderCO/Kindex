@@ -1,0 +1,9 @@
+Data.Nat.to_base(base: Data.Nat) (nat: Data.Nat) : Data.List Data.Nat {
+  Data.Nat.to_base.go base nat Data.List.nil (Data.Nat.div_mod nat base)
+}
+
+Data.Nat.to_base.go (base: Data.Nat) (nat: Data.Nat) (res: Data.List Data.Nat) (dvm: Data.Pair Data.Nat Data.Nat) : Data.List Data.Nat
+Data.Nat.to_base.go base nat res (Data.Pair.new a b  Data.Nat.zero       mod) = Data.List.cons mod res
+Data.Nat.to_base.go base nat res (Data.Pair.new a b (Data.Nat.succ divp) mod) =
+  let div = (Data.Nat.succ divp)
+  Data.Nat.to_base.go base div (Data.List.cons mod res) (Data.Nat.div_mod div base)

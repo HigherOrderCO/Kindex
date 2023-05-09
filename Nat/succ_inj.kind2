@@ -1,3 +1,0 @@
-Nat.succ_inj (a: Nat) (b: Nat) (eq: Equal (Nat.succ a) (Nat.succ b)) : Equal a b {
-  Equal.apply (x => Nat.pred x) eq
-}

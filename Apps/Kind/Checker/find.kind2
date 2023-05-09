@@ -1,0 +1,9 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Context as Context
+use Apps.Kind.Result as Result
+
+// Tries to find an index inside the context and then applies the function 'fun'
+// to it or 'alt' if there is not an element with this index.
+Checker/find <r> (index: Data.U60) (alt: r) (fun: Data.U60 -> Apps.Kind.Term -> (Data.List Apps.Kind.Term) -> r) : Apps.Kind.Checker r
+Checker/find r index alt fun = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs (Context/find context index alt fun)

@@ -1,4 +1,0 @@
-List.at.u60 <a: Type> (xs: List a) (idx: U60) : Maybe a
-List.at.u60  List.nil             idx = Maybe.none
-List.at.u60 (List.cons head tail) 0   = Maybe.some head
-List.at.u60 (List.cons head tail) idx = List.at.u60 tail (- idx 1)

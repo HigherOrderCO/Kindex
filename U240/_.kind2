@@ -1,8 +1,0 @@
-// U240 operations based on U120 numbers.
-// - hi is the most  significant 120 bits
-// - lo is the least significant 120 bits
-#derive[match]
-record U240 {
-    hi: U120
-    lo: U120
-}

@@ -1,5 +1,0 @@
-// Express a relation of equivalence between two terms that is used in
-// the unification process.
-type Kind.Equation {
-  new (ctx: Kind.Context) (orig: U60) (left: Kind.Term) (right: Kind.Term)
-}

@@ -1,1 +1,0 @@
-Fin.absurd <a: Type> (n: Fin Nat.zero) : a

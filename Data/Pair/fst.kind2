@@ -1,0 +1,4 @@
+//Gets the first element of a pair
+//example: (Data.Pair.fst Data.Nat (Data.List Data.Nat) (Data.Pair 2 [1,2,3])) ->  2
+Data.Pair.fst <a> <b> (pair: Data.Pair a b) : a
+Data.Pair.fst a b (Data.Pair.new p.a p.b fst snd) = fst

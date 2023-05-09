@@ -1,0 +1,3 @@
+Data.Char.show (chr: Data.Char) : String.Build {
+  Data.String.show (Data.Char.to_string chr)
+}

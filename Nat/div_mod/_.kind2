@@ -1,5 +1,0 @@
-// Return the quotient and the remainder of the integer division of two numbers
-// Division by zero is undefined
-Nat.div_mod (num: Nat) (den: Nat) : Pair Nat Nat {
-  Nat.div_mod.go num den den Nat.zero
-}

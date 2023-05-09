@@ -1,9 +1,0 @@
-// Automatically derived from Bits/Map/_.type
-// Bits.Map (a: Type) : Type
-// Bits.Map.new <a: Type> : (Bits.Map a)
-// Bits.Map.tie <a: Type> (val: (Maybe a)) (left: (Bits.Map a)) (right: (Bits.Map a)) : (Bits.Map a)
-#derive[match]
-type Bits.Map <a> {
-  new
-  tie (val: Maybe a) (left: Bits.Map a) (right: Bits.Map a)
-}

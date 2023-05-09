@@ -1,0 +1,4 @@
+Data.Word.inc <size: Data.Nat> (word: Data.Word size) : Data.Word size
+Data.Word.inc s  Data.Word.e          = Data.Word.e
+Data.Word.inc s (Data.Word.o s_ pred) = Data.Word.i           pred
+Data.Word.inc s (Data.Word.i s_ pred) = Data.Word.o (Data.Word.inc pred)

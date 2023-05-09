@@ -1,0 +1,360 @@
+Data.String.Parser (t: Type) (r: Type) : Type {
+  (Data.String.Parser.State t) -> (Data.String.Parser.Result t r)
+}// Runs the first parser. If it fails, runs the second one
+Data.String.Parser.alternative <t> <a> (x : Data.String.Parser t a) (y : Data.String.Parser t a) : (Data.String.Parser t a) {
+  Data.String.Parser.first_of [x y]
+}// Consumes and returns the head
+// Fail on empty input
+Data.String.Parser.any_char <t> : Data.String.Parser t Data.Char {
+  Data.String.Parser.satisfy ((t: Data.Char) => Data.Bool.true)
+}Data.String.Parser.applicative <a> <b> <t> (p : Data.String.Parser t (a -> b)) (p1 : Data.String.Parser t a) : (Data.String.Parser t b) {
+  do Data.String.Parser {
+    ask f = p
+    let f = f :: a -> b
+    ask r = p1
+    return (f r)
+  }
+}// Parses a body enclosed with an opener and closer
+// Example: to parse "(asdf)"
+//         Data.String.Parser.between (Data.String.Parser.char '(') (Data.String.Parser.char ')') (Data.String.Parser.take_while (c => Data.Char.is_alpha))
+Data.String.Parser.between <o> <c> <b> <t> (open_: Data.String.Parser t o) (close: Data.String.Parser t c) (body: Data.String.Parser t b) : Data.String.Parser t b {
+  do Data.String.Parser {
+    open_
+    ask res = body
+    close
+    return res
+  }
+}Data.String.Parser.bind <a> <b> <t> (pa: Data.String.Parser t a) (pb: a -> Data.String.Parser t b) : Data.String.Parser t b {
+  state =>
+    let ra = (pa state)
+    match Data.String.Parser.Result ra {
+      done result state => pb result state
+      fail state  error => Data.String.Parser.Result.fail state error 
+    }
+}// Succeeds if the first char left to parse is equal to the given one
+Data.String.Parser.char <t> (c: Data.Char) : Data.String.Parser t Data.Unit {
+  Data.String.Parser.expecting (Data.String.Parser.skip (Data.String.Parser.satisfy (h => Data.Char.equal c h))) (Data.String.pure c)
+}// Succeeds if the next char is one of a list of characters
+// Consumes and returns the character
+Data.String.Parser.char_any_of <t> (options: Data.String) : Data.String.Parser t Data.Char {
+  Data.String.Parser.satisfy (c => Data.String.contains_char c options)
+}// A parser that always fails with empty error
+Data.String.Parser.empty <a> <t> : Data.String.Parser t a {
+  do Data.String.Parser {
+    ask index = Data.String.Parser.get_index
+    (Data.String.Parser.fail "" index index)
+  }
+}// A parser that succeeds only if there's nothing more to parse
+// Doesn't consume anything
+Data.String.Parser.eof <t> : Data.String.Parser t Data.Unit {
+  Data.String.Parser.not (Data.String.Parser.look_ahead Data.String.Parser.any_char)
+}// If the given parser fails, replace its error by "Expected `name`", where name is the given value.
+// Marks the initial error index as the one before running the given parser,
+// and the last error index as the one in the error coming from the given parser.
+Data.String.Parser.expecting <a> <t> (prs: Data.String.Parser t a) (name: Data.String) : Data.String.Parser t a {
+  state =>
+    open Data.String.Parser.State state
+    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    // init from the state index before running parser
+    let init  = state.index
+    match Data.String.Parser.Result r = (prs state) {
+      done =>
+        // If parser succeeds, just return the result without changing anything
+        Data.String.Parser.Result.done r.state r.result
+      fail =>
+        // On fail, insert err msg and mark the err range
+        let msg  = Data.String.concat "Expected " name
+        open Data.String.Parser.Error r.error
+        // last from the incoming error
+        let last  = r.error.last
+        let error = Data.String.Parser.Error.new msg init last
+        Data.String.Parser.Result.fail r.state error
+    }
+}// A parser that always fail, with custom error
+Data.String.Parser.fail <a> <t> (msg: Data.String) (init: Data.U60) (last: Data.U60) : Data.String.Parser t a {
+  state =>
+    let error = (Data.String.Parser.Error.new msg init last)
+    Data.String.Parser.Result.fail state error
+}// Runs a parser that returns a maybe and try to extract the value
+// Succeeds on some and fails on none
+// The inverse of Data.String.Parser.to_maybe
+Data.String.Parser.fail_on_none <a> <t> (prs: Data.String.Parser t (Data.Maybe a)) : Data.String.Parser t a {
+  do Data.String.Parser {
+    ask ma = prs
+    match Data.Maybe ma {
+      none => Data.String.Parser.empty
+      some => Data.String.Parser.pure ma.value
+    }
+  }
+}// Returns the first parser that succeeds
+// Backtracks after each failed parser
+// Fails if no parsers succeed
+Data.String.Parser.first_of <a> <t> (parsers: Data.List (Data.String.Parser t a)) : Data.String.Parser t a
+Data.String.Parser.first_of (Data.List.nil  la)           = Data.String.Parser.empty
+Data.String.Parser.first_of (Data.List.cons la head tail) = 
+  do Data.String.Parser {
+    ask ma = Data.String.Parser.try head
+    match Data.Maybe ma {
+      none => Data.String.Parser.first_of tail
+      some => Data.String.Parser.pure ma.value
+    }
+  }
+Data.String.Parser.get_index <t> : Data.String.Parser t Data.U60 {
+  state =>
+    open Data.String.Parser.State state
+    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    Data.String.Parser.Result.done state state.index
+}// Takes a parser of a Data.Maybe, returns true if the result is some, false if none.
+// This can be used to convert the result of a `try` into a boolean,
+// or to convert a `to_maybe` into a `to_bool`.
+Data.String.Parser.is_some <a> <t> (prs: Data.String.Parser t (Data.Maybe a)) : Data.String.Parser t Data.Bool {
+  Data.String.Parser.map ((r: Data.Maybe a) => Data.Maybe.is_some r) prs
+}// Returns the result of a parser without modifying the state
+Data.String.Parser.look_ahead <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t a {
+  state =>
+    open Data.String.Parser.State state
+    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    // save initial index
+    let init  = state.index
+    // Apply parser
+    match Data.String.Parser.Result res = (prs state) {
+      // on success, backtrack and return result
+      done (state = new_state) result =>
+        open Data.String.Parser.State new_state
+        let new_state = Data.String.Parser.State.new new_state.custom new_state.left new_state.back new_state.index
+        let last      = new_state.index
+        let back_n    = (- last init)  // TODO: prove that no parser moves back
+        let old_state = Data.String.Parser.State.backtrack back_n new_state
+        Data.String.Parser.Result.done old_state result
+      // on fail, backtrack and propagate fail
+      fail (state = new_state) error =>
+        open Data.String.Parser.State new_state
+        let new_state = Data.String.Parser.State.new new_state.custom new_state.left new_state.back new_state.index
+        let last      = new_state.index
+        let back_n    = (- last init)
+        let old_state = Data.String.Parser.State.backtrack back_n new_state
+        Data.String.Parser.Result.fail old_state error
+    }
+}
+// Applies a parser repeatedly until it fails
+// Returns a list of all results
+Data.String.Parser.many <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.List a) {
+  do Data.String.Parser {
+    ask mh = Data.String.Parser.try prs
+    match Data.Maybe mh {
+      none => Data.String.Parser.pure []
+      some value => do Data.String.Parser {
+        ask tail = Data.String.Parser.many prs
+        return Data.List.cons value tail
+      }
+    }
+  }
+}// Applies a parser repeatedly until it fails, at least once
+// Returns a list of all results
+// Fails if the first try fails
+Data.String.Parser.many1 <t> <a> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.List a) {
+  do Data.String.Parser {
+    ask head = prs
+    ask tail = Data.String.Parser.many prs
+    return (Data.List.cons head tail) 
+  }
+}// Run parser and modify the result on success
+Data.String.Parser.map <a> <b> <t> (f : a -> b) (prs: Data.String.Parser t a) : Data.String.Parser t b {
+  do Data.String.Parser {
+    ask r = prs
+    return (f r)
+  }
+}// Fails when the given parser succeeds and succeeds when it fails
+// Erases any result
+Data.String.Parser.not <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t Data.Unit {
+  do Data.String.Parser {
+    ask success = Data.String.Parser.to_bool prs
+    if success {
+      Data.String.Parser.empty
+    } else {
+      Data.String.Parser.pure Data.Unit.new
+    }
+  }
+}Data.String.Parser.pure <t> <r> (value: r) : Data.String.Parser t r {
+  state => Data.String.Parser.Result.done state value 
+}/// Evaluates a parser until a condition parser succeeds. Returns an array of results.
+Data.String.Parser.repeat_until <a> <b> <t> (cond: Data.String.Parser t a) (prs: Data.String.Parser t b) : Data.String.Parser t (Data.List b) {
+  do Data.String.Parser {
+    ask done = Data.String.Parser.is_some (Data.String.Parser.try cond)
+    if done {
+      Data.String.Parser.pure []
+    } else {
+      do Data.String.Parser {
+        ask head = prs
+        ask tail = Data.String.Parser.repeat_until cond prs
+        return Data.List.cons head tail
+      }
+    }
+  }
+}/// Evaluates a parser while a condition parser succeeds. Returns an array of results.
+Data.String.Parser.repeat_while <a> <b> <t> (cond: Data.String.Parser t a) (prs: Data.String.Parser t b) : Data.String.Parser t (Data.List b) {
+  do Data.String.Parser {
+    ask cont = Data.String.Parser.is_some (Data.String.Parser.try cond)
+    if cont {
+      do Data.String.Parser {
+        ask head = prs
+        ask tail = Data.String.Parser.repeat_while cond prs
+        return Data.List.cons head tail
+      }
+    } else {
+      Data.String.Parser.pure []
+    }
+  }
+}// Runs a parser and returns the result, or none
+// FIXME: for some reason, renaming prs to parser makes the type checker loop; investigate
+Data.String.Parser.run <r: Type> <t> (custom: t) (prs: Data.String.Parser t r) (code: Data.String) : Data.Either r Data.String.Parser.Error {
+  let state = Data.String.Parser.State.new custom code Data.String.nil 0
+  match Data.String.Parser.Result res = (prs state) {
+    done => Data.Either.left  res.result
+    fail => Data.Either.right res.error
+  }
+}// Succeeds if the head character satisfies a condition.
+// This is implemented as the only code-taking primitive of the library.
+// All other functions that consume characters are based on `satisfy`
+Data.String.Parser.satisfy <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.Char {
+  state => Data.String.Parser.satisfy.go cond state
+}
+
+
+Data.String.Parser.satisfy.go <t> (cond: Data.Char -> Data.Bool) (state: Data.String.Parser.State t) : Data.String.Parser.Result t Data.Char
+
+// If no more text to parse, fail
+Data.String.Parser.satisfy.go cond (Data.String.Parser.State.new custom "" back index) =
+  let state = Data.String.Parser.State.new custom Data.String.nil back index
+  let error = Data.String.Parser.Error.new "Unexpected EOF" index index
+  Data.String.Parser.Result.fail state error
+
+// Else, move state forward and check if the condition is satisfied
+Data.String.Parser.satisfy.go cond (Data.String.Parser.State.new custom (Data.String.cons head tail) back index) =
+  let state = Data.String.Parser.State.new custom (Data.String.cons head tail) back index
+  let state = Data.String.Parser.State.forward 1 state
+  Data.String.Parser.satisfy.cond (cond head) state head
+
+
+Data.String.Parser.satisfy.cond <t> (cond: Data.Bool) (state: Data.String.Parser.State t) (head: Data.Char) : Data.String.Parser.Result t Data.Char
+
+// If cond is satisfied, return what used to be the head of the text left to parse
+Data.String.Parser.satisfy.cond Data.Bool.true state head = Data.String.Parser.Result.done state head
+// Else, fail indicating which character didn't satisfy the condition
+Data.String.Parser.satisfy.cond Data.Bool.false (Data.String.Parser.State.new custom left back index) head =
+  let state = Data.String.Parser.State.new custom left back index
+  let error = Data.String.Parser.Error.new "" (- index 1) index
+  Data.String.Parser.Result.fail state error// Parses a sequence of elements separated by some criteria
+// Example: To match "1,2,3,4,5,6,70", use
+//          `(Data.String.Parser.sep_by (Data.String.Parser.char ',') Data.String.Parser.u60_decimal)`
+//          The result will be a list with the parsed numbers.
+Data.String.Parser.sep_by <s> <e> <t> (p_sep: Data.String.Parser t s) (p_elem: Data.String.Parser t e) : Data.String.Parser t (Data.List e) {
+  do Data.String.Parser {
+    ask me = Data.String.Parser.try p_elem
+    match Data.Maybe me {
+      none => Data.String.Parser.pure []
+      some =>
+        do Data.String.Parser {
+          ask tail = Data.String.Parser.repeat_while p_sep p_elem
+          return Data.List.cons me.value tail 
+        }
+    }
+  }
+}Data.String.Parser.set_custom <old> <new> (custom: new) : Data.String.Parser new Data.Unit
+Data.String.Parser.set_custom custom = state =>
+    let state = Data.String.Parser.State.set_custom custom state
+    Data.String.Parser.Result.done state Data.Unit.new// Discard the result of a parser
+Data.String.Parser.skip <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t Data.Unit {
+  do Data.String.Parser {
+    prs
+    return Data.Unit.new
+  }
+}// Skips everything up to the line end
+// Returns true if anything was skipped
+Data.String.Parser.skip_line <t> : Data.String.Parser t Data.Bool {
+  Data.String.Parser.skip_while (c => Data.Bool.not (Data.Char.equal Data.Char.newline c))
+}// Skips characters while they fulfill some condition
+// Returns true if anything was skipped
+Data.String.Parser.skip_while <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.Bool {
+  Data.String.Parser.to_bool (Data.String.Parser.take_while1 cond)
+}// Skips any sequence of ascii whitespace
+// Returns true if anything was skipped
+Data.String.Parser.skip_whitespace <t> : Data.String.Parser t Data.Bool {
+  Data.String.Parser.skip_while (c => Data.Char.is_whitespace c)
+}// Succeeds if the text starts with the given string
+Data.String.Parser.string <t> (str: Data.String) : Data.String.Parser t Data.Unit {
+  Data.String.Parser.expecting (Data.String.Parser.string.go str) str
+}
+
+Data.String.Parser.string.go <t> (str: Data.String) : Data.String.Parser t Data.Unit
+Data.String.Parser.string.go  Data.String.nil       = Data.String.Parser.pure Data.Unit.new
+Data.String.Parser.string.go (Data.String.cons h t) = do Data.String.Parser {
+  Data.String.Parser.char h
+  (Data.String.Parser.string.go t)
+}Data.String.Parser.take_custom <t> (empty: t): Data.String.Parser t t
+Data.String.Parser.take_custom empty = state =>
+    let Data.Pair.new (fst = custom) (snd = state) = Data.String.Parser.State.take_custom state
+    let state = Data.String.Parser.State.set_custom empty state
+    Data.String.Parser.Result.done state custom// Take characters from the code while a condition passes
+Data.String.Parser.take_while <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.String {
+  do Data.String.Parser {
+    ask mh = Data.String.Parser.try (Data.String.Parser.satisfy cond)
+    match Data.Maybe mh {
+      none => Data.String.Parser.pure Data.String.nil
+      some =>
+        do Data.String.Parser {
+          ask tail = Data.String.Parser.take_while cond
+          return (Data.String.cons mh.value tail)
+        }
+    }
+  }
+}// Take at least 1 character from the code while a condition passes
+// Fails if no characters are taken
+Data.String.Parser.take_while1 <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.String {
+  do Data.String.Parser {
+    ask r = Data.String.Parser.take_while cond
+    match Data.String r {
+      nil  => Data.String.Parser.empty
+      cons => Data.String.Parser.pure (Data.String.cons r.head r.tail)
+    }
+  }
+}// Runs a parser, returning whether it succeeds or not
+// Never fails
+Data.String.Parser.to_bool <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t Data.Bool {
+  state => match Data.String.Parser.Result r = (prs state) {
+    done state .. => Data.String.Parser.Result.done state Data.Bool.true
+    fail state .. => Data.String.Parser.Result.done state Data.Bool.false
+  }
+}// Runs a parser, returning the result on success and none on failure
+// Never fails
+Data.String.Parser.to_maybe <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.Maybe a) {
+  state =>
+    match Data.String.Parser.Result r = (prs state) {
+      done state result => Data.String.Parser.Result.done state (Data.Maybe.some result)
+      fail state ..     => Data.String.Parser.Result.done state  Data.Maybe.none
+    }
+}// On success, return the result
+// On failure, backtrack and return none
+// Never fails
+Data.String.Parser.try <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.Maybe a) {
+  state =>
+    open Data.String.Parser.State state
+    let init_idx = state.index
+    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    match Data.String.Parser.Result r = (prs state) {
+      done state result => Data.String.Parser.Result.done state (Data.Maybe.some result)
+      fail state .. =>
+        open Data.String.Parser.State state
+        let n_back    = (- state.index init_idx)
+        let new_state = Data.String.Parser.State.new state.custom state.left state.back state.index
+        let old_state = Data.String.Parser.State.backtrack n_back new_state
+        Data.String.Parser.Result.done old_state Data.Maybe.none
+    }
+}// A parser that matches an integer decimal number like 32867
+Data.String.Parser.u60_decimal <t> : Data.String.Parser t Data.U60 {
+  let f   = (str: Data.String) => Data.U60.read_decimal str
+  let prs = Data.String.Parser.take_while1 (c => Data.Char.is_decimal c)
+  let prs = Data.String.Parser.fail_on_none (Data.String.Parser.map f prs)
+  Data.String.Parser.expecting prs "decimal number"
+}Data.String.Parser.whitespace <t> : Data.String.Parser t Data.Unit
+Data.String.Parser.whitespace = Data.String.Parser.skip (Data.String.Parser.take_while1 (c => Data.Char.is_whitespace c))

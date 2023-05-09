@@ -1,5 +1,0 @@
-#derive[match]
-type Nat {
-  zero
-  succ (pred: Nat)
-}

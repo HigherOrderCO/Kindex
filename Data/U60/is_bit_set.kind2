@@ -1,0 +1,5 @@
+// True if the bit is set
+// Undefined if bit >= 60
+Data.U60.is_bit_set (n: Data.U60) (bit: Data.U60) : Data.Bool {
+  Data.U60.to_bool (Data.U60.get_bit n bit)
+}

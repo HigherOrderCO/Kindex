@@ -1,0 +1,5 @@
+// Return the smaller of two numbers
+// Example: (Data.Nat.min 5 3) -> 3
+Data.Nat.min (a: Data.Nat) (b: Data.Nat) : Data.Nat {
+  if (Data.Nat.ltn a b) { a } else { b }
+}

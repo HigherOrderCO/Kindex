@@ -1,3 +1,0 @@
-Maybe.to_bool <a: Type> (cond: a -> Bool) (x: Maybe a) : Bool
-Maybe.to_bool a cond (Maybe.none t)     = Bool.false
-Maybe.to_bool a cond (Maybe.some t val) = (cond val)

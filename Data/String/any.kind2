@@ -1,0 +1,8 @@
+Data.String.any (cond: Data.Char -> Data.Bool) (xs: Data.String) : Data.Bool
+Data.String.any cond Data.String.nil = Data.Bool.false
+Data.String.any cond (Data.String.cons x xs) =
+  if (cond x) {
+    Data.Bool.true
+  } else {
+    Data.String.any cond xs
+  }

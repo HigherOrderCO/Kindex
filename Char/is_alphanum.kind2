@@ -1,3 +1,0 @@
-Char.is_alphanum (c: Char) : Bool {
-  Bool.or (Char.is_alpha c) (Char.is_decimal c)
-}

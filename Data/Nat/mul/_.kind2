@@ -1,0 +1,7 @@
+// Adds a, b times
+// Example: (Data.Nat.mul 3 5) -> 15
+Data.Nat.mul (a: Data.Nat) (b: Data.Nat) : Data.Nat
+// (a + 1) * b = a*b + b
+Data.Nat.mul (Data.Nat.succ a) b = Data.Nat.add (Data.Nat.mul a b) b
+// 0b = 0
+Data.Nat.mul Data.Nat.zero     b = Data.Nat.zero

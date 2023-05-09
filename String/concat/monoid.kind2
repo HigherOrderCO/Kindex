@@ -1,6 +1,0 @@
-String.concat.monoid : Algebra.Monoid String
-String.concat.monoid =
-  (Algebra.Monoid.new
-    String.concat.semigroup
-    String.nil
-    String.concat.identity)

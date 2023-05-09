@@ -1,7 +1,0 @@
-// True if search is a substring of xs
-String.contains (xs: String) (search: String) : Bool
-String.contains  String.nil        search = Bool.false
-String.contains (String.cons x xs) search =
-  let head = String.starts_with (String.cons x xs) search
-  let tail = String.contains xs search
-  Bool.or head tail

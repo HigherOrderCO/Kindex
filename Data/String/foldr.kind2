@@ -1,0 +1,3 @@
+Data.String.foldr <a> (nil: a) (cons: Data.Char -> a -> a) (xs: Data.String) : a
+Data.String.foldr a nil cons  Data.String.nil        = nil
+Data.String.foldr a nil cons (Data.String.cons x xs) = cons x (Data.String.foldr nil cons xs)

@@ -1,0 +1,9 @@
+// Runs a parser and returns the result, or none
+// FIXME: for some reason, renaming prs to parser makes the type checker loop; investigate
+Data.String.Parser.run <r: Type> <t> (custom: t) (prs: Data.String.Parser t r) (code: Data.String) : Data.Either r Data.String.Parser.Error {
+  let state = Data.String.Parser.State.new custom code Data.String.nil 0
+  match Data.String.Parser.Result res = (prs state) {
+    done => Data.Either.left  res.result
+    fail => Data.Either.right res.error
+  }
+}

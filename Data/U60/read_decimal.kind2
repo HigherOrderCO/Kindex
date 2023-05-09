@@ -1,0 +1,8 @@
+Data.U60.read_decimal (xs: Data.String) : Data.Maybe Data.U60
+Data.U60.read_decimal  Data.String.nil        = Data.Maybe.some 0
+Data.U60.read_decimal (Data.String.cons x xs) =
+  do Data.Maybe {
+    ask digit = Data.Char.to_decimal x
+    ask tail = Data.U60.read_decimal xs
+    return (+ (* 10 tail) digit)
+  }

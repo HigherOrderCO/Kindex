@@ -1,0 +1,12 @@
+Data.List.ifind <a> (f: a -> Data.Nat -> Data.Bool) (xs: Data.List a) : Data.Maybe (Data.Pair a Data.Nat) {
+  Data.List.ifind.go f xs Data.Nat.zero
+}
+
+Data.List.ifind.go <a> (f: a -> Data.Nat -> Data.Bool) (xs: Data.List a) (idx: Data.Nat) : Data.Maybe (Data.Pair a Data.Nat)
+Data.List.ifind.go a f (Data.List.nil  x.a)         idx = Data.Maybe.none
+Data.List.ifind.go a f (Data.List.cons x.a x.h x.t) idx =
+  if (f x.h idx) {
+    Data.Maybe.some (Data.Pair.new x.h idx)
+  } else {
+    Data.List.ifind.go f x.t (Data.Nat.succ idx)
+  }

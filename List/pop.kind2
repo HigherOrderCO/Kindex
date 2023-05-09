@@ -1,3 +1,0 @@
-List.pop <a> (xs: List a) : Pair (Maybe a) (List a)
-List.pop a (List.nil  xa)       = Pair.new  Maybe.none     List.nil
-List.pop a (List.cons xa xh xt) = Pair.new (Maybe.some xh) xt

@@ -1,2 +1,0 @@
-// For every a b: (& a b) <= b
-U120.and.less_equal_b (a: U120) (b: U120) : U120.IsLessEqual (U120.bitwise_and a b) b

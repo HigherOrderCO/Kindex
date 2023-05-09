@@ -1,0 +1,5 @@
+use Apps.Kind.Term as Term
+
+Term/eval_app (orig: Data.U60) (left: Apps.Kind.Term) (right: Apps.Kind.Term): Apps.Kind.Term
+Term/eval_app orig (Term/lam orig1 name body) arg = body arg
+Term/eval_app orig func                       arg = (Term/app orig func arg)

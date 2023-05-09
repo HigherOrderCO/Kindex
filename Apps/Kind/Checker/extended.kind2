@@ -1,0 +1,12 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Extends the context and the checker and then shrink it after the operation.
+Checker/extended <a> (checker: Apps.Kind.Checker a) (name: Data.U60) (type: Apps.Kind.Term) (vals: Data.List Apps.Kind.Term) : Apps.Kind.Checker a
+Checker/extended a checker name type vals =
+  do Apps.Kind.Checker {
+    Checker/extend name type vals
+    ask got = checker
+    Checker/shrink
+    return got
+  }

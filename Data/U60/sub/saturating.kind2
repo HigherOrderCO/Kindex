@@ -1,0 +1,8 @@
+Data.U60.sub.saturating (a: Data.U60) (b: Data.U60) : Data.U60 {
+  let c = (- a b)
+  Data.U60.if (< a c) (
+    0  // On negative underflow, saturate at 0
+  ) (
+    c
+  )
+}

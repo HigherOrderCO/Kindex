@@ -1,0 +1,4 @@
+use Apps.Kind.Printer as Printer
+
+Printer/color (color_code: Data.String) : Data.String
+Printer/color color_code = Printer/text [(Data.String.cons 27 Data.String.nil) "[" color_code "m" ]

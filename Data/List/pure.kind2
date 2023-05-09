@@ -1,0 +1,5 @@
+// Makes a new list with a single element
+// Example: (Data.List.pure Data.Nat 0) -> [0]
+#inline
+Data.List.pure <t: Type> (x: t) : Data.List t
+Data.List.pure t x = Data.List.cons x Data.List.nil

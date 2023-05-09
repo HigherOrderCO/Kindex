@@ -1,2 +1,0 @@
-Algebra.Laws.right_identity.eta <t> (concat: t -> t -> t) (empty: t) : Type
-Algebra.Laws.right_identity.eta t concat empty = (el: t) -> Equal el (concat el empty)

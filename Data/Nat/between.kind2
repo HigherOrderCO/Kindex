@@ -1,0 +1,4 @@
+// Returns true if `min <= value < max`
+Data.Nat.between (min: Data.Nat) (val: Data.Nat) (max: Data.Nat) : Data.Bool {
+  Data.Bool.and (Data.Nat.lte min val) (Data.Nat.ltn val max)
+}

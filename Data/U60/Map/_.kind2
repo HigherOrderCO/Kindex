@@ -1,0 +1,2 @@
+Data.U60.Data.Map (a: Type) : Type
+Data.U60.Data.Map a = Data.Bits.Data.Map a

@@ -1,0 +1,13 @@
+use Apps.Kind.API as API
+use Apps.Kind.Error as Error
+use Apps.Kind.Term as Term
+
+Main : Data.List Error/Quoted
+Main =
+  // FIXME: we need a way to include of non-refered defs on the compiled ouput
+  let imports = [
+    (Data.Dynamic.new ((a:_) => (b:_) => Term/set_origin a b))
+    (Data.Dynamic.new API/check_all)
+    (Data.Dynamic.new API/eval_main)
+  ]
+  API/check_all

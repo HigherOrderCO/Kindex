@@ -1,0 +1,65 @@
+LambdaVar : Type
+LambdaVar.new (name: Data.String) : LambdaVar
+
+LambdaTerm : Type
+LambdaTerm.var (name : LambdaVar )                     : LambdaTerm
+LambdaTerm.abs (lam  : LambdaVar ) (body : LambdaTerm) : LambdaTerm
+LambdaTerm.app (head : LambdaTerm) (body : LambdaTerm) : LambdaTerm
+
+Data.String.Parser.lambda_term <t> : Data.String.Parser t LambdaTerm {
+  let parsers = [
+    Data.String.Parser.lambda_term.var
+    Data.String.Parser.lambda_term.abs
+    Data.String.Parser.lambda_term.app
+  ]
+  Data.String.Parser.first_of parsers
+}
+
+// Lambda calculus variable
+// alpha+
+Data.String.Parser.lambda_var <t> : Data.String.Parser t LambdaVar {
+  let p_name = Data.String.Parser.take_while1 (c => Data.Char.is_alpha c)
+  let f_var  = (name: Data.String) => LambdaVar.new name
+  Data.String.Parser.map f_var p_name
+}
+
+Data.String.Parser.lambda_term.var <t> : Data.String.Parser t LambdaTerm {
+  let p_var  = Data.String.Parser.lambda_var
+  let f_term = (name: LambdaVar) => LambdaTerm.var name
+  Data.String.Parser.map f_term p_var
+}
+
+// Lambda calculus abstracion
+// "@" var "." term
+Data.String.Parser.lambda_term.abs <t> : Data.String.Parser t LambdaTerm {
+  do Data.String.Parser {
+    Data.String.Parser.string "@"
+    ask lam  = Data.String.Parser.lambda_var
+    Data.String.Parser.string "."
+    ask body = Data.String.Parser.lambda_term
+    return LambdaTerm.abs lam body
+  }
+}
+
+// Lambda calculus application
+// "(" term " " term ")"
+Data.String.Parser.lambda_term.app <t> : Data.String.Parser t LambdaTerm {
+  do Data.String.Parser {
+    Data.String.Parser.string "("
+    ask head = Data.String.Parser.lambda_term
+    Data.String.Parser.string " "
+    ask body = Data.String.Parser.lambda_term
+    Data.String.Parser.string ")"
+    return LambdaTerm.app head body
+  }
+}
+
+Data.String.Parser.lambda_calc_parser <t> : _ {
+  let inp = "(@bo.(a @c.c) b)"
+  let par = Data.String.Parser.lambda_term
+  Data.String.Parser.run Data.Unit.new par inp
+}
+
+Main : _ {
+  Data.String.Parser.lambda_calc_parser
+}

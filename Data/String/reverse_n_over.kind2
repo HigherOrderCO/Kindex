@@ -1,0 +1,5 @@
+// concats in reverse the first `n` characters of `src` over `dest`
+Data.String.reverse_n_over (src: Data.String) (n: Data.U60) (dest: Data.String) : Data.Pair Data.String Data.String
+Data.String.reverse_n_over  src                      0 dest = Data.Pair.new src dest
+Data.String.reverse_n_over  Data.String.nil               n dest = Data.Pair.new Data.String.nil dest
+Data.String.reverse_n_over (Data.String.cons src.h src.t) n dest = Data.String.reverse_n_over src.t (- n 1) (Data.String.cons src.h dest)

@@ -1,7 +1,0 @@
-Char.to_decimal (c: Char) : Maybe U60 {
-  if Char.is_decimal c {
-    Maybe.some (- c '0')
-  } else {
-    Maybe.none
-  }
-}

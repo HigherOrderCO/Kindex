@@ -1,8 +1,0 @@
-use Kind.API as API
-use Kind.Error as Error
-use Kind.Axiom as Axiom
-
-API/check_all : List (Error/Quoted)
-API/check_all =
-  let output = API/output (List.reverse (API/check_functions (Axiom/Functions)))
-  output

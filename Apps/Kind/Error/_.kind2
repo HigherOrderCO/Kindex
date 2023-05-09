@@ -1,0 +1,13 @@
+use Apps.Kind.Term as Term
+
+type Apps.Kind.Error {
+  unbound_variable (ctx: Apps.Kind.Context) (orig: Data.U60)
+  cant_infer_hole (ctx: Apps.Kind.Context) (orig: Data.U60)
+  cant_infer_lambda (ctx: Apps.Kind.Context) (orig: Data.U60)
+  invalid_call (ctx: Apps.Kind.Context) (orig: Data.U60)
+  impossible_case (ctx: Apps.Kind.Context) (orig: Data.U60) (typ: Apps.Kind.Term) (term: Apps.Kind.Term)
+  inspection (ctx: Apps.Kind.Context) (orig: Data.U60) (term: Apps.Kind.Term)
+  too_many_arguments (ctx: Apps.Kind.Context) (orig: Data.U60)
+  type_mismatch (ctx: Apps.Kind.Context) (orig: Data.U60) (expected: Apps.Kind.Term) (detected: Apps.Kind.Term)
+  uncovered_pattern (ctx: Apps.Kind.Context) (orig: Data.U60) (tree: Data.List Term/Quoted)
+}

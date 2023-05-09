@@ -1,11 +1,11 @@
-Data.BBT.get <k> <v> (cmp: k -> k -> Cmp) (key: k) (map: Data.BBT k v): Maybe v {
+Data.BBT.get <k> <v> (cmp: k -> k -> Data.Cmp) (key: k) (map: Data.BBT k v): Data.Maybe v {
   match Data.BBT map {
-    tip => Maybe.none
+    tip => Data.Maybe.none
     bin (key = map.key) val left right size => 
       let comp = cmp key map.key
-      match Cmp comp {
+      match Data.Cmp comp {
         ltn => (Data.BBT.get k v cmp key left)
-        eql => Maybe.some val
+        eql => Data.Maybe.some val
         gtn => (Data.BBT.get k v cmp key right)
       }
   }

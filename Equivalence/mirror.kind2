@@ -1,2 +1,0 @@
-Equivalence.mirror <p> <q> (e: Equivalence p q) : Equivalence q p
-Equivalence.mirror p q (Equivalence.new lft rgt) = (Equivalence.new rgt lft)

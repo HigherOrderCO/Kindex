@@ -1,0 +1,3 @@
+Data.List.pop <a> (xs: Data.List a) : Data.Pair (Data.Maybe a) (Data.List a)
+Data.List.pop a (Data.List.nil  xa)       = Data.Pair.new  Data.Maybe.none     Data.List.nil
+Data.List.pop a (Data.List.cons xa xh xt) = Data.Pair.new (Data.Maybe.some xh) xt

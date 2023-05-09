@@ -1,4 +1,0 @@
-Nat.sub_abs (a: Nat) (b: Nat) : Nat
-Nat.sub_abs  Nat.zero      b            = b
-Nat.sub_abs  a             Nat.zero     = a
-Nat.sub_abs (Nat.succ ap) (Nat.succ bp) = Nat.sub_abs ap bp

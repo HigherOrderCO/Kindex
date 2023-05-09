@@ -1,0 +1,5 @@
+// Shift n times the structure to the left
+// Example: (Data.Bits.shift_left 1 (Data.Bits.i (Data.Bits.i (Data.Bits.i Data.Bits.e))) -> (Data.Bits.o (Data.Bits.i (Data.Bits.i (Data.Bits.i Data.Bits.e))))
+Data.Bits.shift_left (n: Data.Nat) (b: Data.Bits) : Data.Bits
+Data.Bits.shift_left (Data.Nat.zero)        (b) = (b)
+Data.Bits.shift_left (Data.Nat.succ n.pred) (b) = (Data.Bits.o (Data.Bits.shift_left n.pred b))

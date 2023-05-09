@@ -1,0 +1,8 @@
+Data.String.filter (f: Data.Char -> Data.Bool) (xs: Data.String) : Data.String
+Data.String.filter f  Data.String.nil       = Data.String.nil
+Data.String.filter f (Data.String.cons h t) =
+  if (f h) {
+    Data.String.cons h (Data.String.filter f t)
+  } else {
+    Data.String.filter f t
+  }

@@ -1,5 +1,0 @@
-#derive[match]
-type List (t) {
-  nil
-  cons (head: t) (tail: List t)
-}

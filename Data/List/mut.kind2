@@ -1,0 +1,6 @@
+// Given an index, applies a function to the value on that index in a list
+// Example: (Data.List.mut Data.Nat [1,2,3] (Data.Nat.add 2) 1) -> [1,4,3]
+Data.List.mut <a> (xs: Data.List a) (f: a -> a) (idx: Data.Nat) : Data.List a
+Data.List.mut a (Data.List.nil t)            f idx            = Data.List.nil
+Data.List.mut a (Data.List.cons t head tail) f Data.Nat.zero       = Data.List.cons (f head) tail
+Data.List.mut a (Data.List.cons t head tail) f (Data.Nat.succ idx) = Data.List.cons head     (Data.List.mut a tail f idx)

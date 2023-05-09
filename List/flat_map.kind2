@@ -1,3 +1,0 @@
-List.flat_map <a> <b> (xs: List a) (f: a -> List b) : List b {
-  List.flatten (List.map xs f)
-}

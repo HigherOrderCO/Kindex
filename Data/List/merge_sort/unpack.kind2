@@ -1,0 +1,4 @@
+Data.List.merge_sort.unpack <a> (cmp: a -> a -> Data.Bool) (xs: Data.List (Data.List a)) : Data.List a
+Data.List.merge_sort.unpack a cmp (Data.List.nil  xa)                   = Data.List.nil
+Data.List.merge_sort.unpack a cmp (Data.List.cons xa xh (Data.List.nil xa_)) = xh
+Data.List.merge_sort.unpack a cmp xs                               = Data.List.merge_sort.unpack cmp (Data.List.merge_sort.merge_pair cmp xs)

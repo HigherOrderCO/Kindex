@@ -1,0 +1,4 @@
+// Returns x to the power of y
+Data.Nat.pow (x: Data.Nat) (y: Data.Nat) : Data.Nat
+Data.Nat.pow x  Data.Nat.zero    = Data.Nat.one
+Data.Nat.pow x (Data.Nat.succ y) = Data.Nat.mul x (Data.Nat.pow x y)

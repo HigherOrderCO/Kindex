@@ -1,0 +1,3 @@
+Data.String.repeat (xs: Data.String) (n: Data.Nat) : Data.String
+Data.String.repeat xs  Data.Nat.zero    = Data.String.nil
+Data.String.repeat xs (Data.Nat.succ n) = Data.String.concat xs (Data.String.repeat xs n)

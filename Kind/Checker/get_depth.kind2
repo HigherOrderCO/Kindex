@@ -1,7 +1,0 @@
-use Kind.Checker as Checker
-use Kind.Result as Result
-
-// Gets the depth inside of the @Kind.Checker@.
-Checker/get_depth : Kind.Checker U60
-Checker/get_depth = context => depth => rhs => subst => eqts => errs =>
-  Result/checked context depth rhs subst eqts errs depth

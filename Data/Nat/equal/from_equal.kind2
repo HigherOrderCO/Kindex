@@ -1,0 +1,3 @@
+// Prop.Equal -> Data.Nat.equal
+Data.Nat.equal.from_equal (a: Data.Nat) (b: Data.Nat) (eq: Prop.Equal Data.Nat a b): (Prop.Equal (Data.Nat.equal a b) Data.Bool.true)
+Data.Nat.equal.from_equal a b (Prop.Equal.refl t c) = (Data.Nat.equal.refl c)

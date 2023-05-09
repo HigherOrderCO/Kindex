@@ -1,0 +1,4 @@
+Data.Maybe.equal <t> (cmp: t -> t -> Data.Bool) (a: Data.Maybe t) (b: Data.Maybe t) : Data.Bool
+Data.Maybe.equal t cmp (Data.Maybe.none ta)    (Data.Maybe.none tb)    = Data.Bool.true
+Data.Maybe.equal t cmp (Data.Maybe.some ta va) (Data.Maybe.some tb vb) = (cmp va vb)
+Data.Maybe.equal t cmp a                  b                  = Data.Bool.false

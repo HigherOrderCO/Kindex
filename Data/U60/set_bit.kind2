@@ -1,0 +1,6 @@
+// Sets a bit in a Data.U60
+// Undefined if bit >= 60
+Data.U60.set_bit (n: Data.U60) (bit: Data.U60) : Data.U60 {
+  let set = (<< 1 bit)
+  (| n set)
+}

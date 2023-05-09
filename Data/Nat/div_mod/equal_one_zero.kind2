@@ -1,0 +1,3 @@
+Data.Nat.div_mod.equal_one_zero (a: Data.Nat) (c: Data.Nat) (z: Data.Nat) : (Prop.Equal (Data.Pair.new (Data.Nat.succ z) Data.Nat.zero) (Data.Nat.div_mod.go a a c z))
+Data.Nat.div_mod.equal_one_zero Data.Nat.zero c z = Prop.Equal.refl
+Data.Nat.div_mod.equal_one_zero (Data.Nat.succ a.pred) c z = (Data.Nat.div_mod.equal_one_zero a.pred c z)

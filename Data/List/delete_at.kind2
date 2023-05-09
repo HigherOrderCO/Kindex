@@ -1,0 +1,6 @@
+// Deletes a value in a list in a given index
+// Example: (Data.List.delete_at Data.Nat [1,2,3,4,5] 4) -> [1,2,3,4]
+Data.List.delete_at <a> (xs: Data.List a) (idx: Data.Nat) : Data.List a
+Data.List.delete_at a (Data.List.nil t)            idx             = Data.List.nil
+Data.List.delete_at a (Data.List.cons t head tail) Data.Nat.zero        = tail
+Data.List.delete_at a (Data.List.cons t head tail) (Data.Nat.succ pred) = Data.List.cons head (Data.List.delete_at tail pred)

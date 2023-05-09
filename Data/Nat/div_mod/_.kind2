@@ -1,0 +1,5 @@
+// Return the quotient and the remainder of the integer division of two numbers
+// Division by zero is undefined
+Data.Nat.div_mod (num: Data.Nat) (den: Data.Nat) : Data.Pair Data.Nat Data.Nat {
+  Data.Nat.div_mod.go num den den Data.Nat.zero
+}

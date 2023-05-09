@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Monadic operation `pure` for @Apps.Kind.Checker@
+Checker/pure <t> (a: t): Apps.Kind.Checker t
+Checker/pure t res = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs res

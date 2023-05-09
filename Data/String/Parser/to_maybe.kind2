@@ -1,0 +1,9 @@
+// Runs a parser, returning the result on success and none on failure
+// Never fails
+Data.String.Parser.to_maybe <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.Maybe a) {
+  state =>
+    match Data.String.Parser.Result r = (prs state) {
+      done state result => Data.String.Parser.Result.done state (Data.Maybe.some result)
+      fail state ..     => Data.String.Parser.Result.done state  Data.Maybe.none
+    }
+}

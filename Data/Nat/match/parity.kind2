@@ -1,0 +1,18 @@
+// Data.Nat match based on parity.
+// Given predicate on Data.Nats,
+// a proof that, for any Data.Nat m, the predicate holds for m*2
+// a proof that, for any Data.Nat m, the predicate holds for m*2+1
+// then the predicate holds for every Data.Nat n.
+Data.Nat.match.parity
+  (n: Data.Nat)
+  (p: Data.Nat -> Type)
+  (e: (m: Data.Nat) -> p (Data.Nat.double m))
+  (o: (m: Data.Nat) -> p (Data.Nat.succ (Data.Nat.double m)))
+: (p n)
+Data.Nat.match.parity n p e o =
+  (Data.Sigma.match (Data.Nat.half.rel n) (x => p n) (fst => snd => 
+    match Data.Either snd {
+      left  => Prop.Equal.rewrite (Prop.Equal.mirror snd.val) (x => p x) (e fst)
+      right => Prop.Equal.rewrite (Prop.Equal.mirror snd.val) (x => p x) (o fst)
+    }
+  ))

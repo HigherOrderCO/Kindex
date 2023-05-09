@@ -1,7 +1,0 @@
-use Kind.Context as Context
-use Kind.Term as Term
-
-Context/quote (context: (Kind.Context)) (sub: (Kind.Subst)) : (List (Pair U60 (Pair (Term/Quoted) (List (Term/Quoted)))))
-Context/quote (Context/empty) sub                     = []
-Context/quote (Context/entry name type vals rest) sub = 
-    (List.cons (Pair.new name (Pair.new (Term/quote type sub) (List.map vals (x => (Term/quote x sub))))) (Context/quote rest sub))

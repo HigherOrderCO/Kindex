@@ -1,0 +1,4 @@
+Data.String.intersperse (sep: Data.Char) (xs: Data.String) : Data.String
+Data.String.intersperse sep  Data.String.nil                = Data.String.nil
+Data.String.intersperse sep (Data.String.cons x Data.String.nil) = Data.String.pure x
+Data.String.intersperse sep (Data.String.cons x xs)         = Data.String.cons x (Data.String.cons sep (Data.String.intersperse sep xs))

@@ -1,0 +1,5 @@
+// Converts a Data.Natural number to a Data.U60
+// Example: (Data.Nat.to_u60 (Data.Nat.succ (Data.Nat.succ Data.Nat.zero))) -> 2
+Data.Nat.to_u60 (n: Data.Nat) : Data.U60
+Data.Nat.to_u60  Data.Nat.zero    = 0
+Data.Nat.to_u60 (Data.Nat.succ n) = (+ 1 (Data.Nat.to_u60 n))

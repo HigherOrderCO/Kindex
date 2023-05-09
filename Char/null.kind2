@@ -1,4 +1,0 @@
-#inline
-Char.null : Char {
-  0
-}

@@ -1,0 +1,9 @@
+// Adds a bit structure to another
+// Example: (Data.Bits.add (Data.Bits.i Data.Bits.e) (Data.Bits.i (Data.Bits.o Data.Bits.e))) -> (Data.Bits.i (Data.Bits.i Data.Bits.e))
+Data.Bits.add (a: Data.Bits) (b: Data.Bits) : Data.Bits
+Data.Bits.add (Data.Bits.e)        (b)             = (b)
+Data.Bits.add (a)             (Data.Bits.e)        = (a)
+Data.Bits.add (Data.Bits.o a.pred) (Data.Bits.o b.pred) = (Data.Bits.o (Data.Bits.add a.pred b.pred))
+Data.Bits.add (Data.Bits.o a.pred) (Data.Bits.i b.pred) = (Data.Bits.i (Data.Bits.add a.pred b.pred))
+Data.Bits.add (Data.Bits.i a.pred) (Data.Bits.o b.pred) = (Data.Bits.i (Data.Bits.add a.pred b.pred))
+Data.Bits.add (Data.Bits.i a.pred) (Data.Bits.i b.pred) = (Data.Bits.o (Data.Bits.inc (Data.Bits.add a.pred b.pred)))

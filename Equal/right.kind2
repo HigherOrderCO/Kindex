@@ -1,3 +1,0 @@
-Equal.right <t> <x: t> <a: t> <b: t> (e0: Equal x a) (e1: Equal x b) : Equal a b {
-  Equal.chain (Equal.mirror e0) e1
-}

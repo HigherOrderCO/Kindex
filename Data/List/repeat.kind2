@@ -1,0 +1,5 @@
+// Repeats n times a value creating a list
+// Example: (Data.List.repeat 3 Data.Bool.true) -> [True, True, True]
+Data.List.repeat <a> (times: Data.Nat) (val: a) : Data.List a
+Data.List.repeat a Data.Nat.zero        val = Data.List.nil
+Data.List.repeat a (Data.Nat.succ pred) val = Data.List.cons val (Data.List.repeat pred val)

@@ -1,2 +1,0 @@
-Parser.whitespace <t> : Parser t Unit
-Parser.whitespace = Parser.skip (Parser.take_while1 (c => Char.is_whitespace c))

@@ -1,4 +1,0 @@
-// Checks if a character is alphanumeric (a-z, A-Z, 0-9)
-Char.is_alphanumeric (c: Char) : Bool {
-  Bool.or (Char.is_alpha c) (Char.is_decimal c)
-}

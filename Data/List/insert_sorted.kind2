@@ -1,0 +1,23 @@
+// # Insert a new element to some ordered list and preserves the ordination
+// - Data.List.insert_sorted (a => b => Data.Nat.gte a b) [1 3 4 5] 2 -> [1 2 3 4 5]
+// - Data.List.insert_sorted (a => b => Data.Nat.gte (Data.Pair.snd a) (Data.Pair.snd b)) [(a 1) (b 10)] (c 4) -> [(a 1) (c 4) (b 10)]
+
+Data.List.insert_sorted <a> (cmp : a -> a -> Data.Bool) (x : a) (xs : Data.List a) : Data.List a {
+  let pair = Data.List.split_at xs (Data.Nat.half (Data.List.length xs))
+  let ls   = Data.Pair.fst pair
+  let ys   = Data.Pair.snd pair
+  Data.List.insert_sorted.aux cmp x ls ys
+}
+
+Data.List.insert_sorted.aux <a> (cmp : a -> a -> Data.Bool) (x : a) (ls: Data.List a) (ys: Data.List a) : Data.List a
+Data.List.insert_sorted.aux a cmp x (Data.List.nil  la)       (Data.List.nil  ya)       = Data.List.pure x
+Data.List.insert_sorted.aux a cmp x (Data.List.nil  la)       (Data.List.cons ya yh yt) = if (cmp x yh) {[yh x]} else {[x yh]}
+Data.List.insert_sorted.aux a cmp x (Data.List.cons la lh lt) (Data.List.nil  ya)       = Data.List.insert_sorted cmp x (Data.List.cons la lh lt)
+Data.List.insert_sorted.aux a cmp x (Data.List.cons la lh lt) (Data.List.cons ya yh yt) =
+  let ls = (Data.List.cons la lh lt)
+  let ys = (Data.List.cons ya yh yt)
+  if (cmp x yh) {
+    Data.List.concat ls (Data.List.insert_sorted cmp x ys)
+  } else {
+    Data.List.concat (Data.List.insert_sorted cmp x ls) ys
+  }

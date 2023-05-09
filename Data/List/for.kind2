@@ -1,0 +1,5 @@
+// Runs the entire list applying a function to the head and an accumulator
+// Example: (Data.List.for [1,2,3] 0 Data.Nat.add) -> 6
+Data.List.for <a> <b> (xs: Data.List a) (acum: b) (f: (x: a) -> (ac: b) -> b) : b
+Data.List.for a b (Data.List.nil t)            acum f = acum
+Data.List.for a b (Data.List.cons t head tail) acum f = Data.List.for tail (f head acum) f

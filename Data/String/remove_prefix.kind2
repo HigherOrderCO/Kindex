@@ -1,0 +1,7 @@
+Data.String.remove_prefix (str: Data.String) (pfx: Data.String) : Data.String {
+  if Data.String.starts_with str pfx {
+    Data.String.drop (Data.String.length pfx) str
+  } else {
+    str
+  }
+}

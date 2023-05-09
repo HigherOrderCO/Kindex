@@ -1,0 +1,10 @@
+use Apps.Kind.API as API
+use Apps.Kind.Printer as Printer
+use Apps.Kind.Term as Term
+
+#axiom
+Main. : Apps.Kind.Name
+
+API/eval_main : Data.String
+API/eval_main =
+  Printer/text [(Term/show (Term/FN0 Main. 0)) Data.String.new_line Data.String.new_line]

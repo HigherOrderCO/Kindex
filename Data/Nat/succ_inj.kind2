@@ -1,0 +1,3 @@
+Data.Nat.succ_inj (a: Data.Nat) (b: Data.Nat) (eq: Prop.Equal (Data.Nat.succ a) (Data.Nat.succ b)) : Prop.Equal a b {
+  Prop.Equal.apply (x => Data.Nat.pred x) eq
+}

@@ -1,0 +1,3 @@
+#inline
+Data.IO.pure <a: Type> (val: a) : Data.IO a
+Data.IO.pure a val = Data.IO.done a val

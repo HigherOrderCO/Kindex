@@ -1,0 +1,4 @@
+type Apps.Kind.Rule {
+  lhs (arg: Apps.Kind.Term) (args: Apps.Kind.Rule)
+  rhs (arg: Apps.Kind.Term)
+}

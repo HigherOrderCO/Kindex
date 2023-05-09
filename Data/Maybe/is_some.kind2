@@ -1,0 +1,3 @@
+Data.Maybe.is_some <a: Type> (m: Data.Maybe a) : Data.Bool
+Data.Maybe.is_some a (Data.Maybe.none t)   = Data.Bool.false
+Data.Maybe.is_some a (Data.Maybe.some t v) = Data.Bool.true

@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Set the @Apps.Kind.Checker@ to the right hand side mode.
+Checker/set_right_hand_side (rhs: Data.Bool) : Apps.Kind.Checker Data.Unit
+Checker/set_right_hand_side to_rhs = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth to_rhs subst eqts errs Data.Unit.new

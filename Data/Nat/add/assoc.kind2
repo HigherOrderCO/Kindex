@@ -1,0 +1,16 @@
+Data.Nat.add.assoc (a: Data.Nat) (b: Data.Nat) (c: Data.Nat) : Prop.Equal (Data.Nat.add a (Data.Nat.add b c)) (Data.Nat.add (Data.Nat.add a b) c)
+Data.Nat.add.assoc Data.Nat.zero b c = 
+	// Base case. 
+	// If a == 0, then (a + b) = b and a + (b + c) = (b + c).
+	// Kind2 knows this because of the definition of addition.
+	// So our goal is (b + c) == (b + c), and this is trivial to prove because of Prop.Equal.refl
+	Prop.Equal.refl
+Data.Nat.add.assoc (Data.Nat.succ a) b c = 
+	// Proof by induction.
+	// (Data.Nat.add.assoc a b c) tells us that a + (b + c) = (a + b) + c
+	// We want (a + 1) + (b + c) = ((a + 1) + b) + c
+	// Thanks to the definition of addition, Kind2 takes the "+ 1" out of our goal and it turns into
+	// (a + (b + c)) + 1 = ((a + b) + c) + 1
+	// So now, we can simply apply "+ 1" (which is Data.Nat.succ) on both sides
+	// to reach our goal
+	Prop.Equal.apply (x => Data.Nat.succ x) (Data.Nat.add.assoc a b c)

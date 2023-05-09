@@ -1,0 +1,6 @@
+#derive[match]
+type Data.Stream <a> {
+  cons
+    (head: a)
+    (tail: Data.Stream a)
+}

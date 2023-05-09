@@ -1,0 +1,5 @@
+// True if the number is odd
+Data.Nat.is_odd (a: Data.Nat) : Data.Bool 
+Data.Nat.is_odd  Data.Nat.zero               = Data.Bool.false 
+Data.Nat.is_odd (Data.Nat.succ  Data.Nat.zero)    = Data.Bool.true
+Data.Nat.is_odd (Data.Nat.succ (Data.Nat.succ a)) = Data.Nat.is_odd a

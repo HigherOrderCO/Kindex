@@ -1,0 +1,5 @@
+// Return the list without the last element
+Data.List.init <a> (xs: Data.List a): Data.List a
+Data.List.init a (Data.List.nil  a1)                 = Data.List.nil
+Data.List.init a (Data.List.cons a1 x (Data.List.nil a2)) = Data.List.nil
+Data.List.init a (Data.List.cons a1 x xs)            = Data.List.cons x (Data.List.init xs)

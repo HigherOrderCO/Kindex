@@ -1,0 +1,17 @@
+// Parses a sequence of elements separated by some criteria
+// Example: To match "1,2,3,4,5,6,70", use
+//          `(Data.String.Parser.sep_by (Data.String.Parser.char ',') Data.String.Parser.u60_decimal)`
+//          The result will be a list with the parsed numbers.
+Data.String.Parser.sep_by <s> <e> <t> (p_sep: Data.String.Parser t s) (p_elem: Data.String.Parser t e) : Data.String.Parser t (Data.List e) {
+  do Data.String.Parser {
+    ask me = Data.String.Parser.try p_elem
+    match Data.Maybe me {
+      none => Data.String.Parser.pure []
+      some =>
+        do Data.String.Parser {
+          ask tail = Data.String.Parser.repeat_while p_sep p_elem
+          return Data.List.cons me.value tail 
+        }
+    }
+  }
+}

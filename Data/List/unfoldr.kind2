@@ -1,0 +1,13 @@
+Data.List.unfoldr <a> <b> (f: a -> Data.Maybe (Data.Pair a b)) (x: a) : Data.List b {
+  Data.List.unfoldr.go f x Data.List.nil
+}
+
+Data.List.unfoldr.go <a> <b> (f: a -> Data.Maybe (Data.Pair a b)) (x: a) (bs: Data.List b) : Data.List b {
+  let res = (f x)
+  match Data.Maybe res {
+    none => Data.List.nil
+    some value =>
+      open Data.Pair value
+      Data.List.unfoldr.go f value.fst (Data.List.cons value.snd bs)
+    }
+}

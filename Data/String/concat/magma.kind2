@@ -1,0 +1,3 @@
+Data.String.concat.magma : Algebra.Magma Data.String
+Data.String.concat.magma =
+  (Algebra.Magma.new (x => y => Data.String.concat x y))

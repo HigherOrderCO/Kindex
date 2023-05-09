@@ -1,7 +1,0 @@
-List.map.step <a> <b>
-  (x  : a)
-  (xs : List a)
-  (f  : a -> b)
-: Equal (List.cons (f x) (List.map xs f)) (List.map (List.cons x xs) f)
-List.map.step a b x (List.nil  xs.a)           f = Equal.refl
-List.map.step a b x (List.cons xs.a xs.h xs.t) f = Equal.refl

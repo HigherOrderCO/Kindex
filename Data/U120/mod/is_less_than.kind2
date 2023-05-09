@@ -1,0 +1,2 @@
+// For every a b, if b != 0: a % b < b
+Data.U120.mod.is_less_than (a: Data.U120) (b: Data.U120) (e: Prop.Not (Prop.Equal Data.U120 b (Data.U120.new 0 0))) : Data.U120.IsLessThan (Data.U120.mod a b) b

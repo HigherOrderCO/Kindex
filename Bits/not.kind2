@@ -1,4 +1,0 @@
-Bits.notb (b: Bits) : Bits
-Bits.notb Bits.e = Bits.e
-Bits.notb (Bits.o b) = Bits.i (Bits.notb b)
-Bits.notb (Bits.i b) = Bits.o (Bits.notb b)

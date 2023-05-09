@@ -1,0 +1,8 @@
+// Verifies if two bit structures are equal, return Data.Bool.true if they are, Data.Bool.false if not
+// Example: (Data.Bits.equal (Data.Bits.i Data.Bits.e) (Data.Bits.i Data.Bits.e)) -> Data.Bool.true
+// Example: (Data.Bits.equal (Data.Bits.o Data.Bits.e) (Data.Bits.i Data.Bits.e)) -> Data.Bool.false
+Data.Bits.equal (a: Data.Bits) (b: Data.Bits) : Data.Bool
+Data.Bits.equal (Data.Bits.e)        (Data.Bits.e)        = (Data.Bool.true)
+Data.Bits.equal (Data.Bits.o a.pred) (Data.Bits.o b.pred) = (Data.Bits.equal a.pred b.pred)
+Data.Bits.equal (Data.Bits.i a.pred) (Data.Bits.i b.pred) = (Data.Bits.equal a.pred b.pred)
+Data.Bits.equal (a)             (b)             = (Data.Bool.false)

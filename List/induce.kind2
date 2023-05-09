@@ -1,7 +1,0 @@
-List.induce <t: Type> (x: List t)
-  <p: (List t) -> Type>
-  (nil: (p (List.nil t)))
-  (cons: (head: t) -> (tail: List t) -> (tail.ind: (p tail)) -> (p (List.cons t head tail)))
-: (p x)
-List.induce t (List.nil u)            p nil cons = nil
-List.induce t (List.cons u head tail) p nil cons = cons head tail (List.induce t tail p nil cons)

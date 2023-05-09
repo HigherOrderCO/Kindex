@@ -1,0 +1,3 @@
+Data.Fin.to_nat <n: Data.Nat> (fin: Data.Fin n) : Data.Nat
+Data.Fin.to_nat n (Data.Fin.zero n_)      = Data.Nat.zero
+Data.Fin.to_nat n (Data.Fin.succ n_ pred) = Data.Nat.succ (Data.Fin.to_nat pred)

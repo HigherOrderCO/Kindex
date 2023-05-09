@@ -1,4 +1,0 @@
-List.at_else <a> (xs: List a) (idx: Nat) (x: a) : a
-List.at_else a (List.nil t)            idx             x = x
-List.at_else a (List.cons t head tail) Nat.zero        x = head
-List.at_else a (List.cons t head tail) (Nat.succ pred) x = List.at_else tail pred x

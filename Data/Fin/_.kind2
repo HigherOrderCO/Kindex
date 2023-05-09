@@ -1,0 +1,6 @@
+// The type of natural numbers smaller than `lim`
+#derive[match]
+type Data.Fin ~(lim: Data.Nat) {
+	zero <n: Data.Nat> : Data.Fin (Data.Nat.succ n)
+	succ <n: Data.Nat> (pred: Data.Fin n) : Data.Fin (Data.Nat.succ n) 	 
+}

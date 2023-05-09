@@ -1,0 +1,6 @@
+Data.List.fold_zip <a> <b> <c> (as: Data.List a) (bs: Data.List b) (func: a -> b -> c) (nil: c) (cons: c -> c -> c): c 
+Data.List.fold_zip (Data.List.cons a as) (Data.List.cons b bs) func nil cons =
+  let res = func a   b
+  let acc = cons res nil
+  Data.List.fold_zip as bs func acc cons 
+Data.List.fold_zip as bs func nil cons = nil

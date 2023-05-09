@@ -1,5 +1,0 @@
-// Proof of the commutative property of addition for x + 0
-// This is a special case of the commutative property.
-Nat.add.comm.zero (a: Nat) : Algebra.Laws.right_identity (x => y => Nat.add x y) Nat.zero a
-Nat.add.comm.zero Nat.zero     = Equal.refl
-Nat.add.comm.zero (Nat.succ a) = Equal.apply (x => Nat.succ x) (Nat.add.comm.zero a)

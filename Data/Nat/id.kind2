@@ -1,0 +1,3 @@
+Data.Nat.id (n: Data.Nat) : Data.Nat
+Data.Nat.id Data.Nat.zero     = Data.Nat.zero
+Data.Nat.id (Data.Nat.succ p) = Data.Nat.succ (Data.Nat.id p)

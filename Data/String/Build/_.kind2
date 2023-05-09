@@ -1,0 +1,2 @@
+String.Build : Type
+String.Build = Data.String -> Data.String

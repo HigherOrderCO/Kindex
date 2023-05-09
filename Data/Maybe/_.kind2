@@ -1,0 +1,5 @@
+#derive[match]
+type Data.Maybe (t) {
+  none 
+  some (value: t)
+}

@@ -1,0 +1,5 @@
+// 1 if the bit is set, 0 otherwise
+// 0 if bit >= 60
+Data.U60.get_bit (n: Data.U60) (bit: Data.U60) : Data.U60 {
+  (& (>> n bit) 1)
+}

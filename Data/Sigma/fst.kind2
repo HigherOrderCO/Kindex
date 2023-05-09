@@ -1,0 +1,2 @@
+Data.Sigma.fst <a: Type> <b: a -> Type> (s: Data.Sigma a b) : a
+Data.Sigma.fst a b (Data.Sigma.new a_ b_ x y) = x

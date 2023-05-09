@@ -1,8 +1,0 @@
-// U120 subtraction
-U120.sub (a: U120) (b: U120) : U120
-U120.sub (U120.new a.hi a.lo) (U120.new b.hi b.lo) =
-  let c.lo = (- a.lo b.lo)
-  let c.hi = (- a.hi b.hi)
-  let over = (U60.greater_than c.lo a.lo)
-  let c.hi = if over { (- c.hi 1) } else { c.hi }
-  U120.new c.hi c.lo

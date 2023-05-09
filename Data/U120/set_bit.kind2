@@ -1,0 +1,5 @@
+// Sets a bit in a Data.U120
+Data.U120.set_bit (num: Data.U120) (bit: Data.U120) : Data.U120 {
+  let bit = Data.U120.shift_left (Data.U120.new 0 1) bit
+  Data.U120.bitwise_or num bit
+}

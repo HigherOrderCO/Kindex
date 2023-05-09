@@ -1,0 +1,8 @@
+// Moves the state n characters forward
+Data.String.Parser.State.forward <t> (n: Data.U60) (state: Data.String.Parser.State t) : Data.String.Parser.State t
+Data.String.Parser.State.forward 0  state                                                = state
+Data.String.Parser.State.forward n (Data.String.Parser.State.new custom  Data.String.nil             back index) = Data.String.Parser.State.new custom "" back index
+Data.String.Parser.State.forward n (Data.String.Parser.State.new custom (Data.String.cons head tail) back index) =
+  let n     = (- n 1)
+  let state = Data.String.Parser.State.new custom tail (Data.String.cons head back) (+ index 1)
+  Data.String.Parser.State.forward n state

@@ -1,0 +1,14 @@
+// FIXME: the previous Data.U60.to_bits function was extremely expensive (about 4k
+// rewrites!), and it made the default Data.Map implementation much slower than it
+// should be, so I'm changing it to this much more lightweight version. It will
+// not always return a 60-wide bitstring though, since that isn't needed. I
+// don't know if some other function relied on that behavior, so we must check
+// them all in order to make sure nothing broke.
+Data.U60.to_bits (n: Data.U60) : Data.Bits
+Data.U60.to_bits 0 = Data.Bits.e
+Data.U60.to_bits 1 = Data.Bits.i Data.Bits.e
+Data.U60.to_bits n = Data.U60.to_bits.mk (& n 1) (Data.U60.to_bits (/ n 2))
+
+Data.U60.to_bits.mk (c: Data.U60) (bs: Data.Bits) : Data.Bits
+Data.U60.to_bits.mk 0 bs = Data.Bits.o bs
+Data.U60.to_bits.mk 1 bs = Data.Bits.i bs

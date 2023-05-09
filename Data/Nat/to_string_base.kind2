@@ -1,0 +1,5 @@
+Data.Nat.to_string_base (base: Data.Nat) (nat: Data.Nat) : Data.String {
+  let fold = Data.List.fold (Data.Nat.to_base base nat)
+  let show = (n => str => (Data.String.cons (Data.Nat.to_char base n) str)) :: Data.Nat -> Data.String -> Data.String
+  (fold Data.String.nil show)
+}

@@ -1,0 +1,5 @@
+// Concatenates two lists
+// Example: (concat [1,2] [3,4]) = [1, 2, 3, 4]
+Data.List.concat <a> (xs: Data.List a) (ys: Data.List a) : Data.List a
+Data.List.concat a (Data.List.nil t)            ys = ys
+Data.List.concat a (Data.List.cons t head tail) ys = (Data.List.cons a head (Data.List.concat a tail ys))

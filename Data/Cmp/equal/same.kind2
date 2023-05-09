@@ -1,0 +1,4 @@
+Data.Cmp.equal.same (x: Data.Cmp) : Prop.Equal (Data.Cmp.equal x x) Data.Bool.true
+Data.Cmp.equal.same Data.Cmp.ltn = Prop.Equal.refl
+Data.Cmp.equal.same Data.Cmp.eql = Prop.Equal.refl
+Data.Cmp.equal.same Data.Cmp.gtn = Prop.Equal.refl

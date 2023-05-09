@@ -1,7 +1,0 @@
-U120.num_less_than (a: U120) (b: U120) : U120
-U120.num_less_than (U120.new ahi alo) (U120.new bhi blo) =
-  U60.if (== ahi bhi) (
-    U120.new 0 (< alo blo)
-  ) (
-    U120.new 0 (< ahi bhi)
-  )

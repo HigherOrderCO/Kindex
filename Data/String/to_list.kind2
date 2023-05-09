@@ -1,0 +1,3 @@
+Data.String.to_list (xs: Data.String): Data.List Data.Char
+Data.String.to_list  Data.String.nil       = Data.List.nil
+Data.String.to_list (Data.String.cons x xs) = Data.List.cons x (Data.String.to_list xs)

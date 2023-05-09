@@ -1,5 +1,0 @@
-Maybe.Theorems.is_some <a: Type>
-  (maybe: Maybe a)
-: Type
-Maybe.Theorems.is_some a (Maybe.none t) = Empty
-Maybe.Theorems.is_some a (Maybe.some t val) = Equal t val val

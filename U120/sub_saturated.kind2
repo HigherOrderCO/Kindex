@@ -1,8 +1,0 @@
-U120.sub_saturated (a: U120) (b: U120) : U120 {
-  if (U120.less_than b a) {
-    (U120.sub a b)
-  }
-  else {
-    (U120.new 0 0)
-  }
-}

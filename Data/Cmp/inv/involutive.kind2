@@ -1,0 +1,4 @@
+Data.Cmp.inv.involutive (c: Data.Cmp) : Prop.Equal c (Data.Cmp.inv (Data.Cmp.inv c))
+Data.Cmp.inv.involutive Data.Cmp.ltn = Prop.Equal.refl
+Data.Cmp.inv.involutive Data.Cmp.eql = Prop.Equal.refl
+Data.Cmp.inv.involutive Data.Cmp.gtn = Prop.Equal.refl

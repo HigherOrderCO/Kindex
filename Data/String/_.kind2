@@ -1,0 +1,6 @@
+// Automatically derived from Data.String/_.type
+#derive[match]
+type Data.String {
+  nil
+  cons (head: Data.Char) (tail: Data.String)
+}

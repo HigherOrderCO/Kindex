@@ -1,0 +1,7 @@
+Data.List.create <a> (len: Data.Nat) (create_f: Data.Nat -> a) : Data.List a {
+  Data.List.create.go len create_f Data.List.nil
+}
+
+Data.List.create.go <a> (len: Data.Nat) (create_f: Data.Nat -> a) (result: Data.List a) : Data.List a
+Data.List.create.go a  Data.Nat.zero     create_f res = res
+Data.List.create.go a (Data.Nat.succ lp) create_f res = Data.List.create.go lp create_f (Data.List.cons (create_f lp) res)

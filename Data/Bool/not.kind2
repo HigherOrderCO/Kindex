@@ -1,0 +1,6 @@
+// Function to negate a Data.Bool
+// Example: (Data.Bool.not Data.Bool.true)  -> Data.Bool.false
+// Example: (Data.Bool.not Data.Bool.false) -> Data.Bool.true
+Data.Bool.not (a: Data.Bool) : Data.Bool
+Data.Bool.not Data.Bool.true  = Data.Bool.false
+Data.Bool.not Data.Bool.false = Data.Bool.true

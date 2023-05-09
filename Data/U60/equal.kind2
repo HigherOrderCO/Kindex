@@ -1,0 +1,3 @@
+Data.U60.equal (a: Data.U60) (b: Data.U60) : Data.Bool {
+  Data.U60.to_bool (== a b)
+}

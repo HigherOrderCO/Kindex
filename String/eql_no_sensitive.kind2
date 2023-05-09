@@ -1,3 +1,0 @@
-String.eql_no_sensitive (a: String) (b: String) : Bool {
-  String.equal (String.to_lower a) (String.to_lower b)
-}

@@ -1,0 +1,3 @@
+Data.U120.div (num: Data.U120) (rem: Data.U120) : Data.U120 {
+  Data.Pair.fst (Data.U120.div_mod num rem)
+}

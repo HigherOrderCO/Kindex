@@ -1,8 +1,0 @@
-// U120 addition
-U120.add (a: U120) (b: U120) : U120
-U120.add (U120.new a.hi a.lo) (U120.new b.hi b.lo) =
-  let c.lo = (+ a.lo b.lo)
-  let c.hi = (+ a.hi b.hi)
-  let over = (Bool.or (U60.less_than c.lo a.lo) (U60.less_than c.lo b.lo))
-  let c.hi = if over { (+ c.hi 1) } else { c.hi }
-  U120.new c.hi c.lo

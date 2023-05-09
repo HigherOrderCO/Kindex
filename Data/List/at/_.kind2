@@ -1,0 +1,6 @@
+// Given an index, returns the element in that index if any
+// Example: (Data.List.at Data.Nat [1,2,3,4] 2) -> 1
+Data.List.at <a> (xs: Data.List a) (idx: Data.Nat) : Data.Maybe a
+Data.List.at a (Data.List.nil t)            idx             = Data.Maybe.none 
+Data.List.at a (Data.List.cons t head tail) Data.Nat.zero        = Data.Maybe.some head
+Data.List.at a (Data.List.cons t head tail) (Data.Nat.succ pred) = Data.List.at tail pred

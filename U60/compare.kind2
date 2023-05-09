@@ -1,8 +1,0 @@
-U60.compare (a: U60) (b: U60) : Cmp {
-  (U60.if (< a b)
-    Cmp.ltn
-  (U60.if (== a b)
-    Cmp.eql
-    Cmp.gtn
-  ))
-}

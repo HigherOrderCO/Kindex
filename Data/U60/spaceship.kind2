@@ -1,0 +1,8 @@
+// Decides if x is Greater, Lesser, or Prop.Equal to y
+Data.U60.spaceship (x: Data.U60) (y: Data.U60) : Data.Cmp
+Data.U60.spaceship x y = (Data.U60.spaceship.aux (< x y) (> x y))
+
+  Data.U60.spaceship.aux (b1: Data.U60) (b2: Data.U60) : Data.Cmp
+  Data.U60.spaceship.aux 0 0 = Data.Cmp.eql
+  Data.U60.spaceship.aux b 0 = Data.Cmp.ltn
+  Data.U60.spaceship.aux 0 b = Data.Cmp.gtn

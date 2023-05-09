@@ -1,4 +1,0 @@
-#inline
-List.sort <a> (cmp: a -> a -> Bool) (xs: List a) : List a {
-  List.quicksort cmp xs
-}

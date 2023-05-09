@@ -1,7 +1,0 @@
-// Run parser and modify the result on success
-Parser.map <a> <b> <t> (f : a -> b) (prs: Parser t a) : Parser t b {
-  do Parser {
-    ask r = prs
-    return (f r)
-  }
-}

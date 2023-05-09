@@ -1,0 +1,7 @@
+Data.Bits.or  (a: Data.Bits) (b: Data.Bits) : Data.Bits
+Data.Bits.or  Data.Bits.e b = Data.Bits.e
+Data.Bits.or  a Data.Bits.e = Data.Bits.e
+Data.Bits.or  (Data.Bits.o a) (Data.Bits.o b) = Data.Bits.o(Data.Bits.or a b)
+Data.Bits.or  (Data.Bits.o a) (Data.Bits.i b) = Data.Bits.i(Data.Bits.or a b)
+Data.Bits.or  (Data.Bits.i a) (Data.Bits.o b) = Data.Bits.i(Data.Bits.or a b)
+Data.Bits.or  (Data.Bits.i a) (Data.Bits.i b) = Data.Bits.i(Data.Bits.or a b)

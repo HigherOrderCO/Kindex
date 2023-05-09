@@ -1,0 +1,2 @@
+Prop.Equal.mirror <t> <a: t> <b: t> (e: Prop.Equal t a b) : Prop.Equal t b a
+Prop.Equal.mirror t a b (Prop.Equal.refl u k) = Prop.Equal.refl u k

@@ -1,5 +1,0 @@
-List.sequenceA.move <a> (xs : List a) (ys : List (List a)) : List (List a) {
-  let nil  = List.nil
-  let cons = (h => t => List.concat (List.map ys (x => (List.cons h x))) t) :: a -> (List (List a)) -> (List (List a))
-  List.foldr nil cons xs
-}

@@ -1,0 +1,14 @@
+// Automatically derived from Data.IO.App/Event/_.kind2
+#derive[match]
+type Data.IO.App.Event {
+  init
+  frame
+  key_down (code: Data.U60)
+  key_up (code: Data.U60)
+  mouse_down (button: Data.U60) (mouse_pos: (Data.Pair Data.U60 Data.U60))
+  mouse_up (button: Data.U60) (mouse_pos: (Data.Pair Data.U60 Data.U60))
+  mouse_move (element: Data.String) (mouse_pos: (Data.Pair Data.U60 Data.U60))
+  mouse_click (element: Data.String)
+	mouse_over (element: Data.String) 
+  input (element: Data.String) (text: Data.String)
+}

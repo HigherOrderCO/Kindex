@@ -1,0 +1,3 @@
+Data.U120.logic_or (a: Data.U120) (b: Data.U120) : Data.U120
+Data.U120.logic_or (Data.U120.new 0 0) (Data.U120.new 0 0) = (Data.U120.new 0 0)
+Data.U120.logic_or a              b              = (Data.U120.new 0 1)

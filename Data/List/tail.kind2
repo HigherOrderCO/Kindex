@@ -1,0 +1,5 @@
+// Gets the tail of the list
+// Example: (Data.List.tail Data.Nat [1,2,3]) -> [2,3]
+Data.List.tail <a> (xs: Data.List a) : Data.List a
+Data.List.tail a (Data.List.nil  t)           = Data.List.nil
+Data.List.tail a (Data.List.cons t head tail) = tail

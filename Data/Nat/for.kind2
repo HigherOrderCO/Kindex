@@ -1,0 +1,7 @@
+Data.Nat.for <s: Type> (state: s) (from: Data.Nat) (til: Data.Nat) (func: Data.Nat -> s -> s) : s {
+  if Data.Nat.equal from til {
+    state
+  } else {
+    Data.Nat.for (func from state) (Data.Nat.succ from) til func
+  }
+}

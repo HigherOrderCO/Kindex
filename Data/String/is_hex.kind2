@@ -1,0 +1,4 @@
+// checks if all characters in a string are hexadecimal digits
+Data.String.is_hex (xs: Data.String) : Data.Bool {
+  Data.String.all (c => Data.Char.is_hex c) xs
+}

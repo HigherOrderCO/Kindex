@@ -1,0 +1,9 @@
+// Deletes the first element that pass a condition 
+Data.List.delete_el <a> (f: a -> Data.Bool) (xs: Data.List a) : Data.List a
+Data.List.delete_el a f (Data.List.nil  x.a)         = Data.List.nil
+Data.List.delete_el a f (Data.List.cons x.a x.h x.t) =
+  if (f x.h) {
+    x.t
+  } else {
+    Data.List.cons x.h (Data.List.delete_el f x.t)
+  }

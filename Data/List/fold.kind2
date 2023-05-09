@@ -1,0 +1,4 @@
+// Data.Native Data.List to Church Encoded Data.List
+Data.List.fold <a> <p> (xs: Data.List a) : p -> (a -> p -> p) -> p
+Data.List.fold Data.List.nil              = nil => cons => nil
+Data.List.fold (Data.List.cons head tail) = nil => cons => cons head ((Data.List.fold tail) nil cons)

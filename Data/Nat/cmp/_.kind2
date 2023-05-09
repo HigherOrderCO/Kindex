@@ -1,0 +1,5 @@
+Data.Nat.cmp (a: Data.Nat) (b: Data.Nat) : Data.Cmp
+Data.Nat.cmp  Data.Nat.zero          Data.Nat.zero         = Data.Cmp.eql
+Data.Nat.cmp  Data.Nat.zero         (Data.Nat.succ pred)   = Data.Cmp.ltn
+Data.Nat.cmp (Data.Nat.succ pred)    Data.Nat.zero         = Data.Cmp.gtn
+Data.Nat.cmp (Data.Nat.succ a.pred) (Data.Nat.succ b.pred) = Data.Nat.cmp a.pred b.pred

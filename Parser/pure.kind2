@@ -1,3 +1,0 @@
-Parser.pure <t> <r> (value: r) : Parser t r {
-  state => Parser.Result.done state value 
-}

@@ -1,3 +1,0 @@
-// Fixme implement without using Nat
-Bits.mul (a: Bits) (b: Bits) : Bits
-Bits.mul a b = Bits.mul.go a b Bits.e

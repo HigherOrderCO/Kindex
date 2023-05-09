@@ -1,6 +1,0 @@
-use Kind.Context as Context
-
-// Checks if the context is empty.
-Context/is_empty (ctx: Kind.Context): Bool
-Context/is_empty Context/empty                       = Bool.true
-Context/is_empty (Context/entry name type vals rest) = Bool.false

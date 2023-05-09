@@ -1,0 +1,4 @@
+Data.Nat.sub_rem (n: Data.Nat) (m: Data.Nat) : Data.Either Data.Nat Data.Nat
+Data.Nat.sub_rem  n            Data.Nat.zero    = Data.Either.left  n
+Data.Nat.sub_rem  Data.Nat.zero     m           = Data.Either.right m
+Data.Nat.sub_rem (Data.Nat.succ n) (Data.Nat.succ m) = Data.Nat.sub_rem  n m

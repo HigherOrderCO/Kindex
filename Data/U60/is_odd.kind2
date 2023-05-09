@@ -1,0 +1,3 @@
+Data.U60.is_odd (n: Data.U60) : Data.Bool {
+  Data.U60.to_bool (& n 1)
+}

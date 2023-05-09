@@ -1,0 +1,3 @@
+Data.Bits.to_bool (b: Data.Bits) : Data.Bool
+Data.Bits.to_bool (Data.Bits.i b)  = Data.Bool.true
+Data.Bits.to_bool b = Data.Bool.false

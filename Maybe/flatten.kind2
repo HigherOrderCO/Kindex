@@ -1,3 +1,0 @@
-Maybe.flatten <a: Type> (m: Maybe (Maybe a)) : Maybe a
-Maybe.flatten a (Maybe.none t)   = Maybe.none
-Maybe.flatten a (Maybe.some t v) = v

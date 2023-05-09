@@ -1,0 +1,3 @@
+Data.Bits.Data.Map.length <a> (map : Data.Bits.Data.Map a) : Data.Nat
+Data.Bits.Data.Map.length Data.Bits.Data.Map.new               = Data.Nat.zero
+Data.Bits.Data.Map.length (Data.Bits.Data.Map.tie val lft rgt) = Data.Nat.succ (Data.Nat.add (Data.Bits.Data.Map.length lft) (Data.Bits.Data.Map.length rgt))

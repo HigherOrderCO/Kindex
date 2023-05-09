@@ -1,0 +1,17 @@
+Data.List.split_at.length <a>
+  (xs: Data.List a)
+  (ys: Data.List a)
+: Prop.Equal (Data.List.split_at (Data.List.concat a xs ys) (Data.List.length a xs)) (Data.Pair.new xs ys)
+
+Data.List.split_at.length a (Data.List.nil  a1) (Data.List.nil  a2)      = Prop.Equal.refl
+Data.List.split_at.length a (Data.List.nil  a1) (Data.List.cons a2 y ys) = Prop.Equal.refl
+
+Data.List.split_at.length a (Data.List.cons a1 x xs) ys =
+  // (split (xs++ys) (len xs)) == {xs ys}
+  let ind = Data.List.split_at.length xs ys
+  // (split (xs++ys) (len xs))@fst <~ x & == {x&xs ys}
+  let fst = Prop.Equal.apply (xs => Data.List.cons x (Data.Pair.fst xs)) ind
+  // (split (xs++ys) (len xs))@snd == ys
+  let snd = Prop.Equal.apply (xs => Data.Pair.snd xs) ind
+  let split_pair = Prop.Equal.and fst snd
+  split_pair

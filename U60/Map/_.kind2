@@ -1,2 +1,0 @@
-U60.Map (a: Type) : Type
-U60.Map a = Bits.Map a

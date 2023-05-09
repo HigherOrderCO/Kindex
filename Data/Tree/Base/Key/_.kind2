@@ -1,4 +1,4 @@
-Data.Tree.Base.Key (r: List Data.Tree.Base.Base) : Type
-Data.Tree.Base.Key (List.nil t)                          = Unit
-Data.Tree.Base.Key (List.cons t Data.Tree.Base.Base.2 bs) = Data.Tree.Base.Base.Bin (Data.Tree.Base.Key bs)
-Data.Tree.Base.Key (List.cons t Data.Tree.Base.Base.5 bs) = Data.Tree.Base.Base.Qui (Data.Tree.Base.Key bs)
+Data.Tree.Base.Key (r: Data.List Data.Tree.Base.Base) : Type
+Data.Tree.Base.Key (Data.List.nil t)                          = Data.Unit
+Data.Tree.Base.Key (Data.List.cons t Data.Tree.Base.Base.2 bs) = Data.Tree.Base.Base.Bin (Data.Tree.Base.Key bs)
+Data.Tree.Base.Key (Data.List.cons t Data.Tree.Base.Base.5 bs) = Data.Tree.Base.Base.Qui (Data.Tree.Base.Key bs)

@@ -1,0 +1,7 @@
+Data.Nat.log (base: Data.Nat) (num: Data.Nat) : Data.Nat {
+  Data.Nat.log.aux num base Data.Nat.zero
+}
+
+Data.Nat.log.aux (n: Data.Nat) (b : Data.Nat) (r: Data.Nat) : Data.Nat
+Data.Nat.log.aux  Data.Nat.zero     b r = Data.Nat.pred r
+Data.Nat.log.aux (Data.Nat.succ np) b r = Data.Nat.log.aux (Data.Nat.div (Data.Nat.succ np) b) b (Data.Nat.succ r)

@@ -1,0 +1,4 @@
+Data.U60.to_nat (x: Data.U60) : Data.Nat
+Data.U60.to_nat 0 = Data.Nat.zero
+Data.U60.to_nat n = Data.Nat.succ (Data.U60.to_nat (- n 1))
+

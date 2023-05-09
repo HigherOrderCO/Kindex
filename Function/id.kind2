@@ -1,4 +1,0 @@
-#inline
-Function.id <t> : t -> t {
-  (x: t) => x
-}

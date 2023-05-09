@@ -1,4 +1,0 @@
-#inline
-Char.between_inclusive (a: U60) (b: U60) (c: U60) : Bool {
-  U60.between_inclusive a b c
-}

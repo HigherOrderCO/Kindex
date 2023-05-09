@@ -1,0 +1,35 @@
+// Proof that a(b + 1) = a + ab
+// A special case of the distributive property
+// Also a subcase of commutative property because (a + 1)b = ab + b is already proven by the definition of multiplication
+Data.Nat.mul.distr.succ (a: Data.Nat) (b: Data.Nat): Prop.Equal (Data.Nat.mul a (Data.Nat.succ b)) (Data.Nat.add a (Data.Nat.mul a b))
+Data.Nat.mul.distr.succ Data.Nat.zero b = Prop.Equal.refl
+Data.Nat.mul.distr.succ (Data.Nat.succ a) b = 
+	// Goal: a(b + 1) + (b + 1) == (a + (ab + b)) + 1
+	// Induction gives: a(b + 1) = a + (ab)
+	let induction = Data.Nat.mul.distr.succ a b
+	// We can add b + 1 on both sides
+	// a(b + 1) + (b + 1) = (a + (ab)) + (b + 1)
+	let induction = Prop.Equal.apply (x => Data.Nat.add x (Data.Nat.succ b)) induction
+	
+	// We will prove that (b + (a + ab)) + 1 = (a + (ab + b)) + 1
+	
+	// (b + (a + ab)) = ((a + ab) +b)
+	let comm_1 = Data.Nat.add.comm b (Data.Nat.add a (Data.Nat.mul a b))
+	// ((a + ab) + b) = (a + (ab + b))
+	let assoc_2 = Prop.Equal.mirror (Data.Nat.add.assoc a (Data.Nat.mul a b) b)
+	// Therefore, (b + (a + ab)) = (a + (ab + b))
+	let chained_1 = Prop.Equal.chain comm_1 assoc_2
+	// (b + (a + ab)) + 1 = (a + (ab + b)) + 1
+	let chained_1 = Prop.Equal.apply (x => Data.Nat.succ x) chained_1
+	
+	
+	// Now we will prove (a + (ab + b)) + 1 = (a + ab) + (b + 1)
+	// (a + ab) + (b + 1) = (b + 1) + (a + ab) = (b + (a + ab)) + 1 
+	// (because of the definition of Data.Nat.add, Data.Nat.succ reassociates automatically)
+	let comm_2 = Data.Nat.add.comm (Data.Nat.add a (Data.Nat.mul a b)) (Data.Nat.succ b)
+	
+	// induction is  a(b + 1) + (b + 1) = (a + ab) + (b + 1)
+	// comm_2 is     (a + ab) + (b + 1) = (b + (a + ab)) + 1 
+	// chained_1 is  (b + (a + ab)) + 1 = (a + (ab + b)) + 1
+	// From this we can get a(b + 1) + (b + 1) = (a + (ab + b)) + 1, which is our goal
+	Prop.Equal.chain induction (Prop.Equal.chain comm_2 chained_1)

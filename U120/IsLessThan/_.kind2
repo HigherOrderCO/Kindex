@@ -1,4 +1,0 @@
-// Propositional `a < b`
-U120.IsLessThan (a: U120) (b: U120) : Type {
-  Equal Bool (U120.less_than a b) Bool.true
-}

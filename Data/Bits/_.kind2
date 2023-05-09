@@ -1,0 +1,11 @@
+// Automatically derived from Data.Bits/_.type
+// Data.Bits : Type
+// Data.Bits.e : (Data.Bits)
+// Data.Bits.o (pred: Data.Bits) : (Data.Bits)
+// Data.Bits.i (pred: Data.Bits) : (Data.Bits)
+#derive[match]
+type Data.Bits { 
+  e
+  o (pred: Data.Bits)
+  i (pred: Data.Bits)
+}

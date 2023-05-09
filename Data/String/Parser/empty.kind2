@@ -1,0 +1,7 @@
+// A parser that always fails with empty error
+Data.String.Parser.empty <a> <t> : Data.String.Parser t a {
+  do Data.String.Parser {
+    ask index = Data.String.Parser.get_index
+    (Data.String.Parser.fail "" index index)
+  }
+}

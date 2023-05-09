@@ -1,0 +1,17 @@
+Data.String.split (str: Data.String) (find: Data.String) : Data.List Data.String {
+  Data.String.split.go str find Data.String.nil
+}
+
+Data.String.split.go (str: Data.String) (find: Data.String) (last: Data.String) : Data.List Data.String
+Data.String.split.go  Data.String.nil        find last = Data.List.pure last
+Data.String.split.go (Data.String.cons x xs) find last =
+  let str = Data.String.cons x xs
+  if Data.String.starts_with str find {
+    let len  = Data.String.length find
+    let drop = Data.String.drop len str
+    let tail = Data.String.split.go drop find Data.String.nil
+    Data.List.cons last tail
+  } else {
+    let next = Data.String.pure x
+    Data.String.split.go xs find (Data.String.concat last next)
+  }

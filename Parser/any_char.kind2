@@ -1,5 +1,0 @@
-// Consumes and returns the head
-// Fail on empty input
-Parser.any_char <t> : Parser t Char {
-  Parser.satisfy ((t: Char) => Bool.true)
-}

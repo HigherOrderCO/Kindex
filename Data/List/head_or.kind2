@@ -1,0 +1,3 @@
+Data.List.head_or <a> (xs: Data.List a) (dflt: a) : a
+Data.List.head_or a (Data.List.nil  a_)           dflt = dflt
+Data.List.head_or a (Data.List.cons a_ head tail) dflt = head

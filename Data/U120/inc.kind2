@@ -1,0 +1,4 @@
+#inline
+Data.U120.inc (n: Data.U120) : Data.U120 {
+  Data.U120.add n (Data.U120.new 0 1)
+}

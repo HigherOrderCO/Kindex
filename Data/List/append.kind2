@@ -1,0 +1,4 @@
+// Adds a value to the end of a list
+Data.List.append <a: Type> (xs: Data.List a) (x: a) : Data.List a
+Data.List.append a (Data.List.nil xs.a)            x = Data.List.pure x
+Data.List.append a (Data.List.cons xs.a xs.h xs.t) x = Data.List.cons xs.h (Data.List.append xs.t x)

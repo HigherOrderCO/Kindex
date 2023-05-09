@@ -1,4 +1,0 @@
-//Gets the first element of a pair
-//example: (Pair.fst Nat (List Nat) (Pair 2 [1,2,3])) ->  2
-Pair.fst <a> <b> (pair: Pair a b) : a
-Pair.fst a b (Pair.new p.a p.b fst snd) = fst

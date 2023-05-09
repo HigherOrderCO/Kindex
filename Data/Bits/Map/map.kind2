@@ -1,0 +1,18 @@
+Data.Bits.Data.Map.map <a> <b> 
+	(func: a -> b) 
+	(map: Data.Bits.Data.Map a)
+: (Data.Bits.Data.Map b)
+
+Data.Bits.Data.Map.map a b func Data.Bits.Data.Map.new = Data.Bits.Data.Map.new
+
+Data.Bits.Data.Map.map a b func (Data.Bits.Data.Map.tie t (Data.Maybe.none) left right) =
+	let value = Data.Maybe.none
+	let left  = Data.Bits.Data.Map.map func left
+	let right = Data.Bits.Data.Map.map func right
+	Data.Bits.Data.Map.tie value left right
+
+Data.Bits.Data.Map.map a b func (Data.Bits.Data.Map.tie t (Data.Maybe.some x value) left right) = 
+	let value = Data.Maybe.some (func value)
+	let left = Data.Bits.Data.Map.map func left
+	let right = Data.Bits.Data.Map.map func right
+	Data.Bits.Data.Map.tie value left right

@@ -1,0 +1,5 @@
+type Apps.Kind.Subst {
+  end
+  unfilled (rest: Apps.Kind.Subst)
+  sub (term: Apps.Kind.Term) (rest: Apps.Kind.Subst)
+}

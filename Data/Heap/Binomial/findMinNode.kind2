@@ -1,16 +1,16 @@
-// Finds the node which contains the minimal value of the heap
-// Maybe returns the rank and root (key) of the node
-Data.Heap.Binomial.findMinNode (pq: Data.Heap.Binomial) : Maybe (Pair U60 U60)
-Data.Heap.Binomial.findMinNode (List.nil  t     ) = Maybe.none
-Data.Heap.Binomial.findMinNode (List.cons t x xs) =
-  Maybe.some (Data.Heap.Binomial.findMinNode.aux xs (Data.Heap.Binomial.Node.rank_root x))
+// Data.Finds the node which contains the minimal value of the heap
+// Data.Maybe returns the rank and root (key) of the node
+Data.Data.Heap.Binomial.findMinNode (pq: Data.Data.Heap.Binomial) : Data.Maybe (Data.Pair Data.U60 Data.U60)
+Data.Data.Heap.Binomial.findMinNode (Data.List.nil  t     ) = Data.Maybe.none
+Data.Data.Heap.Binomial.findMinNode (Data.List.cons t x xs) =
+  Data.Maybe.some (Data.Data.Heap.Binomial.findMinNode.aux xs (Data.Data.Heap.Binomial.Node.rank_root x))
 
-Data.Heap.Binomial.findMinNode.aux (pq: Data.Heap.Binomial) (pair: (Pair U60 U60)) : (Pair U60 U60)
-Data.Heap.Binomial.findMinNode.aux (List.nil  t     ) min_pair = min_pair
-Data.Heap.Binomial.findMinNode.aux (List.cons t x xs) min_pair =
-  (Pair.get (Data.Heap.Binomial.Node.rank_root x) (x_rank => x_root =>
-  (Data.Heap.Binomial.findMinNode.aux2 (U60.less_than x_root (Pair.fst min_pair)) xs min_pair (Pair.new x_rank x_root))))
+Data.Data.Heap.Binomial.findMinNode.aux (pq: Data.Data.Heap.Binomial) (pair: (Data.Pair Data.U60 Data.U60)) : (Data.Pair Data.U60 Data.U60)
+Data.Data.Heap.Binomial.findMinNode.aux (Data.List.nil  t     ) min_pair = min_pair
+Data.Data.Heap.Binomial.findMinNode.aux (Data.List.cons t x xs) min_pair =
+  (Data.Pair.get (Data.Data.Heap.Binomial.Node.rank_root x) (x_rank => x_root =>
+  (Data.Data.Heap.Binomial.findMinNode.aux2 (Data.U60.less_than x_root (Data.Pair.fst min_pair)) xs min_pair (Data.Pair.new x_rank x_root))))
 
-Data.Heap.Binomial.findMinNode.aux2 (b: Bool) (xs: Data.Heap.Binomial) (min: (Pair U60 U60)) (x: (Pair U60 U60)) : (Pair U60 U60)
-Data.Heap.Binomial.findMinNode.aux2 Bool.true  xs min_pair x_pair = (Data.Heap.Binomial.findMinNode.aux xs   x_pair)
-Data.Heap.Binomial.findMinNode.aux2 Bool.false xs min_pair x_pair = (Data.Heap.Binomial.findMinNode.aux xs min_pair)
+Data.Data.Heap.Binomial.findMinNode.aux2 (b: Data.Bool) (xs: Data.Data.Heap.Binomial) (min: (Data.Pair Data.U60 Data.U60)) (x: (Data.Pair Data.U60 Data.U60)) : (Data.Pair Data.U60 Data.U60)
+Data.Data.Heap.Binomial.findMinNode.aux2 Data.Bool.true  xs min_pair x_pair = (Data.Data.Heap.Binomial.findMinNode.aux xs   x_pair)
+Data.Data.Heap.Binomial.findMinNode.aux2 Data.Bool.false xs min_pair x_pair = (Data.Data.Heap.Binomial.findMinNode.aux xs min_pair)

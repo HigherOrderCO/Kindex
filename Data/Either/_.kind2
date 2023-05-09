@@ -1,0 +1,5 @@
+#derive[match]
+type Data.Either (l: Type) (r: Type) {
+  left  (val: l)
+  right (val: r)
+}

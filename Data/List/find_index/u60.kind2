@@ -1,0 +1,12 @@
+Data.List.find_index.u60 <a> (xs: Data.List a) (cond: a -> Data.Bool) : Data.Maybe Data.U60
+Data.List.find_index.u60 a xs cond = Data.List.find_index.u60.go xs cond 0
+
+// Auxiliary function for find_index
+Data.List.find_index.u60.go <a> (xs: Data.List a) (cond: a -> Data.Bool) (idx: Data.U60) : Data.Maybe Data.U60
+Data.List.find_index.u60.go a (Data.List.nil  t)           cond idx = Data.Maybe.none
+Data.List.find_index.u60.go a (Data.List.cons t head tail) cond idx =
+  if cond head {
+    Data.Maybe.some idx
+  } else {
+    Data.List.find_index.u60.go tail cond (+ idx 1)
+  }

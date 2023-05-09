@@ -1,0 +1,5 @@
+use Apps.Kind.Term as Term
+
+// Evaluates an annotation term.
+Term/eval_sub (orig: Data.U60) (name: Data.U60) (indx: Data.U60) (redx: Data.U60) (expr: Apps.Kind.Term) : Apps.Kind.Term
+Term/eval_sub orig name indx redx expr = expr

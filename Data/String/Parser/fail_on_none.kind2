@@ -1,0 +1,12 @@
+// Runs a parser that returns a maybe and try to extract the value
+// Succeeds on some and fails on none
+// The inverse of Data.String.Parser.to_maybe
+Data.String.Parser.fail_on_none <a> <t> (prs: Data.String.Parser t (Data.Maybe a)) : Data.String.Parser t a {
+  do Data.String.Parser {
+    ask ma = prs
+    match Data.Maybe ma {
+      none => Data.String.Parser.empty
+      some => Data.String.Parser.pure ma.value
+    }
+  }
+}

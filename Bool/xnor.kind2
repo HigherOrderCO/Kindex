@@ -1,5 +1,0 @@
-// Given a boolean, returns true if both inputs are identical 
-// Bool.xnor ( Bool.false ) ( Bool.false ) -> Bool.true
-Bool.xnor (a: Bool) (b: Bool) : Bool 
-Bool.xnor Bool.true b = b
-Bool.xnor Bool.false b = (Bool.not b)

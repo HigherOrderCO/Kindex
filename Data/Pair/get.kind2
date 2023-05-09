@@ -1,0 +1,3 @@
+// Get the elements of a pair and apply them to a lambda
+Data.Pair.get <a: Type> <b: Type> <c: Type> (p: (Data.Pair a b)) (fn: a -> b -> c) : c
+Data.Pair.get a1 b1 c1 (Data.Pair.new a2 b2 fst snd) fn = (fn fst snd)

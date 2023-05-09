@@ -1,5 +1,0 @@
-// Returns the size of a list
-// Example: (List.length [1,2,3]) -> 3
-List.length <a> (xs: List a) : Nat
-List.length a (List.nil t)            = Nat.zero
-List.length a (List.cons t head tail) = (Nat.succ (List.length a tail))

@@ -1,7 +1,0 @@
-Bits.or  (a: Bits) (b: Bits) : Bits
-Bits.or  Bits.e b = Bits.e
-Bits.or  a Bits.e = Bits.e
-Bits.or  (Bits.o a) (Bits.o b) = Bits.o(Bits.or a b)
-Bits.or  (Bits.o a) (Bits.i b) = Bits.i(Bits.or a b)
-Bits.or  (Bits.i a) (Bits.o b) = Bits.i(Bits.or a b)
-Bits.or  (Bits.i a) (Bits.i b) = Bits.i(Bits.or a b)

@@ -1,3 +1,0 @@
-U120.div (num: U120) (rem: U120) : U120 {
-  Pair.fst (U120.div_mod num rem)
-}

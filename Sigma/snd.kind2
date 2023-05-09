@@ -1,2 +1,0 @@
-Sigma.snd <a> <b: a -> Type> (s: Sigma a b) : b (Sigma.fst a b s)
-Sigma.snd (Sigma.new x y) = y

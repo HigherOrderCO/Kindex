@@ -1,0 +1,4 @@
+Data.List.sequenceA <a> (xs: Data.List (Data.List a)) : Data.List (Data.List a)
+Data.List.sequenceA a (Data.List.nil  t1)                            = Data.List.nil
+Data.List.sequenceA a (Data.List.cons t1 x (Data.List.nil  t2))           = Data.List.sequenceA.disjoin (Data.List.cons x Data.List.nil)
+Data.List.sequenceA a (Data.List.cons t1 x (Data.List.cons t2 xs.h xs.t)) = Data.List.sequenceA.move x (Data.List.sequenceA.move xs.h (Data.List.sequenceA xs.t))

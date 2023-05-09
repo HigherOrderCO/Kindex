@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Context as Context
+use Apps.Kind.Subst as Subst
+
+// Run the @Apps.Kind.Checker@ with all of the arguments setted to a default value.
+Checker/run <t> (checker: Apps.Kind.Checker t) (rhs: Data.Bool): Apps.Kind.Result t
+Checker/run t checker rhs = checker Context/empty 0 rhs Subst/end Data.List.nil Data.List.nil

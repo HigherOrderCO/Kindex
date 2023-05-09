@@ -1,0 +1,3 @@
+Data.List.is_cons <a> (xs: Data.List a) : Data.Bool
+Data.List.is_cons a (Data.List.nil  t)           = Data.Bool.false
+Data.List.is_cons a (Data.List.cons t head tail) = Data.Bool.true

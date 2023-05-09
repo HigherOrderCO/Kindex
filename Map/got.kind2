@@ -1,3 +1,0 @@
-#inline
-Map.got <a> (map : Map a) (key : U60) : Pair (Bits.Map a) (Maybe a)
-Map.got a map key = Bits.Map.got map (U60.to_bits key)

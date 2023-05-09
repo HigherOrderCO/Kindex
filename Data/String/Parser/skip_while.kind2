@@ -1,0 +1,5 @@
+// Skips characters while they fulfill some condition
+// Returns true if anything was skipped
+Data.String.Parser.skip_while <t> (cond: Data.Char -> Data.Bool) : Data.String.Parser t Data.Bool {
+  Data.String.Parser.to_bool (Data.String.Parser.take_while1 cond)
+}

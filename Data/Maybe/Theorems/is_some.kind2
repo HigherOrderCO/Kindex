@@ -1,0 +1,5 @@
+Data.Maybe.Theorems.is_some <a: Type>
+  (maybe: Data.Maybe a)
+: Type
+Data.Maybe.Theorems.is_some a (Data.Maybe.none t) = Data.Empty
+Data.Maybe.Theorems.is_some a (Data.Maybe.some t val) = Prop.Equal t val val

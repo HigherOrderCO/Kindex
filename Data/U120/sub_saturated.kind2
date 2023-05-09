@@ -1,0 +1,8 @@
+Data.U120.sub_saturated (a: Data.U120) (b: Data.U120) : Data.U120 {
+  if (Data.U120.less_than b a) {
+    (Data.U120.sub a b)
+  }
+  else {
+    (Data.U120.new 0 0)
+  }
+}

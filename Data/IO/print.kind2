@@ -1,0 +1,6 @@
+Data.IO.print (str: Data.String) : Data.IO Data.Unit {
+  do Data.IO {
+    Data.IO.output str
+    return Data.Unit.new
+  }
+}

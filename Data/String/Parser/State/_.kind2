@@ -1,0 +1,7 @@
+#derive[match]
+record Data.String.Parser.State (t) {
+  custom: t
+  left: Data.String
+  back: Data.String
+  index: Data.U60
+}

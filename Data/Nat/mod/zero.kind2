@@ -1,0 +1,4 @@
+// Proof that 0 mod a == 0
+Data.Nat.mod.zero (a: Data.Nat): (Prop.Equal Data.Nat.zero (Data.Nat.mod Data.Nat.zero a))
+Data.Nat.mod.zero Data.Nat.zero = Prop.Equal.refl
+Data.Nat.mod.zero (Data.Nat.succ a.pred) = Data.Nat.sub.equal_zero a.pred

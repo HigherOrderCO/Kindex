@@ -1,0 +1,5 @@
+// Given two different Data.Boolean values, verifies if they are equal
+// Example: (Data.Bool.and Data.Bool.false Data.Bool.true) -> Data.Bool.false
+Data.Bool.and (a: Data.Bool) (b: Data.Bool) : Data.Bool
+Data.Bool.and Data.Bool.true  b = b
+Data.Bool.and Data.Bool.false b = Data.Bool.false

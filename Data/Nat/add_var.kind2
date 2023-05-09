@@ -1,0 +1,4 @@
+Data.Nat.add_var (n: Data.Nat) : (Function.Variadic Data.Nat Data.Nat n) {
+  let acc = (a => b => Data.Nat.add a b) :: Data.Nat -> Data.Nat -> Data.Nat
+  Function.Variadic.foldr acc Data.Nat.zero n
+}

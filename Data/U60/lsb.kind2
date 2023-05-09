@@ -1,0 +1,13 @@
+// Return the index of the least significant set bit
+Data.U60.lsb (n: Data.U60) : Data.Maybe Data.U60
+Data.U60.lsb 0 = Data.Maybe.none
+Data.U60.lsb n = Data.Maybe.some (Data.U60.lsb.go n)
+
+Data.U60.lsb.go (n: Data.U60) : Data.U60
+Data.U60.lsb.go 0 = 0
+Data.U60.lsb.go n =
+  Data.U60.if (& n 1) (
+    0
+  ) (
+    (+ 1 (Data.U60.lsb.go (>> n 1)))
+  )

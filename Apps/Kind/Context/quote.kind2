@@ -1,0 +1,7 @@
+use Apps.Kind.Context as Context
+use Apps.Kind.Term as Term
+
+Context/quote (context: (Apps.Kind.Context)) (sub: (Apps.Kind.Subst)) : (Data.List (Data.Pair Data.U60 (Data.Pair (Term/Quoted) (Data.List (Term/Quoted)))))
+Context/quote (Context/empty) sub                     = []
+Context/quote (Context/entry name type vals rest) sub = 
+    (Data.List.cons (Data.Pair.new name (Data.Pair.new (Term/quote type sub) (Data.List.map vals (x => (Term/quote x sub))))) (Context/quote rest sub))

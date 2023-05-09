@@ -1,0 +1,6 @@
+// Takes a parser of a Data.Maybe, returns true if the result is some, false if none.
+// This can be used to convert the result of a `try` into a boolean,
+// or to convert a `to_maybe` into a `to_bool`.
+Data.String.Parser.is_some <a> <t> (prs: Data.String.Parser t (Data.Maybe a)) : Data.String.Parser t Data.Bool {
+  Data.String.Parser.map ((r: Data.Maybe a) => Data.Maybe.is_some r) prs
+}

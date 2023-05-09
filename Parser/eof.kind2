@@ -1,5 +1,0 @@
-// A parser that succeeds only if there's nothing more to parse
-// Doesn't consume anything
-Parser.eof <t> : Parser t Unit {
-  Parser.not (Parser.look_ahead Parser.any_char)
-}

@@ -1,6 +1,0 @@
-// Insert an element at the given index
-// If the index is larger than the length of the list, insert at the back
-List.insert_at <a> (idx: Nat) (val: a) (xs: List a) : List a
-List.insert_at a  Nat.zero     val xs                      = List.cons val xs
-List.insert_at a (Nat.succ ip) val (List.nil  x.a)         = List.pure val
-List.insert_at a (Nat.succ ip) val (List.cons x.a x.h x.t) = List.cons x.h (List.insert_at ip val x.t)

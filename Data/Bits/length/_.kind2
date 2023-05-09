@@ -1,0 +1,2 @@
+Data.Bits.length (bs: Data.Bits)  : Data.Nat
+Data.Bits.length bs = Data.Bits.length.go  bs Data.Nat.zero

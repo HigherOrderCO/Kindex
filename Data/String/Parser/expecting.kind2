@@ -1,0 +1,23 @@
+// If the given parser fails, replace its error by "Expected `name`", where name is the given value.
+// Marks the initial error index as the one before running the given parser,
+// and the last error index as the one in the error coming from the given parser.
+Data.String.Parser.expecting <a> <t> (prs: Data.String.Parser t a) (name: Data.String) : Data.String.Parser t a {
+  state =>
+    open Data.String.Parser.State state
+    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    // init from the state index before running parser
+    let init  = state.index
+    match Data.String.Parser.Result r = (prs state) {
+      done =>
+        // If parser succeeds, just return the result without changing anything
+        Data.String.Parser.Result.done r.state r.result
+      fail =>
+        // On fail, insert err msg and mark the err range
+        let msg  = Data.String.concat "Expected " name
+        open Data.String.Parser.Error r.error
+        // last from the incoming error
+        let last  = r.error.last
+        let error = Data.String.Parser.Error.new msg init last
+        Data.String.Parser.Result.fail r.state error
+    }
+}

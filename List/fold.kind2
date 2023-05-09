@@ -1,4 +1,0 @@
-// Native List to Church Encoded List
-List.fold <a> <p> (xs: List a) : p -> (a -> p -> p) -> p
-List.fold List.nil              = nil => cons => nil
-List.fold (List.cons head tail) = nil => cons => cons head ((List.fold tail) nil cons)

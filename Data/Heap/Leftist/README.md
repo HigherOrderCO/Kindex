@@ -1,4 +1,4 @@
-# Leftist Heap implementation based on Okasaki's book
+# Leftist Data.Heap implementation based on Okasaki's book
 
 From (Okasaki, 1998): "Leftist heaps are heap-ordered binary trees that satisfy the
 leftist property: the rank of any left child is at least as large as the rank of its

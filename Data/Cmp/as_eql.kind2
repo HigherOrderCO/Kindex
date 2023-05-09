@@ -1,0 +1,4 @@
+Data.Cmp.as_eql (cmp: Data.Cmp) : Data.Bool
+Data.Cmp.as_eql Data.Cmp.ltn = Data.Bool.false
+Data.Cmp.as_eql Data.Cmp.eql = Data.Bool.true
+Data.Cmp.as_eql Data.Cmp.gtn = Data.Bool.false

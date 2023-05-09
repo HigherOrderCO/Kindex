@@ -1,0 +1,5 @@
+#derive[match]
+type Data.Nat {
+  zero
+  succ (pred: Data.Nat)
+}

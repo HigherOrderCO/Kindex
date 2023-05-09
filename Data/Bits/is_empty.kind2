@@ -1,0 +1,3 @@
+Data.Bits.is_empty  (b: Data.Bits) : Data.Bool
+Data.Bits.is_empty  Data.Bits.e = Data.Bool.true
+Data.Bits.is_empty  b      = Data.Bool.false

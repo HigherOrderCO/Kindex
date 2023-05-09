@@ -1,0 +1,7 @@
+Data.U60.for <s: Type> (state: s) (from: Data.U60) (til: Data.U60) (func: Data.U60 -> s -> s) : s {
+  Data.U60.if (== from til) (
+    state
+   ) (
+    Data.U60.for (func from state) (+ 1 from) til func
+   )
+}

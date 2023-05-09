@@ -1,0 +1,7 @@
+Data.List.induce <t: Type> (x: Data.List t)
+  <p: (Data.List t) -> Type>
+  (nil: (p (Data.List.nil t)))
+  (cons: (head: t) -> (tail: Data.List t) -> (tail.ind: (p tail)) -> (p (Data.List.cons t head tail)))
+: (p x)
+Data.List.induce t (Data.List.nil u)            p nil cons = nil
+Data.List.induce t (Data.List.cons u head tail) p nil cons = cons head tail (Data.List.induce t tail p nil cons)

@@ -1,5 +1,0 @@
-// Least common multiple between two numbers
-// Example: Nat.lcm 6 9 -> 18
-Nat.lcm (a: Nat) (b: Nat) : Nat {
-  Nat.div (Nat.mul a b) (Nat.gcd a b)
-}

@@ -1,0 +1,7 @@
+use Apps.Kind.Term as Term
+
+// Checks if a term is a Term/all and then applies the function 'if' to it
+// otherwise it returns 'else'.
+Term/if_all <res> (term: Apps.Kind.Term) (if: Data.U60 -> Data.U60 -> Apps.Kind.Term -> (Apps.Kind.Term -> Apps.Kind.Term) -> res) (else: res) : res
+Term/if_all res (Term/all orig name typ body) func_if else = func_if orig name typ body
+Term/if_all res other                              func_if else = else

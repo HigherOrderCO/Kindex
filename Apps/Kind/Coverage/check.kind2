@@ -1,0 +1,303 @@
+use Apps.Kind.Coverage as Coverage
+use Apps.Kind.Axiom as Axiom
+use Apps.Kind.Error as Error
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Term as Term
+
+#derive[getters, setters]
+record Coverage/Problem {
+    type  : Coverage/Type
+    rows  : Data.List Apps.Kind.Rule
+}
+
+#derive[match]
+type Coverage/Choice {
+    on_cons (name: Apps.Kind.Name)
+    on_Data.U60
+    none
+}
+
+type Coverage/Maker {
+    Cons (name: Data.U60) (ty: Apps.Kind.Term) (body: Apps.Kind.Term -> Coverage/Maker)
+    End (body: Apps.Kind.Term)
+}
+
+type Coverage/Type {
+    cons (orig: Data.U60) (name: Data.U60) (typ: Apps.Kind.Term) (constraints: Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term)) (body: Apps.Kind.Term -> Coverage/Type)
+    end (constraints: Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term)) (ty: Apps.Kind.Term)
+}
+
+Coverage/Type.from_term (term: Apps.Kind.Term) (size: Data.U60) : Coverage/Type
+Coverage/Type.from_term term                               0 = Coverage/Type.end [] term
+Coverage/Type.from_term (Term/all orig name typ body) n = Coverage/Type.cons orig name typ [] (arg => (Coverage/Type.from_term (body arg) (- n 1)))
+Coverage/Type.from_term term                               n = Coverage/Type.end [] term
+
+Coverage/Type.remove_constraints (term: Coverage/Type) : Data.Pair Coverage/Type (Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term))
+Coverage/Type.remove_constraints (Coverage/Type.cons orig name typ constraints body) = Data.Pair.new (Coverage/Type.cons orig name typ [] body) constraints
+Coverage/Type.remove_constraints (Coverage/Type.end constraints body)                = Data.Pair.new (Coverage/Type.end [] body) constraints
+
+Coverage/if_all <res> (term: Coverage/Type) (if: Data.U60 -> Data.U60 -> Apps.Kind.Term -> Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term) -> (Apps.Kind.Term -> Coverage/Type) -> res) (else: Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term) -> res) : res
+Coverage/if_all res (Coverage/Type.cons orig name typ constraints body) func_if else = func_if orig name typ constraints body
+Coverage/if_all res (Coverage/Type.end constraints body)                func_if else = else constraints
+
+#axiom
+Coverage/Maker.Mk (id: Apps.Kind.Name) (orig: Data.U60) (ty: Apps.Kind.Term) : Data.Maybe Coverage/Maker
+
+Coverage/Maker.add_constraint (cover_type: Coverage/Type) (term: Apps.Kind.Term) (type: Apps.Kind.Term) : Coverage/Type
+Coverage/Maker.add_constraint (Coverage/Type.cons orig name typ constraints body) term type = Coverage/Type.cons orig name typ (Data.List.cons (Data.Pair.new term type) constraints) body
+Coverage/Maker.add_constraint (Coverage/Type.end constraints body)                term type = Coverage/Type.end (Data.List.cons (Data.Pair.new term type) constraints) body
+
+Coverage/Maker.make (maker: Coverage/Maker) (type: Apps.Kind.Term) (and_then: Apps.Kind.Term -> Coverage/Type) : Coverage/Type
+Coverage/Maker.make (Coverage/Maker.Cons name typ body) cur_type and_then = Coverage/Type.cons 0 97 typ [] (arg => Coverage/Maker.make (body arg) cur_type and_then)
+Coverage/Maker.make (Coverage/Maker.End other)          cur_type and_then =
+    let name   = Data.Maybe.bind (Coverage/get_name cur_type) (x => let size = Axiom/Family.Indices x; Data.U60.if size (Data.Maybe.some size) Data.Maybe.none)
+    let result = and_then other
+    match Data.Maybe name with result {
+        some => Coverage/Maker.add_constraint result other cur_type
+        none => result
+    }
+
+Coverage/Maker.size (maker: Coverage/Maker) : Data.U60
+Coverage/Maker.size (Coverage/Maker.Cons _ _ body) = (+ 1 (Coverage/Maker.size (body (Term/var 0 0 0))))
+Coverage/Maker.size (Coverage/Maker.End _)         = 0
+
+Coverage/get_name (name: Apps.Kind.Term) : Data.Maybe (Apps.Kind.Name)
+Coverage/get_name (Term/ct0 name _)                              = Data.Maybe.some name
+Coverage/get_name (Term/ct1 name _ _)                            = Data.Maybe.some name
+Coverage/get_name (Term/ct2 name _ _ _)                          = Data.Maybe.some name
+Coverage/get_name (Term/ct3 name _ _ _ _)                        = Data.Maybe.some name
+Coverage/get_name (Term/ct4 name _ _ _ _ _)                      = Data.Maybe.some name
+Coverage/get_name (Term/ct5 name _ _ _ _ _ _)                    = Data.Maybe.some name
+Coverage/get_name (Term/ct6 name _ _ _ _ _ _ _)                  = Data.Maybe.some name
+Coverage/get_name (Term/ct8 name _ _ _ _ _ _ _ _ _)              = Data.Maybe.some name
+Coverage/get_name (Term/ct7 name _ _ _ _ _ _ _ _)                = Data.Maybe.some name
+Coverage/get_name (Term/ct9 name _ _ _ _ _ _ _ _ _ _)            = Data.Maybe.some name
+Coverage/get_name (Term/ct10 name _ _ _ _ _ _ _ _ _ _ _)         = Data.Maybe.some name
+Coverage/get_name (Term/ct11 name _ _ _ _ _ _ _ _ _ _ _ _)       = Data.Maybe.some name
+Coverage/get_name (Term/ct12 name _ _ _ _ _ _ _ _ _ _ _ _ _)     = Data.Maybe.some name
+Coverage/get_name (Term/ct13 name _ _ _ _ _ _ _ _ _ _ _ _ _ _)   = Data.Maybe.some name
+Coverage/get_name (Term/ct14 name _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Data.Maybe.some name
+Coverage/get_name (Term/ct15 name _ _)                           = Data.Maybe.some name
+Coverage/get_name (Term/ct16 name _ _)                           = Data.Maybe.some name
+Coverage/get_name (Term/ct16 name _ _)                           = Data.Maybe.some name
+Coverage/get_name (Term/Data.U60 _)                                   = Data.Maybe.none
+Coverage/get_name _                                                   = Data.Maybe.none
+
+Coverage/craft (n: Data.U60) (rest: Apps.Kind.Rule) : Apps.Kind.Rule
+Coverage/craft 0 rule = rule
+Coverage/craft n rule = Coverage/craft (- n 1) (Apps.Kind.Rule.lhs (Term/var 0 65 0) rule)
+
+Coverage/specialize_rule (name: Apps.Kind.Name) (expr: Apps.Kind.Term) (rest: Apps.Kind.Rule) : Data.Maybe Apps.Kind.Rule
+Coverage/specialize_rule n (Term/ct0 name orig)                                                rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some rule) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct1 name orig x0)                                             rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 rule)) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct2 name orig x0 x1)                                          rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 rule))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct3 name orig x0 x1 x2)                                       rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 rule)))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct4 name orig x0 x1 x2 x3)                                    rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 rule))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct5 name orig x0 x1 x2 x3 x4)                                 rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 rule)))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct6 name orig x0 x1 x2 x3 x4 x5)                              rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 rule))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct7 name orig x0 x1 x2 x3 x4 x5 x6)                           rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 rule)))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct8 name orig x0 x1 x2 x3 x4 x5 x6 x7)                        rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 rule))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct9 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8)                     rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 rule)))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct10 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9)                 rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 rule))))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct11 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10)             rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 (Apps.Kind.Rule.lhs x10 rule)))))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct12 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11)         rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 (Apps.Kind.Rule.lhs x10 (Apps.Kind.Rule.lhs x11 rule))))))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct13 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12)     rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 (Apps.Kind.Rule.lhs x10 (Apps.Kind.Rule.lhs x11 (Apps.Kind.Rule.lhs x12 rule)))))))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct14 name orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13) rule = Data.Bool.if (Axiom/Compare n name) (Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 (Apps.Kind.Rule.lhs x10 (Apps.Kind.Rule.lhs x11 (Apps.Kind.Rule.lhs x12 (Apps.Kind.Rule.lhs x13 rule))))))))))))))) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct15 name orig x0)                                            rule = Data.Bool.if (Axiom/Compare n name) (Coverage/specialize_rule n x0 rule) Data.Maybe.none
+Coverage/specialize_rule n (Term/ct16 name orig x0)                                            rule = Data.Bool.if (Axiom/Compare n name) (Coverage/specialize_rule n x0 rule) Data.Maybe.none
+Coverage/specialize_rule n (Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)     rule = Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 (Apps.Kind.Rule.lhs x10 (Apps.Kind.Rule.lhs x11 (Apps.Kind.Rule.lhs x12 (Apps.Kind.Rule.lhs x13 (Apps.Kind.Rule.lhs x14 rule)))))))))))))))
+Coverage/specialize_rule n (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15) rule = Data.Maybe.some (Apps.Kind.Rule.lhs x0 (Apps.Kind.Rule.lhs x1 (Apps.Kind.Rule.lhs x2 (Apps.Kind.Rule.lhs x3 (Apps.Kind.Rule.lhs x4 (Apps.Kind.Rule.lhs x5 (Apps.Kind.Rule.lhs x6 (Apps.Kind.Rule.lhs x7 (Apps.Kind.Rule.lhs x8 (Apps.Kind.Rule.lhs x9 (Apps.Kind.Rule.lhs x10 (Apps.Kind.Rule.lhs x11 (Apps.Kind.Rule.lhs x12 (Apps.Kind.Rule.lhs x13 (Apps.Kind.Rule.lhs x14 (Apps.Kind.Rule.lhs x15 rule))))))))))))))))
+Coverage/specialize_rule n (Term/var orig name index)                                          rule = Data.Maybe.some (Coverage/craft (Axiom/ArgsCount n) rule)
+Coverage/specialize_rule n _                                                                        rule = Data.Maybe.none
+
+Coverage/split_rule (rule: Apps.Kind.Rule) : Data.Maybe (Data.Pair Apps.Kind.Term Apps.Kind.Rule)
+Coverage/split_rule (Apps.Kind.Rule.lhs term rest) = Data.Maybe.some (Data.Pair.new term rest)
+Coverage/split_rule _ = Data.Maybe.none
+
+Coverage/drop_rule (n: Data.U60) (rule: Apps.Kind.Rule) : Apps.Kind.Rule
+Coverage/drop_rule 0                   rule = rule
+Coverage/drop_rule n (Apps.Kind.Rule.lhs _ rule) = Coverage/drop_rule (- n 1) rule
+
+Coverage/specialize_rules (type_name: Apps.Kind.Name) (name: Apps.Kind.Name) (rules: Data.List Apps.Kind.Rule) : Apps.Kind.Checker (Data.List Apps.Kind.Rule)
+Coverage/specialize_rules type_name name (Data.List.cons rule rules) =
+    do Apps.Kind.Checker {
+        let splitted = Coverage/split_rule rule
+        match Data.Maybe splitted {
+            some value =>
+                do Apps.Kind.Checker {
+                    let params = Axiom/Family.Params type_name
+                    let row    = Coverage/specialize_rule name (Data.Pair.fst value) (Data.Pair.snd value)
+                    ask next   = Coverage/specialize_rules type_name name rules
+                    return Data.Maybe.match row (name_ => _) next (value => Data.List.cons (Coverage/drop_rule params value) next)
+                }
+            none => Coverage/specialize_rules type_name name rules
+        }
+    }
+
+Coverage/specialize_rules type_name name Data.List.nil = Checker/pure Data.List.nil
+
+Checker/generate_var (type: Apps.Kind.Term) : Apps.Kind.Checker Apps.Kind.Term
+Checker/generate_var type =
+    do Apps.Kind.Checker {
+        ask depth = Checker/get_depth
+        Checker/extend 63 type []
+        return Term/var 0 63 depth
+    }
+
+Coverage/specialize_on (type_name: Apps.Kind.Name) (constructor_name: Apps.Kind.Name) (type: Apps.Kind.Term) (body: Apps.Kind.Term -> Coverage/Type) (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/specialize_on type_name constructor_name type body (Coverage/Problem.new current_problem_type rows) =
+    match Data.Maybe maker = Coverage/Maker.Mk constructor_name 0 type {
+        some (value = constructor_maker) =>
+            do Apps.Kind.Checker {
+                let new_type    = Coverage/Maker.make constructor_maker type body
+                let params      = Axiom/Family.Params type_name
+                let args        = Axiom/ArgsCount constructor_name
+                ask new_rows    = Coverage/specialize_rules type_name constructor_name rows
+                let new_problem = Coverage/Problem.new new_type new_rows
+                ask term_result = Coverage/solve new_problem
+                match Data.Maybe term_result {
+                    none => Checker/pure Data.Maybe.none
+                    some (value = scrutinee) =>
+                        let size = Coverage/Maker.size constructor_maker
+                        let took = Data.List.take scrutinee (Data.U60.to_nat size)
+                        let rest = Data.List.drop scrutinee (Data.U60.to_nat size)
+                        let pat  = Term/Quoted.ctr constructor_name 0 took
+                        Checker/pure (Data.Maybe.some (Data.List.cons pat rest))
+                }
+            }
+        none => Checker/pure (Data.Maybe.some Data.List.nil)
+    }
+
+Coverage/specialize_list (type_name: Apps.Kind.Name) (constructors: Data.List Apps.Kind.Name) (type: Apps.Kind.Term) (body: Apps.Kind.Term -> Coverage/Type) (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/specialize_list type_name Data.List.nil              type body problem = Checker/pure Data.Maybe.none
+Coverage/specialize_list type_name (Data.List.cons name rest) type body problem =
+    do Apps.Kind.Checker {
+        ask result = Coverage/specialize_on type_name name type body problem
+        match Data.Maybe result {
+            some => Checker/pure (Data.Maybe.some result.value)
+            none => Coverage/specialize_list type_name rest type body problem
+        }
+    }
+
+Coverage/intro_or_incomplete (type: Apps.Kind.Term) (body: Apps.Kind.Term -> Coverage/Type) (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/intro_or_incomplete type body (Coverage/Problem.new cur_type rows) =
+    let problem = (Coverage/Problem.new cur_type rows)
+    if Data.List.any (Coverage/Problem.rows.get problem) (x => Coverage/Row.catches x) {
+        Coverage/intro_all type body problem
+    } else {
+        do Apps.Kind.Checker {
+            ask var = Checker/generate_var type
+            let new_problem = (Coverage/Problem.new (body var) [])
+            ask term_result = Coverage/solve (Coverage/Problem.rows.set new_problem [])
+            return Data.Maybe.map (scrutinee => Data.List.cons (Term/Quoted.var 0 63 0) scrutinee) term_result
+        }
+    }
+
+Coverage/specialize (type: Apps.Kind.Term) (body: Apps.Kind.Term -> Coverage/Type) (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/specialize type body (Coverage/Problem.new cur_type rows) =
+    let problem = (Coverage/Problem.new cur_type rows)
+    (Data.Maybe.default
+        (do Data.Maybe {
+            ask type_name    = Coverage/get_name type
+            ask constructors = Axiom/Family.Constructors type_name
+            return Coverage/specialize_list type_name constructors type body problem
+        })
+        (Coverage/intro_or_incomplete type body problem))
+
+Coverage/count_forall (type: Coverage/Type) (acc: Data.Nat) : Data.Nat
+Coverage/count_forall (Coverage/Type.cons _ _ _ _ body) acc = Coverage/count_forall (body (Term/var 0 63 0)) (Data.Nat.succ acc)
+Coverage/count_forall _                                      acc = acc
+
+
+Coverage/Constraint.show (n: Data.Pair Apps.Kind.Term Apps.Kind.Term) : Data.String
+Coverage/Constraint.show (Data.Pair.new fst snd) = Apps.Kind.Printer.text [(Term/show fst) "/?" (Term/show snd)]
+
+Coverage/Constraints.show (n: Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term)) : Data.String
+Coverage/Constraints.show ls = Apps.Kind.Printer.text ["[" (Apps.Kind.Printer.text (Data.List.intersperse ", " (Data.List.map ls (x => Coverage/Constraint.show x)))) "]"]
+
+Coverage/solve_constraints (constraints: Data.List (Data.Pair Apps.Kind.Term Apps.Kind.Term)) : Apps.Kind.Checker Data.Bool
+Coverage/solve_constraints Data.List.nil = Checker/pure Data.Bool.true
+Coverage/solve_constraints (Data.List.cons pair xs) =
+    do Apps.Kind.Checker {
+        let expected_type = Data.Pair.snd pair
+        ask infered_type  = Checker/infer (Data.Pair.fst pair)
+        ask result        = Checker/equal expected_type infered_type
+        if result {
+            Coverage/solve_constraints xs
+        } else {
+            Checker/pure Data.Bool.false
+        }
+    }
+
+
+Coverage/done (problem: Coverage/Problem) (or_else: Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/done (Coverage/Problem.new type rows) or_else =
+    do Apps.Kind.Checker {
+        let result      = Coverage/Type.remove_constraints type
+        let type_res    = Data.Pair.fst result
+        let constraints = Data.Pair.snd result
+        ask solved      = Coverage/solve_constraints constraints
+        if solved {
+            or_else
+        } else {
+            Checker/pure Data.Maybe.none
+        }
+    }
+
+Coverage/Row.catches (row: Apps.Kind.Rule) : Data.Bool
+Coverage/Row.catches (Apps.Kind.Rule.lhs (Term/var _ _ _) _) = Data.Bool.true
+Coverage/Row.catches _                                       = Data.Bool.false
+
+Coverage/catches (problem: Coverage/Problem) : Data.Bool
+Coverage/catches (Coverage/Problem.new type rows) = Data.Bool.and (Data.List.all rows (x => Coverage/Row.catches x)) (Data.List.is_cons rows)
+
+Coverage/Row.intro_all (row: Apps.Kind.Rule) : Apps.Kind.Rule
+Coverage/Row.intro_all (Apps.Kind.Rule.lhs term rule) = rule
+Coverage/Row.intro_all rule                      = rule
+
+Coverage/intro_all (type: Apps.Kind.Term) (body: Apps.Kind.Term -> Coverage/Type) (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/intro_all type body (Coverage/Problem.new _ rows) =
+    do Apps.Kind.Checker {
+        ask var         = Checker/generate_var type
+        let new_type    = body var
+        let new_rows    = Data.List.map rows (x => Coverage/Row.intro_all x)
+        let new_problem = Coverage/Problem.new new_type new_rows
+        ask term_result = Coverage/solve new_problem
+        return Data.Maybe.map (scrutinee => Data.List.cons (Term/Quoted.var 0 63 0) scrutinee) term_result
+    }
+
+Coverage/solve (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
+Coverage/solve problem =
+    let type = (Coverage/Problem.type.get problem)
+    (Checker/local (Coverage/done (HVM.log problem problem)
+        (Coverage/if_all
+            type
+            (orig_ => name_ => type => constraints => body =>
+                (Data.Bool.if
+                    (Coverage/catches problem)
+                    (Coverage/intro_all type body problem)
+                    (Coverage/specialize (Term/eval type) body problem)))
+            (constraint =>
+                if Data.List.is_nil (Coverage/Problem.rows.get problem) {
+                    Checker/pure (Data.Maybe.some [])
+                } else {
+                    Checker/pure Data.Maybe.none
+                }))))
+
+Coverage/check (function_id: Apps.Kind.Name): Apps.Kind.Checker Data.Unit
+Coverage/check fnid =
+    do Apps.Kind.Checker {
+        Checker/set_right_hand_side Data.Bool.false
+        let rules    = Axiom/RuleOf fnid
+        let type     = Axiom/TypeOf fnid
+        let size     = Axiom/ArgsCount fnid
+        let new_type = Coverage/Type.from_term type size
+        let problem  = Coverage/Problem.new new_type rules
+        ask result   = Coverage/solve problem
+        ask ctx      = Checker/get_context
+        match Data.Maybe result {
+            some => Checker/fail (Error/uncovered_pattern ctx (Axiom/OrigOf fnid) result.value)
+            none => Checker/pure Data.Unit.new
+        }
+        return Data.Unit.new
+    }

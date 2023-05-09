@@ -1,7 +1,0 @@
-// Takes n bits from the bit structure
-// Example (Bits.take 2 (Bits.i (Bits.o (Bits.i Bits.e))) -> (Bits.i (Bits.o Bits.e))
-Bits.take (n: Nat) (b: Bits): Bits
-Bits.take (Nat.zero)        (b)             = (Bits.e)
-Bits.take (Nat.succ n.pred) (Bits.e)        = (Bits.e)
-Bits.take (Nat.succ n.pred) (Bits.o b.pred) = (Bits.o (Bits.take n.pred b.pred))
-Bits.take (Nat.succ n.pred) (Bits.i b.pred) = (Bits.i (Bits.take n.pred b.pred))

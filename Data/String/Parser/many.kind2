@@ -1,0 +1,14 @@
+// Applies a parser repeatedly until it fails
+// Returns a list of all results
+Data.String.Parser.many <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t (Data.List a) {
+  do Data.String.Parser {
+    ask mh = Data.String.Parser.try prs
+    match Data.Maybe mh {
+      none => Data.String.Parser.pure []
+      some value => do Data.String.Parser {
+        ask tail = Data.String.Parser.many prs
+        return Data.List.cons value tail
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+use Apps.Kind.Context as Context
+
+// Adds a new entry to the end of the @Apps.Kind.Context@
+Context/extend (prev: Apps.Kind.Context) (name: Data.U60) (term: Apps.Kind.Term) (ls: Data.List Apps.Kind.Term): Apps.Kind.Context
+Context/extend Context/empty              name type values = Context/entry name type values Context/empty
+Context/extend (Context/entry n t v rest) name type values = Context/entry n t v (Context/extend rest name type values)

@@ -1,0 +1,5 @@
+// Negates all elements of a Data.Boolean Data.List
+// Example : (Data.List.negate [Data.Bool.false, Data.Bool.false]) -> [Data.Bool.true, Data.Bool.true]
+Data.List.negate (xs: Data.List Data.Bool) : Data.List Data.Bool
+Data.List.negate (Data.List.nil Data.Bool)            = Data.List.nil
+Data.List.negate (Data.List.cons Data.Bool head tail) = Data.List.cons Data.Bool (Data.Bool.not head) (Data.List.negate tail)

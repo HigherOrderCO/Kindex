@@ -1,0 +1,5 @@
+use Apps.Kind.Term as Term
+
+// Evaluates a let term.
+Term/eval_let (orig: Data.U60) (name: Data.U60) (expr: Apps.Kind.Term) (body: Apps.Kind.Term -> Apps.Kind.Term): Apps.Kind.Term
+Term/eval_let orig name expr body = body expr

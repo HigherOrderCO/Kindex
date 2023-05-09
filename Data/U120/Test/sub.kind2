@@ -1,0 +1,3 @@
+Main {
+  Data.U120.sub (Data.U120.new 2 1000) (Data.U120.new 0 1001) 
+}

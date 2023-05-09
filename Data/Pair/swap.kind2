@@ -1,0 +1,2 @@
+Data.Pair.swap <a: Type> <b:Type> (pair: Data.Pair a b) : (Data.Pair b a)
+Data.Pair.swap a1 b1 (Data.Pair.new a2 b2 fst snd) = Data.Pair.new snd fst

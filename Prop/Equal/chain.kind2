@@ -1,0 +1,2 @@
+Prop.Equal.chain <t> <a: t> <b: t> <c: t> (e0: Prop.Equal t a b) (e1: Prop.Equal t b c) : Prop.Equal t a c
+Prop.Equal.chain t a b c e0 (Prop.Equal.refl u x) = e0 :: Prop.Equal t a x

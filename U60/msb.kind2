@@ -1,9 +1,0 @@
-// Return the index of the most significant set bit
-U60.msb (n: U60) : Maybe U60
-U60.msb 0 = Maybe.none
-U60.msb n = Maybe.some (- (U60.msb.go n) 1)
-
-
-U60.msb.go (n: U60) : U60
-U60.msb.go 0 = 0
-U60.msb.go n = (+ 1 (U60.msb.go (>> n 1)))

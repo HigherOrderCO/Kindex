@@ -1,0 +1,8 @@
+Data.List.cat_maybes <a> (l: Data.List (Data.Maybe a)) : Data.List a
+Data.List.cat_maybes (Data.List.cons x xs) =
+    match Data.Maybe x {
+        some value => Data.List.cons value (Data.List.cat_maybes xs)
+        none => Data.List.cat_maybes xs
+    }
+
+Data.List.cat_maybes Data.List.nil = Data.List.nil

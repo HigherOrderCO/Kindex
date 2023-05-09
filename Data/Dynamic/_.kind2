@@ -1,0 +1,5 @@
+// Automatically derived from Data.Dynamic/_.type
+#derive[match]
+type Data.Dynamic {
+	new <a> (value: a)
+}

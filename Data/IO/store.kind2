@@ -1,0 +1,3 @@
+Data.IO.store (key: Data.String) (val: Data.String) : Data.IO Data.U60 {
+  Data.IO.do_store key val (x => Data.IO.done x)
+}

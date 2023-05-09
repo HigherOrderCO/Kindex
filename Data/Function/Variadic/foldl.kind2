@@ -1,0 +1,3 @@
+Data.Function.Variadic.foldl <r> <p> (acc: p -> r -> p) (b: p) (n: Data.Nat) : Data.Function.Variadic r p n
+Data.Function.Variadic.foldl r p acc b  Data.Nat.zero     = b
+Data.Function.Variadic.foldl r p acc b (Data.Nat.succ n)  = x => Data.Function.Variadic.foldl acc (acc b x) n

@@ -1,6 +1,0 @@
-#derive[match]
-type Cmp {
-  ltn
-  eql
-  gtn
-}

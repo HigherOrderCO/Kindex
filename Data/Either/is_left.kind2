@@ -1,0 +1,3 @@
+Data.Either.is_left <l> <r> (x: Data.Either l r) : Data.Bool
+Data.Either.is_left l r (Data.Either.left  l_ r_ val) = Data.Bool.true
+Data.Either.is_left l r (Data.Either.right l_ r_ val) = Data.Bool.false

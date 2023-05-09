@@ -1,0 +1,7 @@
+use Apps.Kind.Checker as Checker
+use Apps.Kind.Result as Result
+
+// Gets if the @Apps.Kind.Checker@ is on the right hand side mode.
+Checker/get_right_hand_side : Apps.Kind.Checker Data.Bool
+Checker/get_right_hand_side = context => depth => rhs => subst => eqts => errs =>
+  Result/checked context depth rhs subst eqts errs rhs

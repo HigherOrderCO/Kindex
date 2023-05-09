@@ -1,0 +1,7 @@
+Data.U120.num_greater_than (a: Data.U120) (b: Data.U120) : Data.U120
+Data.U120.num_greater_than (Data.U120.new ahi alo) (Data.U120.new bhi blo) =
+  Data.U60.if (== ahi bhi) (
+    Data.U120.new 0 (> alo blo)
+  ) (
+    Data.U120.new 0 (> ahi bhi)
+  )

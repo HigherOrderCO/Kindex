@@ -1,5 +1,0 @@
-String.concat.semigroup : Algebra.Semigroup String
-String.concat.semigroup =
-  (Algebra.Semigroup.new
-    String.concat.magma
-    (a => b => c => Equal.mirror (String.concat.assoc a b c)))

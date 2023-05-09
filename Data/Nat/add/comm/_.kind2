@@ -1,0 +1,51 @@
+// Proof: a == a + 0
+Data.Nat.add.comm.zero (a: Data.Nat) : Prop.Equal Data.Nat a (Data.Nat.add a Data.Nat.zero)
+// goal: 0 == 0
+Data.Nat.add.comm.zero Data.Nat.zero =
+  // 0 == 0
+  let ret = Prop.Equal.refl
+  ret
+// goal: S a == S (a + 0)
+Data.Nat.add.comm.zero (Data.Nat.succ a) =
+  // a == a + 0
+  let ind = (Data.Nat.add.comm.zero a)
+  // S a == S (a + 0)
+  let app = Prop.Equal.apply (x => Data.Nat.succ x) ind
+  app
+
+// Proof (a + 1) + b = a + (b + 1)
+Data.Nat.add.comm.succ (a: Data.Nat) (b: Data.Nat) : Prop.Equal Data.Nat (Data.Nat.add a (Data.Nat.succ b)) (Data.Nat.succ (Data.Nat.add a b))
+// goal: S b == S b
+Data.Nat.add.comm.succ Data.Nat.zero b =
+  // S b == S b
+  let ret = Prop.Equal.refl
+  ret
+// goal: S (a + S b) == S (S (a + b))
+Data.Nat.add.comm.succ (Data.Nat.succ a) b =
+  // a + S b == S (a + b)
+  let ind = Data.Nat.add.comm.succ a b
+  // S (a + S b) == S (S (a + b))
+  let app = Prop.Equal.apply (x => Data.Nat.succ x) ind
+  app
+
+// Proof: a + b == b + a
+Data.Nat.add.comm (a: Data.Nat) (b: Data.Nat) : Prop.Equal Data.Nat (Data.Nat.add a b) (Data.Nat.add b a)
+// goal: b == (b + 0)
+Data.Nat.add.comm Data.Nat.zero b =
+  // b == (b + 0)
+  let aux = Data.Nat.add.comm.zero b
+  aux
+// goal: S (a + b) == b + (S a)
+Data.Nat.add.comm (Data.Nat.succ a) b =
+  // a + b == b + a
+  let ind = (Data.Nat.add.comm a b)
+  // S (a + b) == S (b + a)
+  let app = (Prop.Equal.apply (x => Data.Nat.succ x) ind)
+  // b + (S a) == S (b + a)
+  let aux = (Data.Nat.add.comm.succ b a)
+  // S (b + a) == b + (S a)
+  let mir = (Prop.Equal.mirror aux)
+  // S (a + b) == S (b + a)
+  let ret = (Prop.Equal.chain app mir)
+  ret
+

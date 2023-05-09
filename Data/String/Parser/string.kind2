@@ -1,0 +1,11 @@
+// Succeeds if the text starts with the given string
+Data.String.Parser.string <t> (str: Data.String) : Data.String.Parser t Data.Unit {
+  Data.String.Parser.expecting (Data.String.Parser.string.go str) str
+}
+
+Data.String.Parser.string.go <t> (str: Data.String) : Data.String.Parser t Data.Unit
+Data.String.Parser.string.go  Data.String.nil       = Data.String.Parser.pure Data.Unit.new
+Data.String.Parser.string.go (Data.String.cons h t) = do Data.String.Parser {
+  Data.String.Parser.char h
+  (Data.String.Parser.string.go t)
+}

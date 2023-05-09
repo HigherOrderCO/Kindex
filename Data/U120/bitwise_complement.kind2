@@ -1,0 +1,3 @@
+Data.U120.bitwise_complement (n: Data.U120) : Data.U120 {
+  Data.U120.bitwise_xor n Data.U120.max_val
+}

@@ -1,0 +1,7 @@
+Data.U60.range (start: Data.U60) (stop: Data.U60) (step: Data.U60) : (Data.List Data.U60)
+Data.U60.range start stop step =
+  if (Data.U60.greater_than start stop) {
+    Data.List.nil
+  } else {
+    Data.List.cons start (Data.U60.range (+ start step) stop step)
+  }

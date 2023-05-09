@@ -1,0 +1,3 @@
+Data.U120.mod (num: Data.U120) (den: Data.U120) : Data.U120 {
+  Data.Pair.snd (Data.U120.div_mod num den)
+}

@@ -1,0 +1,3 @@
+Data.String.to_char (str: Data.String) : Data.Char
+Data.String.to_char  Data.String.nil       = 0
+Data.String.to_char (Data.String.cons h t) = h

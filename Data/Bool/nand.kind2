@@ -1,0 +1,5 @@
+// Given a boolean, returns false only if both inputs are true
+// Data.Bool.nand ( Data.Bool.false ) ( Data.Bool.false ) -> Data.Bool.true
+Data.Bool.nand (a: Data.Bool) (b: Data.Bool) : Data.Bool 
+Data.Bool.nand Data.Bool.true Data.Bool.true = Data.Bool.false 
+Data.Bool.nand a b = Data.Bool.true 

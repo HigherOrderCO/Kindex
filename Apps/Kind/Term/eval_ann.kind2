@@ -1,0 +1,5 @@
+use Apps.Kind.Term as Term
+
+// Evaluates an annotation term.
+Term/eval_ann (orig: Data.U60) (expr: Apps.Kind.Term) (type: Apps.Kind.Term): Apps.Kind.Term
+Term/eval_ann orig expr type = expr

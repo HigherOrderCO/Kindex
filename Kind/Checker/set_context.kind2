@@ -1,6 +1,0 @@
-use Kind.Checker as Checker
-use Kind.Result as Result
-
-Checker/set_context (new_context: Kind.Context) : Kind.Checker Kind.Context
-Checker/set_context new_context = old_context => depth => rhs => subst => eqts => errs =>
-  Result/checked new_context depth rhs subst eqts errs old_context

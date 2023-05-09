@@ -1,0 +1,5 @@
+// Least common multiple between two numbers
+// Example: Data.Nat.lcm 6 9 -> 18
+Data.Nat.lcm (a: Data.Nat) (b: Data.Nat) : Data.Nat {
+  Data.Nat.div (Data.Nat.mul a b) (Data.Nat.gcd a b)
+}

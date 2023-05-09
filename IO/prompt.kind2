@@ -1,7 +1,0 @@
-IO.prompt (question: String) : IO String {
-  do IO {
-    IO.output question
-    ask answer = IO.input
-    return answer
-  }
-}

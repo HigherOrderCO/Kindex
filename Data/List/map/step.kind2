@@ -1,0 +1,7 @@
+Data.List.map.step <a> <b>
+  (x  : a)
+  (xs : Data.List a)
+  (f  : a -> b)
+: Prop.Equal (Data.List.cons (f x) (Data.List.map xs f)) (Data.List.map (Data.List.cons x xs) f)
+Data.List.map.step a b x (Data.List.nil  xs.a)           f = Prop.Equal.refl
+Data.List.map.step a b x (Data.List.cons xs.a xs.h xs.t) f = Prop.Equal.refl

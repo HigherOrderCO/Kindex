@@ -1,0 +1,11 @@
+Prop.Equal.and
+  <t1: Type> <a1: t1> <b1: t1>
+  <t2: Type> <a2: t2> <b2: t2>
+  (e1: Prop.Equal t1 a1 b1)
+  (e2: Prop.Equal t2 a2 b2)
+: Prop.Equal (Data.Pair.new t1 t2 a1 a2) (Data.Pair.new t1 t2 b1 b2) {
+  let p = Prop.Equal.refl
+  let p = Prop.Equal.rewrite e1 (x => Prop.Equal _ (Data.Pair.new x a2)) p
+  let p = Prop.Equal.rewrite e2 (x => Prop.Equal _ (Data.Pair.new b1 x)) p
+  p
+}

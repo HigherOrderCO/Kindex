@@ -1,0 +1,5 @@
+// Divides a number by two
+Data.Nat.half (n: Data.Nat) : Data.Nat
+Data.Nat.half  Data.Nat.zero                  = Data.Nat.zero
+Data.Nat.half (Data.Nat.succ  Data.Nat.zero)       = Data.Nat.zero
+Data.Nat.half (Data.Nat.succ (Data.Nat.succ pred)) = Data.Nat.succ (Data.Nat.half pred)

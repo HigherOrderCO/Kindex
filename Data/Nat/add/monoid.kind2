@@ -1,0 +1,6 @@
+Data.Nat.add.monoid : Algebra.Monoid Data.Nat
+Data.Nat.add.monoid =
+  (Algebra.Monoid.new
+    Data.Nat.add.semigroup
+    Data.Nat.zero
+    Data.Nat.add.identity)

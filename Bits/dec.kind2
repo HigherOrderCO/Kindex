@@ -1,8 +1,0 @@
-Bits.dec (b: Bits) : Bits
-Bits.dec Bits.e = Bits.e 
-Bits.dec (Bits.o (Bits.e)) = Bits.e
-Bits.dec (Bits.i (Bits.e)) = Bits.o (Bits.e)
-Bits.dec (Bits.i (Bits.o b.pred)) = Bits.o b.pred
-Bits.dec (Bits.i (Bits.i b.pred)) = Bits.o b.pred
-Bits.dec (Bits.o (Bits.o b.pred)) = Bits.i (Bits.dec b.pred)
-Bits.dec (Bits.o (Bits.i b.pred)) = Bits.i (Bits.dec b.pred)

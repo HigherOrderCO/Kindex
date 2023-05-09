@@ -1,0 +1,3 @@
+Data.Char.repeat (c: Data.Char) (n: Data.Nat) : Data.String
+Data.Char.repeat c  Data.Nat.zero    = Data.String.nil
+Data.Char.repeat c (Data.Nat.succ n) = Data.String.cons c (Data.Char.repeat c n)

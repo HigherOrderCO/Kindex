@@ -1,0 +1,3 @@
+Data.Nat.square (a: Data.Nat) : Data.Nat {
+  Data.Nat.mul a a
+}

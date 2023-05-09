@@ -1,4 +1,0 @@
-// n!
-Nat.factorial (n: Nat): Nat 
-Nat.factorial  Nat.zero    = Nat.one
-Nat.factorial (Nat.succ n) = Nat.mul (Nat.succ n) (Nat.factorial n)

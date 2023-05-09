@@ -1,0 +1,8 @@
+Data.String.trim_left (xs: Data.String) : Data.String
+Data.String.trim_left  Data.String.nil        = Data.String.nil
+Data.String.trim_left (Data.String.cons x xs) =
+  if Data.Char.is_whitespace x {
+    Data.String.trim_left xs
+  } else {
+    (Data.String.cons x xs)
+  }

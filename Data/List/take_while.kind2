@@ -1,0 +1,8 @@
+Data.List.take_while <a> (cond: a -> Data.Bool) (xs: Data.List a) : Data.List a
+Data.List.take_while a cond (Data.List.nil  a_) = Data.List.nil
+Data.List.take_while a cond (Data.List.cons a_ x xs) =
+  if (cond x) {
+    Data.List.cons x (Data.List.take_while cond xs)
+  } else {
+    Data.List.nil
+  }
