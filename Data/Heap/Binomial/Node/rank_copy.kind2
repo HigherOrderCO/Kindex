@@ -1,3 +1,3 @@
-Data.Data.Heap.Binomial.Node.rank_copy (n: Data.Data.Heap.Binomial.Node) : (Data.Pair Data.U60 Data.Data.Heap.Binomial.Node)
-Data.Data.Heap.Binomial.Node.rank_copy (Data.Data.Heap.Binomial.Node.new rank root children) =
-  Data.Pair.new rank (Data.Data.Heap.Binomial.Node.new rank root children)
+Data.Heap.Binomial.Node.rank_copy (n: Data.Heap.Binomial.Node) : (Data.Pair Data.U60 Data.Heap.Binomial.Node)
+Data.Heap.Binomial.Node.rank_copy (Data.Heap.Binomial.Node.new rank root children) =
+  Data.Pair.new rank (Data.Heap.Binomial.Node.new rank root children)

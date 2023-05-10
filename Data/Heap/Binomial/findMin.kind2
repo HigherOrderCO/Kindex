@@ -1,10 +1,10 @@
 // Data.Finds the minimal element of the heap
 // Returns Data.Maybe.none if the heap is empty
-Data.Data.Heap.Binomial.findMin (pq: Data.Data.Heap.Binomial) : Data.Maybe Data.U60
-// Data.Data.Heap.Binomial.findMin (Data.List.nil t) = (Data.Maybe.none Data.U60)
-Data.Data.Heap.Binomial.findMin pq =
-  Data.Data.Heap.Binomial.findMin.aux (Data.Data.Heap.Binomial.findMinNode pq)
+Data.Heap.Binomial.findMin (pq: Data.Heap.Binomial) : Data.Maybe Data.U60
+// Data.Heap.Binomial.findMin (Data.List.nil t) = (Data.Maybe.none Data.U60)
+Data.Heap.Binomial.findMin pq =
+  Data.Heap.Binomial.findMin.aux (Data.Heap.Binomial.findMinNode pq)
 
-Data.Data.Heap.Binomial.findMin.aux (x: Data.Maybe (Data.Pair Data.U60 Data.U60)) : Data.Maybe Data.U60
-Data.Data.Heap.Binomial.findMin.aux (Data.Maybe.none t    ) = Data.Maybe.none
-Data.Data.Heap.Binomial.findMin.aux (Data.Maybe.some t val) = Data.Maybe.some (Data.Pair.snd val)
+Data.Heap.Binomial.findMin.aux (x: Data.Maybe (Data.Pair Data.U60 Data.U60)) : Data.Maybe Data.U60
+Data.Heap.Binomial.findMin.aux (Data.Maybe.none t    ) = Data.Maybe.none
+Data.Heap.Binomial.findMin.aux (Data.Maybe.some t val) = Data.Maybe.some (Data.Pair.snd val)

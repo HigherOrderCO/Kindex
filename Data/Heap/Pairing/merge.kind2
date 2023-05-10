@@ -1,10 +1,10 @@
 // Merge
-Data.Data.Heap.Data.Pairing.merge (pq1: Data.Data.Heap.Data.Pairing) (pq2: Data.Data.Heap.Data.Pairing) : Data.Data.Heap.Data.Pairing
-Data.Data.Heap.Data.Pairing.merge Data.Data.Heap.Data.Pairing.empty pq = pq
-Data.Data.Heap.Data.Pairing.merge pq Data.Data.Heap.Data.Pairing.empty = pq
-Data.Data.Heap.Data.Pairing.merge (Data.Data.Heap.Data.Pairing.tree x pqs1) (Data.Data.Heap.Data.Pairing.tree y pqs2) =
+Data.Heap.Pairing.merge (pq1: Data.Heap.Pairing) (pq2: Data.Heap.Pairing) : Data.Heap.Pairing
+Data.Heap.Pairing.merge Data.Heap.Pairing.empty pq = pq
+Data.Heap.Pairing.merge pq Data.Heap.Pairing.empty = pq
+Data.Heap.Pairing.merge (Data.Heap.Pairing.tree x pqs1) (Data.Heap.Pairing.tree y pqs2) =
   (Data.U60.if
     (> y x)
-    (Data.Data.Heap.Data.Pairing.tree x (Data.List.cons (Data.Data.Heap.Data.Pairing.tree y pqs2) pqs1))
-    (Data.Data.Heap.Data.Pairing.tree y (Data.List.cons (Data.Data.Heap.Data.Pairing.tree x pqs1) pqs2))
+    (Data.Heap.Pairing.tree x (Data.List.cons (Data.Heap.Pairing.tree y pqs2) pqs1))
+    (Data.Heap.Pairing.tree y (Data.List.cons (Data.Heap.Pairing.tree x pqs1) pqs2))
   )

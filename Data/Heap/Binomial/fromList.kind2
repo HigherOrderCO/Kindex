@@ -1,4 +1,4 @@
 // Creates a heap using a list of natural numbers
-Data.Data.Heap.Binomial.fromData.List (xs: (Data.List Data.U60)) : Data.Data.Heap.Binomial
-Data.Data.Heap.Binomial.fromData.List (Data.List.nil  t     ) = Data.Data.Heap.Binomial.nil
-Data.Data.Heap.Binomial.fromData.List (Data.List.cons t x xs) = Data.Data.Heap.Binomial.insert x (Data.Data.Heap.Binomial.fromData.List xs)
+Data.Heap.Binomial.fromData.List (xs: (Data.List Data.U60)) : Data.Heap.Binomial
+Data.Heap.Binomial.fromData.List (Data.List.nil  t     ) = Data.Heap.Binomial.nil
+Data.Heap.Binomial.fromData.List (Data.List.cons t x xs) = Data.Heap.Binomial.insert x (Data.Heap.Binomial.fromData.List xs)

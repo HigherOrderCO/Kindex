@@ -1,36 +1,36 @@
 // Merge together two heaps
-Data.Data.Heap.Binomial.merge (pq1: Data.Data.Heap.Binomial) (pq2: Data.Data.Heap.Binomial) : Data.Data.Heap.Binomial
-Data.Data.Heap.Binomial.merge pq (Data.List.nil t) = pq
-Data.Data.Heap.Binomial.merge (Data.List.nil t) pq = pq
-Data.Data.Heap.Binomial.merge (Data.List.cons t1 x xs) (Data.List.cons t2 y ys) =
-  (Data.Pair.get (Data.Data.Heap.Binomial.Node.rank_copy x) (x_rank => x_copy =>
-  (Data.Pair.get (Data.Data.Heap.Binomial.Node.rank_copy y) (y_rank => y_copy =>
-  (Data.Data.Heap.Binomial.merge.aux
+Data.Heap.Binomial.merge (pq1: Data.Heap.Binomial) (pq2: Data.Heap.Binomial) : Data.Heap.Binomial
+Data.Heap.Binomial.merge pq (Data.List.nil t) = pq
+Data.Heap.Binomial.merge (Data.List.nil t) pq = pq
+Data.Heap.Binomial.merge (Data.List.cons t1 x xs) (Data.List.cons t2 y ys) =
+  (Data.Pair.get (Data.Heap.Binomial.Node.rank_copy x) (x_rank => x_copy =>
+  (Data.Pair.get (Data.Heap.Binomial.Node.rank_copy y) (y_rank => y_copy =>
+  (Data.Heap.Binomial.merge.aux
     (Data.U60.spaceship x_rank y_rank)
-    (Data.Data.Heap.Binomial.cons x_copy xs)
-    (Data.Data.Heap.Binomial.cons y_copy ys)
+    (Data.Heap.Binomial.cons x_copy xs)
+    (Data.Heap.Binomial.cons y_copy ys)
   )))))
 
-Data.Data.Heap.Binomial.merge.aux (c: Data.Cmp) (xs: Data.Data.Heap.Binomial) (ys: Data.Data.Heap.Binomial): Data.Data.Heap.Binomial
-Data.Data.Heap.Binomial.merge.aux Data.Cmp.ltn (Data.List.cons t x xs) ys =
-  (Data.Data.Heap.Binomial.cons x (Data.Data.Heap.Binomial.merge xs ys))
-Data.Data.Heap.Binomial.merge.aux Data.Cmp.gtn xs (Data.List.cons t y ys) =
-  (Data.Data.Heap.Binomial.cons y (Data.Data.Heap.Binomial.merge xs ys))
-Data.Data.Heap.Binomial.merge.aux Data.Cmp.eql (Data.List.cons t1 x xs) (Data.List.cons t2 y ys) =
-  (InsertTree (Data.Data.Heap.Binomial.Node.link x y) (Data.Data.Heap.Binomial.merge xs ys))
+Data.Heap.Binomial.merge.aux (c: Data.Cmp) (xs: Data.Heap.Binomial) (ys: Data.Heap.Binomial): Data.Heap.Binomial
+Data.Heap.Binomial.merge.aux Data.Cmp.ltn (Data.List.cons t x xs) ys =
+  (Data.Heap.Binomial.cons x (Data.Heap.Binomial.merge xs ys))
+Data.Heap.Binomial.merge.aux Data.Cmp.gtn xs (Data.List.cons t y ys) =
+  (Data.Heap.Binomial.cons y (Data.Heap.Binomial.merge xs ys))
+Data.Heap.Binomial.merge.aux Data.Cmp.eql (Data.List.cons t1 x xs) (Data.List.cons t2 y ys) =
+  (InsertTree (Data.Heap.Binomial.Node.link x y) (Data.Heap.Binomial.merge xs ys))
 
 // Inserts a Tree into the heap
 // P.S.: Do not call it manually, you could break the heap structure
-InsertTree (new: Data.Data.Heap.Binomial.Node) (pq: Data.Data.Heap.Binomial) : Data.Data.Heap.Binomial
+InsertTree (new: Data.Heap.Binomial.Node) (pq: Data.Heap.Binomial) : Data.Heap.Binomial
 
 InsertTree node (Data.List.nil t) =
-  Data.Data.Heap.Binomial.cons node Data.Data.Heap.Binomial.nil
+  Data.Heap.Binomial.cons node Data.Heap.Binomial.nil
 
-InsertTree (Data.Data.Heap.Binomial.Node.new new_rank new_root new_child) (Data.List.cons t (Data.Data.Heap.Binomial.Node.new x_rank x_root x_child) xs) =
-  let node = (Data.Data.Heap.Binomial.Node.new new_rank new_root new_child)
-  let heap = (Data.List.cons t (Data.Data.Heap.Binomial.Node.new x_rank x_root x_child) xs)
+InsertTree (Data.Heap.Binomial.Node.new new_rank new_root new_child) (Data.List.cons t (Data.Heap.Binomial.Node.new x_rank x_root x_child) xs) =
+  let node = (Data.Heap.Binomial.Node.new new_rank new_root new_child)
+  let heap = (Data.List.cons t (Data.Heap.Binomial.Node.new x_rank x_root x_child) xs)
   InsertTree.aux (Data.U60.less_than new_rank x_rank) node heap
 
-InsertTree.aux (b: Data.Bool) (new: Data.Data.Heap.Binomial.Node) (xs: Data.Data.Heap.Binomial) : Data.Data.Heap.Binomial
-InsertTree.aux Data.Bool.true  new  xs                = Data.Data.Heap.Binomial.cons new xs
-InsertTree.aux Data.Bool.false new (Data.List.cons t x xs) = InsertTree (Data.Data.Heap.Binomial.Node.link new x) xs
+InsertTree.aux (b: Data.Bool) (new: Data.Heap.Binomial.Node) (xs: Data.Heap.Binomial) : Data.Heap.Binomial
+InsertTree.aux Data.Bool.true  new  xs                = Data.Heap.Binomial.cons new xs
+InsertTree.aux Data.Bool.false new (Data.List.cons t x xs) = InsertTree (Data.Heap.Binomial.Node.link new x) xs

@@ -1,3 +1,3 @@
 #inline
-Data.Map.set <a> (map: Data.Map a) (key: Data.U60) (value: a) : Data.Bits.Data.Map a
-Data.Map.set a map key value = Data.Bits.Data.Map.set a map (Data.U60.to_bits key) value
+Data.Map.set <a> (map: Data.Map a) (key: Data.U60) (value: a) : Data.Bits.Map a
+Data.Map.set a map key value = Data.Bits.Map.set a map (Data.U60.to_bits key) value

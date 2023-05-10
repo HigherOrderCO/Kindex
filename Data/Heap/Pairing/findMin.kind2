@@ -1,4 +1,4 @@
 // Data.Find minimum element
-Data.Data.Heap.Data.Pairing.findMin (pq: Data.Data.Heap.Data.Pairing) : (Data.Maybe Data.U60)
-Data.Data.Heap.Data.Pairing.findMin  Data.Data.Heap.Data.Pairing.empty      = (Data.Maybe.none Data.U60)
-Data.Data.Heap.Data.Pairing.findMin (Data.Data.Heap.Data.Pairing.tree x hs) = (Data.Maybe.some Data.U60 x)
+Data.Heap.Pairing.findMin (pq: Data.Heap.Pairing) : (Data.Maybe Data.U60)
+Data.Heap.Pairing.findMin  Data.Heap.Pairing.empty      = (Data.Maybe.none Data.U60)
+Data.Heap.Pairing.findMin (Data.Heap.Pairing.tree x hs) = (Data.Maybe.some Data.U60 x)

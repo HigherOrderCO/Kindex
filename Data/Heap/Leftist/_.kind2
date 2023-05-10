@@ -1,2 +1,2 @@
-// Automatically derived from Data.Data.Heap.Leftist/_.type
-Data.Data.Heap.Leftist : Type
+// Automatically derived from Data.Heap.Leftist/_.type
+Data.Heap.Leftist : Type

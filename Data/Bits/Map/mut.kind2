@@ -1,47 +1,47 @@
 // Given a Bit, applies a function to the correspodent value in the map.
-Data.Bits.Data.Map.mut <a> 
-  (map: Data.Bits.Data.Map a)
+Data.Bits.Map.mut <a> 
+  (map: Data.Bits.Map a)
   (key: Data.Bits)
   (init: a)
   (func: a -> a)
-: Data.Bits.Data.Map a
+: Data.Bits.Map a
 
 // Data.Bits.e
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.new t) Data.Bits.e init func =
+Data.Bits.Map.mut a (Data.Bits.Map.new t) Data.Bits.e init func =
   let value = Data.Maybe.some (func init)
-  let left  = Data.Bits.Data.Map.new
-  let right = Data.Bits.Data.Map.new
-  Data.Bits.Data.Map.tie value left right
+  let left  = Data.Bits.Map.new
+  let right = Data.Bits.Map.new
+  Data.Bits.Map.tie value left right
 
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.tie t (Data.Maybe.none x) left right) Data.Bits.e init func = 
+Data.Bits.Map.mut a (Data.Bits.Map.tie t (Data.Maybe.none x) left right) Data.Bits.e init func = 
   let value = Data.Maybe.some (func init)
-  Data.Bits.Data.Map.tie t value left right
+  Data.Bits.Map.tie t value left right
 
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.tie t (Data.Maybe.some x value) left right) Data.Bits.e init func =
+Data.Bits.Map.mut a (Data.Bits.Map.tie t (Data.Maybe.some x value) left right) Data.Bits.e init func =
   let value = Data.Maybe.some (func value)
-  Data.Bits.Data.Map.tie t value left right
+  Data.Bits.Map.tie t value left right
 
 // Data.Bits.o
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.new t) (Data.Bits.o pred) init func =
+Data.Bits.Map.mut a (Data.Bits.Map.new t) (Data.Bits.o pred) init func =
   let value = Data.Maybe.none
-  let left  = Data.Bits.Data.Map.mut (Data.Bits.Data.Map.new t) pred init func
-  let right = Data.Bits.Data.Map.new
-  Data.Bits.Data.Map.tie value left right  
+  let left  = Data.Bits.Map.mut (Data.Bits.Map.new t) pred init func
+  let right = Data.Bits.Map.new
+  Data.Bits.Map.tie value left right  
 
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.o pred) init func = 
-  let left = Data.Bits.Data.Map.mut left pred init func
-  Data.Bits.Data.Map.tie t value left right
+Data.Bits.Map.mut a (Data.Bits.Map.tie t value left right) (Data.Bits.o pred) init func = 
+  let left = Data.Bits.Map.mut left pred init func
+  Data.Bits.Map.tie t value left right
 
 // Data.Bits.i
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.new t) (Data.Bits.i pred) init func = 
+Data.Bits.Map.mut a (Data.Bits.Map.new t) (Data.Bits.i pred) init func = 
   let value = Data.Maybe.none
-  let left = Data.Bits.Data.Map.new
-  let right  = Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.new t) pred init func
-  Data.Bits.Data.Map.tie t value left right
+  let left = Data.Bits.Map.new
+  let right  = Data.Bits.Map.mut a (Data.Bits.Map.new t) pred init func
+  Data.Bits.Map.tie t value left right
 
-Data.Bits.Data.Map.mut a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.i pred) init func =
-  let right = Data.Bits.Data.Map.mut right pred init func
-  Data.Bits.Data.Map.tie t value left right
+Data.Bits.Map.mut a (Data.Bits.Map.tie t value left right) (Data.Bits.i pred) init func =
+  let right = Data.Bits.Map.mut right pred init func
+  Data.Bits.Map.tie t value left right
 
 
 //Warning: This function wasnt tested, if you test it, remove this comment and

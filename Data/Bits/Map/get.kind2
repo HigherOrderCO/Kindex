@@ -1,16 +1,16 @@
 // Gets in a map a value that corresponds to the Data.Bits
-Data.Bits.Data.Map.get <a> 
-  (map: Data.Bits.Data.Map a)
+Data.Bits.Map.get <a> 
+  (map: Data.Bits.Map a)
   (key: Data.Bits)
 : Data.Maybe a
 
-Data.Bits.Data.Map.get a (Data.Bits.Data.Map.new t) key = Data.Maybe.none
+Data.Bits.Map.get a (Data.Bits.Map.new t) key = Data.Maybe.none
 
-Data.Bits.Data.Map.get a (Data.Bits.Data.Map.tie t value left right) Data.Bits.e = value
+Data.Bits.Map.get a (Data.Bits.Map.tie t value left right) Data.Bits.e = value
 
-Data.Bits.Data.Map.get a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.o pred) = Data.Bits.Data.Map.get a left pred
+Data.Bits.Map.get a (Data.Bits.Map.tie t value left right) (Data.Bits.o pred) = Data.Bits.Map.get a left pred
 
-Data.Bits.Data.Map.get a (Data.Bits.Data.Map.tie t value left right) (Data.Bits.i pred) = Data.Bits.Data.Map.get a right pred
+Data.Bits.Map.get a (Data.Bits.Map.tie t value left right) (Data.Bits.i pred) = Data.Bits.Map.get a right pred
 
 
 // Warning: This function wasnt tested, if you test it, remove this comment and

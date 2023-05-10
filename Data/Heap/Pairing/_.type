@@ -1,4 +1,4 @@
-type Data.Data.Heap.Data.Pairing {
+type Data.Heap.Pairing {
   empty
-  tree (elem: Data.U60) (children: (Data.List Data.Data.Heap.Data.Pairing))
+  tree (elem: Data.U60) (children: (Data.List Data.Heap.Pairing))
 }
