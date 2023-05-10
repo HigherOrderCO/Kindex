@@ -1,4 +1,4 @@
-// Transforms a Bit structure to a Data.String
+// Transforms a Data.Bit structure to a Data.String
 // Example: (Data.Bits.to_string (Data.Bits.i (Data.Bits.o Data.Bits.e))) -> "10"
 Data.Bits.to_string (b : Data.Bits) : Data.String
 Data.Bits.to_string  Data.Bits.e         = Data.String.nil

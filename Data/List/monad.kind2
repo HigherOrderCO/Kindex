@@ -1,5 +1,5 @@
-Data.List.monad : Monad (a => Data.List a) {
-  (Monad.new
+Data.List.monad : Trait.Monad (a => Data.List a) {
+  (Trait.Monad.new
     (a => Data.List a)
     (a => x => Data.List.pure a x)
     (a => b => xs => f => Data.List.bind a b xs f)

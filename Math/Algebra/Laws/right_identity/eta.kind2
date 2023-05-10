@@ -1,2 +1,2 @@
-Algebra.Laws.right_identity.eta <t> (concat: t -> t -> t) (empty: t) : Type
-Algebra.Laws.right_identity.eta t concat empty = (el: t) -> Prop.Equal el (concat el empty)
+Math.Algebra.Laws.right_identity.eta <t> (concat: t -> t -> t) (empty: t) : Type
+Math.Algebra.Laws.right_identity.eta t concat empty = (el: t) -> Prop.Equal el (concat el empty)

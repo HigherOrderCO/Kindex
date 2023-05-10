@@ -1,5 +1,5 @@
-Data.BBT.size <k> <v> (map: Data.BBT k v): Data.U120 {
-  match Data.BBT map {
+Data.Tree.BalancedBinary.size <k> <v> (map: Data.Tree.BalancedBinary k v): Data.U120 {
+  match Data.Tree.BalancedBinary map {
     tip => Data.U120.0
     bin size .. => size
   }

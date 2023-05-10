@@ -1,2 +1,4 @@
-// Automatically derived from /home/derenash/Wikind/Apps/Fib/Data.Map/Base/Bin/_.type
-Data.Tree.Base.Base.Bin (r: Type) : Type
+type Data.Tree.Base.Base.Bin <r: Type> {
+  0 (pred: r)
+  1 (pred: r)
+} 

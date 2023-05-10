@@ -1,2 +1,2 @@
-Algebra.Laws.associativity <t> (concat: t -> t -> t) (a: t) (b: t) (c: t): Type
-Algebra.Laws.associativity t concat a b c = Prop.Equal (concat (concat a b) c) (concat a (concat b c))
+Math.Algebra.Laws.associativity <t> (concat: t -> t -> t) (a: t) (b: t) (c: t): Type
+Math.Algebra.Laws.associativity t concat a b c = Prop.Equal (concat (concat a b) c) (concat a (concat b c))

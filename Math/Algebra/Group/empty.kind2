@@ -1,2 +1,2 @@
-Algebra.Group.empty <t> (group: Algebra.Group t): t
-Algebra.Group.empty t (Algebra.Group.new t_ monoid inverse inverse_proof) = Algebra.Monoid.empty monoid
+Math.Algebra.Group.empty <t> (group: Math.Algebra.Group t): t
+Math.Algebra.Group.empty t (Math.Algebra.Group.new t_ monoid inverse inverse_proof) = Math.Algebra.Monoid.empty monoid

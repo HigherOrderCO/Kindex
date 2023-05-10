@@ -1,2 +1,2 @@
-Data.String.show (str: Data.String) : String.Build
+Data.String.show (str: Data.String) : Data.String.Build
 Data.String.show text = h => Data.String.concat text h

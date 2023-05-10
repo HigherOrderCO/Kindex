@@ -1,5 +1,5 @@
-// Automatically derived from Algebra/Laws/Identity/_.type
+// Automatically derived from Math.Algebra/Laws/Identity/_.type
 #derive[match]
-type Algebra.Laws.Identity <t> <concat: t -> t -> t> <empty: t> {
+type Math.Algebra.Laws.Identity <t> <concat: t -> t -> t> <empty: t> {
   new (left_identity: (x: t) -> Prop.Equal x (concat empty x)) (right_identity: (x: t) -> Prop.Equal x (concat x empty))
 }

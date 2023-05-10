@@ -1,2 +1,2 @@
-Algebra.Semigroup.associativity <t: Type> (semigroup: Algebra.Semigroup t) : Algebra.Laws.associativity.eta (Algebra.Semigroup.concat semigroup)
-Algebra.Semigroup.associativity t (Algebra.Semigroup.new t_ magma assoc) = assoc
+Math.Algebra.Semigroup.associativity <t: Type> (semigroup: Math.Algebra.Semigroup t) : Math.Algebra.Laws.associativity.eta (Math.Algebra.Semigroup.concat semigroup)
+Math.Algebra.Semigroup.associativity t (Math.Algebra.Semigroup.new t_ magma assoc) = assoc

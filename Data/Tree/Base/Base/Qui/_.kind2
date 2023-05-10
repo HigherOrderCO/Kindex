@@ -1,2 +1,7 @@
-// Automatically derived from Data.Tree.Base/Base/Qui/_.type
-Data.Tree.Base.Base.Qui (r: Type) : Type
+type Data.Tree.Base.Base.Qui <r: Type> {
+  0 (pred: r)
+  1 (pred: r)
+  2 (pred: r)
+  3 (pred: r)
+  4 (pred: r)
+} 

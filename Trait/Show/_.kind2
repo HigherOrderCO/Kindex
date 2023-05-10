@@ -1,3 +1,4 @@
-record Show (t: Type) {
+record Trait.Show (t: Type) {
   to_string : t -> Data.String
 }
+

@@ -1,5 +1,5 @@
-Data.String.concat.identity : Algebra.Laws.Identity Data.String (x => y => Data.String.concat x y) Data.String.nil
+Data.String.concat.identity : Math.Algebra.Laws.Identity Data.String (x => y => Data.String.concat x y) Data.String.nil
 Data.String.concat.identity =
-  (Algebra.Laws.Identity.new
+  (Math.Algebra.Laws.Identity.new
     (x => Prop.Equal.refl)
     (x => Data.String.concat.nil_right x))

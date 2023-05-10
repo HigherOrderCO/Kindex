@@ -1,1 +1,4 @@
-Data.Tree.Base.Base : Type
+type Data.Tree.Base.Base {
+	2
+	5
+} 

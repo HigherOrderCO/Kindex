@@ -1,28 +1,28 @@
-Data.BBT.set <k> <v>
+Data.Tree.BalancedBinary.set <k> <v>
   (cmp: k -> k -> Data.Cmp)
   (key: k) 
   (val: v) 
-  (map: Data.BBT k v)
-: Data.BBT k v {
-  match Data.BBT map {
-    tip => Data.BBT.singleton k v key val
+  (map: Data.Tree.BalancedBinary k v)
+: Data.Tree.BalancedBinary k v {
+  match Data.Tree.BalancedBinary map {
+    tip => Data.Tree.BalancedBinary.singleton k v key val
     bin (key = map_key) (val = map_val) left right size => 
       let comp = (cmp key map_key)
       match Data.Cmp comp {
         // if key < map_key, the new value should go into the left subtree
         ltn =>  
-          let new_left  = Data.BBT.set k v cmp key val left
-          Data.BBT.balance k v map_key map_val new_left right
+          let new_left  = Data.Tree.BalancedBinary.set k v cmp key val left
+          Data.Tree.BalancedBinary.balance k v map_key map_val new_left right
       // `val` is already in the map, so how do we proceed? 
       // if we decide to simply return the map unchanged, we are
       // ignoring the case where other fields of `val`, which are not 
       // used in the comparison function, might have changed
       // this comes at some extra cost, of course
-        eql => Data.BBT.node k v key val left right
+        eql => Data.Tree.BalancedBinary.node k v key val left right
       // if key > map_key, the new value should go into the right subtree
         gtn => 
-          let new_right = Data.BBT.set k v cmp key val right
-          Data.BBT.balance k v map_key map_val left new_right
+          let new_right = Data.Tree.BalancedBinary.set k v cmp key val right
+          Data.Tree.BalancedBinary.balance k v map_key map_val left new_right
       }
   }
 }

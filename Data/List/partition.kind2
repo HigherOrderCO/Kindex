@@ -1,7 +1,7 @@
 // Separate elements of t list into two groups, based on t condition, preserving order
 // The first is values that pass the condition, the second is values that don't pass
 Data.List.partition <t> (cond: t -> Data.Bool) (xs: Data.List t) : Data.Pair (Data.List t) (Data.List t) {
-  let id = Function.id (Data.List t)
+  let id = Data.Function.id (Data.List t)
   Data.List.partition.go cond xs id id
 }
 

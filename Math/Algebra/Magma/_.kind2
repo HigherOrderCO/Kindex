@@ -1,6 +1,6 @@
-// Automatically derived from Algebra/Magma/_.type
+// Automatically derived from Math.Algebra/Magma/_.type
 // A set equipped with a binary operation that is closed.
 #derive[match]
-type Algebra.Magma <t: Type> {
+type Math.Algebra.Magma <t: Type> {
   new (concat: t -> t -> t)
 }

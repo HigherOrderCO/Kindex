@@ -1,1 +1,3 @@
-Data.Tree.Base.Qui (r: Type) : Type
+type Data.Tree.Base.Qui (r: Type) {
+	tie (b0: r) (b1: r) (b2: r) (b3: r) (b4: r)
+}

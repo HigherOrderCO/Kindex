@@ -1,4 +1,4 @@
-// Converts all 0 and 1 from a string in a Bit structure
+// Converts all 0 and 1 from a string in a Data.Bit structure
 // Example : (Data.Bits.read ("1101")) -> (Data.Bits.i (Data.Bits.i (Data.Bits.o (Data.Bits.i Data.Bits.e))))
 Data.Bits.read (text: Data.String) : Data.Bits
 Data.Bits.read Data.String.nil              = Data.Bits.e

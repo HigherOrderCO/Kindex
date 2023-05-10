@@ -1,13 +1,13 @@
 Data.String.format (str: Data.String) : Data.String.format.type str
 Data.String.format str = Data.String.format.go str (h => h)
 
-Data.String.format.go (str: Data.String) (res: String.Build) : Data.String.format.type str
+Data.String.format.go (str: Data.String) (res: Data.String.Build) : Data.String.format.type str
 Data.String.format.go (Data.String.cons head tail) res = Data.String.format.go.inject (Data.U60.equal head '%') head tail res
-Data.String.format.go Data.String.nil              res = String.Build.to_string res
+Data.String.format.go Data.String.nil              res = Data.String.Build.to_string res
 
-Data.String.format.go.inject (inj: Data.Bool) (head: Data.Char) (tail: Data.String) (res: String.Build) : Data.String.format.type.inject inj tail
-Data.String.format.go.inject Data.Bool.true  head tail res = x => Data.String.format.go tail (String.Build.concat res (Data.U60.show x))
-Data.String.format.go.inject Data.Bool.false head tail res = Data.String.format.go tail (String.Build.concat res (Data.Char.show head))
+Data.String.format.go.inject (inj: Data.Bool) (head: Data.Char) (tail: Data.String) (res: Data.String.Build) : Data.String.format.type.inject inj tail
+Data.String.format.go.inject Data.Bool.true  head tail res = x => Data.String.format.go tail (Data.String.Build.concat res (Data.U60.show x))
+Data.String.format.go.inject Data.Bool.false head tail res = Data.String.format.go tail (Data.String.Build.concat res (Data.Char.show head))
 
 Data.String.format.type (str: Data.String) : Type
 Data.String.format.type (Data.String.cons head tail) = Data.String.format.type.inject (Data.U60.equal head '%') tail

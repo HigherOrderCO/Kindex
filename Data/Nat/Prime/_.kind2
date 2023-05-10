@@ -8,7 +8,8 @@
 record Data.Nat.Prime {
 	value: Data.Nat
 	proof: 
-		(Quantifier.Forall Data.Nat 
+		//(Quantifier.Forall Data.Nat 
+		(Data.Sigma Data.Nat 
 			(divisor => (Data.Either (Data.Either (Data.Either
 					(Prop.Equal divisor Data.Nat.zero)
 					(Prop.Equal divisor (Data.Nat.succ Data.Nat.zero))) 
