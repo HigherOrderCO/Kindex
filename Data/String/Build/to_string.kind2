@@ -1,2 +1,2 @@
-String.Build.to_string (show: String.Build) : Data.String
-String.Build.to_string show = show Data.String.nil
+Data.String.Build.to_string (show: Data.String.Build) : Data.String
+Data.String.Build.to_string show = show Data.String.nil

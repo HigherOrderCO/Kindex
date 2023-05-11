@@ -390,9 +390,9 @@ IC.Term.rule.nop op n m = do Run {
   return IC.Term.nop op n m
 }
 
-// Run Monad
+// Run Trait.Monad
 // ---------
-// The Run Monad allows us to perform operations on the environment, including
+// The Run Trait.Monad allows us to perform operations on the environment, including
 // substitution, and generating fresh variables.
 
 Run (a: Type) : Type
@@ -407,8 +407,8 @@ Run.bind a b x f = env => Run.bind.go (x env) f
 Run.bind.go <a: Type> <b: Type> (x: Data.Pair Env a) (f: a -> Run b) : Data.Pair Env b
 Run.bind.go a b (Data.Pair.new env x) f = f x env
 
-Run.monad : Monad (a => Run a) {
-  Monad.new (a => Run a) (a => x => Run.pure a x) (a => b => x => f => Run.bind a b x f)
+Run.monad : Trait.Monad (a => Run a) {
+  Trait.Monad.new (a => Run a) (a => x => Run.pure a x) (a => b => x => f => Run.bind a b x f)
 }
 
 Run.subst (name: Data.U60) (term: IC.Term) : Run Data.Unit
@@ -496,7 +496,7 @@ IC.Term.normal.go (IC.Term.nop op n m) = do Run {
   return IC.Term.nop op n m
 }
 
-// String.Parser
+// Data.String.Parser
 // ------
 
 // Syntax:
@@ -519,13 +519,13 @@ IC.Term.normal.go (IC.Term.nop op n m) = do Run {
 // var := name
 // name := [0-9]+
 
-IC.parser : String.Parser Env IC.Term
-IC.parser = do String.Parser {
-  String.Parser.skip_whitespace
+IC.parser : Data.String.Parser Env IC.Term
+IC.parser = do Data.String.Parser {
+  Data.String.Parser.skip_whitespace
   IC.parser.term
 }
 
-IC.parser.term : String.Parser Env IC.Term
+IC.parser.term : Data.String.Parser Env IC.Term
 IC.parser.term =
   let parsers = [
     IC.parser.dup
@@ -536,128 +536,128 @@ IC.parser.term =
     IC.parser.u60
     IC.parser.var
   ]
-  String.Parser.first_of parsers
+  Data.String.Parser.first_of parsers
 
-IC.parser.dup : String.Parser Env IC.Term
-IC.parser.dup = do String.Parser {
-  String.Parser.string "let"
-  String.Parser.skip_whitespace
-  String.Parser.char '#'
+IC.parser.dup : Data.String.Parser Env IC.Term
+IC.parser.dup = do Data.String.Parser {
+  Data.String.Parser.string "let"
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '#'
   ask lab = IC.parser.name
-  String.Parser.skip_whitespace
-  String.Parser.char '{'
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '{'
+  Data.String.Parser.skip_whitespace
   ask a = IC.parser.name
-  String.Parser.whitespace
+  Data.String.Parser.whitespace
   ask b = IC.parser.name
-  String.Parser.skip_whitespace
-  String.Parser.char '}'
-  String.Parser.skip_whitespace
-  String.Parser.char '='
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '}'
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '='
+  Data.String.Parser.skip_whitespace
   ask expr = IC.parser.term
-  String.Parser.skip_whitespace
-  String.Parser.char ';'
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char ';'
+  Data.String.Parser.skip_whitespace
   ask cont = IC.parser.term
 
-  ask env = String.Parser.take_custom Env.empty
+  ask env = Data.String.Parser.take_custom Env.empty
   // TODO: I'm assuming that the input string uses variables correctly
   // (using numbers starting from zero, without skipping, no free variables)
   // TODO: Accept Data.Strings as var name, do a propper string to u60 mapping
   let env = Data.Pair.fst (Env.fresh env)  // Add the two new variables to the context
   let env = Data.Pair.fst (Env.fresh env)
-  String.Parser.set_custom env
+  Data.String.Parser.set_custom env
 
   return IC.Term.dup lab a b expr cont
 }
 
-IC.parser.sup : String.Parser Env IC.Term
-IC.parser.sup = do String.Parser {
-  String.Parser.char '#'
+IC.parser.sup : Data.String.Parser Env IC.Term
+IC.parser.sup = do Data.String.Parser {
+  Data.String.Parser.char '#'
   ask lab = IC.parser.name
-  String.Parser.skip_whitespace
-  String.Parser.char '{'
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '{'
+  Data.String.Parser.skip_whitespace
   ask fst = IC.parser.term
-  String.Parser.whitespace
+  Data.String.Parser.whitespace
   ask snd = IC.parser.term
-  String.Parser.skip_whitespace
-  String.Parser.char '}'
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '}'
   
   return IC.Term.sup lab fst snd
 }
 
-IC.parser.lam : String.Parser Env IC.Term
-IC.parser.lam = do String.Parser {
-  ask has_parens = String.Parser.to_bool (String.Parser.char '(')
-  String.Parser.skip_whitespace
-  String.Parser.char_any_of "@λ"
+IC.parser.lam : Data.String.Parser Env IC.Term
+IC.parser.lam = do Data.String.Parser {
+  ask has_parens = Data.String.Parser.to_bool (Data.String.Parser.char '(')
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char_any_of "@λ"
   ask x = IC.parser.name
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
   ask body = IC.parser.term
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
   if has_parens {
-    String.Parser.char ')'
+    Data.String.Parser.char ')'
   } else {
-    String.Parser.pure Data.Unit.new
+    Data.String.Parser.pure Data.Unit.new
   }
 
-  ask env = String.Parser.take_custom Env.empty
+  ask env = Data.String.Parser.take_custom Env.empty
   let env = Data.Pair.fst (Env.fresh env) // Adding x to the env
-  String.Parser.set_custom env
+  Data.String.Parser.set_custom env
 
   return IC.Term.lam x body
 }
 
-IC.parser.app : String.Parser Env IC.Term
-IC.parser.app = do String.Parser {
-  String.Parser.char '('
-  String.Parser.skip_whitespace
+IC.parser.app : Data.String.Parser Env IC.Term
+IC.parser.app = do Data.String.Parser {
+  Data.String.Parser.char '('
+  Data.String.Parser.skip_whitespace
   ask fun = IC.parser.term
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
   ask arg = IC.parser.term
-  String.Parser.skip_whitespace
-  String.Parser.char ')'
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char ')'
 
   return IC.Term.app fun arg
 }
 
-IC.parser.u60 : String.Parser Env IC.Term
-IC.parser.u60 = do String.Parser {
-  String.Parser.char '#'
-  ask val = String.Parser.u60_decimal
+IC.parser.u60 : Data.String.Parser Env IC.Term
+IC.parser.u60 = do Data.String.Parser {
+  Data.String.Parser.char '#'
+  ask val = Data.String.Parser.u60_decimal
   return IC.Term.u60 val
 }
 
-IC.parser.nop : String.Parser Env IC.Term
-IC.parser.nop = do String.Parser {
-  String.Parser.char '('
-  String.Parser.skip_whitespace
+IC.parser.nop : Data.String.Parser Env IC.Term
+IC.parser.nop = do Data.String.Parser {
+  Data.String.Parser.char '('
+  Data.String.Parser.skip_whitespace
   ask op = IC.parser.oper
-  String.Parser.whitespace
+  Data.String.Parser.whitespace
   ask n = IC.parser.term
-  String.Parser.skip_whitespace
+  Data.String.Parser.skip_whitespace
   ask m = IC.parser.term
-  String.Parser.skip_whitespace
-  String.Parser.char ')'
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char ')'
 
   let term = IC.Term.nop op n m
   return term
 }
 
-IC.parser.var : String.Parser Env IC.Term
-IC.parser.var = do String.Parser {
+IC.parser.var : Data.String.Parser Env IC.Term
+IC.parser.var = do Data.String.Parser {
   ask name = IC.parser.name
   return IC.Term.var name
 }
 
-IC.parser.name : String.Parser Env Data.U60
-IC.parser.name = String.Parser.u60_decimal
+IC.parser.name : Data.String.Parser Env Data.U60
+IC.parser.name = Data.String.Parser.u60_decimal
 
-IC.parser.oper : String.Parser Env Data.U60
+IC.parser.oper : Data.String.Parser Env Data.U60
 IC.parser.oper =
-  String.Parser.first_of [
+  Data.String.Parser.first_of [
     IC.parser.oper.add
     IC.parser.oper.sub
     IC.parser.oper.mul
@@ -676,84 +676,84 @@ IC.parser.oper =
     IC.parser.oper.gte
   ]
 
-IC.parser.oper.add : String.Parser Env Data.U60
-IC.parser.oper.add = do String.Parser {
-  String.Parser.string "+"
+IC.parser.oper.add : Data.String.Parser Env Data.U60
+IC.parser.oper.add = do Data.String.Parser {
+  Data.String.Parser.string "+"
   return 0
 }
-IC.parser.oper.sub : String.Parser Env Data.U60
-IC.parser.oper.sub = do String.Parser {
-  String.Parser.string "-"
+IC.parser.oper.sub : Data.String.Parser Env Data.U60
+IC.parser.oper.sub = do Data.String.Parser {
+  Data.String.Parser.string "-"
   return 1
 }
-IC.parser.oper.mul : String.Parser Env Data.U60
-IC.parser.oper.mul = do String.Parser {
-  String.Parser.string "*"
+IC.parser.oper.mul : Data.String.Parser Env Data.U60
+IC.parser.oper.mul = do Data.String.Parser {
+  Data.String.Parser.string "*"
   return 2
 }
-IC.parser.oper.div : String.Parser Env Data.U60
-IC.parser.oper.div = do String.Parser {
-  String.Parser.string "/"
+IC.parser.oper.div : Data.String.Parser Env Data.U60
+IC.parser.oper.div = do Data.String.Parser {
+  Data.String.Parser.string "/"
   return 3
 }
-IC.parser.oper.mod : String.Parser Env Data.U60
-IC.parser.oper.mod = do String.Parser {
-  String.Parser.string "%"
+IC.parser.oper.mod : Data.String.Parser Env Data.U60
+IC.parser.oper.mod = do Data.String.Parser {
+  Data.String.Parser.string "%"
   return 4
 }
-IC.parser.oper.and : String.Parser Env Data.U60
-IC.parser.oper.and = do String.Parser {
-  String.Parser.string "&"
+IC.parser.oper.and : Data.String.Parser Env Data.U60
+IC.parser.oper.and = do Data.String.Parser {
+  Data.String.Parser.string "&"
   return 5
 }
-IC.parser.oper.or : String.Parser Env Data.U60
-IC.parser.oper.or = do String.Parser {
-  String.Parser.string "|"
+IC.parser.oper.or : Data.String.Parser Env Data.U60
+IC.parser.oper.or = do Data.String.Parser {
+  Data.String.Parser.string "|"
   return 6
 }
-IC.parser.oper.xor : String.Parser Env Data.U60
-IC.parser.oper.xor = do String.Parser {
-  String.Parser.string "^"
+IC.parser.oper.xor : Data.String.Parser Env Data.U60
+IC.parser.oper.xor = do Data.String.Parser {
+  Data.String.Parser.string "^"
   return 7
 }
-IC.parser.oper.shl : String.Parser Env Data.U60
-IC.parser.oper.shl = do String.Parser {
-  String.Parser.string "<<"
+IC.parser.oper.shl : Data.String.Parser Env Data.U60
+IC.parser.oper.shl = do Data.String.Parser {
+  Data.String.Parser.string "<<"
   return 8
 }
-IC.parser.oper.shr : String.Parser Env Data.U60
-IC.parser.oper.shr = do String.Parser {
-  String.Parser.string ">>"
+IC.parser.oper.shr : Data.String.Parser Env Data.U60
+IC.parser.oper.shr = do Data.String.Parser {
+  Data.String.Parser.string ">>"
   return 9
 }
-IC.parser.oper.eql : String.Parser Env Data.U60
-IC.parser.oper.eql = do String.Parser {
-  String.Parser.string "=="
+IC.parser.oper.eql : Data.String.Parser Env Data.U60
+IC.parser.oper.eql = do Data.String.Parser {
+  Data.String.Parser.string "=="
   return 10
 }
-IC.parser.oper.ltn : String.Parser Env Data.U60
-IC.parser.oper.ltn = do String.Parser {
-  String.Parser.string "<"
+IC.parser.oper.ltn : Data.String.Parser Env Data.U60
+IC.parser.oper.ltn = do Data.String.Parser {
+  Data.String.Parser.string "<"
   return 11
 }
-IC.parser.oper.lte : String.Parser Env Data.U60
-IC.parser.oper.lte = do String.Parser {
-  String.Parser.string "<="
+IC.parser.oper.lte : Data.String.Parser Env Data.U60
+IC.parser.oper.lte = do Data.String.Parser {
+  Data.String.Parser.string "<="
   return 12
 }
-IC.parser.oper.neq : String.Parser Env Data.U60
-IC.parser.oper.neq = do String.Parser {
-  String.Parser.string "!="
+IC.parser.oper.neq : Data.String.Parser Env Data.U60
+IC.parser.oper.neq = do Data.String.Parser {
+  Data.String.Parser.string "!="
   return 13
 }
-IC.parser.oper.gtn : String.Parser Env Data.U60
-IC.parser.oper.gtn = do String.Parser {
-  String.Parser.string ">"
+IC.parser.oper.gtn : Data.String.Parser Env Data.U60
+IC.parser.oper.gtn = do Data.String.Parser {
+  Data.String.Parser.string ">"
   return 14
 }
-IC.parser.oper.gte : String.Parser Env Data.U60
-IC.parser.oper.gte = do String.Parser {
-  String.Parser.string ">="
+IC.parser.oper.gte : Data.String.Parser Env Data.U60
+IC.parser.oper.gte = do Data.String.Parser {
+  Data.String.Parser.string ">="
   return 15
 }
 
@@ -782,10 +782,10 @@ Main : _ {
   // term = ((λx let #0{x0 x1} = x; #0{x0 x1}) (λy. y))
   // normal = #0{(λx4. x4) (λx5. x5)}
   let input = "((λ2 let #0{0 1} = 2; #0{0 1}) (λ3 3))"
-  let init = String.Parser.State.new Env.empty input "" 0
-  match String.Parser.Result r = ((IC.parser) init) {
+  let init = Data.String.Parser.State.new Env.empty input "" 0
+  match Data.String.Parser.Result r = ((IC.parser) init) {
     done state result =>
-      let env = Data.Pair.fst (String.Parser.State.take_custom state)
+      let env = Data.Pair.fst (Data.String.Parser.State.take_custom state)
       Data.Either.left (Data.Pair.snd ((IC.Term.normal result) env))
     fail state error => Data.Either.right error
   }

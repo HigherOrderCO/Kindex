@@ -1,4 +1,4 @@
-// Automatically derived from Algebra/Monoid/_.type
+// Automatically derived from Math.Algebra/Monoid/_.type
 // A monoid is a semigroup with the left and right identity.
 //
 // - forall a b c, (a * b) * c = a * (b * c) (Associativity)
@@ -6,6 +6,6 @@
 // - forall a    , a = e * a                 (Left identity)
 
 #derive[match]
-type Algebra.Monoid <t: Type> {
-	new (sg: Algebra.Semigroup t) (empty: t) (identity: Algebra.Laws.Identity t (Algebra.Semigroup.concat sg) empty)
+type Math.Algebra.Monoid <t: Type> {
+	new (sg: Math.Algebra.Semigroup t) (empty: t) (identity: Math.Algebra.Laws.Identity t (Math.Algebra.Semigroup.concat sg) empty)
 }

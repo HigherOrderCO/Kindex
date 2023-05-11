@@ -1,6 +1,6 @@
-Algebra.Monoid.concat_all.go <t> (concat: t -> t -> t) (empty: t) (list: Data.List t): t
-Algebra.Monoid.concat_all.go t concat empty (Data.List.nil t_)       = empty
-Algebra.Monoid.concat_all.go t concat empty (Data.List.cons t_ x xs) = concat x (Algebra.Monoid.concat_all.go t concat empty xs)
+Math.Algebra.Monoid.concat_all.go <t> (concat: t -> t -> t) (empty: t) (list: Data.List t): t
+Math.Algebra.Monoid.concat_all.go t concat empty (Data.List.nil t_)       = empty
+Math.Algebra.Monoid.concat_all.go t concat empty (Data.List.cons t_ x xs) = concat x (Math.Algebra.Monoid.concat_all.go t concat empty xs)
 
-Algebra.Monoid.concat_all <t> (monoid: Algebra.Monoid t) (list: Data.List t): t
-Algebra.Monoid.concat_all t monoid list = Algebra.Monoid.concat_all.go (Algebra.Monoid.concat monoid) (Algebra.Monoid.empty monoid) list
+Math.Algebra.Monoid.concat_all <t> (monoid: Math.Algebra.Monoid t) (list: Data.List t): t
+Math.Algebra.Monoid.concat_all t monoid list = Math.Algebra.Monoid.concat_all.go (Math.Algebra.Monoid.concat monoid) (Math.Algebra.Monoid.empty monoid) list

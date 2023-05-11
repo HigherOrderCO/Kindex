@@ -1,2 +1,2 @@
-Algebra.Monoid.concat <t> (monoid: Algebra.Monoid t): t -> t -> t
-Algebra.Monoid.concat t (Algebra.Monoid.new t_ sg empty id) = Algebra.Semigroup.concat sg
+Math.Algebra.Monoid.concat <t> (monoid: Math.Algebra.Monoid t): t -> t -> t
+Math.Algebra.Monoid.concat t (Math.Algebra.Monoid.new t_ sg empty id) = Math.Algebra.Semigroup.concat sg

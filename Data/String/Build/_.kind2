@@ -1,2 +1,2 @@
-String.Build : Type
-String.Build = Data.String -> Data.String
+Data.String.Build : Type
+Data.String.Build = Data.String -> Data.String

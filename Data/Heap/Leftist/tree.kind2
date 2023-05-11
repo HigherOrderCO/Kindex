@@ -1,2 +1,0 @@
-// Automatically derived from Data.Heap.Leftist/_.type
-Data.Heap.Leftist.tree (rank: Data.U60) (value: Data.U60) (lft: Data.Heap.Leftist) (rgt: Data.Heap.Leftist) : (Data.Heap.Leftist)

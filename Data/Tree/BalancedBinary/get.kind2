@@ -1,12 +1,12 @@
-Data.BBT.get <k> <v> (cmp: k -> k -> Data.Cmp) (key: k) (map: Data.BBT k v): Data.Maybe v {
-  match Data.BBT map {
+Data.Tree.BalancedBinary.get <k> <v> (cmp: k -> k -> Data.Cmp) (key: k) (map: Data.Tree.BalancedBinary k v): Data.Maybe v {
+  match Data.Tree.BalancedBinary map {
     tip => Data.Maybe.none
     bin (key = map.key) val left right size => 
       let comp = cmp key map.key
       match Data.Cmp comp {
-        ltn => (Data.BBT.get k v cmp key left)
+        ltn => (Data.Tree.BalancedBinary.get k v cmp key left)
         eql => Data.Maybe.some val
-        gtn => (Data.BBT.get k v cmp key right)
+        gtn => (Data.Tree.BalancedBinary.get k v cmp key right)
       }
   }
 }

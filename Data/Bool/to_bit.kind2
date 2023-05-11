@@ -1,3 +1,0 @@
-Data.Bool.to_bit (b: Data.Bool) : Bit
-Data.Bool.to_bit Data.Bool.false = Bit.0
-Data.Bool.to_bit Data.Bool.true  = Bit.1

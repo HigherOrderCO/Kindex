@@ -1,3 +1,3 @@
-Data.BBT.singleton <k> <v> (key: k) (val: v): Data.BBT k v {
-  Data.BBT.bin Data.U120.1 key val Data.BBT.tip Data.BBT.tip
+Data.Tree.BalancedBinary.singleton <k> <v> (key: k) (val: v): Data.Tree.BalancedBinary k v {
+  Data.Tree.BalancedBinary.bin Data.U120.1 key val Data.Tree.BalancedBinary.tip Data.Tree.BalancedBinary.tip
 }

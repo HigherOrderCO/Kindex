@@ -269,7 +269,7 @@ Coverage/intro_all type body (Coverage/Problem.new _ rows) =
 Coverage/solve (problem: Coverage/Problem) : Apps.Kind.Checker (Data.Maybe (Data.List Term/Quoted))
 Coverage/solve problem =
     let type = (Coverage/Problem.type.get problem)
-    (Checker/local (Coverage/done (HVM.log problem problem)
+    (Checker/local (Coverage/done (Apps.HVM.log problem problem)
         (Coverage/if_all
             type
             (orig_ => name_ => type => constraints => body =>

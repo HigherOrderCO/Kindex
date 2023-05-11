@@ -1,6 +1,6 @@
-Data.Bits.at (idx: Data.Nat) (a: Data.Bits) : Data.Maybe Bit
-Data.Bits.at (idx) (Data.Bits.e) = (Data.Maybe.none)
-Data.Bits.at (Data.Nat.zero) (Data.Bits.i pred) = Data.Maybe.some Bit.1
-Data.Bits.at (Data.Nat.zero) (Data.Bits.o pred) = Data.Maybe.some Bit.0
+Data.Bits.at (idx: Data.Nat) (a: Data.Bits) : Data.Maybe Data.Bits
+Data.Bits.at (idx)                (Data.Bits.e)      = (Data.Maybe.none)
+Data.Bits.at (Data.Nat.zero)      (Data.Bits.i pred) = (Data.Maybe.some (Data.Bits.i Data.Bits.e))
+Data.Bits.at (Data.Nat.zero)      (Data.Bits.o pred) = (Data.Maybe.some (Data.Bits.o Data.Bits.e))
 Data.Bits.at (Data.Nat.succ idxp) (Data.Bits.i pred) = (Data.Bits.at idxp pred)
 Data.Bits.at (Data.Nat.succ idxp) (Data.Bits.o pred) = (Data.Bits.at idxp pred)

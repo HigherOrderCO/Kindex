@@ -1,2 +1,2 @@
-Algebra.Group.invert <t> (group: Algebra.Group t): t -> t
-Algebra.Group.invert t (Algebra.Group.new t_ monoid invert inverse_proof) = invert
+Math.Algebra.Group.invert <t> (group: Math.Algebra.Group t): t -> t
+Math.Algebra.Group.invert t (Math.Algebra.Group.new t_ monoid invert inverse_proof) = invert

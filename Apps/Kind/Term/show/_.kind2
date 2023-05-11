@@ -28,7 +28,7 @@ Term/show.go (Term/all orig name type body)         = Term/show.forall orig name
 Term/show.go (Term/lam orig name body)              = Printer/text ["(" (Name/show name) " => " (Term/show (body (Term/var orig name 0))) ")"]
 Term/show.go (Term/let orig name exp body)          = Printer/text ["let " (Name/show name) " = " (Term/show exp) "; " (Term/show (body (Term/var orig name 0)))]
 Term/show.go (Term/ann orig expr type)              = Printer/text ["{" (Term/show expr) " :: " (Term/show type) "}"]
-Term/show.go (Term/sub orig name indx redx expr)    = Printer/text [(Term/show expr) " ## " (Name/show name) "/" (String.Show.to_string (Data.U60.show redx))]
+Term/show.go (Term/sub orig name indx redx expr)    = Printer/text [(Term/show expr) " ## " (Name/show name) "/" (Data.String.Build.to_string (Data.U60.show redx))]
 Term/show.go (Term/app orig func argm)              = Printer/text ["(" (Term/show func) " " (Term/show argm) ")"]
 
 Term/show.go (Term/ct0 ctid orig)                                                = Axiom/NameOf ctid
@@ -72,7 +72,7 @@ Term/show.go (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15)
 
 Term/show.go (Term/hlp orig)                        = "?"
 Term/show.go (Term/Data.U60 orig)                        = "Data.U60"
-Term/show.go (Term/u60 orig numb)                   = String.Show.to_string (Data.U60.show numb)
+Term/show.go (Term/u60 orig numb)                   = Data.String.Build.to_string (Data.U60.show numb)
 Term/show.go (Term/F60 orig)                        = "F60"
-Term/show.go (Term/f60 orig numb)                   = String.Show.to_string (Data.U60.show numb)
+Term/show.go (Term/f60 orig numb)                   = Data.String.Build.to_string (Data.U60.show numb)
 Term/show.go (Term/op2 orig operator left right)    = Printer/text ["(" (Operator/show operator) " " (Term/show left) " " (Term/show right) ")"]

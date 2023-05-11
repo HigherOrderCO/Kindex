@@ -1,5 +1,5 @@
 // Concatenate any number of elements
-Data.List.cons_var <a> (n: Data.Nat) (xs: Data.List a) : Function.Variadic a (Data.List a) n {
+Data.List.cons_var <a> (n: Data.Nat) (xs: Data.List a) : Data.Function.Variadic a (Data.List a) n {
   let acc = (x => xs => Data.List.cons x xs) :: a -> (Data.List a) -> (Data.List a)
-  Function.Variadic.foldr a (Data.List a) acc xs n
+  Data.Function.Variadic.foldr a (Data.List a) acc xs n
 }

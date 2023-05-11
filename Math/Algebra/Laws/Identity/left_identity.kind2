@@ -1,2 +1,2 @@
-Algebra.Laws.Identity.left_identity <t> <concat: t -> t -> t> <empty: t> (id: Algebra.Laws.Identity t concat empty) : (x: t) -> Prop.Equal x (concat empty x)
-Algebra.Laws.Identity.left_identity t concat empty (Algebra.Laws.Identity.new t_ concat_ empty_ left right) = left
+Math.Algebra.Laws.Identity.left_identity <t> <concat: t -> t -> t> <empty: t> (id: Math.Algebra.Laws.Identity t concat empty) : (x: t) -> Prop.Equal x (concat empty x)
+Math.Algebra.Laws.Identity.left_identity t concat empty (Math.Algebra.Laws.Identity.new t_ concat_ empty_ left right) = left

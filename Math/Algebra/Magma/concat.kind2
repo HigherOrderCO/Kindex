@@ -1,2 +1,2 @@
-Algebra.Magma.concat <t> (magma: Algebra.Magma t): t -> t -> t
-Algebra.Magma.concat t (Algebra.Magma.new t_ concat) = concat
+Math.Algebra.Magma.concat <t> (magma: Math.Algebra.Magma t): t -> t -> t
+Math.Algebra.Magma.concat t (Math.Algebra.Magma.new t_ concat) = concat

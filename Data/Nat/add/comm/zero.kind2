@@ -1,5 +1,5 @@
 // Proof of the commutative property of addition for x + 0
 // This is a special case of the commutative property.
-Data.Nat.add.comm.zero (a: Data.Nat) : Algebra.Laws.right_identity (x => y => Data.Nat.add x y) Data.Nat.zero a
+Data.Nat.add.comm.zero (a: Data.Nat) : Math.Algebra.Laws.right_identity (x => y => Data.Nat.add x y) Data.Nat.zero a
 Data.Nat.add.comm.zero Data.Nat.zero     = Prop.Equal.refl
 Data.Nat.add.comm.zero (Data.Nat.succ a) = Prop.Equal.apply (x => Data.Nat.succ x) (Data.Nat.add.comm.zero a)

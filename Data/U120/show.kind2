@@ -1,4 +1,4 @@
-Data.U120.show (num: Data.U120) : String.Build
+Data.U120.show (num: Data.U120) : Data.String.Build
 Data.U120.show (Data.U120.new 0 0) = str => Data.String.cons '0' str
 Data.U120.show num            = str =>
   let ten = (Data.U120.new 0 10)

@@ -1,6 +1,6 @@
 #derive[match]
-type Data.BBT (k: Type) (v: Type) {
+type Data.Tree.BalancedBinary (k: Type) (v: Type) {
   tip
-  bin (size: Data.U120) (key: k) (val: v) (left: Data.BBT k v) (right: Data.BBT k v)
+  bin (size: Data.U120) (key: k) (val: v) (left: Data.Tree.BalancedBinary k v) (right: Data.Tree.BalancedBinary k v)
 }
 

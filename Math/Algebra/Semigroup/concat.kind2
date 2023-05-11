@@ -1,2 +1,2 @@
-Algebra.Semigroup.concat <t> (semigroup: Algebra.Semigroup t): t -> t -> t
-Algebra.Semigroup.concat t (Algebra.Semigroup.new t_ magma assoc) = Algebra.Magma.concat magma
+Math.Algebra.Semigroup.concat <t> (semigroup: Math.Algebra.Semigroup t): t -> t -> t
+Math.Algebra.Semigroup.concat t (Math.Algebra.Semigroup.new t_ magma assoc) = Math.Algebra.Magma.concat magma

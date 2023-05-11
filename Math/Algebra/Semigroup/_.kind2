@@ -1,10 +1,10 @@
-// Automatically derived from Algebra/Semigroup/_.type
+// Automatically derived from Math.Algebra/Semigroup/_.type
 // A semigroup is a magma with the associative property.
 // Let '*' be the the binary operation then:
 //
 // - forall a b c, (a * b) * c = a * (b * c) (Associativity)
 //
 #derive[match]
-type Algebra.Semigroup <t: Type> {
-  new (magma: Algebra.Magma t) (associativity: Algebra.Laws.associativity.eta (Algebra.Magma.concat magma))
+type Math.Algebra.Semigroup <t: Type> {
+  new (magma: Math.Algebra.Magma t) (associativity: Math.Algebra.Laws.associativity.eta (Math.Algebra.Magma.concat magma))
 }

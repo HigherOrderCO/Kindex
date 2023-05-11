@@ -1,2 +1,2 @@
-Data.Unit.show (u: Data.Unit) : String.Build
+Data.Unit.show (u: Data.Unit) : Data.String.Build
 Data.Unit.show u = h => Data.String.concat "Data.Unit.new" h

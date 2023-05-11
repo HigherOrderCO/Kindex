@@ -1,2 +1,2 @@
-Algebra.Group.inverse <t> (group: Algebra.Group t): Algebra.Laws.Inverse t (Algebra.Group.concat group) (Algebra.Group.invert group) (Algebra.Group.empty group)
-Algebra.Group.inverse  t (Algebra.Group.new t_ monoid invert inverse) = inverse
+Math.Algebra.Group.inverse <t> (group: Math.Algebra.Group t): Math.Algebra.Laws.Inverse t (Math.Algebra.Group.concat group) (Math.Algebra.Group.invert group) (Math.Algebra.Group.empty group)
+Math.Algebra.Group.inverse  t (Math.Algebra.Group.new t_ monoid invert inverse) = inverse

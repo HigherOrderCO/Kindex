@@ -1,2 +1,4 @@
-// Automatically derived from Data.Heap.Pairing/_.type
-Data.Heap.Pairing : Type
+type Data.Heap.Pairing {
+  empty
+  tree (elem: Data.U60) (children: (Data.List Data.Heap.Pairing))
+}

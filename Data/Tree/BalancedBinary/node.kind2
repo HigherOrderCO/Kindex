@@ -1,6 +1,6 @@
-Data.BBT.node <k> <v> (key: k) (val: v) (left: Data.BBT k v) (right: Data.BBT k v): Data.BBT k v {
-  let size_left  = (Data.BBT.size left)
-  let size_right = (Data.BBT.size right)
+Data.Tree.BalancedBinary.node <k> <v> (key: k) (val: v) (left: Data.Tree.BalancedBinary k v) (right: Data.Tree.BalancedBinary k v): Data.Tree.BalancedBinary k v {
+  let size_left  = (Data.Tree.BalancedBinary.size left)
+  let size_right = (Data.Tree.BalancedBinary.size right)
   let new_size   = Data.U120.add Data.U120.1 (Data.U120.add size_left size_right)
-  Data.BBT.bin new_size key val left right
+  Data.Tree.BalancedBinary.bin new_size key val left right
 }
