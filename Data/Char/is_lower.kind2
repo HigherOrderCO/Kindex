@@ -1,3 +1,3 @@
 Data.Char.is_lower (c: Data.Char) : Data.Bool {
-  Data.Bool.not (Data.Char.between 65 c 91)
+  Data.Bool.not (Data.Char.between_inclusive 'A' c 'Z')
 }
