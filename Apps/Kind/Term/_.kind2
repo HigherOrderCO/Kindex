@@ -47,7 +47,7 @@ type Apps.Kind.Term {
 
     hlp (orig: Data.U60)
 
-    Data.U60 (orig: Data.U60)
+    U60 (orig: Data.U60)
     u60 (orig: Data.U60) (num: Data.U60)
 
     F60 (orig: Data.U60)

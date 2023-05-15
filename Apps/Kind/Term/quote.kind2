@@ -54,7 +54,7 @@ Term/quote.go (Term/fn14 fnid orig x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13
 Term/quote.go (Term/fn15 fnid orig x0) = (Quoted/fun fnid orig (Term/quote.args x0))
 Term/quote.go (Term/fn16 fnid orig x0) = (Quoted/fun fnid orig (Term/quote.args x0))
 Term/quote.go (Term/hlp orig) = (Quoted/hlp orig)
-Term/quote.go (Term/Data.U60 orig) = (Quoted/u60 orig)
+Term/quote.go (Term/U60 orig) = (Quoted/u60 orig)
 Term/quote.go (Term/u60 orig numb) = (Quoted/num orig numb)
 Term/quote.go (Term/F60 orig) = (Quoted/f60 orig)
 Term/quote.go (Term/f60 orig numb) = (Quoted/numf60 orig numb)
