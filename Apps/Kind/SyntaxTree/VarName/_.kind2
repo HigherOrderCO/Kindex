@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+record VarName/ {
+  val : Data.String
+}

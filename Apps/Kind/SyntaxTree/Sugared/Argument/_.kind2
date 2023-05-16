@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.Range as Range
+
+record AST/Argument {
+  range: Range/
+  name : VarName/
+  type : Data.Maybe AST/Term
+  hidden: Data.Bool
+  erased: Data.Bool
+}

@@ -1,0 +1,3 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+
+AST/Book.add_module (book: AST/Book) (module: AST/Module) : Data.Either AST/Book Data.String

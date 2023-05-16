@@ -1,0 +1,9 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+record AST/Term.MatchCase {
+  ctr_name : VarName/  // Not actually a VarName, but rather the last segment of the constructor's name
+  bindings : Data.List VarName/
+  body : AST/Term
+  // TODO: Implement "ignore rest"
+}

@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+record CtrName/ {
+  val : Data.String
+}

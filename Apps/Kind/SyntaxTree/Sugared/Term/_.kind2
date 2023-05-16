@@ -1,0 +1,28 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree as Tree
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.Operator as Operator
+
+type AST/Term {
+  var (range: Range/) (name: VarName/)
+  constr (range: Range/) (name: CtrName/) (args: Data.List AST/Term) // Implement named bindings
+  all (range: Range/) (param: Data.Maybe VarName/) (type: AST/Term) (body: AST/Term) (erased: Data.Bool)
+  sigma (range: Range/) (param: Data.Maybe VarName/) (fst: AST/Term) (snd: AST/Term)
+  lambda (range: Range/) (param: VarName/) (type: Data.Maybe AST/Term) (body: AST/Term) (erased: Data.Bool)
+  app (range: Range/) (fun: AST/Term) (args: Data.List AST/Term) // TODO: Implement erased args
+  let (range: Range/) (name: VarName/) (val: AST/Term) (next: AST/Term) // TODO: Implement destructors in let
+  ann (range: Range/) (val: AST/Term) (type: AST/Term)
+  lit (range: Range/) (lit: AST/Term.Literal)
+  binary (range: Range/) (op: Operator/) (fst: AST/Term) (snd: AST/Term)
+  hole (range: Range/)
+  do (range: Range/) (type: CtrName/) (sttm: AST/Term.Statement)
+  if (range: Range/) (cond: AST/Term) (then: AST/Term) (else: AST/Term)
+  pair (range: Range/) (fst: AST/Term) (snd: AST/Term)
+  list (range: Range/) (args: Data.List AST/Term)
+  subst (range: Range/) (name: VarName/) (redx: Data.U60) (indx: Data.U60) (expr: AST/Term)
+  match (range: Range/) (type: CtrName/) (scrutinee: VarName/) (val: Data.Maybe AST/Term) (with_vars: Data.List (Data.Pair VarName/ (Data.Maybe AST/Term))) (cases: Data.List AST/Term.MatchCase) (motive: Data.Maybe AST/Term)
+  open (range: Range/) (type_name: CtrName/) (var_name: VarName/) (motive: Data.Maybe AST/Term) (next: AST/Term)
+  seqrecord (range: Range/) (type: AST/Term) (expr: AST/Term) (fields: Data.List VarName/) (oper: AST/Term.SeqOperator)
+}
