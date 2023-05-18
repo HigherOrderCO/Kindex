@@ -1,0 +1,18 @@
+// Generates a decidable evidence of the (un)equality of two Nats
+
+Data.Nat.equal.proof (n : Data.Nat) (m : Data.Nat) : Prop.Decidable (Prop.Equal n m)
+Data.Nat.equal.proof Data.Nat.zero Data.Nat.zero = Prop.Decidable.yep Prop.Equal.refl
+Data.Nat.equal.proof (Data.Nat.succ n) Data.Nat.zero = Prop.Decidable.nop (n_eq_zero =>
+    let false_eq_true = Prop.Equal.apply(n => Data.Nat.is_zero n) n_eq_zero
+    Data.Bool.false_not_true false_eq_true)
+Data.Nat.equal.proof Data.Nat.zero (Data.Nat.succ m) = Prop.Decidable.nop (zero_eq_n =>
+    let true_eq_false = Prop.Equal.apply(n => Data.Nat.is_zero n) zero_eq_n
+    Data.Bool.true_not_false true_eq_false)
+Data.Nat.equal.proof (Data.Nat.succ n) (Data.Nat.succ m) =
+  let ind = Data.Nat.equal.proof n m
+  match Prop.Decidable ind {
+    yep proof => Prop.Decidable.yep (Prop.Equal.apply (x => Data.Nat.succ x) proof)
+    nop proof => Prop.Decidable.nop (sucn_eq_sucm =>
+      let n_eq_m = Prop.Equal.apply (x => Data.Nat.pred x) sucn_eq_sucm
+      proof n_eq_m)
+  }
