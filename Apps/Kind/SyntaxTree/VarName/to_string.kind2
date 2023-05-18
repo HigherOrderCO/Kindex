@@ -1,0 +1,4 @@
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+VarName/to_string (name: VarName/) : Data.String
+VarName/to_string (VarName/new range val) = val

@@ -1,0 +1,28 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+KParser/declaration.explicit_rule (expected_name: CtrName/) : KParser/ AST/Rule {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask name = KParser/ctr_name
+    if CtrName/equal_value name expected_name {
+      do Parser/ {
+        Parser/string expected_name
+        let stop = KParser/skipping (Parser.char '=')
+        let pat_prs = KParser/skipping KParser/pattern
+        ask pats = Parser/repeat_until stop pat_prs
+        ask body = KParser/term
+    
+        ask end = Parser/get_index
+        ask range = KParser/make_range start end
+    
+        return AST/Rule.new range name pats body
+      }
+    } else {
+      Parser/empty
+    }
+  }
+}

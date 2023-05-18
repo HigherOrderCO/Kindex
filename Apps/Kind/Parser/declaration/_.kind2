@@ -1,0 +1,10 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+
+KParser/declaration : KParser/ AST/Declaration {
+  Parser/first_of [
+    KParser/declaration.alias
+    KParser/declaration.entry
+  ]
+}

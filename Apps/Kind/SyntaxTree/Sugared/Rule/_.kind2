@@ -3,8 +3,8 @@ use Apps.Kind.SyntaxTree.CtrName as CtrName
 use Apps.Kind.SyntaxTree.Range as Range
 
 record AST/Rule {
+    range: Range/
     name: CtrName/
     pats: Data.List AST/Pattern
     body: AST/Term
-    range: Range/
 }

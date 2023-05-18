@@ -1,27 +1,30 @@
+use Data.String.Parser as Parser
+
 // Returns the result of a parser without modifying the state
-Data.String.Parser.look_ahead <a> <t> (prs: Data.String.Parser t a) : Data.String.Parser t a {
+Parser/look_ahead <a> <t> (prs: Parser/ t a) : Parser/ t a {
   state =>
-    open Data.String.Parser.State state
-    let state = Data.String.Parser.State.new state.custom state.left state.back state.index
+    open Parser/State state
+    let state = Parser/State.new state.custom state.left state.back state.index
     // save initial index
     let init  = state.index
     // Apply parser
-    match Data.String.Parser.Result res = (prs state) {
+    match Parser/Result res = (prs state) {
       // on success, backtrack and return result
       done (state = new_state) result =>
-        open Data.String.Parser.State new_state
-        let new_state = Data.String.Parser.State.new new_state.custom new_state.left new_state.back new_state.index
-        let last      = new_state.index
+        let Parser/State.new custom left back index = new_state
+        let new_state = Parser/State.new custom left back index
+        let last      = index
         let back_n    = (- last init)  // TODO: prove that no parser moves back
-        let old_state = Data.String.Parser.State.backtrack back_n new_state
-        Data.String.Parser.Result.done old_state result
+        let old_state = Parser/State.backtrack back_n new_state
+        Parser/Result.done old_state result
+
       // on fail, backtrack and propagate fail
       fail (state = new_state) error =>
-        open Data.String.Parser.State new_state
-        let new_state = Data.String.Parser.State.new new_state.custom new_state.left new_state.back new_state.index
-        let last      = new_state.index
+        let Parser/State.new custom left back index = new_state
+        let new_state = Parser/State.new custom left back index
+        let last      = index
         let back_n    = (- last init)
-        let old_state = Data.String.Parser.State.backtrack back_n new_state
-        Data.String.Parser.Result.fail old_state error
+        let old_state = Parser/State.backtrack back_n new_state
+        Parser/Result.fail old_state error
     }
 }

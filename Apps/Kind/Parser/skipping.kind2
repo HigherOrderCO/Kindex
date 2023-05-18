@@ -1,0 +1,10 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+// Skips whitespace and comments and then runs a parser
+KParser/skipping <a> <t> (prs: Parser/ t a) : Parser/ t a {
+  do Parser/ {
+    KParser/skip
+    prs
+  }
+}

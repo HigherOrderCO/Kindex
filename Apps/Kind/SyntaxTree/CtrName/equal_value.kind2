@@ -1,0 +1,4 @@
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+CtrName/equal_value (a: CtrName/) (b: CtrName) : Data.bool
+CtrName/equal_value (CtrName/new _ a) (CtrName/new _ b) = Data.String.equal a b

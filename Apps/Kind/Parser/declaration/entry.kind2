@@ -1,0 +1,21 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+
+KParser/declaration.entry : KParser/ AST/Declaration {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    // TODO: Attributes
+
+    ask AST/Entry.new name args type rules range = KParser/declaration.entry_signature
+    KParser/skip
+    ask rules = KParser/declaration.rules name args
+  
+    ask end = Parser/get_index
+    ask range = KParser/make_range start end
+
+    let entry = AST/Entry.new name args type rules range
+    return Decl/entry entry
+  }
+}

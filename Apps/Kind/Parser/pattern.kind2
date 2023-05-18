@@ -1,0 +1,22 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+
+KParser/pattern : KParser/ Ast/Pattern {
+  Parser/first_of [
+    // literal
+    (do Parser {
+      ask literal = KParser/literal
+      match Data.Maybe (AST/Literal.to_pattern literal) {
+        some pattern => Parser/pure pattern
+        none => Parser/empty
+      }
+    })
+    // constructor
+    ()
+    // var
+    ()
+    // hole
+    ()
+  ]
+}

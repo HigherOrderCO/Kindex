@@ -1,15 +1,16 @@
 use Apps.Kind.SyntaxTree.Sugared as AST
 use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.Range as Range
 
 type AST/Term.Literal {
-  type
-  help (name: VarName/)
-  type_u60
-  type_f60
-  char (val: Data.Char)
-  num_u60 (val: Data.U60)
-  num_u120 (val: Data.U120)
-  // num_f60 (val: Data.F60)  TODO: Compiler doesn't support F60 atm
-  num_nat (val: Data.U120)
-  string (val: Data.String)
+  type (range: Range/)
+  help (range: Range/) (name: VarName/)
+  type_u60 (range: Range/)
+  type_f60 (range: Range/)
+  char (range: Range/) (val: Data.Char)
+  num_u60 (range: Range/) (val: Data.U60)
+  num_u120 (range: Range/) (val: Data.U120)
+  // num_f60 (range: Range/) (val: Data.F60)  TODO: Compiler doesn't support F60 atm
+  num_nat (range: Range/) (val: Data.U120)
+  string (range: Range/) (val: Data.String)
 }

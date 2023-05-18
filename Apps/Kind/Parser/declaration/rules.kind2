@@ -1,0 +1,22 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+//! Parser either a default rule, denoted by '{}' after the signature and no explicit rule declaration,
+//! or a sequence of explicit rule declarations for the entry declared just above
+KParser/declaration.rules (name: CtrName/) (dflt_pats: Data.List AST/Argument): KParser/ (Data.List KParser/Rule) {
+  do Parser/ {
+    ask is_default_rule = Parser/to_bool (Parser/char '{')
+    if is_default_rule {
+      KParser/skip
+      ask body = KParser/term
+      KParser/skip
+      Parser.char '}'
+      let pats = List.map dflt_pats (arg => AST/Argument.to_sugared_var arg)
+      return [(KParser/Rule.new 0 name pats body)]
+    } else {
+      Parser/many (KParser/skipping (KParser/declaration.explicit_rule name))
+    }
+  }
+}

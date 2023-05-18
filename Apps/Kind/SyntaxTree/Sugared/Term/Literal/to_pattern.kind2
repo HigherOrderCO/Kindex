@@ -1,0 +1,16 @@
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.Range as Range
+
+Literal/to_pattern (literal: Literal/) : Data.Maybe Pattern/
+Literal/to_pattern (Literal/type range) = Data.Maybe.none
+Literal/to_pattern (Literal/help range name) = Data.Maybe.none
+Literal/to_pattern (Literal/type_u60 range) = Data.Maybe.none
+Literal/to_pattern (Literal/type_f60 range) = Data.Maybe.none
+Literal/to_pattern (Literal/char range val) = Data.Maybe.some (Pattern/char range val)
+Literal/to_pattern (Literal/num_u60 range val) = Data.Maybe.some (Pattern/num_u60 range val)
+Literal/to_pattern (Literal/num_u120 range val) = Data.Maybe.some (Pattern/num_u120 range val)
+//Literal/to_pattern (Literal/num_f60 range val) = 
+Literal/to_pattern (Literal/num_nat range val) = Data.Maybe.none
+Literal/to_pattern (Literal/string range val) = Data.Maybe.some (Pattern/string range val)

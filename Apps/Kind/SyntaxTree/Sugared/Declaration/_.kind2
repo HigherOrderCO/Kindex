@@ -1,0 +1,9 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+type AST/Declaration {
+  alias (range: Range/) (orig: CtrName/) (alias: CtrName/)
+  entry (val: AST/Entry)
+  // TODO: Add adts, attributes, etc
+}

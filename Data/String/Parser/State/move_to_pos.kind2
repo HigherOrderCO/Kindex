@@ -1,0 +1,14 @@
+use Data.String.Parser as Parser
+
+//! Moves the parser state to the given position,
+//! Backtracking or moving forward as needed.
+Parser/State.move_to_pos <t> (state: Parser/State t) (pos: Data.U60) : Parser/State t
+Parser/State.move_to_pos (Parser/State.new custom left back index) pos =
+  let state = (Parser/State.new custom left back index)
+  if Data.U60.greater_than pos index {
+    let fwd_n = (- pos index)
+    Parser/State.forward fwd_n state
+  } else {
+    let back_n = (- index pos)
+    Parser/State.backtrack back_n state
+  }
