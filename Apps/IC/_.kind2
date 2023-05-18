@@ -13,34 +13,36 @@
 // Types
 // -----
 
-// Apps.IC.Terms are Interaction Calculus expressions, which include:
+// IC/Terms are Interaction Calculus expressions, which include:
 // - variables
 // - 2 contructors: lambda and superposition
 // - 2 eliminators: application and duplication
 // - u60 numbers: included for convenience, but not necessary
 
-type Apps.IC.Term {
+use Apps.IC as IC
+
+type IC/Term {
   // Variables
   var (name: Data.U60)
 
   // Functions
-  lam (x: Data.U60) (body: Apps.IC.Term)
-  app (fun: Apps.IC.Term) (arg: Apps.IC.Term)
+  lam (x: Data.U60) (body: IC/Term)
+  app (fun: IC/Term) (arg: IC/Term)
 
   // Cloning
-  sup (lab: Data.U60) (fst: Apps.IC.Term) (snd: Apps.IC.Term)
-  dup (lab: Data.U60) (a: Data.U60) (b: Data.U60) (expr: Apps.IC.Term) (cont: Apps.IC.Term)
+  sup (lab: Data.U60) (fst: IC/Term) (snd: IC/Term)
+  dup (lab: Data.U60) (a: Data.U60) (b: Data.U60) (expr: IC/Term) (cont: IC/Term)
 
   // Numbers
   u60 (val: Data.U60)
-  nop (op: Data.U60) (n: Apps.IC.Term) (m: Apps.IC.Term)
+  nop (op: Data.U60) (n: IC/Term) (m: IC/Term)
 }
 
 // Env is a map linking variables to substituted values. Here, we also keep a
 // track of the total variable count, allowing us to create fresh variables.
 
 record Env {
-  vars: Data.Map Apps.IC.Term 
+  vars: Data.Map IC/Term 
   size: Data.U60
 }
 
@@ -54,11 +56,11 @@ Env.empty : Env
 Env.empty = Env.new Data.Map.new 0
 
 // A substitution just inserts a key/val on the environment map.
-Env.subst (env: Env) (name: Data.U60) (term: Apps.IC.Term) : Env
+Env.subst (env: Env) (name: Data.U60) (term: IC/Term) : Env
 Env.subst (Env.new vars size) name term = Env.new (Data.Map.set vars name term) size
 
 // The take operation just replaces a variable by its substituted value.
-Env.take (env: Env) (name: Data.U60) : Data.Pair Env (Data.Maybe Apps.IC.Term)
+Env.take (env: Env) (name: Data.U60) : Data.Pair Env (Data.Maybe IC/Term)
 Env.take (Env.new vars size) name = 
   let Data.Pair.new (fst = vars) (snd = got) = Data.Map.got vars name
   Data.Pair.new (Env.new vars size) got
@@ -69,62 +71,62 @@ Env.fresh (Env.new vars size) = Data.Pair.new (Env.new vars (+ size 1)) size
 
 // ### Variable Substitutions
 
-Apps.IC.Term.rule.var (name: Data.U60) : Run Apps.IC.Term
-Apps.IC.Term.rule.var name = do Run {
+IC/Term.rule.var (name: Data.U60) : Run IC/Term
+IC/Term.rule.var name = do Run {
   ask got = Run.take name
-  Apps.IC.Term.rule.var.got got name
+  IC/Term.rule.var.got got name
 }
 
-Apps.IC.Term.rule.var.got (got: Data.Maybe Apps.IC.Term) (name: Data.U60) : Run Apps.IC.Term
-Apps.IC.Term.rule.var.got Data.Maybe.none name = do Run {
-  return Apps.IC.Term.var name
+IC/Term.rule.var.got (got: Data.Maybe IC/Term) (name: Data.U60) : Run IC/Term
+IC/Term.rule.var.got Data.Maybe.none name = do Run {
+  return IC/Term.var name
 }
-Apps.IC.Term.rule.var.got (Data.Maybe.some var) name = do Run {
-  Apps.IC.Term.reduce var
+IC/Term.rule.var.got (Data.Maybe.some var) name = do Run {
+  IC/Term.reduce var
 }
 
 // ### Application Interactions
 
-Apps.IC.Term.rule.app (func: Apps.IC.Term) (argm: Apps.IC.Term) : Run Apps.IC.Term
+IC/Term.rule.app (func: IC/Term) (argm: IC/Term) : Run IC/Term
 
 // (λx. body) arg
 // -------------- APP-LAM interaction
 // x <- arg
 // body
-Apps.IC.Term.rule.app (Apps.IC.Term.lam x body) arg = do Run {
+IC/Term.rule.app (IC/Term.lam x body) arg = do Run {
   Run.subst x arg
-  Apps.IC.Term.reduce body
+  IC/Term.reduce body
 }
 
 // ({fst snd} arg)
 // ----------------- APP-SUP interaction
 // dup #A{a,b} = arg
 // {(fst a) (snd b)}
-Apps.IC.Term.rule.app (Apps.IC.Term.sup r fst snd) arg = do Run {
+IC/Term.rule.app (IC/Term.sup r fst snd) arg = do Run {
   ask a = Run.fresh
   ask b = Run.fresh
-  (Apps.IC.Term.reduce
-    (Apps.IC.Term.dup r a b arg
-      (Apps.IC.Term.sup r
-        (Apps.IC.Term.app fst (Apps.IC.Term.var a))
-        (Apps.IC.Term.app snd (Apps.IC.Term.var b)))))
+  (IC/Term.reduce
+    (IC/Term.dup r a b arg
+      (IC/Term.sup r
+        (IC/Term.app fst (IC/Term.var a))
+        (IC/Term.app snd (IC/Term.var b)))))
 }
 
 // ((dup #R{a,b} = expr in cont) arg)
 // ---------------------------------- APP-DUP permutation
 // (dup #R{a,b} = expr in (cont arg))
-Apps.IC.Term.rule.app (Apps.IC.Term.dup r a b expr cont) arg = do Run {
-  Apps.IC.Term.reduce (Apps.IC.Term.dup r a b expr (Apps.IC.Term.app cont arg))
+IC/Term.rule.app (IC/Term.dup r a b expr cont) arg = do Run {
+  IC/Term.reduce (IC/Term.dup r a b expr (IC/Term.app cont arg))
 }
 
 // Stuck
-Apps.IC.Term.rule.app func argm = do Run {
-  return Apps.IC.Term.app func argm
+IC/Term.rule.app func argm = do Run {
+  return IC/Term.app func argm
 }
 
 // ### Duplication Interactions
 
-Apps.IC.Term.rule.dup (r: Data.U60) (a: Data.U60) (b: Data.U60) (expr: Apps.IC.Term) (cont: Apps.IC.Term) : Run Apps.IC.Term
+IC/Term.rule.dup (r: Data.U60) (a: Data.U60) (b: Data.U60) (expr: IC/Term) (cont: IC/Term) : Run IC/Term
 
 // dup #R{a,b} = (λx. f) in cont
 // ----------------------------- DUP-LAM interaction
@@ -133,15 +135,15 @@ Apps.IC.Term.rule.dup (r: Data.U60) (a: Data.U60) (b: Data.U60) (expr: Apps.IC.T
 //  x <- {x0,x1}
 //  dup #R{b0,b1} = body in
 //  cont                   
-Apps.IC.Term.rule.dup r a b (Apps.IC.Term.lam x body) cont = do Run {
+IC/Term.rule.dup r a b (IC/Term.lam x body) cont = do Run {
   ask x0 = Run.fresh
   ask x1 = Run.fresh
   ask b0 = Run.fresh
   ask b1 = Run.fresh
-  Run.subst a (Apps.IC.Term.lam x0 (Apps.IC.Term.var b0))
-  Run.subst b (Apps.IC.Term.lam x1 (Apps.IC.Term.var b1))
-  Run.subst x (Apps.IC.Term.sup r (Apps.IC.Term.var x0) (Apps.IC.Term.var x1))
-  Apps.IC.Term.reduce (Apps.IC.Term.dup r b0 b1 body cont)
+  Run.subst a (IC/Term.lam x0 (IC/Term.var b0))
+  Run.subst b (IC/Term.lam x1 (IC/Term.var b1))
+  Run.subst x (IC/Term.sup r (IC/Term.var x0) (IC/Term.var x1))
+  IC/Term.reduce (IC/Term.dup r b0 b1 body cont)
 }
 
 // let #R{a,b} = #S{fst,snd} in cont
@@ -156,13 +158,13 @@ Apps.IC.Term.rule.dup r a b (Apps.IC.Term.lam x body) cont = do Run {
 //   let #R{a0,a1} = fst in
 //   let #R{b0,b1} = snd in
 //   cont
-Apps.IC.Term.rule.dup r a b (Apps.IC.Term.sup s fst snd) cont =
-  ((Data.Bool.match (Data.U60.equal r s) (self => (fst: Apps.IC.Term) -> (snd: Apps.IC.Term) -> (cont: Apps.IC.Term) -> Run Apps.IC.Term)
+IC/Term.rule.dup r a b (IC/Term.sup s fst snd) cont =
+  ((Data.Bool.match (Data.U60.equal r s) (self => (fst: IC/Term) -> (snd: IC/Term) -> (cont: IC/Term) -> Run IC/Term)
     // if #R == #S:
     (fst => snd => cont => do Run {
       Run.subst a fst
       Run.subst b snd
-      Apps.IC.Term.reduce cont
+      IC/Term.reduce cont
     })
     // else:
     (fst => snd => cont => do Run {
@@ -170,90 +172,90 @@ Apps.IC.Term.rule.dup r a b (Apps.IC.Term.sup s fst snd) cont =
       ask a1 = Run.fresh
       ask b0 = Run.fresh
       ask b1 = Run.fresh
-      Run.subst a (Apps.IC.Term.sup s (Apps.IC.Term.var a0) (Apps.IC.Term.var a1))
-      Run.subst b (Apps.IC.Term.sup s (Apps.IC.Term.var b0) (Apps.IC.Term.var b1))
-      Apps.IC.Term.reduce (Apps.IC.Term.dup r a0 a1 fst (Apps.IC.Term.dup r b0 b1 snd cont))
+      Run.subst a (IC/Term.sup s (IC/Term.var a0) (IC/Term.var a1))
+      Run.subst b (IC/Term.sup s (IC/Term.var b0) (IC/Term.var b1))
+      IC/Term.reduce (IC/Term.dup r a0 a1 fst (IC/Term.dup r b0 b1 snd cont))
     }))
   fst snd cont)
 
 // dup #R{a,b} = (dup #S{c,d} = expr_a in cont_a) in cont_b
 // -------------------------------------------------------- DUP-DUP permutation
 // dup #S{c,d} = expr_a in (dup #R{a,b} = cont_a in cont_b)
-Apps.IC.Term.rule.dup r a b (Apps.IC.Term.dup s c d expr_a cont_a) cont_b = do Run {
-  Apps.IC.Term.reduce (Apps.IC.Term.dup s c d expr_a (Apps.IC.Term.dup r a b cont_a cont_b))
+IC/Term.rule.dup r a b (IC/Term.dup s c d expr_a cont_a) cont_b = do Run {
+  IC/Term.reduce (IC/Term.dup s c d expr_a (IC/Term.dup r a b cont_a cont_b))
 }
 
 // Stuck
-Apps.IC.Term.rule.dup r a b expr cont = do Run {
-  return Apps.IC.Term.dup r a b expr cont
+IC/Term.rule.dup r a b expr cont = do Run {
+  return IC/Term.dup r a b expr cont
 }
 
 // ### Operation Interactions 
 
-Apps.IC.Term.rule.nop (op: Data.U60) (n: Apps.IC.Term) (m: Apps.IC.Term) : Run Apps.IC.Term
+IC/Term.rule.nop (op: Data.U60) (n: IC/Term) (m: IC/Term) : Run IC/Term
 
 // TODO: other operations
 // (OP a b)
 // -------- OP2-Data.U60 interaction
 // a `OP` b
-Apps.IC.Term.rule.nop  0 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (+  n m) }
-Apps.IC.Term.rule.nop  1 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (-  n m) }
-Apps.IC.Term.rule.nop  2 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (*  n m) }
-Apps.IC.Term.rule.nop  3 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (/  n m) }
-Apps.IC.Term.rule.nop  4 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (%  n m) }
-Apps.IC.Term.rule.nop  5 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (&  n m) }
-Apps.IC.Term.rule.nop  6 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (|  n m) }
-Apps.IC.Term.rule.nop  7 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (^  n m) }
-Apps.IC.Term.rule.nop  8 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (<< n m) }
-Apps.IC.Term.rule.nop  9 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (>> n m) }
-Apps.IC.Term.rule.nop 10 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (== n m) }
-Apps.IC.Term.rule.nop 11 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (<  n m) }
-Apps.IC.Term.rule.nop 12 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (<= n m) }
-Apps.IC.Term.rule.nop 13 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (== n m) }
-Apps.IC.Term.rule.nop 14 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (>  n m) }
-Apps.IC.Term.rule.nop 15 (Apps.IC.Term.u60 n) (Apps.IC.Term.u60 m) = do Run { return Apps.IC.Term.u60 (>= n m) }
+IC/Term.rule.nop  0 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (+  n m) }
+IC/Term.rule.nop  1 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (-  n m) }
+IC/Term.rule.nop  2 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (*  n m) }
+IC/Term.rule.nop  3 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (/  n m) }
+IC/Term.rule.nop  4 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (%  n m) }
+IC/Term.rule.nop  5 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (&  n m) }
+IC/Term.rule.nop  6 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (|  n m) }
+IC/Term.rule.nop  7 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (^  n m) }
+IC/Term.rule.nop  8 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (<< n m) }
+IC/Term.rule.nop  9 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (>> n m) }
+IC/Term.rule.nop 10 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (== n m) }
+IC/Term.rule.nop 11 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (<  n m) }
+IC/Term.rule.nop 12 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (<= n m) }
+IC/Term.rule.nop 13 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (== n m) }
+IC/Term.rule.nop 14 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (>  n m) }
+IC/Term.rule.nop 15 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (>= n m) }
 
 // (+ #R{a0,a1} b)
 // --------------------- OP2-SUP-0 interaction
 // dup #R{b0,b1} = b in
 // #R{(+ a0 b0),(+ a1 b1)}
-Apps.IC.Term.rule.nop op (Apps.IC.Term.sup r a0 a1) b = do Run {
+IC/Term.rule.nop op (IC/Term.sup r a0 a1) b = do Run {
   ask b0 = Run.fresh
   ask b1 = Run.fresh
-  return Apps.IC.Term.dup r b0 b1 b (Apps.IC.Term.sup r
-    (Apps.IC.Term.nop op a0 (Apps.IC.Term.var b0))
-    (Apps.IC.Term.nop op a1 (Apps.IC.Term.var b1)))
+  return IC/Term.dup r b0 b1 b (IC/Term.sup r
+    (IC/Term.nop op a0 (IC/Term.var b0))
+    (IC/Term.nop op a1 (IC/Term.var b1)))
 }
 
 // (+ a #R{b0,b1})
 // --------------------- OP2-SUP-1 interaction
 // dup #R{a0,a1} = a in
 // #R{(+ a0 b0),(+ a1 b1)}
-Apps.IC.Term.rule.nop op a (Apps.IC.Term.sup r b0 b1) = do Run {
+IC/Term.rule.nop op a (IC/Term.sup r b0 b1) = do Run {
   ask a0 = Run.fresh
   ask a1 = Run.fresh
-  return Apps.IC.Term.dup r a0 a1 a (Apps.IC.Term.sup r
-    (Apps.IC.Term.nop op (Apps.IC.Term.var a0) b0)
-    (Apps.IC.Term.nop op (Apps.IC.Term.var a1) b1))
+  return IC/Term.dup r a0 a1 a (IC/Term.sup r
+    (IC/Term.nop op (IC/Term.var a0) b0)
+    (IC/Term.nop op (IC/Term.var a1) b1))
 }
 
 // (+ (dup #R{a0,a1} = expr in cont) b)
 // ------------------------------------ OP2-DUP-0 permutation
 // (dup #R{a0,a1} = expr in (+ cont b))
-Apps.IC.Term.rule.nop op (Apps.IC.Term.dup r a0 a1 expr cont) b = do Run {
-  return Apps.IC.Term.dup r a0 a1 expr (Apps.IC.Term.nop op cont b)
+IC/Term.rule.nop op (IC/Term.dup r a0 a1 expr cont) b = do Run {
+  return IC/Term.dup r a0 a1 expr (IC/Term.nop op cont b)
 }
 
 // (+ a (dup #R{b0,b1} = expr in cont))
 // ------------------------------------ OP2-DUP-1 permutation
 // (dup #R{b0,b1} = expr in (+ a cont))
-Apps.IC.Term.rule.nop op a (Apps.IC.Term.dup r b0 b1 expr cont) = do Run {
-  return Apps.IC.Term.dup r b0 b1 expr (Apps.IC.Term.nop op a cont)
+IC/Term.rule.nop op a (IC/Term.dup r b0 b1 expr cont) = do Run {
+  return IC/Term.dup r b0 b1 expr (IC/Term.nop op a cont)
 }
 
 // Stuck
-Apps.IC.Term.rule.nop op n m = do Run {
-  return Apps.IC.Term.nop op n m
+IC/Term.rule.nop op n m = do Run {
+  return IC/Term.nop op n m
 }
 
 // Run Trait.Monad
@@ -277,10 +279,10 @@ Run.monad : Trait.Monad (a => Run a) {
   Trait.Monad.new (a => Run a) (a => x => Run.pure a x) (a => b => x => f => Run.bind a b x f)
 }
 
-Run.subst (name: Data.U60) (term: Apps.IC.Term) : Run Data.Unit
+Run.subst (name: Data.U60) (term: IC/Term) : Run Data.Unit
 Run.subst name term = env => Data.Pair.new (Env.subst env name term) Data.Unit.new
 
-Run.take (name: Data.U60) : Run (Data.Maybe Apps.IC.Term)
+Run.take (name: Data.U60) : Run (Data.Maybe IC/Term)
 Run.take name = env => Env.take env name
 
 Run.fresh : Run Data.U60
@@ -293,73 +295,73 @@ Run.exec a run = Data.Pair.snd (run Env.empty)
 // -------
 // Reduces a term to weak normal form.
 
-Apps.IC.Term.reduce (term: Apps.IC.Term) : Run Apps.IC.Term
-Apps.IC.Term.reduce (Apps.IC.Term.var name) = do Run {
-  Apps.IC.Term.rule.var name
+IC/Term.reduce (term: IC/Term) : Run IC/Term
+IC/Term.reduce (IC/Term.var name) = do Run {
+  IC/Term.rule.var name
 }
-Apps.IC.Term.reduce (Apps.IC.Term.lam x body) = do Run {
-  return Apps.IC.Term.lam x body
+IC/Term.reduce (IC/Term.lam x body) = do Run {
+  return IC/Term.lam x body
 }
-Apps.IC.Term.reduce (Apps.IC.Term.app fun arg) = do Run {
-  ask fun = Apps.IC.Term.reduce fun
-  Apps.IC.Term.rule.app fun arg
+IC/Term.reduce (IC/Term.app fun arg) = do Run {
+  ask fun = IC/Term.reduce fun
+  IC/Term.rule.app fun arg
 }
-Apps.IC.Term.reduce (Apps.IC.Term.sup r fst snd) = do Run {
-  return Apps.IC.Term.sup r fst snd
+IC/Term.reduce (IC/Term.sup r fst snd) = do Run {
+  return IC/Term.sup r fst snd
 }
-Apps.IC.Term.reduce (Apps.IC.Term.dup r a b expr cont) = do Run {
-  ask expr = Apps.IC.Term.reduce expr
-  Apps.IC.Term.rule.dup r a b expr cont
+IC/Term.reduce (IC/Term.dup r a b expr cont) = do Run {
+  ask expr = IC/Term.reduce expr
+  IC/Term.rule.dup r a b expr cont
 }
-Apps.IC.Term.reduce (Apps.IC.Term.u60 val) = do Run {
-  return Apps.IC.Term.u60 val
+IC/Term.reduce (IC/Term.u60 val) = do Run {
+  return IC/Term.u60 val
 }
-Apps.IC.Term.reduce (Apps.IC.Term.nop op n m) = do Run {
-  ask n = Apps.IC.Term.reduce n
-  ask m = Apps.IC.Term.reduce m
-  Apps.IC.Term.rule.nop op n m
+IC/Term.reduce (IC/Term.nop op n m) = do Run {
+  ask n = IC/Term.reduce n
+  ask m = IC/Term.reduce m
+  IC/Term.rule.nop op n m
 }
 
 // Normalizer
 // ----------
 // Reduces a term to strong normal form.
 
-Apps.IC.Term.normal (term: Apps.IC.Term) : Run Apps.IC.Term
-Apps.IC.Term.normal term = do Run {
-  ask term = Apps.IC.Term.reduce term
-  Apps.IC.Term.normal.go term
+IC/Term.normal (term: IC/Term) : Run IC/Term
+IC/Term.normal term = do Run {
+  ask term = IC/Term.reduce term
+  IC/Term.normal.go term
 }
 
-Apps.IC.Term.normal.go (term: Apps.IC.Term) : Run Apps.IC.Term
-Apps.IC.Term.normal.go (Apps.IC.Term.var name) = do Run {
-  return Apps.IC.Term.var name
+IC/Term.normal.go (term: IC/Term) : Run IC/Term
+IC/Term.normal.go (IC/Term.var name) = do Run {
+  return IC/Term.var name
 }
-Apps.IC.Term.normal.go (Apps.IC.Term.lam x body) = do Run {
-  ask body = Apps.IC.Term.normal body
-  return Apps.IC.Term.lam x body
+IC/Term.normal.go (IC/Term.lam x body) = do Run {
+  ask body = IC/Term.normal body
+  return IC/Term.lam x body
 }
-Apps.IC.Term.normal.go (Apps.IC.Term.app fun arg) = do Run {
-  ask fun = Apps.IC.Term.normal fun
-  ask arg = Apps.IC.Term.normal arg
-  return Apps.IC.Term.app fun arg
+IC/Term.normal.go (IC/Term.app fun arg) = do Run {
+  ask fun = IC/Term.normal fun
+  ask arg = IC/Term.normal arg
+  return IC/Term.app fun arg
 }
-Apps.IC.Term.normal.go (Apps.IC.Term.sup r fst snd) = do Run {
-  ask fst = Apps.IC.Term.normal fst
-  ask snd = Apps.IC.Term.normal snd
-  return Apps.IC.Term.sup r fst snd
+IC/Term.normal.go (IC/Term.sup r fst snd) = do Run {
+  ask fst = IC/Term.normal fst
+  ask snd = IC/Term.normal snd
+  return IC/Term.sup r fst snd
 }
-Apps.IC.Term.normal.go (Apps.IC.Term.dup r a b expr cont) = do Run {
-  ask expr = Apps.IC.Term.normal expr
-  ask cont = Apps.IC.Term.normal cont
-  return Apps.IC.Term.dup r a b expr cont
+IC/Term.normal.go (IC/Term.dup r a b expr cont) = do Run {
+  ask expr = IC/Term.normal expr
+  ask cont = IC/Term.normal cont
+  return IC/Term.dup r a b expr cont
 }
-Apps.IC.Term.normal.go (Apps.IC.Term.u60 val) = do Run {
-  return Apps.IC.Term.u60 val
+IC/Term.normal.go (IC/Term.u60 val) = do Run {
+  return IC/Term.u60 val
 }
-Apps.IC.Term.normal.go (Apps.IC.Term.nop op n m) = do Run {
-  ask n = Apps.IC.Term.normal n
-  ask m = Apps.IC.Term.normal m
-  return Apps.IC.Term.nop op n m
+IC/Term.normal.go (IC/Term.nop op n m) = do Run {
+  ask n = IC/Term.normal n
+  ask m = IC/Term.normal m
+  return IC/Term.nop op n m
 }
 
 // Data.String.Parser
@@ -385,47 +387,47 @@ Apps.IC.Term.normal.go (Apps.IC.Term.nop op n m) = do Run {
 // var := name
 // name := [0-9]+
 
-Apps.IC.parser : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser = do Data.String.Parser {
+IC/parser : Data.String.Parser Env IC/Term
+IC/parser = do Data.String.Parser {
   Data.String.Parser.skip_whitespace
-  Apps.IC.parser.term
+  IC/parser.term
 }
 
-Apps.IC.parser.term : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.term =
+IC/parser.term : Data.String.Parser Env IC/Term
+IC/parser.term =
   let parsers = [
-    Apps.IC.parser.dup
-    Apps.IC.parser.sup
-    Apps.IC.parser.lam
-    Apps.IC.parser.nop
-    Apps.IC.parser.app
-    Apps.IC.parser.u60
-    Apps.IC.parser.var
+    IC/parser.dup
+    IC/parser.sup
+    IC/parser.lam
+    IC/parser.nop
+    IC/parser.app
+    IC/parser.u60
+    IC/parser.var
   ]
   Data.String.Parser.first_of parsers
 
-Apps.IC.parser.dup : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.dup = do Data.String.Parser {
+IC/parser.dup : Data.String.Parser Env IC/Term
+IC/parser.dup = do Data.String.Parser {
   Data.String.Parser.string "let"
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char '#'
-  ask lab = Apps.IC.parser.name
+  ask lab = IC/parser.name
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char '{'
   Data.String.Parser.skip_whitespace
-  ask a = Apps.IC.parser.name
+  ask a = IC/parser.name
   Data.String.Parser.whitespace
-  ask b = Apps.IC.parser.name
+  ask b = IC/parser.name
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char '}'
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char '='
   Data.String.Parser.skip_whitespace
-  ask expr = Apps.IC.parser.term
+  ask expr = IC/parser.term
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char ';'
   Data.String.Parser.skip_whitespace
-  ask cont = Apps.IC.parser.term
+  ask cont = IC/parser.term
 
   ask env = Data.String.Parser.take_custom Env.empty
   // TODO: I'm assuming that the input string uses variables correctly
@@ -435,33 +437,33 @@ Apps.IC.parser.dup = do Data.String.Parser {
   let env = Data.Pair.fst (Env.fresh env)
   Data.String.Parser.set_custom env
 
-  return Apps.IC.Term.dup lab a b expr cont
+  return IC/Term.dup lab a b expr cont
 }
 
-Apps.IC.parser.sup : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.sup = do Data.String.Parser {
+IC/parser.sup : Data.String.Parser Env IC/Term
+IC/parser.sup = do Data.String.Parser {
   Data.String.Parser.char '#'
-  ask lab = Apps.IC.parser.name
+  ask lab = IC/parser.name
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char '{'
   Data.String.Parser.skip_whitespace
-  ask fst = Apps.IC.parser.term
+  ask fst = IC/parser.term
   Data.String.Parser.whitespace
-  ask snd = Apps.IC.parser.term
+  ask snd = IC/parser.term
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char '}'
   
-  return Apps.IC.Term.sup lab fst snd
+  return IC/Term.sup lab fst snd
 }
 
-Apps.IC.parser.lam : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.lam = do Data.String.Parser {
+IC/parser.lam : Data.String.Parser Env IC/Term
+IC/parser.lam = do Data.String.Parser {
   ask has_parens = Data.String.Parser.to_bool (Data.String.Parser.char '(')
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char_any_of "@λ"
-  ask x = Apps.IC.parser.name
+  ask x = IC/parser.name
   Data.String.Parser.skip_whitespace
-  ask body = Apps.IC.parser.term
+  ask body = IC/parser.term
   Data.String.Parser.skip_whitespace
   if has_parens {
     Data.String.Parser.char ')'
@@ -473,152 +475,152 @@ Apps.IC.parser.lam = do Data.String.Parser {
   let env = Data.Pair.fst (Env.fresh env) // Adding x to the env
   Data.String.Parser.set_custom env
 
-  return Apps.IC.Term.lam x body
+  return IC/Term.lam x body
 }
 
-Apps.IC.parser.app : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.app = do Data.String.Parser {
+IC/parser.app : Data.String.Parser Env IC/Term
+IC/parser.app = do Data.String.Parser {
   Data.String.Parser.char '('
   Data.String.Parser.skip_whitespace
-  ask fun = Apps.IC.parser.term
+  ask fun = IC/parser.term
   Data.String.Parser.skip_whitespace
-  ask arg = Apps.IC.parser.term
+  ask arg = IC/parser.term
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char ')'
 
-  return Apps.IC.Term.app fun arg
+  return IC/Term.app fun arg
 }
 
-Apps.IC.parser.u60 : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.u60 = do Data.String.Parser {
+IC/parser.u60 : Data.String.Parser Env IC/Term
+IC/parser.u60 = do Data.String.Parser {
   Data.String.Parser.char '#'
   ask val = Data.String.Parser.u60_decimal
-  return Apps.IC.Term.u60 val
+  return IC/Term.u60 val
 }
 
-Apps.IC.parser.nop : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.nop = do Data.String.Parser {
+IC/parser.nop : Data.String.Parser Env IC/Term
+IC/parser.nop = do Data.String.Parser {
   Data.String.Parser.char '('
   Data.String.Parser.skip_whitespace
-  ask op = Apps.IC.parser.oper
+  ask op = IC/parser.oper
   Data.String.Parser.whitespace
-  ask n = Apps.IC.parser.term
+  ask n = IC/parser.term
   Data.String.Parser.skip_whitespace
-  ask m = Apps.IC.parser.term
+  ask m = IC/parser.term
   Data.String.Parser.skip_whitespace
   Data.String.Parser.char ')'
 
-  let term = Apps.IC.Term.nop op n m
+  let term = IC/Term.nop op n m
   return term
 }
 
-Apps.IC.parser.var : Data.String.Parser Env Apps.IC.Term
-Apps.IC.parser.var = do Data.String.Parser {
-  ask name = Apps.IC.parser.name
-  return Apps.IC.Term.var name
+IC/parser.var : Data.String.Parser Env IC/Term
+IC/parser.var = do Data.String.Parser {
+  ask name = IC/parser.name
+  return IC/Term.var name
 }
 
-Apps.IC.parser.name : Data.String.Parser Env Data.U60
-Apps.IC.parser.name = Data.String.Parser.u60_decimal
+IC/parser.name : Data.String.Parser Env Data.U60
+IC/parser.name = Data.String.Parser.u60_decimal
 
-Apps.IC.parser.oper : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper =
+IC/parser.oper : Data.String.Parser Env Data.U60
+IC/parser.oper =
   Data.String.Parser.first_of [
-    Apps.IC.parser.oper.add
-    Apps.IC.parser.oper.sub
-    Apps.IC.parser.oper.mul
-    Apps.IC.parser.oper.div
-    Apps.IC.parser.oper.mod
-    Apps.IC.parser.oper.and
-    Apps.IC.parser.oper.or
-    Apps.IC.parser.oper.xor
-    Apps.IC.parser.oper.shl
-    Apps.IC.parser.oper.shr
-    Apps.IC.parser.oper.eql
-    Apps.IC.parser.oper.ltn
-    Apps.IC.parser.oper.lte
-    Apps.IC.parser.oper.neq
-    Apps.IC.parser.oper.gtn
-    Apps.IC.parser.oper.gte
+    IC/parser.oper.add
+    IC/parser.oper.sub
+    IC/parser.oper.mul
+    IC/parser.oper.div
+    IC/parser.oper.mod
+    IC/parser.oper.and
+    IC/parser.oper.or
+    IC/parser.oper.xor
+    IC/parser.oper.shl
+    IC/parser.oper.shr
+    IC/parser.oper.eql
+    IC/parser.oper.ltn
+    IC/parser.oper.lte
+    IC/parser.oper.neq
+    IC/parser.oper.gtn
+    IC/parser.oper.gte
   ]
 
-Apps.IC.parser.oper.add : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.add = do Data.String.Parser {
+IC/parser.oper.add : Data.String.Parser Env Data.U60
+IC/parser.oper.add = do Data.String.Parser {
   Data.String.Parser.string "+"
   return 0
 }
-Apps.IC.parser.oper.sub : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.sub = do Data.String.Parser {
+IC/parser.oper.sub : Data.String.Parser Env Data.U60
+IC/parser.oper.sub = do Data.String.Parser {
   Data.String.Parser.string "-"
   return 1
 }
-Apps.IC.parser.oper.mul : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.mul = do Data.String.Parser {
+IC/parser.oper.mul : Data.String.Parser Env Data.U60
+IC/parser.oper.mul = do Data.String.Parser {
   Data.String.Parser.string "*"
   return 2
 }
-Apps.IC.parser.oper.div : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.div = do Data.String.Parser {
+IC/parser.oper.div : Data.String.Parser Env Data.U60
+IC/parser.oper.div = do Data.String.Parser {
   Data.String.Parser.string "/"
   return 3
 }
-Apps.IC.parser.oper.mod : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.mod = do Data.String.Parser {
+IC/parser.oper.mod : Data.String.Parser Env Data.U60
+IC/parser.oper.mod = do Data.String.Parser {
   Data.String.Parser.string "%"
   return 4
 }
-Apps.IC.parser.oper.and : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.and = do Data.String.Parser {
+IC/parser.oper.and : Data.String.Parser Env Data.U60
+IC/parser.oper.and = do Data.String.Parser {
   Data.String.Parser.string "&"
   return 5
 }
-Apps.IC.parser.oper.or : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.or = do Data.String.Parser {
+IC/parser.oper.or : Data.String.Parser Env Data.U60
+IC/parser.oper.or = do Data.String.Parser {
   Data.String.Parser.string "|"
   return 6
 }
-Apps.IC.parser.oper.xor : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.xor = do Data.String.Parser {
+IC/parser.oper.xor : Data.String.Parser Env Data.U60
+IC/parser.oper.xor = do Data.String.Parser {
   Data.String.Parser.string "^"
   return 7
 }
-Apps.IC.parser.oper.shl : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.shl = do Data.String.Parser {
+IC/parser.oper.shl : Data.String.Parser Env Data.U60
+IC/parser.oper.shl = do Data.String.Parser {
   Data.String.Parser.string "<<"
   return 8
 }
-Apps.IC.parser.oper.shr : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.shr = do Data.String.Parser {
+IC/parser.oper.shr : Data.String.Parser Env Data.U60
+IC/parser.oper.shr = do Data.String.Parser {
   Data.String.Parser.string ">>"
   return 9
 }
-Apps.IC.parser.oper.eql : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.eql = do Data.String.Parser {
+IC/parser.oper.eql : Data.String.Parser Env Data.U60
+IC/parser.oper.eql = do Data.String.Parser {
   Data.String.Parser.string "=="
   return 10
 }
-Apps.IC.parser.oper.ltn : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.ltn = do Data.String.Parser {
+IC/parser.oper.ltn : Data.String.Parser Env Data.U60
+IC/parser.oper.ltn = do Data.String.Parser {
   Data.String.Parser.string "<"
   return 11
 }
-Apps.IC.parser.oper.lte : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.lte = do Data.String.Parser {
+IC/parser.oper.lte : Data.String.Parser Env Data.U60
+IC/parser.oper.lte = do Data.String.Parser {
   Data.String.Parser.string "<="
   return 12
 }
-Apps.IC.parser.oper.neq : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.neq = do Data.String.Parser {
+IC/parser.oper.neq : Data.String.Parser Env Data.U60
+IC/parser.oper.neq = do Data.String.Parser {
   Data.String.Parser.string "!="
   return 13
 }
-Apps.IC.parser.oper.gtn : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.gtn = do Data.String.Parser {
+IC/parser.oper.gtn : Data.String.Parser Env Data.U60
+IC/parser.oper.gtn = do Data.String.Parser {
   Data.String.Parser.string ">"
   return 14
 }
-Apps.IC.parser.oper.gte : Data.String.Parser Env Data.U60
-Apps.IC.parser.oper.gte = do Data.String.Parser {
+IC/parser.oper.gte : Data.String.Parser Env Data.U60
+IC/parser.oper.gte = do Data.String.Parser {
   Data.String.Parser.string ">="
   return 15
 }
@@ -633,13 +635,13 @@ Apps.IC.parser.oper.gte = do Data.String.Parser {
 //     ask x0 = Run.fresh
 //     ask x1 = Run.fresh
 //     //  fn = (λx. dup x0 x1 = x; sup x0 x1)
-//     let fn = Apps.IC.Term.lam x (Apps.IC.Term.dup 0 x0 x1 (Apps.IC.Term.var x) (Apps.IC.Term.sup 0 (Apps.IC.Term.var x0) (Apps.IC.Term.var x1)))
+//     let fn = IC/Term.lam x (IC/Term.dup 0 x0 x1 (IC/Term.var x) (IC/Term.sup 0 (IC/Term.var x0) (IC/Term.var x1)))
 //     ask y  = Run.fresh
 //     //  ar = (λy. y)
-//     let ar = Apps.IC.Term.lam y (Apps.IC.Term.var y)
+//     let ar = IC/Term.lam y (IC/Term.var y)
 //     //  tr = (fn ar)
-//     let tr = Apps.IC.Term.app fn ar
-//     Apps.IC.Term.normal tr
+//     let tr = IC/Term.app fn ar
+//     IC/Term.normal tr
 //   })
 // }
 
@@ -649,10 +651,10 @@ Main : _ {
   // normal = #0{(λx4. x4) (λx5. x5)}
   let input = "((λ2 let #0{0 1} = 2; #0{0 1}) (λ3 3))"
   let init = Data.String.Parser.State.new Env.empty input "" 0
-  match Data.String.Parser.Result r = ((Apps.IC.parser) init) {
+  match Data.String.Parser.Result r = ((IC/parser) init) {
     done state result =>
       let env = Data.Pair.fst (Data.String.Parser.State.take_custom state)
-      Data.Either.left (Data.Pair.snd ((Apps.IC.Term.normal result) env))
+      Data.Either.left (Data.Pair.snd ((IC/Term.normal result) env))
     fail state error => Data.Either.right error
   }
 }
