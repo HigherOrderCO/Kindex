@@ -80,7 +80,7 @@ Coverage/get_name (Term/ct14 name _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Data.Maybe.so
 Coverage/get_name (Term/ct15 name _ _)                           = Data.Maybe.some name
 Coverage/get_name (Term/ct16 name _ _)                           = Data.Maybe.some name
 Coverage/get_name (Term/ct16 name _ _)                           = Data.Maybe.some name
-Coverage/get_name (Term/Data.U60 _)                                   = Data.Maybe.none
+Coverage/get_name (Term/U60 _)                                   = Data.Maybe.none
 Coverage/get_name _                                                   = Data.Maybe.none
 
 Coverage/craft (n: Data.U60) (rest: Apps.Kind.Rule) : Apps.Kind.Rule

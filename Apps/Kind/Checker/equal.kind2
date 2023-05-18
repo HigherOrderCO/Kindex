@@ -51,7 +51,7 @@ Checker/equal (Term/sub a.orig a.name a.indx a.redx a.expr) (Term/sub b.orig b.n
     return func
   }
 
-Checker/equal (Term/Data.U60 a.orig) (Term/Data.U60 b.orig) =
+Checker/equal (Term/U60 a.orig) (Term/U60 b.orig) =
   Checker/pure Data.Bool.true
 
 Checker/equal (Term/u60 a.orig a.num) (Term/u60 b.orig b.num) =

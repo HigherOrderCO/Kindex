@@ -71,7 +71,7 @@ Term/show.go (Term/args15 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14)    
 Term/show.go (Term/args16 x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15)    = Printer/text [(Term/show x0) " " (Term/show x1) " " (Term/show x2) " " (Term/show x3) " " (Term/show x4) " " (Term/show x5) " " (Term/show x6) " " (Term/show x7) " " (Term/show x8) " " (Term/show x9) " " (Term/show x10) " " (Term/show x11) " " (Term/show x12) " " (Term/show x13) " " (Term/show x14) " " (Term/show x15)]
 
 Term/show.go (Term/hlp orig)                        = "?"
-Term/show.go (Term/Data.U60 orig)                        = "Data.U60"
+Term/show.go (Term/U60 orig)                        = "Data.U60"
 Term/show.go (Term/u60 orig numb)                   = Data.String.Build.to_string (Data.U60.show numb)
 Term/show.go (Term/F60 orig)                        = "F60"
 Term/show.go (Term/f60 orig numb)                   = Data.String.Build.to_string (Data.U60.show numb)

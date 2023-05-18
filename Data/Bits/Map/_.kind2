@@ -1,4 +1,4 @@
-// Automatically derived from Data.Bits/Data.Map/_.type
+// Automatically derived from Data/Bits/Map/_.type
 // Data.Bits.Map (a: Type) : Type
 // Data.Bits.Map.new <a: Type> : (Data.Bits.Map a)
 // Data.Bits.Map.tie <a: Type> (val: (Data.Maybe a)) (left: (Data.Bits.Map a)) (right: (Data.Bits.Map a)) : (Data.Bits.Map a)

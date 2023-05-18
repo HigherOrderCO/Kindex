@@ -213,11 +213,11 @@ Checker/infer (Term/hlp orig) =
     (Checker/fail (Error/inspection ctx orig (Term/hlp 0)))
   }
 
-Checker/infer (Term/Data.U60 orig) =
+Checker/infer (Term/U60 orig) =
   Checker/pure (Term/typ 0)
 
 Checker/infer (Term/u60 orig numb) =
-  Checker/pure (Term/Data.U60 0)
+  Checker/pure (Term/U60 0)
 
 Checker/infer (Term/F60 orig) =
   Checker/pure (Term/typ 0)
@@ -227,9 +227,9 @@ Checker/infer (Term/f60 orig numb) =
 
 Checker/infer (Term/op2 orig oper left right) =
   do Apps.Kind.Checker {
-    Checker/check left  (Term/Data.U60 0)
-    Checker/check right (Term/Data.U60 0)
-    return Term/Data.U60 0
+    Checker/check left  (Term/U60 0)
+    Checker/check right (Term/U60 0)
+    return Term/U60 0
   }
 
 Checker/infer (Term/args15 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _) = Apps.Kind.Axiom.Null
