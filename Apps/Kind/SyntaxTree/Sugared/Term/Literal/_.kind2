@@ -11,6 +11,6 @@ type AST/Term.Literal {
   num_u60 (range: Range/) (val: Data.U60)
   num_u120 (range: Range/) (val: Data.U120)
   // num_f60 (range: Range/) (val: Data.F60)  TODO: Compiler doesn't support F60 atm
-  num_nat (range: Range/) (val: Data.U120)
+  num_nat (range: Range/) (val: Data.U60)
   string (range: Range/) (val: Data.String)
 }

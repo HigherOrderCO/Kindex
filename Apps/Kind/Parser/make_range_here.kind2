@@ -1,0 +1,13 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+KParser/make_range_here (start: Data.U60) : KParser/ Apps.Kind.SyntaxTree.Range {
+  state =>
+    let Parser/State.new custom left back index = state
+    let KParser/State.new file_id = custom
+    let custom = KParser/State.new file_id
+    let state = Parser/State.new custom left back index
+    let range = Apps.Kind.SyntaxTree.Range.new start index file_id
+    Parser/Result.done state range
+}
+  

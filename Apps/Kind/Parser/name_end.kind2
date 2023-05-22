@@ -1,0 +1,6 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+KParser/name_end : KParser/ Data.Unit {
+  Parser/skip (Parser/look_ahead (Parser/satisfy (c => Data.Bool.not (KParser/is_name_char c))))
+}

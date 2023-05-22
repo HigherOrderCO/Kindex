@@ -1,0 +1,20 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Parsers a binary number of the form 0b[01]+ into a U120
+KParser/term.literal.binary : KParser/ Data.U120 {
+  do Parser/ {
+    Parser/string "0b"
+    ask c = Parser/try (Parser/satisfy (c => Data.Char.is_binary c))
+    KParser/term.literal.binary.go c 0u120
+  }
+}
+
+KParser/term.literal.binary.go (c: Data.Maybe Data.Char) (n: Data.U120) : KParser/ Data.U120
+KParser/term.literal.binary.go (Data.Maybe.some c) n = do Parser/ {
+  let shf = (Data.U120.shift_left n 1u120)
+  let n = (Data.U120.add shf (Data.U60.to_u120 (- c '0')))
+  ask next_c = Parser/try (Parser/satisfy (c => Data.Char.is_binary c))
+  KParser/term.literal.binary.go next_c n
+}
+KParser/term.literal.binary.go (Data.Maybe.none) n = Parser/pure n

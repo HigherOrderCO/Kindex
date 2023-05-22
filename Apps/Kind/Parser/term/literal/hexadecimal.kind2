@@ -1,0 +1,22 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Parsers a hexadecimal number of the form 0b[0-9a-f]+ into a U120
+KParser/term.literal.hexadecimal : KParser/ Data.U120 {
+  do Parser/ {
+    Parser/string "0x"
+    ask c = Parser/try (Parser/satisfy (c => Data.Char.is_hex c))
+    KParser/term.literal.hexadecimal.go c 0u120
+  }
+}
+
+KParser/term.literal.hexadecimal.go (c: Data.Maybe Data.Char) (n: Data.U120) : KParser/ Data.U120
+KParser/term.literal.hexadecimal.go (Data.Maybe.some c) n = do Parser/ {
+  // Not very efficient but keeps satisfy as the only primitive char consuming operation
+  let shf = (Data.U120.shift_left n 4u120)
+  let c = (Data.Maybe.default (Data.Char.to_hex c) 0u60)
+  let n = (Data.U120.add shf (Data.U60.to_u120 c))
+  ask next_c = Parser/try (Parser/satisfy (c => Data.Char.is_hex c))
+  KParser/term.literal.hexadecimal.go next_c n
+}
+KParser/term.literal.hexadecimal.go (Data.Maybe.none) n = Parser/pure n

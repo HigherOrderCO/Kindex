@@ -1,0 +1,60 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.Parser.term.literal.num_integer as Num_integer
+
+//! Parser an integer number literal (u60, u120 or nat).
+//! Works with numbers in binary, octal, hexa or decimal notation
+//! (0b[01]+ | 0o[0-7]+ | 0x[0-9a-f]+ | [0-9]+) (u60 | u120 | n)?
+Num_integer/ : KParser/ Literal/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    // TODO: Maybe we should keep these as string until we know it's u120
+    // since u120 operations are much slower.
+    ask big_num = Parser/first_of [
+      KParser/term.literal.binary
+      KParser/term.literal.octal
+      KParser/term.literal.hexadecimal
+      KParser/term.literal.decimal
+    ]
+
+    ask is_u120 = Parser/is_some (Parser/try (KParser/exact_name "u120"))
+    Num_integer/u120 is_u120 big_num start
+  }
+}
+
+// Basically: if is_u120 {parse as u120} else if is_nat {parse as nat} else {parse as u60}
+
+// Builds U120 num literal or calls next
+Num_integer/u120 (is_u120: Data.Bool) (num: Data.U120) (start: Data.U60) : KParser/ Literal/
+Num_integer/u120 Data.Bool.true num start =
+  do Parser/ {
+    ask range = KParser/make_range_here start
+    return Literal/num_u120 range num
+  }
+Num_integer/u120 Data.Bool.false num start =
+  do Parser/ {
+    ask is_nat = Parser/is_some (Parser/try (KParser/exact_name "n"))
+    Num_integer/nat is_nat num start
+  }
+
+// Builds Nat num literal or calls next
+Num_integer/nat (is_nat: Data.Bool) (num: Data.U120) (start: Data.U60) : KParser/ Literal/
+Num_integer/nat Data.Bool.true (Data.U120.new 0 num) start =
+  do Parser/ {
+    ask range = KParser/make_range_here start
+    return Literal/num_nat range num
+  }
+Num_integer/nat Data.Bool.true num start = Parser/empty
+Num_integer/nat Data.Bool.false num start = Num_integer/u60 num start
+
+// Build U60 num literal
+Num_integer/u60 (num: Data.U120) (start: Data.U60) : KParser/ Literal/
+Num_integer/u60 (Data.U120.new 0 num) start =
+  do Parser/ {
+    Parser/try (KParser/exact_name "u60")
+    ask range = KParser/make_range_here start
+    return Literal/num_u60 range num
+  }
+Num_integer/u60 num start = Parser/empty

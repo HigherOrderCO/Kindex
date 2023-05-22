@@ -1,0 +1,14 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Parses a token that has the format of the given string.
+//! Fails if the next characters are not the ones in `str`.
+//! Also fails if after `str` there are more name characters.
+//! Ex: (KParser/exact_name "Test") on state "Test "  -> OK
+//! Ex: (KParser/exact_name "Test") on state "Test2"  -> Fail
+KParser/exact_name (str: Data.String) : KParser/ Data.Unit {
+  do Parser/ {
+    Parser/string str
+    KParser/name_end
+  }
+}
