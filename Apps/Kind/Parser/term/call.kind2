@@ -1,0 +1,38 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.Parser.term.Callable as Callable
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Sugared.Range as Range
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.Parser.term.call.make_term as Make_term
+
+//! Parses a term that is callable, either as a call, or by itself.
+//! All arguments must be Simple callables so that we can differentiate
+//! between ((Ctr) arg1 arg2), (Ctr arg1 arg2) and ((Ctr arg1) arg2).
+//! Ex: MyCtr.new
+//! Ex: MyCtr.new arg1 (SomeFn arg2)
+//! Ex: (Foo x1 x2) y (Bar z1 z2 z3)
+//! Ex: if cond { x => (Maybe.is_some x) } else { x => (Maybe.is_none x) } Maybe.none, although this one might need some annotations
+KParser/term.call : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask called = KParser/callable
+    ask args = Parser/many KParser/term.simple
+
+    ask range = KParser/make_range_here start
+
+    return Make_term/ called args range
+  }
+}
+
+
+Make_term/ (called: Callable/) (args : Data.List Term/) (range: Range/) : Term/
+// If no args, then we don't make it a call
+Make_term/ (Callable/var (VarName/ vrange name)) [] range = (Term/var range (VarName/ vrange name))
+Make_term/ (Callable/ctr (CtrName/ crange name)) [] range = (Term/var range (CtrName/ crange name))
+Make_term/ (Callable/group group) [] range = group
+
+// If args, then wrap with an App or Ctr
+Make_term/ (Callable/var (VarName/ vrange name)) args range = (Term/app (Term/var range (Term/var range name)) args)

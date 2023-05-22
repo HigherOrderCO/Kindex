@@ -1,15 +1,16 @@
-use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
 use Apps.Kind.SyntaxTree.Range as Range
 use Apps.Kind.SyntaxTree.VarName as VarName
 use Apps.Kind.SyntaxTree.CtrName as CtrName
 
-type AST/Pattern {
+type Pattern/ {
   var (range: Range/) (name: VarName/)
-  ctr (range: Range/) (name: CtrName/) (args: Data.List AST/Pattern)
+  ctr (range: Range/) (name: CtrName/) (args: Data.List Pattern/)
   u60 (range: Range/) (val: Data.U60)
   u120 (range: Range/) (val: Data.U120)
   // f60 (range: Range/) (val: Data.F60)    Data.F60 not implemented in compiler
-  list (range: Range/) (args: Data.List AST/Pattern)
+  pair (range: Range/) (fst: Pattern/) (snd: Pattern/)
+  list (range: Range/) (args: Data.List Pattern/)
   string (range: Range/) (val: Data.String)
   char (range: Range/) (val: Data.Char)
   hole (range: Range/)

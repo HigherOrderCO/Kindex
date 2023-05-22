@@ -1,0 +1,11 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+
+//! Terms that are simple to parse, either one word or simply grouped
+type KParser/term.Simple {
+  var (val: AST/VarName)
+  ctr (val: AST/CtrName)
+  group (val: AST/Term)
+  literal (val: AST/Term.Literal)
+}

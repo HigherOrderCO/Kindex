@@ -11,8 +11,7 @@ KParser/ctr_name : KParser/ AST/CtrName {
     ask tail =  Parser/take_while1 (c => KParser/is_name_char c)
     let val = Data.String.cons head tail
 
-    ask end = Parser/get_index
-    ask range = KParser/make_range start end
+    ask range = KParser/make_range_here start
 
     return AST/CtrName.new range val
   }

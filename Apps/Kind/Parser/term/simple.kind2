@@ -1,0 +1,20 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.Parser.term.Simple as Simple
+
+//! Whenever we're in a situation where we accept two+ terms
+//! separated by space, like in the case of (+ term term) or
+//! (term term term term), we must require all term but the 
+//! last to be either just one token or to be a group. 
+//! Otherwise it would cause ambiguity and by precedence order
+//! all following terms would be considered as argument to an 
+//! application of the first.
+KParser/term.simple : KParser/ Simple/ {
+  Parser/first_of [
+    (Parser/map (n => Simple/ctr n) KParser/ctr_name)
+    (Parser/map (n => Simple/var n) KParser/var_name)
+    (Parser/map (n => Simple/literal n) KParser/term.literal)
+    (Parser/map (n => Simple/group n) Parser/first_of [(KParser/term.do) (KParser/term.if) (KParser/term.group)])
+  ]
+}

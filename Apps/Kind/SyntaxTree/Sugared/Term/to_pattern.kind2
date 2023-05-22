@@ -1,0 +1,24 @@
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pat
+
+//! Converts a Term into a Pattern if valid
+Term/to_pattern (term: Term/) : Data.Maybe Pat/
+Term/to_pattern (Term/var range name) = Data.Maybe.some (Pat/var range name)
+Term/to_pattern (Term/constr range name args) = (Pat/ctr range name (Term/to_pattern.args args []))
+Term/to_pattern (Term/hole range) = Data.Maybe.some (Pat/hole range)
+Term/to_pattern (Term/pair range fst snd) = do Maybe {
+  ask fst = Term/to_pattern fst
+  ask snd = Term/to_pattern snd
+  return Pattern/pair range fst snd
+}
+Term/to_pattern (Term/lit range lit) = Term/Literal.to_pattern
+Term/to_pattern term = Data.Maybe.none
+
+
+Term/to_pattern.args (args: Data.List Term/) (acc: Data.List Pat/) : Data.Maybe (Data.List Pat/)
+Term/to_pattern.args [] acc = acc
+Term/to_pattern.args (Data.List.cons arg args) acc = do Data.Maybe {
+  ask head = Term/to_pattern arg
+  let acc = Data.List.cons head acc
+  Term/to_pattern.args args acc
+}
