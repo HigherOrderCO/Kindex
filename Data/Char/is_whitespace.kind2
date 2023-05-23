@@ -7,6 +7,4 @@ Data.Char.is_whitespace   9 = Data.Bool.true // \t
 Data.Char.is_whitespace  11 = Data.Bool.true
 Data.Char.is_whitespace  12 = Data.Bool.true
 Data.Char.is_whitespace  13 = Data.Bool.true
-Data.Char.is_whitespace 133 = Data.Bool.true
-Data.Char.is_whitespace 160 = Data.Bool.true
 Data.Char.is_whitespace   c = Data.Bool.false

@@ -1,0 +1,19 @@
+use Apps.Kind.Operator as Operator
+
+Operator/read (s: Data.String) : Data.Maybe Operator/
+Operator/read "+"  = Operator/add
+Operator/read "-"  = Operator/sub
+Operator/read "*"  = Operator/mul
+Operator/read "/"  = Operator/div
+Operator/read "%"  = Operator/mod
+Operator/read "&"  = Operator/and
+Operator/read "|"  = Operator/or
+Operator/read "^"  = Operator/xor
+Operator/read "<<" = Operator/shl
+Operator/read ">>" = Operator/shr
+Operator/read "<"  = Operator/ltn
+Operator/read "<=" = Operator/lte
+Operator/read "==" = Operator/eql
+Operator/read ">=" = Operator/gte
+Operator/read ">"  = Operator/gtn
+Operator/read "!=" = Operator/neq

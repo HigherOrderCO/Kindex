@@ -1,0 +1,14 @@
+use Data.String.Parser as Parser
+
+//! Runs a parser that returns a bool, succeeding on true and failing on false
+//! The inverse of Parser/to_bool
+Parser/fail_on_false <t> (prs: Parser/ t Data.Bool) : Parser/ t Data.Unit {
+  do Parser/ {
+    ask ok = prs
+    if ok {
+      Parser/pure Data.Unit.new
+    } else {
+      Parser/empty
+    }
+  }
+}

@@ -2,22 +2,22 @@ use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
 use Apps.Kind.SyntaxTree.Sugared as AST
 
-KParser/term : KParser/ AST/term {
+KParser/term : KParser/ AST/Term {
   Parser/first_of [
-    KParser/term.open // open var ;? term
+    KParser/term.open // open Type var (: term)? ;? term
     KParser/term.let // let var = term ;? term
     KParser/term.specialize // specialize term into #num in term
     KParser/term.match // match Type term {case => } : term
     KParser/term.sigma_type // [term : term] -> term
-    KParser/term.arg_term // starting with (var: term)
-    KParser/term.lambda_untyped // var => term
     KParser/term.seqrecord // ! simple simple (. var)* ((= expr) | (@= expr) | ())
-    KParser/term.binary_op // + simple simple
     KParser/term.sigma_pair // $ simple simple
-    KParser/term.literal // Any literal like [list], "string", 0, Type, etc
-    KParser/term.pi_anon // term -> term
-    KParser/term.annotated // term :: term
+    KParser/term.pi_named // (var: term) -> term
+    KParser/term.lambda_typed // (var: term) => term
+    KParser/term.lambda_untyped // var => term
+    KParser/term.pi_anon // simple+ -> term
+    KParser/term.annotated // simple+ :: term
+    KParser/term.binary_op // + simple simple
 
-    KParser/term.call // simple*  (fun, ctr, app, if, do, group aka term inside parens)
+    KParser/term.call // simple+  (either just a simple term or a function/lambda call)
   ]
 }

@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Range as Range
+
+//! Converts a simple term into an actual term
+//! If args are given, wraps the whole thing in a 
+//! function call or extends the constructor with the args.
+Simple/to_term (s: Simple/) (args: Data.List Simple/) (range: Range/) : Term/
+Simple/to_term s Data.List.nil range = Simple/to_term_no_args s
+Simple/to_term s args          range = Simple/to_term_with_args s args range

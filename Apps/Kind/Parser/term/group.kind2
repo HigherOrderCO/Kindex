@@ -1,0 +1,14 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.group : KParser/ Term/ {
+  do Parser/ {
+    Parser/char '('
+    KParser/skip
+    ask term = KParser/term
+    KParser/skip
+    Parser/char ')'
+    return term
+  }
+}

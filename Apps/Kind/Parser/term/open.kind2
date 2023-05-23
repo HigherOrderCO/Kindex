@@ -1,0 +1,39 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.open : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    Parser/string "open"
+    Parser/whitespace
+    ask type = KParser/ctr_name
+    Parser/whitespace
+    ask var = KParser/var_name
+    KParser/skip
+    ask motive = Parser/try (do Parser {
+      Parser/char ':'
+      KParser/skip
+      KParser/term
+    })
+
+    ask range = KParser/make_range_here start
+
+    // Must have either a ; separating or a new line
+    Parser/first_of [
+      (do Parser/ {
+        Parser/skip
+        Parser/char ';'
+      })
+      (do Parser/ {
+        KParser/skip_line
+        Parser/char 10 // \n
+      })
+    ]
+    KParser/skip
+    ask next = KParser/term
+
+    Term/open range type var motive next
+  }
+}

@@ -22,6 +22,6 @@ type Term/ {
   list   (range: Range/) (args: Data.List Term/)
   subst  (range: Range/) (name: VarName/) (redx: Data.U60) (indx: Data.U60) (expr: Term/)
   match  (range: Range/) (type: CtrName/) (scrutinee: VarName/) (val: Data.Maybe Term/) (with_vars: Data.List (Data.Pair VarName/ (Data.Maybe Term/))) (cases: Data.List Term/MatchCase) (motive: Data.Maybe Term/)
-  open   (range: Range/) (type_name: CtrName/) (var_name: VarName/) (motive: Data.Maybe Term/) (next: Term/)
-  seqrecord (range: Range/) (type: Term/) (expr: Term/) (fields: Data.List VarName/) (oper: Term/SeqOperator)
+  open   (range: Range/) (type: CtrName/) (var: VarName/) (motive: Data.Maybe Term/) (next: Term/)
+  seqrecord (range: Range/) (type: CtrName/) (expr: Term/) (fields: Data.List VarName/) (oper: Term/SeqOperator)
 }
