@@ -8,11 +8,17 @@ KParser/term.list : KParser/ Term/ {
     ask start = Parser/get_index
 
     Parser/char '['
-    ask args = Parser/many (do Parser/ {
-      KParser/skip
-      ask arg = KParser/term.simple
-      return Simple/to_term_no_args arg
-    })
+    ask args = Parser/first_of[
+      // Elements are either all separated by ',' or all separated by spaces
+      (Parser/sep_by
+        (KParser/skipping (Parser/char ','))
+        (KParser/skipping (Parser/map (simple => Simple/to_term_no_args simple) KParser/term.simple))
+      )
+      (Parser/repeat_until
+        (KParser/skipping (Parser/look_ahead (Parser/char ']')))
+        (KParser/skipping (Parser/map (simple => Simple/to_term_no_args simple) KParser/term.simple))
+      )
+    ] 
     KParser/skip
     Parser/char ']'
 

@@ -1,0 +1,22 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+//! Parses a full lambda/pi argument in the form ~?(var : term)
+KParser/term.lam_arg : KParser/ (Data.Tuple3 VarName/ Term/ Data.Bool) {
+  do Parser/ {
+    ask erased = Parser/is_some (Parser/try (Parser/char '~'))
+    KParser/skip
+    Parser/char '('
+    KParser/skip
+    ask param = KParser/var_name
+    KParser/skip
+    Parser/char ':'
+    KParser/skip
+    ask type = KParser/term
+    KParser/skip
+    Parser/char ')'
+    return Data.Tuple3.new param type erased
+  }
+}

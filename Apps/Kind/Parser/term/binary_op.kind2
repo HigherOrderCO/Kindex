@@ -9,7 +9,7 @@ KParser/term.binary_op : KParser/ Term/ {
     ask start = Parser/get_index
     ask oper_str = Parser/take_while (c => Data.Bool.not (Data.Char.is_whitespace c))
     match Data.Maybe oper = (Operator/read oper_str) {
-      some oper => do Parser {
+      some (value=oper) => do Parser/ {
         KParser/skip
         ask fst = KParser/term.simple
         let fst = Simple/to_term_no_args fst

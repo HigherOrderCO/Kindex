@@ -8,14 +8,11 @@ KParser/declaration.alias : KParser/ Decl/ {
   do Parser/ {
     ask start = Parser/get_index
     Parser/string "use"
-    Parser/whitespace
-    KParser/skip
+    KParser/space
     ask orig = KParser/ctr_name
-    Parser/whitespace
     KParser/skip
     Parser/string "as"
-    Parser/whitespace
-    KParser/skip
+    KParser/space
     ask alias = KParser/ctr_name
 
     ask end = Parser/get_index

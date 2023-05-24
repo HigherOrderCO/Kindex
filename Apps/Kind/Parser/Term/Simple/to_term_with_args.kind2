@@ -5,7 +5,7 @@ use Apps.Kind.SyntaxTree.VarName as VarName
 
 //! Converts a simple term into an actual term, adding the given args to a wrapping App or into the Ctr
 Simple/to_term_with_args (s: Simple/) (args: Data.List Term/) (range: Range/) : Term/ {
-  let args = Data.List.map args (arg => Simple/to_term arg [])
+  let args = Data.List.map args (arg => Simple/to_term_no_args arg)
   Simple/to_term_with_args.aux s args range
 }
 

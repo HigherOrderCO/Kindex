@@ -7,12 +7,12 @@ KParser/term.open : KParser/ Term/ {
     ask start = Parser/get_index
 
     Parser/string "open"
-    Parser/whitespace
+    KParser/space
     ask type = KParser/ctr_name
-    Parser/whitespace
+    KParser/space
     ask var = KParser/var_name
     KParser/skip
-    ask motive = Parser/try (do Parser {
+    ask motive = Parser/try (do Parser/ {
       Parser/char ':'
       KParser/skip
       KParser/term
@@ -23,7 +23,7 @@ KParser/term.open : KParser/ Term/ {
     // Must have either a ; separating or a new line
     Parser/first_of [
       (do Parser/ {
-        Parser/skip
+        KParser/skip
         Parser/char ';'
       })
       (do Parser/ {
@@ -34,6 +34,6 @@ KParser/term.open : KParser/ Term/ {
     KParser/skip
     ask next = KParser/term
 
-    Term/open range type var motive next
+    return Term/open range type var motive next
   }
 }
