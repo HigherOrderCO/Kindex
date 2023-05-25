@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+Argument/to_var (name: Argument/) : Term/
+Argument/to_var (Argument/new range name _ _ _) = Term/var range name

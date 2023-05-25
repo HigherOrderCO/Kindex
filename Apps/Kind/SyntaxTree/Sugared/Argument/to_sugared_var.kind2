@@ -1,4 +1,0 @@
-use Apps.Kind.SyntaxTree.Sugared as AST
-
-AST/Argument/to_sugared_var (name: AST/Argument/) : AST/Term
-AST/Argument/to_sugared_var (AST/Argument.new range name _ _ _) = AST/Term.var (range (VarName/new range name))

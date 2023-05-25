@@ -1,0 +1,41 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/declaration.argument : KParser/ Argument/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask erased = Parser/is_some (Parser/try (Parser/char '-'))
+    KParser/skip
+
+    ask keep = Parser/is_some (Parser/try (Parser/char '+'))
+    KParser/skip
+
+    ask hidden = (Parser/to_bool (Parser/look_ahead (Parser/char '<')))
+    let open = if hidden { '<' } else { '(' }
+    let close = if hidden { '>' } else { ')' }
+    Parser/char open
+    KParser/skip
+
+    ask name = KParser/var_name
+    KParser/skip
+
+    ask has_type = Parser/is_some (Parser/try (Parser/char ':'))
+    ask type = if has_type {
+      Parser/map (t => Data.Maybe.some t) (KParser/skipping KParser/term)
+    } else {
+      Parser/pure Data.Maybe.none
+    }
+    KParser/skip
+
+    Parser/char close
+    KParser/skip
+
+    let erased = if hidden { Data.Bool.not keep } else { erased }
+
+    ask range = KParser/make_range_here start
+    return Argument/new range name type hidden erased
+  }
+}

@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+
+Argument/to_pattern (name: Argument/) : Pattern/
+Argument/to_pattern (Argument/new range name _ _ _) = Pattern/var range name
