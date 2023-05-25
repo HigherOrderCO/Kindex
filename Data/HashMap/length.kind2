@@ -1,0 +1,5 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/length <k> <v> (map: HashMap/ k v) : Data.Nat
+HashMap/length (HashMap/new hashf map) = Map/length map

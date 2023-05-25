@@ -1,0 +1,8 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/update <k> <v> (map: HashMap/ k v) (key: k) (func: v -> v) : HashMap/ k v
+HashMap/update (HashMap/new hashf map) key func =
+  let hash = hashf key
+  let map  = Map/update map hash func
+  HashMap/new hashf map

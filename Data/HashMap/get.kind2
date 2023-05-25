@@ -1,0 +1,7 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/get <k> <v> (map: HashMap/ k v) (key: k) : Data.Maybe v
+HashMap/get (HashMap/new hashf map) key =
+  let hash = hashf key
+  Map/get map hash

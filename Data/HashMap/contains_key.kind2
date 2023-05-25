@@ -1,0 +1,7 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/contains_key <k> <v> (map: HashMap/ k v) (key: k) : Data.Bool
+HashMap/contains_key (HashMap/new hashf map) key =
+  let hash = hashf key
+  Data.Maybe.is_some (Map/get map hash)
