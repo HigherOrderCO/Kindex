@@ -1,0 +1,660 @@
+// The Interaction Calculus
+// ========================
+// 
+// This file contains a reference implementation and formalization of the
+// Interaction Calculus [IC] in Kind. It implements O(log(n)) substitutions
+// using an immutable Data.Map, linking variables (ints) to values (terms), and
+// can easily be ported to other functional languages like Haskell. Note that a
+// proper efficient implementation (such as the HVM) should represent that
+// operation in constant-time via direct pointer manipulation or equivalent.
+// 
+// [IC] https://github.com/VictorTaelin/Interaction-Calculus
+
+// Types
+// -----
+
+// IC/Terms are Interaction Calculus expressions, which include:
+// - variables
+// - 2 contructors: lambda and superposition
+// - 2 eliminators: application and duplication
+// - u60 numbers: included for convenience, but not necessary
+
+use Apps.IC as IC
+
+type IC/Term {
+  // Variables
+  var (name: Data.U60)
+
+  // Functions
+  lam (x: Data.U60) (body: IC/Term)
+  app (fun: IC/Term) (arg: IC/Term)
+
+  // Cloning
+  sup (lab: Data.U60) (fst: IC/Term) (snd: IC/Term)
+  dup (lab: Data.U60) (a: Data.U60) (b: Data.U60) (expr: IC/Term) (cont: IC/Term)
+
+  // Numbers
+  u60 (val: Data.U60)
+  nop (op: Data.U60) (n: IC/Term) (m: IC/Term)
+}
+
+// Env is a map linking variables to substituted values. Here, we also keep a
+// track of the total variable count, allowing us to create fresh variables.
+
+record Env {
+  vars: Data.Map IC/Term 
+  size: Data.U60
+}
+
+// Implementation
+// --------------
+
+// ### Environments
+
+// An empty environment is just an empty map and counter.
+Env.empty : Env
+Env.empty = Env.new Data.Map.new 0
+
+// A substitution just inserts a key/val on the environment map.
+Env.subst (env: Env) (name: Data.U60) (term: IC/Term) : Env
+Env.subst (Env.new vars size) name term = Env.new (Data.Map.set vars name term) size
+
+// The take operation just replaces a variable by its substituted value.
+Env.take (env: Env) (name: Data.U60) : Data.Pair Env (Data.Maybe IC/Term)
+Env.take (Env.new vars size) name = 
+  let Data.Pair.new (fst = vars) (snd = got) = Data.Map.got vars name
+  Data.Pair.new (Env.new vars size) got
+
+// The fresh operation allows us to create new, globally unique variables.
+Env.fresh (env: Env) : Data.Pair Env Data.U60
+Env.fresh (Env.new vars size) = Data.Pair.new (Env.new vars (+ size 1)) size
+
+// ### Variable Substitutions
+
+IC/Term.rule.var (name: Data.U60) : Run IC/Term
+IC/Term.rule.var name = do Run {
+  ask got = Run.take name
+  IC/Term.rule.var.got got name
+}
+
+IC/Term.rule.var.got (got: Data.Maybe IC/Term) (name: Data.U60) : Run IC/Term
+IC/Term.rule.var.got Data.Maybe.none name = do Run {
+  return IC/Term.var name
+}
+IC/Term.rule.var.got (Data.Maybe.some var) name = do Run {
+  IC/Term.reduce var
+}
+
+// ### Application Interactions
+
+IC/Term.rule.app (func: IC/Term) (argm: IC/Term) : Run IC/Term
+
+// (λx. body) arg
+// -------------- APP-LAM interaction
+// x <- arg
+// body
+IC/Term.rule.app (IC/Term.lam x body) arg = do Run {
+  Run.subst x arg
+  IC/Term.reduce body
+}
+
+// ({fst snd} arg)
+// ----------------- APP-SUP interaction
+// dup #A{a,b} = arg
+// {(fst a) (snd b)}
+IC/Term.rule.app (IC/Term.sup r fst snd) arg = do Run {
+  ask a = Run.fresh
+  ask b = Run.fresh
+  (IC/Term.reduce
+    (IC/Term.dup r a b arg
+      (IC/Term.sup r
+        (IC/Term.app fst (IC/Term.var a))
+        (IC/Term.app snd (IC/Term.var b)))))
+}
+
+// ((dup #R{a,b} = expr in cont) arg)
+// ---------------------------------- APP-DUP permutation
+// (dup #R{a,b} = expr in (cont arg))
+IC/Term.rule.app (IC/Term.dup r a b expr cont) arg = do Run {
+  IC/Term.reduce (IC/Term.dup r a b expr (IC/Term.app cont arg))
+}
+
+// Stuck
+IC/Term.rule.app func argm = do Run {
+  return IC/Term.app func argm
+}
+
+// ### Duplication Interactions
+
+IC/Term.rule.dup (r: Data.U60) (a: Data.U60) (b: Data.U60) (expr: IC/Term) (cont: IC/Term) : Run IC/Term
+
+// dup #R{a,b} = (λx. f) in cont
+// ----------------------------- DUP-LAM interaction
+//  a <- (λx0. b0)
+//  b <- (λx1. b1)
+//  x <- {x0,x1}
+//  dup #R{b0,b1} = body in
+//  cont                   
+IC/Term.rule.dup r a b (IC/Term.lam x body) cont = do Run {
+  ask x0 = Run.fresh
+  ask x1 = Run.fresh
+  ask b0 = Run.fresh
+  ask b1 = Run.fresh
+  Run.subst a (IC/Term.lam x0 (IC/Term.var b0))
+  Run.subst b (IC/Term.lam x1 (IC/Term.var b1))
+  Run.subst x (IC/Term.sup r (IC/Term.var x0) (IC/Term.var x1))
+  IC/Term.reduce (IC/Term.dup r b0 b1 body cont)
+}
+
+// let #R{a,b} = #S{fst,snd} in cont
+// --------------------------------- DUP-SUP interaction
+// if #R == #S:
+//   a <- fst
+//   b <- snd
+//   cont
+// else:
+//   a <- #S{a0,a1}
+//   b <- #S{b0,b1} 
+//   let #R{a0,a1} = fst in
+//   let #R{b0,b1} = snd in
+//   cont
+IC/Term.rule.dup r a b (IC/Term.sup s fst snd) cont =
+  ((Data.Bool.match (Data.U60.equal r s) (self => (fst: IC/Term) -> (snd: IC/Term) -> (cont: IC/Term) -> Run IC/Term)
+    // if #R == #S:
+    (fst => snd => cont => do Run {
+      Run.subst a fst
+      Run.subst b snd
+      IC/Term.reduce cont
+    })
+    // else:
+    (fst => snd => cont => do Run {
+      ask a0 = Run.fresh
+      ask a1 = Run.fresh
+      ask b0 = Run.fresh
+      ask b1 = Run.fresh
+      Run.subst a (IC/Term.sup s (IC/Term.var a0) (IC/Term.var a1))
+      Run.subst b (IC/Term.sup s (IC/Term.var b0) (IC/Term.var b1))
+      IC/Term.reduce (IC/Term.dup r a0 a1 fst (IC/Term.dup r b0 b1 snd cont))
+    }))
+  fst snd cont)
+
+// dup #R{a,b} = (dup #S{c,d} = expr_a in cont_a) in cont_b
+// -------------------------------------------------------- DUP-DUP permutation
+// dup #S{c,d} = expr_a in (dup #R{a,b} = cont_a in cont_b)
+IC/Term.rule.dup r a b (IC/Term.dup s c d expr_a cont_a) cont_b = do Run {
+  IC/Term.reduce (IC/Term.dup s c d expr_a (IC/Term.dup r a b cont_a cont_b))
+}
+
+// Stuck
+IC/Term.rule.dup r a b expr cont = do Run {
+  return IC/Term.dup r a b expr cont
+}
+
+// ### Operation Interactions 
+
+IC/Term.rule.nop (op: Data.U60) (n: IC/Term) (m: IC/Term) : Run IC/Term
+
+// TODO: other operations
+// (OP a b)
+// -------- OP2-Data.U60 interaction
+// a `OP` b
+IC/Term.rule.nop  0 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (+  n m) }
+IC/Term.rule.nop  1 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (-  n m) }
+IC/Term.rule.nop  2 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (*  n m) }
+IC/Term.rule.nop  3 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (/  n m) }
+IC/Term.rule.nop  4 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (%  n m) }
+IC/Term.rule.nop  5 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (&  n m) }
+IC/Term.rule.nop  6 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (|  n m) }
+IC/Term.rule.nop  7 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (^  n m) }
+IC/Term.rule.nop  8 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (<< n m) }
+IC/Term.rule.nop  9 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (>> n m) }
+IC/Term.rule.nop 10 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (== n m) }
+IC/Term.rule.nop 11 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (<  n m) }
+IC/Term.rule.nop 12 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (<= n m) }
+IC/Term.rule.nop 13 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (== n m) }
+IC/Term.rule.nop 14 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (>  n m) }
+IC/Term.rule.nop 15 (IC/Term.u60 n) (IC/Term.u60 m) = do Run { return IC/Term.u60 (>= n m) }
+
+// (+ #R{a0,a1} b)
+// --------------------- OP2-SUP-0 interaction
+// dup #R{b0,b1} = b in
+// #R{(+ a0 b0),(+ a1 b1)}
+IC/Term.rule.nop op (IC/Term.sup r a0 a1) b = do Run {
+  ask b0 = Run.fresh
+  ask b1 = Run.fresh
+  return IC/Term.dup r b0 b1 b (IC/Term.sup r
+    (IC/Term.nop op a0 (IC/Term.var b0))
+    (IC/Term.nop op a1 (IC/Term.var b1)))
+}
+
+// (+ a #R{b0,b1})
+// --------------------- OP2-SUP-1 interaction
+// dup #R{a0,a1} = a in
+// #R{(+ a0 b0),(+ a1 b1)}
+IC/Term.rule.nop op a (IC/Term.sup r b0 b1) = do Run {
+  ask a0 = Run.fresh
+  ask a1 = Run.fresh
+  return IC/Term.dup r a0 a1 a (IC/Term.sup r
+    (IC/Term.nop op (IC/Term.var a0) b0)
+    (IC/Term.nop op (IC/Term.var a1) b1))
+}
+
+// (+ (dup #R{a0,a1} = expr in cont) b)
+// ------------------------------------ OP2-DUP-0 permutation
+// (dup #R{a0,a1} = expr in (+ cont b))
+IC/Term.rule.nop op (IC/Term.dup r a0 a1 expr cont) b = do Run {
+  return IC/Term.dup r a0 a1 expr (IC/Term.nop op cont b)
+}
+
+// (+ a (dup #R{b0,b1} = expr in cont))
+// ------------------------------------ OP2-DUP-1 permutation
+// (dup #R{b0,b1} = expr in (+ a cont))
+IC/Term.rule.nop op a (IC/Term.dup r b0 b1 expr cont) = do Run {
+  return IC/Term.dup r b0 b1 expr (IC/Term.nop op a cont)
+}
+
+// Stuck
+IC/Term.rule.nop op n m = do Run {
+  return IC/Term.nop op n m
+}
+
+// Run Trait.Monad
+// ---------
+// The Run Trait.Monad allows us to perform operations on the environment, including
+// substitution, and generating fresh variables.
+
+Run (a: Type) : Type
+Run a = (env: Env) -> Data.Pair Env a
+
+Run.pure <a> (x: a) : Run a
+Run.pure a x = env => Data.Pair.new env x
+
+Run.bind <a> <b> (x: Run a) (f: a -> Run b) : Run b
+Run.bind a b x f = env => Run.bind.go (x env) f
+
+Run.bind.go <a: Type> <b: Type> (x: Data.Pair Env a) (f: a -> Run b) : Data.Pair Env b
+Run.bind.go a b (Data.Pair.new env x) f = f x env
+
+Run.monad : Trait.Monad (a => Run a) {
+  Trait.Monad.new (a => Run a) (a => x => Run.pure a x) (a => b => x => f => Run.bind a b x f)
+}
+
+Run.subst (name: Data.U60) (term: IC/Term) : Run Data.Unit
+Run.subst name term = env => Data.Pair.new (Env.subst env name term) Data.Unit.new
+
+Run.take (name: Data.U60) : Run (Data.Maybe IC/Term)
+Run.take name = env => Env.take env name
+
+Run.fresh : Run Data.U60
+Run.fresh = env => Env.fresh env
+
+Run.exec <a> (run: Run a) : a
+Run.exec a run = Data.Pair.snd (run Env.empty)
+
+// Reducer
+// -------
+// Reduces a term to weak normal form.
+
+IC/Term.reduce (term: IC/Term) : Run IC/Term
+IC/Term.reduce (IC/Term.var name) = do Run {
+  IC/Term.rule.var name
+}
+IC/Term.reduce (IC/Term.lam x body) = do Run {
+  return IC/Term.lam x body
+}
+IC/Term.reduce (IC/Term.app fun arg) = do Run {
+  ask fun = IC/Term.reduce fun
+  IC/Term.rule.app fun arg
+}
+IC/Term.reduce (IC/Term.sup r fst snd) = do Run {
+  return IC/Term.sup r fst snd
+}
+IC/Term.reduce (IC/Term.dup r a b expr cont) = do Run {
+  ask expr = IC/Term.reduce expr
+  IC/Term.rule.dup r a b expr cont
+}
+IC/Term.reduce (IC/Term.u60 val) = do Run {
+  return IC/Term.u60 val
+}
+IC/Term.reduce (IC/Term.nop op n m) = do Run {
+  ask n = IC/Term.reduce n
+  ask m = IC/Term.reduce m
+  IC/Term.rule.nop op n m
+}
+
+// Normalizer
+// ----------
+// Reduces a term to strong normal form.
+
+IC/Term.normal (term: IC/Term) : Run IC/Term
+IC/Term.normal term = do Run {
+  ask term = IC/Term.reduce term
+  IC/Term.normal.go term
+}
+
+IC/Term.normal.go (term: IC/Term) : Run IC/Term
+IC/Term.normal.go (IC/Term.var name) = do Run {
+  return IC/Term.var name
+}
+IC/Term.normal.go (IC/Term.lam x body) = do Run {
+  ask body = IC/Term.normal body
+  return IC/Term.lam x body
+}
+IC/Term.normal.go (IC/Term.app fun arg) = do Run {
+  ask fun = IC/Term.normal fun
+  ask arg = IC/Term.normal arg
+  return IC/Term.app fun arg
+}
+IC/Term.normal.go (IC/Term.sup r fst snd) = do Run {
+  ask fst = IC/Term.normal fst
+  ask snd = IC/Term.normal snd
+  return IC/Term.sup r fst snd
+}
+IC/Term.normal.go (IC/Term.dup r a b expr cont) = do Run {
+  ask expr = IC/Term.normal expr
+  ask cont = IC/Term.normal cont
+  return IC/Term.dup r a b expr cont
+}
+IC/Term.normal.go (IC/Term.u60 val) = do Run {
+  return IC/Term.u60 val
+}
+IC/Term.normal.go (IC/Term.nop op n m) = do Run {
+  ask n = IC/Term.normal n
+  ask m = IC/Term.normal m
+  return IC/Term.nop op n m
+}
+
+// Data.String.Parser
+// ------
+
+// Syntax:
+// term :=
+//  | dup
+//  | sup
+//  | lam
+//  | nop
+//  | app
+//  | u60
+//  | var
+// dup := "let" "#" name "{" name name "}" "=" term ";" term
+// sup := "#" name "{" term term "}"
+// lam :=
+//  | [@λ] name term
+//  | "(" [@λ] name term ")"
+// nop := "(" [+ - * ...] term term ")"
+// app := "(" term term ")"
+// u60 := "#" [0-9]+
+// var := name
+// name := [0-9]+
+
+IC/parser : Data.String.Parser Env IC/Term
+IC/parser = do Data.String.Parser {
+  Data.String.Parser.skip_whitespace
+  IC/parser.term
+}
+
+IC/parser.term : Data.String.Parser Env IC/Term
+IC/parser.term =
+  let parsers = [
+    IC/parser.dup
+    IC/parser.sup
+    IC/parser.lam
+    IC/parser.nop
+    IC/parser.app
+    IC/parser.u60
+    IC/parser.var
+  ]
+  Data.String.Parser.first_of parsers
+
+IC/parser.dup : Data.String.Parser Env IC/Term
+IC/parser.dup = do Data.String.Parser {
+  Data.String.Parser.string "let"
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '#'
+  ask lab = IC/parser.name
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '{'
+  Data.String.Parser.skip_whitespace
+  ask a = IC/parser.name
+  Data.String.Parser.whitespace
+  ask b = IC/parser.name
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '}'
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '='
+  Data.String.Parser.skip_whitespace
+  ask expr = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char ';'
+  Data.String.Parser.skip_whitespace
+  ask cont = IC/parser.term
+
+  ask env = Data.String.Parser.take_custom Env.empty
+  // TODO: I'm assuming that the input string uses variables correctly
+  // (using numbers starting from zero, without skipping, no free variables)
+  // TODO: Accept Data.Strings as var name, do a propper string to u60 mapping
+  let env = Data.Pair.fst (Env.fresh env)  // Add the two new variables to the context
+  let env = Data.Pair.fst (Env.fresh env)
+  Data.String.Parser.set_custom env
+
+  return IC/Term.dup lab a b expr cont
+}
+
+IC/parser.sup : Data.String.Parser Env IC/Term
+IC/parser.sup = do Data.String.Parser {
+  Data.String.Parser.char '#'
+  ask lab = IC/parser.name
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '{'
+  Data.String.Parser.skip_whitespace
+  ask fst = IC/parser.term
+  Data.String.Parser.whitespace
+  ask snd = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char '}'
+  
+  return IC/Term.sup lab fst snd
+}
+
+IC/parser.lam : Data.String.Parser Env IC/Term
+IC/parser.lam = do Data.String.Parser {
+  ask has_parens = Data.String.Parser.to_bool (Data.String.Parser.char '(')
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char_any_of "@λ"
+  ask x = IC/parser.name
+  Data.String.Parser.skip_whitespace
+  ask body = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  if has_parens {
+    Data.String.Parser.char ')'
+  } else {
+    Data.String.Parser.pure Data.Unit.new
+  }
+
+  ask env = Data.String.Parser.take_custom Env.empty
+  let env = Data.Pair.fst (Env.fresh env) // Adding x to the env
+  Data.String.Parser.set_custom env
+
+  return IC/Term.lam x body
+}
+
+IC/parser.app : Data.String.Parser Env IC/Term
+IC/parser.app = do Data.String.Parser {
+  Data.String.Parser.char '('
+  Data.String.Parser.skip_whitespace
+  ask fun = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  ask arg = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char ')'
+
+  return IC/Term.app fun arg
+}
+
+IC/parser.u60 : Data.String.Parser Env IC/Term
+IC/parser.u60 = do Data.String.Parser {
+  Data.String.Parser.char '#'
+  ask val = Data.String.Parser.u60_decimal
+  return IC/Term.u60 val
+}
+
+IC/parser.nop : Data.String.Parser Env IC/Term
+IC/parser.nop = do Data.String.Parser {
+  Data.String.Parser.char '('
+  Data.String.Parser.skip_whitespace
+  ask op = IC/parser.oper
+  Data.String.Parser.whitespace
+  ask n = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  ask m = IC/parser.term
+  Data.String.Parser.skip_whitespace
+  Data.String.Parser.char ')'
+
+  let term = IC/Term.nop op n m
+  return term
+}
+
+IC/parser.var : Data.String.Parser Env IC/Term
+IC/parser.var = do Data.String.Parser {
+  ask name = IC/parser.name
+  return IC/Term.var name
+}
+
+IC/parser.name : Data.String.Parser Env Data.U60
+IC/parser.name = Data.String.Parser.u60_decimal
+
+IC/parser.oper : Data.String.Parser Env Data.U60
+IC/parser.oper =
+  Data.String.Parser.first_of [
+    IC/parser.oper.add
+    IC/parser.oper.sub
+    IC/parser.oper.mul
+    IC/parser.oper.div
+    IC/parser.oper.mod
+    IC/parser.oper.and
+    IC/parser.oper.or
+    IC/parser.oper.xor
+    IC/parser.oper.shl
+    IC/parser.oper.shr
+    IC/parser.oper.eql
+    IC/parser.oper.ltn
+    IC/parser.oper.lte
+    IC/parser.oper.neq
+    IC/parser.oper.gtn
+    IC/parser.oper.gte
+  ]
+
+IC/parser.oper.add : Data.String.Parser Env Data.U60
+IC/parser.oper.add = do Data.String.Parser {
+  Data.String.Parser.string "+"
+  return 0
+}
+IC/parser.oper.sub : Data.String.Parser Env Data.U60
+IC/parser.oper.sub = do Data.String.Parser {
+  Data.String.Parser.string "-"
+  return 1
+}
+IC/parser.oper.mul : Data.String.Parser Env Data.U60
+IC/parser.oper.mul = do Data.String.Parser {
+  Data.String.Parser.string "*"
+  return 2
+}
+IC/parser.oper.div : Data.String.Parser Env Data.U60
+IC/parser.oper.div = do Data.String.Parser {
+  Data.String.Parser.string "/"
+  return 3
+}
+IC/parser.oper.mod : Data.String.Parser Env Data.U60
+IC/parser.oper.mod = do Data.String.Parser {
+  Data.String.Parser.string "%"
+  return 4
+}
+IC/parser.oper.and : Data.String.Parser Env Data.U60
+IC/parser.oper.and = do Data.String.Parser {
+  Data.String.Parser.string "&"
+  return 5
+}
+IC/parser.oper.or : Data.String.Parser Env Data.U60
+IC/parser.oper.or = do Data.String.Parser {
+  Data.String.Parser.string "|"
+  return 6
+}
+IC/parser.oper.xor : Data.String.Parser Env Data.U60
+IC/parser.oper.xor = do Data.String.Parser {
+  Data.String.Parser.string "^"
+  return 7
+}
+IC/parser.oper.shl : Data.String.Parser Env Data.U60
+IC/parser.oper.shl = do Data.String.Parser {
+  Data.String.Parser.string "<<"
+  return 8
+}
+IC/parser.oper.shr : Data.String.Parser Env Data.U60
+IC/parser.oper.shr = do Data.String.Parser {
+  Data.String.Parser.string ">>"
+  return 9
+}
+IC/parser.oper.eql : Data.String.Parser Env Data.U60
+IC/parser.oper.eql = do Data.String.Parser {
+  Data.String.Parser.string "=="
+  return 10
+}
+IC/parser.oper.ltn : Data.String.Parser Env Data.U60
+IC/parser.oper.ltn = do Data.String.Parser {
+  Data.String.Parser.string "<"
+  return 11
+}
+IC/parser.oper.lte : Data.String.Parser Env Data.U60
+IC/parser.oper.lte = do Data.String.Parser {
+  Data.String.Parser.string "<="
+  return 12
+}
+IC/parser.oper.neq : Data.String.Parser Env Data.U60
+IC/parser.oper.neq = do Data.String.Parser {
+  Data.String.Parser.string "!="
+  return 13
+}
+IC/parser.oper.gtn : Data.String.Parser Env Data.U60
+IC/parser.oper.gtn = do Data.String.Parser {
+  Data.String.Parser.string ">"
+  return 14
+}
+IC/parser.oper.gte : Data.String.Parser Env Data.U60
+IC/parser.oper.gte = do Data.String.Parser {
+  Data.String.Parser.string ">="
+  return 15
+}
+
+// Main
+// ----
+
+// Main : _ {
+//   // term = ((λx. dup x0 x1 = x; sup x0 x1) (λy. y))
+//   Run.exec (do Run {
+//     ask x  = Run.fresh
+//     ask x0 = Run.fresh
+//     ask x1 = Run.fresh
+//     //  fn = (λx. dup x0 x1 = x; sup x0 x1)
+//     let fn = IC/Term.lam x (IC/Term.dup 0 x0 x1 (IC/Term.var x) (IC/Term.sup 0 (IC/Term.var x0) (IC/Term.var x1)))
+//     ask y  = Run.fresh
+//     //  ar = (λy. y)
+//     let ar = IC/Term.lam y (IC/Term.var y)
+//     //  tr = (fn ar)
+//     let tr = IC/Term.app fn ar
+//     IC/Term.normal tr
+//   })
+// }
+
+// Same term as above
+Main : _ {
+  // term = ((λx let #0{x0 x1} = x; #0{x0 x1}) (λy. y))
+  // normal = #0{(λx4. x4) (λx5. x5)}
+  let input = "((λ2 let #0{0 1} = 2; #0{0 1}) (λ3 3))"
+  let init = Data.String.Parser.State.new Env.empty input "" 0
+  match Data.String.Parser.Result r = ((IC/parser) init) {
+    done state result =>
+      let env = Data.Pair.fst (Data.String.Parser.State.take_custom state)
+      Data.Either.left (Data.Pair.snd ((IC/Term.normal result) env))
+    fail state error => Data.Either.right error
+  }
+}
