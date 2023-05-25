@@ -9,7 +9,7 @@ KParser/var_name : KParser/ VarName/ {
 
     // TODO: prohibit using keywords (try, match, dup?, return?)
     ask head = Parser/satisfy (c => Data.Char.is_lower c)
-    ask tail = Parser/take_while1 (c => KParser/is_name_char c)
+    ask tail = Parser/take_while (c => KParser/is_name_char c)
     let val = Data.String.cons head tail
 
     ask range = KParser/make_range_here start

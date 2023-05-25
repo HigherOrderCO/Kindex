@@ -1,19 +1,30 @@
 use Apps.Kind.Operator as Operator
+use Data.Maybe as Maybe
 
-Operator/read (s: Data.String) : Data.Maybe Operator/
-Operator/read "+"  = Operator/add
-Operator/read "-"  = Operator/sub
-Operator/read "*"  = Operator/mul
-Operator/read "/"  = Operator/div
-Operator/read "%"  = Operator/mod
-Operator/read "&"  = Operator/and
-Operator/read "|"  = Operator/or
-Operator/read "^"  = Operator/xor
-Operator/read "<<" = Operator/shl
-Operator/read ">>" = Operator/shr
-Operator/read "<"  = Operator/ltn
-Operator/read "<=" = Operator/lte
-Operator/read "==" = Operator/eql
-Operator/read ">=" = Operator/gte
-Operator/read ">"  = Operator/gtn
-Operator/read "!=" = Operator/neq
+Operator/read (s: Data.String) : Maybe/ Operator/
+Operator/read (Data.String.cons h1 "") = Operator/read.1 h1
+Operator/read (Data.String.cons h1 (Data.String.cons h2 "")) = Operator/read.2 h1 h2
+Operator/read s = Maybe/none
+
+Operator/read.1 (h: Data.Char) : Maybe/ Operator/
+Operator/read.1 '+'  = Maybe/some Operator/add
+Operator/read.1 '-'  = Maybe/some Operator/sub
+Operator/read.1 '*'  = Maybe/some Operator/mul
+Operator/read.1 '/'  = Maybe/some Operator/div
+Operator/read.1 '%'  = Maybe/some Operator/mod
+Operator/read.1 '&'  = Maybe/some Operator/and
+Operator/read.1 '|'  = Maybe/some Operator/or
+Operator/read.1 '^'  = Maybe/some Operator/xor
+Operator/read.1 '<'  = Maybe/some Operator/ltn
+Operator/read.1 '>'  = Maybe/some Operator/gtn
+Operator/read.1 h = Maybe/none
+
+// TODO: This is a workaround for an hvm bug when flattening nested constructors in patterns
+Operator/read.2 (h1: Data.Char) (h2: Data.Char) : Maybe/ Operator/
+Operator/read.2 '<' '<' = Maybe/some Operator/shl
+Operator/read.2 '>' '>' = Maybe/some Operator/shr
+Operator/read.2 '<' '=' = Maybe/some Operator/lte
+Operator/read.2 '=' '=' = Maybe/some Operator/eql
+Operator/read.2 '>' '=' = Maybe/some Operator/gte
+Operator/read.2 '!' '=' = Maybe/some Operator/neq
+Operator/read.2 h1 h2 = Maybe/none

@@ -2,7 +2,7 @@ use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
 
 // Skips any sequence of comments and whitespaces
-KParser/skip : KParser/ Data.Bool {
+KParser/skip <t> : Parser/ t Data.Bool {
   do Parser/ {
     ask comment = KParser/skip_comment
     ask spaces  = Parser/skip_whitespace
@@ -14,7 +14,7 @@ KParser/skip : KParser/ Data.Bool {
   }
 }
 
-KParser/skip.go : KParser/ Data.Bool { 
+KParser/skip.go <t> : Parser/ t Data.Bool { 
   do Parser/ {
     ask comment = KParser/skip_comment
     ask spaces  = Parser/skip_whitespace

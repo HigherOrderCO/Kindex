@@ -15,6 +15,6 @@ KParser/term.lambda_untyped : KParser/ Term/ {
     ask body = KParser/term
 
     ask range = KParser/make_range_here start
-    return Term/all range param Data.Maybe.none body erased 
+    return Term/lambda range param Data.Maybe.none body erased 
   }
 }
