@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.String as String
+
+CtrName/show (var: CtrName/) : String/Build
+CtrName/show (CtrName/new _ val) = String/show val

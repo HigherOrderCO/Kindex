@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Data.String as String
+
+VarName/show (var: VarName/) : String/Build
+VarName/show (VarName/new _ val) = String/show val

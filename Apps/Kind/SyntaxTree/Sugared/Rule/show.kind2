@@ -1,0 +1,21 @@
+use Data.String as String
+use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+
+Rule/show (r: Rule/) : String/Build
+Rule/show (Rule/new range name pats body) = s =>
+  let name = CtrName/show name
+  let pats = Rule/show.pats pats
+  let eql = String/show " = "
+  let body = Term/show body
+  (name (pats (eql (body s))))
+
+
+Rule/show.pats (pats: Data.List Pattern/) : String/Build
+Rule/show.pats (Data.List.nil) = s => s
+Rule/show.pats (Data.List.cons h t) = s =>
+  let s = String/cons ' ' ((Pattern/show h) s)
+  let t = Rule/show.pats t
+  (t s)

@@ -1,0 +1,7 @@
+use Data.String as String
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+
+Pattern/show (p: Pattern/) : String/Build {
+  Term/show (Pattern/to_term p)
+}

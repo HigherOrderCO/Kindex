@@ -1,0 +1,160 @@
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.Operator as Operator
+use Data.String as String
+
+Term/show (term: Term/) : String/Build
+
+Term/show (Term/var _ name) = VarName/show name
+
+Term/show (Term/ctr _ name Data.List.nil) = CtrName/show name
+Term/show (Term/ctr _ name args) =
+  let opener = (String/show "(")
+  let name = (CtrName/show name)
+  let args = (Term/show.args args)
+  let closer = (String/show ")")
+  String/Build.many [opener name args closer]
+
+Term/show (Term/all _ param type body erased) = s =>
+  let erased = (if erased { String/show "~" } else { String/show "" }) :: _ -> _
+  let opener = (String/show "(")
+  let param = (match Data.Maybe param {
+    some value => VarName/show value
+    none => String/show "_"
+  }) :: _ -> _
+  let sep = (String/show " : ")
+  let type = (Term/show type)
+  let closer = (String/show ")")
+  let arrow = (String/show " -> ")
+  let body = (Term/show body)
+  (erased (opener (param (sep (type (closer (arrow (body s))))))))
+
+Term/show (Term/sig_type _ param fst snd) = s =>
+  let opener = (String/show "[")
+  let param = (match Data.Maybe param {
+    some value => VarName/show value
+    none => String/show "_"
+  }) :: _ -> _
+  let sep = (String/show " : ")
+  let fst = (Term/show fst)
+  let closer = (String/show "]")
+  let arrow = (String/show " -> ")
+  let snd = (Term/show snd)
+  (opener (param (sep (fst (closer (arrow (snd s)))))))
+
+Term/show (Term/lambda _ param type body erased) = s =>
+  let erased = ((if erased { String/show "~" } else { String/show "" })) :: _ -> _
+  let opener = (String/show "(")
+  let param = (VarName/show param)
+  let sep = (String/show " : ")
+  let type = (match Data.Maybe type {
+    some value => Term/show value
+    none => String/show "_"
+  }) :: _ -> _
+  let closer = (String/show ")")
+  let arrow = (String/show " => ")
+  let body = (Term/show body)
+  (erased (opener (param (sep (type (closer (arrow (body s))))))))
+
+Term/show (Term/app _ fun args) = s =>
+  let opener = (String/show "(")
+  let fun = (Term/show fun)
+  let args = (Term/show.args args)
+  let closer = (String/show ")")
+  (opener (fun (args (closer s))))
+
+Term/show (Term/let _ name val next) = s =>
+  let let_ = (String/show "let ")
+  let name = (VarName/show name)
+  let eql = (String/show " = ")
+  let val = (Term/show val)
+  let sep = (String/show "; ")
+  let next = (Term/show next)
+  (let_ (name (eql (val (sep (next s))))))
+
+Term/show (Term/ann _ val type) = s =>
+  let opener = (String/show "(")
+  let val = (Term/show val)
+  let closer = (String/show ")")
+  let sep = (String/show " :: ")
+  let type = (Term/show type)
+  (opener (val (closer (sep (type s)))))
+
+Term/show (Term/lit _ lit) = Literal/show lit
+
+Term/show (Term/binary _ op fst snd) = s =>
+  let opener = (String/show "(")
+  let op = (String/show (Operator/show op))
+  let space = (String/show " ")
+  let fst = (Term/show fst)
+  let snd = (Term/show snd)
+  let closer = (String/show ")")
+  (opener (op (space (fst (space (snd (closer s)))))))
+
+Term/show (Term/hole _) = String/show "_"
+
+// Term/show (Term/do _ type sttm) = s =>
+
+Term/show (Term/if _ cond then_ else_) = s =>
+  let if_ = (String/show "if ")
+  let cond = (Term/show cond)
+  let opener = (String/show " { ")
+  let closer = (String/show " }")
+  let then_ = (Term/show then_)
+  let else_lit = (String/show " else")
+  let else_ = (Term/show else_)
+  (if_ (cond (opener (then_ (closer (else_lit (opener (else_ (closer s)))))))))
+
+Term/show (Term/sig_pair _ fst snd) = s =>
+  let opener = (String/show "($ ")
+  let fst = (Term/show fst)
+  let space = (String/show " ")
+  let snd = (Term/show snd)
+  let closer = (String/show ")")
+  (opener (fst (space (snd (closer s)))))
+
+Term/show (Term/list _ args) = s =>
+  let opener = (String/show "[")
+  let args = (Term/show.args args)
+  let closer = (String/show "]")
+  (opener (args (closer s)))
+
+Term/show (Term/subst _ name redx indx expr) = s =>
+  let spec = (String/show "specialize ")
+  let name = (VarName/show name)
+  let into = (String/show " into #")
+  let redx = (Data.U60.show redx)
+  let in = (String/show " in ")
+  let expr = (Term/show expr)
+  (spec (name (into (redx (in (expr s))))))
+
+// Term/show (Term/match _ type scrutinee val with_vars cases motive) = s =>
+
+
+Term/show (Term/open _ type var motive next) = s =>
+  let open_ = (String/show "open ")
+  let type = (CtrName/show type)
+  let space = (String/show " ")
+  let var = (VarName/show var)
+  let motive = (match Data.Maybe motive {
+    some value => (s: Data.String) =>
+      let sep = (String/show " : ")
+      let motive = (Term/show value)
+      (sep (motive s))
+    none => String/show ""
+  }) :: _ -> _
+  let sep = (String/show "; ")
+  let next = (Term/show next)
+  (open_ (type (space (var (motive (sep (next s)))))))
+
+// Term/show (Term/seqrecord _ type expr fields oper) = s =>
+
+
+Term/show.args (args: Data.List Term/) : String/Build
+Term/show.args (Data.List.nil) = s => s
+Term/show.args (Data.List.cons h t) = s =>
+  let s = String/cons ' ' ((Term/show h) s)
+  let t = Term/show.args t
+  (t s)
