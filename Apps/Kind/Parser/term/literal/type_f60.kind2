@@ -5,7 +5,7 @@ use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
 KParser/term.literal.type_f60 : KParser/ Literal/ {
   do Parser/ {
     ask start = Parser/get_index
-    KParser/exact_name "F60"
+    KParser/exact_name "Data.F60"
     ask range = KParser/make_range_here start
     return Literal/type_f60 range
   }

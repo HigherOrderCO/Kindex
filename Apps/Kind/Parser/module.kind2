@@ -10,7 +10,7 @@ KParser/module : KParser/ Module/ {
     Parser/eof
     return (Data.List.foldl
       (Module/empty)
-      (d => m => Module/add_declaration d m)
+      (d => m => Module/add_declaration m d)
       decls
     )
   }

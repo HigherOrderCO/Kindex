@@ -1,8 +1,8 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 
-KParser/declaration : KParser/ AST/Declaration {
+KParser/declaration : KParser/ Declaration/ {
   Parser/first_of [
     KParser/declaration.alias
     KParser/declaration.entry

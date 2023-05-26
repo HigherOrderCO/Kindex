@@ -5,16 +5,8 @@ use Apps.Kind.Parser as KParser
 //! Fails if there was some non-space, non-comment characters left in the line
 KParser/skip_line : KParser/ Data.Unit {
   do Parser/ {
-    Parser/take_while (c => KParser/skip_line.is_space c)
+    Parser/take_while (c => KParser/is_inline_space c)
     Parser/skip KParser/skip_comment
   }
 }
 
-// Skips whitespace but not next line
-KParser/skip_line.is_space (c: Data.Char) : Data.Bool
-KParser/skip_line.is_space ' ' = Data.Bool.true
-KParser/skip_line.is_space   9 = Data.Bool.true // \t
-KParser/skip_line.is_space  11 = Data.Bool.true
-KParser/skip_line.is_space  12 = Data.Bool.true
-KParser/skip_line.is_space  13 = Data.Bool.true
-KParser/skip_line.is_space   c = Data.Bool.false

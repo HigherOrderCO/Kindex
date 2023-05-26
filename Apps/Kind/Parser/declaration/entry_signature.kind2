@@ -16,7 +16,7 @@ KParser/declaration.entry_signature : KParser/ Entry/ {
     KParser/skip
 
     ask type = if has_type {
-      KParser/term
+      KParser/term.call_inline
     } else {
       do Parser/ {
         ask range = KParser/make_range_here start

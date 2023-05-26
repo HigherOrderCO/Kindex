@@ -3,5 +3,5 @@ use Data.Map as Map
 
 HashMap/empty <k> <v> (hash_fn: k -> Data.U60) : HashMap/ k v {
   let map = Map/new v
- HashMap/new hash_fn map
+  HashMap/new hash_fn map
 }

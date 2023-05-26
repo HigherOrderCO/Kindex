@@ -15,10 +15,7 @@ KParser/term.call : KParser/ Term/ {
     ask start = Parser/get_index
 
     ask called = KParser/term.simple
-    ask args = Parser/many (do Parser/ {
-      KParser/skip
-      KParser/term.simple
-    })
+    ask args = Parser/many (KParser/skipping KParser/term.simple)
 
     ask range = KParser/make_range_here start
 
