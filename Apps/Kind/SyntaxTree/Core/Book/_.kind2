@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Core.Book as Book
+use Apps.Kind.SyntaxTree.Core.Term as Term
+
+record Book/ {
+  entries : Data.HashMap Data.String Term/
+  names   : Data.HashMap Data.String Data.String
+  // holes : Data.U60
+}
