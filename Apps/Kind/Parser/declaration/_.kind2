@@ -5,6 +5,6 @@ use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 KParser/declaration : KParser/ Declaration/ {
   Parser/first_of [
     KParser/declaration.alias
-    KParser/declaration.entry
+    (Parser/map (e => Declaration/entry e) KParser/declaration.entry)
   ]
 }

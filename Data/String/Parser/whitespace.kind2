@@ -1,4 +1,4 @@
 use Data.String.Parser as Parser
 
 Parser/whitespace <t> : Parser/ t Data.Unit
-Parser/whitespace = Parser/skip (Parser/take_while1 (c => Data.Char.is_whitespace c))
+Parser/whitespace = Parser/discarding (Parser/take_while1 (c => Data.Char.is_whitespace c))

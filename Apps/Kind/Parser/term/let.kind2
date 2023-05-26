@@ -15,20 +15,9 @@ KParser/term.let : KParser/ Term/ {
     ask val = KParser/term
 
     ask range = KParser/make_range_here start
-
-    // Must have either a ; separating or a new line
-    Parser/first_of [
-      (do Parser/ {
-        KParser/skip
-        Parser/char ';'
-      })
-      (do Parser/ {
-        KParser/skip_line
-        Parser/char 10 // \n
-      })
-    ]
-
+    KParser/break
     KParser/skip
+    
     ask next = KParser/term
 
     return Term/let range name val next

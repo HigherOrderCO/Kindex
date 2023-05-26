@@ -3,7 +3,7 @@ use Apps.Kind.Parser as KParser
 use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 use Apps.Kind.SyntaxTree.Sugared.Entry as Entry
 
-KParser/declaration.entry : KParser/ Declaration/ {
+KParser/declaration.entry : KParser/ Entry/ {
   do Parser/ {
     ask start = Parser/get_index
 
@@ -17,7 +17,6 @@ KParser/declaration.entry : KParser/ Declaration/ {
   
     ask range = KParser/make_range_here start
 
-    let entry = Entry/new name args type rules range
-    return Declaration/entry entry
+    return Entry/new name args type rules range
   }
 }

@@ -22,6 +22,6 @@ KParser/term : KParser/ Term/ {
     KParser/term.pi_anon        // ~? simple+ -> term
     KParser/term.annotated      // simple+ :: term
 
-    KParser/term.call           // simple+  (either just a simple term or a function/lambda call)
+    KParser/term.call_inline    // simple+  (either just a simple term or a function/lambda call)
   ]
 }

@@ -24,9 +24,9 @@ Term/to_pattern term                          = Maybe/none
 
 
 Term/to_pattern.args (args: Data.List Term/) (acc: Data.List Pattern/) : Maybe/ (Data.List Pattern/)
+Term/to_pattern.args (Data.List.nil)           acc = Maybe/some acc
 Term/to_pattern.args (Data.List.cons arg args) acc = do Maybe/ {
   ask head = Term/to_pattern arg
   let acc = Data.List.cons head acc
   Term/to_pattern.args args acc
 }
-Term/to_pattern.args (Data.List.nil)           acc = Maybe/some (Data.List.reverse acc)

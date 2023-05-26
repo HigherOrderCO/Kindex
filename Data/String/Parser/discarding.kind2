@@ -1,0 +1,9 @@
+use Data.String.Parser as Parser
+
+// Discard the result of a parser
+Parser/discarding <a> <t> (prs: Parser/ t a) : Parser/ t Data.Unit {
+  do Parser/ {
+    prs
+    return Data.Unit.new
+  }
+}
