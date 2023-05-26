@@ -1,0 +1,9 @@
+//! Converts an octal coded char into an U60.
+//! Returns none if not an octal character.
+Data.Char.to_octal (c: Data.Char) : Data.Maybe Data.U60 {
+  if Data.Char.is_octal c {
+    Data.Maybe.some (- c '0')
+  } else {
+    Data.Maybe.none
+  }
+}

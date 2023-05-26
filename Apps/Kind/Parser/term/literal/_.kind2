@@ -1,0 +1,16 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+
+KParser/term.literal : KParser/ Literal/ {
+  Parser/first_of [
+    KParser/term.literal.type
+    KParser/term.literal.help
+    KParser/term.literal.type_u60
+    KParser/term.literal.type_f60
+    KParser/term.literal.char
+    KParser/term.literal.num_integer
+    //KParser/term.literal.num_f60
+    KParser/term.literal.string
+  ]
+}

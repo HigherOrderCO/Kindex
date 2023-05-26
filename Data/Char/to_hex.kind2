@@ -1,0 +1,17 @@
+//! Converts a hex coded char into an U60.
+//! Returns none if not a hex character.
+Data.Char.to_hex (c: Data.Char) : Data.Maybe Data.U60 {
+  if Data.Char.is_decimal c {
+    Data.Maybe.some (- c '0')
+  } else {
+    if Data.Char.between_inclusive 'A' c 'F' {
+      Data.Maybe.some (- c 'A')
+    } else {
+      if Data.Char.between_inclusive 'a' c 'f' {
+        Data.Maybe.some (- c 'a')
+      } else {
+        Data.Maybe.none
+      }
+   }
+  }
+}

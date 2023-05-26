@@ -1,0 +1,10 @@
+use Apps.Kind.Parser as KParser
+
+//! True if the character is a space character but not line break
+KParser/is_inline_space (c: Data.Char) : Data.Bool
+KParser/is_inline_space ' ' = Data.Bool.true
+KParser/is_inline_space   9 = Data.Bool.true // \t
+KParser/is_inline_space  11 = Data.Bool.true
+KParser/is_inline_space  12 = Data.Bool.true
+KParser/is_inline_space  13 = Data.Bool.true
+KParser/is_inline_space   c = Data.Bool.false

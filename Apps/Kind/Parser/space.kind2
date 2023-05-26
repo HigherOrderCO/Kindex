@@ -1,0 +1,6 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+KParser/space : KParser/ Data.Unit {
+  Parser/fail_on_false KParser/skip
+}

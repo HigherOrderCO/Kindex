@@ -1,0 +1,14 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Parser a break between two expressions.
+//! This is either a ; or a line break
+KParser/break : KParser/ Data.Unit {
+  Parser/first_of [
+    (KParser/skipping (Parser/char ';'))
+    (do Parser/ {
+      KParser/skip_line
+      Parser/char 10 // \n
+    })
+  ]
+}

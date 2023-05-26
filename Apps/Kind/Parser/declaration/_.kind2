@@ -1,0 +1,10 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+
+KParser/declaration : KParser/ Declaration/ {
+  Parser/first_of [
+    KParser/declaration.alias
+    (Parser/map (e => Declaration/entry e) KParser/declaration.entry)
+  ]
+}

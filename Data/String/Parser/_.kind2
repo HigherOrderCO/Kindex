@@ -1,3 +1,5 @@
+//! The type of a parser based on the state monad.
+//! To be used like this: `let res = (Parser/run custom_state parser_implementation input)` 
 Data.String.Parser (t: Type) (r: Type) : Type {
   (Data.String.Parser.State t) -> (Data.String.Parser.Result t r)
 }

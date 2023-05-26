@@ -1,0 +1,26 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.specialize : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    Parser/string "specialize"
+    KParser/space
+    ask name = KParser/var_name
+    KParser/space
+    Parser/string "into"
+    KParser/space
+    Parser/char '#'
+    ask redx_str = Parser/take_while1 (c => Data.Char.is_decimal c)
+    let redx = Data.Maybe.default (Data.U60.read_decimal redx_str) 0
+    KParser/space
+    Parser/string "in"
+    KParser/space
+    ask expr = KParser/term
+
+    ask range = KParser/make_range_here start
+    return Term/subst range name redx 0 expr
+  }
+}

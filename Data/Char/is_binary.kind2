@@ -1,0 +1,4 @@
+//! True if `c` is either '0' or '1'
+Data.Char.is_binary (c: Data.Char) : Data.Bool {
+  Data.U60.to_bool (| (== c '0') (== c '1'))
+}

@@ -1,0 +1,24 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.sigma_type : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    Parser/char '['
+    KParser/skip
+    ask param = KParser/var_name
+    KParser/skip
+    Parser/char ':'
+    KParser/skip
+    ask fst = KParser/term
+    Parser/char ']'
+    KParser/skip
+    Parser/string "->"
+    ask snd = KParser/term
+
+    ask range = KParser/make_range_here start
+    return Term/sig_type range (Data.Maybe.some param) fst snd
+  }
+}

@@ -1,0 +1,6 @@
+#derive[match]
+record Data.Tuple3 (a) (b) (c) {
+  fst : a
+  snd : b
+  trd : c
+}

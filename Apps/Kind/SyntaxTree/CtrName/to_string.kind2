@@ -1,0 +1,4 @@
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+CtrName/to_string (name: CtrName/) : Data.String
+CtrName/to_string (CtrName/new range val) = val

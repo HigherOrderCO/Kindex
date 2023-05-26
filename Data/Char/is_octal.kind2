@@ -1,0 +1,4 @@
+//! True if Data.Char represents an octal digit (0 - 7)
+Data.Char.is_octal (c: Data.Char) : Data.Bool {
+  Data.Char.between_inclusive '0' c '7'
+}

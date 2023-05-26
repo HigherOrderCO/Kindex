@@ -1,0 +1,7 @@
+Apps.Kind.Parser.is_name_char (c: Data.Char) : Data.Bool {
+  Data.Bool.or
+    (Data.Char.is_alphanumeric c)
+    (Data.Bool.or (Data.Char.equal '.' c)
+    (Data.Bool.or (Data.Char.equal '_' c)
+    (Data.Char.equal '$' c)))
+}

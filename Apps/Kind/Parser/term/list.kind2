@@ -1,0 +1,28 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.list : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    Parser/char '['
+    ask args = Parser/first_of[
+      // Elements are either all separated by ',' or all separated by spaces
+      (Parser/sep_by
+        (KParser/skipping (Parser/char ','))
+        (KParser/skipping (Parser/map (simple => Simple/to_term_no_args simple) KParser/term.simple))
+      )
+      (Parser/repeat_until
+        (KParser/skipping (Parser/look_ahead (Parser/char ']')))
+        (KParser/skipping (Parser/map (simple => Simple/to_term_no_args simple) KParser/term.simple))
+      )
+    ] 
+    KParser/skip
+    Parser/char ']'
+
+    ask range = KParser/make_range_here start
+    return Term/list range args
+  }
+}

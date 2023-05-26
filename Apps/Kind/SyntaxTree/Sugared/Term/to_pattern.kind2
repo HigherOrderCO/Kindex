@@ -1,0 +1,32 @@
+use Data.Maybe as Maybe
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+
+//! Converts a Term into a Pattern if valid
+Term/to_pattern (term: Term/) : Maybe/ Pattern/
+Term/to_pattern (Term/var range name)         = Maybe/some (Pattern/var range name)
+Term/to_pattern (Term/hole range)             = Maybe/some (Pattern/hole range)
+Term/to_pattern (Term/ctr range name args)    = do Maybe/ {
+  ask args = Term/to_pattern.args args []
+  return Pattern/ctr range name args
+}
+Term/to_pattern (Term/list range args)        = do Maybe/ {
+  ask args = Term/to_pattern.args args []
+  return Pattern/list range args
+}
+Term/to_pattern (Term/sig_pair range fst snd) = do Maybe/ {
+  ask fst = Term/to_pattern fst
+  ask snd = Term/to_pattern snd
+  return Pattern/pair range fst snd
+}
+Term/to_pattern (Term/lit range lit)          = Term/Literal.to_pattern lit
+Term/to_pattern term                          = Maybe/none
+
+
+Term/to_pattern.args (args: Data.List Term/) (acc: Data.List Pattern/) : Maybe/ (Data.List Pattern/)
+Term/to_pattern.args (Data.List.nil)           acc = Maybe/some acc
+Term/to_pattern.args (Data.List.cons arg args) acc = do Maybe/ {
+  ask head = Term/to_pattern arg
+  let acc = Data.List.cons head acc
+  Term/to_pattern.args args acc
+}

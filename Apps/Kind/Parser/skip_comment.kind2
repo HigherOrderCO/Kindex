@@ -1,0 +1,16 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+// Skips a Kind comment
+// A comment is "//" followed by any sequence of characters, up to a newline
+KParser/skip_comment <t> : Parser/ t Data.Bool {
+  do Parser/ {
+    ask skp = Parser/is_some (Parser/try (Parser/string "//"))
+    if skp {
+      Parser/skip_line
+    } else {
+      Parser/pure Data.Bool.true
+    }
+    return skp
+  }
+}

@@ -1,0 +1,27 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+// Skips any sequence of comments and whitespaces
+KParser/skip <t> : Parser/ t Data.Bool {
+  do Parser/ {
+    ask comment = KParser/skip_comment
+    ask spaces  = Parser/skip_whitespace
+    if Data.Bool.or comment spaces {
+      KParser/skip.go
+    } else {
+      Parser/pure Data.Bool.false
+    }
+  }
+}
+
+KParser/skip.go <t> : Parser/ t Data.Bool { 
+  do Parser/ {
+    ask comment = KParser/skip_comment
+    ask spaces  = Parser/skip_whitespace
+    if Data.Bool.not (Data.Bool.or comment spaces) {
+      Parser/pure Data.Bool.true
+    } else {
+      KParser/skip.go
+    }
+  }
+}

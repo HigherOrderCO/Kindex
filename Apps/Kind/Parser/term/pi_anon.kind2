@@ -1,0 +1,20 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.pi_anon : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask erased = Parser/is_some (Parser/try (Parser/char '~'))
+    KParser/skip
+    ask type = KParser/term.call
+    KParser/skip
+    Parser/string "->"
+    KParser/skip
+    ask body = KParser/term
+
+    ask range = KParser/make_range_here start
+    return Term/all range Data.Maybe.none type body erased 
+  }
+}

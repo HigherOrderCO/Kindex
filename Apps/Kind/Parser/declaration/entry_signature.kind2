@@ -1,0 +1,30 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/declaration.entry_signature : KParser/ Entry/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask name = KParser/ctr_name
+
+    ask args = Parser/many (KParser/skipping KParser/declaration.argument)
+    KParser/skip
+
+    ask has_type = Parser/to_bool (Parser/char ':')
+    KParser/skip
+
+    ask type = if has_type {
+      KParser/term.call_inline
+    } else {
+      do Parser/ {
+        ask range = KParser/make_range_here start
+        return Term/hole range
+      }
+    }
+
+    ask range = KParser/make_range_here start
+    return Entry/new name args type [] range
+  }
+}

@@ -1,0 +1,17 @@
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.Range as Range
+
+//! Convert a Literal into a Term.lit
+Literal/to_term (literal: Literal/) : Term/
+Literal/to_term (Literal/type     range)      = Term/lit range (Literal/type     range)
+Literal/to_term (Literal/help     range name) = Term/lit range (Literal/help     range name)
+Literal/to_term (Literal/type_u60 range)      = Term/lit range (Literal/type_u60 range)
+Literal/to_term (Literal/type_f60 range)      = Term/lit range (Literal/type_f60 range)
+Literal/to_term (Literal/char     range val)  = Term/lit range (Literal/char     range val)
+Literal/to_term (Literal/num_u60  range val)  = Term/lit range (Literal/num_u60  range val)
+Literal/to_term (Literal/num_u120 range val)  = Term/lit range (Literal/num_u120 range val)
+// Literal/to_term (Literal/num_f60  range val)  = Term/lit range (Literal/num_f60  range val)
+Literal/to_term (Literal/num_nat  range val)  = Term/lit range (Literal/num_nat  range val)
+Literal/to_term (Literal/string   range val)  = Term/lit range (Literal/string   range val)

@@ -1,0 +1,18 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.annotated : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask val = KParser/term.call
+    KParser/skip
+    Parser/string "::"
+    KParser/skip
+    ask type = KParser/term
+
+    ask range = KParser/make_range_here start
+    return Term/ann range val type
+  }
+}

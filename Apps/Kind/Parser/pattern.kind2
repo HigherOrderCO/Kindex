@@ -1,0 +1,14 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+//! Parses a pattern that a rule matches against.
+//! Accepts a subset of "constant value" simple terms,
+//! these are constructors, variables and numbers, and any sugars to make them,
+//! but doesn't include function applications or types.
+KParser/pattern : KParser/ Pattern/ {
+  // TODO: Not very good since it'll try many things that don't apply to patterns
+  Parser/fail_on_none (Parser/map (s => Term/to_pattern (Simple/to_term_no_args s)) KParser/term.simple)
+}

@@ -1,0 +1,8 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/get <k> <v> (map: HashMap/ k v) (key: k) : Data.Pair (HashMap/ k v) (Data.Maybe v)
+HashMap/get (HashMap/new hashf map) key =
+  let hash = hashf key
+  let got = Map/got map hash
+  Data.Pair.map_fst got (map => HashMap/new hashf map)

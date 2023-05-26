@@ -1,0 +1,8 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/set <k> <v> (map: HashMap/ k v) (key: k) (value: v) : HashMap/ k v
+HashMap/set (HashMap/new hashf map) key value =
+  let hash = hashf key
+  let map  = Map/set map hash value
+  HashMap/new hashf map

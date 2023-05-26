@@ -1,0 +1,12 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.hole : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+    KParser/exact_name "_"
+    ask range = KParser/make_range_here start
+    return Term/hole range
+  }
+}

@@ -1,0 +1,12 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Skips comments and spaces until the end of the line
+//! Fails if there was some non-space, non-comment characters left in the line
+KParser/skip_line : KParser/ Data.Unit {
+  do Parser/ {
+    (Parser/take_while (c => KParser/is_inline_space c))
+    (KParser/skip_comment)
+    return Data.Unit.new
+  }
+}

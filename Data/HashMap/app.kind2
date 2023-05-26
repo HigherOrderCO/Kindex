@@ -1,0 +1,8 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+HashMap/app <k> <v> (map: HashMap/ k v) (key: k) (fun: v -> v) : HashMap/ k v
+HashMap/app (HashMap/new hashf map) key fun =
+  let hash = hashf key
+  let map = Map/app map hash fun
+  HashMap/new hashf map

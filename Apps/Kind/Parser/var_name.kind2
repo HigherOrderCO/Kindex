@@ -1,0 +1,19 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+// Parses a kind constructor name 
+KParser/var_name : KParser/ VarName/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    // TODO: prohibit using keywords (try, match, dup?, return?)
+    ask head = Parser/satisfy (c => Data.Char.is_lower c)
+    ask tail = Parser/take_while (c => KParser/is_name_char c)
+    let val = Data.String.cons head tail
+
+    ask range = KParser/make_range_here start
+
+    return VarName/new range val
+  }
+}

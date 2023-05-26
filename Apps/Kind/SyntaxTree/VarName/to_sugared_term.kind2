@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+VarName/to_sugared_term (name: VarName/) : AST/Term
+VarName/to_sugared_term (VarName/new range name) = AST/Term.var (range (VarName/new range name))

@@ -1,0 +1,16 @@
+//! djb2 hash
+//! hash(0) = 5381
+//! hash(i) = hash(i - 1) * 33 ^ str[i]
+Data.String.hash (xs: Data.String) : Data.U60 {
+  // TODO: This is not meant for U60, probably not as randomly distributed
+  Data.String.hash.go xs 5381
+}
+
+
+Data.String.hash.go (xs: Data.String) (hash: Data.U60) : Data.U60
+
+Data.String.hash.go (Data.String.cons x xs) hash = 
+  let hash = (+ (+ (<< hash 5) hash) x)
+  Data.String.hash.go xs hash
+
+Data.String.hash.go "" hash = hash

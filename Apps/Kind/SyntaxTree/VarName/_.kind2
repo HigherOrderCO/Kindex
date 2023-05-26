@@ -1,0 +1,6 @@
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+record VarName/ {
+  range: Apps.Kind.SyntaxTree.Range
+  val : Data.String
+}

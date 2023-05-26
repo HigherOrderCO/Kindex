@@ -1,0 +1,3 @@
+Data.Either.map_left <la> <lb> <r> (f: la -> lb) (e: Data.Either la r) : Data.Either lb r
+Data.Either.map_left f (Data.Either.left  v) = Data.Either.left  (f v)
+Data.Either.map_left f (Data.Either.right v) = Data.Either.right    v

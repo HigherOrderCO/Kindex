@@ -1,0 +1,22 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.Operator as Operator
+
+KParser/term.sigma_pair : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    Parser/char '$'
+    KParser/skip
+    ask fst = KParser/term.simple
+    let fst = Simple/to_term_no_args fst
+    KParser/skip
+    ask snd = KParser/term.simple
+    let snd = Simple/to_term_no_args snd
+
+    ask range = KParser/make_range_here start
+    return Term/sig_pair range fst snd
+  }
+}

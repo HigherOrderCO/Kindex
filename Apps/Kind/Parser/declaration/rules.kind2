@@ -1,0 +1,22 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+//! Parser either a default rule, denoted by '{}' after the signature and no explicit rule declaration,
+//! or a sequence of explicit rule declarations for the entry declared just above
+KParser/declaration.rules
+  (is_dflt: Data.Bool)
+  (name: CtrName/)
+  (args: Data.List Argument/)
+: KParser/ (Data.List Rule/)
+
+KParser/declaration.rules Data.Bool.false name _ =
+  Parser/many (KParser/skipping (KParser/declaration.explicit_rule name))
+
+KParser/declaration.rules Data.Bool.true name args = do Parser/ {
+  let pats = Data.List.map args (a => Argument/to_pattern a)
+  ask rule = KParser/declaration.default_rule name pats
+  return [rule]
+}

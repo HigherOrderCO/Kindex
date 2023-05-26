@@ -1,0 +1,5 @@
+record Apps.Kind.SyntaxTree.Range {
+  start : Data.U60
+  end : Data.U60
+  file_id : Data.U60
+}

@@ -1,0 +1,23 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+KParser/declaration.explicit_rule (expected_name: CtrName/) : KParser/ Rule/
+KParser/declaration.explicit_rule (CtrName/new range_name name) =
+  do Parser/ {
+    ask start = Parser/get_index
+
+    KParser/exact_name name
+    
+    ask pats = Parser/many (KParser/skipping (KParser/pattern))
+    KParser/skip
+    Parser/char '='
+    KParser/skip
+    ask body = KParser/term
+
+    ask range = KParser/make_range_here start
+
+    let name = (CtrName/new range_name name)
+    return Rule/new range name pats body
+  }

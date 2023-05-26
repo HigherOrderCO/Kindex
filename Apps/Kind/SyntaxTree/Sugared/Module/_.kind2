@@ -1,0 +1,6 @@
+use Apps.Kind.SyntaxTree.Sugared as AST
+
+record AST/Module {
+  entries : Data.List AST/Entry
+  aliases : Data.HashMap Data.String Data.String // TODO: Use a more appropriate struct
+}

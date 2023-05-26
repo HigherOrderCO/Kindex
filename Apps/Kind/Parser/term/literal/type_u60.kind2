@@ -1,0 +1,12 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+
+KParser/term.literal.type_u60 : KParser/ Literal/ {
+  do Parser/ {
+    ask start = Parser/get_index
+    KParser/exact_name "Data.U60"
+    ask range = KParser/make_range_here start
+    return Literal/type_u60 range
+  }
+}

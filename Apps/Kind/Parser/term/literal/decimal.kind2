@@ -1,0 +1,10 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Parsers a binary number of the form 0b[01]+ into a U120
+KParser/term.literal.decimal : KParser/ Data.U120 {
+  do Parser/ {
+    ask num_str = Parser/take_while1 (c => Data.Char.is_decimal c)
+    return Data.Maybe.default (Data.U120.read_decimal num_str) 0u120
+  }
+}

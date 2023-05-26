@@ -1,0 +1,17 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Module as Module
+
+//! Parses a Kind Module, a collection of top levels plus some alias definitions used inside that module
+KParser/module : KParser/ Module/ {
+  do Parser/ {
+    ask decls = Parser/many (KParser/skipping KParser/declaration)
+    KParser/skip
+    Parser/eof
+    return (Data.List.foldl
+      (Module/empty)
+      (d => m => Module/add_declaration m d)
+      decls
+    )
+  }
+}

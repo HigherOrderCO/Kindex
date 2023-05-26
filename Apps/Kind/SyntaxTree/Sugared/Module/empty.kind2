@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Module as Module
+
+Module/empty : Module/ {
+  Module/new Data.List.nil (Data.HashMap.empty ((s: Data.String) => Data.String.hash s))
+}

@@ -1,0 +1,3 @@
+Data.U120.to_u60 (n: Data.U120) : Data.Maybe Data.U60
+Data.U120.to_u60 (Data.U120.new 0 l) = Data.Maybe.some l
+Data.U120.to_u60 (Data.U120.new h l) = Data.Maybe.none

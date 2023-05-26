@@ -1,0 +1,2 @@
+Apps.Kind.Parser <t: Type> : Type
+Apps.Kind.Parser t = Data.String.Parser Apps.Kind.Parser.State t

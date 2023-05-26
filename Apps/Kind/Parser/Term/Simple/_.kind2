@@ -1,0 +1,12 @@
+use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+//! Terms that are simple to parse, either one word or simply grouped.
+//! Just an auxiliary structure to make things easier to parse
+type Simple/ {
+  var (val: VarName/)
+  ctr (val: CtrName/)
+  group (val: Term/)
+}

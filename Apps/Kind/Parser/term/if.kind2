@@ -1,0 +1,30 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.if : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    Parser/string "if"
+    KParser/space
+    ask cond = KParser/term
+    KParser/skip
+    Parser/char '{'
+    KParser/skip
+    ask then = KParser/term
+    KParser/skip
+    Parser/char '}'
+    KParser/skip
+    Parser/string "else"
+    KParser/space
+    Parser/char '{'
+    KParser/skip
+    ask else = KParser/term
+    KParser/skip
+    Parser/char '}'
+
+    ask range = KParser/make_range_here start
+    return Term/if range cond then else
+  }
+}

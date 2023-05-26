@@ -1,0 +1,18 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+KParser/term.pi_named : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask Data.Tuple3.new (fst=param) (snd=type) (trd=erased) = KParser/term.lam_arg
+    KParser/skip
+    Parser/string "->"
+    KParser/skip
+    ask body = KParser/term
+
+    ask range = KParser/make_range_here start
+    return Term/all range (Data.Maybe.some param) type body erased
+  }
+}

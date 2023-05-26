@@ -1,0 +1,24 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+
+//! Parses a term that is callable, either as a call, or by itself.
+//! All arguments must be Simple callables so that we can differentiate
+//! between ((Ctr) arg1 arg2), (Ctr arg1 arg2) and ((Ctr arg1) arg2).
+//! Ex: MyCtr.new
+//! Ex: MyCtr.new arg1 (SomeFn arg2)
+//! Ex: (Foo x1 x2) y (Bar z1 z2 z3)
+//! Ex: if cond { x => (Maybe.is_some x) } else { x => (Maybe.is_none x) } Maybe.none, although this one might need some annotations
+KParser/term.call : KParser/ Term/ {
+  do Parser/ {
+    ask start = Parser/get_index
+
+    ask called = KParser/term.simple
+    ask args = Parser/many (KParser/skipping KParser/term.simple)
+
+    ask range = KParser/make_range_here start
+
+    return Simple/to_term called args range
+  }
+}

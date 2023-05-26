@@ -1,6 +1,6 @@
 use Apps.Kind.Operator as Operator
 
-Operator/equal (left: Apps.Kind.Operator) (right: Apps.Kind.Operator): Data.Bool
+Operator/equal (left: Operator/) (right: Operator/): Data.Bool
 Operator/equal Operator/and Operator/and = Data.Bool.true
 Operator/equal Operator/sub Operator/sub = Data.Bool.true
 Operator/equal Operator/mul Operator/mul = Data.Bool.true
