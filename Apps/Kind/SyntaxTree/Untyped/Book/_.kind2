@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Untyped.Book as Book
+use Apps.Kind.SyntaxTree.Untyped.Term as Term
+
+record Book/ {
+  entries : Data.HashMap Data.String Term/
+  names   : Data.HashMap Data.String Data.String
+}

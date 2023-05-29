@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Untyped.Term as Term
+use Apps.Kind.SyntaxTree.Untyped.Rule as Rule
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+record Rule/ {
+  name : CtrName/
+  pats : Data.List Term/
+  body : Term/
+  range : Range/
+}

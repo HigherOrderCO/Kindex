@@ -1,0 +1,19 @@
+use Apps.Kind.SyntaxTree.Untyped.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+type Term/ {
+  var (range: Range/) (name: VarName/)
+  lambda (range: Range/) (param: VarName/) (body: Term/) (erased: Data.Bool)
+  app (range: Range/) (fun: Term/) (args: Data.List Term/)
+  fun (range: Range/) (name: CtrName/) (args: Data.List Term/)
+  ctr (range: Range/) (name: CtrName/) (args: Data.List Term/)
+  let (range: Range/) (name: VarName/) (val: Term/) (next: Term/)
+  sub (range: Range/) (name: VarName/) (indx: Data.U60) (redx: Data.U60) (expr: Term/)
+  u60 (range: Range/) (numb: Data.U60)
+  f60 (range: Range/) (numb: Data.U60)
+  str (range: Range/) (val: Data.String)
+  binary (range: Range/) (op: Operator/) (left: Term/) (right: Term/)
+  err (range: Range/)
+}

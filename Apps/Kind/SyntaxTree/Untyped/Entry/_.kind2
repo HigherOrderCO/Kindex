@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Untyped.Entry as Entry
+use Apps.Kind.SyntaxTree.Untyped.Rule as Rule
+use Apps.Kind.SyntaxTree.Untyped.Term as Term
+use Apps.Kind.SyntaxTree.Untyped.Argument as Argument
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+record Entry/ {
+  name  : CtrName/
+  args  : Data.List Argument/
+  rules : Data.List Rule/
+  // attrs : Attributes/
+  range : Range/
+}
