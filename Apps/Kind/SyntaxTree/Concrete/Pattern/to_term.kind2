@@ -1,0 +1,15 @@
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+
+Pattern/to_term (pat: Pattern/) : Term/
+Pattern/to_term (Pattern/var range name)      = Term/var range name
+Pattern/to_term (Pattern/ctr range name args) = Term/ctr range name (Data.List.map args (p => Pattern/to_term p))
+Pattern/to_term (Pattern/u60 range val)       = Term/lit range (Literal/num_u60 range val)
+Pattern/to_term (Pattern/u120 range val)      = Term/lit range (Literal/num_u120 range val)
+// Pattern/to_term (Pattern/f60 range val)       = Term/lit range (Literal/num_f60 range val)
+Pattern/to_term (Pattern/pair range fst snd)  = Term/sig_pair range (Pattern/to_term fst) (Pattern/to_term snd)
+Pattern/to_term (Pattern/list range args)     = Term/list range (Data.List.map args (p => Pattern/to_term p))
+Pattern/to_term (Pattern/string range val)    = Term/lit range (Literal/string range val)
+Pattern/to_term (Pattern/char range val)      = Term/lit range (Literal/char range val)
+Pattern/to_term (Pattern/hole range)          = Term/hole range

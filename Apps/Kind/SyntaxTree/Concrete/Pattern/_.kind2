@@ -1,0 +1,17 @@
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+type Pattern/ {
+  var (range: Range/) (name: VarName/)
+  ctr (range: Range/) (name: AliasName/) (args: Data.List Pattern/)
+  u60 (range: Range/) (val: Data.U60)
+  u120 (range: Range/) (val: Data.U120)
+  // f60 (range: Range/) (val: Data.F60)    Data.F60 not implemented in compiler
+  pair (range: Range/) (fst: Pattern/) (snd: Pattern/)
+  list (range: Range/) (args: Data.List Pattern/)
+  string (range: Range/) (val: Data.String)
+  char (range: Range/) (val: Data.Char)
+  hole (range: Range/)
+}

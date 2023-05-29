@@ -1,0 +1,27 @@
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.Operator as Operator
+
+type Term/ {
+  var       (range: Range/) (name: VarName/)
+  ctr       (range: Range/) (name: CtrName/) (args: Data.List Term/) // TODO: Implement named bindings
+  all       (range: Range/) (param: Data.Maybe VarName/) (type: Term/) (body: Term/) (erased: Data.Bool)
+  sig_type  (range: Range/) (param: Data.Maybe VarName/) (fst: Term/) (snd: Term/) // TODO: param is always some, does it need to be Maybe?
+  lambda    (range: Range/) (param: VarName/) (type: Data.Maybe Term/) (body: Term/) (erased: Data.Bool)
+  app       (range: Range/) (fun: Term/) (args: Data.List Term/) // TODO: Implement erased args
+  let       (range: Range/) (name: VarName/) (val: Term/) (next: Term/) // TODO: Implement destructors in let
+  ann       (range: Range/) (val: Term/) (type: Term/)
+  lit       (range: Range/) (lit: Term/Literal)
+  binary    (range: Range/) (op: Operator/) (fst: Term/) (snd: Term/)
+  hole      (range: Range/)
+  do        (range: Range/) (type: CtrName/) (sttm: Term/Statement)
+  if        (range: Range/) (cond: Term/) (then: Term/) (else: Term/)
+  sig_pair  (range: Range/) (fst: Term/) (snd: Term/)
+  list      (range: Range/) (args: Data.List Term/)
+  subst     (range: Range/) (name: VarName/) (redx: Data.U60) (indx: Data.U60) (expr: Term/)  // TODO: Is indx necessary? its always 0
+  match     (range: Range/) (type: CtrName/) (scrutinee: VarName/) (val: Data.Maybe Term/) (with_vars: Data.List (Data.Pair VarName/ (Data.Maybe Term/))) (cases: Data.List Term/MatchCase) (motive: Data.Maybe Term/)
+  open      (range: Range/) (type: CtrName/) (var: VarName/) (motive: Data.Maybe Term/) (next: Term/)
+  seqrecord (range: Range/) (type: CtrName/) (expr: Term/) (fields: Data.List VarName/) (oper: Term/SeqOperator)
+}

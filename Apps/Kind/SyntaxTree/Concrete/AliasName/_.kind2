@@ -1,0 +1,13 @@
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Range as Range
+
+type AliasName/ {
+  //! Non-aliased names (ex: Data.String)
+  unaliased  (range: Range/) (val: Data.String)
+
+  //! Aliased names with no extension (ex: "Range/")
+  alias_base (range: Range/) (base: Data.String)
+
+  //! Alias names with an extension after the '/' (ex: "Module/show")
+  alias_ext  (range: Range/) (base: Data.String) (ext: Data.String)
+}

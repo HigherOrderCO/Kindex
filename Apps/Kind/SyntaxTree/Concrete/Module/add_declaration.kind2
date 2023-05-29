@@ -1,0 +1,6 @@
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+Module/add_declaration (module: Module/) (decl: Declaration/) : Module/
+Module/add_declaration (Module/new decls aliases) decl = Module/new (Data.List.cons decl decls) aliases

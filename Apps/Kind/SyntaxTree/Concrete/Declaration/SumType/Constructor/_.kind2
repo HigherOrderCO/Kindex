@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Concrete.Declaration.SumType.Constructor as Constructor
+use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+type Constructor/ {
+  name : VarName/
+  // docs : Data.String
+  // attrs:
+  args : Data.List Argument/
+  type : Data.Maybe Term/
+}

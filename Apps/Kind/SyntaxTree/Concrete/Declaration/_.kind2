@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Concrete.Entry as Entry
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+type Declaration/ {
+  entry (val: Entry/)
+  sum (val: SumType/)
+  record (val: Record/)
+}

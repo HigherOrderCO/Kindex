@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+
+//! The representation of a file or similar collection of declarations.
+//! A concrete representation of the source, saving all information like docs, comments and identation
+record Module/ {
+  decls   : Data.List Declaration/
+  aliases : Data.HashMap Data.String Data.String // TODO: Use a more appropriate struct
+}
+// TODO: Make it actually concrete

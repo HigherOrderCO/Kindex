@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Concrete.Declaration.RecordType as RecordType
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
+
+record RecordType/ {
+  name : AliasName/
+  // docs
+  // attrs
+  params : Data.List Argument/
+  // TODO: finish
+}

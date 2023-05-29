@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Concrete.Term.Statement as Statement
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+type Statement/ {
+  expr (expr: Term/) (rest: Statement/)
+  ask_ (name: VarName/) (val: Term/) (next: Statement/)
+  let_ (name: VarName/) (val: Term/) (next: Statement/)
+  return_ (val: Term/)
+  ret_expr (val: Term/)
+}

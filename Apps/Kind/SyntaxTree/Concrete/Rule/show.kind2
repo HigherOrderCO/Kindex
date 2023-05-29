@@ -1,0 +1,13 @@
+use Apps.Kind.SyntaxTree.Concrete.Rule as Rule
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Data.String as String
+
+Rule/show (r: Rule/) : String/Build
+Rule/show (Rule/new range name pats body) =
+  let name = AliasName/show name
+  let pats = String/Build.join (Data.List.map pats (p => Pattern/show p)) " "
+  let eql = String/show " = "
+  let body = Term/show body
+  String/Build.many [name pats eql body]

@@ -1,0 +1,8 @@
+use Data.String as String
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+
+Module/show (e: Module/) : String/Build
+Module/show (Module/new decls aliases) =
+// TODO: Show aliases
+  String/Build.join decls (Data.List.map entries (e => Declaration/show e)) Data.String.new_line

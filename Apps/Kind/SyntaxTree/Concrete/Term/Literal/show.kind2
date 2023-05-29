@@ -1,0 +1,41 @@
+use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Data.String as String
+
+Literal/show (var: Literal/) : String/Build
+
+Literal/show (Literal/type _) = String/show "Type"
+
+Literal/show (Literal/help _ name) = s =>
+  let help = (String/show "?") :: _ -> _
+  let name = (VarName/show name) :: _ -> _
+  (help (name s))
+
+Literal/show (Literal/type_u60 _) = String/show "Data.U60"
+
+Literal/show (Literal/type_f60 _) = String/show "Data.F60"
+
+Literal/show (Literal/char _ val) = s =>
+  let marker = (String/show "'") :: _ -> _
+  let val = (Data.Char.show val) :: _ -> _
+  (marker (val (marker s)))
+
+Literal/show (Literal/num_u60 _ val) = Data.U60.show val
+
+Literal/show (Literal/num_u120 _ val) = s =>
+  let num = (Data.U120.show val) :: _ -> _
+  let marker = (String/show "u120") :: _ -> _
+  (num (marker s))
+
+// Literal/show (Literal/num_f60 _) = 
+
+Literal/show (Literal/num_nat _ val) = s =>
+  let num = (Data.U60.show val) :: _ -> _
+  let marker = (String/show "n") :: _ -> _
+  (num (marker s))
+
+Literal/show (Literal/string _ val) = s =>
+  let marker = (Data.Char.show '"') :: _ -> _
+  let val = (String/show val) :: _ -> _
+  (marker (val (marker s)))

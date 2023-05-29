@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Concrete.Rule as Rule
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+
+record Rule/ {
+    range: Range/
+    name: AliasName/
+    pats: Data.List Pattern/
+    body: Term/
+}

@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+
+Module/empty : Module/ {
+  Module/new Data.List.nil Data.Map.new
+}
