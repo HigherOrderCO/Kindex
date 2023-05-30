@@ -1,9 +1,10 @@
-use Apps.Kind.SyntaxTree.Sugared as AST
-use Apps.Kind.SyntaxTree.Range as Range
-use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType as SumType
+use Apps.Kind.SyntaxTree.Sugared.Declaration.RecordType as RecordType
 
-type AST/Declaration {
-  alias (range: Range/) (orig: Data.String) (alias: Data.String)
-  entry (val: AST/Entry)
-  // TODO: Add adts, attributes, etc
+type Declaration/ {
+  entry (val: Entry/)
+  sum (val: SumType/)
+  record (val: RecordType/)
 }

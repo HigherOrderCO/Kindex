@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration.RecordType as RecordType
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+record RecordType/ {
+  name : CtrName/
+  // docs
+  // attrs
+  params : Data.List Argument/
+  // TODO: finish
+}

@@ -1,7 +1,7 @@
 use Apps.Kind.SyntaxTree.Concrete.Term as Term
 use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
 use Apps.Kind.SyntaxTree.VarName as VarName
-use Apps.Kind.SyntaxTree.CtrName as CtrName
 use Apps.Kind.Operator as Operator
 use Data.String as String
 
@@ -12,7 +12,7 @@ Term/show (Term/var _ name) = VarName/show name
 Term/show (Term/ctr _ name Data.List.nil) = AliasName/show name
 Term/show (Term/ctr _ name args) =
   let opener = (String/show "(")
-  let name = (CtrName/show name)
+  let name = (AliasName/show name)
   let args = (Term/show.args args)
   let closer = (String/show ")")
   String/Build.many [opener name args closer]
@@ -135,7 +135,7 @@ Term/show (Term/subst _ name redx indx expr) =
 
 Term/show (Term/open _ type var motive next) =
   let open_ = (String/show "open ")
-  let type = (CtrName/show type)
+  let type = (AliasName/show type)
   let space = (String/show " ")
   let var = (VarName/show var)
   let motive = (match Data.Maybe motive {

@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+
+// TODO: Add proper error reporting
+Sugared/desugar (book: Sugared/Book) : Data.Either Core/Book Data.String {
+  Sugared/desugar.book book
+}
