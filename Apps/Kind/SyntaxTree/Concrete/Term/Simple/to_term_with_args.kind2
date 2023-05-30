@@ -1,5 +1,5 @@
-use Apps.Kind.Parser.Term.Simple as Simple
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 use Apps.Kind.SyntaxTree.Range as Range
 use Apps.Kind.SyntaxTree.VarName as VarName
 
@@ -11,5 +11,5 @@ Simple/to_term_with_args (s: Simple/) (args: Data.List Simple/) (range: Range/) 
 
 Simple/to_term_with_args.aux (s: Simple/) (args: Data.List Term/) (range: Range/) : Term/
 Simple/to_term_with_args.aux (Simple/var (VarName/new vrange name)) args range = (Term/app range (Term/var vrange (VarName/new vrange name)) args)
-Simple/to_term_with_args.aux (Simple/ctr ctr_name)                  args range = (Term/ctr range ctr_name args)
+Simple/to_term_with_args.aux (Simple/ctr   ctr_name)                args range = (Term/ctr range ctr_name args)
 Simple/to_term_with_args.aux (Simple/group group)                   args range = (Term/app range group args)

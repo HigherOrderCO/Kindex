@@ -1,10 +1,11 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
 use Apps.Kind.SyntaxTree.Range as Range
 
+//! Parses an alias declaration
 //! "use" Name "as" Alias
-KParser/declaration.alias : KParser/ Declaration/ {
+KParser/alias : KParser/ Alias/ {
   do Parser/ {
     ask start = Parser/get_index
     Parser/string "use"
@@ -20,7 +21,7 @@ KParser/declaration.alias : KParser/ Declaration/ {
     ask end = Parser/get_index
     ask range = KParser/make_range start end
     
-    return Declaration/alias range orig alias
+    return Alias/new range orig alias
   }
 }
 

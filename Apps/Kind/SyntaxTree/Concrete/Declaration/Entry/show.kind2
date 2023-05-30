@@ -1,4 +1,4 @@
-use Apps.Kind.SyntaxTree.Concrete.Entry as Entry
+use Apps.Kind.SyntaxTree.Concrete.Declaration.Entry as Entry
 use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
 use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
 use Apps.Kind.SyntaxTree.Concrete.Rule as Rule

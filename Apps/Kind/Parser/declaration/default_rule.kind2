@@ -1,11 +1,11 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
-use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
-use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.Rule as Rule
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
 
 
-KParser/declaration.default_rule (name: CtrName/) (pats: Data.List Pattern/) : KParser/ Rule/ {
+KParser/declaration.default_rule (name: AliasName/) (pats: Data.List Pattern/) : KParser/ Rule/ {
   do Parser/ {
     ask start = Parser/get_index
 

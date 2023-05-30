@@ -1,7 +1,7 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.Parser.Term.Simple as Simple
-use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
 
 //! Whenever we're in a situation where we accept two+ terms
 //! separated by space, like in the case of (+ term term) or

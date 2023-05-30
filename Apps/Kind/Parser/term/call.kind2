@@ -1,7 +1,7 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.Parser.Term.Simple as Simple
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 
 //! Parses a term that is callable, either as a call, or by itself.
 //! All arguments must be Simple callables so that we can differentiate

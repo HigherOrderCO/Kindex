@@ -1,14 +1,14 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
-use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
-use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
+use Apps.Kind.SyntaxTree.Concrete.Rule as Rule
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
 
 //! Parser either a default rule, denoted by '{}' after the signature and no explicit rule declaration,
 //! or a sequence of explicit rule declarations for the entry declared just above
 KParser/declaration.rules
   (is_dflt: Data.Bool)
-  (name: CtrName/)
+  (name: AliasName/)
   (args: Data.List Argument/)
 : KParser/ (Data.List Rule/)
 

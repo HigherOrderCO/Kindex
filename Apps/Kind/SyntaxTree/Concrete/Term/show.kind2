@@ -9,7 +9,7 @@ Term/show (term: Term/) : String/Build
 
 Term/show (Term/var _ name) = VarName/show name
 
-Term/show (Term/ctr _ name Data.List.nil) = CtrName/show name
+Term/show (Term/ctr _ name Data.List.nil) = AliasName/show name
 Term/show (Term/ctr _ name args) =
   let opener = (String/show "(")
   let name = (CtrName/show name)

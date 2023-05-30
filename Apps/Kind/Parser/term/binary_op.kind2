@@ -1,7 +1,7 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.Parser.Term.Simple as Simple
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 use Apps.Kind.Operator as Operator
 
 KParser/term.binary_op : KParser/ Term/ {

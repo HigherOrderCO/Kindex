@@ -1,7 +1,7 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Entry as Entry
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 
 KParser/declaration.entry_signature : KParser/ Entry/ {
   do Parser/ {

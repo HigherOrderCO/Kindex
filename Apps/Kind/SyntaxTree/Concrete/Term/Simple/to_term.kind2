@@ -1,5 +1,5 @@
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
-use Apps.Kind.Parser.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 use Apps.Kind.SyntaxTree.Range as Range
 
 //! Converts a simple term into an actual term

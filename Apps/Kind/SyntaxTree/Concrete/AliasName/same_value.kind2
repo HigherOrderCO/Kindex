@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+
+//! Checks if the two aliased names have the same value (but different range)
+AliasName/same_value (a: AliasName/) (b: AliasName/) : Data.Bool
+AliasName/same_value (AliasName/unaliased _ a)     (AliasName/unaliased _ b)     = (Data.String.equal a b)
+AliasName/same_value (AliasName/alias_base _ a)    (AliasName/alias_base _ b)    = (Data.String.equal a b)
+AliasName/same_value (AliasName/alias_ext _ a1 a2) (AliasName/alias_ext _ b1 b2) = Data.Bool.and (Data.String.equal a1 b1) (Data.String.equal a2 b2)
+AliasName/same_value a b = Data.Bool.false
+
+// TODO: Should it compare the expanded names?
