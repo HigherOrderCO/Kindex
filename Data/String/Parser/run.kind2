@@ -3,10 +3,10 @@ use Data.Either as Either
 
 // Runs a parser and returns the result, or none
 // FIXME: for some reason, renaming prs to parser makes the type checker loop; investigate
-Parser/run <r: Type> <t> (custom: t) (prs: Parser/ t r) (code: Data.String) : Either/ r Parser/Error {
+Parser/run <r: Type> <t> (custom: t) (prs: Parser/ t r) (code: Data.String) : Either/ Parser/Error r {
   let state = Parser/State.new custom code "" 0
   match Parser/Result res = (prs state) {
-    done => Either/left  res.result
-    fail => Either/right res.error
+    done => Either/right  res.result
+    fail => Either/left res.error
   }
 }

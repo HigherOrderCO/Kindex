@@ -1,5 +1,5 @@
 use Apps.Kind.SyntaxTree.Concrete.Module as Module
 
 Module/empty : Module/ {
-  Module/new Data.List.nil (Data.HashMap.empty (s => Data.String.hash s))
+  Module/new [] []
 }
