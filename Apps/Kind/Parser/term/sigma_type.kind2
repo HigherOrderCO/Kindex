@@ -1,6 +1,6 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 
 KParser/term.sigma_type : KParser/ Term/ {
   do Parser/ {

@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Concrete.Declaration.SumType as SumType
+use Apps.Kind.SyntaxTree.Concrete.Declaration.SumType.Constructor as Constructor
+use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+
+record SumType/ {
+  name : AliasName/
+  // docs
+  // attrs
+  params : Data.List Argument/
+  indices : Data.List Argument/
+  ctrs : Data.List Constructor/
+  
+}

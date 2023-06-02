@@ -1,0 +1,22 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Data.HashMap as HashMap
+use Data.Pair as Pair
+use Data.Maybe as Maybe
+
+ToSugared/add_alias (alias: Alias/) : ToSugared/ Data.Unit
+ToSugared/add_alias (Alias/new range orig alias_name) = state =>
+  let ToSugared/State.new map errs = state
+  let alias = (Alias/new range orig alias_name)
+  let Pair/new (fst=map) (snd=val) = (HashMap/got map alias_name)
+  match Maybe/ val with map errs alias {
+    some (value=prev) =>
+      let Alias/new (range=prev_range) .. = prev
+      let err = ToSugared/Error.repeated_alias alias prev_range
+      let state = ToSugared/State.new map errs
+      ((ToSugared/add_err err) state)
+    none =>
+      let map = HashMap/set map alias_name alias
+      let state = ToSugared/State.new map errs
+      ToSugared/Result.new Data.Unit.new state
+  }

@@ -1,0 +1,23 @@
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Data.Map as Map
+use Data.Maybe as Maybe
+use Data.String as String
+
+Book/show (book: Book/) : String/Build
+Book/show (Book/new decls n_decls names) = Book/show.go decls n_decls
+
+
+Book/show.go (decls: Map/ Declaration/) (n_decls: Data.U60) : String/Build
+Book/show.go decls 0 = String/show ""
+Book/show.go decls n =
+  let n = (- n 1)
+  let Data.Pair.new (fst=decls) (snd=decl) = Map/take decls n
+  let head = match Maybe/ decl {
+    some value => Declaration/show value
+    none => String/show "Error"
+  }
+  let tail = Book/show.go decls n
+  let space = String/show String/new_line
+  String/Build.many [head space tail]
+  

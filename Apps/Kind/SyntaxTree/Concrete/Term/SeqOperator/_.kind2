@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Concrete as AST
+
+type AST/Term.SeqOperator {
+  set (expr: AST/Term)
+  mut (expr: AST/Term)
+  get
+}

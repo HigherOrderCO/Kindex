@@ -1,0 +1,9 @@
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Apps.Kind.SyntaxTree.Range as Range
+
+#derive[match]
+record Alias/ {
+  range: Range/
+  orig: Data.String
+  alias: Data.String
+}

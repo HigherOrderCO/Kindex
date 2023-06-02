@@ -1,10 +1,11 @@
-use Apps.Kind.SyntaxTree.Sugared as AST
-use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 
-record Book {
-  entries : Data.Map AST/Entry // TODO: Add other top levels
+//! The collection of all declarations of a program
+record Book/ {
+  decls : Data.Map Declaration/
+  n_decls : Data.U60
 
-  //! Holds all the declared names, so that we can
-  //! access them before desugaring ADTs and derives
-  names : Data.Map CtrName/
+  //! The set of declared names and the index of the top level where they come from
+  names : Data.HashMap Data.String Data.U60
 }

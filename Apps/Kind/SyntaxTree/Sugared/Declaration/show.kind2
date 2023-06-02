@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType as SumType
+use Apps.Kind.SyntaxTree.Sugared.Declaration.RecordType as RecordType
+use Data.String as String
+
+Declaration/show (decl: Declaration/) : String/Build
+Declaration/show (Declaration/entry entry) = Entry/show entry

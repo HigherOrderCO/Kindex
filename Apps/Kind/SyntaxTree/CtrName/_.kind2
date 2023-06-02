@@ -1,5 +1,6 @@
 use Apps.Kind.SyntaxTree.CtrName as CtrName
 
+#derive[match, getters]
 record CtrName/ {
   range: Apps.Kind.SyntaxTree.Range
   val : Data.String

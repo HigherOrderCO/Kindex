@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Data.String as String
+
+Pattern/show (p: Pattern/) : String/Build {
+  Term/show (Pattern/to_term p)
+}

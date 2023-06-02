@@ -1,7 +1,7 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 
 KParser/declaration.argument : KParser/ Argument/ {
   do Parser/ {

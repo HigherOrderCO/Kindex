@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+
+ToSugared/ <t> : Type {
+  ToSugared/State -> ToSugared/Result t
+}

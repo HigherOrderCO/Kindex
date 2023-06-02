@@ -1,0 +1,40 @@
+use Data.Bits.Map as Map
+use Data.Bits as Bits
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+
+//! Sets the map to val at given key, if no value was present there.
+//! Returns the new map and the value in case it wasn't used.
+Map/set_empty <a> (map: Map/ a) (key: Bits/) (val: a) : Pair/ (Map/ a) (Maybe/ a)
+
+// Leaf, can insert
+Map/set_empty (Map/new) Bits/e val =
+  let map = Map/tie (Maybe/some val) Map/new Map/new
+  Pair/new map Maybe/none
+
+// Empty branch, can insert
+Map/set_empty (Map/tie (Maybe/none) left right) Bits/e val =
+  let map = Map/tie (Maybe/some val) left right
+  Pair/new map Maybe/none
+
+// Filled branch, don't insert
+Map/set_empty (Map/tie (Maybe/some old) left right) Bits/e val =
+  let map = Map/tie (Maybe/some old) left right
+  Pair/new map (Maybe/some val)
+
+// Traversing to end of key
+Map/set_empty (Map/new) (Bits/o pred) val = 
+  let left = Map/set_empty (Map/new) pred val
+  Pair/map_fst left (left => Map/tie Maybe/none left Map/new)
+
+Map/set_empty (Map/tie old left right) (Bits/o pred) val =
+  let left = Map/set_empty left pred val
+  Pair/map_fst left (left => Map/tie old left right)
+
+Map/set_empty (Map/new) (Bits/i pred) val =
+  let right = Map/set_empty (Map/new) pred val
+  Pair/map_fst right (right => Map/tie Maybe/none Map/new right)
+
+Map/set_empty (Map/tie old left right) (Bits/i pred) val =
+  let right = Map/set_empty right pred val
+  Pair/map_fst right (right => Map/tie old left right)

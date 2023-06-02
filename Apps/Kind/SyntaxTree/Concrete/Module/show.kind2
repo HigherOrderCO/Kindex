@@ -1,0 +1,11 @@
+use Data.String as String
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+
+Module/show (e: Module/) : String/Build
+Module/show (Module/new aliases decls) =
+  let aliases = String/Build.join (Data.List.map aliases (x => Alias/show x)) String/new_line
+  let decls = String/Build.join (Data.List.map decls (x => Declaration/show x)) String/new_line
+  let space = String/show String/new_line
+  String/Build.many [aliases space space decls]

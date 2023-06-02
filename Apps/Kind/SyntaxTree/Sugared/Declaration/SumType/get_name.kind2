@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType as SumType
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+SumType/get_name (entry: SumType/) : Data.Pair SumType/ CtrName/
+SumType/get_name (SumType/new name params indices ctrs range) = Data.Pair.new (SumType/new name params indices ctrs range) name

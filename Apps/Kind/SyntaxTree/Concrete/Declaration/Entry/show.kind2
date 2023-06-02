@@ -1,0 +1,17 @@
+use Apps.Kind.SyntaxTree.Concrete.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Concrete.Argument as Argument
+use Apps.Kind.SyntaxTree.Concrete.Rule as Rule
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Data.String as String
+
+Entry/show (e: Entry/) : String/Build
+Entry/show (Entry/new name args type rules range) =
+  let name = AliasName/show name
+  let args = String/Build.join (Data.List.map args (a => Argument/show a)) " "
+  let sep = String/show ":"
+  let type = Term/show type
+  let sign = String/Build.join [name args sep type] " "
+  let nl = String/show String/new_line
+  let rules = String/Build.join (Data.List.map rules (r => Rule/show r)) String/new_line
+  String/Build.many [sign nl rules]

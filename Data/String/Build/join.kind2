@@ -1,0 +1,9 @@
+use Data.String as String
+
+//! Builds a list of strings separated by `sep`
+String/Build.join (views: Data.List String/Build) (sep: String/) : String/Build
+String/Build.join (Data.List.cons t v  (Data.List.nil))        sep = v
+String/Build.join (Data.List.cons t v1 (Data.List.cons v2 vs)) sep =
+  let vs  = String/Build.join (Data.List.cons v2 vs) sep
+  h => v1 (String/concat sep (vs h))
+String/Build.join (Data.List.nil t) sep = h => h

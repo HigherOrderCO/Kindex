@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+Entry/get_name (entry: Entry/) : Data.Pair Entry/ CtrName/
+Entry/get_name (Entry/new name args type rules range) = Data.Pair.new (Entry/new name args type rules range) name

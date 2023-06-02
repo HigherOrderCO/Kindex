@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Concrete.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Concrete.Declaration.RecordType as RecordType
+use Apps.Kind.SyntaxTree.Concrete.Declaration.SumType as SumType
+use Data.String as String
+
+Declaration/show (e: Declaration/) : String/Build
+Declaration/show (Declaration/entry val) = Entry/show val
+// Declaration/show (Declaration/sum val) = SumType/show val
+// Declaration/show (Declaration/record val) = RecordType/show val

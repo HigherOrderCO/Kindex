@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Untyped.Argument as Argument
+use Apps.Kind.SyntaxTree.Range as Range
+
+record Argument/ {
+  name   : VarName/
+  range  : Range/
+}

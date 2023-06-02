@@ -1,6 +1,6 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 
 //! Parses a Kind term (aka an expression), in its many possible forms
 KParser/term : KParser/ Term/ {

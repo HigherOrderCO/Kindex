@@ -1,2 +1,5 @@
+//! A parser for the Kind language.
+//! The base unit of the parser is the module,
+//! aka a file with a collection of declarations.
 Apps.Kind.Parser <t: Type> : Type
 Apps.Kind.Parser t = Data.String.Parser Apps.Kind.Parser.State t

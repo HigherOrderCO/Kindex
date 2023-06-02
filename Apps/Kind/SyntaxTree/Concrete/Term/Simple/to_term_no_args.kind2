@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+
+//! Converts a simple term into an actual term
+Simple/to_term_no_args (s: Simple/) : Term/
+Simple/to_term_no_args (Simple/var (VarName/new range name)) = (Term/var range (VarName/new range name))
+Simple/to_term_no_args (Simple/ctr   name)                   = (AliasName/to_term name)
+Simple/to_term_no_args (Simple/group group)                  = group

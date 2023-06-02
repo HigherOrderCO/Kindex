@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+use Apps.Kind.SyntaxTree.Concrete.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+
+//! The representation of a file or similar collection of declarations.
+//! A concrete representation of the source, saving all information like docs, comments and identation
+#derive[match]
+record Module/ {
+  aliases : Data.List Alias/
+  decls   : Data.List Declaration/
+}
+// TODO: Make it actually concrete

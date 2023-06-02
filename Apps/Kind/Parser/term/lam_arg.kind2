@@ -1,6 +1,6 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 use Apps.Kind.SyntaxTree.VarName as VarName
 
 //! Parses a full lambda/pi argument in the form ~?(var : term)

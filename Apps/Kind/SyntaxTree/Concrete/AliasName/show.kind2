@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Data.String as String
+
+AliasName/show (var: AliasName/) : String/Build
+AliasName/show (AliasName/unaliased _ val)      = String/show val
+AliasName/show (AliasName/alias_base _ base)    = String/Build.many [(String/show base) (String/show "/")]
+AliasName/show (AliasName/alias_ext _ base ext) = String/Build.many [(String/show base) (String/show "/") (String/show ext)]

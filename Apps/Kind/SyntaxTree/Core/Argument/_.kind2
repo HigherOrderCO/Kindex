@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Core.Argument as Argument
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+record Argument/ {
+  name   : VarName/
+  type   : Term/
+  hidden : Data.Bool
+  erased : Data.Bool
+  range  : Range/
+}

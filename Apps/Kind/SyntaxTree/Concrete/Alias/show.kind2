@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Data.String as String
+
+Alias/show (alias: Alias/) : String/Build
+Alias/show (Alias/new range orig alias) = String/Build.many [
+  (String/show "use ")
+  (String/show orig)
+  (String/show " as ")
+  (String/show alias)
+]

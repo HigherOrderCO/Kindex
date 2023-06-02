@@ -1,0 +1,16 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+#derive[match]
+record Entry/ {
+  name : CtrName/
+  args : Data.List Argument/
+  type : Term/
+  rules: Data.List Rule/
+  range: Range/
+  // TODO: Add attributes
+}

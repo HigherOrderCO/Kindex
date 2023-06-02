@@ -1,0 +1,27 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Apps.Kind.SyntaxTree.Range as Range
+
+//! Parses an alias declaration
+//! "use" Name "as" Alias
+KParser/alias : KParser/ Alias/ {
+  do Parser/ {
+    ask start = Parser/get_index
+    Parser/string "use"
+    KParser/space
+    // TODO: This is a workaround of a Type checker bug where using a
+    // CtrName for these variables crashed on Module/add_declaration
+    ask orig = KParser/ctr_str
+    KParser/skip
+    Parser/string "as"
+    KParser/space
+    ask alias = KParser/ctr_str
+
+    ask end = Parser/get_index
+    ask range = KParser/make_range start end
+    
+    return Alias/new range orig alias
+  }
+}
+

@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+
+Book/empty : Book/ {
+  Book/new Data.Map.new 0 (Data.HashMap.empty (s => Data.String.hash s))
+}

@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+
+#derive[match]
+record ToSugared/Result (t) {
+  val   : t
+  state : ToSugared/State
+}

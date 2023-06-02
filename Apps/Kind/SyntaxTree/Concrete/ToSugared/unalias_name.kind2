@@ -1,0 +1,32 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Maybe as Maybe
+use Data.String as String
+
+
+ToSugared/unalias_name (name: AliasName/) : ToSugared/ (Maybe/ CtrName/)
+
+ToSugared/unalias_name (AliasName/unaliased range val) =
+  do ToSugared/ {
+    return Maybe/some (CtrName/new range val)
+  }
+
+ToSugared/unalias_name (AliasName/alias_base range base) =
+  do ToSugared/ {
+    ask name = ToSugared/name_from_alias base range
+    return do Maybe/ {
+      ask name = name
+      return (CtrName/new range name)
+    }
+  }
+
+ToSugared/unalias_name (AliasName/alias_ext range base ext) =
+  do ToSugared/ {
+    ask name = ToSugared/name_from_alias base range
+    return do Maybe/ {
+      ask name = name
+      let name = (String/join "." [name ext])
+      return (CtrName/new range name)
+    }
+  }

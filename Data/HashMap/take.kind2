@@ -1,0 +1,9 @@
+use Data.HashMap as HashMap
+use Data.Map as Map
+
+//! Takes a value at position key out of the map without consuming the map.
+HashMap/take <k> <v> (map: HashMap/ k v) (key: k) : Data.Pair (HashMap/ k v) (Data.Maybe v)
+HashMap/take (HashMap/new hashf map) key =
+  let hash = hashf key
+  let take = Map/take map hash
+  Data.Pair.map_fst take (map => HashMap/new hashf map)

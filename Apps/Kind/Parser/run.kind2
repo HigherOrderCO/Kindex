@@ -1,0 +1,8 @@
+use Apps.Kind.Parser as KParser
+use Data.String.Parser as Parser
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+
+KParser/run (code: Data.String) (file_id: Data.U60) : Data.Either Parser/Error Module/ {
+  let custom = KParser/State.new file_id
+  Parser/run custom (KParser/module) code
+}

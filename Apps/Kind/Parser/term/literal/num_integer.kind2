@@ -1,6 +1,6 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
 use Apps.Kind.Parser.term.literal.num_integer as Num_integer
 
 //! Parser an integer number literal (u60, u120 or nat).

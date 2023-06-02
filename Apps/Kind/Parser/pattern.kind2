@@ -1,8 +1,8 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.Parser.Term.Simple as Simple
-use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
-use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.Concrete.Term.Simple as Simple
+use Apps.Kind.SyntaxTree.Concrete.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
 
 //! Parses a pattern that a rule matches against.
 //! Accepts a subset of "constant value" simple terms,

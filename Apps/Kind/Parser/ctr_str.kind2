@@ -1,0 +1,12 @@
+use Data.String.Parser as Parser
+use Apps.Kind.Parser as KParser
+
+//! Parses the string part of a constructor name
+//! [A-Z][A-Za-z0-9_]*
+KParser/ctr_str : KParser/ Data.String {
+  do Parser/ {
+    ask head = Parser/satisfy (c => Data.Char.is_upper c)
+    ask tail = Parser/take_while1 (c => KParser/is_name_char c)
+    return Data.String.cons head tail
+  }
+}

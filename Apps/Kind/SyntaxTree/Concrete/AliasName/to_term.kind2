@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
+use Apps.Kind.SyntaxTree.Concrete.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+
+AliasName/to_term (name: AliasName/) : Term/
+AliasName/to_term (AliasName/unaliased  range val)      = Term/ctr range (AliasName/unaliased  range val) []
+AliasName/to_term (AliasName/alias_base range base)     = Term/ctr range (AliasName/alias_base range base) []
+AliasName/to_term (AliasName/alias_ext  range base ext) = Term/ctr range (AliasName/alias_ext  range base ext) []

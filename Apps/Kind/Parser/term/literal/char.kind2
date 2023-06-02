@@ -1,6 +1,6 @@
 use Data.String.Parser as Parser
 use Apps.Kind.Parser as KParser
-use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
 
 KParser/term.literal.char : KParser/ Literal/ {
   do Parser/ {

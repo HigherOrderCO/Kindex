@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared.Error as Error
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Range as Range
+
+type Error/ {
+  repeated_alias (repeat: Alias/) (prev: Range/) 
+  unknown_alias (where: Range/) (alias: Data.String)
+  multiple_defs (repeat: Declaration/) (prev: Range/)
+  internal (msg: Data.String)
+}
