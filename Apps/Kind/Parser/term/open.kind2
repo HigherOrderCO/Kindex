@@ -8,7 +8,7 @@ KParser/term.open : KParser/ Term/ {
 
     Parser/string "open"
     KParser/space
-    ask type = KParser/ctr_name
+    ask type = KParser/alias_name
     KParser/space
     ask var = KParser/var_name
     KParser/skip

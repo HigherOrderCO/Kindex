@@ -12,11 +12,11 @@ KParser/alias : KParser/ Alias/ {
     KParser/space
     // TODO: This is a workaround of a Type checker bug where using a
     // CtrName for these variables crashed on Module/add_declaration
-    ask orig = KParser/declaration.alias.ctr
+    ask orig = KParser/ctr_str
     KParser/skip
     Parser/string "as"
     KParser/space
-    ask alias = KParser/declaration.alias.ctr
+    ask alias = KParser/ctr_str
 
     ask end = Parser/get_index
     ask range = KParser/make_range start end
@@ -25,10 +25,3 @@ KParser/alias : KParser/ Alias/ {
   }
 }
 
-KParser/declaration.alias.ctr : KParser/ Data.String {
-  do Parser/ {
-    ask head = Parser/satisfy (c => Data.Char.is_upper c)
-    ask tail =  Parser/take_while1 (c => KParser/is_name_char c)
-    return Data.String.cons head tail
-  }
-}

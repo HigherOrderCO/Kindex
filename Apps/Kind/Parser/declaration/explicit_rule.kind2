@@ -7,7 +7,7 @@ KParser/declaration.explicit_rule (expected : AliasName/) : KParser/ Rule/ {
   do Parser/ {
     ask start = Parser/get_index
 
-    ask name = KParser/ctr_name
+    ask name = KParser/alias_name
 
     if (AliasName/same_value name expected) {
       do Parser/ {

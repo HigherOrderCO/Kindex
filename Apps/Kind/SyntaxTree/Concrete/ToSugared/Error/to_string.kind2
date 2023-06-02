@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared.Error as Error
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.String as String
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+
+Error/to_string (err: Error/) : String/
+
+Error/to_string (Error/repeated_alias repeat prev) = (Alias/show repeat) " repeated"
+Error/to_string (Error/unknown_alias where alias) = String/join "" ["Unknown alias " alias "/"]
+Error/to_string (Error/multiple_defs repeat prev) =
+  let Data.Pair.new (fst=decl) (snd=name) = Declaration/get_name repeat
+  ((CtrName/show name) " defined multiple times")
+Error/to_string (Error/internal msg) = msg

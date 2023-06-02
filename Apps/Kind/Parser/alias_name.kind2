@@ -4,24 +4,22 @@ use Apps.Kind.SyntaxTree.Concrete.AliasName as AliasName
 
 //! Parses a kind constructor name.
 //! Accepts both plain names and aliases.
-KParser/ctr_name : KParser/ AliasName/ {
+KParser/alias_name : KParser/ AliasName/ {
   do Parser/ {
     ask start = Parser/get_index
 
-    ask head = Parser/satisfy (c => Data.Char.is_upper c)
-    ask tail = Parser/take_while1 (c => KParser/is_name_char c)
-    let base = Data.String.cons head tail
+    ask base = KParser/ctr_str
 
     ask is_alias = Parser/is_some (Parser/try (Parser/char '/'))
-    KParser/ctr_name.aux is_alias base start
+    KParser/alias_name.aux is_alias base start
   }
 }
 
 
-KParser/ctr_name.aux (is_alias: Data.Bool) (base: Data.String) (start: Data.U60): KParser/ AliasName/
+KParser/alias_name.aux (is_alias: Data.Bool) (base: Data.String) (start: Data.U60): KParser/ AliasName/
 
 // Parses aliased names with a '/' separating the alias base name from the extension
-KParser/ctr_name.aux (Data.Bool.false) base start = do Parser/ {
+KParser/alias_name.aux (Data.Bool.true) base start = do Parser/ {
   ask ext = Parser/take_while (c => KParser/is_name_char c)
   ask range = KParser/make_range_here start
   return (match Data.String ext {
@@ -34,7 +32,7 @@ KParser/ctr_name.aux (Data.Bool.false) base start = do Parser/ {
 }
 
 // Parses non-aliased names
-KParser/ctr_name.aux (Data.Bool.false) base start = do Parser/ {
+KParser/alias_name.aux (Data.Bool.false) base start = do Parser/ {
   ask range = KParser/make_range_here start
   return AliasName/unaliased range base
 }

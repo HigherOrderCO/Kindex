@@ -13,7 +13,7 @@ use Apps.Kind.SyntaxTree.Concrete.Term.Literal as Literal
 KParser/term.simple : KParser/ Simple/ {
   Parser/first_of [
     (Parser/map (n => Simple/var n) KParser/var_name) // Becomes an App over a variable
-    (Parser/map (n => Simple/ctr n) KParser/ctr_name) // Becomes a constructor call
+    (Parser/map (n => Simple/ctr n) KParser/alias_name) // Becomes a constructor call
     (Parser/map (n => Simple/group n) (Parser/first_of [
       (KParser/term.hole)
       (Parser/map (l => Literal/to_term l) KParser/term.literal)
