@@ -1,0 +1,12 @@
+use Data.HashMap as HashMap
+use Data.List as List
+use Data.Pair as Pair
+use Data.Map as Map
+
+HashMap/from_list <k> <v> (list: List/ (Pair/ k v)) (hashfn: k -> Data.U60) : HashMap/ k v {
+  HashMap/from_list.go list (HashMap/empty hash_fn)
+}
+
+HashMap/from_list.go <k> <v> (list: List/ (Pair/ k v)) (acc: HashMap/ k v) : HashMap/ k v
+HashMap/from_list.go (List/cons (Pair/new key value) tail) acc = HashMap/from_list.go tail (HashMap/set acc key value)
+HashMap/from_list.go (List/nil) acc = acc
