@@ -14,3 +14,5 @@ ToSugared/list (List/cons arg args) pass =
       return (List/cons head tail)
     }
   }
+
+  ToSugared/list (List/nil) pass = ToSugared/pure (Maybe/some [])
