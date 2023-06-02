@@ -1,0 +1,39 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Data.Either as Either
+use Data.List as List
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+
+ToSugared/run (module: Concrete/Module) : Either/ (List/ ToSugared/Error) Sugared/Book
+ToSugared/run (Concrete/Module.new aliases decls) =
+  let state = ToSugared/State.empty
+  let pass = do ToSugared/ {
+    ToSugared/aliases_to_map aliases
+    ToSugared/run.go decls (Sugared/Book.empty)
+  }
+  let ToSugared/Result.new val state = (pass state)
+  let ToSugared/State.new map errs = state
+  match List/ errs {
+    cons head tail => Either/left (List/cons head tail)
+    nil => Either/right val
+  }
+
+
+ToSugared/run.go (decls: List/ Concrete/Declaration) (book: Sugared/Book) : ToSugared/ Sugared/Book
+
+ToSugared/run.go (List/cons decl decls) book =
+  do ToSugared/ {
+    // First, try to convert the declaration to sugared
+    ask decl = ToSugared/declaration decl
+    // If ok, try to add to the book we're building
+    ask book = match Maybe/ decl with book {
+      some (value=decl) => ToSugared/add_decl_to_book book decl
+      none => ToSugared/pure book
+    }
+    // Do all the declarations, even if if there was an error here
+    ToSugared/run.go decls book
+  }
+
+ToSugared/run.go (List/nil) book = ToSugared/pure book

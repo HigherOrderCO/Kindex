@@ -1,0 +1,18 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Data.Maybe as Maybe
+
+ToSugared/rule (rule: Concrete/Rule) : ToSugared/ (Maybe/ Sugared/Rule)
+ToSugared/rule (Concrete/Rule.new range name pats body) =
+  do ToSugared/ {
+    ask name = ToSugared/unalias_name name
+    ask pats = ToSugared/list pats (pat => ToSugared/pattern pat)
+    ask body = ToSugared/term body
+    return do Maybe/ {
+      ask name = name
+      ask pats = pats
+      ask body = body
+      return Sugared/Rule.new range name pats body
+    }
+  }

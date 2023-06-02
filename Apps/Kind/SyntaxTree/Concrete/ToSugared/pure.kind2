@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+
+ToSugared/pure <t> (val: t) : ToSugared/ t {
+  state => ToSugared/Result.new val state
+}

@@ -1,0 +1,18 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Data.Maybe as Maybe
+
+ToSugared/declaration (decl: Concrete/Declaration) : ToSugared/ (Maybe/ Sugared/Declaration)
+
+ToSugared/declaration (Concrete/Declaration.entry val) =
+  do ToSugared/ {
+    ask entry = ToSugared/entry val
+    return Maybe/map (x => Sugared/Declaration.entry x) entry
+  }
+
+// Concrete/to_sugared.declaration (Concrete/Declaration.sum val) =
+//   (Concrete/to_sugared.sum val) ((x: Sugared/Declaration.SumType) => Sugared/Declaration.sum x)
+
+// Concrete/to_sugared.declaration (Concrete/Declaration.record val) =
+//   (Concrete/to_sugared.record val) ((x: Sugared/Declaration.RecordType) => Sugared/Declaration.record x)

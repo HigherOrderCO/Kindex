@@ -1,0 +1,15 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+
+ToSugared/literal (literal: Concrete/Term.Literal) : ToSugared/ Sugared/Term.Literal
+ToSugared/literal (Concrete/Term.Literal.type range)         = ToSugared/pure (Sugared/Term.Literal.type range)
+ToSugared/literal (Concrete/Term.Literal.help range name)    = ToSugared/pure (Sugared/Term.Literal.help range name)
+ToSugared/literal (Concrete/Term.Literal.type_u60 range)     = ToSugared/pure (Sugared/Term.Literal.type_u60 range)
+ToSugared/literal (Concrete/Term.Literal.type_f60 range)     = ToSugared/pure (Sugared/Term.Literal.type_f60 range)
+ToSugared/literal (Concrete/Term.Literal.char range val)     = ToSugared/pure (Sugared/Term.Literal.char range val)
+ToSugared/literal (Concrete/Term.Literal.num_u60 range val)  = ToSugared/pure (Sugared/Term.Literal.num_u60 range val)
+ToSugared/literal (Concrete/Term.Literal.num_u120 range val) = ToSugared/pure (Sugared/Term.Literal.num_u120 range val)
+// ToSugared/literal (Concrete/Term.Literal.num_f60 range val)  = ToSugared/pure (Sugared/Term.Literal.num_f60 range val)
+ToSugared/literal (Concrete/Term.Literal.num_nat range val)  = ToSugared/pure (Sugared/Term.Literal.num_nat range val)
+ToSugared/literal (Concrete/Term.Literal.string range val)   = ToSugared/pure (Sugared/Term.Literal.string range val)

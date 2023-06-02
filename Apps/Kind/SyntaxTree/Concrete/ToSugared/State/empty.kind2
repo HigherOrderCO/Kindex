@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+
+ToSugared/State.empty : ToSugared/State {
+  ToSugared/State.new (Data.HashMap.empty (s => Data.String.hash s)) []
+}

@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+
+#derive[match]
+record ToSugared/State {
+  map : Data.HashMap Data.String Concrete/Alias
+  errs: Data.List ToSugared/Error
+}

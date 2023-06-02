@@ -1,0 +1,17 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete as Concrete
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Data.Maybe as Maybe
+
+// First maybe is f failing or not
+// Second maybe is original Maybe of x
+ToSugared/maybe <t> <r> (x: Maybe/ t) (f: t -> ToSugared/ (Maybe/ r)) : ToSugared/ (Maybe/ (Maybe/ r))
+ToSugared/maybe (Maybe/some x) f = 
+  do ToSugared/ {
+    ask res = (f x)
+    return do Maybe/ {
+      ask res = res
+      return (Maybe/some res)
+    }
+  }
+ToSugared/maybe (Maybe/none) f = ToSugared/pure (Maybe/some Maybe/none)

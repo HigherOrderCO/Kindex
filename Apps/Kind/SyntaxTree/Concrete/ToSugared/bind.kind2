@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+
+ToSugared/bind <a> <b> (xa: ToSugared/ a) (xb: a -> (ToSugared/ b)) : ToSugared/ b {
+  state => ToSugared/bind.go (xa state) xb
+}
+
+ToSugared/bind.go <a> <b> (res: ToSugared/Result a) (xb: a -> (ToSugared/ b)) : ToSugared/Result b
+ToSugared/bind.go (ToSugared/Result.new v s) xb = ((xb v) s)

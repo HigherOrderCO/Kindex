@@ -1,0 +1,25 @@
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
+use Apps.Kind.SyntaxTree.Range as Range
+use Data.Maybe as Maybe
+use Data.String as String
+
+ToSugared/name_from_alias (alias: String/) (range: Range/) : ToSugared/ (Maybe/ String/) {
+  state => ToSugared/name_from_alias.go alias range state
+}
+
+ToSugared/name_from_alias.go (alias_name: String/) (range: Range/) (state: ToSugared/State) : ToSugared/Result (Maybe/ String/)
+ToSugared/name_from_alias.go alias_name range (ToSugared/State.new aliases errs) =
+  let Data.Pair.new (fst=aliases) (snd=alias) = Data.HashMap.got aliases alias_name
+  match Maybe/ alias with aliases errs {
+    some (value=alias) =>
+      let Alias/new range orig alias = alias
+      let state = (ToSugared/State.new aliases errs)
+      ToSugared/Result.new (Maybe/some orig) state
+    none =>
+      let err = ToSugared/Error.unknown_alias range alias_name
+      let errs = Data.List.cons err errs
+      let state = (ToSugared/State.new aliases errs)
+      ToSugared/Result.new (Maybe/none) state
+  }
+  
