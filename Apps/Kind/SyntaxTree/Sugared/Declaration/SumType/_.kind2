@@ -2,6 +2,7 @@ use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType as SumType
 use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType.Constructor as Constructor
 use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
 use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Range as Range
 
 record SumType/ {
   name : CtrName/
@@ -10,5 +11,5 @@ record SumType/ {
   params : Data.List Argument/
   indices : Data.List Argument/
   ctrs : Data.List Constructor/
-  
+  range : Range/
 }
