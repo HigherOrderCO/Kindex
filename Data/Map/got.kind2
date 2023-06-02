@@ -1,3 +1,4 @@
+//! Gets a value in the map at position key, copying the value without consuming the map.
 #inline
 Data.Map.got <a> (map : Data.Map a) (key : Data.U60) : Data.Pair (Data.Bits.Map a) (Data.Maybe a)
 Data.Map.got a map key = Data.Bits.Map.got map (Data.U60.to_bits key)
