@@ -1,6 +1,7 @@
 use Apps.Kind.SyntaxTree.Sugared.Book as Book
 use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 
+//! The collection of all declarations of a program
 record Book/ {
   decls : Data.Map Declaration/
   n_decls : Data.U60

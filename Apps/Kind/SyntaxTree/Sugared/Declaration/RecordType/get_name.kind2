@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration.RecordType as RecordType
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+RecordType/get_name (entry: RecordType/) : Data.Pair RecordType/ CtrName/
+RecordType/get_name (RecordType/new name params range) = Data.Pair.new (RecordType/new name params range) name

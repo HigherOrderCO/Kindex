@@ -1,0 +1,24 @@
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+//! Gets the name of a given declaration
+Declaration/get_name (decl: Declaration/) : Data.Pair Declaration/ CtrName/
+
+Declaration/get_name (Declaration/entry  val) =
+  (Data.Pair.map_fst 
+    (Declaration/Entry.get_name val)
+    ((x: Declaration/Entry) => Declaration/entry x)
+  )
+
+Declaration/get_name (Declaration/sum    val) =
+  (Data.Pair.map_fst
+    (Declaration/SumType.get_name val)
+    ((x: Declaration/SumType) => Declaration/sum x)
+  )
+
+Declaration/get_name (Declaration/record val) =
+  (Data.Pair.map_fst
+    (Declaration/RecordType.get_name val)
+    ((x: Declaration/RecordType) => Declaration/record x)
+  )
+
