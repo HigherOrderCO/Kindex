@@ -1,0 +1,6 @@
+//! Sets the map to val at given key, if no value was present there.
+//! Returns the new map and the value in case it wasn't used.
+Data.HashMap.set_empty <k> <v> (map: Data.HashMap k v) (key: k) (val: v) : Data.Pair (Data.HashMap k v) (Data.Maybe v)
+Data.HashMap.set_empty (Data.HashMap.new hashf map) key val =
+  let res = Data.Map.set_empty map (hashf key) val
+  Data.Pair.map_fst res (map => Data.HashMap.new hashf map)

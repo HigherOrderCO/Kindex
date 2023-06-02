@@ -1,0 +1,4 @@
+//! Sets the map to val at given key, if no value was present there.
+//! Returns the new map and the value in case it wasn't used.
+Data.Map.set_empty <a> (map: Data.Map a) (key: Data.U60) (val: a) : Data.Pair (Data.Map a) (Data.Maybe a)
+Data.Map.set_empty map key val = Data.Bits.Map.set_empty map (Data.U60.to_bits key) val
