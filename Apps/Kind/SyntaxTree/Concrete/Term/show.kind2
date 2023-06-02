@@ -13,9 +13,10 @@ Term/show (Term/ctr _ name Data.List.nil) = AliasName/show name
 Term/show (Term/ctr _ name args) =
   let opener = (String/show "(")
   let name = (AliasName/show name)
+  let space = String/show " "
   let args = (Term/show.args args)
   let closer = (String/show ")")
-  String/Build.many [opener name args closer]
+  String/Build.many [opener name space args closer]
 
 Term/show (Term/all _ param type body erased) =
   let erased = if erased { String/show "~" } else { String/show "" }
@@ -61,9 +62,10 @@ Term/show (Term/lambda _ param type body erased) =
 Term/show (Term/app _ fun args) =
   let opener = (String/show "(")
   let fun = (Term/show fun)
+  let space = String/show " "
   let args = (Term/show.args args)
   let closer = (String/show ")")
-  String/Build.many [opener fun args closer]
+  String/Build.many [opener fun space args closer]
 
 Term/show (Term/let _ name val next) =
   let let_ = (String/show "let ")

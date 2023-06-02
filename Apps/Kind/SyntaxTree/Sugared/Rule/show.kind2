@@ -5,17 +5,9 @@ use Apps.Kind.SyntaxTree.Sugared.Term as Term
 use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
 
 Rule/show (r: Rule/) : String/Build
-Rule/show (Rule/new range name pats body) = s =>
+Rule/show (Rule/new range name pats body) =
   let name = CtrName/show name
-  let pats = Rule/show.pats pats
+  let pats = String/Build.many (Data.List.map pats (p => String/Build.concat (String/show " ") (Pattern/show p)))
   let eql = String/show " = "
   let body = Term/show body
-  (name (pats (eql (body s))))
-
-
-Rule/show.pats (pats: Data.List Pattern/) : String/Build
-Rule/show.pats (Data.List.nil) = s => s
-Rule/show.pats (Data.List.cons h t) = s =>
-  let s = String/cons ' ' ((Pattern/show h) s)
-  let t = Rule/show.pats t
-  (t s)
+  String/Build.many [name pats eql body]

@@ -2,14 +2,16 @@ use Data.String as String
 use Apps.Kind.SyntaxTree.Sugared.Term as Term
 use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
 use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
-use Apps.Kind.SyntaxTree.Sugared.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
 use Apps.Kind.SyntaxTree.CtrName as CtrName
 
 Entry/show (e: Entry/) : String/Build
-Entry/show (Entry/new name args type rules range) = s =>
+Entry/show (Entry/new name args type rules range) =
   let name = CtrName/show name
-  let args = String/Build.many (Data.List.map args (a => ((s: String/) => (String/show " ") ((Argument/show a) s))))
-  let sep = String/show " : "
+  let args = String/Build.join (Data.List.map args (a => Argument/show a)) " "
+  let sep = String/show ":"
   let type = Term/show type
-  let rules = String/Build.many (Data.List.map rules (r => ((s: String/) => (Data.Char.show 10) ((Rule/show r) s))))
-  (name (args (sep (type (rules s)))))
+  let sign = String/Build.join [name args sep type] " "
+  let nl = String/show String/new_line
+  let rules = String/Build.join (Data.List.map rules (r => Rule/show r)) String/new_line
+  String/Build.many [sign nl rules]

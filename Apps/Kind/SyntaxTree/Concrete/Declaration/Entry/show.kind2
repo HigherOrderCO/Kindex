@@ -9,7 +9,9 @@ Entry/show (e: Entry/) : String/Build
 Entry/show (Entry/new name args type rules range) =
   let name = AliasName/show name
   let args = String/Build.join (Data.List.map args (a => Argument/show a)) " "
-  let sep = String/show " : "
+  let sep = String/show ":"
   let type = Term/show type
+  let sign = String/Build.join [name args sep type] " "
+  let nl = String/show String/new_line
   let rules = String/Build.join (Data.List.map rules (r => Rule/show r)) String/new_line
-  String/Build.many [name args sep type rules]
+  String/Build.many [sign nl rules]
