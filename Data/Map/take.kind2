@@ -1,0 +1,4 @@
+//! Takes a value at position key out of the map without consuming the map.
+#inline
+Data.Map.take <a> (map : Data.Map a) (key : Data.U60) : Data.Pair (Data.Bits.Map a) (Data.Maybe a)
+Data.Map.take a map key = Data.Bits.Map.take map (Data.U60.to_bits key)

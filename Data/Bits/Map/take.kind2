@@ -1,0 +1,16 @@
+use Data.Bits.Map as Map
+use Data.Pair as Pair
+use Data.Maybe as Maybe
+
+//! Takes a value at position key out of the map without consuming the map.
+Map/take <a> (map : Map/ a) (key : Data.Bits) : Pair/ (Map/ a) (Maybe/ a)
+Map/take (Map/tie val lft rgt) (Data.Bits.o pred) = Map/take.lft val (Map/take lft pred) rgt
+Map/take (Map/tie val lft rgt) (Data.Bits.i pred) = Map/take.rgt val lft (Map/take rgt pred)
+Map/take (Map/tie val lft rgt)  Data.Bits.e       = Pair/new (Map/tie Maybe/none lft rgt) val
+Map/take  Map/new               key               = Pair/new Map/new Maybe/none
+
+Map/take.lft <a> (val: Maybe/ a) (lft: Pair/ (Map/ a) (Maybe/ a)) (rgt: Map/ a) : Pair/ (Map/ a) (Maybe/ a)
+Map/take.lft val (Pair/new lft res) rgt = Pair/new (Map/tie val lft rgt) res
+
+Map/take.rgt <a> (val: Maybe/ a) (lft: Map/ a) (rgt: Pair/ (Map/ a) (Maybe/ a)) : Pair/ (Map/ a) (Maybe/ a)
+Map/take.rgt val lft (Pair/new rgt res) = Pair/new (Map/tie val lft rgt) res
