@@ -1,0 +1,11 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/add_decl_args (key: Data.U60) (n_args: Data.U60) (n_hiddens: Data.U60) : ToCore/ Data.Unit {
+  state => ToCore/add_decl_args.go state key n_args n_hiddens
+}
+
+ToCore/add_decl_args (state: ToCore/State) (key: Data.U60) (n_args_decl: Data.U60) (n_hiddens_decl: Data.U60) : ToCore/Result Data.Unit
+ToCore/add_decl_args (ToCore/State.new book n_args sugars n_gen_vars errs) key n_args_decl n_hiddens_decl =
+  let n_args = Data.Map.set n_args key (Data.Pair.new n_args_decl n_hiddens_decl)
+  let state = (ToCore/State.new book n_args sugars n_gen_vars errs)
+  ToCore/Result.new Data.Unit.new state

@@ -1,0 +1,16 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore.State.Sugars as Sugars
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+
+Sugars/add_sugar (sugars: Sugars/) (sugar: Sugar/) (val: Data.Bool) : Sugars/
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/if_)    val = (Sugars/new val list sigma u120 nat string match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/list)   val = (Sugars/new if_ val sigma u120 nat string match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/sigma)  val = (Sugars/new if_ list val u120 nat string match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/u120)   val = (Sugars/new if_ list sigma val nat string match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/nat)    val = (Sugars/new if_ list sigma u120 val string match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/string) val = (Sugars/new if_ list sigma u120 nat val match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/match_ type) val =
+  let match_ = Data.Map.set match_ type val
+  (Sugars/new if_ list sigma u120 nat string match_ do_)
+Sugars/add_sugar (Sugars/new if_ list sigma u120 nat string match_ do_) (Sugar/do_ type) val =
+  let do_ = Data.Map.set do_ type val
+  (Sugars/new if_ list sigma u120 nat string match_ do_)

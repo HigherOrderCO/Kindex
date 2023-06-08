@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+#derive[match]
+record ToCore/Result (t) {
+  val   : t
+  state : ToCore/State
+}

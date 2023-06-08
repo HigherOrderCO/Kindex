@@ -1,0 +1,13 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core as Core
+
+ToCore/add_n_entries (x: Data.U60) : ToCore/ Data.Unit {
+  state => ToCore/add_n_entries.go state x
+}
+
+ToCore/add_n_entries.go (state: ToCore/State) (x: Data.U60) : ToCore/Result Data.U60
+ToCore/add_n_entries.go (ToCore/State.new (Core/Book.new decls n_decls names) sugars errs) x =
+  let n_decls = (+ n_decls x)
+  let book = (Core/Book.new decls n_decls names)
+  let state = (ToCore/State.new book sugars errs)
+  ToCore/Result.new n_decls state

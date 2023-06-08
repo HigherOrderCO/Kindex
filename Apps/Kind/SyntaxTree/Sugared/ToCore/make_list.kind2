@@ -1,0 +1,13 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+
+ToCore/make_list <t> (range: Range/) (args: Data.List t) : ToCore/ Term/ {
+  ToCore/pure (ToCore/make_list.go range args)
+}
+
+ToCore/make_list.go <t> (range: Range/) (val: Data.List t) : Term/
+ToCore/make_list.go range (Data.List.cons x xs) =
+  Term/ctr range (CtrName/new range "Data.List.cons") [x (ToCore/make_list.go range xs)]
+ToCore/make_list.go range (Data.List.nil) = 
+  Term/ctr range (CtrName/new range "Data.List.nil") []

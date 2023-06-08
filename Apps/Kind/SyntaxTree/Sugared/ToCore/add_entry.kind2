@@ -1,0 +1,15 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core as Core
+
+ToCore/add_entry (entry: Core/Entry) (key: Data.U60) : ToCore/ Data.Unit {
+  state => ToCore/add_entry.go state entry key
+}
+
+ToCore/add_entry.go (state: ToCore/State) (entry: Core/Entry) (key: Data.U60) : ToCore/Result Data.Unit
+ToCore/add_entry.go (ToCore/State.new (Core/Book.new entries n_entries names) sugars errs) (Core/Entry.new name args type rules range) key =
+  let entry = Core/Entry.new name args type rules range
+  let entries = Data.Map.set entries key entry
+  let names = Data.HashMap.set names name key
+  let book = (Core/Book.new entries n_entries names)
+  let state = (ToCore/State.new book sugars errs)
+  ToCore/Result.new Data.Unit.new state

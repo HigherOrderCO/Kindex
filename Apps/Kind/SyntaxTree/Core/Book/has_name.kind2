@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Core.Book as Book
+
+Book/has_name (book: Book/) (name: Data.String) : Data.Pair Book/ Data.Bool
+Book/has_name (Book/new entries n_entries names holes) name =
+  let Data.Pair.new (fst=names) (snd=val) = Data.HashMap.got names name
+  let has_name = Data.Maybe.is_some val
+  let book = Book/new entries n_entries names holes
+  Data.Pair.new book has_name

@@ -1,0 +1,38 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Data.List as List
+use Data.Pair as Pair
+use Data.String as String
+
+ToCore/available_sugars : ToCore/ Data.Unit {
+  let sugars = [
+    (Pair/new Sugar/list ["Data.List.cons" "Data.List.nil"])
+    (Pair/new Sugar/u120 ["Data.U120.new"])
+    (Pair/new Sugar/sigma ["Data.Sigma" "Data.Sigma.new"])
+    (Pair/new Sugar/if_ ["Data.Bool.if"])
+    (Pair/new Sugar/string ["Data.String.cons" "Data.String.nil"])
+    (Pair/new Sugar/nat ["Data.Nat.zero" "Data.Nat.succ"])
+  ]
+  ToCore/available_sugars.go sugars
+}
+
+ToCore/available_sugars.go (sugars: List/ (Pair/ Sugar/ (List/ String/))) : ToCore/ Data.Unit
+ToCore/available_sugars.go (List/cons head tail) = do ToCore/ {
+  let Pair/new (fst=sugar) (snd=fns) = head
+  ask has_fns = ToCore/available_sugars.check_names fns
+  ToCore/add_sugar sugar has_fns
+  ToCore/available_sugars.go tail
+}
+ToCore/available_sugars.go (List/nil) = ToCore/pure Data.Unit.new
+
+
+ToCore/available_sugars.check_names (fns: List/ String/) : ToCore/ Data.Bool
+ToCore/available_sugars.check_names (Data.List.cons fn fns) = do ToCore/ {
+  ask head = ToCore/has_name fn
+  if head {
+    ToCore/available_sugars.check_names fns
+  } else {
+    ToCore/pure Data.Bool.false
+  }
+}
+ToCore/available_sugars.check_names (Data.List.nil) = ToCore/pure Data.Bool.true

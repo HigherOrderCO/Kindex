@@ -1,0 +1,4 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Data.String as String
+
+ToCore/Error.to_string (err: ToCore/Error) : String/

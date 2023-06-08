@@ -1,0 +1,9 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core as Core
+
+ToCore/add_new_entry (entry: Core/Entry) : ToCore/ Data.Unit {
+  do ToCore/ {
+    ask n_entries = ToCore/add_n_entries 1
+    ToCore/add_entry entry (- n_entries 1)
+  }
+}

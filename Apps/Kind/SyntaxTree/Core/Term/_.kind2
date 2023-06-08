@@ -2,6 +2,7 @@ use Apps.Kind.SyntaxTree.Core.Term as Term
 use Apps.Kind.SyntaxTree.Range as Range
 use Apps.Kind.SyntaxTree.VarName as VarName
 use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.Operator as Operator
 
 type Term/ {
   var (range: Range/) (name: VarName/)

@@ -1,0 +1,37 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore.State.Sugars as Sugars
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+
+Sugars/has_sugar (sugar: Sugar/) (sugars: Sugars/) : Data.Pair Sugars/ Data.Bool
+Sugars/has_sugar (Sugar/if_) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars if_
+
+Sugars/has_sugar (Sugar/list) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars list
+
+Sugars/has_sugar (Sugar/sigma) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars sigma
+
+Sugars/has_sugar (Sugar/u120) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars u120
+
+Sugars/has_sugar (Sugar/nat) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars nat
+
+Sugars/has_sugar (Sugar/string) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars string
+
+Sugars/has_sugar (Sugar/match_ key) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let Data.Pair.new (fst=match_) (snd=has_match) = Data.Map.got match_ key
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars (Data.Maybe.default has_match Data.Bool.false)
+
+Sugars/has_sugar (Sugar/do_ key) (Sugars/new if_ list sigma u120 nat string match_ do_) =
+  let Data.Pair.new (fst=do_) (snd=has_do) = Data.Map.got do_ key
+  let sugars = (Sugars/new if_ list sigma u120 nat string match_ do_)
+  Data.Pair.new sugars (Data.Maybe.default has_do Data.Bool.false)

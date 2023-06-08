@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+
+ToCore/add_sugar (sugar: Sugar/) (val: Data.Bool) : ToCore/ Data.Unit {
+  state => ToCore/add_sugar.go state sugar val
+}
+
+ToCore/add_sugar.go (state: ToCore/State) (sugar: Sugar/) (val: Data.Bool) : ToCore/Result Data.Unit
+ToCore/add_sugar.go (ToCore/State.new book sugars errs) (sugar) (val) =
+  let sugars = ToCore/State.Sugars.add_sugar sugars sugar val
+  let state = ToCore/State.new book sugars errs
+  ToCore/Result.new Data.Unit.new state

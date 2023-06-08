@@ -1,0 +1,18 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Data.List as List
+use Data.Maybe as Maybe
+
+
+ToCore/list <t> <r> (args: List/ t) (pass: t -> (ToCore/ (Maybe/ r))) : ToCore/ (Maybe/ (List/ r))
+ToCore/list (List/cons arg args) pass =
+  do ToCore/ {
+    ask head = pass arg
+    ask tail = ToCore/list args pass
+    return do Maybe/ {
+      ask head = head
+      ask tail = tail
+      return (List/cons head tail)
+    }
+  }
+
+  ToCore/list (List/nil) pass = ToCore/pure (Maybe/some [])

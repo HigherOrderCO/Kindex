@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/pure <t> (val: t) : ToCore/ t {
+  state => ToCore/Result.new val state
+}

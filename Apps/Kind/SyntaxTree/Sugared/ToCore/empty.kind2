@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/empty : ToCore/ Data.Unit {
+  state => ToCore/Result.new Data.Unit.new state
+}

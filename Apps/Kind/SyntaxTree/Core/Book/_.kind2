@@ -1,8 +1,9 @@
 use Apps.Kind.SyntaxTree.Core.Book as Book
-use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Core.Entry as Entry
 
 record Book/ {
-  entries : Data.HashMap Data.String Term/
-  names   : Data.HashMap Data.String Data.String
-  // holes : Data.U60
+  entries : Data.Map Entry/
+  n_entries : Data.U60
+  names   : Data.HashMap Data.String Data.U60
+  holes : Data.U60
 }

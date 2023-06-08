@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/State.empty : ToCore/State {
+  ToCore/State.new Core/Book.empty ToCore/State.Sugars.empty 0 []
+}

@@ -1,0 +1,15 @@
+use Apps.Kind.SyntaxTree.Core.Book as Book
+use Apps.Kind.SyntaxTree.Core.Entry as Entry
+
+Book/add_entry (book: Book/) (entry: Entry/) : Book/
+Book/add_entry (Book/new entries n_entries names holes) (Entry/new name args type rules range) =
+  let entry = Entry/new name args type rules range
+  let str_name = CtrName/get.val name
+  // We could use set_empty here and return an error in case
+  // there was already another entry with the same name.
+  // However, this should never happen, so I'm choosing to write blindly.
+  let names = Data.HashMap.set names str_name n_entries
+  let entries = Data.Map.set entries n_entries entry
+  let n_entries = (+ 1 n_entries)
+  let book = (Book/new entries n_entries names holes)
+  book

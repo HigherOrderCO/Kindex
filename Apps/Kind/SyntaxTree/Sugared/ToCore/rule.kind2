@@ -1,0 +1,30 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+use Data.List as List
+use Data.Maybe as Maybe
+
+ToCore/rule (rule: Sugared/Rule) (n_args: Data.Pair Data.U60 Data.U60) : ToCore/ (Maybe/ (Core/Rule))
+ToCore/rule (Sugared/Rule.new range name pats body) (Data.Pair.new n_args n_hiddens) =
+  do ToCore/ {
+    ask pats = ToCore/rule.check_n_pats pats n_args n_hiddens range
+    ask pats = ToCore/list pats (x => ToCore/pattern x)
+    ask body = ToCore/term body
+    return do Maybe/ {
+      ask pats = pats
+      ask body = body
+      return Core/Rule.new range name pats body
+    }
+  }
+
+
+ToCore/rule.check_n_pats <t> (pats: List/ t) (n_args: Data.U60) (n_hiddens: Data.U60) (range: Range/) : ToCore/ (List/ t) {
+    let Pair/new (fst=pats) (snd=n_pats) = List/got_length pats
+    if Data.U60.to_bool (&& (!= n_pats n_args) (!= n_pats (- n_args n_hiddens))) {
+      let err = ToCore/Error.wrong_rule_arity range n_pats n_args n_hiddens
+      ToCore/add_err err
+    } else {
+      ToCore/empty
+    }
+    return pats
+  }

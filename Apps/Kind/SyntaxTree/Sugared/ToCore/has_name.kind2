@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core as Core
+
+ToCore/has_name (name: Data.String) : ToCore/ Data.Bool {
+  state => ToCore/has_name.go state name
+}
+
+ToCore/has_name.go (state: ToCore/State) (name: Data.String) : ToCore/Result Data.Bool
+ToCore/has_name.go (ToCore/State.new book sugars errs) name =
+  let Data.Pair.new (fst=book) (snd=has_name) = Core/Book.has_name book name
+  let state = (ToCore/State.new book sugars errs)
+  ToCore/Result.new has_name state
