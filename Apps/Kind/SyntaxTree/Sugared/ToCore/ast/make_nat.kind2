@@ -1,0 +1,20 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Range as Range
+
+ToCore/ast.make_nat (range: Range/) (val: Data.U60) : ToCore/ Term/ {
+  do ToCore/ {
+    ToCore/has_sugar Sugar/nat
+    return ToCore/ast.make_nat.go range val
+  }
+}
+
+ToCore/ast.make_nat.go (range: Range/) (val: Data.U60) : Term/
+ToCore/ast.make_nat.go range n =
+  let tail = ToCore/ast.make_nat.go range (- n 1)
+  Term/ctr range (CtrName/new range "Data.Nat.succ") [tail]
+
+ToCore/ast.make_nat.go range 0 =
+  Term/ctr range (CtrName/new range "Data.Nat.zero") []

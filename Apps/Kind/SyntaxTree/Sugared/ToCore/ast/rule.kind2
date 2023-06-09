@@ -1,0 +1,18 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+use Data.List as List
+use Data.Maybe as Maybe
+
+ToCore/ast.rule (rule: Sugared/Rule) (info: ToCore/State.DeclInfo) : ToCore/ Core/Rule
+ToCore/ast.rule (Sugared/Rule.new range name pats body) (ToCore/State.DeclInfo n_args n_hiddens hiddens) =
+  do ToCore/ {
+    ask Data.Pair.new (fst=pats) (snd=is_implicit) = ToCore/check_num_pats pats n_args n_hiddens range
+    ask pats = match Data.Bool is_implicit with pats {
+      true =>  ToCore/ast.impl_args pats (x => ToCore/ast.pattern x) hiddens range Data.Bool.true
+      false => ToCore/list pats (x => ToCore/ast.pattern x)
+    }
+    ask body = ToCore/ast.term body
+    return Core/Rule.new range name pats body
+  }
+

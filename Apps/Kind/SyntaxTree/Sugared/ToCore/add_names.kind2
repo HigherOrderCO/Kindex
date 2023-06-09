@@ -6,7 +6,7 @@ ToCore/add_names (names: Data.HashMap Data.String Data.U60) : ToCore/ Data.Unit 
 }
 
 ToCore/add_names.go (state: ToCore/State) (names: Data.HashMap Data.String Data.U60) : ToCore/Result Data.Unit
-ToCore/add_names.go (ToCore/State.new (Core/Book.new entries n_entries names) sugars errs) names =
+ToCore/add_names.go (ToCore/State.new (Core/Book.new entries n_entries _) sugars errs) names =
   let book = (Core/Book.new entries n_entries names)
   let state = (ToCore/State.new book sugars errs)
   ToCore/Result.new Data.Unit.new state

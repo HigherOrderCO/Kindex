@@ -1,0 +1,15 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Core as Core
+use Data.List as List
+use Data.Pair as Pair
+
+ToCore/ast.entry (entry: Entry/) (i: Data.U60) :  ToCore/ Data.Unit
+ToCore/ast.entry (Entry/new name args type rules range) i = do ToCore/ {
+  let info = ToCore/get_decl_info i
+  ask args = ToCore/list args (arg => ToCore/ast.argument arg)
+  ask rules = ToCore/list rules (rule => ToCore/ast.rule rule info)
+  ask type = ToCore/ast.term type
+  let entry = Core/Entry.new name args type rules range
+  ToCore/add_entry entry i
+}

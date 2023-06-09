@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+
+ToCore/ast.make_var_or_hole (range: Range/) (make_var: Data.Bool) : ToCore/ Term/
+ToCore/ast.make_var_or_hole range Data.Bool.true = ToCore/ast.make_var range
+ToCore/ast.make_var_or_hole range Data.Bool.false = ToCore/ast.make_hole range

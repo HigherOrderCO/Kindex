@@ -1,0 +1,50 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+use Data.List as List
+use Data.Map as Map
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+
+ToCore/decl_info (decls: Map/ Declaration/) (i: Data.U60) (n_decls: Data.U60) : ToCore/ (Map/ Declaration/)
+ToCore/decl_info decls i n_decls =
+  let Pair/new (fst=decls) (snd=decl) = Map/take decls (- n_decls i)
+  match Maybe/ decl with decls {
+    some (val=decl) => do ToCore/ {
+      ask decl = ToCore/decl_info.go decl i
+      let decls = Map/set decls i decl
+      ToCore/decl_info decls (- i 1) n_decls
+    }
+    // We fill decls sequentially so it has to exist. Use better data struct
+    none => ToCore/decl_info decls (- i 1) n_decls
+  }
+ToCore/decl_info decls 0 n_decls = ToCore/pure decls
+
+
+ToCore/decl_info.go (decl: Declaration/) (i: Data.U60) : ToCore/ Declaration/
+ToCore/decl_info.go (Declaration/entry (Entry/new name args type rules range)) i =
+  let Pair/new (fst=args) (snd=hiddens) = ToCore/decl_info.hidden_args args
+  let n_args = List/length hiddens
+  let n_hiddens = List/length (List/filter hiddens ((x: Data.Bool) => x))
+  let info = ToCore/State.DeclInfo n_args n_hiddens hiddens
+  let entry = Entry/new name args type rules range
+  let decl = Declaration/entry entry
+  do ToCore/ {
+    ToCore/add_decl_info i info
+    return decl
+  }
+
+// ToCore/decl_info.go (Declaration/record record) i =
+// ToCore/decl_info.go (Declaration/sum sum) i =
+
+ToCore/decl_info.hidden_args (args: List/ Argument/) : Pair/ (List/ Argument/) (List/ Data.Bool)
+ToCore/decl_info.hidden_args (List/cons (Argument/new range name type hidden erased) args) =
+  let arg = (Argument/new range name type hidden erased)
+  let Pair/new (fst=args) (snd=hiddens) = ToCore/decl_info.hidden_args args
+  let args = List/cons arg args
+  let hiddens = List/cons hidden hiddens
+  Pair/new args hiddens
+ToCore/decl_info.hidden_args (List/nil) = Pair/new [] []

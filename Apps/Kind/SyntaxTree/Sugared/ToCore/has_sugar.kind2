@@ -1,14 +1,14 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
 use Apps.Kind.SyntaxTree.Sugared.ToCore.State as State
-use Apps.Kind.SyntaxTree.Sugared.ToCore.State.Sugars as Sugars
 use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
 
-State/has_sugar (sugar: Sugar/) : ToCore/ Data.Bool {
-  state => State/has_sugar sugar state
+ToCore/has_sugar (sugar: Sugar/) : ToCore/ Data.Bool {
+  state => ToCore/has_sugar.go sugar state
 }
 
-State/has_sugar.go (sugar: Sugar/) (state: ToCore/State) : ToCore/Result Data.Bool
-State/has_sugar.go sugar (ToCore/State book sugars n_gen_vars errs) =
-  let Data.Pair.new (fst=sugars) (snd=has_sugar) = Sugars/has_sugar sugar sugars
-  let state = (ToCore/State book sugars n_gen_vars errs)
+ToCore/has_sugar.go (sugar: Sugar/) (state: State/) : ToCore/Result Data.Bool
+ToCore/has_sugar.go sugar (State/ book sugars n_gen_vars errs) =
+  let Data.Pair.new (fst=sugars) (snd=has_sugar) = State/Sugars.has_sugar sugar sugars
+  let state = (State/ book sugars n_gen_vars errs)
   // TODO: Implement looking for match and do
   ToCore/Result.new has_sugar state

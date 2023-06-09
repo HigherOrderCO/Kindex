@@ -15,6 +15,8 @@ type Term/ {
   ann (range: Range/) (expr: Term/) (type: Term/)
   sub (range: Range/) (name: VarName/) (indx: Data.U60) (redx: Data.U60) (expr: Term/)
   typ (range: Range/)
+  type_u60 (range: Range/)
+  type_f60 (range: Range/)
   num_u60 (range: Range/) (numb: Data.U60)
   num_f60 (range: Range/) (numb: Data.U60)
   str (range: Range/) (val: Data.String)

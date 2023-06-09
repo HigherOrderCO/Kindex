@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+
+ToCore/ast.argument (arg: Sugared/Argument) : ToCore/ Core/Argument
+ToCore/ast.argument (Sugared/Argument.new range name type hidden erased) =
+  do ToCore/ {
+    ask type = Data.Maybe.extract type (ToCore/pure (Core/Term.typ range)) (x => ToCore/ast.term x)
+    return Core/Argument range name type hidden erased
+  }

@@ -1,15 +1,9 @@
 use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
 use Data.Maybe as Maybe
 
-// First maybe is f failing or not
-// Second maybe is original Maybe of x
-ToCore/maybe <t> <r> (x: Maybe/ t) (f: t -> ToCore/ (Maybe/ r)) : ToCore/ (Maybe/ (Maybe/ r))
-ToCore/maybe (Maybe/some x) f = 
-  do ToCore/ {
-    ask res = (f x)
-    return do Maybe/ {
-      ask res = res
-      return (Maybe/some res)
-    }
-  }
-ToCore/maybe (Maybe/none) f = ToCore/pure (Maybe/some Maybe/none)
+ToCore/maybe <t> <r> (x: Maybe/ t) (f: t -> ToCore/ r) : ToCore/ (Maybe/ r)
+ToCore/maybe (Maybe/some x) f = do ToCore/ {
+  ask res = (f x)
+  return Maybe/some res
+}
+ToCore/maybe (Maybe/none) f = ToCore/pure (Maybe/none)

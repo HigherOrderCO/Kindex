@@ -1,0 +1,13 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core.Book as Book
+
+ToCore/add_hole : ToCore/ Data.U60 {
+  state => ToCore/add_hole.go state
+}
+
+ToCore/add_hole.go (state: ToCore/State) : ToCore/Result Data.U60
+ToCore/add_hole.go (ToCore/State.new book info sugars n_gen_vars errs) =
+  let Book/new entries n_entries names holes = book
+  let book = Book/new entries n_entries names (+ 1 holes)
+  let state = ToCore/State.new book info sugars n_gen_vars errs
+  ToCore/Result.new holes state

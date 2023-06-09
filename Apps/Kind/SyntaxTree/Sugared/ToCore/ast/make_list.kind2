@@ -1,0 +1,25 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.List as List
+
+ToCore/ast.make_list (range: Range/) (args: List/ Term/) (make_var: Data.Bool) : ToCore/ Term/ {
+  do ToCore/ {
+    ToCore/has_sugar Sugar/list
+    ToCore/ast.make_list.go range args
+  }
+}
+
+ToCore/ast.make_list.go <t> (range: Range/) (val: List/ Term/) (make_var: Data.Bool) : ToCore/ Term/
+ToCore/ast.make_list.go range (List/cons x xs) make_var = do ToCore/ {
+  ask t = ToCore/ast.make_var_or_hole range make_var
+  ask xs = ToCore/ast.make_list.go range xs make_var
+  return Term/ctr range (CtrName/new range "Data.List.cons") [t x xs]
+}
+
+ToCore/ast.make_list.go range (List/nil) make_var = do ToCore/ {
+  ask t = ToCore/ast.make_var_or_hole range make_var
+  return Term/ctr range (CtrName/new range "Data.List.nil") [t]
+}

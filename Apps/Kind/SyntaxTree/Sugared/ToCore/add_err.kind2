@@ -6,7 +6,7 @@ ToCore/add_err (err: ToCore/Error) : ToCore/ Data.Unit {
 }
 
 ToCore/add_err.go (state: ToCore/State) (err: ToCore/Error) : ToCore/Result Data.Unit
-ToCore/add_err.go (ToCore/State.new book sugars errs) names =
+ToCore/add_err.go (ToCore/State.new book sugars errs) err =
   let errs = (Data.List.cons err errs)
   let state = (ToCore/State.new book sugars errs)
   ToCore/Result.new Data.Unit.new state

@@ -6,7 +6,7 @@ use Apps.Kind.SyntaxTree.Core as Core
 record ToCore/State {
   book : Core/Book
   // Total number of args and number of implicits
-  n_args : Data.Map (Data.Pair Data.U60 Data.U60)
+  info : Data.Map ToCore/State.DeclInfo
   sugars: ToCore/State.Sugars
   n_gen_vars: Data.U60
   errs: Data.List ToCore/Error

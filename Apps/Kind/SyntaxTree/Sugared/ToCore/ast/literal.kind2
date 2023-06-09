@@ -1,0 +1,16 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.Core.Term as Term
+
+ToCore/ast.literal (lit: Literal/) : ToCore/ Term/
+
+ToCore/ast.literal (Literal/type range) = ToCore/pure (Term/typ range)
+ToCore/ast.literal (Literal/help range name) = ToCore/pure (Term/hlp range name)
+ToCore/ast.literal (Literal/type_u60 range) = ToCore/pure (Term/type_u60 range)
+ToCore/ast.literal (Literal/type_f60 range) = ToCore/pure (Term/type_f60 range)
+ToCore/ast.literal (Literal/char range val) = ToCore/pure (Term/num_u60 range val)
+ToCore/ast.literal (Literal/num_u60 range val) = ToCore/pure (Term/num_u60 range val)
+ToCore/ast.literal (Literal/num_u120 range val) = ToCore/ast.make_u120 range val
+// ToCore/ast.literal (Literal/num_f60 range val) =
+ToCore/ast.literal (Literal/num_nat range val) = ToCore/ast.make_nat range val
+ToCore/ast.literal (Literal/string range val) = ToCore/pure (Term/str range val)

@@ -1,0 +1,10 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+
+ToCore/ast.make_hole (range: Range/) : ToCore/ Term/ {
+  do ToCore/ {
+    ask hole_id = ToCore/add_hole
+    return Term/hole range hole_id
+  }
+}
