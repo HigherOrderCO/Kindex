@@ -13,6 +13,7 @@ ToCore/ast.make_string (range: Range/) (val: Data.String) : ToCore/ Term/ {
 
 ToCore/ast.make_string.go (range: Range/) (val: Data.String) : Term/
 ToCore/ast.make_string.go range (Data.String.cons x xs) =
+  let x = Term/num_u60 range x
   let xs = ToCore/ast.make_string.go range xs
   Term/ctr range (CtrName/new range "Data.String.cons") [x xs]
 ToCore/ast.make_string.go range (Data.String.nil) = 

@@ -13,7 +13,7 @@ ToCore/decl_info (decls: Map/ Declaration/) (i: Data.U60) (n_decls: Data.U60) : 
 ToCore/decl_info decls i n_decls =
   let Pair/new (fst=decls) (snd=decl) = Map/take decls (- n_decls i)
   match Maybe/ decl with decls {
-    some (val=decl) => do ToCore/ {
+    some (value=decl) => do ToCore/ {
       ask decl = ToCore/decl_info.go decl i
       let decls = Map/set decls i decl
       ToCore/decl_info decls (- i 1) n_decls
@@ -25,12 +25,12 @@ ToCore/decl_info decls 0 n_decls = ToCore/pure decls
 
 
 ToCore/decl_info.go (decl: Declaration/) (i: Data.U60) : ToCore/ Declaration/
-ToCore/decl_info.go (Declaration/entry (Entry/new name args type rules range)) i =
+ToCore/decl_info.go (Declaration/entry (Entry/new range name args type rules)) i =
   let Pair/new (fst=args) (snd=hiddens) = ToCore/decl_info.hidden_args args
-  let n_args = List/length hiddens
-  let n_hiddens = List/length (List/filter hiddens ((x: Data.Bool) => x))
-  let info = ToCore/State.DeclInfo n_args n_hiddens hiddens
-  let entry = Entry/new name args type rules range
+  let n_args = Data.Nat.to_u60 (List/length hiddens)
+  let n_hiddens = Data.Nat.to_u60 (List/length (List/filter hiddens ((x: Data.Bool) => x)))
+  let info = ToCore/State.DeclInfo.new n_args n_hiddens hiddens
+  let entry = Entry/new range name args type rules
   let decl = Declaration/entry entry
   do ToCore/ {
     ToCore/add_decl_info i info

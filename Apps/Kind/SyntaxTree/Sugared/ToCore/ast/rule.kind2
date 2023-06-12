@@ -5,7 +5,7 @@ use Data.List as List
 use Data.Maybe as Maybe
 
 ToCore/ast.rule (rule: Sugared/Rule) (info: ToCore/State.DeclInfo) : ToCore/ Core/Rule
-ToCore/ast.rule (Sugared/Rule.new range name pats body) (ToCore/State.DeclInfo n_args n_hiddens hiddens) =
+ToCore/ast.rule (Sugared/Rule.new range name pats body) (ToCore/State.DeclInfo.new n_args n_hiddens hiddens) =
   do ToCore/ {
     ask Data.Pair.new (fst=pats) (snd=is_implicit) = ToCore/check_num_pats pats n_args n_hiddens range
     ask pats = match Data.Bool is_implicit with pats {

@@ -10,8 +10,7 @@ ToCore/ast.make_u120 range (Data.U120.new high low) = do ToCore/ {
   let term = (Term/ctr
     range
     (CtrName/new range "Data.U120.new")
-    (Term/num_u60 range high)
-    (Term/num_u60 range low)
+    [(Term/num_u60 range high) (Term/num_u60 range low)]
   )
   return term
 }

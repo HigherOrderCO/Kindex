@@ -8,7 +8,7 @@ use Data.List as List
 ToCore/ast.make_list (range: Range/) (args: List/ Term/) (make_var: Data.Bool) : ToCore/ Term/ {
   do ToCore/ {
     ToCore/has_sugar Sugar/list
-    ToCore/ast.make_list.go range args
+    ToCore/ast.make_list.go range args make_var
   }
 }
 

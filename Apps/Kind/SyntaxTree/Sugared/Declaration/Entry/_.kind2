@@ -7,10 +7,10 @@ use Apps.Kind.SyntaxTree.CtrName as CtrName
 
 #derive[match]
 record Entry/ {
+  range: Range/
   name : CtrName/
   args : Data.List Argument/
   type : Term/
   rules: Data.List Rule/
-  range: Range/
   // TODO: Add attributes
 }

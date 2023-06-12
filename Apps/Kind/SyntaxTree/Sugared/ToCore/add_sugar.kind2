@@ -6,7 +6,7 @@ ToCore/add_sugar (sugar: Sugar/) (val: Data.Bool) : ToCore/ Data.Unit {
 }
 
 ToCore/add_sugar.go (state: ToCore/State) (sugar: Sugar/) (val: Data.Bool) : ToCore/Result Data.Unit
-ToCore/add_sugar.go (ToCore/State.new book sugars errs) (sugar) (val) =
+ToCore/add_sugar.go (ToCore/State.new book info sugars n_gen_vars errs) (sugar) (val) =
   let sugars = ToCore/State.Sugars.add_sugar sugars sugar val
-  let state = ToCore/State.new book sugars errs
+  let state = ToCore/State.new book info sugars n_gen_vars errs
   ToCore/Result.new Data.Unit.new state

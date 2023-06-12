@@ -8,6 +8,7 @@ ToCore/get_decl_id (CtrName/new range name) = state => ToCore/get_decl_id.go sta
 ToCore/get_decl_id.go (state: ToCore/State) (name: Data.String) : ToCore/Result Data.U60
 ToCore/get_decl_id.go (ToCore/State.new (Book/new entries n_entries names holes) info sugar n_gen_vars errs) name =
   let book = Book/new entries n_entries names holes
-  let Data.Pair.new (fst=names) (snd=id) = Data.Map.got names name
+  let Data.Pair.new (fst=names) (snd=id) = Data.HashMap.got names name
+  let id = Data.Maybe.default id Data.U60.max_val
   let state = ToCore/State.new book info sugar n_gen_vars errs
   ToCore/Result.new id state

@@ -25,6 +25,6 @@ KParser/declaration.entry_signature : KParser/ Entry/ {
     }
 
     ask range = KParser/make_range_here start
-    return Entry/new name args type [] range
+    return Entry/new range name args type []
   }
 }

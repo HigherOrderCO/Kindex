@@ -16,9 +16,9 @@ use Data.Pair as Pair
 //! set of all declarations and adding all 
 //! names it defines to the set of names.
 ToSugared/add_decl_to_book (book: Book/) (decl: Declaration/) : ToSugared/ Book/
-ToSugared/add_decl_to_book (Book/new decls n_decls names) (Declaration/entry (Entry/new name args type rules range)) =
+ToSugared/add_decl_to_book (Book/new decls n_decls names) (Declaration/entry (Entry/new range name args type rules)) =
   let name_str = (CtrName/val.get name)
-  let decl = (Declaration/entry (Entry/new name args type rules range))
+  let decl = (Declaration/entry (Entry/new range name args type rules))
   let Pair/new (fst=names) (snd=prev) = (HashMap/got names name_str)
   let book = (Book/new decls n_decls names)
   ToSugared/add_decl_to_book.entry.2 book decl prev  

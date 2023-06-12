@@ -1,6 +1,7 @@
 use Apps.Kind.SyntaxTree.Core.Book as Book
 use Apps.Kind.SyntaxTree.Core.Entry as Entry
 
+#derive[match]
 record Book/ {
   entries : Data.Map Entry/
   n_entries : Data.U60

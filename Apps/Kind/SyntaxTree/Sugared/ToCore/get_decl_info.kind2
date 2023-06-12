@@ -1,12 +1,12 @@
 use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
 
-ToCore/get_decl_info (key: Data.U60) : ToCore/ (Data.Pair Data.U60 Data.U60) {
+ToCore/get_decl_info (key: Data.U60) : ToCore/ ToCore/State.DeclInfo {
   state => ToCore/get_decl_info.go state key
 }
 
-ToCore/get_decl_info.go (state: ToCore/State) (key: Data.U60) : ToCore/Result (Data.Pair Data.U60 Data.U60)
+ToCore/get_decl_info.go (state: ToCore/State) (key: Data.U60) : ToCore/Result ToCore/State.DeclInfo
 ToCore/get_decl_info.go (ToCore/State.new book info sugars n_gen_vars errs) key =
   let Data.Pair.new (fst=info) (snd=val) = Data.Map.got info key
-  let val = Data.Maybe.default val (Data.Pair.new Data.U60.max_val Data.U60.max_val)
+  let val = Data.Maybe.default val ToCore/State.DeclInfo.err
   let state = (ToCore/State.new book info sugars n_gen_vars errs)
   ToCore/Result.new val state
