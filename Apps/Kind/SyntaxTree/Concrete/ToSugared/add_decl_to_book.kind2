@@ -5,16 +5,13 @@ use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
 use Apps.Kind.SyntaxTree.Sugared.Declaration.RecordType as RecordType
 use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType as SumType
 use Apps.Kind.SyntaxTree.CtrName as CtrName
-use Data.Either as Either
 use Data.HashMap as HashMap
-use Data.List as List
 use Data.Map as Map
 use Data.Maybe as Maybe
 use Data.Pair as Pair
 
-//! Add a declaration to the given book, adding it to the
-//! set of all declarations and adding all 
-//! names it defines to the set of names.
+//! Add a declaration to the given book, adding it to the declarations
+//! and adding all names it defines to the set of names.
 ToSugared/add_decl_to_book (book: Book/) (decl: Declaration/) : ToSugared/ Book/
 ToSugared/add_decl_to_book (Book/new decls n_decls names) (Declaration/entry (Entry/new range name args type rules)) =
   let name_str = (CtrName/val.get name)
@@ -30,7 +27,7 @@ ToSugared/add_decl_to_book.entry.2 (book: Book/) (decl: Declaration/) (prev: May
 ToSugared/add_decl_to_book.entry.2 (Book/new decls n_decls names) decl (Maybe/none) =
   // Not present, can add entry
   let Pair/new (fst=decl) (snd=name) = Declaration/get_name decl
-  let CtrName/new (val=name) .. = name
+  let name = (CtrName/val.get name)
   let names = (HashMap/set names name n_decls)
   let decls = (Map/set decls n_decls decl)
   let n_decls = (+ 1 n_decls)
@@ -44,7 +41,7 @@ ToSugared/add_decl_to_book.entry.2 (Book/new decls n_decls names) decl (Maybe/so
 ToSugared/add_decl_to_book.entry.3 (book: Book/) (decl: Declaration/) (prev: Maybe/ Declaration/) (prev_idx: Data.U60) : ToSugared/ Book/
 ToSugared/add_decl_to_book.entry.3 (Book/new decls n_decls names) decl (Maybe/some prev) prev_idx =
   let Pair/new (fst=prev) (snd=name) = Declaration/get_name prev
-  let CtrName/new (range=prev_range) .. = name
+  let prev_range = (CtrName/range.get name)
   let decls = Map/set decls prev_idx prev
   let err = ToSugared/Error.multiple_defs decl prev_range
   do ToSugared/ {

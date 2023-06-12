@@ -6,6 +6,6 @@ ToSugared/add_err (err: ToSugared/Error) : ToSugared/ Data.Unit {
 
 ToSugared/add_err.go (err: ToSugared/Error) (state: ToSugared/State) : ToSugared/Result Data.Unit
 ToSugared/add_err.go err (ToSugared/State.new map errs) =
-  let errs = (Data.List.cons err errs)
-  let state = (ToSugared/State.new map errs)
+  let errs = Data.List.cons err errs
+  let state = ToSugared/State.new map errs
   ToSugared/Result.new Data.Unit.new state

@@ -1,43 +1,30 @@
 use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
 use Apps.Kind.SyntaxTree.Concrete as Concrete
 use Apps.Kind.SyntaxTree.Sugared as Sugared
-use Data.Maybe as Maybe
 
-
-ToSugared/pattern (pat: Concrete/Pattern) : ToSugared/ (Maybe/ Sugared/Pattern)
+ToSugared/pattern (pat: Concrete/Pattern) : ToSugared/ Sugared/Pattern
 ToSugared/pattern (Concrete/Pattern.ctr range name args) =
   do ToSugared/ {
     ask name = ToSugared/unalias_name name
     ask args = ToSugared/list args (arg => ToSugared/pattern arg)
-    return do Maybe/ {
-      ask name = name
-      ask args = args
-      return Sugared/Pattern.ctr range name args
-    }
+    return Sugared/Pattern.ctr range name args
   }
 ToSugared/pattern (Concrete/Pattern.pair range fst snd) =
   do ToSugared/ {
     ask fst = ToSugared/pattern fst
     ask snd = ToSugared/pattern snd
-    return do Maybe/ {
-      ask fst = fst
-      ask snd = snd
-      return Sugared/Pattern.pair range fst snd
-    }
+    return Sugared/Pattern.pair range fst snd
   }
 ToSugared/pattern (Concrete/Pattern.list range args) =
   do ToSugared/ {
     ask args = ToSugared/list args (arg => ToSugared/pattern arg)
-    return do Maybe/ {
-      ask args = args
-      return Sugared/Pattern.list range args
-    }
+    return Sugared/Pattern.list range args
   }
 
-ToSugared/pattern (Concrete/Pattern.var range name)   = ToSugared/pure (Maybe/some (Sugared/Pattern.var range name))
-ToSugared/pattern (Concrete/Pattern.u60 range val)    = ToSugared/pure (Maybe/some (Sugared/Pattern.u60 range val))
-ToSugared/pattern (Concrete/Pattern.u120 range val)   = ToSugared/pure (Maybe/some (Sugared/Pattern.u120 range val))
-// ToSugared/pattern (Concrete/Pattern.f60 range val)    = ToSugared/pure (Maybe/some (Sugared/Pattern.f60 range val))
-ToSugared/pattern (Concrete/Pattern.string range val) = ToSugared/pure (Maybe/some (Sugared/Pattern.string range val))
-ToSugared/pattern (Concrete/Pattern.char range val)   = ToSugared/pure (Maybe/some (Sugared/Pattern.char range val))
-ToSugared/pattern (Concrete/Pattern.hole range)       = ToSugared/pure (Maybe/some (Sugared/Pattern.hole range))
+ToSugared/pattern (Concrete/Pattern.var range name)   = ToSugared/pure (Sugared/Pattern.var range name)
+ToSugared/pattern (Concrete/Pattern.u60 range val)    = ToSugared/pure (Sugared/Pattern.u60 range val)
+ToSugared/pattern (Concrete/Pattern.u120 range val)   = ToSugared/pure (Sugared/Pattern.u120 range val)
+// ToSugared/pattern (Concrete/Pattern.f60 range val)    = ToSugared/pure (Sugared/Pattern.f60 range val)
+ToSugared/pattern (Concrete/Pattern.string range val) = ToSugared/pure (Sugared/Pattern.string range val)
+ToSugared/pattern (Concrete/Pattern.char range val)   = ToSugared/pure (Sugared/Pattern.char range val)
+ToSugared/pattern (Concrete/Pattern.hole range)       = ToSugared/pure (Sugared/Pattern.hole range)
