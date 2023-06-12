@@ -1,0 +1,12 @@
+use Data.String as String
+use Apps.Kind.SyntaxTree.Core.Rule as Rule
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+Rule/show (r: Rule/) : String/Build
+Rule/show (Rule/new range name pats body) =
+  let name = CtrName/show name
+  let pats = String/Build.many (Data.List.map pats (p => String/Build.concat (String/show " ") (Term/show p)))
+  let eql = String/show " = "
+  let body = Term/show body
+  String/Build.many [name pats eql body]

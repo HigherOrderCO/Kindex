@@ -5,6 +5,6 @@ use Apps.Kind.SyntaxTree.Core as Core
 ToCore/ast.argument (arg: Sugared/Argument) : ToCore/ Core/Argument
 ToCore/ast.argument (Sugared/Argument.new range name type hidden erased) =
   do ToCore/ {
-    ask type = Data.Maybe.extract type (ToCore/pure (Core/Term.typ range)) (x => ToCore/ast.term x)
+    ask type = Data.Maybe.extract type (ToCore/pure (Core/Term.type range)) (x => ToCore/ast.term x)
     return Core/Argument.new range name type hidden erased
   }

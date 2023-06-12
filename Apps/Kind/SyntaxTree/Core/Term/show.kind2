@@ -1,0 +1,113 @@
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Core.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.Operator as Operator
+use Data.String as String
+
+Term/show (term: Term/) : String/Build
+
+Term/show (Term/var _ name) = VarName/show name
+
+Term/show (Term/all _ param type body erased) =
+  let erased = if erased { String/show "~" } else { String/show "" }
+  let opener = (String/show "(")
+  let param = VarName/show param
+  let sep = (String/show " : ")
+  let type = (Term/show type)
+  let closer = (String/show ")")
+  let arrow = (String/show " -> ")
+  let body = (Term/show body)
+  String/Build.many [erased opener param sep type closer arrow body]
+
+Term/show (Term/lambda _ param body erased) =
+  let erased = if erased { String/show "~" } else { String/show "" }
+  let param = (VarName/show param)
+  let arrow = (String/show " => ")
+  let body = (Term/show body)
+  String/Build.many [erased param arrow body]
+
+Term/show (Term/app _ fun args) =
+  let opener = (String/show "(")
+  let fun = (Term/show fun)
+  let space = String/show " "
+  let args = (Term/show.args args)
+  let closer = (String/show ")")
+  String/Build.many [opener fun space args closer]
+
+Term/show (Term/fun _ name args) =
+  let opener = (String/show "(")
+  let name = (CtrName/show name)
+  let space = String/show " "
+  let args = (Term/show.args args)
+  let closer = (String/show ")")
+  String/Build.many [opener name space args closer]
+Term/show (Term/fun _ name Data.List.nil) = CtrName/show name
+
+Term/show (Term/ctr _ name args) =
+  let opener = (String/show "(")
+  let name = (CtrName/show name)
+  let space = String/show " "
+  let args = (Term/show.args args)
+  let closer = (String/show ")")
+  String/Build.many [opener name space args closer]
+Term/show (Term/ctr _ name Data.List.nil) = CtrName/show name
+
+Term/show (Term/let _ name val next) =
+  let let_ = (String/show "let ")
+  let name = (VarName/show name)
+  let eql = (String/show " = ")
+  let val = (Term/show val)
+  let sep = (String/show "; ")
+  let next = (Term/show next)
+  String/Build.many [let_ name eql val sep next]
+
+Term/show (Term/ann _ val type) =
+  let opener = (String/show "(")
+  let val = (Term/show val)
+  let closer = (String/show ")")
+  let sep = (String/show " :: ")
+  let type = (Term/show type)
+  String/Build.many [opener val closer sep type]
+
+Term/show (Term/sub _ name redx indx expr) =
+  let spec = (String/show "specialize ")
+  let name = (VarName/show name)
+  let into = (String/show " into #")
+  let redx = (Data.U60.show redx)
+  let in = (String/show " in ")
+  let expr = (Term/show expr)
+  String/Build.many [spec name into redx in expr]
+
+Term/show (Term/type _) = String/show "Type"
+
+Term/show (Term/type_u60 _) = String/show "Data.U60"
+
+Term/show (Term/type_f60 _) = String/show "Data.F60"
+
+Term/show (Term/str _ val) = s =>
+  let marker = (Data.Char.show '"') :: _ -> _
+  let val = (String/show val) :: _ -> _
+  (marker (val (marker s)))
+
+Term/show (Term/binary _ op fst snd) =
+  let opener = (String/show "(")
+  let op = (String/show (Operator/show op))
+  let space = (String/show " ")
+  let fst = (Term/show fst)
+  let snd = (Term/show snd)
+  let closer = (String/show ")")
+  String/Build.many [opener op space fst space snd closer]
+
+Term/show (Term/hole _ _) = String/show "_"
+
+Term/show (Term/help _ name) =
+String/Build.many [(String/show "?") (VarName/show name)]
+
+Term/show (Term/err _) = String/show "Error"
+
+
+#inline
+Term/show.args (args: Data.List Term/) : String/Build {
+  String/Build.join (Data.List.map args (a => Term/show a)) " "
+}

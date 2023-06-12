@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Core.Argument as Argument
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.VarName as VarName
+use Data.String as String
+
+Argument/show (var: Argument/) : String/Build
+Argument/show (Argument/new _ name type hidden erased) =
+  let erased = String/show (if erased { "-" } else { "" })
+  let opener = String/show (if hidden { "<" } else { "(" })
+  let name = VarName/show name
+  let sep = String/show " : "
+  let type = Term/show type
+  let closer = String/show (if hidden { ">" } else { ")" })
+  String/Build.many [erased opener name sep type closer]
