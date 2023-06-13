@@ -1,0 +1,4 @@
+// takes a decidable value to its evidence
+Prop.Decidable.to_witness <t> (dec: Prop.Decidable t) (e: Data.Bool.to_type (Prop.Decidable.erase dec)) : t
+Prop.Decidable.to_witness (Prop.Decidable.yep x) Data.Unit.new = x
+Prop.Decidable.to_witness (Prop.Decidable.nop x) empty = Data.Empty.absurd empty

@@ -1,0 +1,4 @@
+Data.Nat.Eq : Trait.Eq Data.Nat
+Data.Nat.Eq = Trait.Eq.make Data.Nat (
+  a => b => Data.Nat.equal.proof a b
+)

@@ -1,0 +1,4 @@
+// takes a decidable value to a boolean value
+Prop.Decidable.erase <t> (dec: Prop.Decidable t) : Data.Bool
+Prop.Decidable.erase (Prop.Decidable.yep _) = Data.Bool.true
+Prop.Decidable.erase (Prop.Decidable.nop _) = Data.Bool.false

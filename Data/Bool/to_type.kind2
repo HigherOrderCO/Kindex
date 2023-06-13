@@ -1,0 +1,4 @@
+// converts a Bool to its "type-theoretic" form
+Data.Bool.to_type (b: Data.Bool) : Type
+Data.Bool.to_type Data.Bool.true = Data.Unit
+Data.Bool.to_type Data.Bool.false = Data.Empty
