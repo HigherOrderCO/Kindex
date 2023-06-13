@@ -1,0 +1,10 @@
+record Trait.Eq (t: Type) {
+  eq : t -> t -> Data.Bool
+  dec_eq : (a: t) -> (b: t) -> Prop.Decidable (Prop.Equal a b)
+}
+
+Trait.Eq.make (t) (dec_eq : (a: t) -> (b: t) -> Prop.Decidable (Prop.Equal a b)) : Trait.Eq t
+Trait.Eq.make t dec_eq = (Trait.Eq.new t
+    (a => b => Prop.Decidable.erase (dec_eq a b))
+    (a => b => dec_eq a b)
+  )

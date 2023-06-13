@@ -1,5 +1,0 @@
-// A way to extract the yep/nop when dealing with a concrete example, useful for one-liners with concrete values
-
-Prop.Decidable.extract_nop <t> <f : Prop.Not t> (dec: Prop.Decidable t) (neq: Prop.Equal dec (Prop.Decidable.nop f)) : Prop.Not t
-Prop.Decidable.extract_nop (Prop.Decidable.nop f) Prop.Equal.refl = f
-Prop.Decidable.extract_nop _ _ = Data.Empty.absurd _

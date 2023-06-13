@@ -1,5 +1,9 @@
-// Generates a decidable evidence of the (un)equality of two Nats
+Data.Nat.Eq : Trait.Eq Data.Nat
+Data.Nat.Eq = Trait.Eq.make Data.Nat (
+  a => b => Data.Nat.equal.proof a b
+)
 
+// Generates a decidable evidence of the (un)equality of two Nats
 Data.Nat.equal.proof (n : Data.Nat) (m : Data.Nat) : Prop.Decidable (Prop.Equal n m)
 Data.Nat.equal.proof Data.Nat.zero Data.Nat.zero = Prop.Decidable.yep Prop.Equal.refl
 Data.Nat.equal.proof (Data.Nat.succ n) Data.Nat.zero = Prop.Decidable.nop (n_eq_zero =>
