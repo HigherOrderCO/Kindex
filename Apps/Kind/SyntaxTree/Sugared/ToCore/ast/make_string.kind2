@@ -1,0 +1,20 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Range as Range
+
+ToCore/ast.make_string (range: Range/) (val: Data.String) : ToCore/ Term/ {
+  do ToCore/ {
+    ask has_sugar = ToCore/has_sugar Sugar/string
+    return ToCore/ast.make_string.go range val
+  }
+}
+
+ToCore/ast.make_string.go (range: Range/) (val: Data.String) : Term/
+ToCore/ast.make_string.go range (Data.String.cons x xs) =
+  let x = Term/num_u60 range x
+  let xs = ToCore/ast.make_string.go range xs
+  Term/ctr range (CtrName/new range "Data.String.cons") [x xs]
+ToCore/ast.make_string.go range (Data.String.nil) = 
+  Term/ctr range (CtrName/new range "Data.String.nil") []

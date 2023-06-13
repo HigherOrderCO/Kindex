@@ -1,0 +1,16 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Range as Range
+
+ToCore/ast.make_u120 (range: Range/) (val: Data.U120) : ToCore/ Term/
+ToCore/ast.make_u120 range (Data.U120.new high low) = do ToCore/ {
+  ToCore/has_sugar Sugar/u120
+  let term = (Term/ctr
+    range
+    (CtrName/new range "Data.U120.new")
+    [(Term/num_u60 range high) (Term/num_u60 range low)]
+  )
+  return term
+}

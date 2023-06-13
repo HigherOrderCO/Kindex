@@ -1,0 +1,14 @@
+use Data.Maybe as Maybe
+use Data.List as List
+
+Maybe/flatten_list <t> (xs: List/ (Maybe/ t)) : Maybe/ (List/ t) {
+  (List/foldr
+    (Maybe/some [])
+    ((a: Maybe t) => (b: Maybe/ (List/ t)) => do Maybe/ {
+      ask a = a
+      ask b = b
+      return List/cons a b
+    })
+    xs
+  )
+}

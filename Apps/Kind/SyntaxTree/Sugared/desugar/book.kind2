@@ -1,6 +1,0 @@
-use Apps.Kind.SyntaxTree.Sugared as Sugared
-use Apps.Kind.SyntaxTree.Core as Core
-
-Sugared/desugar.book (Sugared/Book) : Data.Either Core/Book Data.String
-Sugared/desugar.book (Sugared/Book.new entries names) = 
-  

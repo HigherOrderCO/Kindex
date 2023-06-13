@@ -1,0 +1,24 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Range as Range
+use Data.List as List
+
+ToCore/check_num_pats
+  <t>
+  (pats: List/ t)
+  (n_args: Data.U60)
+  (n_hiddens: Data.U60)
+  (range: Range/)
+: ToCore/ (Data.Pair (List/ t) Data.Bool) {
+  let Data.Pair.new (fst=pats) (snd=n_pats) = List/got_length pats
+  let is_explicit = Data.U60.to_bool (== n_pats n_args)
+  let is_implicit = Data.U60.to_bool (== n_pats (- n_args n_hiddens))
+  do ToCore/ {
+    if (Data.Bool.nor is_explicit is_implicit) {
+      let err = ToCore/Error.wrong_rule_arity range n_pats n_args n_hiddens
+      ToCore/add_err err
+    } else {
+      ToCore/empty
+    }
+    return Data.Pair.new pats is_implicit
+  }
+}

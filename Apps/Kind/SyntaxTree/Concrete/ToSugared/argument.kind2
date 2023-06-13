@@ -1,14 +1,10 @@
 use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
 use Apps.Kind.SyntaxTree.Concrete as Concrete
 use Apps.Kind.SyntaxTree.Sugared as Sugared
-use Data.Maybe as Maybe
 
-ToSugared/argument (arg: Concrete/Argument) : ToSugared/ (Maybe/ (Sugared/Argument))
+ToSugared/argument (arg: Concrete/Argument) : ToSugared/ (Sugared/Argument)
 ToSugared/argument (Concrete/Argument.new range name type hidden erased) =
   do ToSugared/ {
     ask type = ToSugared/maybe type (x => ToSugared/term x)
-    return do Maybe/ {
-      ask type = type // If pass was successful
-      return Sugared/Argument.new range name type hidden erased
-    }
+    return Sugared/Argument.new range name type hidden erased
   }

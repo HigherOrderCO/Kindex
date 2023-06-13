@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore.State.DeclInfo as DeclInfo
+
+#derive[match]
+record DeclInfo/ {
+  n_args    : Data.U60
+  n_hiddens : Data.U60
+  hiddens   : Data.List Data.Bool
+}

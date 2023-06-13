@@ -1,20 +1,13 @@
 use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
 use Apps.Kind.SyntaxTree.Concrete as Concrete
 use Apps.Kind.SyntaxTree.Sugared as Sugared
-use Data.Maybe as Maybe
 
-ToSugared/entry (entry: Concrete/Declaration.Entry) : ToSugared/ (Maybe/ Sugared/Declaration.Entry)
-ToSugared/entry (Concrete/Declaration.Entry.new name args type rules range) =
+ToSugared/entry (entry: Concrete/Declaration.Entry) : ToSugared/ Sugared/Declaration.Entry
+ToSugared/entry (Concrete/Declaration.Entry.new range name args type rules) =
   do ToSugared/ {
     ask name = ToSugared/unalias_name name
     ask args = ToSugared/list args (arg => ToSugared/argument arg)
     ask type = ToSugared/term type
     ask rules = ToSugared/list rules (rule => ToSugared/rule rule)
-    return do Maybe/ {
-      ask name = name
-      ask args = args
-      ask type = type
-      ask rules = rules
-      return Sugared/Declaration.Entry.new name args type rules range
-    }
+    return Sugared/Declaration.Entry.new range name args type rules 
   }

@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore.State.DeclInfo as DeclInfo
+
+DeclInfo/err : DeclInfo/ {
+  DeclInfo/new Data.U60.max_val Data.U60.max_val []
+}

@@ -1,0 +1,8 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/bind <a> <b> (xa: ToCore/ a) (xb: a -> (ToCore/ b)) : ToCore/ b {
+  state => ToCore/bind.go (xa state) xb
+}
+
+ToCore/bind.go <a> <b> (res: ToCore/Result a) (xb: a -> (ToCore/ b)) : ToCore/Result b
+ToCore/bind.go (ToCore/Result.new v s) xb = ((xb v) s)

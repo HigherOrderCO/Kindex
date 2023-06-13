@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+ToCore/ast.make_sigma_pair (range: Range/) (fst: Term/) (snd: Term/) (make_var: Data.Bool) : ToCore/ Term/
+ToCore/ast.make_sigma_pair range fst snd make_var = do ToCore/ {
+  ToCore/has_sugar Sugar/sigma
+  ask t1 = ToCore/ast.make_var_or_hole range make_var
+  ask t2 = ToCore/ast.make_var_or_hole range make_var
+  let term = Term/ctr range (CtrName/new range "Data.Sigma.new") [t1 t2 fst snd]
+  return term
+}

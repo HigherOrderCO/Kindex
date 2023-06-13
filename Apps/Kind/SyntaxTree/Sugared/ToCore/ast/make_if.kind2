@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+ToCore/ast.make_if (range: Range/) (cond: Term/) (then: Term/) (else: Term/) (add_vars: Data.Bool) : ToCore/ Term/
+ToCore/ast.make_if range cond then else add_vars = do ToCore/ {
+  ToCore/has_sugar Sugar/if_
+  ask t1 = ToCore/ast.make_var_or_hole range add_vars
+  ask t2 = ToCore/ast.make_var_or_hole range add_vars
+  let term = Term/ctr range (CtrName/new range "Data.Bool.if") [t1 t2 cond then else]
+  return term
+}

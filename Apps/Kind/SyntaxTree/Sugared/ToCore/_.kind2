@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/ <t> : Type {
+  ToCore/State -> ToCore/Result t
+}

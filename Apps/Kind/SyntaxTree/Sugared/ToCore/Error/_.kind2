@@ -1,0 +1,9 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Range as Range
+
+type ToCore/Error {
+  wrong_rule_arity (where: Range/) (n_pats: Data.U60) (n_args: Data.U60) (n_hiddens: Data.U60)
+  missing_sugar (where: Range/) (sugar: Sugared/Sugar)
+  internal (msg: Data.String)
+}

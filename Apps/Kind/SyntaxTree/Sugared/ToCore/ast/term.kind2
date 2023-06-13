@@ -1,0 +1,119 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+use Apps.Kind.SyntaxTree.Core as Core
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.List as List
+use Data.Maybe as Maybe
+
+ToCore/ast.term (term: Sugared/Term) : ToCore/ Core/Term
+
+ToCore/ast.term (Sugared/Term.var range name) = ToCore/pure (Core/Term.var range name)
+
+ToCore/ast.term (Sugared/Term.ctr range name args) = do ToCore/ {
+  ask ctr_id = ToCore/get_decl_id name
+  ask ToCore/State.DeclInfo.new n_args n_hiddens hiddens = ToCore/get_decl_info ctr_id
+  ask Data.Pair.new (fst=args) (snd=is_implicit) = ToCore/check_num_pats args n_args n_hiddens range
+  ask args = match Data.Bool is_implicit with args {
+    true  => ToCore/ast.impl_args args (x => ToCore/ast.term x) hiddens range Data.Bool.false
+    false => ToCore/list args (x => ToCore/ast.term x)
+  }
+  return Core/Term.ctr range name args
+}
+
+ToCore/ast.term (Sugared/Term.all range param type body erased) = do ToCore/ {
+  ask param = Maybe/extract param (ToCore/ast.make_var range) (x => ToCore/pure x)
+  ask type = ToCore/ast.term type
+  ask body = ToCore/ast.term body
+  return Core/Term.all range param type body erased
+}
+
+ToCore/ast.term (Sugared/Term.sig_type range param fst snd) = do ToCore/ {
+  ToCore/has_sugar Sugar/sigma
+  ask param = Maybe/extract param (ToCore/ast.make_var range) (x => ToCore/pure x)
+  ask fst = ToCore/ast.term fst
+  ask snd = ToCore/ast.term snd
+  let name = CtrName/new range "Data.Sigma"
+  let args = [fst (Core/Term.lambda range param snd Data.Bool.true)]
+  return Core/Term.ctr range name args
+}
+
+ToCore/ast.term (Sugared/Term.lambda range param type body erased) = do ToCore/ {
+  ask body = ToCore/ast.term body
+  let lam = Core/Term.lambda range param body erased
+  match Maybe/ type with lam {
+    some (value=type) => do ToCore/ {
+      ask type = ToCore/ast.term type
+      return Core/Term.ann range type lam
+    }
+    none => ToCore/pure lam
+  }
+}
+
+ToCore/ast.term (Sugared/Term.app range fun args) = do ToCore/ {
+  ask fun = ToCore/ast.term fun
+  ask args = ToCore/list args (x => ToCore/ast.term x)
+  return Core/Term.app range fun args
+}
+
+ToCore/ast.term (Sugared/Term.let range name val next) = do ToCore/ {
+  ask val = ToCore/ast.term val
+  ask next = ToCore/ast.term next
+  return Core/Term.let range name val next
+}
+
+ToCore/ast.term (Sugared/Term.ann range val type) = do ToCore/ {
+  ask val = ToCore/ast.term val
+  ask type = ToCore/ast.term type
+  return Core/Term.ann range val type
+}
+
+ToCore/ast.term (Sugared/Term.lit range lit) = ToCore/ast.literal lit
+
+ToCore/ast.term (Sugared/Term.binary range op fst snd) = do ToCore/ {
+  ask fst = ToCore/ast.term fst
+  ask snd = ToCore/ast.term snd
+  return Core/Term.binary range op fst snd
+}
+
+ToCore/ast.term (Sugared/Term.hole range) = ToCore/ast.make_var_or_hole range Data.Bool.false
+
+
+// ToCore/ast.term (Sugared/Term.do range type sttm) =
+
+
+ToCore/ast.term (Sugared/Term.if range cond then else) = do ToCore/ {
+  ask cond = ToCore/ast.term cond
+  ask then = ToCore/ast.term then
+  ask else = ToCore/ast.term else
+  ToCore/ast.make_if range cond then else Data.Bool.false
+}
+
+
+ToCore/ast.term (Sugared/Term.sig_pair range fst snd) = do ToCore/ {
+  ask fst = ToCore/ast.term fst
+  ask snd = ToCore/ast.term snd
+  ToCore/ast.make_sigma_pair range fst snd Data.Bool.false
+}
+
+
+ToCore/ast.term (Sugared/Term.list range args) = do ToCore/ {
+  ask args = ToCore/list args (arg => ToCore/ast.term arg)
+  ToCore/ast.make_list range args Data.Bool.false
+}
+
+
+ToCore/ast.term (Sugared/Term.subst range name redx indx expr) = do ToCore/ {
+  ask expr = ToCore/ast.term expr
+  return Core/Term.sub range name indx redx expr // TODO: indx and redx are switched
+}
+
+
+// ToCore/ast.term (Sugared/Term.match range type scrutinee val with_vars cases motive) =
+
+
+// ToCore/ast.term (Sugared/Term.open range type var motive next) = do ToCore/ {}
+
+
+// ToCore/ast.term (Sugared/Term.seqrecord range) =
+

@@ -6,7 +6,7 @@ use Apps.Kind.SyntaxTree.Concrete.Term as Term
 use Data.String as String
 
 Entry/show (e: Entry/) : String/Build
-Entry/show (Entry/new name args type rules range) =
+Entry/show (Entry/new range name args type rules) =
   let name = AliasName/show name
   let args = String/Build.join (Data.List.map args (a => Argument/show a)) " "
   let sep = String/show ":"

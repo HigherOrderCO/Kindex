@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+#derive[setters]
+record ToCore/State.Sugars {
+  if_    : Data.Bool
+  list   : Data.Bool
+  sigma  : Data.Bool
+  u120   : Data.Bool
+  nat    : Data.Bool
+  string : Data.Bool
+  //! true if sugar available for that type, built as needed
+  match_ : Data.Map Data.Bool
+  do_   : Data.Map Data.Bool
+}

@@ -1,0 +1,24 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+use Data.Either as Either
+use Data.List as List
+
+ToCore/run (book: Sugared/Book) : Either/ (List/ ToCore/Error) Core/Book
+ToCore/run (Sugared/Book.new decls n_decls names) =
+  let state = ToCore/State.empty
+  let pass = do ToCore/ {
+    ToCore/add_names names
+    ask decls = ToCore/decl_info decls n_decls
+    ToCore/available_sugars
+    ToCore/add_n_entries n_decls
+    ToCore/ast.book decls n_decls
+    return Data.Unit.new
+  }
+  let res = (pass state)
+  let ToCore/Result.new state .. = res
+  let ToCore/State.new book info sugars n_gen_vars errs = state
+  match List/ errs {
+    cons head tail => Either/left (List/cons head tail)
+    nil => Either/right book
+  }

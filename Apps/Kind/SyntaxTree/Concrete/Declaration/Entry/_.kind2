@@ -7,10 +7,10 @@ use Apps.Kind.SyntaxTree.Range as Range
 
 #derive[match]
 record Entry/ {
+  range: Range/
   name : AliasName/
   args : Data.List Argument/
   type : Term/
   rules: Data.List Rule/
-  range: Range/
   // TODO: Add attributes
 }

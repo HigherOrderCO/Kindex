@@ -1,0 +1,5 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+
+ToCore/ast.declaration (decl: Sugared/Declaration) (i: Data.U60) :  ToCore/ Data.Unit
+ToCore/ast.declaration (Sugared/Declaration.entry val) i = ToCore/ast.entry val i

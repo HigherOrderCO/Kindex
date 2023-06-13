@@ -1,0 +1,9 @@
+use Data.List as List
+
+// Returns the size of a list without consuming it
+// Example: (List/got_length [1,2,3]) -> ([1,2,3], 3)
+List/got_length <a> (xs: List/ a) : Data.Pair (List/ a) Data.U60
+List/got_length a (List/nil  t)      = Data.Pair.new [] 0
+List/got_length a (List/cons t x xs) =
+  let Data.Pair.new (fst=xs) (snd=len) = List/got_length xs
+  Data.Pair.new (List/cons x xs) (+ 1 len)

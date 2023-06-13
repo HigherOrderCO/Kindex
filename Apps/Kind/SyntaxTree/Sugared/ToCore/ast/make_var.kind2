@@ -1,0 +1,16 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.VarName as VarName
+
+ToCore/ast.make_var (range: Range/) : ToCore/ VarName/ {
+  state => ToCore/ast.make_var.go state range
+}
+
+ToCore/ast.make_var.go (state: ToCore/State) (range: Range/) : ToCore/Result VarName/
+ToCore/ast.make_var.go (ToCore/State.new book info sugar n_gen_vars errs) range =
+  let name = Data.String.concat "x_" ((Data.U60.show n_gen_vars) "")
+  let var = (VarName/new range name)
+  let n_gen_vars = (+ 1 n_gen_vars)
+  let state = ToCore/State.new book info sugar n_gen_vars errs
+  ToCore/Result.new var state

@@ -1,0 +1,49 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Core.Term as Term
+use Apps.Kind.SyntaxTree.Range as Range
+use Data.List as List
+
+
+ToCore/ast.impl_args <t>
+  (args: List/ t)
+  (pass: t -> (ToCore/ Term/))
+  (hiddens: List/ Data.Bool)
+  (range: Range/)
+  (add_vars: Data.Bool)
+: ToCore/ (List/ Term/)
+
+// Implicit arg
+ToCore/ast.impl_args args pass (List/cons Data.Bool.true hiddens) range add_vars =
+  do ToCore/ {
+    ask head = ToCore/ast.make_var_or_hole range add_vars
+    ask tail = ToCore/ast.impl_args args pass hiddens range add_vars
+    return List/cons head tail
+  }
+
+// Explicit arg
+ToCore/ast.impl_args (List/cons arg args) pass (List/cons Data.Bool.false hiddens) range add_vars =
+  do ToCore/ {
+    ask head = (pass arg)
+    ask tail = ToCore/ast.impl_args args pass hiddens range add_vars
+    return List/cons head tail
+  }
+
+// End of args
+ToCore/ast.impl_args List/nil pass List/nil range add_vars = ToCore/pure []
+
+// should never happen
+ToCore/ast.impl_args List/nil pass (List/cons Data.Bool.false hiddens) range add_vars =
+  do ToCore/ {
+    let head = Term/err range
+    ToCore/add_err (ToCore/Error.internal "impl_args missing arg")
+    ask tail = ToCore/ast.impl_args [] pass hiddens range add_vars
+    return List/cons head tail
+  }
+
+ToCore/ast.impl_args (List/cons arg args) pass (List/nil) range add_vars =
+  do ToCore/ {
+    let head = Term/err range
+    ToCore/add_err (ToCore/Error.internal "impl_args extra arg")
+    ask tail = ToCore/ast.impl_args args pass [] range add_vars
+    return List/cons head tail
+  }

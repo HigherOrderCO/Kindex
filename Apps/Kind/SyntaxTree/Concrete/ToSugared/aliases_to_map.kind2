@@ -1,10 +1,6 @@
 use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
 use Apps.Kind.SyntaxTree.Concrete.Alias as Alias
-use Data.HashMap as HashMap
 use Data.List as List
-use Data.Maybe as Maybe
-use Data.Pair as Pair
-use Data.String as String
 
 ToSugared/aliases_to_map (aliases: List/ Alias/) : ToSugared/ Data.Unit
 ToSugared/aliases_to_map (List/cons alias aliases) =

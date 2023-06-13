@@ -1,0 +1,14 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+
+ToCore/State.Sugars.empty : ToCore/State.Sugars {
+  (ToCore/State.Sugars.new
+    (Data.Bool.false)
+    (Data.Bool.false)
+    (Data.Bool.false)
+    (Data.Bool.false)
+    (Data.Bool.false)
+    (Data.Bool.false)
+    (Data.Map.new)
+    (Data.Map.new)
+  )
+}

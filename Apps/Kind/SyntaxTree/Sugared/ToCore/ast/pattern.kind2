@@ -1,0 +1,42 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+use Apps.Kind.SyntaxTree.Core.Term as Term
+
+ToCore/ast.pattern (pat: Pattern/) : ToCore/ Term/
+
+ToCore/ast.pattern (Pattern/var range name) = ToCore/pure (Term/var range name)
+
+ToCore/ast.pattern (Pattern/ctr range name args) = do ToCore/ {
+  // TODO: should we check if the ctr is a function?
+  // i think kind used to check for this but doesnt anymore
+
+  ask ctr_id = ToCore/get_decl_id name
+  ask ToCore/State.DeclInfo.new n_args n_hiddens hiddens = ToCore/get_decl_info ctr_id
+  ask Data.Pair.new (fst=args) (snd=is_implicit) = ToCore/check_num_pats args n_args n_hiddens range
+  ask args = match Data.Bool is_implicit with args {
+    true  => ToCore/ast.impl_args args (x => ToCore/ast.pattern x) hiddens range Data.Bool.true
+    false => ToCore/list args (x => ToCore/ast.pattern x)
+  }
+  return Term/ctr range name args
+}
+
+ToCore/ast.pattern (Pattern/u60 range val) = ToCore/pure (Term/num_u60 range val)
+
+ToCore/ast.pattern (Pattern/u120 range val) = ToCore/ast.make_u120 range val
+
+ToCore/ast.pattern (Pattern/pair range fst snd) = do ToCore/ {
+  ask fst = ToCore/ast.pattern fst
+  ask snd = ToCore/ast.pattern snd
+  ToCore/ast.make_sigma_pair range fst snd Data.Bool.true
+}
+
+ToCore/ast.pattern (Pattern/list range args) = do ToCore/ {
+  ask args = ToCore/list args (arg => ToCore/ast.pattern arg)
+  ToCore/ast.make_list range args Data.Bool.true
+}
+
+ToCore/ast.pattern (Pattern/string range val) = ToCore/ast.make_string range val
+
+ToCore/ast.pattern (Pattern/char range val) = ToCore/pure (Term/num_u60 range val)
+
+ToCore/ast.pattern (Pattern/hole range) = ToCore/ast.make_var_or_hole range Data.Bool.true

@@ -1,0 +1,13 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+
+#derive[match, setters]
+record ToCore/State {
+  book : Core/Book
+  // Total number of args and number of implicits
+  info : Data.Map ToCore/State.DeclInfo
+  sugars: ToCore/State.Sugars
+  n_gen_vars: Data.U60
+  errs: Data.List ToCore/Error
+}

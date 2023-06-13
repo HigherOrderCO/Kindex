@@ -1,0 +1,12 @@
+use Apps.Kind.SyntaxTree.Sugared.Sugar as Sugar
+
+type Sugar/ {
+  list
+  string
+  if_
+  sigma
+  u120
+  nat
+  match_ (type: Data.U60)
+  do_ (type: Data.U60)
+}

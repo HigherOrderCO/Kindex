@@ -1,0 +1,56 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+use Data.List as List
+use Data.Map as Map
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+
+ToCore/decl_info (decls: Map/ Declaration/) (n_decls: Data.U60) : ToCore/ (Map/ Declaration/) {
+  ToCore/decl_info.go decls n_decls n_decls
+}
+
+ToCore/decl_info.go (decls: Map/ Declaration/) (i: Data.U60) (n_decls: Data.U60) : ToCore/ (Map/ Declaration/)
+ToCore/decl_info.go decls 0 n_decls = ToCore/pure decls
+ToCore/decl_info.go decls i n_decls =
+  let idx = (- n_decls i)
+  let Pair/new (fst=decls) (snd=decl) = Map/take decls idx
+  match Maybe/ decl with decls {
+    some (value=decl) => do ToCore/ {
+      ask decl = ToCore/decl_info.decl decl idx
+      let decls = Map/set decls idx decl
+      ToCore/decl_info.go decls (- i 1) n_decls
+    }
+    none => do ToCore/ {
+      ToCore/add_err (ToCore/Error.internal "decl_info not found")
+      ToCore/decl_info.go decls (- i 1) n_decls
+    }
+  }
+
+
+ToCore/decl_info.decl (decl: Declaration/) (i: Data.U60) : ToCore/ Declaration/
+ToCore/decl_info.decl (Declaration/entry (Entry/new range name args type rules)) i =
+  let Pair/new (fst=args) (snd=hiddens) = ToCore/decl_info.hidden_args args
+  let n_args = Data.Nat.to_u60 (List/length hiddens)
+  let n_hiddens = Data.Nat.to_u60 (List/length (List/filter hiddens ((x: Data.Bool) => x)))
+  let info = ToCore/State.DeclInfo.new n_args n_hiddens hiddens
+  let entry = Entry/new range name args type rules
+  let decl = Declaration/entry entry
+  do ToCore/ {
+    ToCore/add_decl_info i info
+    return decl
+  }
+// ToCore/decl_info.decl (Declaration/record record) i =
+// ToCore/decl_info.decl (Declaration/sum sum) i =
+
+ToCore/decl_info.hidden_args (args: List/ Argument/) : Pair/ (List/ Argument/) (List/ Data.Bool)
+ToCore/decl_info.hidden_args (List/cons (Argument/new range name type hidden erased) args) =
+  let arg = (Argument/new range name type hidden erased)
+  let Pair/new (fst=args) (snd=hiddens) = ToCore/decl_info.hidden_args args
+  let args = List/cons arg args
+  let hiddens = List/cons hidden hiddens
+  Pair/new args hiddens
+ToCore/decl_info.hidden_args (List/nil) = Pair/new [] []

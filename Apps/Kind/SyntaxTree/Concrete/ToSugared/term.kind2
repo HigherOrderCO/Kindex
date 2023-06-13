@@ -1,109 +1,77 @@
 use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
 use Apps.Kind.SyntaxTree.Concrete as Concrete
 use Apps.Kind.SyntaxTree.Sugared as Sugared
-use Data.Maybe as Maybe
 
-ToSugared/term (term: Concrete/Term) : ToSugared/ (Maybe/ Sugared/Term)
+ToSugared/term (term: Concrete/Term) : ToSugared/ Sugared/Term
 
 ToSugared/term (Concrete/Term.var range name) =
-  ToSugared/pure (Maybe/some (Sugared/Term.var range name))
+  ToSugared/pure (Sugared/Term.var range name)
 
 ToSugared/term (Concrete/Term.ctr range name args) =
   do ToSugared/ {
     ask name = ToSugared/unalias_name name
     ask args = ToSugared/list args (arg => ToSugared/term arg)
-    return do Maybe/ {
-      ask name = name
-      ask args = args
-      return Sugared/Term.ctr range name args
-    }
+    return Sugared/Term.ctr range name args
   }
 
 ToSugared/term (Concrete/Term.all range param type body erased) =
   do ToSugared/ {
     ask type = ToSugared/term type
     ask body = ToSugared/term body
-    return do Maybe/ {
-      ask type = type
-      ask body = body
-      return Sugared/Term.all range param type body erased
-    }
+    return Sugared/Term.all range param type body erased
+
   }
 
 ToSugared/term (Concrete/Term.sig_type range param fst snd) =
   do ToSugared/ {
     ask fst = ToSugared/term fst
     ask snd = ToSugared/term snd
-    return do Maybe/ {
-      ask fst = fst
-      ask snd = snd
-      return Sugared/Term.sig_type range param fst snd
-    }
+    return Sugared/Term.sig_type range param fst snd
   }
 
 ToSugared/term (Concrete/Term.lambda range param type body erased) =
   do ToSugared/ {
     ask type = ToSugared/maybe type (x => ToSugared/term x)
     ask body = ToSugared/term body
-    return do Maybe/ {
-      ask type = type
-      ask body = body
-      return Sugared/Term.lambda range param type body erased
-    }
+    return Sugared/Term.lambda range param type body erased
   }
 
 ToSugared/term (Concrete/Term.app range fun args) =
   do ToSugared/ {
     ask fun = ToSugared/term fun
     ask args = ToSugared/list args (arg => ToSugared/term arg)
-    return do Maybe/ {
-      ask fun = fun
-      ask args = args
-      return Sugared/Term.app range fun args
-    }
+    return Sugared/Term.app range fun args
   }
 
 ToSugared/term (Concrete/Term.let range name val next) =
   do ToSugared/ {
     ask val = ToSugared/term val
     ask next = ToSugared/term next
-    return do Maybe/ {
-      ask val = val
-      ask next = next
-      return Sugared/Term.let range name val next
-    }
+    return Sugared/Term.let range name val next
   }
 
 ToSugared/term (Concrete/Term.ann range val type) =
   do ToSugared/ {
     ask val = ToSugared/term val
     ask type = ToSugared/term type
-    return do Maybe/ {
-      ask val = val
-      ask type = type
-      return Sugared/Term.ann range val type
-    }
+    return Sugared/Term.ann range val type
   }
 
 ToSugared/term (Concrete/Term.lit range lit) =
   do ToSugared/ {
     ask lit = ToSugared/literal lit
-    return Maybe/some (Sugared/Term.lit range lit)
+    return Sugared/Term.lit range lit
   }
 
 ToSugared/term (Concrete/Term.binary range op fst snd) =
   do ToSugared/ {
     ask fst = ToSugared/term fst
     ask snd = ToSugared/term snd
-    return do Maybe/ {
-      ask fst = fst
-      ask snd = snd
-      return Sugared/Term.binary range op fst snd
-    }
+    return Sugared/Term.binary range op fst snd
   }
 
 ToSugared/term (Concrete/Term.hole range) =
-  ToSugared/pure (Maybe/some (Sugared/Term.hole range))
+  ToSugared/pure (Sugared/Term.hole range)
 
 // ToSugared/term (Concrete/Term.do range type sttm) =
 
@@ -112,41 +80,26 @@ ToSugared/term (Concrete/Term.if range cond then_ else_) =
     ask cond = ToSugared/term cond
     ask then_ = ToSugared/term then_
     ask else_ = ToSugared/term else_
-    return do Maybe/ {
-      ask cond = cond
-      ask then_ = then_
-      ask else_ = else_
-      return Sugared/Term.if range cond then_ else_
-    }
+    return Sugared/Term.if range cond then_ else_
   }
 
 ToSugared/term (Concrete/Term.sig_pair range fst snd) =
 do ToSugared/ {
   ask fst = ToSugared/term fst
   ask snd = ToSugared/term snd
-  return do Maybe/ {
-    ask fst = fst
-    ask snd = snd
-    return Sugared/Term.sig_pair range fst snd
-  }
+  return Sugared/Term.sig_pair range fst snd
 }
 
 ToSugared/term (Concrete/Term.list range args) =
   do ToSugared/ {
     ask args = ToSugared/list args (arg => ToSugared/term arg)
-    return do Maybe/ {
-      ask args = args
-      return Sugared/Term.list range args
-    }
+    return Sugared/Term.list range args
   }
 
 ToSugared/term (Concrete/Term.subst range name redx indx expr) =
   do ToSugared/ {
     ask expr = ToSugared/term expr
-    return do Maybe/ {
-      ask expr = expr
-      return Sugared/Term.subst range name redx indx expr
-    }
+    return Sugared/Term.subst range name redx indx expr
   }
 
 // ToSugared/term (Concrete/Term.match range type scrutinee val with_vars cases motive) =
@@ -156,12 +109,7 @@ ToSugared/term (Concrete/Term.open range type var motive next) =
     ask type = ToSugared/unalias_name type
     ask motive = ToSugared/maybe motive (x => ToSugared/term x)
     ask next = ToSugared/term next
-    return do Maybe/ {
-      ask type = type
-      ask motive = motive
-      ask next = next
-      return Sugared/Term.open range type var motive next
-    }
+    return Sugared/Term.open range type var motive next
   }
 
 // ToSugared/term (Concrete/Term.seqrecord range type expr fields oper) =

@@ -1,0 +1,21 @@
+use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
+use Apps.Kind.SyntaxTree.Sugared as Sugared
+use Apps.Kind.SyntaxTree.Core as Core
+
+ToCore/ast.book (decls: Data.Map Sugared/Declaration) (n_decls: Data.U60) : ToCore/ Data.Unit {
+  ToCore/ast.book.go decls n_decls n_decls
+}
+
+ToCore/ast.book.go (decls: Data.Map Sugared/Declaration) (n_decls: Data.U60) (i: Data.U60) : ToCore/ Data.Unit
+ToCore/ast.book.go decls n_decls 0 = ToCore/pure Data.Unit.new
+ToCore/ast.book.go decls n_decls i = do ToCore/ {
+  let idx = (- n_decls i)
+  let Data.Pair.new (fst=decls) (snd=decl) = Data.Map.take decls idx
+  match Data.Maybe decl {
+    some (value=decl) => do ToCore/ {
+      ToCore/ast.declaration decl idx
+      ToCore/ast.book.go decls n_decls (- i 1)
+    }
+    none => ToCore/add_err (ToCore/Error.internal "ast.book key")
+  }
+}

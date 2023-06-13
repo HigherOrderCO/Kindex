@@ -4,8 +4,8 @@ use Apps.Kind.SyntaxTree.Range as Range
 use Apps.Kind.SyntaxTree.CtrName as CtrName
 
 record Rule/ {
+  range : Range/
   name : CtrName/
   pats : Data.List Term/
   body : Term/
-  range : Range/
 }

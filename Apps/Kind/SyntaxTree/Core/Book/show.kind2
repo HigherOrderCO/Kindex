@@ -1,0 +1,23 @@
+use Apps.Kind.SyntaxTree.Core.Book as Book
+use Apps.Kind.SyntaxTree.Core.Entry as Entry
+use Data.Map as Map
+use Data.Maybe as Maybe
+use Data.String as String
+
+Book/show (book: Book/) : String/Build
+Book/show (Book/new entries n_entries names holes) = Book/show.go entries n_entries
+
+
+Book/show.go (entries: Map/ Entry/) (n_decls: Data.U60) : String/Build
+Book/show.go entries 0 = String/show ""
+Book/show.go entries n =
+  let n = (- n 1)
+  let Data.Pair.new (fst=entries) (snd=entry) = Map/take entries n
+  let head = match Maybe/ entry {
+    some value => Entry/show value
+    none => String/show "Error"
+  }
+  let tail = Book/show.go entries n
+  let space = String/show String/new_line
+  String/Build.many [head space tail]
+  

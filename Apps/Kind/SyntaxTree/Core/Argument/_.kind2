@@ -4,9 +4,9 @@ use Apps.Kind.SyntaxTree.Range as Range
 use Apps.Kind.SyntaxTree.VarName as VarName
 
 record Argument/ {
+  range  : Range/
   name   : VarName/
   type   : Term/
   hidden : Data.Bool
   erased : Data.Bool
-  range  : Range/
 }
