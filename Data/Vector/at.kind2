@@ -8,6 +8,14 @@ Data.Vector.at t n (Data.Fin.zero m) Data.Vector.nil =
   let empty = Data.Bool.true_not_false p
   Data.Empty.absurd empty
 Data.Vector.at t n Data.Fin.zero (Data.Vector.cons len head tail) = head
+// proving that this case is impossible
+Data.Vector.at t n (Data.Fin.succ m pred) Data.Vector.nil =
+  let n_eq_0 = Prop.Equal.refl :: Prop.Equal 0n n
+  let n_eq_succ = Prop.Equal.refl :: Prop.Equal n (Data.Nat.succ m)
+  let succ_eq_0 = Prop.Equal.chain n_eq_0 n_eq_succ
+  let p = Prop.Equal.apply (x => Data.Nat.is_zero x) succ_eq_0
+  let empty = Data.Bool.true_not_false p
+  Data.Empty.absurd empty
 Data.Vector.at t n (Data.Fin.succ m idx) (Data.Vector.cons len head tail) =
   // rewriting the tail's type to be Vec t m, instead of Vec t len
   let n_len = Prop.Equal.refl :: Prop.Equal (Data.Nat.succ len) n
