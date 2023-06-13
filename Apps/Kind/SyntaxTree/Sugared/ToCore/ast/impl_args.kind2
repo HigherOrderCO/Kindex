@@ -35,6 +35,7 @@ ToCore/ast.impl_args List/nil pass List/nil range add_vars = ToCore/pure []
 ToCore/ast.impl_args List/nil pass (List/cons Data.Bool.false hiddens) range add_vars =
   do ToCore/ {
     let head = Term/err range
+    ToCore/add_err (ToCore/Error.internal "impl_args missing arg")
     ask tail = ToCore/ast.impl_args [] pass hiddens range add_vars
     return List/cons head tail
   }
@@ -42,6 +43,7 @@ ToCore/ast.impl_args List/nil pass (List/cons Data.Bool.false hiddens) range add
 ToCore/ast.impl_args (List/cons arg args) pass (List/nil) range add_vars =
   do ToCore/ {
     let head = Term/err range
+    ToCore/add_err (ToCore/Error.internal "impl_args extra arg")
     ask tail = ToCore/ast.impl_args args pass [] range add_vars
     return List/cons head tail
   }

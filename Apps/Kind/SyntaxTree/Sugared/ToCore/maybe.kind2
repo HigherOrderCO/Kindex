@@ -1,9 +1,0 @@
-use Apps.Kind.SyntaxTree.Sugared.ToCore as ToCore
-use Data.Maybe as Maybe
-
-ToCore/maybe <t> <r> (x: Maybe/ t) (f: t -> ToCore/ r) : ToCore/ (Maybe/ r)
-ToCore/maybe (Maybe/some x) f = do ToCore/ {
-  ask res = (f x)
-  return Maybe/some res
-}
-ToCore/maybe (Maybe/none) f = ToCore/pure (Maybe/none)

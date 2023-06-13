@@ -85,6 +85,10 @@ Term/show (Term/type_u60 _) = String/show "Data.U60"
 
 Term/show (Term/type_f60 _) = String/show "Data.F60"
 
+Term/show (Term/num_u60 _ val) = Data.U60.show val
+
+// Term/show (Term/num_f60 _) = 
+
 Term/show (Term/str _ val) = s =>
   let marker = (Data.Char.show '"') :: _ -> _
   let val = (String/show val) :: _ -> _

@@ -21,7 +21,6 @@ ToCore/ast.term (Sugared/Term.ctr range name args) = do ToCore/ {
   return Core/Term.ctr range name args
 }
 
-
 ToCore/ast.term (Sugared/Term.all range param type body erased) = do ToCore/ {
   ask param = Maybe/extract param (ToCore/ast.make_var range) (x => ToCore/pure x)
   ask type = ToCore/ast.term type
