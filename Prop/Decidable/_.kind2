@@ -3,8 +3,3 @@ type Prop.Decidable (p: Type) {
   yep (proof: p)
   nop (proof: Prop.Not p)
 }
-
-// converts a Bool to its "type-theoretic" form
-Prop.Decidable.T (b: Data.Bool) : Type
-Prop.Decidable.T Data.Bool.true = Data.Unit
-Prop.Decidable.T Data.Bool.false = Data.Empty
