@@ -1,0 +1,7 @@
+Data.Nat.Ord : Trait.Ord Data.Nat
+Data.Nat.Ord = (Trait.Ord.make
+  Data.Nat
+  Data.Nat.Eq
+  (a => b => Data.Nat.Le a b)
+  Data.Nat.Le.TotalOrder
+)

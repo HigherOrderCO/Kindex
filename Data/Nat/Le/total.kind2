@@ -1,0 +1,9 @@
+Data.Nat.Le.total (n: Data.Nat) (m: Data.Nat): Data.Either (Data.Nat.Le n m) (Data.Nat.Le m n)
+Data.Nat.Le.total Data.Nat.zero m = Data.Either.left (Data.Nat.Le.zero m)
+Data.Nat.Le.total n Data.Nat.zero = Data.Either.right (Data.Nat.Le.zero n)
+Data.Nat.Le.total (Data.Nat.succ n) (Data.Nat.succ m) =
+  let ind = Data.Nat.Le.total n m
+  match Data.Either ind {
+    left val => Data.Either.left (Data.Nat.Le.succ val)
+    right val => Data.Either.right (Data.Nat.Le.succ val)
+  }

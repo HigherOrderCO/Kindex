@@ -1,0 +1,7 @@
+Data.Nat.Le.TotalOrder : Math.Relation.TotalOrder (a => b => Data.Nat.Le a b)
+Data.Nat.Le.TotalOrder = (Math.Relation.TotalOrder.new
+  (a => Data.Nat.Le.reflexive a)
+  (a => b => c => rel_ab => rel_bc => Data.Nat.Le.transitive rel_ab rel_bc)
+  (a => b => rel_ab => rel_ba => Data.Nat.Le.antisymmetric rel_ab rel_ba)
+  (a => b => Data.Nat.Le.total a b)
+)

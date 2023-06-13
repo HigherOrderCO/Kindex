@@ -1,3 +1,4 @@
+#derive[match]
 record Trait.Eq (t: Type) {
   eq : t -> t -> Data.Bool
   dec_eq : (a: t) -> (b: t) -> Prop.Decidable (Prop.Equal a b)
