@@ -1,0 +1,25 @@
+Math.Relation (t) : Type
+Math.Relation t = t -> t -> Type
+
+// Properties
+Math.Relation.Reflexive <t> (rel: Math.Relation t) : Type
+Math.Relation.Reflexive t rel = (a: t) -> rel a a
+
+Math.Relation.Transitive <t> (rel: Math.Relation t) : Type
+Math.Relation.Transitive t rel = (a: t) -> (b: t) -> (c: t) -> rel a b -> rel b c -> rel a c
+
+Math.Relation.Antisymmetric <t> (rel: Math.Relation t) : Type
+Math.Relation.Antisymmetric t rel = (a: t) -> (b: t) -> rel a b -> rel b a -> Prop.Equal a b
+
+// alternative definition of antisymmetry
+Math.Relation.Antisymmetric.alt <t> (rel: Math.Relation t) : Type
+Math.Relation.Antisymmetric.alt t rel = (a: t) -> (b: t) -> rel a b -> (Prop.Not (Prop.Equal a b)) -> Prop.Not (rel b a)
+
+Math.Relation.Total <t> (rel: Math.Relation t) : Type
+Math.Relation.Total t rel = (a: t) -> (b: t) -> Data.Either (rel a b) (rel b a)
+
+Math.Relation.Antisymmetric_to_Antisymmetric.alt <t> <rel: Math.Relation t> (as: Math.Relation.Antisymmetric rel): Math.Relation.Antisymmetric.alt rel
+Math.Relation.Antisymmetric_to_Antisymmetric.alt t rel as =
+  a => b => rel_ab => a_neq_b => rel_ba =>
+    let a_eq_b = as a b rel_ab rel_ba
+    Prop.Not.contradict a_neq_b a_eq_b

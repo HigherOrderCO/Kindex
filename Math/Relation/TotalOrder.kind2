@@ -1,0 +1,7 @@
+#derive[match]
+record Math.Relation.TotalOrder <t: Type> (rel: Math.Relation t) {
+  reflexive: Math.Relation.Reflexive rel
+  transitive: Math.Relation.Transitive rel
+  antisymmetric: Math.Relation.Antisymmetric rel
+  total: Math.Relation.Total rel
+}
