@@ -1,0 +1,2 @@
+Prop.Not.mirror <t> <a: t> <b: t> (n: Prop.Not (Prop.Equal a b)): Prop.Not (Prop.Equal b a)
+Prop.Not.mirror t a b a_neq_b = b_eq_a => a_neq_b (Prop.Equal.mirror b_eq_a)

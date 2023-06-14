@@ -1,6 +1,6 @@
-record Trait.Ord (t) {
+#derive[match]
+record Trait.Ord (t) <rel: Math.Relation t> {
   eq: Trait.Eq t
-  rel: Math.Relation t
   total_order: Math.Relation.TotalOrder rel
   dec_le: (a: t) -> (b: t) -> Prop.Decidable (rel a b)
 }

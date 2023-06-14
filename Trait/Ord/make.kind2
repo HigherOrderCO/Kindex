@@ -26,7 +26,6 @@ Trait.Ord.make t eq rel total_order =
   let dec_le = GetDecidableLeProcedure t eq rel total_order
   (Trait.Ord.new
     eq
-    rel
     total_order
     dec_le
   )
