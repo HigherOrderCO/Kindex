@@ -1,0 +1,4 @@
+use Apps.Kind.Loader as Loader
+
+Loader/ : Type
+Loader/ = Loader/State -> Loader/Result

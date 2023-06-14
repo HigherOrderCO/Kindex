@@ -1,0 +1,11 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Book as Book
+
+#derive[match]
+record Loader/State {
+  book : Book/
+  crnt_id : Data.U60
+  files : Data.Map Data.String
+  loaded : Data.HashMap Data.U60
+  errs : Data.List Loader/Error
+}

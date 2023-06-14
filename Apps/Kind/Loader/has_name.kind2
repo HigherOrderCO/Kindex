@@ -1,0 +1,3 @@
+use Apps.Kind.Loader as Loader
+
+Loader/has_name (name: CtrName/) : Loader/ Data.Bool

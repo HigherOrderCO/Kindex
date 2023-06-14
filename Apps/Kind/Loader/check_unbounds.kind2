@@ -1,0 +1,5 @@
+use Apps.Kind.Loader as Loader
+
+//! Returns unbound functions that need to be loaded.
+//! Receives a list of declarations to check for unbounds.
+Loader/check_unbounds (decl_ids: List/ Data.U60) : 

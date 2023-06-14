@@ -1,0 +1,6 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Book as Book
+
+Loader/State.empty : Loader/State {
+  Loader/State.new Book/empty 0 Data.Map.new []
+}

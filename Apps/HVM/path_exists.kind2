@@ -1,0 +1,2 @@
+#axiom
+Apps.HVM.path_exists (path: Data.String) : Data.U60

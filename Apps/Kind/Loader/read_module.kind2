@@ -1,0 +1,25 @@
+use Apps.Kind.Loader as Loader
+use Data.Either as Either
+use Data.String.Parser as Parser
+use Apps.Kind.SyntaxTree.Concrete.Module as Module
+use Apps.Kind.Parser as KParser
+
+Loader/read_module (path: Data.String) : Loader/ (Either/ Parser/Error Module/) {
+  do Loader/ {
+    let cont = (code: Data.String) => do Loader/ {
+      ask file_id = Loader/get_file_id
+      let custom = KParser/State.new file_id
+      let state = Parser/State.new custom code "" 0
+      let res = KParser/module state
+      let Pair/new (fst=state) (snd=res) = match Parser/Result res {
+        done state result => Pair/new state (Either/right result)
+        fail state error => Pair/new state (Either/left error)
+      }
+      let Parser/State.new custom left back index = state
+      let code = Data.String.reverse_over back left
+      Loader/add_file code path
+      return res
+    }
+    Apps.HVM.load path cont
+  }
+}

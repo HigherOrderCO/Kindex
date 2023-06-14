@@ -1,0 +1,10 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.Parser as Parser
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Range as Range
+
+type Loader/Error {
+  repeated_decl (name: CtrName/) (prev: Range/)
+  parse_err (errs: Parser/Error)
+  internal (msg: Data.String)
+}

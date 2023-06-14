@@ -1,0 +1,11 @@
+use Apps.Kind.Loader as Loader
+
+Loader/add_err (err: Loader/Error) : Loader/ Data.Unit {
+  state => Loader/add_err.go state err
+}
+
+Loader/add_err.go (state: Loader/State) (err: Loader/Error) : Loader/Result Data.Unit
+Loader/add_err.go (Loader/State.new book crnt_id files loaded errs) err =
+  let errs = Data.List.cons err errs
+  let state = Loader/State.new book crnt_id files loaded errs
+  Loader/Result.new Data.Unit.new state
