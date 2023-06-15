@@ -1,0 +1,11 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Rule as Rule
+
+Loader/unbound.rule (arg: Rule/) : Loader/ (Data.Pair Rule/ (Data.List Data.String))
+Loader/unbound.rule (Rule/new range name pats body) = do Loader/ {
+  ask Data.Pair.new (fst=pats) (snd=unbounds_pats) = Loader/list_pair pats (x => Loader/unbound.pattern x)
+  ask Data.Pair.new (fst=body) (snd=unbounds_body) = Loader/unbound.term body
+  let rule = (Rule/new range name pats body)
+  let unbounds = List/flatten [unbounds_args unbounds_type unbounds_rules]
+  return Data.Pair.new rule unbounds
+}

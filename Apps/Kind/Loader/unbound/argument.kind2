@@ -1,0 +1,9 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+
+Loader/unbound.argument (arg: Argument/) : Loader/ (Data.Pair Argument/ (Data.List Data.String))
+Loader/unbound.argument (Argument/new range name type hidden erased) = do Loader/ {
+  ask Data.Pair.new (fst=type) (snd=unbounds) = Loader/maybe_pair type [] (x => Loader/unbound.term x)
+  let arg = (Argument/new range name type hidden erased)
+  return Data.Pair.new rule unbounds
+}

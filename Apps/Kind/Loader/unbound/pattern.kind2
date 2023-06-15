@@ -1,0 +1,4 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+
+Loader/unbound.pattern (pat: Pattern/) : Loader/ (Data.Pair Pattern/ (Data.List Data.String))

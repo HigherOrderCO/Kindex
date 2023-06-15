@@ -1,5 +1,28 @@
 use Apps.Kind.Loader as Loader
+use Data.List as List
 
+//! Checks for any unbound names, both variables and constructors.
 //! Returns unbound functions that need to be loaded.
 //! Receives a list of declarations to check for unbounds.
-Loader/check_unbounds (decl_ids: List/ Data.U60) : 
+Loader/check_unbounds (decl_ids: List/ Data.U60) : Loader/ (List/ Data.String) {
+  Loader/check_unbounds.go decl_ids []
+}
+
+Loader/check_unbounds.go (decl_ids: List/ Data.U60) (unbounds: List/ (List/ Data.String)) : Loader/ (List/ Data.String)
+Loader/check_unbounds.go (List/cons decl_id decl_ids) unbounds = do Loader/ {
+  ask decl = Loader/take_decl decl_id
+  ask head = match Data.Maybe decl {
+    some (value=decl) => do Loader/ {
+      ask Data.Pair.new (fst=decl) (snd=unbounds) = Loader/unbound.decl decl
+      Loader/set_decl decl decl_id
+      return unbounds
+    }
+    none => do Loader/ {
+      Loader/add_err (Loader/Error.internal "check_unbounds key")
+      return []
+    }
+  }
+  let unbounds = List/cons head unbounds
+  Loader/check_unbounds.go decl_ids unbounds
+}
+Loader/check_unbounds.go (List/nil) unbounds = Loader/pure (List/flatten unbounds)

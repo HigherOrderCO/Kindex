@@ -5,7 +5,7 @@ use Data.Maybe as Maybe
 
 Loader/add_decl (decl: Declaration/) : Loader/ (Maybe/ Data.U60)
 Loader/add_decl (Declaration/entry (Entry/new range name args type rules)) = do Loader/ {
-  ask decl = Loader/take_decl name
+  ask decl = Loader/take_decl_by_name name
   match Maybe/ decl {
     some (value=decl) =>
     do Loader/ {
