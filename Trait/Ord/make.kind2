@@ -5,7 +5,7 @@ GetDecidableLeProcedure <t>
   : (a: t) -> (b: t) -> Prop.Decidable (rel a b)
 GetDecidableLeProcedure t (Trait.Eq.new eq dec_eq) rel total_order = a => b =>
   let Math.Relation.TotalOrder.new total antisymmetric reflexive .. = total_order
-  let as_inv = Math.Relation.Antisymmetric.to_Antisymmetric.alt antisymmetric
+  let as_inv = Math.Relation.Antisymmetric.to_Antisymmetric_alt antisymmetric
   let either = total a b
   match Data.Either either {
     left val => Prop.Decidable.yep val
