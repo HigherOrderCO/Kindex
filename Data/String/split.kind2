@@ -1,17 +1,20 @@
-Data.String.split (str: Data.String) (find: Data.String) : Data.List Data.String {
-  Data.String.split.go str find Data.String.nil
+use Data.String as String
+
+String/split (str: String/) (find: String/) : Data.List String/ {
+  String/split.go str find "" []
 }
 
-Data.String.split.go (str: Data.String) (find: Data.String) (last: Data.String) : Data.List Data.String
-Data.String.split.go  Data.String.nil        find last = Data.List.pure last
-Data.String.split.go (Data.String.cons x xs) find last =
-  let str = Data.String.cons x xs
-  if Data.String.starts_with str find {
-    let len  = Data.String.length find
-    let drop = Data.String.drop len str
-    let tail = Data.String.split.go drop find Data.String.nil
-    Data.List.cons last tail
-  } else {
-    let next = Data.String.pure x
-    Data.String.split.go xs find (Data.String.concat last next)
+String/split.go (str: String/) (find: String/) (last: String/) (acc: Data.List String/): Data.List String/
+String/split.go Data.String.nil find last acc = acc
+String/split.go str find last acc =
+  let str = String/remove_prefix str find
+  match Data.Either str with last find acc {
+    left (val=str) =>
+      match String/ str {
+        cons head tail => String/split.go tail find (String/cons head last) acc
+        nil => []
+      }
+    right (val=str) =>
+      let acc = Data.List.cons last acc
+      String/split.go str find String/nil acc
   }
