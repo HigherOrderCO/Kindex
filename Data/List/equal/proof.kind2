@@ -1,0 +1,43 @@
+Data.List.equal.proof <t> (eq: Trait.Eq t) (a: Data.List t) (b: Data.List t): Prop.Decidable (Prop.Equal a b)
+Data.List.equal.proof t eq Data.List.nil Data.List.nil = Prop.Decidable.yep Prop.Equal.refl
+Data.List.equal.proof t eq (Data.List.cons ha ta) Data.List.nil =
+  Prop.Decidable.nop (a_eq_nil =>
+    let app = Prop.Equal.apply (x => Data.List.is_nil x) a_eq_nil
+    Data.Bool.false_not_true app
+  )
+Data.List.equal.proof t eq Data.List.nil (Data.List.cons hb tb) =
+  Prop.Decidable.nop (nil_eq_b =>
+    let app = Prop.Equal.apply (x => Data.List.is_nil x) nil_eq_b
+    Data.Bool.true_not_false app
+  )
+Data.List.equal.proof t eq (Data.List.cons ha ta) (Data.List.cons hb tb) =
+  let Trait.Eq.new dec_eq .. = eq
+  let ind = Data.List.equal.proof t eq ta tb
+  let h_eq = dec_eq ha hb
+  match Prop.Decidable ind {
+    nop =>
+      let ta_neq_tb = ind.proof
+      Prop.Decidable.nop (a_eq_b =>
+        let ta_eq_tb = Prop.Equal.apply (x => Data.List.tail x) a_eq_b
+        ta_neq_tb ta_eq_tb
+      )
+    yep =>
+      let ta_eq_tb = ind.proof
+      match Prop.Decidable h_eq {
+        nop =>
+          let ha_neq_hb = h_eq.proof
+          Prop.Decidable.nop (a_eq_b =>
+            let ha_eq_hb = Prop.Equal.apply (x => Data.List.head_or x ha) a_eq_b
+            ha_neq_hb ha_eq_hb
+          )
+        yep =>
+          let ha_eq_hb = h_eq.proof
+          let app = Prop.Equal.apply (x => Data.List.cons ha x) ta_eq_tb
+          let rwt = (Prop.Equal.rewrite
+              ha_eq_hb
+              (x => Prop.Equal (Data.List.cons ha ta) (Data.List.cons x tb))
+              app
+          )
+          Prop.Decidable.yep rwt
+      }
+  }

@@ -1,0 +1,6 @@
+type Data.Nat.Le ~ (n: Data.Nat) (m: Data.Nat) {
+  zero <n: Data.Nat>
+    : Data.Nat.Le 0n n
+  succ <n: Data.Nat> <m: Data.Nat> (pred: Data.Nat.Le n m)
+    : Data.Nat.Le (Data.Nat.succ n) (Data.Nat.succ m)
+}

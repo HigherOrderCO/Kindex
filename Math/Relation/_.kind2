@@ -1,0 +1,12 @@
+Math.Relation (t) : Type
+Math.Relation t = t -> t -> Type
+
+// Properties
+Math.Relation.Reflexive <t> (rel: Math.Relation t) : Type
+Math.Relation.Reflexive t rel = (a: t) -> rel a a
+
+Math.Relation.Transitive <t> (rel: Math.Relation t) : Type
+Math.Relation.Transitive t rel = (a: t) -> (b: t) -> (c: t) -> rel a b -> rel b c -> rel a c
+
+Math.Relation.Total <t> (rel: Math.Relation t) : Type
+Math.Relation.Total t rel = (a: t) -> (b: t) -> Data.Either (rel a b) (rel b a)

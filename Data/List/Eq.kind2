@@ -1,0 +1,6 @@
+Data.List.Eq <t> (eq: Trait.Eq t): Trait.Eq (Data.List t)
+Data.List.Eq t eq = (
+  Trait.Eq.make
+    (Data.List t)
+    (a => b => Data.List.equal.proof t eq a b)
+  )
