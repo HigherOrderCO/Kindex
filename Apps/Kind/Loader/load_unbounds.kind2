@@ -1,0 +1,28 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.List as List
+
+Loader/load_unbounds (unbounds: List/ CtrName/) (root: Data.Path) : Loader/ Data.Unit
+Loader/load_unbounds (List/cons (CtrName/new range name) unbounds) = do Loader/ {
+  let ctr_name = (CtrName/new range name)
+  ask has_name = Loader/has_name name
+  if has_name {
+    pass
+    // TODO check if being called in accessible place
+  } else {
+    ask path = Loader/get_path_for_name name
+    ask has_path = Loader/has_path path
+    if has_path {
+      // File is loaded but doesnt contain Ctr
+      Error/unbound_ctr ctr_name
+    } else {
+      //
+      
+
+      if Data.Bool.and file_exists dir_exists {
+      } 
+    }
+  }
+  Loader/load_unbounds unbounds
+}
+Loader/load_unbounds (List/nil) = Loader/pure Data.Unit.new

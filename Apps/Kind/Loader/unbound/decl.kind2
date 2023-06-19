@@ -3,14 +3,15 @@ use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
 use Apps.Kind.SyntaxTree.Sugared.Declaration.SumType as SumType
 use Apps.Kind.SyntaxTree.Sugared.Declaration.RecordType as RecordType
+use Apps.Kind.SyntaxTree.CtrName as CtrName
 
-Loader/unbound.decl (decl: Declaration/) : Loader/ (Data.Pair Declaration/ (Data.List Data.String))
+Loader/unbound.decl (decl: Declaration/) : Loader/ (Data.Pair Declaration/ (Data.List CtrName/))
 Loader/unbound.decl (Declaration/entry (Entry/new range name args type rules)) = do Loader/ {
   ask Data.Pair.new (fst=args) (snd=unbounds_args) = Loader/list_pair args (x => Loader/unbound.argument x)
   ask Data.Pair.new (fst=type) (snd=unbounds_type) = Loader/unbound.term type
   ask Data.Pair.new (fst=rules) (snd=unbounds_rules) = Loader/list_pair rules (x => Loader/unbound.rules x)
   let decl = (Declaration/entry (Entry/new range name args type rules))
-  let unbounds = List/flatten [unbounds_args unbounds_type unbounds_rules]
+  let unbounds = Data.List.flatten [unbounds_args unbounds_type unbounds_rules]
   return Data.Pair.new decl unbounds
 }
 // Loader/unbound.decl (Declaration/sum sum) =

@@ -1,0 +1,10 @@
+use Apps.Kind.Loader as Loader
+use Data.Maybe as Maybe
+
+//! Applies Maybe.map through the Loader encapsulation
+Loader/maybe <t> (x: Maybe/ t) (pass: t -> (Loader/ r)) : Loader/ (Maybe/ r)
+Loader/maybe (Maybe/some x) pass = do Loader/ {
+  ask res = (pass x)
+  return Maybe/some x
+}
+Loader/maybe (Maybe/none) = Loader/pure Maybe/none

@@ -1,8 +1,8 @@
 use Apps.Kind.Loader as Loader
 
-Loader/run (entry_path: Data.String) : Either/ (List/ Loader/Error) Book/ {
+Loader/run (entry_path: Data.Path) (root_path: Data.Path) : Either/ (List/ Loader/Error) Book/ {
   let state = Loader/State.empty
-  let pass = Loader/load_module entry_path 0
+  let pass = Loader/load_module entry_path root_path
   let Loader/Result val state = (pass state)
   let Loader/State book crnt_id files loaded errs = state
   

@@ -1,16 +1,15 @@
 use Apps.Kind.Loader as Loader
 use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
-use Data.Either as Either
 
-Loader/load_module (path: Data.String) : Loader/ Data.Unit {
+Loader/load_module (path: Data.Path) (root: Data.Path): Loader/ Data.Unit {
   do Loader/ {
     ask module = Loader/read_module path
-    match Either/ book = (ToSugared/run module) {
+    match Data.Either book = (ToSugared/run module) {
       left (val=errs) => Loader/add_err (Loader/Error.parse_err errs)
       right (val=book) => do Loader/ {
         ask new_decls = Loader/add_book book
         ask unbounds = Loader/check_unbounds new_decls
-        Loader/load_unbounds unbounds
+        Loader/load_unbounds unbounds root
       }
     }
   }

@@ -1,0 +1,35 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+Loader/get_path_for_name (base_path: Data.String) (name: CtrName/) (root: Data.Path) (search_parent: Data.Bool) : Data.Maybe Data.Path
+Loader/get_path_for_name (CtrName/ range name) root search_parent =
+  let ctr_name = (CtrName/new range name)
+  let base_path = Data.String.flatten [root "/" base_path]
+  let file_path = Data.String.concat base_path ".kind2"
+  let dir_path = Data.String.concat base_path "/_.kind2"
+  let search_options = [file_path dir_path]
+  let available_paths = Data.List.filter search_options (x => Apps.HVM.path_is_file x)
+  let num_paths = Data.List.length available_paths
+  if Data.U60.to_bool (== num_paths 1) {
+    let path = Data.Maybe.default (Data.List.head available_paths) ""
+    Data.Maybe.some path
+  } else {
+    if Data.U60.to_bool (== num_paths 0) {
+      if search_parent {
+
+      } else {
+        Data.Maybe.none
+      }
+    } else {
+      Error/multiple_paths ctr_name available_paths
+      Data.Maybe.none
+    }
+  }
+
+Loader/get_path_for_name.2 (available_paths: Data.List Data.Path) (n_paths: Data.U60) (name: CtrName/) (root: Data.Path) (search_parent: Data.Bool) : Data.Maybe Data.Path
+Loader/get_path_for_name.2 available_paths 0 name root search_parent =
+  if search_parent {
+    Loader/get_path_for_name name root Data.Bool.false
+  } else {
+    Data.Maybe.none
+  }

@@ -4,7 +4,7 @@ use Data.String.Parser as Parser
 use Apps.Kind.SyntaxTree.Concrete.Module as Module
 use Apps.Kind.Parser as KParser
 
-Loader/read_module (path: Data.String) : Loader/ (Either/ Parser/Error Module/) {
+Loader/read_module (path: Data.Path) : Loader/ (Either/ Parser/Error Module/) {
   do Loader/ {
     let cont = (code: Data.String) => do Loader/ {
       ask file_id = Loader/get_file_id
