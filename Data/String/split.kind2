@@ -1,20 +1,18 @@
 use Data.String as String
+use Data.List as List
 
-String/split (str: String/) (find: String/) : Data.List String/ {
+String/split (str: String/) (find: String/) : List/ String/ {
   String/split.go str find "" []
 }
 
-String/split.go (str: String/) (find: String/) (last: String/) (acc: Data.List String/): Data.List String/
-String/split.go Data.String.nil find last acc = acc
+String/split.go (str: String/) (find: String/) (last: String/) (acc: List/ String/): List/ String/
+String/split.go ""  find last acc = List/reverse (List/cons (String/reverse last) acc)
 String/split.go str find last acc =
   let str = String/remove_prefix str find
   match Data.Either str with last find acc {
-    left (val=str) =>
-      match String/ str {
-        cons head tail => String/split.go tail find (String/cons head last) acc
-        nil => []
-      }
-    right (val=str) =>
-      let acc = Data.List.cons last acc
-      String/split.go str find String/nil acc
+    left (val=str) => match String/ str {
+      cons head tail => String/split.go tail find (String/cons head last) acc
+      nil => []  // impossible case, remove_prefix didn't remove anything and string is not empty by the pattern
+    }
+    right (val=str) => String/split.go str find "" (List/cons (String/reverse last) acc)
   }

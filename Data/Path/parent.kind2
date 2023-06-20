@@ -6,7 +6,7 @@ Data.Path.parent (path: Data.Path) : Data.Path {
   Data.Path.parent.go (Data.String.split_last path "/")
 }
 
-Data.Path.parent.go (parent: Data.String) (file: Data.String) : Data.Path
-Data.Path.parent.go ""     "" = ""
-Data.Path.parent.go parent "" = Data.Path.parent parent
-Data.Path.parent.go parent  _ = parent
+Data.Path.parent.go (path: Data.Pair Data.String Data.String) : Data.Path
+Data.Path.parent.go (Data.Pair.new ""     "") = ""
+Data.Path.parent.go (Data.Pair.new parent "") = Data.Path.parent parent
+Data.Path.parent.go (Data.Pair.new parent  _) = parent
