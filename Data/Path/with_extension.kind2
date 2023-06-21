@@ -1,0 +1,10 @@
+Data.Path.with_extension (path: Data.Path) (ext: Data.String) : Data.Path {
+  let Data.Pair.new (fst=root) (snd=file) = Data.String.split_last path "/"
+  match Data.String file {
+    cons head tail =>
+      let file = Data.String.cons head tail
+      let Data.Pair.new (fst=file) (snd=old_ext) = Data.String.split_last file "."
+      Data.String.join "" [root "/" file "." ext]
+    nil => root
+  }
+}

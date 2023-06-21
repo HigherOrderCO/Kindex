@@ -1,0 +1,3 @@
+Data.Path.join (pfx: Data.Path) (sfx: Data.Path) : Data.Path {
+  Data.String.flatten [pfx "/" sfx]
+}

@@ -8,5 +8,8 @@ String/split_last (xs: String/) (sep: String/) : Data.Pair String/ String/ {
     some value => value
     none => ""
   }
-  Data.Pair.new head tail
+  match String/ head {
+    cons (head=x) (tail=xs) => Data.Pair.new (String/cons x xs) tail
+    nil => Data.Pair.new tail ""
+  }
 }
