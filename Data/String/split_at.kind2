@@ -1,8 +1,10 @@
-Data.String.split_at (n: Data.Nat) (xs: Data.String) : Data.Pair Data.String Data.String {
-  Data.String.split_at.go n xs ""
+use Data.String as String
+
+String/split_at (n: Data.Nat) (xs: String/) : Data.Pair String/ String/ {
+  String/split_at.go n xs ""
 }
 
-Data.String.split_at.go (n: Data.Nat) (xs: Data.String) (fst: Data.String) : Data.Pair Data.String Data.String
-Data.String.split_at.go  n            Data.String.nil        fst = Data.Pair.new fst Data.String.nil
-Data.String.split_at.go  Data.Nat.zero    (Data.String.cons x xs) fst = Data.Pair.new fst xs
-Data.String.split_at.go (Data.Nat.succ n) (Data.String.cons x xs) fst = Data.String.split_at.go n xs (Data.String.cons x fst)
+String/split_at.go (n: Data.Nat) (xs: String/) (fst: String/) : Data.Pair String/ String/
+String/split_at.go (Data.Nat.succ n) (String/cons x xs) fst = String/split_at.go n xs (String/cons x fst)
+String/split_at.go  Data.Nat.zero    (String/cons x xs) fst = Data.Pair.new (String/reverse fst) (String/cons x xs)
+String/split_at.go  n                 String/nil        fst = Data.Pair.new (String/reverse fst) String/nil
