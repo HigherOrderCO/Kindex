@@ -1,15 +1,31 @@
 use Data.String as String
 
-String/split_last (xs: String/) (sep: String/) : Data.Pair String/ String/ {
-  let segs = String/split xs sep
-  let Data.Pair.new (fst=head) (snd=tail) = Data.List.pop_back segs
-  let head = Data.String.intercalate sep head
-  let tail = match Data.Maybe tail {
-    some value => value
-    none => ""
-  }
-  match String/ head {
-    cons (head=x) (tail=xs) => Data.Pair.new (String/cons x xs) tail
-    nil => Data.Pair.new tail ""
+//! Splits xs in two at the rightmost occurence of sep
+String/split_last (xs: String/) (sep: String/) : Data.Either String/ (Data.Pair String/ String/) {
+  let Data.Pair.new (fst=xs) (snd=last_occurrence) = String/split_last.go xs sep 0 Data.Maybe.none ""
+  match Data.Maybe last_occurrence with xs {
+    some value =>
+      let Data.Pair.new (fst=head) (snd=tail) = (String/split_at (Data.U60.to_nat value) xs)
+      let tail = Data.Either.extract (String/remove_prefix tail sep) (x => x) (x => x)
+      Data.Either.right (Data.Pair.new head tail)
+    none => Data.Either.left xs
   }
 }
+
+// Finds the last occurrence of the separator
+String/split_last.go (xs: String/) (sep: String/) (i: Data.U60) (last_occur: Data.Maybe Data.U60) (back: String/) : Data.Pair String/ (Data.Maybe Data.U60)
+String/split_last.go "" sep i last_occur back = Data.Pair.new (String/reverse back) last_occur
+String/split_last.go xs sep i last_occur back =
+  let xs = String/remove_prefix xs sep
+  match Data.Either xs with sep back {
+    left val => match String/ val {
+      cons head tail => String/split_last.go tail sep (+ i 1) last_occur (String/cons head back)
+      nil => Data.Pair.new "" Data.Maybe.none  // impossible case
+    }
+    right val =>
+      let xs = String/concat sep val
+      match String/ xs {
+        cons head tail => String/split_last.go tail sep (+ i 1) (Data.Maybe.some i) (String/cons head back)
+        nil => Data.Pair.new "" Data.Maybe.none  // impossible case
+      }
+  }

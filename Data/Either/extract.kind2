@@ -1,0 +1,3 @@
+Data.Either.extract <l> <r> <t> (x: Data.Either l r) (lf: l -> t) (rf: r -> t) : t
+Data.Either.extract (Data.Either.left  x) lf rf = lf x
+Data.Either.extract (Data.Either.right x) lf rf = rf x
