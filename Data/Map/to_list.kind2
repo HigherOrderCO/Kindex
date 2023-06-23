@@ -1,0 +1,3 @@
+Data.Map.to_list <t> (map: Data.Map t) : Data.List t {
+  Data.Bits.Map.to_list map
+}
