@@ -1,0 +1,12 @@
+Math.Relation.Antisymmetric <t> (rel: Math.Relation t) : Type
+Math.Relation.Antisymmetric t rel = (a: t) -> (b: t) -> rel a b -> rel b a -> Prop.Equal a b
+
+// alternative definition of antisymmetry
+Math.Relation.Antisymmetric.alt <t> (rel: Math.Relation t) : Type
+Math.Relation.Antisymmetric.alt t rel = (a: t) -> (b: t) -> rel a b -> (Prop.Not (Prop.Equal a b)) -> Prop.Not (rel b a)
+
+Math.Relation.Antisymmetric.to_Antisymmetric_alt <t> <rel: Math.Relation t> (as: Math.Relation.Antisymmetric rel): Math.Relation.Antisymmetric.alt rel
+Math.Relation.Antisymmetric.to_Antisymmetric_alt t rel as =
+  a => b => rel_ab => a_neq_b => rel_ba =>
+    let a_eq_b = as a b rel_ab rel_ba
+    Prop.Not.contradict a_neq_b a_eq_b

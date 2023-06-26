@@ -1,0 +1,6 @@
+Data.Nat.zero_neq_succ <m: Data.Nat> (n: Data.Nat) (e0: Prop.Equal 0n n) (e1: Prop.Equal n (Data.Nat.succ m)) : Data.Empty {
+  let succ_eq_0 = Prop.Equal.chain e0 e1
+  let p = Prop.Equal.apply (x => Data.Nat.is_zero x) succ_eq_0
+  let empty = Data.Bool.true_not_false p
+  empty
+}

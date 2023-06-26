@@ -1,0 +1,27 @@
+Data.Nat.Le.antisymmetric <n: Data.Nat> <m: Data.Nat> (nm: Data.Nat.Le n m) (mn: Data.Nat.Le m n) : Prop.Equal n m
+Data.Nat.Le.antisymmetric n m Data.Nat.Le.zero Data.Nat.Le.zero = Prop.Equal.refl
+Data.Nat.Le.antisymmetric n m (Data.Nat.Le.succ a1 b1 nm) (Data.Nat.Le.succ a2 b2 mn) =
+  let eq0 = Prop.Equal.refl :: Prop.Equal (Data.Nat.succ b2) n
+  let eq1 = Prop.Equal.refl :: Prop.Equal n (Data.Nat.succ a1)
+  let b2_eq_a1 = Prop.Equal.apply (x => Data.Nat.pred x) (Prop.Equal.chain eq0 eq1)
+  // mn  : a2 <= b2
+  // mn2 : a2 <= a1
+  let mn2 = Prop.Equal.rewrite b2_eq_a1 (x => Data.Nat.Le a2 x) mn
+
+  let eq2 = Prop.Equal.refl :: Prop.Equal (Data.Nat.succ a2) m
+  let eq3 = Prop.Equal.refl :: Prop.Equal m (Data.Nat.succ b1)
+  let a2_eq_b1 = Prop.Equal.apply (x => Data.Nat.pred x) (Prop.Equal.chain eq2 eq3)
+  // mn2 : a2 <= a1
+  // mn3 : b1 <= a1
+  let mn3 = Prop.Equal.rewrite a2_eq_b1 (x => Data.Nat.Le x a1) mn2
+  
+  let ind = Data.Nat.Le.antisymmetric nm mn3
+  Prop.Equal.apply (x => Data.Nat.succ x) ind
+
+// impossible cases
+Data.Nat.Le.antisymmetric n m Data.Nat.Le.zero (Data.Nat.Le.succ mn) =
+  let empty = Data.Nat.zero_neq_succ n Prop.Equal.refl Prop.Equal.refl
+  Data.Empty.absurd empty
+Data.Nat.Le.antisymmetric n m (Data.Nat.Le.succ nm) Data.Nat.Le.zero =
+  let empty = Data.Nat.zero_neq_succ m Prop.Equal.refl Prop.Equal.refl
+  Data.Empty.absurd empty

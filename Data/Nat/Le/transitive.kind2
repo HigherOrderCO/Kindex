@@ -1,0 +1,14 @@
+Data.Nat.Le.transitive <a: Data.Nat> <b: Data.Nat> <c: Data.Nat>
+  (le1: Data.Nat.Le a b) (le2: Data.Nat.Le b c)
+  : Data.Nat.Le a c
+Data.Nat.Le.transitive a b c Data.Nat.Le.zero bc = Data.Nat.Le.zero c
+Data.Nat.Le.transitive a b c (Data.Nat.Le.succ x1 y1 ab) Data.Nat.Le.zero =
+  let empty = Data.Nat.zero_neq_succ b Prop.Equal.refl Prop.Equal.refl
+  Data.Empty.absurd empty
+Data.Nat.Le.transitive a b c (Data.Nat.Le.succ x1 y1 ab) (Data.Nat.Le.succ x2 y2 bc) =
+  let eq0 = Prop.Equal.refl :: Prop.Equal (Data.Nat.succ x2) b
+  let eq1 = Prop.Equal.refl :: Prop.Equal b (Data.Nat.succ y1)
+  let x2_eq_y1 = Prop.Equal.apply (x => Data.Nat.pred x) (Prop.Equal.chain eq0 eq1)
+  let bc_ = Prop.Equal.rewrite x2_eq_y1 (x => Data.Nat.Le x y2) bc
+  let ind = Data.Nat.Le.transitive ab bc_
+  Data.Nat.Le.succ ind

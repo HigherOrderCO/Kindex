@@ -1,0 +1,41 @@
+Data.Pair.Eq <t> <u> (eq_t: Trait.Eq t) (eq_u: Trait.Eq u): Trait.Eq (Data.Pair t u)
+Data.Pair.Eq t u eq_t eq_u = (
+  Trait.Eq.make
+    (Data.Pair t u)
+    (a => b => Data.Pair.equal.proof t u eq_t eq_u a b)
+  )
+
+Data.Pair.equal.proof <t> <u>
+  (eq_t: Trait.Eq t) (eq_u: Trait.Eq u)
+  (a: Data.Pair t u) (b: Data.Pair t u)
+  : Prop.Decidable (Prop.Equal a b)
+Data.Pair.equal.proof t u (Trait.Eq.new _ dec_eq_t) eq_u (Data.Pair.new fst_a snd_a) (Data.Pair.new fst_b snd_b) =
+  let Trait.Eq.new (dec_eq = dec_eq_u) .. = eq_u
+
+  let fst_eq_res = dec_eq_t fst_a fst_b
+  let snd_eq_res = dec_eq_u snd_a snd_b
+
+  match Prop.Decidable fst_eq_res {
+    yep =>
+      let fst_eq = fst_eq_res.proof
+      match Prop.Decidable snd_eq_res {
+        yep =>
+          let snd_eq = snd_eq_res.proof
+          let eq0 = Prop.Equal.apply (x => Data.Pair.new t u fst_a x) snd_eq
+          let eq1 = Prop.Equal.rewrite fst_eq (x => Prop.Equal (Data.Pair.new t u fst_a snd_a) (Data.Pair.new t u x snd_b)) eq0
+          Prop.Decidable.yep eq1
+        nop =>
+          let not_snd_eq = snd_eq_res.proof
+          Prop.Decidable.nop (a_eq_b =>
+            let snd_eq = Prop.Equal.apply (x => Data.Pair.snd x) a_eq_b
+            not_snd_eq snd_eq
+          )
+      }
+    nop =>
+      let not_fst_eq = fst_eq_res.proof
+      Prop.Decidable.nop (a_eq_b =>
+        let fst_eq = Prop.Equal.apply (x => Data.Pair.fst x) a_eq_b
+        not_fst_eq fst_eq
+      )
+  }
+  

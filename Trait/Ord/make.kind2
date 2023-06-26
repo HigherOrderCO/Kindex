@@ -1,0 +1,31 @@
+GetDecidableLeProcedure <t>
+  (eq: Trait.Eq t)
+  (rel: Math.Relation t)
+  (total_order: Math.Relation.TotalOrder rel)
+  : (a: t) -> (b: t) -> Prop.Decidable (rel a b)
+GetDecidableLeProcedure t (Trait.Eq.new eq dec_eq) rel total_order = a => b =>
+  let Math.Relation.TotalOrder.new total antisymmetric reflexive .. = total_order
+  let as_inv = Math.Relation.Antisymmetric.to_Antisymmetric_alt antisymmetric
+  let either = total a b
+  match Data.Either either {
+    left val => Prop.Decidable.yep val
+    right val =>
+      let a_eq_b = dec_eq a b
+      match Prop.Decidable a_eq_b {
+        yep proof =>
+          let rel_aa = reflexive a
+          let rel_ab = Prop.Equal.rewrite proof (x => rel a x) rel_aa
+          Prop.Decidable.yep rel_ab
+        nop proof =>
+          let not_rel_ab = as_inv b a val (eq_ba => proof (Prop.Equal.mirror eq_ba))
+          Prop.Decidable.nop not_rel_ab
+      }
+  }
+Trait.Ord.make (t) (eq: Trait.Eq t) (rel: Math.Relation t) (total_order: Math.Relation.TotalOrder rel): Trait.Ord t
+Trait.Ord.make t eq rel total_order =
+  let dec_le = GetDecidableLeProcedure t eq rel total_order
+  (Trait.Ord.new
+    eq
+    total_order
+    dec_le
+  )

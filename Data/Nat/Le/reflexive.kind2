@@ -1,0 +1,3 @@
+Data.Nat.Le.reflexive (n: Data.Nat): Data.Nat.Le n n
+Data.Nat.Le.reflexive Data.Nat.zero = Data.Nat.Le.zero
+Data.Nat.Le.reflexive (Data.Nat.succ n) = Data.Nat.Le.succ (Data.Nat.Le.reflexive n)
