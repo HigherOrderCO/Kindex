@@ -1,0 +1,21 @@
+use Data.Path as Path
+use Data.String as String
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+use Data.Either as Either
+
+//! Separates the file from the parent path
+Path/split (path: Path/) : Pair/ (Maybe/ Path/) Path/ {
+  Path/split.2 (String/split_last path "/")
+}
+
+Path/split.2 (path: Either/ String/ (Pair/ String/ String/)) : Pair/ (Maybe/ Path/) Path/
+Path/split.2 (Either/left   "")  = Pair/new (Maybe/none)    ""        // Empty path
+Path/split.2 (Either/left file)  = Pair/new (Maybe/some "") file      // Just file (empty parent)
+Path/split.2 (Either/right path) = Path/split.3 path
+
+Path/split.3 (path: Pair/ String/ String/) : Pair/ (Maybe/ Path/) Path/
+Path/split.3 (Pair/new ""       "") = Pair/new (Maybe/none)    "/"    // Path is root
+Path/split.3 (Pair/new ""     file) = Pair/new (Maybe/some "/") file  // Parent is root
+Path/split.3 (Pair/new parent   "") = Path/split parent               // Path ending in /
+Path/split.3 (Pair/new parent file) = Pair/new (Maybe/some parent) file

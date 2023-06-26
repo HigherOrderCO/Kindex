@@ -1,10 +1,8 @@
 Data.Path.with_extension (path: Data.Path) (ext: Data.String) : Data.Path {
-  let Data.Pair.new (fst=root) (snd=file) = Data.String.split_last path "/"
-  match Data.String file {
-    cons head tail =>
-      let file = Data.String.cons head tail
-      let Data.Pair.new (fst=file) (snd=old_ext) = Data.String.split_last file "."
-      Data.String.join "" [root "/" file "." ext]
-    nil => root
-  }
+  Data.Path.with_extension.2 (Data.Path.split_extension path) ext
 }
+
+Data.Path.with_extension.2 (path: Data.Pair Data.Path (Data.Maybe Data.String)) (ext: Data.String) : Data.Path
+Data.Path.with_extension.2 (Data.Pair.new "" Data.Maybe.none) _ = ""
+Data.Path.with_extension.2 (Data.Pair.new "/" Data.Maybe.none) _ = "/"
+Data.Path.with_extension.2 (Data.Pair.new stem _) ext = Data.String.flatten [stem "." ext]
