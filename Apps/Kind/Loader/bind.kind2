@@ -1,0 +1,8 @@
+use Apps.Kind.Loader as Loader
+
+Loader/bind <a> <b> (xa: Loader/ a) (xb: a -> (Loader/ b)) : Loader/ b {
+  state => Loader/bind.go (xa state) xb
+}
+
+Loader/bind.go <a> <b> (res: Loader/Result a) (xb: a -> (Loader/ b)) : Loader/Result b
+Loader/bind.go (Loader/Result.new v s) xb = ((xb v) s)

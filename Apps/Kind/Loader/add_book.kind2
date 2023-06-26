@@ -4,19 +4,18 @@ use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 use Data.List as List
 
 Loader/add_book (new_book: Book/) : Loader/ (List/ Data.U60)
-Loader/add_book (Book/new decls n_decls names) =
-Loader/add_book decls n_decls n_decls
+Loader/add_book (Book/new decls n_decls names) = Loader/add_book.go decls n_decls n_decls
 
 Loader/add_book.go (decls: Data.Map Declaration/) (i: Data.U60) (n_decls: Data.U60) : Loader/ (List/ Data.U60)
 Loader/add_book.go decls 0 n_decls = Loader/pure []
 Loader/add_book.go decls i n_decls = do Loader/ {
   let idx = (- n_decls i)
-  let Data.Pair.new (fst=decls) (snd=decl) = (Data.map.take decls idx)
+  let Data.Pair.new (fst=decls) (snd=decl) = (Data.Map.take decls idx)
   match Data.Maybe decl {
     some (value=decl) => do Loader/ {
       ask decl_id = Loader/add_decl decl
       ask tail = Loader/add_book.go decls (- i 1) n_decls
-      List/concat (Maybe/to_list decl_id) tail
+      return List/concat (Data.Maybe.to_list decl_id) tail
     }
     none => do Loader/ {
       Loader/add_err (Loader/Error.internal "add_book key")

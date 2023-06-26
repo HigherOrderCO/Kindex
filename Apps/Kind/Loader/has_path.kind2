@@ -1,0 +1,13 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+
+
+Loader/has_path (path: Data.Path) : Loader/ Data.Bool {
+  state => Loader/has_path.go state path
+}
+
+Loader/has_path.go (state: Loader/State) (path: Data.Path) : Loader/Result Data.Bool
+Loader/has_path.go (Loader/State.new book crnt_id files loaded errs root) path =
+  let Data.Pair.new (fst=loaded) (snd=file_id) = Data.HashMap.got loaded path
+  let state = Loader/State.new book crnt_id files loaded errs root
+  Loader/Result.new (Data.Maybe.is_some file_id) state

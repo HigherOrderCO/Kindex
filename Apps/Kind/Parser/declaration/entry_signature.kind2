@@ -12,7 +12,7 @@ KParser/declaration.entry_signature : KParser/ Entry/ {
     ask args = Parser/many (KParser/skipping KParser/declaration.argument)
     KParser/skip
 
-    ask has_type = Parser/to_bool (Parser/char ':')
+    ask has_type = Parser/is_some (Parser/try (Parser/char ':'))
     KParser/skip
 
     ask type = if has_type {

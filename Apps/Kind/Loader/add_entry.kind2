@@ -1,15 +1,19 @@
 use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.CtrName as CtrName
 
 Loader/add_entry (entry: Entry/) : Loader/ Data.U60 {
   state => Loader/add_entry.go state entry
 }
 
 Loader/add_entry.go (state: Loader/State) (entry: Entry/) : Loader/Result Data.U60
-Loader/add_entry.go (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs) (Entry/new range (CtrName/ name.range name.val) args type rules) =  let decl = Declaration/entry entry
+Loader/add_entry.go (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root) (Entry/new range (CtrName/new name.range name.val) args type rules) =
   let decl_id = n_decls
-  let entry = (Entry/new range (CtrName/ name.range name.val) args type rules)
+  let decl = Declaration/entry (Entry/new range (CtrName/new name.range name.val) args type rules)
   let decls = Data.Map.set decls decl_id decl
   let names = Data.HashMap.set names name.val decl_id
   let n_decls = (+ 1 n_decls)
-  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs)
+  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root)
   Loader/Result.new decl_id state

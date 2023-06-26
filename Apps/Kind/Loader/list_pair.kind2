@@ -1,9 +1,0 @@
-use Apps.Kind.Loader as Loader
-use Data.List as List
-
-Loader/list_pair <t> (xs: List/ t) (pass: t -> (Loader/ (Data.Pair t r))) : Loader/ (Data.Pair (List/ t) (List/ r))
-Loader/list_pair (List/cons x xs) = do Loader/ {
-  ask Data.Pair.new (fst=x) (snd=head) = pass x
-  ask Data.Pair.new (fst=xs) (snd=tail) = Loader/list_pair xs pass
-  return Data.Pair.new (List/cons x xs) (List/cons head tail)
-}

@@ -5,6 +5,6 @@ Loader/get_file_id : Loader/ Data.U60 {
 }
 
 Loader/get_file_id.go (state: Loader/State) : Loader/Result Data.U60
-Loader/get_file_id.go (Loader/State.new book crnt_id files loaded errs) =
-  let state = (Loader/State.new book crnt_id files loaded errs)
+Loader/get_file_id.go (Loader/State.new book crnt_id files loaded errs root) =
+  let state = (Loader/State.new book crnt_id files loaded errs root)
   Loader/Result.new crnt_id state

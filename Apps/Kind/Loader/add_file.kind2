@@ -1,13 +1,13 @@
 use Apps.Kind.Loader as Loader
 
 Loader/add_file (src: Data.String) (path: Data.Path) : Loader/ Data.Unit {
-  state => Loader/add_file state src path
+  state => Loader/add_file.go state src path
 }
 
 Loader/add_file.go (state: Loader/State) (src: Data.String) (path: Data.Path) : Loader/Result Data.Unit 
-Loader/add_file.go (Loader/State.new book crnt_id files loaded errs) src path =
-  let loaded = Data.HashMap.set path crnt_id
-  let files = Data.Map.set files crnt_id src
+Loader/add_file.go (Loader/State.new book crnt_id files loaded errs root) src path =
+  let loaded = Data.HashMap.set loaded path crnt_id
+  let files = Data.Map.set files crnt_id (Data.Pair.new path src)
   let crnt_id = (+ 1 crnt_id)
-  let state = Loader/State.new book crnt_id files loaded errs
+  let state = Loader/State.new book crnt_id files loaded errs root
   Loader/Result.new Data.Unit.new state

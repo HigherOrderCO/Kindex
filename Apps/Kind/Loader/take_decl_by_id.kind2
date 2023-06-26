@@ -1,12 +1,13 @@
 use Apps.Kind.Loader as Loader
 use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
 use Data.Maybe as Maybe
 
 Loader/take_decl_by_id (id: Data.U60) : Loader/ (Maybe/ Declaration/)
-Loader/take_decl_by_id id = state => Loader/take_decl_by_id.go name
+Loader/take_decl_by_id id = state => Loader/take_decl_by_id.go state id
 
 Loader/take_decl_by_id.go (state: Loader/State) (id: Data.U60) : Loader/Result (Maybe/ Declaration/)
-Loader/take_decl_by_id.go (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs) id =
-  let Data.Pair.new (fst=decls) (snd=decl) = Data.Map.take decls decl_id
-  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs)
+Loader/take_decl_by_id.go (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root) id =
+  let Data.Pair.new (fst=decls) (snd=decl) = Data.Map.take decls id
+  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root)
   Loader/Result.new decl state

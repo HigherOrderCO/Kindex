@@ -5,7 +5,8 @@ use Data.List as List
 Loader/unbound.check_names (names: List/ CtrName/) : Loader/ (List/ CtrName/)
 Loader/unbound.check_names (List/cons (CtrName/new range name) names) = do Loader/ {
   ask has_name = Loader/has_name name
-  let head = if has_name {[(CtrName/new range name)]} else {[]}
+  let head = if has_name {[]} else {[(CtrName/new range name)]}
   ask tail = Loader/unbound.check_names names
   return List/concat head tail
 }
+Loader/unbound.check_names (List/nil) = Loader/pure []

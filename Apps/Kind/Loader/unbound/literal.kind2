@@ -7,7 +7,7 @@ Loader/unbound.literal (lit: Literal/) : Loader/ (Pair/ Literal/ (Data.List CtrN
 
 Loader/unbound.literal (Literal/num_u120 range val) = do Loader/ {
   ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.U120.new")]
-  let lit = (Literal/u120 range val)
+  let lit = (Literal/num_u120 range val)
   return Pair/new lit unbounds
 }
 
@@ -18,8 +18,8 @@ Loader/unbound.literal (Literal/num_nat range val) = do Loader/ {
   let lit = (Literal/num_nat range val)
   return Pair/new lit unbounds
 }
-Loa
-der/unbound.literal (Literal/string range val) = do Loader/ {
+
+Loader/unbound.literal (Literal/string range val) = do Loader/ {
   ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.String.cons") (CtrName/new range "Data.String.nil")]
   let lit = (Literal/string range val)
   return Pair/new lit unbounds

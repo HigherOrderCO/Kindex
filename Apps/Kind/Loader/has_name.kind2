@@ -7,7 +7,7 @@ Loader/has_name (name: Data.String) : Loader/ Data.Bool {
 }
 
 Loader/has_name.go (state: Loader/State) (name: Data.String) : Loader/Result Data.Bool
-Loader/has_name.go (Loader/State.new book crnt_id files loaded errs) name =
-  let Data.Pair.new (fst=book) (snd=has_name) = Book/has_name name
-  let state = Loader/State.new book crnt_id files loaded errs
+Loader/has_name.go (Loader/State.new book crnt_id files loaded errs root) name =
+  let Data.Pair.new (fst=book) (snd=has_name) = Book/has_name book name
+  let state = Loader/State.new book crnt_id files loaded errs root
   Loader/Result.new has_name state

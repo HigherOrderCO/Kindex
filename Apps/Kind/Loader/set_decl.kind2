@@ -1,11 +1,13 @@
 use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
 
-Loader/set_decl (decl: Declaration/) (decl_id: Data.U60) : Loader/ Data.U60 {
-  state => Loader/set_decl state decl decl_id
+Loader/set_decl (decl: Declaration/) (decl_id: Data.U60) : Loader/ Data.Unit {
+  state => Loader/set_decl.go state decl decl_id
 }
 
-Loader/set_decl (state: Loader/State) (decl: Declaration/) (decl_id: Data.U60) : Loader/Result Data.U60
-Loader/set_decl (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs) decl decl_id =
+Loader/set_decl.go (state: Loader/State) (decl: Declaration/) (decl_id: Data.U60) : Loader/Result Data.Unit
+Loader/set_decl.go (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root) decl decl_id =
   let decls = Data.Map.set decls decl_id decl
-  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs)
+  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root)
   Loader/Result.new Data.Unit.new state

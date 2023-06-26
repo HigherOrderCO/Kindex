@@ -5,7 +5,7 @@ Loader/add_err (err: Loader/Error) : Loader/ Data.Unit {
 }
 
 Loader/add_err.go (state: Loader/State) (err: Loader/Error) : Loader/Result Data.Unit
-Loader/add_err.go (Loader/State.new book crnt_id files loaded errs) err =
+Loader/add_err.go (Loader/State.new book crnt_id files loaded errs root) err =
   let errs = Data.List.cons err errs
-  let state = Loader/State.new book crnt_id files loaded errs
+  let state = Loader/State.new book crnt_id files loaded errs root
   Loader/Result.new Data.Unit.new state

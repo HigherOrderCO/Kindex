@@ -7,9 +7,9 @@ use Data.Pair as Pair
 Loader/unbound.pattern (pat: Pattern/) : Loader/ (Pair/ Pattern/ (List/ CtrName/))
 
 Loader/unbound.pattern (Pattern/ctr range name args) = do Loader/ {
-  ask Pair/new (fst=args) (snd=unbounds) = Loader/list_pair args (x => Loader/unbound.pattern x)
+  ask Pair/new (fst=args) (snd=unbounds_args) = Loader/list_map args (x => Loader/unbound.pattern x)
   ask unbounds_ctr = Loader/unbound.check_names [name]
-  let unbounds = List/flatten [unbound_ctr unbounds]
+  let unbounds = List/flatten [unbounds_ctr (List/flatten unbounds_args)]
   let pat = (Pattern/ctr range name args)
   return Pair/new pat unbounds
 }
@@ -30,9 +30,9 @@ Loader/unbound.pattern (Pattern/pair range fst snd) = do Loader/ {
 }
 
 Loader/unbound.pattern (Pattern/list range args) = do Loader/ {
-  ask Pair/new (fst=args) (snd=unbounds) = Loader/list_pair args (x => Loader/unbound.pattern x)
+  ask Pair/new (fst=args) (snd=unbounds_args) = Loader/list_map args (x => Loader/unbound.pattern x)
   ask unbounds_list = Loader/unbound.check_names [(CtrName/new range "Data.List.cons") (CtrName/new range "Data.List.nil")]
-  let unbounds = List/flatten [unbounds_list unbounds]
+  let unbounds = List/flatten [unbounds_list (List/flatten unbounds_args)]
   let pat = (Pattern/list range args)
   return Pair/new pat unbounds
 }

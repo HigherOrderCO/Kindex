@@ -1,4 +1,4 @@
 use Apps.Kind.Loader as Loader
 
-Loader/ : Type
-Loader/ = Loader/State -> Loader/Result
+Loader/ <t> : Type
+Loader/ t = Loader/State -> (Loader/Result t)

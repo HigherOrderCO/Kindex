@@ -1,2 +1,2 @@
 #axiom
-Apps.HVM.path_exists (path: Data.String) : Data.U60
+Apps.HVM.path_exists <t> (path: Data.String) (cont: Data.U60 -> t) : t
