@@ -1,0 +1,7 @@
+//! /Foo/Bar/Baz.txt -> /Foo/Bar
+//! /Foo/Bar/Baz/ -> /Foo/Bar
+//! /Foo/Bar/Baz -> /Foo/Bar
+//! Baz.txt -> ""
+Data.Path.parent (path: Data.Path) : Data.Maybe Data.Path {
+  Data.Pair.fst (Data.Path.split path)
+}

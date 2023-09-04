@@ -1,0 +1,3 @@
+Data.Either.map_or <l> <r> <t> (f: r -> t) (e: Data.Either l r) (dflt: t) : t
+Data.Either.map_or f (Data.Either.left  _) dflt = dflt
+Data.Either.map_or f (Data.Either.right v) dflt = (f v)

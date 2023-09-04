@@ -1,0 +1,7 @@
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+
+Book/has_name (book: Book/) (name: Data.String) : Data.Pair Book/ Data.Bool
+Book/has_name (Book/new decls n_decls names) name =
+  let Data.Pair.new (fst=names) (snd=decl_id) = Data.HashMap.got names name
+  let has_name = Data.Maybe.is_some decl_id
+  Data.Pair.new (Book/new decls n_decls names) has_name

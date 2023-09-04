@@ -1,0 +1,2 @@
+#axiom
+Apps.HVM.load <t> (key: Data.String) (cont: Data.String -> t) : t

@@ -1,0 +1,24 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Maybe as Maybe
+
+Loader/take_decl_by_name (name: CtrName/) : Loader/ (Maybe/ (Data.Pair Declaration/ Data.U60))
+Loader/take_decl_by_name name = do Loader/ {
+  ask decl_id = Loader/get_decl_id name
+  match Maybe/ decl_id {
+    some (value=decl_id) => do Loader/ {
+      ask decl = Loader/take_decl_by_id decl_id
+      match Maybe/ decl {
+        some (value=decl) => do Loader/ {
+          return Maybe/some (Data.Pair.new decl decl_id)
+        }
+        none => do Loader/ {
+          Loader/add_err (Loader/Error.internal "take_decl key")
+          return Maybe/none
+        }
+      }
+    }
+    none => Loader/pure Maybe/none
+  }
+}

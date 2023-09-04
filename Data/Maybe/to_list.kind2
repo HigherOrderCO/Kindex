@@ -1,0 +1,3 @@
+Data.Maybe.to_list <t> (x: Data.Maybe t) : Data.List t
+Data.Maybe.to_list (Data.Maybe.some x) = [x]
+Data.Maybe.to_list (Data.Maybe.none)   = []

@@ -1,0 +1,5 @@
+Data.Path : Type {
+  Data.String
+}
+
+// TODO: Handle '.' and '..' paths

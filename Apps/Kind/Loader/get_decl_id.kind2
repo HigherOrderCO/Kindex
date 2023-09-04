@@ -1,0 +1,13 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+
+Loader/get_decl_id (name: CtrName/) : Loader/ (Data.Maybe Data.U60) {
+  state => Loader/get_decl_id.go state name
+}
+
+Loader/get_decl_id.go (state: Loader/State) (name: CtrName/) : Loader/Result (Data.Maybe Data.U60)
+Loader/get_decl_id.go (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root) (CtrName/new _ name) =
+  let Data.Pair.new (fst=names) (snd=decl_id) = Data.HashMap.got names name
+  let state = (Loader/State.new (Book/new decls n_decls names) crnt_id files loaded errs root)
+  Loader/Result.new decl_id state

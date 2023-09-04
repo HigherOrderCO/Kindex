@@ -1,0 +1,9 @@
+use Data.String as String
+
+String/got_length (xs: String/) : Data.Pair String/ Data.U60 {
+  String/got_length.go xs "" 0
+}
+
+String/got_length.go (xs: String/) (acc: String/) (len: Data.U60) : Data.Pair String/ Data.U60
+String/got_length.go (String/cons x xs) acc len = String/got_length.go xs (String/cons x acc) (+ 1 len)
+String/got_length.go "" acc len = Data.Pair.new (String/reverse acc) len

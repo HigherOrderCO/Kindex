@@ -1,0 +1,14 @@
+use Apps.Kind.Loader as Loader
+use Data.String.Parser as Parser
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Apps.Kind.SyntaxTree.Range as Range
+use Apps.Kind.SyntaxTree.Concrete.ToSugared as ToSugared
+
+type Loader/Error {
+  unbound_ctr (name: CtrName/)
+  repeated_decl (name: CtrName/) (prev: Range/)
+  parse_err (err: Parser/Error) (file_id: Data.U60)
+  tosugar_err (errs: Data.List ToSugared/Error)
+  multiple_paths (name: CtrName/) (available_paths: Data.List Data.Path)
+  internal (msg: Data.String)
+}

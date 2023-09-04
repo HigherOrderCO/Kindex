@@ -1,0 +1,6 @@
+use Apps.Kind.Loader as Loader
+use Data.Maybe as Maybe
+
+Loader/maybe_extract <t> <r> (x: Maybe/ t) (pass: t -> (Loader/ r)) (dflt: r) : Loader/ r
+Loader/maybe_extract (Maybe/some x) pass dflt = (pass x)
+Loader/maybe_extract (Maybe/none)   pass dflt = Loader/pure dflt

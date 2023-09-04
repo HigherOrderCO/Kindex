@@ -1,7 +1,21 @@
-Data.String.remove_prefix (str: Data.String) (pfx: Data.String) : Data.String {
-  if Data.String.starts_with str pfx {
-    Data.String.drop (Data.String.length pfx) str
-  } else {
-    str
-  }
+use Data.String as String
+
+String/remove_prefix (str: String/) (pfx: String/) : Data.Either String/ String/ {
+  String/remove_prefix.go str pfx ""
 }
+
+String/remove_prefix.go (str: String/) (pfx: String/) (acc: String/) : Data.Either String/ String/
+
+String/remove_prefix.go (String/cons sh st) (String/cons ph pt) acc =
+  let fn = (if Data.Char.equal sh ph {
+    (st: String/) => String/remove_prefix.go st pt (String/cons ph acc)
+  } else {
+    (st: String/) =>  Data.Either.left (String/reverse_over acc (String/cons sh st))
+  }) :: _ -> _
+  (fn st)
+
+String/remove_prefix.go (String/nil) (String/cons ph pt) acc =
+  Data.Either.left (String/reverse acc)
+
+String/remove_prefix.go str (String/nil) acc =
+  Data.Either.right str

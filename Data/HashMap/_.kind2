@@ -1,9 +1,6 @@
-use Data.HashMap as HashMap
-use Data.Map as Map
-
 // TODO: Doesn't handle hash colision
 #derive[match]
-record HashMap/ (k: Type) (v: Type) {
+record Data.HashMap (k: Type) (v: Type) {
   hash_fn: k -> Data.U60
-  map: Map/ v
+  map: Data.Map v
 }

@@ -1,0 +1,11 @@
+use Data.String as String
+
+String/split_first (xs: String/) (sep: String/) : Data.Pair String/ String/ {
+  let segs = (String/split xs sep)
+  let Data.Pair.new (fst=head) (snd=tail) = Data.List.pop segs
+  let tail = Data.String.intercalate sep tail
+  match Data.Maybe head with tail {
+    some value => Data.Pair.new value tail
+    none => Data.Pair.new tail ""
+  }
+}

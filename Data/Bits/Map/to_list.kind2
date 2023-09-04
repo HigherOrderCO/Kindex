@@ -1,0 +1,8 @@
+use Data.Bits.Map as Map
+use Data.List as List
+use Data.Maybe as Maybe
+
+Map/to_list <t> (map: Map/ t) : List/ t
+Map/to_list (Map/tie val left right) =
+  Data.List.flatten [(Maybe/to_list val) (Map/to_list left) (Map/to_list right)]
+Map/to_list (Map/new) = []

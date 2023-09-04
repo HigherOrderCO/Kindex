@@ -1,0 +1,22 @@
+use Data.Either as Either
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+use Data.Path as Path
+use Data.String as String
+
+Path/split_extension (path: Path/) : Pair/ Path/ (Maybe/ String/) {
+  let Pair/new (fst=parent) (snd=file) = Path/split path
+  let parent = Maybe/default parent "" // If no parent, replacing with "" gives same result on Path.join
+  match Data.Either file = (String/split_last file ".") {
+    // no '.' on file
+    left (val=file) => Pair/new (Path/join parent file) Maybe/none
+    // '.' on file, potentially an extension
+    right (val=file) => Path/split_extension.2 parent file
+  }
+}
+
+Path/split_extension.2 (parent: Path/) (file: Pair/ String/ String/) : Pair/ Path/ (Maybe/ String/)
+// hidden with no ext
+Path/split_extension.2 parent (Pair/new ""   ext) = Pair/new (Path/join parent (String/cons '.' ext)) Maybe/none
+// normal file with extension
+Path/split_extension.2 parent (Pair/new stem ext) = Pair/new (Path/join parent stem) (Maybe/some ext)
