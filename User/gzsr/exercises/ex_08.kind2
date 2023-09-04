@@ -1,0 +1,53 @@
+// // Returns the head of the List
+List.head <a: Type> (xs: (List a)): (Maybe a)
+List.head a (List.nil xs) = Maybe.none
+List.head a (List.cons xs head tail) = Maybe.some head
+
+// // Returns the list without the first element
+List.tail <a: Type> (xs: (List a)): (List a)
+List.tail a (List.nil xs) = (List.nil a)
+List.tail a (List.cons xs head tail) = tail
+
+// // Returns the length of a list
+List.length <a: Type> (xs: (List a)) : Nat
+List.length a (List.nil xs) = Nat.zero
+List.length a (List.cons xs head tail) = Nat.succ(List.length tail)
+
+// // Returns the last element of a list
+List.last <a: Type> (xs: (List a)) : Maybe
+List.last a (List.nil xs) = Maybe.none
+List.last a (List.cons xs head (List.nil b)) = Maybe.some head
+List.last a (List.cons xs head tail) = (List.last tail)
+
+// // Returns the list without the last element
+List.init <a: Type> (xs: (List a)): (List a)
+List.init a (List.nil xs) = (List.nil a)
+List.init a (List.cons xs head (List.nil b)) = (List.nil a)
+List.init a (List.cons xs head tail) = List.cons (head) (List.init tail)
+
+// // Concatenates two lists
+List.concat <a: Type> (xs: (List a)) (ys: (List a)): (List a)
+List.concat a (List.nil xs) ys = ys
+List.concat a xs (List.nil ys) = xs
+List.concat a (List.cons xs head tail) ys = List.cons (head) (List.concat tail ys)
+
+// // Removes n elements from the start of the list
+// // List.drop<Nat>(3, [1,2,3,4,5]) -> [4, 5]
+List.drop <a: Type> (n: Nat) (xs: (List a)) : (List a)
+List.drop a  Nat.zero      xs = xs
+List.drop a (Nat.succ n)  (List.nil xs) = (List.nil a)
+List.drop a (Nat.succ n)  (List.cons xs head tail) = List.drop n tail
+
+// // Creates a new list with the N first elements of the previous list
+// // List.take<Nat>(3, [1,2,3,4,5]) -> [1,2,3]
+List.take <a: Type> (n: Nat) (xs: (List a)) : (List a)
+List.take a  Nat.zero      xs = (List.nil a)
+List.take a (Nat.succ n)  (List.nil xs) = (List.nil a)
+List.take a (Nat.succ n)  (List.cons xs head tail) = List.cons head (List.take n tail)
+
+// // Applies a function to all elements of a list
+List.map <a: Type> <b: Type> (func: a -> b) (xs: (List a)): (List b)
+List.map a b func (List.nil xs) = (List.nil b) 
+List.map a b func (List.cons xs head tail) = List.cons (func(head)) (List.map func tail)
+
+// // Returns the same list, with the order reversed

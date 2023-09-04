@@ -1,0 +1,20 @@
+Nat: Type
+Nat.zero: Nat
+Nat.succ(pred:Nat): Nat 
+
+// Increment
+Nat.inc (x: Nat): Nat 
+Nat.inc x = (Nat.succ x)
+
+// Decrement
+Nat.dec (x: Nat): Nat 
+Nat.dec Nat.zero = Nat.zero
+Nat.dec (Nat.succ x) = x
+
+Bool: Type
+Bool.true : Bool
+Bool.false : Bool 
+
+Bool.is_zero (x: Nat): Bool 
+Bool.is_zero (Nat.zero) = Bool.true 
+Bool.is_zero x = Bool.false 

@@ -1,0 +1,306 @@
+// Returs true if both inputs are true
+//Problems.p0(a: Bool, b: Bool): Bool
+
+Problems.p0 (a: Bool) (b: Bool) : Bool 
+Problems.p0 Bool.true Bool.true = Bool.true 
+Problems.p0 a b = Bool.false 
+
+// Returs true if any input is true
+//Problems.p1(a: Bool, b: Bool): Bool
+
+Problems.p1 (a: Bool) (b: Bool) : Bool 
+Problems.p1 Bool.true b = Bool.true 
+Problems.p1 a Bool.true = Bool.true 
+Problems.p1 a b = Bool.false 
+
+// Returs true if both inputs are identical
+//Problems.p2(a: Bool, b: Bool): Bool
+
+Problems.p2 (a: Bool) (b: Bool)
+Problems.p2 Bool.true Bool.true = Bool.true 
+Problems.p2 Bool.false Bool.false = Bool.true
+Problems.p2 a b = Bool.false 
+
+// Returns the first element of a pair
+//Problems.p3<A: Type, B: Type>(pair: Pair<A,B>): A
+
+Problems.p3 <a> <b> (pair: Pair a b): a 
+Problems.p3 a b (Pair.new p.a p.b fst snd) = fst
+
+// Returns the second element of a pair
+//Problems.p4<A: Type, B: Type>(pair: Pair<A,B>): B
+
+Problems.p4 <a> <b> (pair: Pair a b) : b 
+Problems.p4 a b (Pair.new p.a p.b fst snd) = snd
+
+// Inverses the order of the elements of a pair
+//Problems.p5<A: Type, B: Type>(pair: Pair<A,B>): Pair<B,A>
+
+Problems.p5 <a> <b> (pair: Pair a b) : Pair b a 
+Problems.p5 a b (Pair.new p.a p.b fst snd) =  (Pair.new b a snd fst)
+
+// Applies a function to both elements of a Pair
+//Problems.p6<A: Type, B: Type>(fn: A -> B, pair: Pair<A,A>): Pair<B,B>
+
+Problems.p6 <a> <b> (pair: Pair a a) (f: a -> b) : Pair b b 
+Problems.p6 a b (Pair.new p.a p.b fst snd) f = Pair.new b b (f fst) (f snd)
+
+// Doubles a number
+//Problems.p7(n: Nat): Nat
+
+Problems.p7 (n: Nat) : Nat 
+Problems.p7 Nat.zero = Nat.zero 
+Problems.p7 (Nat.succ n) = Nat.succ (Nat.succ n)
+
+// Halves a number, rounding down
+//Problems.p8(n: Nat): Nat
+
+Problems.p8 (n: Nat) : Nat 
+Problems.p8 Nat.zero = Nat.zero 
+Problems.p8 Nat.succ (Nat.zero) = Nat.zero
+Problems.p8 (Nat.succ (Nat.succ n)) = Nat.succ(Problems.p8 n)
+
+// Adds two numbers
+//Problems.p9(a: Nat, b: Nat): Nat
+
+Problems.p9 (a: Nat) (b: Nat) : Nat 
+Problems.p9 a Nat.zero = a 
+Problems.p9 (Nat.succ a) b = Nat.succ (Problems.p9 a b)
+
+// Subtracts two numbers
+//Problems.p10(a: Nat, b: Nat): Nat
+
+Problems.p10 (a: Nat) (b: Nat) : Nat 
+Problems.p10 a Nat.zero = a 
+Problems.p10 (Nat.succ a) (Nat.succ b) =  (Problems.p10 a b)
+ 
+// Multiplies two numbers
+//Problems.p11(a: Nat, b: Nat): Nat
+
+Problems.p11 (a: Nat) (b: Nat) : Nat 
+Problems.p11 a Nat.zero = Nat.zero 
+Problems.p11 (Nat.succ a) b = (Problems.p9 (Problems.p11 a b) b)
+
+// Returns true if a < b
+//Problems.p12(a: Nat, b: Nat): Bool
+
+Problems.p12 (a: Nat) (b: Nat) : Bool 
+Problems.p12 Nat.zero Nat.zero = Bool.false 
+Problems.p12 a Nat.zero = Bool.false 
+Problems.p12 Nat.zero b = Bool.true 
+Problems.p12 (Nat.succ a) (Nat.succ b) = (Problems.p12 a b)
+
+// Returns true if a == b
+//Problems.p13(a: Nat, b: Nat): Bool
+
+Problems.p13 (a: Nat) (b: Nat) : Bool 
+Problems.p13 Nat.zero Nat.zero = Bool.true 
+Problems.p13 a Nat.zero = Bool.false 
+Problems.p13 Nat.zero b = Bool.false 
+Problems.p13 (Nat.succ a) (Nat.succ b) = (Problems.p13 a b)
+
+// Returns the first element of a List
+//Problems.p14<A: Type>(xs: List<A>): Maybe<A>
+
+Problems.p14 <a> (xs: List a) : a 
+Problems.p14 a (List.cons a head tail) = head
+
+// Returns the list without the first element
+//Problems.p15<A: Type>(xs: List<A>): List<A>
+
+Problems.p15 <a> (xs: List a) : List a
+Problems.p15 a (List.cons xs head (List.nil xss)) = List.nil 
+Problems.p15 a (List.cons xs head tail) = tail  
+
+// Returns the length of a list
+//Problems.p16<A: Type>(xs: List<A>): Nat
+
+Problems.p16 <a> (xs: List a) : Nat 
+Problems.p16 a (List.cons a head) = Nat.succ (Nat.zero)
+Problems.p16 a (List.cons head tail) = Nat.succ (Problems.p16 a tail)
+
+// Concatenates two lists
+//Problems.p17<A: Type>(xs: List<A>, ys: List<A>): List<A>
+Problems.p17 <a> (xs: List a) (ys: List a) : List a
+Problems.p17 a0 (List.nil a1) xs = xs 
+Problems.p17 a0 (List.cons a1 head tail) ys = List.cons head (Problems.p17 tail ys)
+
+// Applies a function to all elements of a list
+//Problems.p18<A: Type, B: Type>(fn: A -> B, xs: List<A>): List<B>
+Problems.p18 <a> <b> (fn : a -> b) (xs: List a) : List b 
+Problems.p18 a b fn (List.nil a1) = (List.nil b)
+Problems.p18 a b fn (List.cons a1 head tail) = List.cons (fn head) (Problems.p18 fn tail
+
+// Returns the same list, with the order reversed
+//Problems.p19<A: Type>(xs: List<A>): List<A>
+//  ?a
+
+// Returns pairs of the elements of the 2 input lists on the same index
+// Ex: Problems.p20!!([1,2], ["a","b"]) == [{1,"a"},{2,"b"}]
+//Problems.p20<A: Type, B: Type>(xs: List<A>, ys: List<B>): List<Pair<A,B>>
+//  ?a
+
+// Returns the smallest element of a List
+//Problems.p21(xs: List<Nat>): Nat
+Problems.p20 (xs: (List Nat)) : (Maybe Nat) 
+Problems.p20 (List.nil a) = Maybe.none 
+Problems.p20 (List.cons a head (List.nil Nat)) = Maybe.some head 
+Problems.p20 (List.cons a head (List.cons b tail.head tail.tail)) = Problems.p20 (List.cons (Nat.min head tail.head) tail.tail)
+
+// Returns the same list without the smallest element
+//Problems.p22(xs: List<Nat>): List<Nat>
+//  ?a
+
+// Returns the same list, in ascending order
+//Problems.p23(xs: List<Nat>): List<Nat>
+Problems.p23 (xs: (List Nat)): (List Nat)
+Problems.p23  (List.nil xs) = List.nil Nat
+Problems.p23  xs = List.cons ((Maybe.extract (List.smallest xs) (Nat.zero))) (Problems.p23 ( List.delete_smallest xs))
+
+// ::::::::::::::
+// :: Theorems ::
+// ::::::::::::::
+
+// Note: these problems use functions from the base libs, NOT the ones above
+
+Problems.t0 : (Equal Bool Bool.true Bool.true)
+Problems.t0 = Equal.refl
+
+Problems.t1 (a: Bool) : (Equal Bool (Bool.and Bool.false a) Bool.false)
+Problems.t1 a = Equal.refl
+
+Problems.t2 (a: Bool) : (Equal Bool (Bool.and a Bool.false) Bool.false)
+Problems.t2 Bool.true = Equal.refl
+Problems.t2 Bool.false = Equal.refl
+
+Problems.t3 (a: Bool) : (Equal Bool (Bool.or Bool.true a) Bool.true)
+Problems.t3 a = Equal.refl
+
+Problems.t4 (a: Bool) : (Equal Bool (Bool.or a Bool.true) Bool.true)
+Problems.t4 Bool.true = Equal.refl 
+Problems.t4 Bool.false = Equal.refl
+
+Problems.t5 (a: Bool) : (Equal Bool (Bool.equal a a) Bool.true)
+Problems.t5 Bool.true = Equal.refl
+Problems.t5 Bool.false = Equal.refl
+
+Problems.t6 (a: Bool) : (Equal Bool (Bool.not (Bool.not a)) a)
+Problems.t6 Bool.true = Equal.refl 
+Problems.t6 Bool.false = Equal.refl 
+
+Problems.t7 (a: Bool) (b: Bool) : (Equal Bool (Bool.not(Bool.and a b)) (Bool.or(Bool.not a) (Bool.not b)))
+Problems.t7 Bool.true b = Equal.refl
+Problems.t7 Bool.false b = Equal.refl
+
+Problems.t8 (a: Bool) (b: Bool) : (Equal Bool (Bool.not(Bool.or a b)) (Bool.and(Bool.not a) (Bool.not b)))
+Problems.t8 Bool.false Bool.true = Equal.refl
+Problems.t8 Bool.false Bool.false = Equal.refl
+Problems.t8 Bool.true b = Equal.refl
+
+Problems.t9 (a: Pair Nat Nat) : (Equal (Pair Nat Nat) (Pair.new Nat Nat (Pair.fst Nat Nat a) (Pair.snd Nat Nat a)) a)
+Problems.t9 (Pair.new Nat Nat fst snd) = Equal.refl
+
+//Problems.t10 (a: Pair Nat Nat) : (Equal (Pair Nat Nat) (Pair.swap Nat Nat (Pair.swap Nat Nat ) a))
+//criar Pair.swap
+
+Problems.t11 (n: Nat) : (Equal Nat (Nat.same n) n)
+Problems.t11 Nat.zero = Equal.refl 
+Problems.t11 (Nat.succ n) = Equal.apply (x => Nat.succ x) (Problems.t11 n)
+
+Problems.t12 (n: Nat) : (Equal Nat (Nat.half(Nat.double n)) n)
+Problems.t12 Nat.zero = Equal.refl 
+Problems.t12 (Nat.succ n) = Equal.apply (x => Nat.succ x) (Problems.t12 n)
+
+Problems.t13 (n: Nat) : (Equal Nat (Nat.add Nat.zero n)  n)
+Problems.t13 n = Equal.refl
+
+Problems.t14 (n: Nat) : (Equal (Nat.add n Nat.zero) n)
+Problems.t14 Nat.zero = Equal.refl 
+Problems.t14 (Nat.succ n) = Equal.apply (x => Nat.succ x) (Problems.t14 n)
+
+Problems.t15 (n: Nat) (m: Nat) : (Equal Nat (Nat.add(Nat.succ n) m) (Nat.succ(Nat.add n m)))
+Problems.t15 n m = Equal.refl 
+
+Problems.t16 (n: Nat) (m: Nat) : (Equal Nat (Nat.add n (Nat.succ m)) (Nat.succ(Nat.add n m)))
+Problems.t16 Nat.zero m = Equal.refl 
+Problems.t16 (Nat.succ n) m = Equal.apply (x => Nat.succ x) (Problems.t16 n m)
+
+Problems.t57 (n: Nat) : (Equal Nat (Nat.add n Nat.zero) n)
+Problems.t57 Nat.zero = Equal.refl 
+Problems.t57 (Nat.succ n) = Equal.apply (x => Nat.succ x) (Problems.t57 n)
+
+Problems.t17 (n: Nat) (m: Nat) : (Equal Nat (Nat.add n  m) (Nat.add m n))
+Problems.t17 n Nat.zero = (Problems.t57 n)
+Problems.t17 Nat.zero m = (Equal.mirror (Problems.t57 m))
+Problems.t17 n m = Equal.mirror (Problems.t17 m n)
+
+Problems.t18 (n: Nat) : (Equal Nat (Nat.add n n) (Nat.double n))
+Problems.t18 Nat.zero = Equal.refl 
+Problems.t18 (Nat.succ n) = 
+ let app = Equal.apply (x => Nat.succ x) (Problems.t18 n)
+ let first = (Problems.t16 n n)
+ let ok =(Equal.chain first app)
+ Equal.apply (x => Nat.succ x) ok
+
+Nat.ltn (a: Nat) (b: Nat) : Bool
+Nat.ltn a Nat.zero = Bool.false 
+Nat.ltn Nat.zero b = Bool.true
+Nat.ltn (Nat.succ a) (Nat.succ b) = (Nat.ltn a b)
+
+Problems.t19 (n: Nat) : (Equal Bool (Nat.ltn n (Nat.succ n)) Bool.true)
+Problems.t19 Nat.zero = Equal.refl 
+Problems.t19 (Nat.succ n) = (Problems.t19 n)
+
+Nat.gtn (a: Nat) (b: Nat) : Bool 
+Nat.gtn Nat.zero b = Bool.false 
+Nat.gtn a Nat.zero = Bool.true 
+Nat.gtn (Nat.succ a) (Nat.succ b) = (Nat.gtn a b)
+
+Problems.t20 (n: Nat) : (Equal Bool (Nat.gtn(Nat.succ n) n) Bool.true)
+Problems.t20 Nat.zero = Equal.refl 
+Problems.t20 (Nat.succ n) = (Problems.t20 n)
+
+Nat.sub (a: Nat) (b: Nat) : Nat 
+Nat.sub a Nat.zero = a 
+Nat.sub (Nat.succ a) (Nat.succ b) = (Nat.sub a b)
+
+Problems.t21 (n: Nat) : (Equal Nat (Nat.sub n n)  Nat.zero)
+Problems.t21 Nat.zero = Equal.refl
+Problems.t21 (Nat.succ n) = (Problems.t21 n)
+
+Problems.t22 (n: Nat) (e: Equal n (Nat.succ(Nat.zero)))  : (Equal Nat (Nat.succ n) (Nat.succ(Nat.succ(Nat.zero))))
+Problems.t22 n e = (Equal.apply (x => Nat.succ x) e)
+
+//Problems.t23 (n: Nat) (m: Nat) (e: Equal (Nat.equal n m) Bool.true): (Equal n m)
+
+Problems.t24 (xs: List Nat) : (Equal Bool (Nat.gtn(List.length Nat (List.cons Nat (Nat.succ Nat.zero) xs)) Nat.zero) Bool.true)
+Problems.t24 (List.nil Nat) = Equal.refl 
+Problems.t24 xs = Equal.refl 
+
+//Problems.t25 (xs: List Nat) : (Equal (List Nat)   (List.map Nat Nat xs (x => x))  xs)
+
+Problems.t26 (xs: List Nat) (ys: List Nat): (Equal Nat (Nat.add(List.length Nat (xs)) (List.length Nat(ys))) (List.length Nat (List.concat Nat (xs) (ys))))
+Problems.t26 (List.nil Nat) ys = Equal.refl 
+Problems.t26 (List.cons Nat xs.head xs.tail) ys =
+ let ind = (Problems.t26 xs.tail ys) 
+ Equal.apply (x => Nat.succ x) ind
+
+Problems.t27 (xs: List Nat) : (Equal (List Nat) (List.reverse Nat (List.reverse Nat (xs))) xs)
+
+Problems.t28:  Not(Equal Bool Bool.true Bool.false)
+
+Problems.t29:  Not(Equal Nat (Nat.succ(Nat.succ(Nat.zero))) (Nat.succ(Nat.zero)))
+
+Problems.t30 (a: Bool) : Not(Equal Bool (Bool.or(Bool.true) (a)) Bool.false)
+
+Problems.t31 (a: Bool) : Not(Equal Bool (Bool.or(a) (Bool.true)) Bool.false)
+
+Problems.t32 (a: Bool) : Not(Equal Bool (Bool.and(Bool.false) (a))  Bool.true)
+
+Problems.t33 (a: Bool) : Not(Equal Bool (Bool.and(a) (Bool.false)) Bool.true)
+
+Problems.t34 (a: Nat) (b: Nat)  (e:Equal a b):  Equal Nat (b) (a)
+
+Problems.t35 (a: Nat) (b: Nat) (c: Nat) (e0: Equal a b) (e1: Equal b c): Equal Nat (a) (c) 
+
+Problems.t36 (a: Nat) (f: Nat -> Type) (p: (f a)) : f (Nat.same a)

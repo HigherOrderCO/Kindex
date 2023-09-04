@@ -1,0 +1,74 @@
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool
+
+// Is true
+// Returns true if input is true
+
+Bool.is_true (x: Bool): Bool 
+Bool.is_true x = x
+
+// Is false
+// Returns true if input is false
+
+Bool.is_false (x: Bool): Bool 
+Bool.is_false Bool.false = Bool.true 
+Bool.is_false Bool.true = Bool.false 
+
+// Bool.is_false (x: Bool): Bool 
+// Bool.is_false x = (Bool.not x)
+
+// Negation
+// Returns the opposite of a Bool
+
+Bool.not (x: Bool): Bool 
+Bool.not Bool.false = Bool.true 
+Bool.not Bool.true = Bool.false 
+
+// And
+// Returns true if both inputs are true
+
+Bool.and (x: Bool) (y: Bool): Bool 
+Bool.and Bool.true y = y
+Bool.and Bool.false y = Bool.false
+
+// Or
+// Returs true if any input is true
+
+Bool.or (x: Bool) (y: Bool) : Bool 
+Bool.or Bool.true y = Bool.true 
+Bool.or Bool.false y = y
+
+// Equal
+// Returs true if both inputs are identical
+
+Bool.equal (x: Bool) (y: Bool) : Bool
+Bool.equal Bool.true y = y
+Bool.equal Bool.false y = (Bool.not y)
+
+// Xor
+// Returns true if both inputs are different
+
+Bool.xor (x: Bool) (y: Bool): Bool 
+Bool.xor Bool.true y = (Bool.not y) 
+Bool.xor Bool.false y = y 
+
+// Nor
+// Returns true if both inputs are false
+
+Bool.Nor (x: Bool) (y: Bool): Bool 
+Bool.Nor Bool.true y = Bool.false 
+Bool.Nor Bool.false y = (Bool.not y)
+
+// Nand
+// Returns false only if both inputs are true
+
+Bool.nand (x: Bool) (y: Bool): Bool 
+Bool.nand Bool.true y = (Bool.not y)
+Bool.nand Bool.false y = Bool.true 
+
+// Xnor
+// Returns true if both inputs are identical
+
+Bool.xnor (x: Bool) (y: Bool): Bool 
+Bool.xnor x y = (Bool.equal x y)

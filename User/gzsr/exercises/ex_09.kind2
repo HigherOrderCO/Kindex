@@ -1,0 +1,24 @@
+//// Returns pairs of the elements of the 2 input lists on the same index
+// Ex: zip!!([1,2], ["a","b","c"]) == [{1, "a"}, {2 , "b"}]
+// Ex: zip!!(["a", "b"], [3, 5])   == [{"a", 3}, {2 , "b"}]
+List.zip <a: Type> <b: Type> (xs: List a) (ys: List b) : (List (Pair a b))
+List.zip a b (List.nil xs) ys = (List.nil (Pair a b))
+List.zip a b xs (List.nil ys) = (List.nil (Pair a b))
+List.zip a b (List.cons xs xs.head xs.tail) (List.cons ys ys.head ys.tail) = List.cons (Pair.new xs.head ys.head) (List.zip xs.tail ys.tail)
+
+// Returns the smallest element of a List
+List.smallest (xs: (List Nat)) : (Maybe Nat)
+List.smallest (List.nil xs) = Maybe.none
+List.smallest (List.cons xs head (List.nil Nat)) = (Maybe.some head)
+List.smallest (List.cons xs head (List.cons tail.xs tail.head tail.tail)) = List.smallest( List.cons (Nat.min head tail.head) tail.tail)
+
+// Returns the value inside the Maybe.
+// If there is no value contained, returns v instead
+Maybe.extract <a: Type> (m: Maybe a) (v: a) : a
+Maybe.extract a (Maybe.none m)  v = v
+Maybe.extract a (Maybe.some m value) v = value
+
+// // Returns the same list, in ascending order
+List.sort_ascending (xs: (List Nat)): (List Nat)
+List.sort_ascending (List.nil xs) = List.nil Nat
+List.sort_ascending xs = List.cons ((Maybe.extract (List.smallest xs) (Nat.zero))) (List.sort_ascending( List.delete_smallest xs))

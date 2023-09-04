@@ -1,0 +1,55 @@
+Bool : Type
+Bool.true : Bool
+Bool.false : Bool 
+
+MaybeBool: Type 
+MaybeBool.none : MaybeBool 
+MaybeBool.some (value: Bool) : MaybeBool 
+
+// Returns true if Maybe is none
+ 
+ Bool.isnone (x: MaybeBool) : Bool 
+ Bool.isnone MaybeBool.none = Bool.true 
+ Bool.isnone x = Bool.false
+
+// Returns true if Maybe is some
+
+Bool.issome (x: MaybeBool): Bool 
+Bool.issome MaybeBool.none = Bool.false 
+Bool.issome x = Bool.true
+
+// Returns true if both inputs are identical
+
+Bool.eqlsome (x: MaybeBool) (y: MaybeBool) : Bool 
+Bool.eqlsome MaybeBool.none MaybeBool.none = Bool.true 
+Bool.eqlsome (MaybeBool.some x) (MaybeBool.some y) = (Bool.eql x y)
+
+Bool.eql (x: Bool) (y: Bool): Bool 
+Bool.eql Bool.true y = y 
+Bool.eql Bool.false y = (Bool.not y)
+
+Bool.not (x: Bool) : Bool 
+Bool.not Bool.true = Bool.false 
+Bool.not Bool.false = Bool.true
+
+// Returns the value inside the MaybeBool.
+// If there is no value contained, returns v instead
+
+Bool.extract (x: MaybeBool) (v: Bool) : Bool 
+Bool.extract (MaybeBool.some x) v = x
+Bool.extract (MaybeBool.none ) v = v
+
+// Create a MaybeBool from a Boolean
+// create(Bool.false) -> MaybeBool(Bool.false)
+
+MaybeBool.create (x: Bool) : MaybeBool
+MaybeBool.create Bool.true = (MaybeBool.some Bool.true)
+MaybeBool.create Bool.false = (MaybeBool.some Bool.false)
+
+// Returns the first input that is a MaybeBool.some
+// Returns MaybeBool.none if both are MaybeBool.none
+
+MaybeBool.or (x: MaybeBool) (y: MaybeBool) : MaybeBool
+MaybeBool.or (MaybeBool.none) (MaybeBool.none) = MaybeBool.none
+MaybeBool.or (MaybeBool.some x) y = (MaybeBool.some x)
+MaybeBool.or (MaybeBool.none) (MaybeBool.some y) = (MaybeBool.some y)

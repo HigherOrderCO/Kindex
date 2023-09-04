@@ -1,0 +1,23 @@
+Pair (a: Type) (b: Type) : Type 
+Pair.new <a> <b> (fst: a) (snd: b) : (Pair a b)
+
+// Swaps the elements of a pair
+
+Pair.swap <a: Type> <b: Type> (pair: (Pair a b)) : (Pair b a)
+Pair.swap a b (Pair.new pair.a pair.b fst snd) = (Pair.new pair.b pair.a snd fst)
+
+// Returns the first element of a pair
+Pair.first <a: Type> <b: Type> (pair: (Pair a b)) : a
+Pair.first a b (Pair.new pair.a pair.b fst snd) = fst
+
+// Returns the second element of a pair
+Pair.second <a: Type> <b: Type> (pair: (Pair a b)) : b
+Pair.second a b (Pair.new pair.a pair.b fst snd) = snd
+
+// Creates a Pair from 2 element
+Pair.create <a: Type> <b: Type> (x: a) (y: b): (Pair a b)
+Pair.create a b x y = (Pair.new x y)
+
+// Applies a function to both elements of a Pair
+Pair.map <a: Type> <b: Type> (fn: (x: a) b) (pair: (Pair a a)) : (Pair b b)
+Pair.map a b fn (Pair.new pair.a pair.b fst snd) = (Pair.new (fn fst) (fn snd))
