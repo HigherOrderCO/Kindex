@@ -1,6 +1,8 @@
 Kind's Index
 ============
 
+> This is the ecosystem for the old [Kind](https://github.com/HigherOrderCO/Kind1/), and has been archived since the [refactor](https://github.com/HigherOrderCO/kind).
+
 This repository contains the ecosystem tree. Compared to other proof languages,
 it takes a slightly different approach, that makes some deliberate separations
 between programming vs mathematics, datatypes vs traits, shared code vs
