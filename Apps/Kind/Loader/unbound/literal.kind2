@@ -1,0 +1,28 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Term.Literal as Literal
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Pair as Pair
+
+Loader/unbound.literal (lit: Literal/) : Loader/ (Pair/ Literal/ (Data.List CtrName/))
+
+Loader/unbound.literal (Literal/num_u120 range val) = do Loader/ {
+  ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.U120.new")]
+  let lit = (Literal/num_u120 range val)
+  return Pair/new lit unbounds
+}
+
+// Loader/unbound.literal (Literal/num_f60 range) =
+
+Loader/unbound.literal (Literal/num_nat range val) = do Loader/ {
+  ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.Nat.succ") (CtrName/new range "Data.Nat.zero")]
+  let lit = (Literal/num_nat range val)
+  return Pair/new lit unbounds
+}
+
+Loader/unbound.literal (Literal/string range val) = do Loader/ {
+  ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.String.cons") (CtrName/new range "Data.String.nil")]
+  let lit = (Literal/string range val)
+  return Pair/new lit unbounds
+}
+
+Loader/unbound.literal lit = Loader/pure (Pair/new lit [])

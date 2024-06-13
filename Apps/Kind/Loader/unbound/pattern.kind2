@@ -1,0 +1,46 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Pattern as Pattern
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.List as List
+use Data.Pair as Pair
+
+Loader/unbound.pattern (pat: Pattern/) : Loader/ (Pair/ Pattern/ (List/ CtrName/))
+
+Loader/unbound.pattern (Pattern/ctr range name args) = do Loader/ {
+  ask Pair/new (fst=args) (snd=unbounds_args) = Loader/list_map args (x => Loader/unbound.pattern x)
+  ask unbounds_ctr = Loader/unbound.check_names [name]
+  let unbounds = List/flatten [unbounds_ctr (List/flatten unbounds_args)]
+  let pat = (Pattern/ctr range name args)
+  return Pair/new pat unbounds
+}
+
+Loader/unbound.pattern (Pattern/u120 range val) = do Loader/ {
+  ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.U120.new")]
+  let pat = (Pattern/u120 range val)
+  return Pair/new pat unbounds
+}
+
+Loader/unbound.pattern (Pattern/pair range fst snd) = do Loader/ {
+  ask Pair/new (fst=args) (snd=unbounds_fst) = Loader/unbound.pattern fst
+  ask Pair/new (fst=args) (snd=unbounds_snd) = Loader/unbound.pattern snd
+  ask unbounds_sigma = Loader/unbound.check_names [(CtrName/new range "Data.Sigma.new")]
+  let unbounds = List/flatten [unbounds_sigma unbounds_fst unbounds_snd]
+  let pat = (Pattern/pair range fst snd)
+  return Pair/new pat unbounds
+}
+
+Loader/unbound.pattern (Pattern/list range args) = do Loader/ {
+  ask Pair/new (fst=args) (snd=unbounds_args) = Loader/list_map args (x => Loader/unbound.pattern x)
+  ask unbounds_list = Loader/unbound.check_names [(CtrName/new range "Data.List.cons") (CtrName/new range "Data.List.nil")]
+  let unbounds = List/flatten [unbounds_list (List/flatten unbounds_args)]
+  let pat = (Pattern/list range args)
+  return Pair/new pat unbounds
+}
+
+Loader/unbound.pattern (Pattern/string range val) = do Loader/ {
+  ask unbounds = Loader/unbound.check_names [(CtrName/new range "Data.String.cons") (CtrName/new range "Data.String.nil")]
+  let pat = (Pattern/string range val)
+  return Pair/new pat unbounds
+}
+
+Loader/unbound.pattern pat = Loader/pure (Pair/new pat [])

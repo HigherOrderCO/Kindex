@@ -1,0 +1,38 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.List as List
+
+//! Try to load all the unbound declarations from the list
+//! Recursively loads their dependencies as well
+Loader/load_unbounds (unbounds: List/ CtrName/) : Loader/ Data.Unit
+Loader/load_unbounds (List/cons (CtrName/new range name) unbounds) = do Loader/ {
+  let ctr_name = (CtrName/new range name)
+  ask has_name = Loader/has_name name
+  if has_name {
+    // Decl already loaded, can continue to next one
+    Loader/pure Data.Unit.new
+    // TODO check if being called in accessible place (this might not be the right place)
+  } else {
+    // Look for the file that contains this declaration
+    do Loader/ {
+      ask base_path = Loader/name_to_path name
+      ask path = Loader/get_path_for_name base_path ctr_name Data.Bool.true
+      match Data.Maybe path {
+        some (value=path) => do Loader/ {
+          ask has_path = Loader/has_path path
+          if has_path {
+            // File is loaded but doesnt contain Ctr
+            Loader/add_err (Loader/Error.unbound_ctr ctr_name)
+          } else {
+            // Need to load file
+            Loader/load_module path
+          }
+        }
+        none => Loader/pure Data.Unit.new
+      }
+      
+    }
+  }
+  Loader/load_unbounds unbounds
+}
+Loader/load_unbounds (List/nil) = Loader/pure Data.Unit.new

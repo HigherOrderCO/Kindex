@@ -1,0 +1,28 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Declaration as Declaration
+use Apps.Kind.SyntaxTree.Sugared.Declaration.Entry as Entry
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Maybe as Maybe
+
+Loader/add_decl (decl: Declaration/) : Loader/ (Maybe/ Data.U60)
+Loader/add_decl (Declaration/entry (Entry/new range name args type rules)) = do Loader/ {
+  ask decl_and_id = Loader/take_decl_by_name name
+  match Maybe/ decl_and_id {
+    some (value=decl_and_id) => do Loader/ {
+      // Name already present
+      let Data.Pair.new (fst=decl) (snd=prev_id) = decl_and_id
+      let Data.Pair.new (fst=decl) (snd=prev_name) = Declaration/get_name decl
+      let CtrName/new range val = prev_name
+      (Loader/set_decl decl prev_id)
+      (Loader/add_err (Loader/Error.repeated_decl name range))
+      return Maybe/none
+    }
+    none => do Loader/ {
+      ask new_id = Loader/add_entry (Entry/new range name args type rules)
+      return Maybe/some new_id
+    }
+  }
+
+}
+// Loader/add_decl (Declaration/record record) =
+// Loader/add_decl (Declaration/sum sum) =

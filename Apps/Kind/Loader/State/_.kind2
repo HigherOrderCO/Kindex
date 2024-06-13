@@ -1,0 +1,23 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+
+#derive[match, setters]
+record Loader/State {
+  //! The Book we're building
+  book : Book/
+
+  //! The id of the latest declaration added so far
+  crnt_id : Data.U60
+
+  //! Content of files
+  files : Data.Map (Data.Pair Data.Path Data.String)
+
+  //! File pathes to file id map of loaded files
+  loaded : Data.HashMap Data.Path Data.U60
+
+  //! List of errors during loading
+  errs : Data.List Loader/Error
+
+  //! The root path to search for files
+  root : Data.Path
+}

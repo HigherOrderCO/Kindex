@@ -1,17 +1,19 @@
-Data.String.split (str: Data.String) (find: Data.String) : Data.List Data.String {
-  Data.String.split.go str find Data.String.nil
+use Data.String as String
+use Data.List as List
+
+String/split (str: String/) (find: String/) : List/ String/ {
+  String/split.go str find "" 
 }
 
-Data.String.split.go (str: Data.String) (find: Data.String) (last: Data.String) : Data.List Data.String
-Data.String.split.go  Data.String.nil        find last = Data.List.pure last
-Data.String.split.go (Data.String.cons x xs) find last =
-  let str = Data.String.cons x xs
-  if Data.String.starts_with str find {
-    let len  = Data.String.length find
-    let drop = Data.String.drop len str
-    let tail = Data.String.split.go drop find Data.String.nil
-    Data.List.cons last tail
-  } else {
-    let next = Data.String.pure x
-    Data.String.split.go xs find (Data.String.concat last next)
+String/split.go (str: String/) (find: String/) (last: String/) : List/ String/
+String/split.go ""  find ""   = []
+String/split.go ""  find last = [(String/reverse last)]
+String/split.go str find last =
+  let str = String/remove_prefix str find
+  match Data.Either str with last find {
+    left (val=str) => match String/ str {
+      cons head tail => String/split.go tail find (String/cons head last)
+      nil => []  // impossible case, remove_prefix didn't remove anything and string is not empty by the pattern
+    }
+    right (val=str) => List/cons (String/reverse last) (String/split.go str find "")
   }

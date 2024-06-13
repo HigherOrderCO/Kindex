@@ -1,0 +1,5 @@
+use Apps.Kind.Loader as Loader
+
+Loader/pure <t> (val: t) : Loader/ t {
+  state => Loader/Result.new val state
+}

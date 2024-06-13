@@ -1,0 +1,2 @@
+Data.HashMap.to_list <k> <v> (map: Data.HashMap k v) : Data.List v
+Data.HashMap.to_list (Data.HashMap.new hashfn map) = Data.Map.to_list map

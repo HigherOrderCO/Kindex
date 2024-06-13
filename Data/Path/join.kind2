@@ -1,0 +1,14 @@
+//! Joins the two paths
+//! If sfx is an absolute path it replaces pfx
+//! Ex: Path/join "/Foo/bar" "baz" -> "/Foo/bar/baz"
+//! Ex: Path/join "/Foo/bar/" "baz" -> "/Foo/bar/baz"
+//! Ex: Path/join "/Foo/bar" "/baz" -> "/baz"
+Data.Path.join (pfx: Data.String) (sfx: Data.String) : Data.String
+Data.Path.join pfx (Data.String.cons '/' sfx) = (Data.String.cons '/' sfx)
+Data.Path.join pfx sfx = Data.Path.join.2 pfx sfx
+
+Data.Path.join.2 (pfx: Data.String) (sfx: Data.String) : Data.String
+Data.Path.join.2 (Data.String.cons '/' "") ys = Data.String.cons '/' ys
+Data.Path.join.2 (Data.String.cons x "") ys = Data.String.cons x (Data.String.cons '/' ys)
+Data.Path.join.2 (Data.String.cons x xs) ys = Data.String.cons x (Data.Path.join.2 xs ys)
+Data.Path.join.2 Data.String.nil         ys = ys

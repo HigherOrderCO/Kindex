@@ -1,0 +1,12 @@
+use Apps.Kind.Loader as Loader
+
+Loader/name_to_path (name: Data.String) : Loader/ Data.Path {
+  state => Loader/name_to_path.go state name
+}
+
+Loader/name_to_path.go (state: Loader/State) (name: Data.String) : Loader/Result Data.Path
+Loader/name_to_path.go (Loader/State.new book crnt_id files loaded errs root) name = 
+  let path = Data.String.replace name "." "/"
+  let path = Data.Path.join root path
+  let state = (Loader/State.new book crnt_id files loaded errs root)
+  Loader/Result.new path state

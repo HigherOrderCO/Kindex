@@ -1,0 +1,33 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.List as List
+
+//! Checks for any unbound constructors.
+//! Returns unbound functions that need to be loaded.
+//! Receives a list of declarations to check for unbounds.
+Loader/check_unbounds (decl_ids: List/ Data.U60) : Loader/ (List/ CtrName/) {
+  Loader/check_unbounds.go decl_ids []
+}
+
+Loader/check_unbounds.go (decl_ids: List/ Data.U60) (unbounds: List/ (List/ CtrName/)) : Loader/ (List/ CtrName/)
+Loader/check_unbounds.go (List/cons decl_id decl_ids) unbounds = do Loader/ {
+  let decl_id = Apps.HVM.log (Data.Pair.new "Checking unbound for id:" decl_id)  decl_id
+  ask decl = Loader/take_decl_by_id decl_id
+  ask head = match Data.Maybe decl {
+    some (value=decl) => do Loader/ {
+      ask Data.Pair.new (fst=decl) (snd=unbounds) = Loader/unbound.decl decl
+      let unbounds = Apps.HVM.log (Data.Tuple3.new "Unbounds for id" decl_id unbounds) unbounds
+      Loader/set_decl decl decl_id
+      return unbounds
+    }
+    none => do Loader/ {
+      let err = Loader/Error.internal "check_unbounds key"
+      let err = Apps.HVM.log (Data.Tuple3.new "Err check unbounds" decl_id err) err
+      Loader/add_err err
+      return []
+    }
+  }
+  let unbounds = List/cons head unbounds
+  Loader/check_unbounds.go decl_ids unbounds
+}
+Loader/check_unbounds.go (List/nil) unbounds = Loader/pure (List/flatten unbounds)

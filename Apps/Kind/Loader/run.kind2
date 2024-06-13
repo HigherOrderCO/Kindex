@@ -1,0 +1,21 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+use Data.Either as Either
+use Data.List as List
+
+//! Loads the kind program indicated by entry_path
+//! Returns the built Book or some errors, as well as a map of loaded file ids to their path and content
+Loader/run
+  (entry_path: Data.Path)
+  (root_path: Data.Path)
+: Data.Pair (Either/ (List/ Loader/Error) Book/) (Data.Map (Data.Pair Data.Path Data.String)) {
+  let state = Loader/State.empty root_path
+  let pass = Loader/load_module entry_path
+  let Loader/Result.new val state = (pass state)
+  let Loader/State.new book crnt_id files loaded errs root = state
+  let res = match List/ errs {
+    cons head tail => Either/left (List/cons head tail)
+    nil => Either/right book
+  }
+  Data.Pair.new res files
+}

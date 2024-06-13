@@ -1,0 +1,8 @@
+Data.Path.with_extension (path: Data.Path) (ext: Data.String) : Data.Path {
+  Data.Path.with_extension.2 (Data.Path.split_extension path) ext
+}
+
+Data.Path.with_extension.2 (path: Data.Pair Data.Path (Data.Maybe Data.String)) (ext: Data.String) : Data.Path
+Data.Path.with_extension.2 (Data.Pair.new "" Data.Maybe.none) _ = ""
+Data.Path.with_extension.2 (Data.Pair.new "/" Data.Maybe.none) _ = "/"
+Data.Path.with_extension.2 (Data.Pair.new stem _) ext = Data.String.flatten [stem "." ext]

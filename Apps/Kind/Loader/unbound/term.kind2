@@ -1,0 +1,124 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Maybe as Maybe
+use Data.List as List
+use Data.Pair as Pair
+
+Loader/unbound.term (term: Term/) : Loader/ (Pair/ Term/ (List/ CtrName/))
+
+Loader/unbound.term (Term/ctr range name args) = do Loader/ {
+  ask Pair/new (fst=args) (snd=unbounds_arg) = Loader/list_map args (x => Loader/unbound.term x)
+  ask unbounds_ctr = Loader/unbound.check_names [name]
+  let unbounds = List/flatten [unbounds_ctr (List/flatten unbounds_arg)]
+  let term = (Term/ctr range name args)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/all range param type body erased) = do Loader/ {
+  ask Pair/new (fst=type) (snd=unbound_type) = Loader/unbound.term type
+  ask Pair/new (fst=body) (snd=unbound_body) = Loader/unbound.term body
+  let unbounds = List/flatten [unbound_type unbound_body]
+  let term = (Term/all range param type body erased)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/sig_type range param fst snd) = do Loader/ {
+  ask Pair/new (fst=fst) (snd=unbound_fst) = Loader/unbound.term fst
+  ask Pair/new (fst=snd) (snd=unbound_snd) = Loader/unbound.term snd
+  ask unbounds_sigma = Loader/unbound.check_names [(CtrName/new range "Data.Sigma")]
+  let unbounds = List/flatten [unbounds_sigma unbound_fst unbound_snd]
+  let term = (Term/sig_type range param fst snd)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/lambda range param type body erased) = do Loader/ {
+  let type_pass = (x: Term/) => do Loader/ {
+    ask Pair/new (fst=type) (snd=unbound_type) = Loader/unbound.term x
+    return Pair/new (Maybe/some type) unbound_type
+  }
+  ask Pair/new (fst=type) (snd=unbound_type) = (Loader/maybe_extract type type_pass (Pair/new Maybe/none []))
+  ask Pair/new (fst=body) (snd=unbound_body) = Loader/unbound.term body
+  let unbounds = List/flatten [unbound_type unbound_body]
+  let term = (Term/lambda range param type body erased)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/app range fun args) = do Loader/ {
+  ask Pair/new (fst=fun) (snd=unbound_fun) = Loader/unbound.term fun
+  ask Pair/new (fst=args) (snd=unbounds_args) = Loader/list_map args (x => Loader/unbound.term x)
+  let unbounds = List/flatten [unbound_fun (List/flatten unbounds_args)]
+  let term = (Term/app range fun args)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/let range name val next) = do Loader/ {
+  ask Pair/new (fst=val) (snd=unbound_val) = Loader/unbound.term val
+  ask Pair/new (fst=next) (snd=unbounds_next) = Loader/unbound.term next
+  let unbounds = List/flatten [unbound_val unbounds_next]
+  let term = (Term/let range name val next)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/ann range val type) = do Loader/ {
+  ask Pair/new (fst=val) (snd=unbound_val) = Loader/unbound.term val
+  ask Pair/new (fst=type) (snd=unbounds_type) = Loader/unbound.term type
+  let unbounds = List/flatten [unbound_val unbounds_type]
+  let term = (Term/ann range val type)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/lit range lit) = do Loader/ {
+  ask Pair/new (fst=lit) (snd=unbounds) = Loader/unbound.literal lit
+  let term = (Term/lit range lit)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/binary range op fst snd) = do Loader/ {
+  ask Pair/new (fst=fst) (snd=unbound_fst) = Loader/unbound.term fst
+  ask Pair/new (fst=snd) (snd=unbound_snd) = Loader/unbound.term snd
+  let unbounds = List/flatten [unbound_fst unbound_snd]
+  let term = (Term/binary range op fst snd)
+  return Pair/new term unbounds
+}
+
+// Loader/unbound.term (Term/do range) =
+
+Loader/unbound.term (Term/if range cond then else) = do Loader/ {
+  ask Pair/new (fst=cond) (snd=unbound_cond) = Loader/unbound.term cond
+  ask Pair/new (fst=then) (snd=unbound_then) = Loader/unbound.term then
+  ask Pair/new (fst=else) (snd=unbound_else) = Loader/unbound.term else
+  ask unbounds_if = Loader/unbound.check_names [(CtrName/new range "Data.Bool.if")]
+  let unbounds = List/flatten [unbounds_if unbound_cond unbound_then unbound_else]
+  let term = (Term/if range cond then else)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/sig_pair range fst snd) = do Loader/ {
+  ask Pair/new (fst=fst) (snd=unbound_fst) = Loader/unbound.term fst
+  ask Pair/new (fst=snd) (snd=unbound_snd) = Loader/unbound.term snd
+  ask unbounds_sigma = Loader/unbound.check_names [(CtrName/new range "Data.Sigma.new")]
+  let unbounds = List/flatten [unbounds_sigma unbound_fst unbound_snd]
+  let term = (Term/sig_pair range fst snd)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/list range args) = do Loader/ {
+  ask Pair/new (fst=args) (snd=unbounds) = Loader/list_map args (x => Loader/unbound.term x)
+  ask unbounds_list = Loader/unbound.check_names [(CtrName/new range "Data.List.cons") (CtrName/new range "Data.List.nil")]
+  let unbounds = List/flatten [unbounds_list (List/flatten unbounds)]
+  let term = (Term/list range args)
+  return Pair/new term unbounds
+}
+
+Loader/unbound.term (Term/subst range name redx indx expr) = do Loader/ {
+  ask Pair/new (fst=fst) (snd=unbounds) = Loader/unbound.term expr
+  let term = (Term/subst range name redx indx expr)
+  return Pair/new term unbounds
+}
+
+// Loader/unbound.term (Term/match range) =
+// Loader/unbound.term (Term/open range) =
+// Loader/unbound.term (Term/seqrecord range) =
+
+Loader/unbound.term term = Loader/pure (Data.Pair.new term [])

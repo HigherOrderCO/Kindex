@@ -1,0 +1,50 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Either as Either
+use Data.Maybe as Maybe
+
+Loader/get_path_for_name (base_path: Data.Path) (name: CtrName/) (search_parent: Data.Bool) : Loader/ (Maybe/ Data.Path)
+Loader/get_path_for_name base_path name search_parent = do Loader/ {
+  let file_path = Data.Path.with_extension base_path "kind2"
+  let dir_path = Data.Path.join base_path "_.kind2"
+  let search_options = [file_path dir_path]
+  let search_options = Apps.HVM.log (Data.Tuple3.new "Searching for base" base_path search_options) search_options
+  let available_paths = Data.List.filter search_options (x => (Apps.HVM.path_is_file x (y => Data.U60.to_bool y)))
+  let Data.Pair.new (fst=available_paths) (snd=num_paths) = Data.List.got_length available_paths
+  let available_paths = Apps.HVM.log (Data.Tuple3.new "Num paths for base:" base_path num_paths) available_paths
+  ask path = Loader/get_path_for_name.2 available_paths num_paths name search_parent
+  match Either/ path {
+    left val => Loader/pure Maybe/none
+    right val => match Maybe/ val {
+      some value => Loader/pure (Maybe/some value)
+      none => if search_parent {
+        let parent = Data.Maybe.default (Data.Path.parent base_path) "" // always has a parent
+        Loader/get_path_for_name parent name Data.Bool.false
+      } else {
+        do Loader/ {
+          Loader/add_err (Loader/Error.unbound_ctr name)
+          return Maybe/none
+        }
+      }
+    }
+  }
+}
+
+Loader/get_path_for_name.2 (available_paths: Data.List Data.Path) (n_paths: Data.U60) (name: CtrName/) (search_parent: Data.Bool) : Loader/ (Either/ Data.Unit (Maybe/ Data.Path))
+Loader/get_path_for_name.2 available_paths 0 name search_parent = do Loader/ {
+  return Either/right Maybe/none
+}
+Loader/get_path_for_name.2 available_paths 1 name search_parent = do Loader/ {
+  match Data.List available_paths {
+    cons head tail =>
+      Loader/pure (Either/right (Maybe/some head))
+    nil => do Loader/ {
+      Loader/add_err (Loader/Error.internal "get_path head")
+      return Either/left Data.Unit.new
+    }
+  }
+}
+Loader/get_path_for_name.2 available_paths n name search_parent = do Loader/ {
+  Loader/add_err (Loader/Error.multiple_paths name available_paths)
+  return Either/left Data.Unit.new
+}

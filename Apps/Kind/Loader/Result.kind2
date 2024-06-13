@@ -1,0 +1,7 @@
+use Apps.Kind.Loader as Loader
+
+#derive[match]
+record Loader/Result <t> {
+  val : t
+  state : Loader/State
+}

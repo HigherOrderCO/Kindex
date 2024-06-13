@@ -1,0 +1,6 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Book as Book
+
+Loader/State.empty (root: Data.Path): Loader/State {
+  Loader/State.new Book/empty 0 Data.Map.new (Data.HashMap.empty (x => Data.String.hash x)) [] root
+}

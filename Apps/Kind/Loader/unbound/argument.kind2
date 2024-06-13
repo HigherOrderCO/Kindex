@@ -1,0 +1,18 @@
+use Apps.Kind.Loader as Loader
+use Apps.Kind.SyntaxTree.Sugared.Argument as Argument
+use Apps.Kind.SyntaxTree.Sugared.Term as Term
+use Apps.Kind.SyntaxTree.CtrName as CtrName
+use Data.Maybe as Maybe
+use Data.Pair as Pair
+
+Loader/unbound.argument (arg: Argument/) : Loader/ (Pair/ Argument/ (Data.List CtrName/))
+Loader/unbound.argument (Argument/new range name type hidden erased) = do Loader/ {
+  let type_pass = (x: Term/) => do Loader/ {
+    ask Pair/new (fst=type) (snd=unbounds) = Loader/unbound.term x
+    return Pair/new (Maybe/some type) unbounds
+  }
+  ask Pair/new (fst=type) (snd=unbounds) = Loader/maybe_extract type type_pass (Pair/new Maybe/none [])
+
+  let arg = (Argument/new range name type hidden erased)
+  return Pair/new arg unbounds
+}
